@@ -1,38 +1,38 @@
 <h1>Авторизация клиента</h1>
 <div class="login_page">
-    <%= form_for @con n, Routes.admin_path(@conn, :register_client_submit), [multipart: true], fn f -> %>
-      <div class="form-group">
-        <label>Имя первое</label>
-        <%= text_input f, :first_name, class: "form-control", required: "true" %>
-      </div>
+  <%= form_for @con n, Routes.admin_path(@conn, :register_client_submit), [multipart: true], fn f -> %>
+    <div class="form-group">
+      <label>Имя первое</label>
+      <%= text_input f, :first_name, class: "form-control" , required: "true" %>
+    </div>
 
-      <div class="form-group">
-        <label>Имя второе</label>
-        <%= text_input f, :last_name, class: "form-control", required: "true" %>
-      </div>
+    <div class="form-group">
+      <label>Имя второе</label>
+      <%= text_input f, :last_name, class: "form-control" , required: "true" %>
+    </div>
 
-      <div class="form-group">
-        <label>Мыло</label>
-        <%= email_input f, :email, class: "form-control", required: "true" %>
-      </div>
+    <div class="form-group">
+      <label>Мыло</label>
+      <%= email_input f, :email, class: "form-control" , required: "true" %>
+    </div>
 
-      <div class="form-group">
-        <label>Мобила</label>
-        <%= telephone_input f, :phone, class: "form-control", required: "true" %>
-      </div>
+    <div class="form-group">
+      <label>Мобила</label>
+      <%= telephone_input f, :phone, class: "form-control" , required: "true" %>
+    </div>
 
-      <div class="form-group">
-        <label>Ебало</label>
-        <%= file_input f, :photo, class: "form-control", accept: ".png, .jpg"%>
-      </div>
+    <div class="form-group">
+      <label>Ебало</label>
+      <%= file_input f, :photo, class: "form-control" , accept: ".png, .jpg" %>
+    </div>
 
-      <div class="form-group">
-        <label>Пассворд</label>
-        <%= password_input f, :password, class: "form-control", required: "true" %>
-      </div>
+    <div class="form-group">
+      <label>Пароль</label>
+      <%= password_input f, :password, class: "form-control" , required: "true" %>
+    </div>
 
-      <div class="form-group">
-        <%= submit "Войти", class: "btn btn-primary" %>
-      </div>
+    <div class="form-group">
+      <%= submit "Войти" , class: "btn btn-primary" %>
+    </div>
     <% end %>
 </div>
