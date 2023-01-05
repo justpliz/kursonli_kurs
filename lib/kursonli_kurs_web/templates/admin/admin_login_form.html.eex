@@ -6,7 +6,6 @@
       <%= text_input f, :first_name, class: "form-control" , required: "true" %>
     </div>
 
-    
     <div class="form-group">
       <label>Пароль</label>
       <%= password_input f, :password, class: "form-control" , required: "true" %>
