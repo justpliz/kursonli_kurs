@@ -1,0 +1,23 @@
+<h1>Регистрация Организации</h1>
+<div class="login_page">
+    <%= form_for @conn, Routes.worker_path(@conn, :update_pass_submit), fn f -> %>
+      <div class="form-group">
+        <label>Старый пароль</label>
+        <%= text_input f, :old_pass, class: "form-control", required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <label>Новый пароль</label>
+        <%= text_input f, :new_pass, class: "form-control", required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <label>Повторите новый пароль</label>
+        <%= text_input f, :re_new_pass, class: "form-control", required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <%= submit "Сохранить", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+</div>

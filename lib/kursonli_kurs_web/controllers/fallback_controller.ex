@@ -14,9 +14,16 @@ defmodule KursonliKursWeb.FallbackController do
   """
   def call(conn, {:error, :not_found}) do
     conn
-    |> put_status(404)
-    |> put_view(ErrorView)
-    |> render("404.json")
+    |> put_status(:not_found)
+    |> put_view(MyErrorView)
+    |> render("404.html")
+  end
+
+  def call(conn, {:error, :unauthorized}) do
+    conn
+    |> put_status(403)
+    |> put_view(MyErrorView)
+    |> render(:"403")
   end
 
   # enhanced error
@@ -41,15 +48,6 @@ defmodule KursonliKursWeb.FallbackController do
     |> put_status(:unprocessable_entity)
     |> put_view(ErrorView)
     |> render("error2.json", error: error)
-  end
-
-  # plug error handler
-  def call(conn, {:error, :forbidden}) do
-    conn
-    |> put_status(:forbidden)
-    |> put_view(ErrorView)
-    |> render("office_auth_error.json", error: :not_found)
-    |> halt()
   end
 
   def call(conn, error) do
