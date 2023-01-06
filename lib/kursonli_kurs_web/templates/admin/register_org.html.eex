@@ -58,23 +58,42 @@
 
       <div class="form-group">
         <label>Название филиала</label>
-        <%= text_input f, :filial_name, class: "form-control", required: "true" %>
+        <%= text_input f, :filial_name, class: "form-control" , required: "true" %>
       </div>
 
       <div class="form-group">
         <label>Фото</label>
-        <%= file_input f, :photo, class: "form-control", accept: ".png, .jpg"%>
+        <%= file_input f, :photo, class: "form-control" , accept: ".png, .jpg" %>
       </div>
 
       <div class="form-group">
-        <label>Пассворд</label>
-        <%= password_input f, :password, class: "form-control", required: "true" %>
+        <label>ИИН</label>
+        <%= text_input f, :iin, class: "form-control" , required: "true" %>
       </div>
 
       <div class="form-group">
-        <%= submit "Войти", class: "btn btn-primary" %>
+        <label>Имя сотрудника</label>
+        <%= text_input f, :first_name, class: "form-control" , required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <label>Фамилия сотрудника</label>
+        <%= text_input f, :last_name, class: "form-control" , required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <%= email_input f, :email, class: "form-control" , required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <label>Телефон</label>
+        <%= text_input f, :phone, class: "form-control" , required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <%= submit "Сохранить" , class: "btn btn-primary" %>
       </div>
       <% end %>
   </div>
-</div>
 </div>
