@@ -9,12 +9,12 @@ defmodule KursonliKurs.Model.Organization do
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(name password admin_id)a
+  @required_fields ~w(name iin admin_id)a
   @optional_fields ~w(photo)a
 
   schema "organizations" do
     field :name, :string
-    field :password, :string
+    field :iin, :string
     field :photo, :string, default: "default_photo.jpg"
 
     belongs_to :admin, Admin, type: :binary_id

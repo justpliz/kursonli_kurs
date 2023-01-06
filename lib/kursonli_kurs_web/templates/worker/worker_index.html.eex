@@ -1,0 +1,11 @@
+<h1>Панель сотрудника</h1>
+<div class="login_page">
+    <div class="card-body">
+      <a href="/worker/update_pass" class="btn btn-primary">Смена пароля</a>
+    </div>
+
+    <div class="login_page">
+    <div class="card-body">
+      <a href="/worker/logout" class="btn btn-primary">Выход</a>
+    </div>
+</div>

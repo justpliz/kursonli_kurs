@@ -12,7 +12,7 @@ defmodule KursonliKurs.Model.Worker do
   @required_fields ~w(first_name last_name email password phone)a
   @optional_fields ~w()a
 
-  schema "worker" do
+  schema "workers" do
     field :first_name, :string
     field :last_name, :string
     field :password, :string

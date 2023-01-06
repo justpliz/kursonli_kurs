@@ -9,10 +9,10 @@ defmodule KursonliKurs.Model.Filial do
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(name tags)a
-  @optional_fields ~w()a
+  @required_fields ~w(name)a
+  @optional_fields ~w(tags)a
 
-  schema "filial" do
+  schema "filials" do
     field :name, :string
     field :tags, {:array, :string}
 

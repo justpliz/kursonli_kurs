@@ -5,7 +5,7 @@ defmodule KursonliKursWeb.GeneralHelper do
   Parse date to Timex format
   "2022-12-08T18:51:42.417Z" -> ~U[2022-12-08 18:51:42.417Z]
   """
-  @spec parse_date(String.t()) :: {:ok, Timex.Date.t} | {:error, :badarg}
+  @spec parse_date(String.t()) :: {:ok, Timex.Date.t()} | {:error, :badarg}
   def parse_date(date) do
     case Timex.parse(date, "{ISO:Extended:Z}") do
       {:ok, timex_date} -> {:ok, timex_date}
@@ -20,5 +20,16 @@ defmodule KursonliKursWeb.GeneralHelper do
   @spec hash_str(String.t()) :: String.t()
   def hash_str(str) do
     :crypto.hash(:sha256, str) |> Base.encode16()
+  end
+
+  @doc """
+  Generate random string in upper case
+  For example: ""PJ8JVMBLVI""
+  """
+  def genrate_random_pass(count) do
+    for _ <- 1..count,
+        into: "",
+        do: <<Enum.random('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')>>
+    |> String.upcase
   end
 end
