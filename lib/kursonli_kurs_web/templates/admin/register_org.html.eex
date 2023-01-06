@@ -2,7 +2,8 @@
   <a href="/"><img class="user-logo" src="/images/logo-line.svg" alt=""></a>
   <hr class="line">
   <div class="sidebar-text">
-    Разделы:
+    Пользователь:
+    <!--  -->
   </div>
   <ul class="list-user">
     <li>

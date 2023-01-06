@@ -1,20 +1,123 @@
-<style></style>
+<style>
+  .login-container {
+    left: 0;
+    top: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #3689ce;
+  }
 
-<h1>Авторизация Админа</h1>
-<div class="login_page">
-  <%= form_for @conn, Routes.admin_path(@conn, :login_form_submit), fn f -> %>
-    <div class="form-group">
-      <label>Название</label>
-      <%= text_input f, :first_name, class: "form-control" , required: "true" %>
-    </div>
+  .round {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 100%;
+    min-width: 600px;
+    min-height: 600px;
+    z-index: 1 !important;
+  }
 
-    <div class="form-group">
-      <label>Пароль</label>
-      <%= password_input f, :password, class: "form-control" , required: "true" %>
-    </div>
+  .form-group {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+  }
 
-    <div class="form-group">
-      <%= submit "Войти" , class: "btn btn-primary" %>
-    </div>
-    <% end %>
+  .form-group label {
+    margin-right: 40px;
+    display: flex;
+    justify-content: start;
+  }
+  .login-title{
+    color: #7e7e7e;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 30px 0;
+  }
+
+  .input-login {
+    height: 56px;
+    margin-left: -5px;
+    padding: 0 10px;
+    background-color: #f3f3f3;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+  }
+
+  .btn-login {
+    color: #7e7e7e;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0 auto;
+    color: #fff;
+    border: none;
+    width: 100%;
+    background-color: #3689ce;
+    padding: 8px 25px;
+    border-radius: 10px;
+  }
+
+  .forgot{
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .forgot-pwd{
+    padding-left: 5px;
+    border: none;
+    background-color: #fff;
+    color: #919191;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .forgot-pwd:hover{
+    text-decoration: underline;
+    color: #3689ce;
+  }
+</style>
+
+<div class="login-container">
+  <div class="round">
+    <a href="/"><img src="/images/logo.svg" class="logo-login" alt=""></a>
+    <div class="login-title">Авторизация в системе админа</div>
+    <%= form_for @conn, Routes.admin_path(@conn, :login_form_submit), fn f -> %>
+      <div class="form-group">
+        <!-- <label></label> -->
+        <img src="/images/icons/user.png" alt="">
+        <%= text_input f, :first_name, placeholder: "Email" , class: "input-login" , required: "true" %>
+      </div>
+      
+      <div class="form-group">
+        <!-- <label>Пароль</label> -->
+        <img src="/images/icons/password.png" alt="">
+        <%= password_input f, :password, placeholder: "Пароль" , class: "input-login" , required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <%= submit "Войти в систему" , class: "btn-login" %>
+      </div>
+
+      <div class="form-group forgot">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+          <path
+            d="M8.73807 12.5883C8.73807 11.955 8.81497 11.4507 8.96876 11.0752C9.12256 10.6998 9.40301 10.3311 9.81011 9.96927C10.2217 9.60287 10.4954 9.30659 10.6311 9.08042C10.7668 8.84973 10.8347 8.60772 10.8347 8.35441C10.8347 7.58996 10.4818 7.20773 9.77619 7.20773C9.44146 7.20773 9.17231 7.31177 8.96876 7.51985C8.76973 7.7234 8.66569 8.00611 8.65665 8.36798H6.68896C6.69801 7.50401 6.9762 6.82776 7.52353 6.33924C8.07539 5.85071 8.82627 5.60645 9.77619 5.60645C10.7352 5.60645 11.4793 5.8394 12.0085 6.30531C12.5377 6.7667 12.8023 7.42033 12.8023 8.26621C12.8023 8.6507 12.7164 9.01483 12.5445 9.35861C12.3726 9.69787 12.0718 10.0756 11.6421 10.4917L11.0925 11.0142C10.7487 11.3444 10.552 11.7311 10.5022 12.1744L10.4751 12.5883H8.73807ZM8.5413 14.6713C8.5413 14.3683 8.64308 14.1195 8.84663 13.925C9.05471 13.726 9.31932 13.6264 9.64049 13.6264C9.96165 13.6264 10.224 13.726 10.4276 13.925C10.6356 14.1195 10.7397 14.3683 10.7397 14.6713C10.7397 14.9699 10.6379 15.2164 10.4343 15.4109C10.2353 15.6054 9.9707 15.7027 9.64049 15.7027C9.31028 15.7027 9.0434 15.6054 8.83984 15.4109C8.64081 15.2164 8.5413 14.9699 8.5413 14.6713Z"
+            fill="#919191"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M9.99991 18.8438C14.4618 18.8438 18.0789 15.2267 18.0789 10.7648C18.0789 6.30289 14.4618 2.68579 9.99991 2.68579C5.538 2.68579 1.9209 6.30289 1.9209 10.7648C1.9209 15.2267 5.538 18.8438 9.99991 18.8438ZM9.99991 20.6966C15.4851 20.6966 19.9317 16.25 19.9317 10.7648C19.9317 5.27962 15.4851 0.833008 9.99991 0.833008C4.51473 0.833008 0.0681152 5.27962 0.0681152 10.7648C0.0681152 16.25 4.51473 20.6966 9.99991 20.6966Z"
+            fill="#919191"></path>
+        </svg>
+        <%= submit "Забыли пароль?" , class: "forgot-pwd" %>
+      </div>
+      <% end %>
+  </div>
 </div>
