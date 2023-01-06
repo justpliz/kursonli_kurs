@@ -1,0 +1,226 @@
+/* работает) */
+/* font-family: 'Montserrat', sans-serif; */
+/* font-family: 'Mulish', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Mulish:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Mulish', sans-serif;
+}
+
+html,
+body {
+   height: 100%;
+   overflow-x: hidden;
+}
+
+body {
+   width: 100%;
+   min-height: 100%;
+   background-color: #edeeee !important;
+}
+
+/* .app {
+   width: 100%;
+   min-height: 100%;
+   background-color: #edeeee;
+} */
+
+.content {
+   padding: 0px 20px 0 275px;
+}
+
+.content-user {
+   margin: 0px 20px 0 275px;
+}
+
+.sidebar {
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 255px;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: start;
+   flex-direction: column;
+   background-color: #363740;
+}
+
+.sidebar-logo {
+   margin: 30px 0;
+}
+
+.list-sidebar {
+   display: flex;
+   flex-direction: column;
+   justify-content: start;
+}
+
+
+.list-sidebar:last-child {
+   border-bottom: 1px solid #DFE0EB;
+}
+
+.list-sidebar svg {
+   fill: #DDE2FF;
+}
+
+/* .list-sidebar svg:hover {
+   fill: green;
+} */
+
+.sidebar ul {
+   list-style: none;
+   margin: 0px;
+   padding: 0px;
+   width: 100%;
+}
+
+.sidebar li a {
+   display: block;
+   padding: 18px 0px 18px 30px;
+   color: #fff;
+   border-left: 0px solid #dedede;
+   text-decoration: none;
+   position: relative;
+}
+
+.sidebar li a.active {
+   background-color: #000;
+   border-left: 5px solid #dedede;
+   transition: all 0.5s ease-in-out
+}
+
+.sidebar li a:hover {
+   background-color: #9FA2B4 !important;
+   width: 90%;
+}
+
+.sidebar li a::before {
+   content: "";
+   position: absolute;
+   left: 0;
+   top: 0;
+   height: 100%;
+   width: 2px;
+   border: 1px solid #DDE2FF;
+   background-color: #9FA2B4 !important;
+}
+
+.sidebar li a i {
+   padding-right: 5px;
+}
+
+.sidebar li a .nav-label,
+.sidebar li a .nav-label+span {
+   transition: all 0.5s ease-in-out
+}
+
+
+.sidebar.fliph li a .nav-label,
+.sidebar.fliph li a .nav-label+span {
+   display: none;
+   transition: all 0.5s ease-in-out
+}
+
+.sidebar.fliph {
+   width: 42px;
+   transition: all 0.5s ease-in-out;
+
+}
+
+.sidebar.fliph li {
+   position: relative
+}
+
+/* ебануть для каждой страницы это меню и вешать актив */
+.sidebar-user {
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 255px;
+   height: 100%;
+   display: flex;
+   padding: 0 30px 0 30px;
+   border-radius: 10px;
+   align-items: flex-start;
+   justify-content: start;
+   flex-direction: column;
+   background-color: #fff;
+}
+
+.sidebar-text {
+   color: #929292;
+   margin-bottom: 20px;
+}
+
+.user-logo {
+   padding: 20px 0;
+}
+
+.line {
+   border: 1px solid #DEDEDE;
+   width: 200px;
+}
+
+.sidebar-user-logo {
+   margin: 30px 0;
+}
+
+.list-user {
+   display: flex;
+   flex-direction: column;
+}
+
+.list-user span{
+   padding-left: 12px;
+}
+
+.sidebar-bottom:last-child {
+   position: absolute;
+   bottom: 0;
+   left: 30px;
+}
+
+.list-user svg {
+   fill: #929292;
+}
+
+/* .list-user svg:hover {
+   fill: green;
+} */
+
+.sidebar-user ul {
+   list-style: none;
+   margin: 0px;
+   padding: 0px;
+   width: 100%;
+}
+
+.sidebar-user li a {
+   display: block;
+   padding: 18px 0px 18px 0;
+   color: #929292;
+   border-left: 0px solid #dedede;
+   text-decoration: none;
+   position: relative;
+}
+
+.sidebar-user li a.active {
+   background-color: #000;
+   transition: all 0.5s ease-in-out
+}
+
+.select-lang {
+   border: none;
+   outline: none;
+   color: #929292;
+}
+.lang-item {
+   border: none;
+   outline: none;
+   color: #929292;
+}

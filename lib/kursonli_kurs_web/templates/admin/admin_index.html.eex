@@ -1,11 +1,12 @@
 <h1>Административная панель</h1>
 <div class="login_page">
-    <div class="card-body">
-      <a href="/admin/register_org" class="btn btn-primary">Регистрация организации</a>
-    </div>
+  <div class="">
+    <a href="/admin/register_org" class="btn btn-primary">Регистрация организации</a>
+  </div>
 
-    <div class="login_page">
-    <div class="card-body">
+  <div class="login_page">
+    <div class="">
       <a href="/admin/logout" class="btn btn-primary">Выход</a>
     </div>
+  </div>
 </div>

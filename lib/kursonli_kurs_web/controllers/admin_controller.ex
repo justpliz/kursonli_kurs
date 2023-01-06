@@ -55,6 +55,7 @@ defmodule KursonliKursWeb.AdminController do
 
   def register_org(conn, _params) do
     conn
+    # |> put_layout("client_app.html")
     |> render("register_org.html")
   end
 
