@@ -1,23 +1,75 @@
-<h1>Регистрация Организации</h1>
-<div class="login_page">
-  <%= form_for @conn, Routes.admin_path(@conn, :register_org_submit), [multipart: true], fn f -> %>
-    <div class="form-group">
-      <label>Название</label>
-      <%= text_input f, :name, class: "form-control" , required: "true" %>
+<div class="sidebar-user">
+  <a href="/"><img class="user-logo" src="/images/logo-line.svg" alt=""></a>
+  <hr class="line">
+  <div class="sidebar-text">
+    Разделы:
+  </div>
+  <ul class="list-user">
+    <li>
+      <a href="#">
+        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M10.7774 20.4367C5.35162 20.4367 0.953125 16.0382 0.953125 10.6124C0.953125 5.18658 5.35162 0.788086 10.7774 0.788086C16.2033 0.788086 20.6018 5.18658 20.6018 10.6124C20.6018 16.0382 16.2033 20.4367 10.7774 20.4367ZM17.3861 15.1893C18.2874 13.8905 18.8155 12.3131 18.8155 10.6124C18.8155 6.17312 15.2168 2.57435 10.7774 2.57435C6.33814 2.57435 2.73937 6.17312 2.73937 10.6124C2.73937 12.3131 3.26754 13.8905 4.16881 15.1894C5.17397 13.8617 7.53596 13.2918 10.7775 13.2918C14.0189 13.2918 16.3809 13.8617 17.3861 15.1893ZM16.1046 16.6318C15.8432 15.6919 13.9653 15.078 10.7775 15.078C7.58956 15.078 5.71167 15.6919 5.45028 16.6319C6.86853 17.8879 8.73394 18.6505 10.7774 18.6505C12.821 18.6505 14.6864 17.8879 16.1046 16.6318ZM10.7774 5.25371C8.61529 5.25371 7.20497 6.82181 7.20497 8.82619C7.20497 11.8872 8.77763 13.2918 10.7774 13.2918C12.7585 13.2918 14.3499 11.9339 14.3499 9.00481C14.3499 6.96991 12.9336 5.25371 10.7774 5.25371ZM8.99121 8.82619C8.99121 10.8529 9.72197 11.5055 10.7774 11.5055C11.8293 11.5055 12.5637 10.8789 12.5637 9.00481C12.5637 7.88878 11.8632 7.03995 10.7774 7.03995C9.64652 7.03995 8.99121 7.76858 8.99121 8.82619Z" />
+        </svg>
+        <span class="nav-label">Организации</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M6.42534 1.70074C7.11191 1.11936 8.10756 0.788086 9.16703 0.788086C10.2265 0.788086 11.2222 1.11936 11.9087 1.70074H12.8177C13.8258 1.70074 14.643 2.51796 14.643 3.52606H15.5556C16.5637 3.52606 17.3809 4.34328 17.3809 5.35137V19.0412C17.3809 20.0493 16.5637 20.8665 15.5556 20.8665H2.77844C1.77035 20.8665 0.953125 20.0493 0.953125 19.0412V5.35137C0.953125 4.34328 1.77035 3.52606 2.77844 3.52606H3.69109C3.69109 2.51796 4.50832 1.70074 5.51641 1.70074H6.42534ZM12.8177 6.26403C13.4933 6.26403 14.0832 5.89696 14.3988 5.35137H15.5556V19.0412H2.77844V5.35137H3.93529C4.25089 5.89696 4.84078 6.26403 5.51641 6.26403H12.8177ZM5.51641 14.4779V12.6526H10.9923V14.4779H5.51641ZM5.51641 9.002V10.8273H12.8177V9.002H5.51641ZM7.21178 3.52605L7.48469 3.21153C7.78454 2.86596 8.42725 2.61339 9.16703 2.61339C9.90682 2.61339 10.5495 2.86596 10.8494 3.21153L11.1223 3.52605H12.8177V4.4387H5.51641V3.52605H6.79536H7.21178Z" />
+        </svg>
+        <span class="nav-label">Настройки</span>
+      </a>
+    </li>
+  </ul>
+  <hr class="line">
+  <div class="sidebar-bottom">
+    <div class="lang">
+      <img src="/images/icons/lang.svg" alt="">
+      <select class="select-lang">
+        <option class="lang-item" selected>Русский</option>
+        <option class="lang-item">Казахский</option>
+      </select>
     </div>
+    <hr class="line">
+    <ul class="list-user">
+      <li>
+        <a href="/admin/logout">
+          <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M14.2245 7.78897H4.47802L7.50985 4.75714L6.20776 3.45505L0.953125 8.70968L6.20776 13.9643L7.50985 12.6622L4.47802 9.6304H14.2245V7.78897ZM17.9075 0.423185H9.62104V2.26462L17.9075 2.26462V15.1547L9.62104 15.1547V16.9961H17.9075C18.9245 16.9961 19.7489 16.1717 19.7489 15.1547V2.26462C19.7489 1.24762 18.9245 0.423185 17.9075 0.423185Z" />
+          </svg>
+          <span class="nav-label">Выйти</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="content-user">
+  <h1>Регистрация Организации</h1>
+  <div class="login_page">
+    <%= form_for @conn, Routes.admin_path(@conn, :register_org_submit), [multipart: true], fn f -> %>
+      <div class="form-group">
+        <label>Название</label>
+        <%= text_input f, :name, class: "form-control" , required: "true" %>
+      </div>
 
-    <div class="form-group">
-      <label>Ебало</label>
-      <%= file_input f, :photo, class: "form-control" , accept: ".png, .jpg" %>
-    </div>
+      <div class="form-group">
+        <label>Ебало</label>
+        <%= file_input f, :photo, class: "form-control" , accept: ".png, .jpg" %>
+      </div>
 
-    <div class="form-group">
-      <label>Пароль</label>
-      <%= password_input f, :password, class: "form-control" , required: "true" %>
-    </div>
+      <div class="form-group">
+        <label>Пароль</label>
+        <%= password_input f, :password, class: "form-control" , required: "true" %>
+      </div>
 
-    <div class="form-group">
-      <%= submit "Войти" , class: "btn btn-primary" %>
-    </div>
-    <% end %>
+      <div class="form-group">
+        <%= submit "Войти" , class: "btn btn-primary" %>
+      </div>
+      <% end %>
+  </div>
+</div>
 </div>

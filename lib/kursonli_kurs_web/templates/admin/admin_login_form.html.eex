@@ -1,3 +1,5 @@
+<style></style>
+
 <h1>Авторизация Админа</h1>
 <div class="login_page">
   <%= form_for @conn, Routes.admin_path(@conn, :login_form_submit), fn f -> %>
