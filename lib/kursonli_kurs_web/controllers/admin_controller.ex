@@ -17,10 +17,10 @@ defmodule KursonliKursWeb.AdminController do
   POST /admin/login
   """
   def login_form_submit(conn, params) do
-    opts = %{
+    opts = [
       login: params["login"],
       password: hash_str(params["password"])
-    }
+    ]
 
     case Admins.do_get(opts) do
       {:ok, admin} ->

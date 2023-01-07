@@ -17,10 +17,10 @@ defmodule KursonliKursWeb.UserController do
   POST /user/login
   """
   def login_form_submit(conn, params) do
-    opts = %{
+    opts = [
       login: params["login"],
       password: hash_str(params["password"])
-    }
+    ]
 
     case Users.do_get(opts) do
       {:ok, user} ->
@@ -115,7 +115,7 @@ defmodule KursonliKursWeb.UserController do
         |> put_flash(:error, "Несовпадают пароли")
         |> redirect(to: "/user/update_pass")
 
-    with {:ok, user} <- Users.do_get(%{id: id, password: old_pass}),
+    with {:ok, user} <- Users.do_get(id: id, password: old_pass),
          {:ok, _user} <- Users.update(user, %{password: new_pass}) do
       conn
       |> put_flash(:info, "Пароль успешно изменен")

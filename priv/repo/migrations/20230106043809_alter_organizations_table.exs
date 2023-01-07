@@ -7,6 +7,5 @@ defmodule KursonliKurs.Repo.Migrations.AlterOrganizationsTable do
 
       add :iin, :string
     end
-
   end
 end
