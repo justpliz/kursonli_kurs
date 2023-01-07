@@ -9,7 +9,7 @@ defmodule KursonliKurs.Context.Admins do
 
   require Logger
 
-  @type admin :: Cours.t()
+  @type admin :: Admin.t()
   @type params :: Map.t()
 
   def get(opts \\ []) do

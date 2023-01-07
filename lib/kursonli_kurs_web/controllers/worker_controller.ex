@@ -67,7 +67,7 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def update_pass(conn, _params) do
     conn
-    |> render("update_pass.html")
+    |> render("worker_update_pass.html")
   end
 
   @doc """
@@ -85,7 +85,7 @@ defmodule KursonliKursWeb.WorkerController do
         |> put_flash(:error, "Несовпадают пароли")
         |> redirect(to: "/worker/update_pass")
 
-    with {:ok, worker} <- Workers.do_get(%{id: id, password: old_pass}) |> IO.inspect,
+    with {:ok, worker} <- Workers.do_get(%{id: id, password: old_pass}),
          {:ok, _worker} <- Workers.update(worker, %{password: new_pass}) do
       conn
       |> put_flash(:info, "Пароль успешно изменен")
