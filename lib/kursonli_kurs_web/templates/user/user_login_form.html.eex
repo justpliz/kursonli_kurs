@@ -1,0 +1,22 @@
+<h1>Авторизация пользователя</h1>
+<div class="login_page">
+    <%= form_for @conn, Routes.user_path(@conn, :login_form_submit), fn f -> %>
+      <div class="form-group">
+        <label>Логин</label>
+        <%= text_input f, :login, class: "form-control", required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <label>Пассворд</label>
+        <%= password_input f, :password, class: "form-control", required: "true" %>
+      </div>
+
+      <div class="card-body">
+        <a href="/user/register" class="btn btn-primary">Регистрация</a>
+      </div>
+
+      <div class="form-group">
+        <%= submit "Войти", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+</div>

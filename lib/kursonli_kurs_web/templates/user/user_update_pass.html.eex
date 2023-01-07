@@ -1,6 +1,6 @@
-<h1>Регистрация Организации</h1>
+<h1>Смена пароля пользователя</h1>
 <div class="login_page">
-    <%= form_for @conn, Routes.worker_path(@conn, :update_pass_submit), fn f -> %>
+    <%= form_for @conn, Routes.user_path(@conn, :update_pass_submit), fn f -> %>
       <div class="form-group">
         <label>Старый пароль</label>
         <%= text_input f, :old_pass, class: "form-control", required: "true" %>

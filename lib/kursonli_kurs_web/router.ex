@@ -14,6 +14,8 @@ defmodule KursonliKursWeb.Router do
 
   pipeline(:worker_check, do: plug(KursonliKurs.Auth.WorkerCheck))
 
+  pipeline(:user_check, do: plug(KursonliKurs.Auth.UserCheck))
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -55,7 +57,26 @@ defmodule KursonliKursWeb.Router do
     get "/", WorkerController, :index
     get "/update_pass", WorkerController, :update_pass
     post "/update_pass", WorkerController, :update_pass_submit
-    get "/logout", WorkerController, :admin_logout
+    get "/logout", WorkerController, :worker_logout
+
+  end
+
+  scope "/user", KursonliKursWeb do
+    pipe_through :browser
+
+    get "/login", UserController, :login_form
+    post "/login", UserController, :login_form_submit
+    get "/register", UserController, :register_form
+    post "/register", UserController, :register_form_submit
+  end
+
+  scope "/user", KursonliKursWeb do
+    pipe_through ([:browser, :user_check])
+
+    get "/", UserController, :index
+    get "/update_pass", UserController, :update_pass
+    post "/update_pass", UserController, :update_pass_submit
+    get "/logout", UserController, :user_logout
 
   end
 

@@ -8,7 +8,7 @@ defmodule KursonliKurs.Context.Courses do
 
   require Logger
 
-  @type course :: Cours.t()
+  @type course :: Course.t()
   @type params :: Map.t()
 
   def get(opts \\ []) do

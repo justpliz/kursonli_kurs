@@ -1,0 +1,33 @@
+<h1>Регистрация пользователя</h1>
+<div class="login_page">
+    <%= form_for @conn, Routes.user_path(@conn, :register_form_submit), fn f -> %>
+      <div class="form-group">
+        <label>Логин</label>
+        <%= text_input f, :login, class: "form-control", required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <%= email_input f, :email, class: "form-control", required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <label>Телефон</label>
+        <%= text_input f, :phone, class: "form-control", required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <label>Пароль</label>
+        <%= password_input f, :password, class: "form-control", required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <label>Повторите пароль</label>
+        <%= password_input f, :re_password, class: "form-control", required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <%= submit "Войти", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+</div>
