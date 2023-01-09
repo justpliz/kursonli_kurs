@@ -65,10 +65,10 @@
   const submit = document.querySelector("#submit")
   const handleChange = (e) => {
     if (inputOnePass.value == inputTwoPass.value) {
-      errosHtml.innerHTML = "Все ок"
+      errosHtml.innerHTML = "Пароли совпадают"
       submit.removeAttribute("disabled")
     } else {
-      errosHtml.innerHTML = "Вы далбаеб"
+      errosHtml.innerHTML = "Пароль не верный"
       submit.setAttribute("disabled", "true")
     }
   }
