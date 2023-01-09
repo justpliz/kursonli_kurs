@@ -16,6 +16,8 @@ defmodule KursonliKurs.Model.User do
     field :phone, :string
     field :password, :string
 
+    # TODO ref order
+
     timestamps()
   end
 
@@ -24,5 +26,6 @@ defmodule KursonliKurs.Model.User do
     user
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint([:login, :email, :phone])
   end
 end

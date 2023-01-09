@@ -19,7 +19,8 @@ defmodule KursonliKurs.Model.Filial do
 
     belongs_to :organization, Organization, type: :binary_id
 
-    has_one :course, Course
+    # has_one :course, Course
+    # TODO ref city_id
 
     timestamps()
   end
@@ -29,5 +30,6 @@ defmodule KursonliKurs.Model.Filial do
     user
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint(:name)
   end
 end

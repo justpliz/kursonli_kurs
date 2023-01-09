@@ -24,5 +24,6 @@ defmodule KursonliKurs.Model.Admin do
     admin
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint(:login)
   end
 end

@@ -11,7 +11,7 @@ defmodule KursonliKurs.Repo.Migrations.AlterOrdersTable do
       add :type, :order_type
 
       add :currency_id, references(:currencies, type: :uuid, on_delete: :nothing)
-      #TODO add status(defenum) and chat
+      #TODO add status(defenum) number and chat
     end
   end
 end

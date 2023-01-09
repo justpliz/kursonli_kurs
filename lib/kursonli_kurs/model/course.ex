@@ -13,12 +13,11 @@ defmodule KursonliKurs.Model.Course do
   @optional_fields ~w()a
 
   schema "courses" do
-    field :first_name, :string
-    field :last_name, :string
-    field :password, :string
-    field :phone, :string
+    field :value_for_sale, :string
+    field :value_for_purchase, :string
 
-    belongs_to :filial, Filial, type: :binary_id
+    # belongs_to :filial, Filial, type: :binary_id
+    # TODO ref currencies
 
     timestamps()
   end
