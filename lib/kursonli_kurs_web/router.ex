@@ -24,7 +24,6 @@ defmodule KursonliKursWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/login", ClientController, :login
   end
 
   scope "/admin", KursonliKursWeb do
