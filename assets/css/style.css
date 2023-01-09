@@ -62,6 +62,7 @@ body {
 
 .list-sidebar:last-child {
    border-bottom: 1px solid #DFE0EB;
+   opacity: 0.5;
 }
 
 .list-sidebar svg {
@@ -99,7 +100,7 @@ body {
    width: 90%;
 }
 
-.sidebar li a::before {
+/* .sidebar li a::before {
    content: "";
    position: absolute;
    left: 0;
@@ -108,7 +109,7 @@ body {
    width: 2px;
    border: 1px solid #DDE2FF;
    background-color: #9FA2B4 !important;
-}
+} */
 
 .sidebar li a i {
    padding-right: 5px;
@@ -233,7 +234,9 @@ body {
 /* ---------------------------------------- */
 /* ---------------------------------------- */
 
-
+.tabs{
+   position: relative;
+}
 .tabs-nav {}
 
 .tabs-nav__item {
@@ -272,4 +275,8 @@ body {
    cursor: pointer;
    color: #fff;
    padding: 5px 20px;
+}
+
+.hidden {
+   display: none;
 }
