@@ -4,6 +4,7 @@ defmodule KursonliKurs.Context.Users do
   """
   use KursonliKurs.Context
 
+  alias Hex.API.Key.Organization
   alias KursonliKurs.Model.User
 
   require Logger
@@ -15,6 +16,12 @@ defmodule KursonliKurs.Context.Users do
     User
     |> filter_by(opts)
     |> Repo.one()
+  end
+
+  def all(opts \\ []) do
+    User
+    |> filter_by(opts)
+    |> Repo.all()
   end
 
   def create(params) do

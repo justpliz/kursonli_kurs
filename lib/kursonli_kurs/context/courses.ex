@@ -17,6 +17,12 @@ defmodule KursonliKurs.Context.Courses do
     |> Repo.one()
   end
 
+  def all(opts \\ []) do
+    Course
+    |> filter_by(opts)
+    |> Repo.all()
+  end
+
   def create(params) do
     %Course{}
     |> Course.changeset(params)

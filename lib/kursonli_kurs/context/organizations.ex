@@ -17,6 +17,12 @@ defmodule KursonliKurs.Context.Organizations do
     |> Repo.one()
   end
 
+  def all(opts \\ []) do
+    Organization
+    |> filter_by(opts)
+    |> Repo.all()
+  end
+
   def create(params) do
     %Organization{}
     |> Organization.changeset(params)

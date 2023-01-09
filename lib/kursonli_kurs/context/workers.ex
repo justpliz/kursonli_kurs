@@ -17,6 +17,12 @@ defmodule KursonliKurs.Context.Workers do
     |> Repo.one()
   end
 
+  def all(opts \\ []) do
+    Worker
+    |> filter_by(opts)
+    |> Repo.all()
+  end
+
   def create(params) do
     %Worker{}
     |> Worker.changeset(params)

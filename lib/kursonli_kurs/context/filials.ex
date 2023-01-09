@@ -17,6 +17,12 @@ defmodule KursonliKurs.Context.Filials do
     |> Repo.one()
   end
 
+  def all(opts \\ []) do
+    Filial
+    |> filter_by(opts)
+    |> Repo.all()
+  end
+
   def create(params) do
     %Filial{}
     |> Filial.changeset(params)

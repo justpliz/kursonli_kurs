@@ -18,6 +18,12 @@ defmodule KursonliKurs.Context.Admins do
     |> Repo.one()
   end
 
+  def all(opts \\ []) do
+    Admin
+    |> filter_by(opts)
+    |> Repo.all()
+  end
+
   def create(params) do
     params = %{login: params.login, password: hash_str(params.password)}
 
