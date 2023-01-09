@@ -54,7 +54,8 @@ defmodule KursonliKurs.MixProject do
       {:ecto_enum, "~> 1.4"},
 
       # Dates Formatting
-      {:timex, "~> 3.6"}
+      {:timex, "~> 3.6"},
+      {:tailwind, "~> 0.1.9", runtime: Mix.env() == :dev}
     ]
   end
 

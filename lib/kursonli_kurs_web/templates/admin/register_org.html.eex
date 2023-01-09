@@ -57,7 +57,7 @@
 </div>
 <div class="content-user">
   <div class="reg_page">
-    <h1>Регистрация Организации</h1>
+    <h1 class="bg-violet-900">Регистрация Организации</h1>
     <%= form_for @conn, Routes.admin_path(@conn, :register_org_submit), [multipart: true], fn f -> %>
       <div class="form-group">
         <label>Название</label>
