@@ -22,6 +22,8 @@ defmodule KursonliKurs.Model.Organization do
     has_one :filial, Filial
     has_one :worker, Worker
 
+    # TODO ref order, tariff
+
     timestamps()
   end
 
@@ -30,5 +32,6 @@ defmodule KursonliKurs.Model.Organization do
     user
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint([:name, :iin])
   end
 end

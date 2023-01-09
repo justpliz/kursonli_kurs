@@ -21,6 +21,8 @@ defmodule KursonliKurs.Model.Worker do
 
     belongs_to :organization, Organization, type: :binary_id
 
+    # TODO ref order
+
     timestamps()
   end
 
@@ -29,5 +31,6 @@ defmodule KursonliKurs.Model.Worker do
     user
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint([:email, :phone])
   end
 end
