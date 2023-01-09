@@ -62,6 +62,7 @@ body {
 
 .list-sidebar:last-child {
    border-bottom: 1px solid #DFE0EB;
+   opacity: 0.5;
 }
 
 .list-sidebar svg {
@@ -99,7 +100,7 @@ body {
    width: 90%;
 }
 
-.sidebar li a::before {
+/* .sidebar li a::before {
    content: "";
    position: absolute;
    left: 0;
@@ -108,7 +109,7 @@ body {
    width: 2px;
    border: 1px solid #DDE2FF;
    background-color: #9FA2B4 !important;
-}
+} */
 
 .sidebar li a i {
    padding-right: 5px;
@@ -175,7 +176,7 @@ body {
    flex-direction: column;
 }
 
-.list-user span{
+.list-user span {
    padding-left: 12px;
 }
 
@@ -219,8 +220,63 @@ body {
    outline: none;
    color: #929292;
 }
+
 .lang-item {
    border: none;
    outline: none;
    color: #929292;
+}
+
+
+
+
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+
+.tabs{
+   position: relative;
+}
+.tabs-nav {}
+
+.tabs-nav__item {
+   background-color: transparent;
+   border: 1px solid #929292;
+   border-radius: 10px;
+   cursor: pointer;
+   color: #929292;
+   padding: 5px 20px;
+}
+
+.tabs-nav__item.tab-is-active {
+   background-color: #3689ce;
+   color: #fff;
+   border: 1px solid transparent;
+}
+
+.tab {
+   display: none;
+   padding: 20px 0 0 0;
+}
+
+.tab.tab-is-active {
+   display: block;
+}
+
+.table {
+   background-color: #fff;
+   border-radius: 10px;
+}
+
+.btn-hz {
+   background-color: #3689ce;
+   border: 1px solid transparent;
+   border-radius: 10px;
+   cursor: pointer;
+   color: #fff;
+   padding: 5px 20px;
+}
+
+.hidden {
+   display: none;
 }

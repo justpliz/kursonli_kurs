@@ -1,33 +1,77 @@
-<h1>Регистрация пользователя</h1>
-<div class="login_page">
-    <%= form_for @conn, Routes.user_path(@conn, :register_form_submit), fn f -> %>
-      <div class="form-group">
-        <label>Логин</label>
-        <%= text_input f, :login, class: "form-control", required: "true" %>
-      </div>
+<style>
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 
-      <div class="form-group">
-        <label>Email</label>
-        <%= email_input f, :email, class: "form-control", required: "true" %>
-      </div>
+  .btn-login {
+    width: 100%;
+    margin: 0 auto;
+    color: #fff;
+    background-color: #000045;
+    padding: 8px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+  }
 
-      <div class="form-group">
-        <label>Телефон</label>
-        <%= text_input f, :phone, class: "form-control", required: "true" %>
-      </div>
+  .form-group {
+    width: 100%;
+  }
+</style>
 
-      <div class="form-group">
-        <label>Пароль</label>
-        <%= password_input f, :password, class: "form-control", required: "true" %>
-      </div>
+<div class="login-container">
+  <h1>Регистрация пользователя</h1>
+  <%= form_for @conn, Routes.user_path(@conn, :register_form_submit), fn f -> %>
+    <div class="form-group">
+      <label>Логин</label>
+      <%= text_input f, :login, class: "form-control" , required: "true" %>
+    </div>
 
-      <div class="form-group">
-        <label>Повторите пароль</label>
-        <%= password_input f, :re_password, class: "form-control", required: "true" %>
-      </div>
+    <div class="form-group">
+      <label>Email</label>
+      <%= email_input f, :email, class: "form-control" , required: "true" %>
+    </div>
 
-      <div class="form-group">
-        <%= submit "Войти", class: "btn btn-primary" %>
-      </div>
+    <div class="form-group">
+      <label>Телефон</label>
+      <%= text_input f, :phone, class: "form-control phone-mask" , maxlength: 12, required: "true" %>
+    </div>
+
+    <div class="form-group">
+      <label>Пароль</label>
+      <%= password_input f, :password, class: "form-control" , required: "true" %>
+    </div>
+
+    <div class="form-group">
+      <label>Повторите пароль</label>
+      <%= password_input f, :re_password, class: "form-control" , required: "true" %>
+    </div>
+
+    <div class="form-group">
+      <%= submit "Зарегистрироваться" , class: "btn-login mt-2 " , disabled: "true" , id: "submit" %>
+    </div>
+    <div id="errorss">
+
+    </div>
     <% end %>
 </div>
+<script>
+  const inputOnePass = document.querySelector("#password")
+  const inputTwoPass = document.querySelector("#re_password")
+  const errosHtml = document.querySelector("#errorss")
+  const submit = document.querySelector("#submit")
+  const handleChange = (e) => {
+    if (inputOnePass.value == inputTwoPass.value) {
+      errosHtml.innerHTML = "Все ок"
+      submit.removeAttribute("disabled")
+    } else {
+      errosHtml.innerHTML = "Вы далбаеб"
+      submit.setAttribute("disabled", "true")
+    }
+  }
+  inputOnePass.addEventListener('input', handleChange)
+  inputTwoPass.addEventListener('input', handleChange)
+</script>
