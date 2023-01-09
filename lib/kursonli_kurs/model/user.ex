@@ -3,6 +3,8 @@ defmodule KursonliKurs.Model.User do
 
   import Ecto.Changeset
 
+  alias KursonliKurs.Model.Order
+
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
 
@@ -16,7 +18,7 @@ defmodule KursonliKurs.Model.User do
     field :phone, :string
     field :password, :string
 
-    # TODO ref order
+    belongs_to :order, Order, type: :binary_id
 
     timestamps()
   end

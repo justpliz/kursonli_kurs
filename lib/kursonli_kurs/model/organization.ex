@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.Organization do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Filial, Worker, Admin}
+  alias KursonliKurs.Model.{Filial, Worker, Admin, Order}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -18,6 +18,7 @@ defmodule KursonliKurs.Model.Organization do
     field :photo, :string, default: "default_photo.jpg"
 
     belongs_to :admin, Admin, type: :binary_id
+    belongs_to :order, Order, type: :binary_id
 
     has_one :filial, Filial
     has_one :worker, Worker

@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.Filial do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Organization, Course}
+  alias KursonliKurs.Model.{Organization, Order}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -18,6 +18,7 @@ defmodule KursonliKurs.Model.Filial do
     field :tags, {:array, :string}
 
     belongs_to :organization, Organization, type: :binary_id
+    belongs_to :order, Order, type: :binary_id
 
     # has_one :course, Course
     # TODO ref city_id
