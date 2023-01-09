@@ -47,7 +47,7 @@
   <%= form_for @conn, Routes.user_path(@conn, :login_form_submit), fn f -> %>
     <div class="form-group">
       <label>Логин</label>
-      <%= text_input f, :first_name, class: "input-login" , required: "true" %>
+      <%= text_input f, :login, class: "input-login" , required: "true" %>
     </div>
 
     <div class="form-group">
