@@ -20,8 +20,7 @@ defmodule KursonliKurs.Model.Filial do
     belongs_to :organization, Organization, type: :binary_id
     belongs_to :order, Order, type: :binary_id
 
-    # has_one :course, Course
-    # TODO ref city_id
+    has_one :city, City
 
     timestamps()
   end
