@@ -3,27 +3,23 @@ defmodule KursonliKurs.Model.Organization do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Filial, Worker, Admin, Order}
+  alias KursonliKurs.Model.{Filial, Worker, Admin}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @timestamps_opts [type: :utc_datetime]
   @required_fields ~w(name iin admin_id)a
-  @optional_fields ~w(photo)a
+  @optional_fields ~w()a
 
   schema "organizations" do
     field :name, :string
     field :iin, :string
-    field :photo, :string, default: "default_photo.jpg"
 
     belongs_to :admin, Admin, type: :binary_id
 
     has_one :filial, Filial
-    has_one :order, Order
     has_one :worker, Worker
-
-    # TODO ref tariff
 
     timestamps()
   end

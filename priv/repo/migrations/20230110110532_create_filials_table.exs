@@ -11,7 +11,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateFilialsTable do
       add :tags, {:array, :string}
       add :address, :string
       add :photo, :string
-      add :description, :string
+      add :description, :text
       add :paid_up_to, :naive_datetime
       add :payment_status, :payment_status
 

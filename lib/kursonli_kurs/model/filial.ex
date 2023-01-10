@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.Filial do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Organization, Order, City}
+  alias KursonliKurs.Model.{City, Organization, Tariff, Course}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -14,14 +14,21 @@ defmodule KursonliKurs.Model.Filial do
 
   schema "filials" do
     field :name, :string
-    field :address, :string
     field :tags, {:array, :string}
+    field :address, :string
+    field :photo, :string, default: "default_photo.jpg"
+    field :description, :string
+    field :paid_up_to, :naive_datetime
 
-    belongs_to :organization, Organization, type: :binary_id
+    field :payment_status, PaymentStatus, default: "not_paid"
+
+
     belongs_to :city, City, type: :binary_id
+    belongs_to :organization, Organization, type: :binary_id
+    belongs_to :tariff, Tariff, type: :binary_id
 
-    belongs_to :order, Order, type: :binary_id
-    # TODO order assoc
+    has_one :order, Order
+    has_one :course, Course
 
     timestamps()
   end
