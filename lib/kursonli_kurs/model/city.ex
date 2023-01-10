@@ -2,7 +2,7 @@ defmodule KursonliKurs.Model.City do
   use Ecto.Schema
 
   import Ecto.Changeset
-  alias KursonliKurs.Model.{Filial}
+  alias KursonliKurs.Model.Filial
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -16,12 +16,12 @@ defmodule KursonliKurs.Model.City do
     field :short_name, :string
     field :index, :string
 
-    belongs_to :filial, Filial, type: :binary_id
+    has_one :filial, Filial
   end
 
   @doc false
-  def changeset(user, attrs) do
-    user
+  def changeset(city, attrs) do
+    city
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint([:name, :short_name])

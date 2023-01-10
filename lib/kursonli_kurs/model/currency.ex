@@ -21,8 +21,8 @@ defmodule KursonliKurs.Model.Currency do
   end
 
   @doc false
-  def changeset(user, attrs) do
-    user
+  def changeset(currency, attrs) do
+    currency
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint([:name, :short_name])

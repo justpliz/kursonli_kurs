@@ -23,8 +23,8 @@ defmodule KursonliKurs.Model.Order do
 
     field :type, OrderType, default: "sale"
 
-    has_one :user, User
-    has_one :organization, Organization
+    belongs_to :organization, Organization, type: :binary_id
+
     has_one :filial, Filial
     has_one :worker, Worker
     has_one :currency, Currency

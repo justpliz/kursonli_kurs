@@ -18,19 +18,19 @@ defmodule KursonliKurs.Model.Organization do
     field :photo, :string, default: "default_photo.jpg"
 
     belongs_to :admin, Admin, type: :binary_id
-    belongs_to :order, Order, type: :binary_id
 
     has_one :filial, Filial
+    has_one :order, Order
     has_one :worker, Worker
 
-    # TODO ref order, tariff
+    # TODO ref tariff
 
     timestamps()
   end
 
   @doc false
-  def changeset(user, attrs) do
-    user
+  def changeset(organization, attrs) do
+    organization
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint([:name, :iin])

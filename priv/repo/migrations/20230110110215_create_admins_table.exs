@@ -8,5 +8,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateAdminsTable do
       add :login, :string
       add :password, :string
     end
+
+    create index("admins", [:login], unique: true)
   end
 end

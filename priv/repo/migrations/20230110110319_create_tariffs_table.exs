@@ -8,5 +8,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateTariffsTable do
       add :name, :string
       add :description, :string
     end
+
+    create index("tariffs", [:name], unique: true)
   end
 end

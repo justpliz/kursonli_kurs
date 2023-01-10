@@ -5,8 +5,6 @@ defmodule KursonliKurs.Repo.Migrations.CreateWorkersTable do
     create table(:workers, primary_key: false) do
       add :id, :binary_id, primary_key: true
 
-      add :first_name, :string
-      add :last_name, :string
       add :password, :string
       add :phone, :string
       add :email, :string
@@ -14,5 +12,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateWorkersTable do
 
       timestamps()
     end
+
+    create index("workers", [:email, :phone], unique: true)
   end
 end

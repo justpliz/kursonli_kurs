@@ -6,11 +6,13 @@ defmodule KursonliKurs.Repo.Migrations.CreateOrganizationsTable do
       add :id, :binary_id, primary_key: true
 
       add :name, :string
-      add :password, :string
-      add :photo, :string
+      add :iin, :string
+
       add :admin_id, references(:admins, type: :uuid, on_delete: :nothing)
 
       timestamps()
     end
+
+    create index("organizations", [:name, :iin], unique: true)
   end
 end

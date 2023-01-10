@@ -23,8 +23,8 @@ defmodule KursonliKurs.Model.Course do
   end
 
   @doc false
-  def changeset(user, attrs) do
-    user
+  def changeset(course, attrs) do
+    course
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
   end

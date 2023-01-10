@@ -85,13 +85,13 @@ defmodule KursonliKursWeb.AdminController do
       name: params["filial_name"],
       address: params["address"],
       city_id: city.id
-    } |> IO.inspect
+    }
 
-    with {:ok, org} <- Organizations.create(org_opts) |> IO.inspect,
+    with {:ok, org} <- Organizations.create(org_opts),
          worker_opts <- Map.put(worker_opts, :organization_id, org.id),
          filial_opts <- Map.put(filial_opts, :organization_id, org.id),
-         {:ok, _worker} <- Workers.create(worker_opts) |> IO.inspect,
-         {:ok, _filial} <- Filials.create(filial_opts) |> IO.inspect do
+         {:ok, _worker} <- Workers.create(worker_opts),
+         {:ok, _filial} <- Filials.create(filial_opts) do
       conn
       |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
       |> redirect(to: "/admin")

@@ -9,5 +9,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateCitiesTable do
       add :short_name, :string
       add :index, :string
     end
+
+    create index("cities", [:name, :short_name], unique: true)
   end
 end
