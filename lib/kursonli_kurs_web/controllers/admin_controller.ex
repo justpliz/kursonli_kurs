@@ -3,6 +3,7 @@ defmodule KursonliKursWeb.AdminController do
   action_fallback FallbackController
   plug :put_layout, "admin_app.html"
 
+  alias KursonliKurs.Context.Cities
   alias KursonliKurs.Context.{Workers, Admins, Filials, Organizations}
 
   @doc """
@@ -78,9 +79,13 @@ defmodule KursonliKursWeb.AdminController do
       password: hash_str(password)
     }
 
+    {:ok, city} = Cities.do_get(name: params["city_name"])
+
     filial_opts = %{
-      name: params["filial_name"]
-    }
+      name: params["filial_name"],
+      address: params["address"],
+      city_id: city.id
+    } |> IO.inspect
 
     with {:ok, org} <- Organizations.create(org_opts) |> IO.inspect,
          worker_opts <- Map.put(worker_opts, :organization_id, org.id),
