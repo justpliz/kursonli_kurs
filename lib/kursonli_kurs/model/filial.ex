@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.Filial do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{City, Organization, Tariff, Course}
+  alias KursonliKurs.Model.{City, Organization, Tariff, Order, Course}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -21,7 +21,6 @@ defmodule KursonliKurs.Model.Filial do
     field :paid_up_to, :naive_datetime
 
     field :payment_status, PaymentStatus, default: "not_paid"
-
 
     belongs_to :city, City, type: :binary_id
     belongs_to :organization, Organization, type: :binary_id
