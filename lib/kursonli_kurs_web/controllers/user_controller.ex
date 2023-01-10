@@ -1,6 +1,7 @@
 defmodule KursonliKursWeb.UserController do
   use KursonliKursWeb, :controller
   action_fallback KursonliKursWeb.FallbackController
+  plug :put_layout, "admin_app.html"
 
   alias KursonliKurs.Context.{Users}
 

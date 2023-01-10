@@ -2,8 +2,7 @@ defmodule KursonliKurs.Model.City do
   use Ecto.Schema
 
   import Ecto.Changeset
-
-  alias KursonliKurs.Model.Filial
+  alias KursonliKurs.Model.{Filial}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
