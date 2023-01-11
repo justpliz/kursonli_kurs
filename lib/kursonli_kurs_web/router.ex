@@ -19,15 +19,15 @@ defmodule KursonliKursWeb.Router do
   end
 
   pipeline :admin_app do
-    plug :put_layout, {KursonliKursWeb.LayoutView, "admin_app.html"}
+    plug :put_root_layout, {KursonliKursWeb.LayoutView, "admin_app.html"}
   end
 
   pipeline :all_app do
-    plug :put_layout, {KursonliKursWeb.LayoutView, "all_app.html"}
+    plug :put_root_layout, {KursonliKursWeb.LayoutView, "all_app.html"}
   end
 
   pipeline :clean do
-    plug :put_layout, {KursonliKursWeb.LayoutView, "clean.html"}
+    plug :put_root_layout, {KursonliKursWeb.LayoutView, "clean.html"}
   end
 
   scope "/", KursonliKursWeb do
@@ -38,14 +38,14 @@ defmodule KursonliKursWeb.Router do
 
   scope "/admin", KursonliKursWeb do
     # pipe_through :browser
-    pipe_through [:browser, :admin_app]
+    pipe_through [:browser, :clean]
 
     get "/login", AdminController, :login_form
     post "/login", AdminController, :login_form_submit
   end
 
   scope "/admin", KursonliKursWeb do
-    pipe_through [:browser, :admin_check]
+    pipe_through [:browser, :admin_check, :admin_app]
 
     get "/", AdminController, :index
     get "/logout", AdminController, :admin_logout

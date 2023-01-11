@@ -6,12 +6,14 @@
 .alert {
   z-index: 99999 !important;
   position: absolute;
-  top: 0;
+  top: 400px;
   right: 0;
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
+  font-size: 40px;
+  transform: scaleX(0.3);
 }
 
 .alert-info {

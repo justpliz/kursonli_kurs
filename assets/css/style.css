@@ -18,6 +18,10 @@ body {
    padding: 0;
 }
 
+/* .gray{
+   background-color: #363740;
+} */
+
 body {
    width: 100%;
    min-height: 100%;
@@ -28,6 +32,10 @@ body {
    padding: 0px 20px 0 275px;
 }
 
+/* .sideber-link svg{
+   fill: red;
+   margin-right: 20px;
+} */
 
 /* .sidebar{
    position: fixed;
