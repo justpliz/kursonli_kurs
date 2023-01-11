@@ -8,6 +8,10 @@
     </div>
 
     <div class="card-body">
+      <a href="/worker/orders" class="btn btn-primary">Ордера</a>
+    </div>
+
+    <div class="card-body">
       <a href="/worker/courses" class="btn btn-primary">Смена курса</a>
     </div>
 

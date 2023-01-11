@@ -4,7 +4,7 @@ defmodule KursonliKurs.Context.Tariffs do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.{Tariff, Worker}
+  alias KursonliKurs.Model.Tariff
 
   require Logger
 

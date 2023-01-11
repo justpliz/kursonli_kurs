@@ -2,7 +2,7 @@ defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{Workers, Courses}
+  alias KursonliKurs.Context.{Workers, Courses, Orders}
 
   @doc """
   GET /worker/login
@@ -106,14 +106,43 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
+  GET /worker/orders
+  """
+  def orders(conn, _params) do
+    order_list = Orders.order_list()
+
+    conn
+    |> render("worker_orders.html", order_list: order_list)
+  end
+
+  @doc """
+  GET /worker/create_order
+  """
+  def create_order(conn, _params) do
+    order_list = Orders.order_list()
+
+    conn
+    |> render("worker_create_order.html", order_list: order_list)
+  end
+
+  @doc """
+  POST /worker/create_order
+  """
+  def create_order_submit(conn, _params) do
+    conn
+    |> render("worker_orders.html")
+  end
+
+  @doc """
   POST /worker/update_course
   """
   def update_course(%{method: "POST"} = conn, params) do
     %{
       id: params["id"],
       value_for_sale: params["value_for_sale"],
-      value_for_purchase: params["value_for_purchase"],
+      value_for_purchase: params["value_for_purchase"]
     }
+
     conn
     # |> render("worker_courses.html", course_list: course_list)
   end
