@@ -18,6 +18,18 @@ defmodule KursonliKursWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :admin_app do
+    plug :put_layout, {KursonliKursWeb.LayoutView, "admin_app.html"}
+  end
+
+  pipeline :all_app do
+    plug :put_layout, {KursonliKursWeb.LayoutView, "all_app.html"}
+  end
+
+  pipeline :clean do
+    plug :put_layout, {KursonliKursWeb.LayoutView, "clean.html"}
+  end
+
   scope "/", KursonliKursWeb do
     pipe_through :browser
 
@@ -25,14 +37,15 @@ defmodule KursonliKursWeb.Router do
   end
 
   scope "/admin", KursonliKursWeb do
-    pipe_through :browser
+    # pipe_through :browser
+    pipe_through [:browser, :admin_app]
 
     get "/login", AdminController, :login_form
     post "/login", AdminController, :login_form_submit
   end
 
   scope "/admin", KursonliKursWeb do
-    pipe_through ([:browser, :admin_check])
+    pipe_through [:browser, :admin_check]
 
     get "/", AdminController, :index
     get "/logout", AdminController, :admin_logout
@@ -49,7 +62,7 @@ defmodule KursonliKursWeb.Router do
   end
 
   scope "/worker", KursonliKursWeb do
-    pipe_through ([:browser, :worker_check])
+    pipe_through [:browser, :worker_check]
 
     get "/", WorkerController, :index
     get "/update_pass", WorkerController, :update_pass
