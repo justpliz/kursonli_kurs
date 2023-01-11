@@ -36,7 +36,7 @@
   }
 </style>
 
-<div class="sidebar fixed top-0 left-0 h-full w-64 flex items-center flex-col bg-drab">
+<div class="sidebar fixed top-0 left-0 h-full w-64 flex items-center flex-col ">
   <a href="/admin"><img class="mt-10" src="images/logo-white.svg" alt=""></a>
   <ul class="w-full pt-6">
     <li class="pl-8 hover:bg-gray-400 transition-all">
