@@ -9,20 +9,17 @@
 .alert {
   z-index: 99999 !important;
   position: absolute;
-  top: 400px;
+  top: 0px;
   right: 0;
-  padding: 15px;
-  margin-bottom: 20px;
+  padding: 20px 30px;
   border: 1px solid transparent;
-  border-radius: 4px;
-  font-size: 40px;
-  transform: scaleX(0.3);
+  border-radius: 0px 0px 0px 40px;
 }
 
 .alert-info {
-  color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+  color: #fff;
+  background-color: #70a5cf;
+  border-color: #5998cc;
 }
 
 .alert-warning {
@@ -32,9 +29,9 @@
 }
 
 .alert-danger {
-  color: #a94442;
+  color: #ce3636;
   background-color: #f2dede;
-  border-color: #ebccd1;
+  border-color: #ce6c6c;
 }
 
 .alert p {

@@ -42,9 +42,10 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
-$(document).ready(function () {
-   $('button').click(function () {
-      $('.sidebar').toggleClass('fliph');
-   });
+
+$('.plu-code').on('input', function () {
+   if (this.value > 5) {
+      this.value = this.value.slice(0, 5);
+   }
 });
 

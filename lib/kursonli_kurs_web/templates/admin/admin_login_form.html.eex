@@ -52,6 +52,11 @@
     border-radius: 10px;
   }
 
+  .input-login:focus {
+    outline: none;
+    border: none;
+  }
+
   .btn-login {
     color: #7e7e7e;
     text-transform: uppercase;

@@ -13,6 +13,7 @@ module.exports = {
     extend: {
       colors: {
         drab: '#363740',
+        blub: '#3689ce'
       }
     }
   },

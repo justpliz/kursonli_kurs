@@ -14,10 +14,10 @@
 <body>
   <div class="app">
     <div class="sidebar fixed top-0 left-0 h-full w-64 flex items-center flex-col bg-drab">
-      <a href="/admin"><img class="mt-10" src="images/logo-white.svg" alt=""></a>
+      <a href="/admin"><img class="mt-10" src={ Routes.static_path(@conn, "/images/logo-white.svg") } alt=""></a>
       <ul class="w-full pt-6">
         <li class="pl-8 hover:bg-gray-400 transition-all">
-          <a href="/admin/logout" class="sideber-link flex items-center py-3 text-gray-300 hover:text-gray-100">
+          <a href="/admin/register_org" class="sideber-link flex items-center py-3 text-gray-300 hover:text-gray-100">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path
