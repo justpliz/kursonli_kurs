@@ -1,61 +1,86 @@
-<!-- <style>
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+<div class="w-full bg-red-400 h-24 flex items-center justify-between">
+  <a href="/"><img src="/images/logo-line.svg" alt=""></a>
+  <div class="filter__manager">
+    <input class="form-control" type="text" placeholder="Поиск" id="index-search-row" onkeyup="indexFilterSearch()">
+  </div>
+  <a href="" class="no-underline border-2 px-10 py-30">Войти</a>
+</div>
 
-  .form-group {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 20px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .form-group label {
-    margin-right: 40px;
-    display: flex;
-    justify-content: start;
-  }
-
-  .logo-login {
-    padding-bottom: 80px;
-  }
-
-  .input-login {
-    height: 40px;
-    padding: 0 10px;
-    background-color: #D9D9D9;
-    border: none;
-    outline: none;
-  }
-
-  .btn-login {
-    margin: 0 auto;
-    color: #fff;
-    background-color: #000045;
-    padding: 8px 25px;
-    border-radius: 10px;
-  }
-</style>
-
-<div class="login-container">
-  <a href="/"><img src={Routes.static_path(@conn, "/images/logo.svg" )} class="logo-login" alt=""></a>
-  <%= form_for @conn, Routes.admin_path(@conn, :login_form_submit), fn f -> %>
-    <div class="form-group">
-      <label>Логин</label>
-      <%= text_input f, :first_name, class: "input-login" , required: "true" %>
+<div class="flex flex-col">
+  <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="overflow-hidden">
+        <table class="min-w-full">
+          <thead class="bg-white border-b">
+            <tr>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Обменный пункт
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Время
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                USD
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                EUR
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                RUB
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Контакты
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-gray-100 border-b">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
+              <td aria-readonly="true" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                Mark
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                <!-- кароче инпуты с ридонли и потом тык на кнопку редактировать и БАХ редактируется!!!!! -->
+                <input id="pupa" type="text" readonly value="ТЕКСТИК">
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                @mdo
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                Otto
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                @mdo
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+</div>
 
-    <div class="form-group">
-      <label>Пароль</label>
-      <%= password_input f, :password, class: "input-login" , required: "true" %>
-    </div>
+<script>
+  $('#pupa').click(function () {
+    $(".lupa").removeAttr("readonly");
+  });
 
-    <div class="form-group">
-      <%= submit "Войти" , class: "btn-login" %>
-    </div>
-    <% end %>
-</div> -->
+  function indexFilterSearch() {
+    var phrase = document.getElementById('index-search-row');
+    var table = document.getElementById('index-table');
+    var regPhrase = new RegExp(phrase.value, 'i');
+    var flag = false;
+    for (var i = 1; i < table.rows.length; i++) {
+      flag = false;
+      for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+        flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
+        if (flag) break;
+      }
+      if (flag) {
+        table.rows[i].style.display = "";
+      } else {
+        table.rows[i].style.display = "none";
+      }
+    }
+  }
+</script>

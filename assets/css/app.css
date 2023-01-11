@@ -4,32 +4,44 @@
 
 /* Alerts and form errors used by phx.new */
 .alert {
+  z-index: 99999 !important;
+  position: absolute;
+  top: 400px;
+  right: 0;
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
+  font-size: 40px;
+  transform: scaleX(0.3);
 }
+
 .alert-info {
   color: #31708f;
   background-color: #d9edf7;
   border-color: #bce8f1;
 }
+
 .alert-warning {
   color: #8a6d3b;
   background-color: #fcf8e3;
   border-color: #faebcc;
 }
+
 .alert-danger {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1;
 }
+
 .alert p {
   margin-bottom: 0;
 }
+
 .alert:empty {
   display: none;
 }
+
 .invalid-feedback {
   color: #a94442;
   display: block;
@@ -96,6 +108,7 @@
 .fade-in {
   animation: 0.2s ease-out 0s normal forwards 1 fade-in-keys;
 }
+
 .fade-out {
   animation: 0.2s ease-out 0s normal forwards 1 fade-out-keys;
 }
@@ -105,6 +118,7 @@
     scale: 0.95;
     opacity: 0;
   }
+
   100% {
     scale: 1;
     opacity: 1;
@@ -116,6 +130,7 @@
     scale: 1;
     opacity: 1;
   }
+
   100% {
     scale: 0.95;
     opacity: 0;
@@ -126,6 +141,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -135,6 +151,7 @@
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
