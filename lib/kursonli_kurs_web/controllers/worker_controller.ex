@@ -18,8 +18,6 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def login_form_submit(conn, params) do
     opts = [
-      first_name: params["first_name"],
-      last_name: params["last_name"],
       phone: params["phone"],
       email: params["email"],
       password: hash_str(params["password"])
@@ -30,12 +28,10 @@ defmodule KursonliKursWeb.WorkerController do
         conn
         |> put_session(:worker, %{
           id: worker.id,
-          first_name: worker.first_name,
-          last_name: worker.last_name,
           phone: worker.phone,
           email: worker.email
         })
-        |> put_flash(:info, "Добро пожаловать #{worker.first_name}")
+        |> put_flash(:info, "Добро пожаловать #{params["first_name"]}")
         |> redirect(to: "/worker")
 
       {:error, :not_found} ->
