@@ -35,7 +35,7 @@
   }
 </style>
 
-<div class="filter__manager">
+<!-- <div class="filter__manager">
   <input class="form-control" type="text" placeholder="Поиск" id="organization-search-row"
     onkeyup="organizationFilterSearch()">
 </div>
@@ -156,7 +156,7 @@
       </table>
     </div>
   </div>
-</div>
+</div> -->
 
 <script>
   let tab = function () {
