@@ -1,7 +1,6 @@
 defmodule KursonliKursWeb.AdminController do
   use KursonliKursWeb, :controller
   action_fallback FallbackController
-  plug :put_layout, "admin_app.html"
 
   alias KursonliKurs.Context.Cities
   alias KursonliKurs.Context.{Workers, Admins, Filials, Organizations}
