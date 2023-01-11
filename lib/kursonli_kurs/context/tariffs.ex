@@ -33,7 +33,7 @@ defmodule KursonliKurs.Context.Tariffs do
   @spec update(tariff, params) :: {:ok, tariff} | {:error, Ecto.Changeset.t()}
   def update(tariff, params) do
     tariff
-    |> Worker.changeset(params)
+    |> Tariff.changeset(params)
     |> Repo.update()
   end
 end

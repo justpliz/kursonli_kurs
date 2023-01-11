@@ -1,8 +1,8 @@
 defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
-  action_fallback KursonliKursWeb.FallbackController
+  action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{Workers}
+  alias KursonliKurs.Context.{Workers, Courses}
 
   @doc """
   GET /worker/login
@@ -17,6 +17,9 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/login
   """
   def login_form_submit(conn, params) do
+    first_name = params["first_name"]
+    last_name = params["last_name"]
+
     opts = [
       phone: params["phone"],
       email: params["email"],
@@ -28,15 +31,18 @@ defmodule KursonliKursWeb.WorkerController do
         conn
         |> put_session(:worker, %{
           id: worker.id,
+          first_name: first_name,
+          last_name: last_name,
           phone: worker.phone,
           email: worker.email
         })
-        |> put_flash(:info, "Добро пожаловать #{params["first_name"]}")
+        |> IO.inspect()
+        |> put_flash(:info, "Добро пожаловать #{first_name}")
         |> redirect(to: "/worker")
 
       {:error, :not_found} ->
         conn
-        |> put_flash(:error, "Невеный логин или пароль")
+        |> put_flash(:error, "Неверный логин или пароль")
         |> redirect(to: "/worker/login")
     end
   end
@@ -87,5 +93,28 @@ defmodule KursonliKursWeb.WorkerController do
       |> put_flash(:info, "Пароль успешно изменен")
       |> redirect(to: "/worker")
     end
+  end
+
+  @doc """
+  GET /worker/courses
+  """
+  def courses(conn, _params) do
+    course_list = Courses.course_list_with_currencies()
+
+    conn
+    |> render("worker_courses.html", course_list: course_list)
+  end
+
+  @doc """
+  POST /worker/update_course
+  """
+  def update_course(%{method: "POST"} = conn, params) do
+    %{
+      id: params["id"],
+      value_for_sale: params["value_for_sale"],
+      value_for_purchase: params["value_for_purchase"],
+    }
+    conn
+    # |> render("worker_courses.html", course_list: course_list)
   end
 end

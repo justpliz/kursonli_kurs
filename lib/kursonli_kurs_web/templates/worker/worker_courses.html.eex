@@ -1,0 +1,23 @@
+<h1>Список куров</h1>
+<h2>!!!Сделать таблицу на курсы!!!</h2>
+
+<div>
+    <ul>
+      <%= for item <- @course_list do %>
+          <%= item.value_for_sale %> <br/>
+          <%= item.value_for_purchase %> <br/>
+          <%= item.currency_name %> <br/>
+          <%= item.currency_short_name %> <br/>
+          <div class="card-body">
+            <a href="/worker/update_course?id=<%= item.id %>" class="btn btn-primary">Изменить курс</a>
+          </div>
+          <div class="card-body">
+            <a href="/worker/delete_course" class="btn btn-primary">Удалить курс</a>
+          </div>
+      <% end %>
+    </ul>
+
+    <div class="card-body">
+      <a href="/worker/update_pass" class="btn btn-primary">Добавить курс</a>
+    </div>
+</div>

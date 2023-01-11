@@ -18,6 +18,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateOrdersTable do
       add :limit, :string
       add :type, :order_type
       add :status, :order_status
+      add :number, :string, size: 6
 
       add :filial_id, references(:filials, type: :uuid, on_delete: :nothing)
       add :worker_id, references(:workers, type: :uuid, on_delete: :nothing)
