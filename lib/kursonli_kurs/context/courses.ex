@@ -4,7 +4,8 @@ defmodule KursonliKurs.Context.Courses do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.Course
+  alias KursonliKurs.Context.Currencies
+  alias KursonliKurs.Model.{Currency, Course, Filial}
 
   require Logger
 
@@ -35,5 +36,22 @@ defmodule KursonliKurs.Context.Courses do
     course
     |> Course.changeset(params)
     |> Repo.update()
+  end
+
+  def course_list_with_currencies() do
+    from(
+      course in Course,
+      join: currency in Currency,
+      on: course.currency_id == currency.id,
+      select: %{
+        id: course.id,
+        value_for_sale: course.value_for_sale,
+        value_for_purchase: course.value_for_purchase,
+        currency_name: currency.name,
+        currency_short_name: currency.short_name,
+        currency_flag: currency.flag
+      }
+    )
+    |> Repo.all
   end
 end

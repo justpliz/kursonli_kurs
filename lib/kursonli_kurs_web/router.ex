@@ -55,6 +55,8 @@ defmodule KursonliKursWeb.Router do
     get "/update_pass", WorkerController, :update_pass
     post "/update_pass", WorkerController, :update_pass_submit
     get "/logout", WorkerController, :worker_logout
+    get "/courses", WorkerController, :courses
+    post "/update_course", WorkerController, :update_course
 
   end
 

@@ -9,7 +9,7 @@ defmodule KursonliKurs.Model.Order do
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(date volume type transfer status filial_id worker_id course_id)a
+  @required_fields ~w(date volume type transfer status number filial_id worker_id course_id)a
   @optional_fields ~w(terms limit)a
 
   schema "orders" do
@@ -17,6 +17,7 @@ defmodule KursonliKurs.Model.Order do
     field :volume, :string
     field :terms, :string
     field :limit, :string
+    field :number, :string
 
     field :type, OrderType, default: "purchase"
     field :transfer, OrderTransfer, default: "red"
