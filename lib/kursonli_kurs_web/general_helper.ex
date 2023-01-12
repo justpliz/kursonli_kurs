@@ -26,7 +26,7 @@ defmodule KursonliKursWeb.GeneralHelper do
   Generate random string in upper case
   For example: ""PJ8JVMBLVI""
   """
-  def genrate_random_pass(count) do
+  def genrate_random_str(count) do
     for _ <- 1..count,
         into: "",
         do: <<Enum.random('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')>>

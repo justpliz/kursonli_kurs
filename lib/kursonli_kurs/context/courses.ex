@@ -4,8 +4,7 @@ defmodule KursonliKurs.Context.Courses do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Context.Currencies
-  alias KursonliKurs.Model.{Currency, Course, Filial}
+  alias KursonliKurs.Model.{Currency, Course}
 
   require Logger
 
@@ -15,12 +14,14 @@ defmodule KursonliKurs.Context.Courses do
   def get(opts \\ []) do
     Course
     |> filter_by(opts)
+    |> get_currency
     |> Repo.one()
   end
 
   def all(opts \\ []) do
     Course
     |> filter_by(opts)
+    |> get_currency
     |> Repo.all()
   end
 
@@ -38,20 +39,12 @@ defmodule KursonliKurs.Context.Courses do
     |> Repo.update()
   end
 
-  def course_list_with_currencies() do
-    from(
-      course in Course,
-      join: currency in Currency,
-      on: course.currency_id == currency.id,
-      select: %{
-        id: course.id,
-        value_for_sale: course.value_for_sale,
-        value_for_purchase: course.value_for_purchase,
-        currency_name: currency.name,
-        currency_short_name: currency.short_name,
-        currency_flag: currency.flag
-      }
-    )
-    |> Repo.all
+  @doc """
+  get currency info from course.currency_id
+  f15a0dae-37bf-4bb0-9099-f67bc76d20de -> %{name: "Американский доллар", short_name: "USD"
+  """
+  def get_currency(query) do
+    c = from(c in Currency, select: %{name: c.name, short_name: c.short_name})
+    from(query, preload: [currency: ^c])
   end
 end

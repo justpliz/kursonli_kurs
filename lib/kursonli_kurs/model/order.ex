@@ -31,9 +31,11 @@ defmodule KursonliKurs.Model.Order do
   end
 
   @doc false
-  def changeset(admin, attrs) do
-    admin
+  def changeset(order, attrs) do
+    order
     |> cast(attrs, @optional_fields ++ @required_fields)
+    |> foreign_key_constraint(:worker_id)
+    # |> foreign_key_constraint(:orders_filial_id_fkey)
     |> validate_required(@required_fields)
   end
 end

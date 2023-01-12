@@ -3,18 +3,14 @@
   <div class="login_page">
     <%= form_for @conn, Routes.worker_path(@conn, :create_order_submit), fn f -> %>
       <div class="form-group">
-        <label>Тип</label>
-        <%= text_input f, :type, class: "form-control" , required: "true" %>
-      </div>
-
-      <div class="form-group">
-        <label>Валюта</label>
-        <%= text_input f, :currency, class: "form-control" , required: "true" %>
+        <%= for item <- Application.get_env(:kursonli_kurs, :order_type) do %>
+        <%= radio_button(f, :type, Atom.to_string(item), class: "form-control", required: "true") %> <%= Atom.to_string(item) %>
+        <% end %>
       </div>
 
       <div class="form-group">
         <label>Объем</label>
-        <%= text_input f, :value, class: "form-control" , required: "true" %>
+        <%= text_input f, :volume, class: "form-control", required: "true" %>
       </div>
 
       <div class="form-group">
@@ -24,12 +20,21 @@
 
       <div class="form-group">
         <label>Лимит</label>
-        <%= text_input f, :limit, class: "form-control" , required: "true" %>
+        <%= text_input f, :limit, class: "form-control", required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <label>Валюта</label>
+        <%= for item <- @currencies_list do %>
+        <%= select f, :currency, [item.short_name], class: "form-control", required: "true" %>
+        <% end %>
       </div>
 
       <div class="form-group">
         <label>Передача</label>
-        <%= text_input f, :transfer, class: "form-control" , required: "true" %>
+        <%= for item <- Application.get_env(:kursonli_kurs, :order_transfer) do %>
+        <%= checkbox(f, :transfer, id: Atom.to_string(item)) %> <%= Atom.to_string(item) %>
+        <% end %>
       </div>
 
       <div class="form-group">

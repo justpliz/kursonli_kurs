@@ -61,7 +61,7 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   def register_org_submit(conn, params) do
-    password = genrate_random_pass(8)
+    password = genrate_random_str(8)
 
     org_opts = %{
       name: params["name"],
