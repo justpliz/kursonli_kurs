@@ -22,6 +22,7 @@
 
 import { Socket } from "phoenix"
 import "./user_socket"
+import "./phone_input"
 // And connect to the path in "lib/kursonli_kurs_web/endpoint.ex". We pass the
 // token for authentication. Read below how it should be used.
 
@@ -69,7 +70,18 @@ input.forEach((el) => {
    })
 })
 
-var phoneMask = IMask(
-   document.getElementById('phone-mask'), {
-   mask: '+{7}(000)000-00-00'
-});
+const inputOnePass = document.querySelector("#new_pass")
+const inputTwoPass = document.querySelector("#re_new_pass")
+const errosHtml = document.querySelector("#error")
+const regSubmit = document.querySelector("#reg_submit")
+const handleChange = (e) => {
+   if (inputOnePass.value == inputTwoPass.value) {
+      errosHtml.innerHTML = "<span class='text-green-600'>Пароли совпадают</span>"
+      regSubmit.removeAttribute("disabled")
+   } else {
+      errosHtml.innerHTML = "<span class='text-red-600'>Пароль не верный</span>"
+      regSubmit.setAttribute("disabled", "true")
+   }
+}
+inputOnePass.addEventListener('input', handleChange)
+inputTwoPass.addEventListener('input', handleChange)
