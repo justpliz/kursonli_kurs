@@ -1,6 +1,6 @@
-<h1>Создание ордера</h1>
-
-<div class="login_page">
+<div class="margin_content">
+  <h1 class="title">Создание ордера</h1>
+  <div class="login_page">
     <%= form_for @conn, Routes.worker_path(@conn, :create_order_submit), fn f -> %>
       <div class="form-group">
         <%= for item <- Application.get_env(:kursonli_kurs, :order_type) do %>
@@ -15,7 +15,7 @@
 
       <div class="form-group">
         <label>Курс</label>
-        <%= text_input f, :course, class: "form-control", required: "true" %>
+        <%= text_input f, :course, class: "form-control" , required: "true" %>
       </div>
 
       <div class="form-group">
@@ -39,16 +39,17 @@
 
       <div class="form-group">
         <label>Адрес</label>
-        <%= text_input f, :address, class: "form-control", required: "true" %>
+        <%= text_input f, :address, class: "form-control" , required: "true" %>
       </div>
 
       <div class="form-group">
         <label>Условия</label>
-        <%= text_input f, :terms, class: "form-control", required: "true" %>
+        <%= text_input f, :terms, class: "form-control" , required: "true" %>
       </div>
 
       <div class="form-group">
-        <%= submit "Сохранить", class: "btn btn-primary" %>
+        <%= submit "Сохранить" , class: "btn btn-primary" %>
       </div>
-    <% end %>
+      <% end %>
+  </div>
 </div>

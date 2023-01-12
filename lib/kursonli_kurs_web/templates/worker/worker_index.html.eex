@@ -1,25 +1,46 @@
 <h1>Панель сотрудника</h1>
 <div class="login_page">
 
-    <div class="card-body">
-      <ol>
+  <div class="card-body">
+    <ol>
 
-      </ol>
-    </div>
+    </ol>
+  </div>
 
-    <div class="card-body">
-      <a href="/worker/orders" class="btn btn-primary">Ордера</a>
-    </div>
+  <div class="card-body">
+    <a href="/worker/orders" class="btn btn-primary">Ордера</a>
+  </div>
 
-    <div class="card-body">
-      <a href="/worker/courses" class="btn btn-primary">Смена курса</a>
-    </div>
+  <div class="card-body">
+    <a href="/worker/courses" class="btn btn-primary">Смена курса</a>
+  </div>
 
-    <div class="card-body">
-      <a href="/worker/update_pass" class="btn btn-primary">Смена пароля</a>
-    </div>
+  <div class="card-body">
+    <a href="/worker/update_pass" class="btn btn-primary">Смена пароля</a>
+  </div>
 
-    <div class="card-body">
-      <a href="/worker/logout" class="btn btn-primary">Выход</a>
-    </div>
+  <div class="card-body">
+    <a href="/worker/logout" class="btn btn-primary">Выход</a>
+  </div>
 </div>
+<div
+  class="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden absolute right-0 top-0 h-full ">
+  <div class="flex-col flex-grow h-0 p-4 overflow-auto flex" id="chatWrapper">
+
+
+  </div>
+
+  <div class="bg-gray-300 p-4 items-end flex-0-0 ">
+    <input id="chat" class="flex items-center h-10 w-full rounded px-3 text-sm" type="text"
+      placeholder="Type your message…">
+  </div>
+</div>
+
+<div class="worker hidden" id="worker">
+  <% {:ok, worker}=Jason.encode(Plug.Conn.get_session(@conn,:worker)) %>
+    <%= worker %>
+</div>
+<script>
+  const worker = document.querySelector("#worker")
+  localStorage.setItem("worker", worker.innerHTML)
+</script>

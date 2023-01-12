@@ -3,7 +3,7 @@
 
 // If you want to use Phoenix channels, run `mix help phx.gen.channel`
 // to get started and then uncomment the line below.
-// import "./user_socket.js"
+
 
 // You can include dependencies in two ways.
 //
@@ -19,9 +19,15 @@
 //
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
+
+import { Socket } from "phoenix"
+import "./user_socket"
+// And connect to the path in "lib/kursonli_kurs_web/endpoint.ex". We pass the
+// token for authentication. Read below how it should be used.
+
 import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.
-import { Socket } from "phoenix"
+//import { Socket } from "phoenix"
 import { LiveSocket } from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
@@ -42,10 +48,22 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+const activeLink = [...document.querySelectorAll("a")]
+const path = window.location
+activeLink.forEach((e) => {
 
+   if (e.href == path.href) {
+      e.classList.add("active")
+   }
+})
 $('.plu-code').on('input', function () {
    if (this.value > 5) {
       this.value = this.value.slice(0, 5);
    }
 });
+
+document.oninput = function () {
+   var input = document.querySelector('#number_input_only');
+   input.value = input.value.replace(/\D/g, '');
+}
 

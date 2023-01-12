@@ -31,7 +31,7 @@ defmodule KursonliKursWeb.Router do
   end
 
   scope "/", KursonliKursWeb do
-    pipe_through :browser
+    pipe_through [:browser, :clean]
 
     get "/", PageController, :index
   end
@@ -55,14 +55,14 @@ defmodule KursonliKursWeb.Router do
   end
 
   scope "/worker", KursonliKursWeb do
-    pipe_through :browser
+    pipe_through [:browser, :clean]
 
     get "/login", WorkerController, :login_form
     post "/login", WorkerController, :login_form_submit
   end
 
   scope "/worker", KursonliKursWeb do
-    pipe_through [:browser, :worker_check]
+    pipe_through [:browser, :worker_check, :all_app]
 
     get "/", WorkerController, :index
     get "/update_pass", WorkerController, :update_pass
