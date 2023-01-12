@@ -49,7 +49,7 @@
 
       <div class="mb-2">
         <label class="label_input">Телефон</label>
-        <%= text_input f, :phone, class: "input_full number_input_only", maxlength: 12, minlength: 12, required: "true", placeholder: "+7 707 777 77 77" %>
+        <%= text_input f, :phone, class: "input_full", id: "phone-mask", maxlength: 16, minlength: 16, required: "true", placeholder: "" %>
       </div>
 
       <div class="mb-2">

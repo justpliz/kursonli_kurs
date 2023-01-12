@@ -1,6 +1,5 @@
 <div class="margin_content">
   <h1 class="title">Список курсов</h1>
-  <!-- <h2>!!!Сделать таблицу на курсы!!!</h2> -->
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
@@ -24,10 +23,10 @@
         <%= for item <- @course_list do %>
           <tr class="bg-white">
             <td class="px-6 py-4 border-b-2">
-              <%= item.currency_name %>
+              <%= item.currency.name %>
             </td>
             <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
-              <%= item.currency_short_name %>
+              <%= item.currency.short_name %>
             </td>
             <td class="px-6 py-4 border-2">
               <%= item.value_for_purchase %>

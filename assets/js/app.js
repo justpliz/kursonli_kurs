@@ -48,10 +48,9 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
-const activeLink = [...document.querySelectorAll("a")]
+const activeLink = [...document.querySelectorAll(".active-link")]
 const path = window.location
 activeLink.forEach((e) => {
-
    if (e.href == path.href) {
       e.classList.add("active")
    }
@@ -69,3 +68,8 @@ input.forEach((el) => {
       e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
    })
 })
+
+var phoneMask = IMask(
+   document.getElementById('phone-mask'), {
+   mask: '+{7}(000)000-00-00'
+});

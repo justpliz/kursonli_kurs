@@ -52,6 +52,7 @@ defmodule KursonliKurs.Context.Orders do
       select: %{
         id: order.id,
         organization: org.name,
+        filial_name: filial.name,
         filial_id: order.filial_id,
         date: order.date,
         course_sale: course.value_for_sale,

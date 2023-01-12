@@ -105,13 +105,13 @@ body {
 
 .flex-0-0 {
    flex: 0 0 auto;
-
-
 }
 
 .flex {
    flex: 1 1 auto;
 }
-a.active {
-   color: red;
+
+.active-link.active {
+   color: #3689ce;
+   font-weight: 700;
 }

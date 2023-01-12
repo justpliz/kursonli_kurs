@@ -1,22 +1,86 @@
 <div class="margin_content">
-<h1 class="title">Список Ордеров</h1>
-<div>
-    <ul>
-    <%= for item <- @order_list do %>
-        <%= item.filial_id %> <br/>
-        <%= item.date %> <br/>
-        <%= item.course_sale %> <br/>
-        <%= item.volume %> <br/>
-        <%= item.terms %> <br/>
-        <%= item.transfer %> <br/>
-        <div class="card-body">
-          <a href="/worker/delete_order" class="btn btn-primary">Удалить ордер</a>
-        </div>
-        <div class="card-body">
-          <a href="/worker/create_order" class="btn btn-primary">Добавить ордер</a>
-        </div>
-    <% end %>
-    </ul>
-    <a href="/worker/create_order" class="btn_save">Добавить курс</a>
+  <h1 class="title">Ордера на продажу</h1>
+  <div class="relative w-4/6 overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500">
+      <thead class="text-xs text-gray-700 uppercase bg-white">
+        <tr>
+          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-gray-200">
+            Организация
+          </th>
+          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+            Время
+          </th>
+          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-gray-200">
+            Валюта
+          </th>
+          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+            Курс
+          </th>
+          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+            Объём
+          </th>
+          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+            Условия
+          </th>
+          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+            Передача
+          </th>
+          <th scope="col" class="px-6 py-6 border-b-2 border-gray-200"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for item <- @order_list do %>
+          <tr class="bg-white">
+            <td class="px-6 py-4">
+              <%= item.filial_name %>
+            </td>
+            <td class="px-6 py-4 border-x-2 border-gray-200">
+              <%= item.date %>
+            </td>
+            <td class="px-6 py-4 border-x-2 border-gray-200">
+              USD
+            </td>
+            <td class="px-6 py-4 border-x-2 border-gray-200">
+              <%= item.course_sale %>
+            </td>
+            <td class="px-6 py-4 border-x-2 border-gray-200">
+              <%= item.volume %>
+            </td>
+            <td class="px-6 py-4 border-x-2 border-gray-200">
+              <%= item.terms %>
+            </td>
+            <td class="px-6 py-4 border-x-2 border-gray-200">
+              <%= item.transfer %>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <a href="/worker/create_order">
+                <span class="material-symbols-outlined" style="color: blue; font-weight: 900;">add_circle</span>
+              </a>
+              <a href="/worker/delete_order">
+                <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+              </a>
+            </td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    class="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden absolute right-0 top-0 h-full ">
+    <div class="flex-col flex-grow h-0 p-4 overflow-auto flex" id="chatWrapper"></div>
+    <div class="bg-gray-300 p-4 items-end flex-0-0 ">
+      <input id="chat" class="flex items-center h-10 w-full rounded px-3 text-sm" type="text"
+        placeholder="Введите сообщение...">
+    </div>
+  </div>
+  <div class="worker hidden" id="worker">
+    <% {:ok, worker}=Jason.encode(Plug.Conn.get_session(@conn,:worker)) %>
+      <%= worker %>
+  </div>
 </div>
-</div>
+
+<script>
+  const worker = document.querySelector("#worker")
+  localStorage.setItem("worker", worker.innerHTML)
+</script>
