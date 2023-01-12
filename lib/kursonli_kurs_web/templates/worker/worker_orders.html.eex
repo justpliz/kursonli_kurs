@@ -1,6 +1,5 @@
-<h1>Список Ордеров</h1>
-<h2>!!!Сделать таблицу на курсы!!!</h2>
-
+<div class="margin_content">
+<h1 class="title">Список Ордеров</h1>
 <div>
     <ul>
       <%= for item <- @order_list do %>
@@ -18,8 +17,6 @@
           </div>
       <% end %>
     </ul>
-
-    <div class="card-body">
-      <a href="/worker/create_order" class="btn btn-primary">Добавить курс</a>
-    </div>
+    <a href="/worker/create_order" class="btn_save">Добавить курс</a>
+</div>
 </div>

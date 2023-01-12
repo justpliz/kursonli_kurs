@@ -1,12 +1,5 @@
 <h1>Панель сотрудника</h1>
 <div class="login_page">
-
-    <div class="card-body">
-      <ol>
-
-      </ol>
-    </div>
-
     <div class="card-body">
       <a href="/worker/orders" class="btn btn-primary">Ордера</a>
     </div>

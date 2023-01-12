@@ -1,23 +1,51 @@
-<h1>Список куров</h1>
-<h2>!!!Сделать таблицу на курсы!!!</h2>
-
-<div>
-    <ul>
-      <%= for item <- @course_list do %>
-          <%= item.value_for_sale %> <br/>
-          <%= item.value_for_purchase %> <br/>
-          <%= item.currency_name %> <br/>
-          <%= item.currency_short_name %> <br/>
-          <div class="card-body">
-            <a href="/worker/update_course?id=<%= item.id %>" class="btn btn-primary">Изменить курс</a>
-          </div>
-          <div class="card-body">
-            <a href="/worker/delete_course" class="btn btn-primary">Удалить курс</a>
-          </div>
-      <% end %>
-    </ul>
-
-    <div class="card-body">
-      <a href="/worker/update_pass" class="btn btn-primary">Добавить курс</a>
-    </div>
+<div class="margin_content">
+  <h1 class="title">Список курсов</h1>
+  <!-- <h2>!!!Сделать таблицу на курсы!!!</h2> -->
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500">
+      <thead class="text-xs text-gray-700 uppercase bg-white">
+        <tr>
+          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
+            Валюта
+          </th>
+          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+            Короткое название
+          </th>
+          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
+            Цена покупки
+          </th>
+          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+            Цена продажи
+          </th>
+          <th scope="col" class="px-6 py-6 border-b-2 border-gray-200"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for item <- @course_list do %>
+          <tr class="bg-white">
+            <td class="px-6 py-4 border-b-2">
+              <%= item.currency_name %>
+            </td>
+            <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
+              <%= item.currency_short_name %>
+            </td>
+            <td class="px-6 py-4 border-2">
+              <%= item.value_for_purchase %>
+            </td>
+            <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
+              <%= item.value_for_sale %>
+            </td>
+            <td class="px-6 py-4 border-b-2 text-center">
+              <a href="#" class="">
+                <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+              </a>
+            </td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn_save_width mt-4">
+    <a href="/worker/">Добавить курс</a>
+  </button>
 </div>

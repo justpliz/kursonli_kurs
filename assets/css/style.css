@@ -25,11 +25,19 @@ body {
 body {
    width: 100%;
    min-height: 100%;
-   background-color: #fff !important;
+   background-color: #fff;
 }
 
 .content {
-   padding: 0px 20px 0 275px;
+   padding: 0px 20px 0 300px;
+}
+
+.content-worker {
+   padding: 0px 20px 0 300px;
+}
+
+.clean {
+   padding: 0;
 }
 
 /* .sideber-link svg{
@@ -47,9 +55,10 @@ body {
 /* ---------------------------------------- */
 /* ---------------------------------------- */
 
-.tabs{
+.tabs {
    position: relative;
 }
+
 .tabs-nav {}
 
 .tabs-nav__item {
@@ -92,4 +101,8 @@ body {
 
 .hidden {
    display: none;
+}
+
+a.active {
+   color: red;
 }

@@ -42,7 +42,7 @@ defmodule KursonliKursWeb.WorkerController do
 
       {:error, :not_found} ->
         conn
-        |> put_flash(:error, "Неверный логин или пароль")
+        |> put_flash(:error, "Ввведены некорректные данные")
         |> redirect(to: "/worker/login")
     end
   end

@@ -1,23 +1,46 @@
-<h1>Смена пароля сотрудника</h1>
-<div class="login_page">
+<div class="margin_content">
+  <h1 class="title">Смена пароля сотрудника</h1>
+  <div class="login_page">
     <%= form_for @conn, Routes.worker_path(@conn, :update_pass_submit), fn f -> %>
-      <div class="form-group">
-        <label>Старый пароль</label>
-        <%= text_input f, :old_pass, class: "form-control", required: "true" %>
+      <div class="mt-2">
+        <label class="label_input">Старый пароль</label>
+        <%= text_input f, :old_pass, class: "input_short" , required: "true" %>
       </div>
 
-      <div class="form-group">
-        <label>Новый пароль</label>
-        <%= text_input f, :new_pass, class: "form-control", required: "true" %>
+      <div class="mt-2">
+        <label class="label_input">Новый пароль</label>
+        <%= text_input f, :new_pass, class: "input_short" , required: "true" %>
       </div>
 
-      <div class="form-group">
-        <label>Повторите новый пароль</label>
-        <%= text_input f, :re_new_pass, class: "form-control", required: "true" %>
+      <div class="mt-2">
+        <label class="label_input">Повторите новый пароль</label>
+        <%= text_input f, :re_new_pass, class: "input_short" , required: "true" %>
       </div>
 
-      <div class="form-group">
-        <%= submit "Сохранить", class: "btn btn-primary" %>
+      <div id="error">
       </div>
-    <% end %>
+
+      <div class="mt-2">
+        <%= submit "Сохранить" , class: "btn_save mt-2" , id: "reg_submit" %>
+      </div>
+      <% end %>
+  </div>
 </div>
+
+<script>
+  const inputOnePass = document.querySelector("#new_pass")
+  const inputTwoPass = document.querySelector("#re_new_pass")
+  const errosHtml = document.querySelector("#error")
+  const regSubmit = document.querySelector("#reg_submit")
+  const handleChange = (e) => {
+    if (inputOnePass.value == inputTwoPass.value) {
+      errosHtml.innerHTML = "<span class='text-green-600'>Пароли совпадают</span>"
+      regSubmit.removeAttribute("disabled")
+    } else {
+      errosHtml.innerHTML = "<span class='text-red-600'>Пароль не верный</span>"
+      regSubmit.setAttribute("disabled", "true")
+    }
+  }
+  inputOnePass.addEventListener('input', handleChange)
+  inputTwoPass.addEventListener('input', handleChange)
+</script>
