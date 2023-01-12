@@ -21,7 +21,7 @@
 
           <div>
             <label class="block mb-2 text-sm font-medium text-gray-900">Телефон</label>
-            <%= text_input f, :phone, class: "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5", maxlength: 12, required: "true" %>
+            <%= text_input f, :phone, id: "phone-mask", class: "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5", maxlength: 16, minlength: 16, required: "true" %>
           </div>
 
           <div>

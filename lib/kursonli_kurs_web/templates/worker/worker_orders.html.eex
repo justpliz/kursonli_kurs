@@ -1,6 +1,6 @@
 <div class="margin_content">
   <h1 class="title">Ордера на продажу</h1>
-  <div class="relative w-4/6 overflow-x-auto shadow-md sm:rounded-lg">
+  <div class="relative w-9/12 overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
         <tr>
@@ -67,7 +67,7 @@
   </div>
 
   <div
-    class="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden absolute right-0 top-0 h-full ">
+    class="flex flex-col flex-grow w-1/5 bg-white shadow-xl rounded-lg overflow-hidden absolute right-0 top-0 h-full ">
     <div class="flex-col flex-grow h-0 p-4 overflow-auto flex" id="chatWrapper"></div>
     <div class="bg-gray-300 p-4 items-end flex-0-0 ">
       <input id="chat" class="flex items-center h-10 w-full rounded px-3 text-sm" type="text"
