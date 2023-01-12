@@ -9,12 +9,13 @@
   <title>Admin Kurs-Online</title>
   <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css" )} />
   <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js" )}></script>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <div class="app">
     <div class="sidebar fixed top-0 left-0 h-full w-64 flex items-center flex-col bg-drab">
-
       <a href="/admin"><img class="mt-10" src={ Routes.static_path(@conn, "/images/logo-white.svg" ) } alt=""></a>
       <ul class="w-full pt-6">
         <li class="pl-8 hover:bg-gray-400 transition-all">

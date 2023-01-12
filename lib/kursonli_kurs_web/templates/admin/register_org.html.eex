@@ -58,10 +58,3 @@
       <% end %>
   </div>
 </div>
-
-<script>
-  document.oninput = function () {
-      var input = document.querySelector('.number_input_only');
-      input.value = input.value.replace(/\D/g, '');
-    }
-</script>

@@ -56,14 +56,16 @@ activeLink.forEach((e) => {
       e.classList.add("active")
    }
 })
+
 $('.plu-code').on('input', function () {
    if (this.value > 5) {
       this.value = this.value.slice(0, 5);
    }
 });
 
-document.oninput = function () {
-   var input = document.querySelector('#number_input_only');
-   input.value = input.value.replace(/\D/g, '');
-}
-
+var input = [...document.querySelectorAll('.number_input_only')];
+input.forEach((el) => {
+   el.addEventListener("input", (e) => {
+      e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
+   })
+})

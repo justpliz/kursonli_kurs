@@ -10,14 +10,18 @@
   <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css" )} />
   <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js" )}></script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 
 <body class="bg-gray-50">
   <div class="app">
     <div class="sidebar fixed top-0 left-0 h-full w-64 flex items-center flex-col border-r-2 border-gray-200">
-      <a href="/worker"><img class="mt-10 m-auto scale-110 w-full" src={ Routes.static_path(@conn, "/images/logo-line.svg" ) } alt=""></a>
+      <a href="/worker"><img class="mt-10 m-auto scale-110 w-full" src={
+          Routes.static_path(@conn, "/images/logo-line.svg" ) } alt=""></a>
       <ul class="w-full pt-6 relative h-full">
-        <li class="pl-8 py-4 cursor-pointer transition-all hover:bg-blub hover:rounded-xl text-gray-800 hover:text-white">
+        <li
+          class="pl-8 py-4 cursor-pointer transition-all hover:bg-blub hover:rounded-xl text-gray-800 hover:text-white">
           <a href="/worker/orders" class="sideber-link flex items-center py-3">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +31,8 @@
             <span class="text-lg">Создание ордеров</span>
           </a>
         </li>
-        <li class="pl-8 py-4 cursor-pointer transition-all hover:bg-blub hover:rounded-xl text-gray-800 hover:text-white">
+        <li
+          class="pl-8 py-4 cursor-pointer transition-all hover:bg-blub hover:rounded-xl text-gray-800 hover:text-white">
           <a href="/worker/courses" class="sideber-link flex items-center py-3">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +42,8 @@
             <span class="text-lg">Смена курса</span>
           </a>
         </li>
-        <li class="pl-8 py-4 cursor-pointer transition-all hover:bg-blub hover:rounded-xl text-gray-800 hover:text-white">
+        <li
+          class="pl-8 py-4 cursor-pointer transition-all hover:bg-blub hover:rounded-xl text-gray-800 hover:text-white">
           <a href="/worker/update_pass" class="sideber-link flex items-center py-3">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
@@ -47,9 +53,11 @@
             <span class="text-lg">Смена пароля</span>
           </a>
         </li>
-        <li class="absolute w-full bottom-0 left-0 pl-8 py-4 cursor-pointer transition-all hover:bg-blub hover:rounded-xl text-gray-800 hover:text-white">
+        <li
+          class="absolute w-full bottom-0 left-0 pl-8 py-4 cursor-pointer transition-all hover:bg-blub hover:rounded-xl text-gray-800 hover:text-white">
           <a href="/worker/logout" class="sideber-link flex items-center py-3">
-            <svg class="fill-gray-500 mr-4" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="fill-gray-500 mr-4" width="20" height="17" viewBox="0 0 20 17" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M14.2245 7.78897H4.47802L7.50985 4.75714L6.20776 3.45505L0.953125 8.70968L6.20776 13.9643L7.50985 12.6622L4.47802 9.6304H14.2245V7.78897ZM17.9075 0.423185H9.62104V2.26462L17.9075 2.26462V15.1547L9.62104 15.1547V16.9961H17.9075C18.9245 16.9961 19.7489 16.1717 19.7489 15.1547V2.26462C19.7489 1.24762 18.9245 0.423185 17.9075 0.423185Z" />
             </svg>
@@ -65,4 +73,5 @@
     </div>
   </div>
 </body>
+
 </html>
