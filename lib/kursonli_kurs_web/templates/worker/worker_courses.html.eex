@@ -6,8 +6,8 @@
       <%= for item <- @course_list do %>
           <%= item.value_for_sale %> <br/>
           <%= item.value_for_purchase %> <br/>
-          <%= item.currency_name %> <br/>
-          <%= item.currency_short_name %> <br/>
+          <%= item.currency.name %> <br/>
+          <%= item.currency.short_name %> <br/>
           <div class="card-body">
             <a href="/worker/update_course?id=<%= item.id %>" class="btn btn-primary">Изменить курс</a>
           </div>

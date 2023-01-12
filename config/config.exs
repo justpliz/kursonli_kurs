@@ -8,7 +8,9 @@
 import Config
 
 config :kursonli_kurs,
-  ecto_repos: [KursonliKurs.Repo]
+  ecto_repos: [KursonliKurs.Repo],
+  order_transfer: [:green, :red, :red_green],
+  order_type: [:purchase, :sale]
 
 # Configures the endpoint
 config :kursonli_kurs, KursonliKursWeb.Endpoint,

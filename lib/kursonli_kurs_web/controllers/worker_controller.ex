@@ -2,7 +2,7 @@ defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{Workers, Courses, Orders}
+  alias KursonliKurs.Context.{Workers, Courses, Currencies, Orders}
 
   @doc """
   GET /worker/login
@@ -36,7 +36,6 @@ defmodule KursonliKursWeb.WorkerController do
           phone: worker.phone,
           email: worker.email
         })
-        |> IO.inspect()
         |> put_flash(:info, "Добро пожаловать #{first_name}")
         |> redirect(to: "/worker")
 
@@ -99,7 +98,7 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/courses
   """
   def courses(conn, _params) do
-    course_list = Courses.course_list_with_currencies()
+    course_list = Courses.all()
 
     conn
     |> render("worker_courses.html", course_list: course_list)
@@ -119,18 +118,32 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/create_order
   """
   def create_order(conn, _params) do
-    order_list = Orders.order_list()
+    currencies_list = Currencies.all
 
     conn
-    |> render("worker_create_order.html", order_list: order_list)
+    |> render("worker_create_order.html", currencies_list: currencies_list)
   end
 
   @doc """
   POST /worker/create_order
   """
-  def create_order_submit(conn, _params) do
-    conn
-    |> render("worker_orders.html")
+  def create_order_submit(conn, params) do
+    IO.inspect(params)
+    opts = %{
+      date: Timex.now(),
+      number: genrate_random_str(6),
+      type: :red,
+      volume: params["volume"],
+      filial_id: "d3aa57ab-2da0-444e-a387-0fa58f3265cc",
+      worker_id: get_session(conn, :worker).id,
+      course_id: "d3aa57ab-2da0-444e-a387-0fa58f3265cc"
+    }
+    with {:ok, order} <- Orders.create(opts) do
+      conn
+      |> put_flash(:info,  "Ордер #{order.number} зарегестрирован")
+      |> render("worker_index.html")
+    end
+
   end
 
   @doc """
