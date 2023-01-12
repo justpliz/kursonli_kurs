@@ -103,6 +103,15 @@ body {
    display: none;
 }
 
+.flex-0-0 {
+   flex: 0 0 auto;
+
+
+}
+
+.flex {
+   flex: 1 1 auto;
+}
 a.active {
    color: red;
 }
