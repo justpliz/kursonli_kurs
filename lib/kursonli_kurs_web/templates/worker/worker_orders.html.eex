@@ -4,28 +4,28 @@
     <table class="table_sort table-fixed w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
         <tr>
-          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-gray-200">
+          <th scope="col" class="w-2/12 px-6 py-6 border-b-2 border-gray-200">
             Организация
           </th>
-          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="w-2/12 px-6 py-6 border-b-2 border-x-2 border-gray-200">
             Время
           </th>
-          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-gray-200">
+          <th scope="col" class="w-2/12 px-6 py-6 border-b-2 border-gray-200">
             Валюта
           </th>
-          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="w-2/12 px-6 py-6 border-b-2 border-x-2 border-gray-200">
             Курс
           </th>
-          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="w-2/12 px-6 py-6 border-b-2 border-x-2 border-gray-200">
             Объём
           </th>
-          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="w-2/12 px-6 py-6 border-b-2 border-x-2 border-gray-200">
             Условия
           </th>
-          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="w-2/12 px-6 py-6 border-b-2 border-x-2 border-gray-200">
             Передача
           </th>
-          <th scope="col" class="px-6 py-6 border-b-2 border-gray-200"></th>
+          <th scope="col" class="w-1/12 px-6 py-6 border-b-2 border-gray-200"></th>
         </tr>
       </thead>
       <tbody>
@@ -34,28 +34,28 @@
             <td class="px-6 py-4">
               <%= item.filial_name %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               <%= item.date %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               USD
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               <%= item.course_sale %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               <%= item.volume %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               <%= item.terms %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               <%= item.transfer %>
             </td>
             <td class="px-6 py-4 text-center">
-              <div href="/worker/create_order" class="order-click" data-map="<%= Jason.encode!(item) %>">
+              <!-- <div href="/worker/edit_order" class="order-click" data-map="<%= Jason.encode!(item) %>">
                 <span class="material-symbols-outlined" style="color: blue; font-weight: 900;">add_circle</span>
-              </div>
+              </div> -->
               <a href="/worker/delete_order?id=<%= item.id %>">
                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
               </a>
@@ -65,6 +65,8 @@
       </tbody>
     </table>
   </div>
+
+  <button id="modal-button" class="modal-button mt-4 btn_save">Разместить</button>
 
   <div
     class="flex flex-col flex-grow w-1/5 bg-white shadow-xl rounded-lg overflow-hidden absolute right-0 top-0 h-full ">
@@ -80,27 +82,7 @@
   </div>
 </div>
 
-<style>
-  th.sorted[data-order="1"],
-  th.sorted[data-order="-1"] {
-    position: relative;
-  }
-
-  th.sorted[data-order="1"]::after,
-  th.sorted[data-order="-1"]::after {
-    right: 8px;
-    position: absolute;
-  }
-
-  th.sorted[data-order="-1"]::after {
-    content: "▼"
-  }
-
-  th.sorted[data-order="1"]::after {
-    content: "▲"
-  }
-</style>
-
+<%= render(KursonliKursWeb.WorkerView, "modal_worker_create_order.html" , conn: @conn) %>
 
 
 <script>
@@ -138,7 +120,7 @@
       icon: 'warning',
       html: `
       <form action="/worker/create_order" method="post">
-    <div class="flex items-center mb-4">
+    <div class="container_select">
       <input class="hidden" id="filial_id" name="filial_id" value="${filial_id}" >
         <input class="hidden" id="course_id" name="course_id" value="${id}" >
         <input required name="type" id="purchase" value="purchase" checked
@@ -157,29 +139,29 @@ sale
 
     </div>
 <input name="_csrf_token" type="hidden" value="CWM1QxI4PScIVX4lCn4xNScmFxcFXlkiH-q3TB_dRlIs85BSvKSyS6of">
-    <div class="form-group">
+    <div>
       <label class="label_input">Объем</label>
-<input class="input_short" id="volume" name="volume" value="${volume}" required="true" type="text">
+<input class="input_full" id="volume" name="volume" value="${volume}" required="true" type="text">
     </div>
 
-    <div class="form-group">
+    <div>
       <label class="label_input">Курс</label>
-<input class="input_short" id="course" value="${course_sale}" name="course" required="true" type="text">
+<input class="input_full" id="course" value="${course_sale}" name="course" required="true" type="text">
     </div>
 
-    <div class="form-group">
+    <div>
       <label class="label_input">Лимит</label>
-<input class="input_short" id="limit" name="limit" value="${course_sale}" required="true" type="text">
+<input class="input_full" id="limit" name="limit" value="${course_sale}" required="true" type="text">
     </div>
 
-    <div class="form-group">
+    <div>
       <label class="label_input">Валюта</label>
 
-<select class="input_short" id="currency" name="currency" required="true"><option value="USD">USD</option></select>
+<select class="input_full" id="currency" name="currency" required="true"><option value="USD">USD</option></select>
 
     </div>
 
-    <div class="form-group">
+    <div>
       <label class="label_input">Передача</label>
 
 <input name="transfer" type="hidden" value="false"><input id="green" name="transfer" type="checkbox" value="true">
@@ -193,7 +175,7 @@ red_green
 
     </div>
 
-    <div class="form-group">
+    <div>
 <button class="btn_save mt-2" type="submit">Сохранить</button>
     </div>
 </form>`,

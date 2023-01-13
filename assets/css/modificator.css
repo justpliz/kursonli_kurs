@@ -3,8 +3,12 @@
       @apply font-bold text-2xl mb-4;
    }
 
+   .title_without_margin {
+      @apply font-bold text-2xl;
+   }
+
    .label_input {
-      @apply block mb-2 text-base font-medium text-gray-900;
+      @apply block my-2 text-base font-medium text-gray-900;
    }
 
    .input_full {
@@ -50,7 +54,7 @@
    }
 
    .app_user_li {
-      @apply pl-8 py-1 cursor-pointer transition-all text-gray-800;
+      @apply ml-7 py-4 cursor-pointer transition-all text-gray-800;
    }
 
    .app_user_li_absolute {
@@ -58,7 +62,11 @@
    }
 
    .app_user_a {
-      @apply flex items-center py-3;
+      @apply flex items-center;
+   }
+
+   .all_app_span{
+      @apply pt-1;
    }
 
    .admin_app_container {
@@ -102,5 +110,22 @@
 
    .all_ap_svg {
       @apply text-red-500;
+   }
+
+   .type_select{
+      @apply transition-all w-6 h-6 text-blue-600 bg-gray-100 border-gray-300;
+      @apply focus:ring-blue-500;
+   }
+
+   .label_select{
+      @apply ml-2 text-sm font-medium text-gray-900 select-none;
+   }
+
+   .container_select{
+      @apply flex items-center mb-4;
+   }
+
+   .icons_style{
+      @apply text-drab pr-2;
    }
 }

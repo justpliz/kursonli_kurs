@@ -121,7 +121,7 @@ defmodule KursonliKursWeb.WorkerController do
     currencies_list = Currencies.all()
 
     conn
-    |> render("worker_create_order.html", currencies_list: currencies_list)
+    |> render("worker_orders.html", currencies_list: currencies_list)
   end
 
   @doc """
