@@ -60,6 +60,7 @@ defmodule KursonliKurs.Context.Orders do
         date: order.date,
         course_sale: course.value_for_sale,
         course_purchase: course.value_for_purchase,
+        currency_id: currency.id,
         currency_short_name: currency.short_name,
         volume: order.volume,
         terms: order.terms,
