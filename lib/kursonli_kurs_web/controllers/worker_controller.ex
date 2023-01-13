@@ -137,7 +137,7 @@ defmodule KursonliKursWeb.WorkerController do
       filial_id: hd(Filials.all).id,
       worker_id: get_session(conn, :worker).id,
       course_id: hd(Courses.all).id
-    } |> IO.inspect
+    }
     with {:ok, order} <- Orders.create(opts) do
       conn
       |> put_flash(:info,  "Ордер #{order.number} зарегестрирован")
