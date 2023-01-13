@@ -53,9 +53,9 @@
               <%= item.transfer %>
             </td>
             <td class="px-6 py-4 text-center">
-              <a href="/worker/create_order">
+              <div href="/worker/create_order" class="order-click" data-map="<%= Jason.encode!(item) %>">
                 <span class="material-symbols-outlined" style="color: blue; font-weight: 900;">add_circle</span>
-              </a>
+              </div>
               <a href="/worker/delete_order">
                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
               </a>
@@ -83,4 +83,89 @@
 <script>
   const worker = document.querySelector("#worker")
   localStorage.setItem("worker", worker.innerHTML)
+
+  $(".order-click").click(function () {
+
+    const { course_purchase, course_sale, currency_short_name, date, filial_id, id, organization, terms, volume, transfer } = JSON.parse(this.dataset.map)
+
+    console.log(JSON.parse(this.dataset.map))
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      html: `
+      <form action="/worker/create_order" method="post">
+    <div class="flex items-center mb-4">
+      <input class="hidden" id="filial_id" name="filial_id" value="${filial_id}" >
+        <input class="hidden" id="course_id" name="course_id" value="${id}" >
+        <input required name="type" id="purchase" value="purchase" checked
+          id="default-radio-2" type="radio"
+          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+        <label class="ml-2 text-sm font-medium text-gray-900" for="purchase">
+            purchase
+        </label>
+
+        <input required name="type" id="sale" value="sale" checked
+          id="default-radio-2" type="radio"
+          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+        <label class="ml-2 text-sm font-medium text-gray-900" for="sale">
+sale
+        </label>
+
+    </div>
+<input name="_csrf_token" type="hidden" value="CWM1QxI4PScIVX4lCn4xNScmFxcFXlkiH-q3TB_dRlIs85BSvKSyS6of">
+    <div class="form-group">
+      <label class="label_input">Объем</label>
+<input class="input_short" id="volume" name="volume" value="${volume}" required="true" type="text">
+    </div>
+
+    <div class="form-group">
+      <label class="label_input">Курс</label>
+<input class="input_short" id="course" value="${course_sale}" name="course" required="true" type="text">
+    </div>
+
+    <div class="form-group">
+      <label class="label_input">Лимит</label>
+<input class="input_short" id="limit" name="limit" value="${course_sale}" required="true" type="text">
+    </div>
+
+    <div class="form-group">
+      <label class="label_input">Валюта</label>
+
+<select class="input_short" id="currency" name="currency" required="true"><option value="USD">USD</option></select>
+
+    </div>
+
+    <div class="form-group">
+      <label class="label_input">Передача</label>
+
+<input name="transfer" type="hidden" value="false"><input id="green" name="transfer" type="checkbox" value="true">
+green
+
+<input name="transfer" type="hidden" value="false"><input id="red" name="transfer" type="checkbox" value="true">
+red
+
+<input name="transfer" type="hidden" value="false"><input id="red_green" name="transfer" type="checkbox" value="true">
+red_green
+
+    </div>
+
+    <div class="form-group">
+<button class="btn_save mt-2" type="submit">Сохранить</button>
+    </div>
+</form>`,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Ордер создан!!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  })
 </script>
