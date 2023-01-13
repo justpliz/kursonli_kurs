@@ -2,7 +2,7 @@ defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{Workers, Courses, Currencies, Orders}
+  alias KursonliKurs.Context.{Workers, Courses, Currencies, Orders, Filials}
 
   @doc """
   GET /worker/login
@@ -134,14 +134,21 @@ defmodule KursonliKursWeb.WorkerController do
       date: Timex.now(),
       number: genrate_random_str(6),
       type: :sale,
+      type: :sale,
+      transfer: :red,
       volume: params["volume"],
+      filial_id: hd(Filials.all).id,
       filial_id: params["filial_id"],
       worker_id: get_session(conn, :worker).id,
+      course_id: hd(Courses.all).id
+    } |> IO.inspect
       course_id: params["course_id"]
     } |> IO.inspect(label: "opts")
 
     with {:ok, order} <- Orders.create(opts) do
       conn
+      |> put_flash(:info,  "Ордер #{order.number} зарегестрирован")
+      |> render("worker_orders.html")
       |> put_flash(:info, "Ордер #{order.number} зарегестрирован")
       |> render("worker_index.html")
     end
