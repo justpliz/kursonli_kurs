@@ -134,14 +134,10 @@ defmodule KursonliKursWeb.WorkerController do
       date: Timex.now(),
       number: genrate_random_str(6),
       type: :sale,
-      type: :sale,
       transfer: :red,
       volume: params["volume"],
       filial_id: hd(Filials.all).id,
-      filial_id: params["filial_id"],
       worker_id: get_session(conn, :worker).id,
-      course_id: hd(Courses.all).id
-    } |> IO.inspect
       course_id: params["course_id"]
     } |> IO.inspect(label: "opts")
 
