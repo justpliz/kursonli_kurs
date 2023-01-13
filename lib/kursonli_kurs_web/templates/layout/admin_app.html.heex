@@ -9,19 +9,18 @@
   <title>Admin Kurs-Online</title>
   <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css" )} />
   <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js" )}></script>
+  <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/phone_input.js" )}></script>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/imask"></script>
 </head>
 
 <body>
   <div class="app">
-    <div class="sidebar fixed top-0 left-0 h-full w-64 flex items-center flex-col bg-drab">
-      <a href="/admin"><img class="mt-10" src={ Routes.static_path(@conn, "/images/logo-white.svg" ) } alt=""></a>
+    <div class="admin_app_container">
+      <a href="/admin"><img class="mt-10" src={ Routes.static_path(@conn, "/images/logo-white.svg" )} alt=""></a>
       <ul class="w-full pt-6">
-        <li class="pl-8 hover:bg-gray-400 transition-all active-link">
-          <a href="/admin/register_org"
-            class="active-link sideber-link flex items-center py-3 text-gray-300 hover:text-gray-100">
+        <li class="admin_app_li">
+          <a href="/admin/register_org" class="active-link admin_app_href">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -30,9 +29,8 @@
             <span class="text-lg">Создание организации</span>
           </a>
         </li>
-        <li class="pl-8 hover:bg-gray-400 transition-all active-link">
-          <a href="/admin/logout"
-            class="active-link sideber-link flex items-center py-3 text-gray-300 hover:text-gray-100">
+        <li class="admin_app_li">
+          <a href="/admin/err" class="active-link admin_app_href">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -41,9 +39,8 @@
             <span class="text-lg">Создание филиала</span>
           </a>
         </li>
-        <li class="pl-8 hover:bg-gray-400 transition-all active-link">
-          <a href="/admin/logout"
-            class="active-link sideber-link flex items-center py-3 text-gray-300 hover:text-gray-100">
+        <li class="admin_app_li">
+          <a href="#" class="active-link admin_app_href">
             <svg class="fill-gray-500 mr-4" width="16" height="16" viewBox="0 0 16 16" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -52,9 +49,8 @@
             <span class="text-lg">Создание тарифов</span>
           </a>
         </li>
-        <li class="pl-8 hover:bg-gray-400 transition-all active-link">
-          <a href="/admin/logout"
-            class="active-link sideber-link flex items-center py-3 text-gray-300 hover:text-gray-100">
+        <li class="admin_app_li">
+          <a href="#" class="active-link admin_app_href">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -63,9 +59,8 @@
             <span class="text-lg">Создание городов</span>
           </a>
         </li>
-        <li class="pl-8 hover:bg-gray-400 transition-all active-link">
-          <a href="/admin/logout"
-            class="active-link sideber-link flex items-center py-3 text-gray-300 hover:text-gray-100">
+        <li class="admin_app_li">
+          <a href="/admin/logout" class="active-link admin_app_href">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path

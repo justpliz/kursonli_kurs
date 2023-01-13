@@ -3,9 +3,13 @@
   <%= form_for @conn, Routes.worker_path(@conn, :create_order_submit), fn f -> %>
     <div class="flex items-center mb-4">
       <%= for item <- Application.get_env(:kursonli_kurs, :order_type) do %>
-        <input required name="type" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" checked id="default-radio-2" type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
-        <label class="ml-2 text-sm font-medium text-gray-900" for="<%= Atom.to_string(item) %>"><%= Atom.to_string(item) %></label>
-      <% end %>
+        <input required name="type" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" checked
+          id="default-radio-2" type="radio"
+          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+        <label class="ml-2 text-sm font-medium text-gray-900" for="<%= Atom.to_string(item) %>">
+          <%= Atom.to_string(item) %>
+        </label>
+        <% end %>
     </div>
 
     <div class="form-group">
@@ -34,8 +38,8 @@
       <label class="label_input">Передача</label>
       <%= for item <- Application.get_env(:kursonli_kurs, :order_transfer) do %>
         <%= checkbox(f, :transfer, id: Atom.to_string(item)) %>
-        <%= Atom.to_string(item) %>
-      <% end %>
+          <%= Atom.to_string(item) %>
+            <% end %>
     </div>
 
     <div class="form-group">

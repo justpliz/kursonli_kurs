@@ -1,70 +1,85 @@
-<div class="w-full bg-blue-400 h-24 flex items-center justify-between">
-  <a href="/"><img src="/images/logo-line.svg" alt=""></a>
-  <div class="filter__manager">
-    <input class="form-control" type="text" placeholder="Поиск" id="index-search-row" onkeyup="indexFilterSearch()">
-  </div>
-  <a href="" class="no-underline border-2 px-10 py-30">Войти</a>
-</div>
-
-<div class="flex flex-col">
-  <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
-    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-      <div class="overflow-hidden">
-        <table class="min-w-full">
-          <thead class="bg-white border-b">
-            <tr>
-              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Обменный пункт
-              </th>
-              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Время
-              </th>
-              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                USD
-              </th>
-              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                EUR
-              </th>
-              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                RUB
-              </th>
-              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Контакты
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-gray-100 border-b">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-              <td aria-readonly="true" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Mark
-              </td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                <!-- кароче инпуты с ридонли и потом тык на кнопку редактировать и БАХ редактируется!!!!! -->
-                <input id="pupa" type="text" readonly value="ТЕКСТИК">
-              </td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                @mdo
-              </td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Otto
-              </td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                @mdo
-              </td>
-            </tr>
-          </tbody>
-        </table>
+<div class="absolute left-0 top-0 w-full">
+  <div class="bg-dblue h-20 flex items-center justify-around">
+    <a href="/"><img src="/images/white-line-logo.svg" alt=""></a>
+    <div class="relative w-1/5">
+      <input class="input_search" type="text" placeholder="" id="index-search-row" onkeyup="indexFilterSearch()">
+      <div class="absolute inset-y-0 right-4 flex items-center pl-3 pointer-events-none">
+        <img src={ Routes.static_path(@conn, "/images/icons/search.svg" ) } alt="">
       </div>
     </div>
+    <a href="/worker/login" class="href_index">Войти</a>
+  </div>
+
+  <!-- фором список городов -->
+  <div class="flex py-8">
+    <span class="font-bold pr-4">
+      Алматы
+      (<span class="font-bold text-red-500">24</span>)
+    </span>
+    <span class="font-bold pr-4">
+      Караг
+      (<span class="font-bold text-red-500">14</span>)
+    </span>
+  </div>
+
+  <div class="font-black text-black pb-4">
+    Курсы валют в обменных пунктах в городе Алматы на 06.07.2022
+  </div>
+
+  <div class="relative ml-40 w-4/5 overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500">
+      <thead class="bg-tableGray text-white uppercase">
+        <tr class="uppercase">
+          <th scope="col" class="columns-2 px-6 py-6  border-gray-200">
+            ОБМЕННЫЙ ПУНКТ
+          </th>
+          <th scope="col" class="columns-1 px-6 py-6  border-x-2 border-gray-200">
+            Время
+          </th>
+          <th scope="col" class="columns-1 px-6 py-6  border-gray-200">
+            usd
+          </th>
+          <th scope="col" class="columns-1 px-6 py-6  border-x-2 border-gray-200">
+            eur
+          </th>
+          <th scope="col" class="columns-1 px-6 py-6  border-x-2 border-gray-200">
+            rub
+          </th>
+          <th scope="col" class="columns-1 px-6 py-6  border-l-2 border-gray-200">
+            контакты
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <%#= for item <- @order_list do %>
+          <tr class="bg-white">
+            <td class="px-6 py-4">
+              <%#= item.filial_name %>
+                ЧВВВ
+            </td>
+            <td class="px-6 py-4 border-x-2 border-tableGray">
+              <%#= item.date %>
+            </td>
+            <td class="px-6 py-4 border-x-2 border-tableGray">
+              <!-- USD -->
+            </td>
+            <td class="px-6 py-4 border-x-2 border-tableGray">
+              <%#= item.course_sale %>
+            </td>
+            <td class="px-6 py-4 border-x-2 border-tableGray">
+              <%#= item.volume %>
+            </td>
+            <td class="px-6 py-4 border-l-2 border-tableGray">
+              <%#= item.terms %>
+            </td>
+          </tr>
+          <%# end %>
+      </tbody>
+    </table>
   </div>
 </div>
 
 <script>
-  $('#pupa').click(function () {
-    $(".lupa").removeAttr("readonly");
-  });
-
   function indexFilterSearch() {
     var phrase = document.getElementById('index-search-row');
     var table = document.getElementById('index-table');

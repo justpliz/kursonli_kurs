@@ -4,55 +4,12 @@
 
 /* This file is for your main application CSS */
 @import "./style.css";
+@import "./modificator.css";
 
 :disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-
-@layer components {
-  .title {
-    @apply font-bold text-2xl mb-4;
-  }
-
-  .label_input {
-    @apply block mb-2 text-base font-medium text-gray-900;
-  }
-
-  .input_full {
-    @apply shadow-sm bg-gray-100 border border-gray-300 text-drab text-base rounded-lg block w-full p-2.5;
-    @apply focus:ring-blue-500 focus:border-blue-500;
-  }
-
-  .input_short {
-    @apply shadow-sm bg-gray-100 border border-gray-300 text-drab text-base rounded-lg block w-1/3 p-2.5;
-    @apply focus:ring-blue-500 focus:border-blue-500;
-  }
-
-  .btn_save {
-    @apply text-white transition-all bg-blub font-medium rounded-lg text-base px-5 py-2.5 text-center;
-    @apply focus:ring-4 focus:outline-none focus:ring-blue-300;
-    @apply hover:bg-blue-700;
-  }
-
-  .btn_delete {
-    @apply text-white transition-all bg-red-400 font-medium rounded-lg text-base px-5 py-2.5 text-center;
-    @apply focus:ring-4 focus:outline-none focus:ring-blue-300;
-    @apply hover:bg-blue-700;
-  }
-
-  .btn_save_width {
-    @apply text-white w-1/5 py-2 transition-all bg-blub font-medium rounded-lg text-base text-center;
-    @apply focus:ring-4 focus:outline-none focus:ring-blue-300;
-    @apply hover:bg-blue-700;
-  }
-
-  .margin_content {
-    @apply mt-6;
-  }
-}
-
-
 
 /* Alerts and form errors used by phx.new */
 .alert {

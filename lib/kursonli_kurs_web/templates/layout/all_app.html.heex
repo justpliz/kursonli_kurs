@@ -9,6 +9,7 @@
   <title>Worker Kurs-Online</title>
   <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css" )} />
   <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js" )}></script>
+  <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/phone_input.js" )}></script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
@@ -16,12 +17,12 @@
 
 <body class="bg-gray-50">
   <div class="app">
-    <div class="sidebar fixed top-0 left-0 h-full w-64 flex items-center flex-col border-r-2 border-gray-200">
+    <div class="app_user_container">
       <a href="/worker"><img class="mt-10 m-auto scale-110 w-full" src={
           Routes.static_path(@conn, "/images/logo-line.svg" ) } alt=""></a>
       <ul class="w-full pt-6 relative h-full">
-        <li class=" active-link pl-8 py-4 cursor-pointer transition-all text-gray-800 ">
-          <a href="/worker" class="sideber-link flex items-center py-3  active-link">
+        <li class="app_user_li">
+          <a href="/worker" class="app_user_a active-link">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -30,8 +31,8 @@
             <span class="text-lg">Главная</span>
           </a>
         </li>
-        <li class=" active-link pl-8 py-4 cursor-pointer transition-all text-gray-800 ">
-          <a href="/worker/orders" class="sideber-link flex items-center py-3  active-link">
+        <li class="app_user_li">
+          <a href="/worker/orders" class="app_user_a active-link">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -40,8 +41,8 @@
             <span class="text-lg">Создание ордеров</span>
           </a>
         </li>
-        <li class=" active-link pl-8 py-4 cursor-pointer transition-all text-gray-800">
-          <a href="/worker/courses" class="sideber-link flex items-center py-3 active-link">
+        <li class="app_user_li">
+          <a href="/worker/courses" class="app_user_a active-link">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -50,8 +51,8 @@
             <span class="text-lg">Смена курса</span>
           </a>
         </li>
-        <li class=" active-link pl-8 py-4 cursor-pointer transition-all text-gray-800">
-          <a href="/worker/update_pass" class="sideber-link flex items-center py-3  active-link">
+        <li class="app_user_li">
+          <a href="/worker/update_pass" class="app_user_a active-link">
             <svg class="fill-gray-500 mr-4" width="16" height="20" viewBox="0 0 16 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -60,8 +61,8 @@
             <span class="text-lg">Смена пароля</span>
           </a>
         </li>
-        <li class="absolute w-full bottom-0 left-0 pl-8 py-4 cursor-pointer transition-all text-gray-800">
-          <a href="/worker/logout" class="sideber-link flex items-center py-3">
+        <li class="app_user_li_absolute app_user_li">
+          <a href="/worker/logout" class="app_user_a">
             <svg class="fill-gray-500 mr-4" width="20" height="17" viewBox="0 0 20 17" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"

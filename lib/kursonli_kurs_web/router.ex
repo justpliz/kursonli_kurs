@@ -30,8 +30,12 @@ defmodule KursonliKursWeb.Router do
     plug :put_root_layout, {KursonliKursWeb.LayoutView, "clean.html"}
   end
 
+  pipeline :index do
+    plug :put_root_layout, {KursonliKursWeb.LayoutView, "index_app.html"}
+  end
+
   scope "/", KursonliKursWeb do
-    pipe_through [:browser, :clean]
+    pipe_through [:browser, :index]
 
     get "/", PageController, :index
   end
