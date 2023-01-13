@@ -118,7 +118,7 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/create_order
   """
   def create_order(conn, _params) do
-    currencies_list = Currencies.all
+    currencies_list = Currencies.all()
 
     conn
     |> render("worker_create_order.html", currencies_list: currencies_list)
@@ -128,22 +128,23 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/create_order
   """
   def create_order_submit(conn, params) do
-    IO.inspect(params)
+    IO.inspect(params, label: "params")
+
     opts = %{
       date: Timex.now(),
       number: genrate_random_str(6),
-      type: :red,
+      type: :sale,
       volume: params["volume"],
-      filial_id: "d3aa57ab-2da0-444e-a387-0fa58f3265cc",
+      filial_id: params["filial_id"],
       worker_id: get_session(conn, :worker).id,
-      course_id: "d3aa57ab-2da0-444e-a387-0fa58f3265cc"
-    }
+      course_id: params["course_id"]
+    } |> IO.inspect(label: "opts")
+
     with {:ok, order} <- Orders.create(opts) do
       conn
-      |> put_flash(:info,  "Ордер #{order.number} зарегестрирован")
+      |> put_flash(:info, "Ордер #{order.number} зарегестрирован")
       |> render("worker_index.html")
     end
-
   end
 
   @doc """

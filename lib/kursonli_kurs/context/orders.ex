@@ -25,7 +25,6 @@ defmodule KursonliKurs.Context.Orders do
 
   def create(params) do
     %Order{}
-    |> IO.inspect
     |> Order.changeset(params)
     |> Repo.insert()
   end

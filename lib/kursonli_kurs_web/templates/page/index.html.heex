@@ -2,7 +2,7 @@
   <div class="bg-dblue h-20 flex items-center justify-around">
     <a href="/"><img src="/images/white-line-logo.svg" alt=""></a>
     <div class="relative w-1/5">
-      <input class="input_search" type="text" placeholder="" id="index-search-row" onkeyup="indexFilterSearch()">
+      <input class="input_search" type="text" placeholder="" id="manager-search-row" onkeyup="managerFilterSearch()">
       <div class="absolute inset-y-0 right-4 flex items-center pl-3 pointer-events-none">
         <img src={ Routes.static_path(@conn, "/images/icons/search.svg" ) } alt="">
       </div>
@@ -27,25 +27,25 @@
   </div>
 
   <div class="relative ml-40 w-4/5 overflow-x-auto">
-    <table class="w-full text-sm text-left text-gray-500">
+    <table class="w-full text-sm text-left text-gray-500 table-fixed" id="manager-table">
       <thead class="bg-tableGray text-white uppercase">
         <tr class="uppercase">
-          <th scope="col" class="columns-2 px-6 py-6  border-gray-200">
+          <th scope="col" class="w-1/4 px-6 py-4 border-l-2 border-tableGray whitespace-nowrap">
             ОБМЕННЫЙ ПУНКТ
           </th>
-          <th scope="col" class="columns-1 px-6 py-6  border-x-2 border-gray-200">
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
             Время
           </th>
-          <th scope="col" class="columns-1 px-6 py-6  border-gray-200">
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
             usd
           </th>
-          <th scope="col" class="columns-1 px-6 py-6  border-x-2 border-gray-200">
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
             eur
           </th>
-          <th scope="col" class="columns-1 px-6 py-6  border-x-2 border-gray-200">
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
             rub
           </th>
-          <th scope="col" class="columns-1 px-6 py-6  border-l-2 border-gray-200">
+          <th scope="col" class="w-1/6 px-6 py-4 border-r-2 border-tableGray">
             контакты
           </th>
         </tr>
@@ -53,36 +53,230 @@
       <tbody>
         <%#= for item <- @order_list do %>
           <tr class="bg-white">
-            <td class="px-6 py-4">
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.filial_name %>
+                пр. Рыскулова, 57в, между ул. Белинского и ул. Казыбаева
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.date %>
+                Текест
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              USD
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.course_sale %>
+                цифроки
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.volume %>
+                21312
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.terms %>
+                ыоав
+            </td>
+          </tr>
+        <%# end %>
+        <%#= for item <- @order_list do %>
+          <tr class="bg-white">
+            <td class="px-6 py-4 border-2 border-tableGray">
               <%#= item.filial_name %>
                 ЧВВВ
             </td>
-            <td class="px-6 py-4 border-x-2 border-tableGray">
+            <td class="px-6 py-4 border-2 border-tableGray">
               <%#= item.date %>
+                Текест
             </td>
-            <td class="px-6 py-4 border-x-2 border-tableGray">
-              <!-- USD -->
+            <td class="px-6 py-4 border-2 border-tableGray">
+              USD
             </td>
-            <td class="px-6 py-4 border-x-2 border-tableGray">
+            <td class="px-6 py-4 border-2 border-tableGray">
               <%#= item.course_sale %>
+                цифроки
             </td>
-            <td class="px-6 py-4 border-x-2 border-tableGray">
+            <td class="px-6 py-4 border-2 border-tableGray">
               <%#= item.volume %>
+                21312
             </td>
-            <td class="px-6 py-4 border-l-2 border-tableGray">
+            <td class="px-6 py-4 border-2 border-tableGray">
               <%#= item.terms %>
+                пр. Рыскулова, 57в, между ул. Белинского и ул. Казыбаева
             </td>
           </tr>
-          <%# end %>
+        <%# end %>
+        <%#= for item <- @order_list do %>
+          <tr class="bg-white">
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.filial_name %>
+                ЧВВВ
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.date %>
+                Текест
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              USD
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.course_sale %>
+                цифроки
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.volume %>
+                21312
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.terms %>
+                +7 (727) 312-21-40 <br>
+                +7 (727) 328-13-66
+            </td>
+          </tr>
+        <%# end %>
+        <%#= for item <- @order_list do %>
+          <tr class="bg-white">
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.filial_name %>
+                ЧВВВ
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.date %>
+                Текест
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              USD
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.course_sale %>
+                цифроки
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.volume %>
+                21312
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.terms %>
+                ыоав
+            </td>
+          </tr>
+        <%# end %>
+        <%#= for item <- @order_list do %>
+          <tr class="bg-white">
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.filial_name %>
+                ЧВВВ
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.date %>
+                Текест
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              USD
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.course_sale %>
+                цифроки
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.volume %>
+                21312
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.terms %>
+                ыоав
+            </td>
+          </tr>
+        <%# end %>
+        <%#= for item <- @order_list do %>
+          <tr class="bg-white">
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.filial_name %>
+                ЧВВВ
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.date %>
+                Текест
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              USD
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.course_sale %>
+                цифроки
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.volume %>
+                21312
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.terms %>
+                ыоав
+            </td>
+          </tr>
+        <%# end %>
+        <%#= for item <- @order_list do %>
+          <tr class="bg-white">
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.filial_name %>
+                ЧВВВ
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.date %>
+                Абай
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              USD
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.course_sale %>
+                цифроки
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.volume %>
+                21312
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.terms %>
+                ыоав
+            </td>
+          </tr>
+        <%# end %>
+        <%#= for item <- @order_list do %>
+          <tr class="bg-white">
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.filial_name %>
+                ЧВВВ
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.date %>
+                Текест
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              USD
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.course_sale %>
+                цифроки
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.volume %>
+                21312
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.terms %>
+                ыоав
+            </td>
+          </tr>
+        <%# end %>
       </tbody>
     </table>
   </div>
 </div>
 
 <script>
-  function indexFilterSearch() {
-    var phrase = document.getElementById('index-search-row');
-    var table = document.getElementById('index-table');
+  function managerFilterSearch() {
+    var phrase = document.getElementById('manager-search-row');
+    var table = document.getElementById('manager-table');
     var regPhrase = new RegExp(phrase.value, 'i');
     var flag = false;
     for (var i = 1; i < table.rows.length; i++) {
