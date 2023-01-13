@@ -78,7 +78,7 @@ defmodule KursonliKursWeb.Router do
     post "/create_order", WorkerController, :create_order_submit
     get "/courses", WorkerController, :courses
     post "/update_course", WorkerController, :update_course
-
+    get "/delete_order", WorkerController, :delete_order
   end
 
   # Other scopes may use custom stacks.

@@ -130,23 +130,23 @@ defmodule KursonliKursWeb.WorkerController do
   def create_order_submit(conn, params) do
     IO.inspect(params, label: "params")
 
-    opts = %{
-      date: Timex.now(),
-      number: genrate_random_str(6),
-      type: :sale,
-      transfer: :red,
-      volume: params["volume"],
-      filial_id: hd(Filials.all).id,
-      worker_id: get_session(conn, :worker).id,
-      course_id: params["course_id"]
-    } |> IO.inspect(label: "opts")
+    opts =
+      %{
+        date: Timex.now(),
+        number: genrate_random_str(6),
+        type: :sale,
+        transfer: :red,
+        volume: params["volume"],
+        filial_id: hd(Filials.all()).id,
+        worker_id: get_session(conn, :worker).id,
+        course_id: hd(Courses.all()).id
+      }
+      |> IO.inspect(label: "opts")
 
     with {:ok, order} <- Orders.create(opts) do
       conn
-      |> put_flash(:info,  "Ордер #{order.number} зарегестрирован")
-      |> render("worker_orders.html")
       |> put_flash(:info, "Ордер #{order.number} зарегестрирован")
-      |> render("worker_index.html")
+      |> redirect(to: "/worker/orders")
     end
   end
 
@@ -162,5 +162,17 @@ defmodule KursonliKursWeb.WorkerController do
 
     conn
     # |> render("worker_courses.html", course_list: course_list)
+  end
+
+  @doc """
+  GET /worker/delete_order
+  """
+  def delete_order(conn, %{"id" => id} = params) do
+    with {:ok, order} <- Orders.do_get(id: id),
+         {:ok, _order} <- Orders.delete(order) do
+      conn
+        |> put_flash(:info, "Ордер удалён")
+        |> redirect(to: "/worker/orders")
+    end
   end
 end

@@ -50,7 +50,7 @@
    }
 
    .app_user_li {
-      @apply pl-8 py-4 cursor-pointer transition-all text-gray-800;
+      @apply pl-8 py-1 cursor-pointer transition-all text-gray-800;
    }
 
    .app_user_li_absolute {
@@ -98,5 +98,9 @@
    .href_index {
       @apply border py-4 px-10 text-white font-extrabold rounded-xl transition-all;
       @apply hover:bg-white hover:text-dblue;
+   }
+
+   .all_ap_svg {
+      @apply text-red-500;
    }
 }
