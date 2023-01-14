@@ -95,16 +95,6 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
-  GET /worker/courses
-  """
-  def courses(conn, _params) do
-    course_list = Courses.all()
-
-    conn
-    |> render("worker_courses.html", course_list: course_list)
-  end
-
-  @doc """
   GET /worker/orders
   """
   def orders(conn, _params) do
@@ -177,9 +167,9 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
-  GET /worker/create_course
+  GET /worker/courses
   """
-  def create_course(conn, _params) do
+  def courses(conn, _params) do
     courses_list = Courses.all()
 
     conn
@@ -192,6 +182,7 @@ defmodule KursonliKursWeb.WorkerController do
   def create_course_submit(conn, params) do
     opts =
       %{
+        # currency_id: Currencies.get(id: "id"),
         currency_id: hd(Currencies.all()).id,
         filial_id: hd(Filials.all()).id,
         value_for_sale: params["value_for_sale"],
@@ -202,8 +193,7 @@ defmodule KursonliKursWeb.WorkerController do
     opts_currency =
       %{
         name: params["name"],
-        short_name: params["short_name"],
-        courses_id: hd(Courses.all()).id
+        short_name: params["short_name"]
       }
       |> IO.inspect(label: "параметры второй оптс")
 
@@ -224,7 +214,7 @@ defmodule KursonliKursWeb.WorkerController do
   def delete_course(conn, %{"id" => id}) do
     with {:ok, courses} <- Courses.do_get(id: id),
          {:ok, _course} <- Courses.delete(courses) do
-          # тут эта темка тоже не отрабатывает, и карренски не удаляется из таблицы
+      # тут эта темка тоже не отрабатывает, и карренски не удаляется из таблицы
       #  {:ok, currency} <- Currencies.do_get(id: id),
       #  {:ok, _currency} <- Currencies.delete(currency) do
       conn

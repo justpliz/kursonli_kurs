@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= for item <- @course_list do %>
+        <%= for item <- @courses_list do %>
           <tr class="bg-white">
             <td class="px-6 py-4 border-b-2">
               <%= item.currency.name %>
