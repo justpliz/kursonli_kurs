@@ -167,12 +167,69 @@ defmodule KursonliKursWeb.WorkerController do
   @doc """
   GET /worker/delete_order
   """
-  def delete_order(conn, %{"id" => id} = params) do
+  def delete_order(conn, %{"id" => id}) do
     with {:ok, order} <- Orders.do_get(id: id),
          {:ok, _order} <- Orders.delete(order) do
       conn
-        |> put_flash(:info, "Ордер удалён")
-        |> redirect(to: "/worker/orders")
+      |> put_flash(:info, "Ордер удалён")
+      |> redirect(to: "/worker/orders")
+    end
+  end
+
+  @doc """
+  GET /worker/create_course
+  """
+  def create_course(conn, _params) do
+    courses_list = Courses.all()
+
+    conn
+    |> render("worker_courses.html", courses_list: courses_list)
+  end
+
+  @doc """
+  POST /worker/create_course
+  """
+  def create_course_submit(conn, params) do
+    opts =
+      %{
+        currency_id: hd(Currencies.all()).id,
+        filial_id: hd(Filials.all()).id,
+        value_for_sale: params["value_for_sale"],
+        value_for_purchase: params["value_for_purchase"]
+      }
+      |> IO.inspect(label: "параметры")
+
+    opts_currency =
+      %{
+        name: params["name"],
+        short_name: params["short_name"],
+        courses_id: hd(Courses.all()).id
+      }
+      |> IO.inspect(label: "параметры второй оптс")
+
+    # не получилось связать курсы и currency, чтобы в табличке был не только долар,
+    # но и другие валюты которые создали
+
+    with {:ok, _course} <- Courses.create(opts),
+         {:ok, currencies} <- Currencies.create(opts_currency) do
+      conn
+      |> put_flash(:info, "Курс #{currencies.name} создан")
+      |> redirect(to: "/worker/courses")
+    end
+  end
+
+  @doc """
+  GET /worker/delete_course
+  """
+  def delete_course(conn, %{"id" => id}) do
+    with {:ok, courses} <- Courses.do_get(id: id),
+         {:ok, _course} <- Courses.delete(courses) do
+          # тут эта темка тоже не отрабатывает, и карренски не удаляется из таблицы
+      #  {:ok, currency} <- Currencies.do_get(id: id),
+      #  {:ok, _currency} <- Currencies.delete(currency) do
+      conn
+      |> put_flash(:info, "Курс удалён")
+      |> redirect(to: "/worker/courses")
     end
   end
 end
