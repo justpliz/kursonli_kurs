@@ -3,7 +3,7 @@ defmodule KursonliKursWeb.AdminController do
   action_fallback FallbackController
 
   alias KursonliKurs.Context.Cities
-  alias KursonliKurs.Context.{Workers, Admins, Filials, Organizations}
+  alias KursonliKurs.Context.{Workers, Admins, Filials, Organizations, Currencies}
 
   @doc """
   GET /admin/login
@@ -125,6 +125,41 @@ defmodule KursonliKursWeb.AdminController do
         conn
         |> put_flash(:error, "Проверьте вводимые данные")
         |> redirect(to: "/admin/register_org")
+    end
+  end
+
+  def create_course(conn, _params) do
+    conn
+    |> render("admin_currency.html")
+  end
+
+  def currency_view(conn, _params) do
+    currency_list = Currencies.all()
+
+    conn
+    |> render("admin_currency.html", currency_list: currency_list)
+  end
+
+  def create_currency_submit(conn, params) do
+    opts =
+      %{
+        short_name: params["short_name"],
+        name: params["name"],
+      }
+
+    with {:ok, currencies} <- Currencies.create(opts) do
+      conn
+      |> put_flash(:info, "Курс #{currencies.name} создан")
+      |> redirect(to: "/admin/currencies")
+    end
+  end
+
+  def delete_currency(conn, %{"id" => id}) do
+    with {:ok, currency} <- Currencies.do_get(id: id),
+         {:ok, currency} <- Currencies.delete(currency) do
+      conn
+      |> put_flash(:info, "Курс #{currency.name} удалён")
+      |> redirect(to: "/admin/currencies")
     end
   end
 end
