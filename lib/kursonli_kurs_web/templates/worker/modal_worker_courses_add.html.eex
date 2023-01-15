@@ -7,15 +7,23 @@
       </div>
       <div class="p-3 border-b border-b-gray-300">
          <%= form_for @conn, Routes.worker_path(@conn, :create_course_submit), fn f -> %>
-         <%= hidden_input f, :currency_id, class: "input_full" , required: "true" %>
-            <div>
+            <%= for item <- Application.get_env(:kursonli_kurs, :order_type) do %>
+               <div class="container_select">
+                 <input required name="type" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" checked type="radio"
+                   class="type_select">
+                 <label class="label_select" for="<%= Atom.to_string(item) %>">
+                   <%= Atom.to_string(item) %>
+                 </label>
+               </div>
+            <% end %>
+            <!-- <div>
                <label class="label_input">name</label>
-               <%= text_input f, :name, class: "input_full" , required: "true" %>
-            </div>
-            <div>
+               <%#= text_input f, :name, class: "input_full" , required: "true" %>
+            </div> -->
+            <!-- <div>
                <label class="label_input">short_name</label>
-               <%= text_input f, :short_name, class: "input_full" , required: "true" %>
-            </div>
+               <%#= text_input f, :short_name, class: "input_full" , required: "true" %>
+            </div> -->
             <div>
                <label class="label_input">value_for_sale</label>
                <%= text_input f, :value_for_sale, class: "input_full number_input_only" , required: "true" %>
