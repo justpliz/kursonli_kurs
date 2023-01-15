@@ -24,7 +24,8 @@
           Routes.static_path(@conn, "/images/logo-line.svg" ) } alt=""></a>
 
       <ul class="w-full pt-6 relative h-full">
-        <div class="font-bold pl-8">Пользователь: <span>Абай серикович</span></div>
+        <% worker = Plug.Conn.get_session(@conn,:worker) %>
+        <div class="font-bold pl-8">Пользователь: <span> <%= worker[:first_name] %> <%= worker[:last_name] %> </span></div>
         <li class="app_user_li">
           <a href="/worker" class="app_user_a active-link">
             <span class="icons_style material-symbols-outlined" style="font-weight: 700; font-size: 28px;">home</span>

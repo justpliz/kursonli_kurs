@@ -32,4 +32,12 @@ defmodule KursonliKursWeb.GeneralHelper do
         do: <<Enum.random('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')>>
     |> String.upcase
   end
+
+  @doc """
+  Get info from config for templates
+  For example: check_config("order_type") -> [:purchase, :sale]
+  """
+  def check_config(conf_atom) do
+    Application.get_env(:kursonli_kurs, String.to_atom(conf_atom))
+  end
 end
