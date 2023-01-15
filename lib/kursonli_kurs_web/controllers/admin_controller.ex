@@ -2,8 +2,7 @@ defmodule KursonliKursWeb.AdminController do
   use KursonliKursWeb, :controller
   action_fallback FallbackController
 
-  alias KursonliKurs.Context.Cities
-  alias KursonliKurs.Context.{Workers, Admins, Filials, Organizations, Currencies}
+  alias KursonliKurs.Context.{Cities, Workers, Admins, Filials, Organizations, Currencies}
 
   @doc """
   GET /admin/login
@@ -54,12 +53,17 @@ defmodule KursonliKursWeb.AdminController do
     |> render("admin_index.html")
   end
 
+  @doc """
+  GET /admin/register_org
+  """
   def register_org(conn, _params) do
     conn
-    # |> put_layout("client_app.html")
     |> render("register_org.html")
   end
 
+  @doc """
+  GET /admin/register_org_submit
+  """
   def register_org_submit(conn, params) do
     password = genrate_random_str(8)
 
@@ -102,38 +106,10 @@ defmodule KursonliKursWeb.AdminController do
     end
   end
 
-  def register_worker(conn, _params) do
-    conn
-    |> render("register_org.html")
-  end
-
-  def register_worker_submit(conn, params) do
-    opts = %{
-      name: params["name"],
-      password: hash_str(params["password"]),
-      photo: params["photo"],
-      admin_id: get_session(conn, :admin).id
-    }
-
-    case Organizations.create(opts) do
-      {:ok, _org} ->
-        conn
-        |> put_flash(:info, "Организация успешно добавлена")
-        |> redirect(to: "/admin")
-
-      {:error, _reason} ->
-        conn
-        |> put_flash(:error, "Проверьте вводимые данные")
-        |> redirect(to: "/admin/register_org")
-    end
-  end
-
-  def create_course(conn, _params) do
-    conn
-    |> render("admin_currency.html")
-  end
-
-  def currency_view(conn, _params) do
+  @doc """
+  GET /admin/currencies
+  """
+  def currencies(conn, _params) do
     currency_list = Currencies.all()
 
     conn
@@ -141,25 +117,65 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   def create_currency_submit(conn, params) do
-    opts =
-      %{
-        short_name: params["short_name"],
-        name: params["name"],
-      }
+    opts = %{
+      name: params["name"],
+      short_name: String.upcase(params["short_name"])
+    }
 
     with {:ok, currencies} <- Currencies.create(opts) do
       conn
-      |> put_flash(:info, "Курс #{currencies.name} создан")
+      |> put_flash(:info, "#{currencies.name} создан")
       |> redirect(to: "/admin/currencies")
     end
   end
 
+  @doc """
+  GET /admin/delete_currency
+  """
   def delete_currency(conn, %{"id" => id}) do
     with {:ok, currency} <- Currencies.do_get(id: id),
          {:ok, currency} <- Currencies.delete(currency) do
       conn
-      |> put_flash(:info, "Курс #{currency.name} удалён")
+      |> put_flash(:info, "#{currency.name} удалён")
       |> redirect(to: "/admin/currencies")
+    end
+  end
+
+  @doc """
+  GET /admin/cities
+  """
+  def cities(conn, _params) do
+    cities_list = Cities.all()
+
+    conn
+    |> render("admin_cities.html", cities_list: cities_list)
+  end
+
+  @doc """
+  POST /admin/cities
+  """
+  def create_city_submit(conn, params) do
+    opts = %{
+      name: params["name"],
+      short_name: String.upcase(params["short_name"])
+    }
+
+    with {:ok, city} <- Cities.create(opts) do
+      conn
+      |> put_flash(:info, "#{city.name} создан")
+      |> redirect(to: "/admin/cities")
+    end
+  end
+
+  @doc """
+  GET /admin/delete_city
+  """
+  def delete_city(conn, %{"id" => id}) do
+    with {:ok, city} <- Cities.do_get(id: id),
+         {:ok, city} <- Cities.delete(city) do
+      conn
+      |> put_flash(:info, "#{city.name} удалён")
+      |> redirect(to: "/admin/cities")
     end
   end
 end

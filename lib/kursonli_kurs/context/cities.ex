@@ -29,6 +29,10 @@ defmodule KursonliKurs.Context.Cities do
     |> Repo.insert()
   end
 
+  def delete(city) do
+    Repo.delete(city)
+  end
+
   @doc false
   @spec update(city, params) :: {:ok, city} | {:error, Ecto.Changeset.t()}
   def update(city, params) do

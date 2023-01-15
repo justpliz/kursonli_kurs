@@ -2,24 +2,24 @@
    class="hidden items-center justify-center h-screen w-screen z-20 absolute left-0 top-0 bg-black bg-opacity-60">
    <div class="bg-white max-w-xl w-full rounded-md">
       <div class="p-3 flex items-center justify-between border-b border-b-gray-300">
-         <h1 class="title_without_margin">Создание валюты</h1>
+         <h1 class="title_without_margin">Добавление города</h1>
          <span class="modal-close cursor-pointer text-2xl">×</span>
       </div>
       <div class="p-3 border-b border-b-gray-300">
-         <%= form_for @conn, Routes.admin_path(@conn, :create_currency_submit), fn f -> %>
+         <%= form_for @conn, Routes.admin_path(@conn, :create_city_submit), fn f -> %>
             <div>
-               <label class="label_input">name</label>
+               <label class="label_input">Полное название города</label>
                <%= text_input f, :name, class: "input_full" , required: "true" %>
             </div>
             <div>
-               <label class="label_input">short_name</label>
-               <%= text_input f, :short_name, class: "input_full" , required: "true" %>
+               <label class="label_input">Короткое название города</label>
+               <%= text_input f, :short_name, class: "input_full input_text_uppercase" , required: "true" %>
             </div>
       </div>
       <div class="p-3 flex items-center justify-start">
          <div>
             <div>
-               <%= submit "Сохранить" , class: "btn_save" %>
+               <%= submit "Добавить" , class: "btn_save" %>
             </div>
             <% end %>
          </div>

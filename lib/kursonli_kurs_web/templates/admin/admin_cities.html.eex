@@ -1,14 +1,14 @@
 <div class="margin_content">
-  <h1 class="title">Просмотр и создание курсов</h1>
+  <h1 class="title">Просмотр и создание городов</h1>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 table_sort">
       <thead class="text-xs text-gray-700 uppercase bg-white">
         <tr>
           <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
-            Валюта
+            Название города
           </th>
           <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
-            Короткое название
+            Короткое название города
           </th>
           <th scope="col" class="px-6 py-6 border-b-2 border-gray-200">
             Управление
@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= for item <- @currency_list do %>
+        <%= for item <- @cities_list do %>
           <tr class="bg-white">
             <td class="px-6 py-4 border-b-2">
               <%= item.name %>
@@ -25,7 +25,7 @@
               <%= item.short_name %>
             </td>
             <td class="px-6 py-4 border-b-2 text-center">
-              <a href="/admin/delete_currency?id=<%= item.id %>" class="">
+              <a href="/admin/delete_city?id=<%= item.id %>" class="">
                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
               </a>
             </td>
@@ -35,7 +35,7 @@
     </table>
   </div>
 
-  <button id="modal-button" class="modal-button mt-4 btn_save">Создать курс</button>
+  <button id="modal-button" class="modal-button mt-4 btn_save">Добавить новый город</button>
 </div>
 
-<%= render(KursonliKursWeb.AdminView, "modal_admin_currency_create.html" , conn: @conn) %>
+<%= render(KursonliKursWeb.AdminView, "modal_admin_cities_create.html" , conn: @conn) %>

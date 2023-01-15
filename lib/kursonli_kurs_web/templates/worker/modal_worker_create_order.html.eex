@@ -47,7 +47,6 @@
               <input name="type" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" type="checkbox"
                 class="type_select rounded">
               <label class="label_select" for="<%= Atom.to_string(item) %>"><%= Atom.to_string(item) %></label>
-              <%=# checkbox(f, :transfer, id: Atom.to_string(item), class: "type_select") %>
             </div>
           <% end %>
         </div>

@@ -15,7 +15,8 @@ module.exports = {
         drab: '#363740',
         tableGray: '#515151',
         dblue: '#000045',
-        blub: '#3689ce'
+        blub: '#3689ce',
+        lightBlub: '#5699d1'
       }
     }
   },

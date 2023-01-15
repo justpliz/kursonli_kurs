@@ -57,9 +57,14 @@ defmodule KursonliKursWeb.Router do
 
     get "/register_org", AdminController, :register_org
     post "/register_org_submit", AdminController, :register_org_submit
-    get "/currencies", AdminController, :currency_view
+
+    get "/currencies", AdminController, :currencies
     post "/currencies", AdminController, :create_currency_submit
     get "/delete_currency", AdminController, :delete_currency
+
+    get "/cities", AdminController, :cities
+    post "/cities", AdminController, :create_city_submit
+    get "/delete_city", AdminController, :delete_city
   end
 
   scope "/worker", KursonliKursWeb do
