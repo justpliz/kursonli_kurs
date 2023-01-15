@@ -38,6 +38,7 @@ defmodule KursonliKursWeb.Router do
     pipe_through [:browser, :index]
 
     get "/", PageController, :index
+    get "/azazaza/:id", PageController, :personal_page
   end
 
   scope "/admin", KursonliKursWeb do
