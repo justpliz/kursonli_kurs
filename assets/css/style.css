@@ -52,3 +52,22 @@ body {
    color: #3689ce;
    font-weight: 700;
 }
+
+th.sorted[data-order="1"],
+th.sorted[data-order="-1"] {
+   position: relative;
+}
+
+th.sorted[data-order="1"]::after,
+th.sorted[data-order="-1"]::after {
+   right: 8px;
+   position: absolute;
+}
+
+th.sorted[data-order="-1"]::after {
+   content: "▼"
+}
+
+th.sorted[data-order="1"]::after {
+   content: "▲"
+}

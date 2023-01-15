@@ -37,6 +37,10 @@ defmodule KursonliKurs.Context.Orders do
     |> Repo.update()
   end
 
+  def delete(order) do
+    Repo.delete(order)
+  end
+
   def order_list() do
     from(
       order in Order,
@@ -63,6 +67,6 @@ defmodule KursonliKurs.Context.Orders do
         transfer: order.transfer
       }
     )
-    |> Repo.all
+    |> Repo.all()
   end
 end

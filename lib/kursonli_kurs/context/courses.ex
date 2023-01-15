@@ -31,6 +31,10 @@ defmodule KursonliKurs.Context.Courses do
     |> Repo.insert()
   end
 
+  def delete(course) do
+    Repo.delete(course)
+  end
+
   @doc false
   @spec update(course, params) :: {:ok, course} | {:error, Ecto.Changeset.t()}
   def update(course, params) do

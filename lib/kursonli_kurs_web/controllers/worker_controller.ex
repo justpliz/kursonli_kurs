@@ -95,16 +95,6 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
-  GET /worker/courses
-  """
-  def courses(conn, _params) do
-    course_list = Courses.all()
-
-    conn
-    |> render("worker_courses.html", course_list: course_list)
-  end
-
-  @doc """
   GET /worker/orders
   """
   def orders(conn, _params) do
@@ -121,7 +111,7 @@ defmodule KursonliKursWeb.WorkerController do
     currencies_list = Currencies.all()
 
     conn
-    |> render("worker_create_order.html", currencies_list: currencies_list)
+    |> render("worker_orders.html", currencies_list: currencies_list)
   end
 
   @doc """
@@ -130,23 +120,23 @@ defmodule KursonliKursWeb.WorkerController do
   def create_order_submit(conn, params) do
     IO.inspect(params, label: "params")
 
-    opts = %{
-      date: Timex.now(),
-      number: genrate_random_str(6),
-      type: :sale,
-      transfer: :red,
-      volume: params["volume"],
-      filial_id: hd(Filials.all).id,
-      worker_id: get_session(conn, :worker).id,
-      course_id: params["course_id"]
-    } |> IO.inspect(label: "opts")
+    opts =
+      %{
+        date: Timex.now(),
+        number: genrate_random_str(6),
+        type: :sale,
+        transfer: :red,
+        volume: params["volume"],
+        filial_id: hd(Filials.all()).id,
+        worker_id: get_session(conn, :worker).id,
+        course_id: hd(Courses.all()).id
+      }
+      |> IO.inspect(label: "opts")
 
     with {:ok, order} <- Orders.create(opts) do
       conn
-      |> put_flash(:info,  "Ордер #{order.number} зарегестрирован")
-      |> render("worker_orders.html")
       |> put_flash(:info, "Ордер #{order.number} зарегестрирован")
-      |> render("worker_index.html")
+      |> redirect(to: "/worker/orders")
     end
   end
 
@@ -162,5 +152,74 @@ defmodule KursonliKursWeb.WorkerController do
 
     conn
     # |> render("worker_courses.html", course_list: course_list)
+  end
+
+  @doc """
+  GET /worker/delete_order
+  """
+  def delete_order(conn, %{"id" => id}) do
+    with {:ok, order} <- Orders.do_get(id: id),
+         {:ok, _order} <- Orders.delete(order) do
+      conn
+      |> put_flash(:info, "Ордер удалён")
+      |> redirect(to: "/worker/orders")
+    end
+  end
+
+  @doc """
+  GET /worker/courses
+  """
+  def courses(conn, _params) do
+    courses_list = Courses.all()
+
+    conn
+    |> render("worker_courses.html", courses_list: courses_list)
+  end
+
+  @doc """
+  POST /worker/create_course
+  """
+  def create_course_submit(conn, params) do
+    opts =
+      %{
+        # currency_id: Currencies.get(id: "id"),
+        currency_id: hd(Currencies.all()).id,
+        filial_id: hd(Filials.all()).id,
+        value_for_sale: params["value_for_sale"],
+        value_for_purchase: params["value_for_purchase"]
+      }
+      |> IO.inspect(label: "параметры")
+
+    opts_currency =
+      %{
+        name: params["name"],
+        short_name: params["short_name"]
+      }
+      |> IO.inspect(label: "параметры второй оптс")
+
+    # не получилось связать курсы и currency, чтобы в табличке был не только долар,
+    # но и другие валюты которые создали
+
+    with {:ok, _course} <- Courses.create(opts),
+         {:ok, currencies} <- Currencies.create(opts_currency) do
+      conn
+      |> put_flash(:info, "Курс #{currencies.name} создан")
+      |> redirect(to: "/worker/courses")
+    end
+  end
+
+  @doc """
+  GET /worker/delete_course
+  """
+  def delete_course(conn, %{"id" => id}) do
+    with {:ok, courses} <- Courses.do_get(id: id),
+         {:ok, _course} <- Courses.delete(courses) do
+      # тут эта темка тоже не отрабатывает, и карренски не удаляется из таблицы
+      #  {:ok, currency} <- Currencies.do_get(id: id),
+      #  {:ok, _currency} <- Currencies.delete(currency) do
+      conn
+      |> put_flash(:info, "Курс удалён")
+      |> redirect(to: "/worker/courses")
+    end
   end
 end
