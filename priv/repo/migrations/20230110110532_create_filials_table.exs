@@ -10,8 +10,9 @@ defmodule KursonliKurs.Repo.Migrations.CreateFilialsTable do
       add :name, :string
       add :tags, {:array, :string}
       add :address, :string
+      add :coordinates, {:array, :string}
       add :photo, :string
-      add :description, :text
+      add :description, :jsonb
       add :paid_up_to, :naive_datetime
       add :payment_status, :payment_status
 

@@ -20,14 +20,13 @@
         </tr>
       </thead>
       <tbody>
-        <%= for item <- @currency_list do %>
         <%= for i <- @courses_list do %>
           <tr class="bg-white">
             <td class="px-6 py-4 border-b-2">
-              <%= item.name %>
+              <%= i.currency.name %>
             </td>
             <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
-              <%= item.short_name %>
+              <%= i.currency.short_name %>
             </td>
             <td class="px-6 py-4 border-2">
               <%= i.value_for_purchase %>
@@ -36,12 +35,11 @@
               <%= i.value_for_sale %>
             </td>
             <td class="px-6 py-4 border-b-2 text-center">
-              <a href="/worker/delete_course?id=<%= item.id %>" class="">
+              <a href="/worker/delete_course?id=<%= i.id %>" class="">
                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
               </a>
             </td>
           </tr>
-          <% end %>
           <% end %>
       </tbody>
     </table>

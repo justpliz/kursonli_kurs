@@ -172,8 +172,6 @@ defmodule KursonliKursWeb.WorkerController do
   def courses(conn, _params) do
     courses_list = Courses.all()
     currencies_list = Currencies.all()
-    |> Enum.map(fn x -> x.short_name end)
-    # |> Enum.map(fn x -> [x.short_name, x.id] end)
 
     conn
     |> render("worker_courses.html", courses_list: courses_list, currencies_list: currencies_list)
@@ -183,30 +181,21 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/create_course
   """
   def create_course_submit(conn, params) do
+    # TODO: переделать получение валюты
+    # TODO: привязка к конкретному или нескольким филиалам
+    short_name = params["currency"]
+    currency_id = Enum.find(Currencies.all(), fn x -> x.short_name == short_name end).id
     opts =
       %{
-        # currency_id: Currencies.get(id: "id"),
-        currency_id: hd(Currencies.all()).id,
+        currency_id: currency_id,
         filial_id: hd(Filials.all()).id,
         value_for_sale: params["value_for_sale"],
         value_for_purchase: params["value_for_purchase"]
       }
-      |> IO.inspect(label: "параметры")
 
-    opts_currency =
-      %{
-        name: params["name"],
-        short_name: params["short_name"]
-      }
-      |> IO.inspect(label: "параметры второй оптс")
-
-    # не получилось связать курсы и currency, чтобы в табличке был не только долар,
-    # но и другие валюты которые создали
-
-    with {:ok, _course} <- Courses.create(opts),
-         {:ok, currencies} <- Currencies.create(opts_currency) do
+    with {:ok, _course} <- Courses.create(opts) do
       conn
-      |> put_flash(:info, "Курс #{currencies.name} создан")
+      |> put_flash(:info, "Новый курс успешно создан")
       |> redirect(to: "/worker/courses")
     end
   end
@@ -217,6 +206,9 @@ defmodule KursonliKursWeb.WorkerController do
   def delete_course(conn, %{"id" => id}) do
     with {:ok, courses} <- Courses.do_get(id: id),
          {:ok, _course} <- Courses.delete(courses) do
+      # тут эта темка тоже не отрабатывает, и карренски не удаляется из таблицы
+      #  {:ok, currency} <- Currencies.do_get(id: id),
+      #  {:ok, _currency} <- Currencies.delete(currency) do
       conn
       |> put_flash(:info, "Курс удалён")
       |> redirect(to: "/worker/courses")
