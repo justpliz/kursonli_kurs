@@ -35,9 +35,10 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   @doc """
   Get info from config for templates
-  For example: check_config("order_type") -> [:purchase, :sale]
+  For example: check_config("order_type") -> ["purchase", "sale"]
   """
   def check_config(conf_atom) do
     Application.get_env(:kursonli_kurs, String.to_atom(conf_atom))
+    |> Enum.map(fn x -> Atom.to_string(x) end)
   end
 end

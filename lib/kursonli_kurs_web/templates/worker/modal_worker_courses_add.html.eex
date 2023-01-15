@@ -7,12 +7,13 @@
       </div>
       <div class="p-3 border-b border-b-gray-300">
          <%= form_for @conn, Routes.worker_path(@conn, :create_course_submit), fn f -> %>
-            <%= for item <- Application.get_env(:kursonli_kurs, :order_type) do %>
+            <%= select f, :currency, @currencies_list, class: "input_full", required: "true" %>
+            <%= for item <- check_config("order_type") do %>
                <div class="container_select">
-                 <input required name="type" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" checked type="radio"
+                 <input required name="type" id="<%= item %>" value="<%= item %>" checked type="radio"
                    class="type_select">
-                 <label class="label_select" for="<%= Atom.to_string(item) %>">
-                   <%= Atom.to_string(item) %>
+                 <label class="label_select" for="<%= item %>">
+                   <%= item %>
                  </label>
                </div>
             <% end %>

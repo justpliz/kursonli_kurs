@@ -171,17 +171,12 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def courses(conn, _params) do
     courses_list = Courses.all()
-    currency_list = Currencies.all()
+    currencies_list = Currencies.all()
+    |> Enum.map(fn x -> x.short_name end)
+    # |> Enum.map(fn x -> [x.short_name, x.id] end)
 
     conn
-    |> render("worker_courses.html", courses_list: courses_list, currency_list: currency_list)
-  end
-
-  def currency_list(conn, _params) do
-    currency_list = Currencies.all()
-
-    conn
-    |> render("modal_worker_courses_add.html.html", currency_list: currency_list)
+    |> render("worker_courses.html", courses_list: courses_list, currencies_list: currencies_list)
   end
 
   @doc """
@@ -190,15 +185,28 @@ defmodule KursonliKursWeb.WorkerController do
   def create_course_submit(conn, params) do
     opts =
       %{
+        # currency_id: Currencies.get(id: "id"),
         currency_id: hd(Currencies.all()).id,
         filial_id: hd(Filials.all()).id,
         value_for_sale: params["value_for_sale"],
         value_for_purchase: params["value_for_purchase"]
       }
+      |> IO.inspect(label: "параметры")
 
-    with {:ok, _course} <- Courses.create(opts) do
+    opts_currency =
+      %{
+        name: params["name"],
+        short_name: params["short_name"]
+      }
+      |> IO.inspect(label: "параметры второй оптс")
+
+    # не получилось связать курсы и currency, чтобы в табличке был не только долар,
+    # но и другие валюты которые создали
+
+    with {:ok, _course} <- Courses.create(opts),
+         {:ok, currencies} <- Currencies.create(opts_currency) do
       conn
-      |> put_flash(:info, "Курс создан")
+      |> put_flash(:info, "Курс #{currencies.name} создан")
       |> redirect(to: "/worker/courses")
     end
   end
