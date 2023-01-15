@@ -6,14 +6,15 @@
          <span class="modal-close cursor-pointer text-2xl">×</span>
       </div>
       <div class="p-3 border-b border-b-gray-300">
+         <label class="label_input">Валюта</label>
          <%= form_for @conn, Routes.worker_path(@conn, :create_course_submit), fn f -> %>
             <%= select f, :currency, Enum.map(@currencies_list, fn x -> x.short_name end), class: "input_full", required: "true" %>
             <div>
-               <label class="label_input">value_for_sale</label>
+               <label class="label_input">Цена продажи</label>
                <%= text_input f, :value_for_sale, class: "input_full number_input_only" , required: "true" %>
             </div>
             <div>
-               <label class="label_input">value_for_purchase</label>
+               <label class="label_input">Цена покупки</label>
                <%= text_input f, :value_for_purchase, class: "input_full number_input_only" , required: "true" %>
             </div>
       </div>

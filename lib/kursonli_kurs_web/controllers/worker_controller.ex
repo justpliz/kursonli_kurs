@@ -99,9 +99,10 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def orders(conn, _params) do
     order_list = Orders.order_list()
+    currencies_list = Currencies.all()
 
     conn
-    |> render("worker_orders.html", order_list: order_list)
+    |> render("worker_orders.html", order_list: order_list, currencies_list: currencies_list)
   end
 
   @doc """
@@ -185,13 +186,13 @@ defmodule KursonliKursWeb.WorkerController do
     # TODO: привязка к конкретному или нескольким филиалам
     short_name = params["currency"]
     currency_id = Enum.find(Currencies.all(), fn x -> x.short_name == short_name end).id
-    opts =
-      %{
-        currency_id: currency_id,
-        filial_id: hd(Filials.all()).id,
-        value_for_sale: params["value_for_sale"],
-        value_for_purchase: params["value_for_purchase"]
-      }
+
+    opts = %{
+      currency_id: currency_id,
+      filial_id: hd(Filials.all()).id,
+      value_for_sale: params["value_for_sale"],
+      value_for_purchase: params["value_for_purchase"]
+    }
 
     with {:ok, _course} <- Courses.create(opts) do
       conn
