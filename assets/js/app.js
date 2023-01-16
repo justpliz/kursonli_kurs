@@ -57,12 +57,6 @@ activeLink.forEach((e) => {
    }
 })
 
-$('.plu-code').on('input', function () {
-   if (this.value > 5) {
-      this.value = this.value.slice(0, 5);
-   }
-});
-
 var input = [...document.querySelectorAll('.number_input_only')];
 input.forEach((el) => {
    el.addEventListener("input", (e) => {

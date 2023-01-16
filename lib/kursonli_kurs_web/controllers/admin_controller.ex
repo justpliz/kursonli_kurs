@@ -61,12 +61,12 @@ defmodule KursonliKursWeb.AdminController do
     |> render("register_org.html")
   end
 
-  # def view_organization(conn, _params) do
-  #   organization_list = Organizations.all()
+  def view_organization(conn, _params) do
+    organization_list = Organizations.all()
 
-  #   conn
-  #   |> render("admin_organizations.html", organization_list: organization_list)
-  # end
+    conn
+    |> render("admin_organizations.html", organization_list: organization_list)
+  end
 
   @doc """
   GET /admin/register_org_submit
