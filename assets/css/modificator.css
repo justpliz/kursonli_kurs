@@ -79,7 +79,7 @@
    }
 
    .admin_app_li {
-      @apply pl-8;
+      @apply px-6;
       @apply hover:bg-gray-500;
       @apply transition-all;
    }

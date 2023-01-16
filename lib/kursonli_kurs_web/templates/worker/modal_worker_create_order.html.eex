@@ -34,7 +34,6 @@
 
         <div>
           <label class="label_input">Валюта</label>
-          <!-- валюты не подлетают чет) -->
           <%= select f, :currency, Enum.map(@currencies_list, fn x -> x.short_name end), class: "input_full", required: "true" %>
         </div>
 

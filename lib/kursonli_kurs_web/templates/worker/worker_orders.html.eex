@@ -105,43 +105,45 @@
           <th scope="col" class="w-2/12 px-6 py-6 border-b-2 border-x-2 border-gray-200">
             Передача
           </th>
-          <th scope="col" class="w-1/12 px-6 py-6 border-b-2 border-gray-200"></th>
         </tr>
       </thead>
       <tbody>
-        <%= for item <- @order_list do %>
-          <tr class="bg-white">
+        <%#= for item <- @order_list do %>
+          <!-- <tr class="bg-white"> -->
+            <tr>
             <td class="px-6 py-4">
-              <%= item.filial_name %>
+              <%#= item.filial_name %>
+            </td>
+            <!-- <td class="px-6 py-4">
+              <%#= item.filial_name %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.date %>
+              <%#= item.date %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              USD
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.course_sale %>
+              <%#= item.course_sale %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.volume %>
+              <%#= item.volume %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.terms %>
+              <%#= item.terms %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.transfer %>
+              <%#= item.transfer %>
             </td>
             <td class="px-6 py-4 text-center">
-              <!-- <div href="/worker/edit_order" class="order-click" data-map="<%= Jason.encode!(item) %>">
+              <div href="/worker/edit_order" class="order-click" data-map="<%#= Jason.encode!(item) %>">
                 <span class="material-symbols-outlined" style="color: blue; font-weight: 900;">add_circle</span>
-              </div> -->
-              <a href="/worker/delete_order?id=<%= item.id %>">
+              </div>
+              <a href="/worker/delete_order?id=<%#= item.id %>">
                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
               </a>
-            </td>
+            </td> -->
           </tr>
-          <% end %>
+          <%# end %>
       </tbody>
     </table>
   </div>
@@ -199,7 +201,7 @@
               <%= item.date %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              USD
+              <%= item.currency_short_name %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               <%= item.course_sale %>
@@ -213,10 +215,10 @@
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               <%= item.transfer %>
             </td>
-            <td class="px-6 py-4 text-center">
-              <!-- <div href="/worker/edit_order" class="order-click" data-map="<%= Jason.encode!(item) %>">
-                <span class="material-symbols-outlined" style="color: blue; font-weight: 900;">add_circle</span>
-              </div> -->
+            <td class="px-6 py-4 flex items-center justify-center text-center">
+              <div href="/worker/edit_order" class="order-click" data-map="<%= Jason.encode!(item) %>">
+                <span class="material-symbols-outlined" style="color: blue; font-weight: 900;">edit_note</span>
+              </div>
               <a href="/worker/delete_order?id=<%= item.id %>">
                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
               </a>
@@ -243,115 +245,95 @@
   </div>
 </div>
 
-<%= render(KursonliKursWeb.WorkerView, "modal_worker_create_order.html" , conn: @conn, currencies_list: @currencies_list) %>
+<%= render(KursonliKursWeb.WorkerView, "modal_worker_create_order.html" , conn: @conn, currencies_list:
+  @currencies_list) %>
 
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const getSort = ({ target }) => {
-      const order = (target.dataset.order = -(target.dataset.order || -1));
-      const index = [...target.parentNode.cells].indexOf(target);
-      const collator = new Intl.Collator(['ru'], { numeric: true });
-      const comparator = (index, order) => (a, b) => order * collator.compare(
-        a.children[index].innerHTML,
-        b.children[index].innerHTML
-      );
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const getSort = ({ target }) => {
+        const order = (target.dataset.order = -(target.dataset.order || -1));
+        const index = [...target.parentNode.cells].indexOf(target);
+        const collator = new Intl.Collator(['ru'], { numeric: true });
+        const comparator = (index, order) => (a, b) => order * collator.compare(
+          a.children[index].innerHTML,
+          b.children[index].innerHTML
+        );
 
-      for (const tBody of target.closest('table').tBodies)
-        tBody.append(...[...tBody.rows].sort(comparator(index, order)));
+        for (const tBody of target.closest('table').tBodies)
+          tBody.append(...[...tBody.rows].sort(comparator(index, order)));
 
-      for (const cell of target.parentNode.cells)
-        cell.classList.toggle('sorted', cell === target);
-    };
-    document.querySelectorAll('.table_sort thead').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
-  });
+        for (const cell of target.parentNode.cells)
+          cell.classList.toggle('sorted', cell === target);
+      };
+      document.querySelectorAll('.table_sort thead').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
+    });
 
 
-  const worker = document.querySelector("#worker")
-  localStorage.setItem("worker", worker.innerHTML)
+    const worker = document.querySelector("#worker")
+    localStorage.setItem("worker", worker.innerHTML)
 
-  $(".order-click").click(function () {
+    $(".order-click").click(function () {
 
-    const { course_purchase, course_sale, currency_short_name, date, filial_id, id, organization, terms, volume, transfer } = JSON.parse(this.dataset.map)
+      const { course_purchase, course_sale, currency_short_name, date, filial_id, id, organization, terms, volume, transfer } = JSON.parse(this.dataset.map)
 
-    console.log(JSON.parse(this.dataset.map))
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      html: `
-      <form action="/worker/create_order" method="post">
-    <div class="container_select">
-      <input class="hidden" id="filial_id" name="filial_id" value="${filial_id}" >
-        <input class="hidden" id="course_id" name="course_id" value="${id}" >
-        <input required name="type" id="purchase" value="purchase" checked
-          id="default-radio-2" type="radio"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
-        <label class="ml-2 text-sm font-medium text-gray-900" for="purchase">
-            purchase
-        </label>
+      console.log(JSON.parse(this.dataset.map))
+      Swal.fire({
+        html: `
+<form action="/worker/update_order" method="post">
+  <div class="container_select">
+    <input class="hidden" id="filial_id" name="filial_id" value="${filial_id}">
+    
+    <input class="hidden" id="course_id" name="course_id" value="${id}">
 
-        <input required name="type" id="sale" value="sale" checked
-          id="default-radio-2" type="radio"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
-        <label class="ml-2 text-sm font-medium text-gray-900" for="sale">
-sale
-        </label>
+    <input required name="type" id="purchase" value="purchase" checked id="default-radio-2" type="radio"
+      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+    <label class="ml-2 text-sm font-medium text-gray-900" for="purchase">
+      purchase
+    </label>
+    <input required name="type" id="sale" value="sale" checked id="default-radio-2" type="radio"
+      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+    <label class="ml-2 text-sm font-medium text-gray-900" for="sale">
+      sale
+    </label>
+  </div>
 
-    </div>
-<input name="_csrf_token" type="hidden" value="CWM1QxI4PScIVX4lCn4xNScmFxcFXlkiH-q3TB_dRlIs85BSvKSyS6of">
-    <div>
-      <label class="label_input">Объем</label>
-<input class="input_full" id="volume" name="volume" value="${volume}" required="true" type="text">
-    </div>
+  <input name="_csrf_token" type="hidden" value="CWM1QxI4PScIVX4lCn4xNScmFxcFXlkiH-q3TB_dRlIs85BSvKSyS6of">
+  <div>
+    <label class="label_input">Объем</label>
+    <input class="input_full" id="volume" name="volume" value="${volume}" required="true" type="text">
+  </div>
 
-    <div>
-      <label class="label_input">Курс</label>
-<input class="input_full" id="course" value="${course_sale}" name="course" required="true" type="text">
-    </div>
+  <div>
+    <label class="label_input">Цена продажи</label>
+    <input class="input_full" id="course" value="${course_sale}" name="course" required="true" type="text">
+  </div>
 
-    <div>
-      <label class="label_input">Лимит</label>
-<input class="input_full" id="limit" name="limit" value="${course_sale}" required="true" type="text">
-    </div>
+  <div>
+    <label class="label_input">Цена покупки</label>
+    <input class="input_full" id="limit" name="limit" value="${course_purchase}" required="true" type="text">
+  </div>
 
-    <div>
-      <label class="label_input">Валюта</label>
-
-<select class="input_full" id="currency" name="currency" required="true"><option value="USD">USD</option></select>
-
-    </div>
-
-    <div>
-      <label class="label_input">Передача</label>
-
-<input name="transfer" type="hidden" value="false"><input id="green" name="transfer" type="checkbox" value="true">
-green
-
-<input name="transfer" type="hidden" value="false"><input id="red" name="transfer" type="checkbox" value="true">
-red
-
-<input name="transfer" type="hidden" value="false"><input id="red_green" name="transfer" type="checkbox" value="true">
-red_green
-
-    </div>
-
-    <div>
-<button class="btn_save mt-2" type="submit">Сохранить</button>
-    </div>
+  <div>
+    <label class="label_input">Валюта</label>
+    <select class="input_full" id="currency" name="currency" required="true">
+      <option value="USD">USD</option>
+    </select>
+  </div>
+  <div>
+    <label class="label_input">Передача</label>
+    <input name="transfer" type="hidden" value="false"><input id="green" name="transfer" type="checkbox" value="true">
+    green
+    <input name="transfer" type="hidden" value="false"><input id="red" name="transfer" type="checkbox" value="true">
+    red
+    <input name="transfer" type="hidden" value="false"><input id="red_green" name="transfer" type="checkbox"
+      value="true">
+    red_green
+  </div>
+  <div>
+    <button class="btn_save mt-2" type="submit">Сохранить</button>
+  </div>
 </form>`,
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Ордер создан!!',
-          'Your file has been deleted.',
-          'success'
-        )
-      }
+      })
     })
-  })
-</script>
+  </script>

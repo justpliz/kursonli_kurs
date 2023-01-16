@@ -55,6 +55,7 @@ defmodule KursonliKursWeb.Router do
     get "/", AdminController, :index
     get "/logout", AdminController, :admin_logout
 
+    # get "/view_organization", AdminController, :view_organization
     get "/register_org", AdminController, :register_org
     post "/register_org_submit", AdminController, :register_org_submit
 
@@ -85,11 +86,13 @@ defmodule KursonliKursWeb.Router do
     get "/orders", WorkerController, :orders
     get "/create_order", WorkerController, :create_order
     post "/create_order", WorkerController, :create_order_submit
-    get "/courses", WorkerController, :courses
-    post "/update_course", WorkerController, :update_course
     get "/delete_order", WorkerController, :delete_order
+    post "/update_order", WorkerController, :update_order
+
+    get "/courses", WorkerController, :courses
     get "/create_course", WorkerController, :create_course
     post "/create_course", WorkerController, :create_course_submit
+    post "/update_course", WorkerController, :update_course
     get "/delete_course", WorkerController, :delete_course
   end
 

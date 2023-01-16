@@ -1,44 +1,37 @@
 <div class="margin_content">
-  <h1 class="title">Список курсов</h1>
+  <h1 class="title">Просмотр всех организаций</h1>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 table_sort">
       <thead class="text-xs text-gray-700 uppercase bg-white">
         <tr>
           <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
-            Валюта
+            Название организации
           </th>
           <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
-            Короткое название
-          </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
-            Цена покупки
+            Короткое название города
           </th>
           <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
-            Цена продажи
+            Создана
           </th>
-          <th scope="col" class="px-6 py-6 border-b-2 border-gray-200"></th>
+          <th scope="col" class="px-6 py-6 border-b-2 border-gray-200">
+            Управление
+          </th>
         </tr>
       </thead>
       <tbody>
-        <%= for i <- @courses_list do %>
+        <%= for item <- @organization_list do %>
           <tr class="bg-white">
             <td class="px-6 py-4 border-b-2">
-              <%= i.currency.name %>
+              <%= item.name %>
             </td>
             <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
-              <%= i.currency.short_name %>
-            </td>
-            <td class="px-6 py-4 border-2">
-              <%= i.value_for_purchase %>
+              <%= item.iin %>
             </td>
             <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
-              <%= i.value_for_sale %>
+              <%= item.inserted_at %>
             </td>
             <td class="px-6 py-4 border-b-2 text-center">
-              <!-- <a href="/worker/update_course?id=<%= i.id %>" class="">
-                <span class="material-symbols-outlined text-blub" style=" font-weight: 900;">edit_note</span>
-              </a> -->
-              <a href="/worker/delete_course?id=<%= i.id %>" class="">
+              <a href="/admin/delete_city?id=<%#= item.id %>" class="">
                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
               </a>
             </td>
@@ -47,8 +40,5 @@
       </tbody>
     </table>
   </div>
-
-  <button id="modal-button" class="modal-button mt-4 btn_save">Добавить курс</button>
 </div>
 
-<%= render(KursonliKursWeb.WorkerView, "modal_worker_courses_add.html" , conn: @conn, currencies_list: @currencies_list) %>

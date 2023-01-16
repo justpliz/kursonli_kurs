@@ -22,26 +22,44 @@
       <a href="/admin"><img class="mt-10" src={ Routes.static_path(@conn, "/images/logo-white.svg" )} alt=""></a>
       <ul class="w-full pt-6">
         <li class="admin_app_li">
+          <a href="/admin/" class="active-link admin_app_href">
+            <span class="icons_admin_style material-symbols-outlined"
+              style="font-weight: 500; font-size: 28px;">home</span>
+            <span class="text-lg">Главная</span>
+          </a>
+        </li>
+        <!-- <li class="admin_app_li">
+          <a href="/admin/view_organization" class="active-link admin_app_href">
+            <span class="icons_admin_style material-symbols-outlined"
+              style="font-weight: 500; font-size: 28px;">format_list_bulleted</span>
+            <span class="text-lg">Список организаций</span>
+          </a>
+        </li> -->
+        <li class="admin_app_li">
           <a href="/admin/register_org" class="active-link admin_app_href">
-            <span class="icons_admin_style material-symbols-outlined" style="font-weight: 500; font-size: 28px;">corporate_fare</span>
+            <span class="icons_admin_style material-symbols-outlined"
+              style="font-weight: 500; font-size: 28px;">corporate_fare</span>
             <span class="text-lg">Создание организации</span>
           </a>
         </li>
         <li class="admin_app_li">
           <a href="/admin/currencies" class="active-link admin_app_href">
-            <span class="icons_admin_style material-symbols-outlined" style="font-weight: 500; font-size: 28px;">payments</span>
+            <span class="icons_admin_style material-symbols-outlined"
+              style="font-weight: 500; font-size: 28px;">payments</span>
             <span class="text-lg">Создание валюты</span>
           </a>
         </li>
         <li class="admin_app_li">
           <a href="/admin/cities" class="active-link admin_app_href">
-            <span class="icons_admin_style material-symbols-outlined" style="font-weight: 500; font-size: 28px;">apartment</span>
+            <span class="icons_admin_style material-symbols-outlined"
+              style="font-weight: 500; font-size: 28px;">apartment</span>
             <span class="text-lg">Создание городов</span>
           </a>
         </li>
         <li class="admin_app_li app_user_li_absolute">
           <a href="/admin/logout" class="active-link admin_app_href">
-            <span class="icons_admin_style material-symbols-outlined" style="font-weight: 500; font-size: 28px;">logout</span>
+            <span class="icons_admin_style material-symbols-outlined"
+              style="font-weight: 500; font-size: 28px;">logout</span>
             <span class="text-lg">Выйти</span>
           </a>
         </li>
