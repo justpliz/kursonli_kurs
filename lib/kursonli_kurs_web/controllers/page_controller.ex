@@ -9,7 +9,6 @@ defmodule KursonliKursWeb.PageController do
   end
 
   def personal_page(conn, params) do
-    IO.inspect("ZXCZXCZCZC")
     id = params["id"]
     with {:ok, filial} <- Filials.do_get(id: id) do
       conn

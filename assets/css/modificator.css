@@ -86,7 +86,7 @@
 
    .admin_app_href {
       @apply flex items-center py-3 text-gray-300 hover:text-gray-100;
-      @apply hover:text-gray-100;
+      @apply hover:text-gray-100 hover:no-underline;
    }
 
    .title_worker {

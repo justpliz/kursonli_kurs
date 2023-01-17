@@ -119,20 +119,19 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/create_order
   """
   def create_order_submit(conn, params) do
-    IO.inspect(params, label: "params")
-
     opts =
       %{
         date: Timex.now(),
         number: generate_random_str(6),
         type: :sale,
-        transfer: :red,
         volume: params["volume"],
+        terms: params["terms"],
+        transfer: :red,
+        limit: params["limit"],
         filial_id: hd(Filials.all()).id,
         worker_id: get_session(conn, :worker).id,
         course_id: hd(Courses.all()).id
       }
-      |> IO.inspect(label: "opts")
 
     with {:ok, order} <- Orders.create(opts) do
       conn
@@ -182,13 +181,8 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/create_course
   """
   def create_course_submit(conn, params) do
-    # TODO: переделать получение валюты
-    # TODO: привязка к конкретному или нескольким филиалам
-    short_name = params["currency"]
-    currency_id = Enum.find(Currencies.all(), fn x -> x.short_name == short_name end).id
-
     opts = %{
-      currency_id: currency_id,
+      currency_id: params["currency_id"],
       filial_id: hd(Filials.all()).id,
       value_for_sale: params["value_for_sale"],
       value_for_purchase: params["value_for_purchase"]
