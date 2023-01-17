@@ -79,3 +79,8 @@ const handleChange = (e) => {
 }
 inputOnePass.addEventListener('input', handleChange)
 inputTwoPass.addEventListener('input', handleChange)
+
+
+$('#myModal').on('shown.bs.modal', function () {
+   $('#myInput').trigger('focus')
+})

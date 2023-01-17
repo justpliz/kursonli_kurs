@@ -90,7 +90,7 @@
    }
 
    .title_worker {
-      @apply text-xl font-bold leading-tight tracking-tight text-gray-900;
+      @apply text-xl font-bold text-gray-900;
       @apply md:text-2xl;
    }
 

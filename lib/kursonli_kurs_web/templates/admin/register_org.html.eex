@@ -18,6 +18,11 @@
       </div>
 
       <div class="mb-2">
+        <label class="label_input">Тип используемых валют</label>
+          <%= multiple_select f, :currency, Enum.map(@currencies_list, fn x -> x.short_name end), id: "choices-multiple", class: "input_full", required: "true" %>
+      </div>
+
+      <div class="mb-2">
         <label class="label_input">Адрес организации</label>
         <%= text_input f, :address, class: "input_full" , required: "true", placeholder: "Жамбыла 4" %>
       </div>
@@ -58,4 +63,13 @@
       <% end %>
   </div>
 </div>
+
+
+  <script>
+    $(document).ready(function () {
+      var multipleCancelButton = new Choices('#choices-multiple', {
+        removeItemButton: true,
+      });
+    });
+  </script>
 

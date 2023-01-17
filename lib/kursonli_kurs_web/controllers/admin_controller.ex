@@ -54,13 +54,8 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   @doc """
-  GET /admin/register_org
+  GET /admin/view_organization
   """
-  def register_org(conn, _params) do
-    conn
-    |> render("register_org.html")
-  end
-
   def view_organization(conn, _params) do
     organization_list = Organizations.all()
 
@@ -69,10 +64,20 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   @doc """
+  GET /admin/register_org
+  """
+  def register_org(conn, _params) do
+    currencies_list = Currencies.all()
+
+    conn
+    |> render("register_org.html", currencies_list: currencies_list)
+  end
+
+  @doc """
   GET /admin/register_org_submit
   """
   def register_org_submit(conn, params) do
-    password = genrate_random_str(8)
+    password = generate_random_str(8)
 
     org_opts = %{
       name: params["name"],

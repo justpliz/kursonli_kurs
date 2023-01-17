@@ -124,7 +124,7 @@ defmodule KursonliKursWeb.WorkerController do
     opts =
       %{
         date: Timex.now(),
-        number: genrate_random_str(6),
+        number: generate_random_str(6),
         type: :sale,
         transfer: :red,
         volume: params["volume"],
