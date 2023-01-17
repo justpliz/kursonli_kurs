@@ -6,9 +6,9 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :kursonli_kurs, KursonliKurs.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  username: "lar",
+  password: "NOJo7oHK2b",
+  hostname: "192.168.0.2",
   database: "kursonli_kurs_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10

@@ -12,7 +12,7 @@
                     zoom: 13
                 });
 
-                DG.marker([54.98, 82.89]).addTo(map).bindPopup('Вы кликнули по мне!');
+                DG.marker([49.815224, 73.084355]).addTo(map).bindPopup('Тут моя хата');
             });
         </script>
     </head>

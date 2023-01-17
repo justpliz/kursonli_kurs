@@ -53,19 +53,20 @@ defmodule KursonliKursWeb.AdminController do
     |> render("admin_index.html")
   end
 
-  @doc """
-  GET /admin/register_org
-  """
-  def register_org(conn, _params) do
-    conn
-    |> render("register_org.html")
-  end
-
   def view_organization(conn, _params) do
     organization_list = Organizations.all()
 
     conn
     |> render("admin_organizations.html", organization_list: organization_list)
+  end
+
+  @doc """
+  GET /admin/register_org
+  """
+  def register_org(conn, _params) do
+    cities_list = Cities.all()
+    conn
+    |> render("register_org.html", cities_list: cities_list)
   end
 
   @doc """
@@ -89,12 +90,10 @@ defmodule KursonliKursWeb.AdminController do
       password: hash_str(password)
     }
 
-    {:ok, city} = Cities.do_get(name: params["city_name"])
-
     filial_opts = %{
       name: params["filial_name"],
       address: params["address"],
-      city_id: city.id
+      city_id: params["city_id"]
     }
 
     with {:ok, org} <- Organizations.create(org_opts),

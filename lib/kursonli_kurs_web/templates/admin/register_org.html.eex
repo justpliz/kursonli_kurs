@@ -14,7 +14,7 @@
 
       <div class="mb-2">
         <label class="label_input">Город</label>
-        <%= text_input f, :city_name, class: "input_full" , required: "true", placeholder: "Алматы" %>
+        <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", required: "true" %>
       </div>
 
       <div class="mb-2">
@@ -58,4 +58,3 @@
       <% end %>
   </div>
 </div>
-
