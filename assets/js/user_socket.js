@@ -2,6 +2,17 @@
 // you uncomment its entry in "assets/js/app.js".
 import { Socket } from "phoenix"
 // Bring in Phoenix channels client library:
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
 
 const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"))
@@ -70,5 +81,12 @@ $(function () {
     else {
       templateChatNewMe(payload.body, payload.user.first_name)
     }
+  })
+  channel.on("notify", payload => {
+
+    Toast.fire({
+      title: payload.notify,
+      icon: "success",
+    })
   })
 })

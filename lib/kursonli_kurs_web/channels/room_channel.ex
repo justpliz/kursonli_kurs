@@ -1,6 +1,7 @@
 defmodule KursonliKursWeb.RoomChannel do
   use Phoenix.Channel
   require Logger
+  alias KursonliKursWeb.Endpoint
 
   def join("rooms:lobby", message, socket) do
     # Process.flag(:trap_exit, true)
@@ -33,5 +34,10 @@ defmodule KursonliKursWeb.RoomChannel do
   def handle_in("new:msg", msg, socket) do
     broadcast!(socket, "new:msg", %{user: msg["worker"], body: msg["body"]})
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
+  end
+
+  def notify(%{payload: %{notify: notify}, type: :ping}) do
+    :io.setopts(encoding: :utf8)
+    Endpoint.broadcast!("rooms:lobby", "notify", %{notify: notify})
   end
 end
