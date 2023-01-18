@@ -52,3 +52,6 @@
 </div>
 
 <%= render(KursonliKursWeb.WorkerView, "modal_worker_courses_add.html" , conn: @conn, currencies_list: @currencies_list) %>
+
+
+
