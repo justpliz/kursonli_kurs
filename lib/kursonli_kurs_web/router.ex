@@ -55,9 +55,10 @@ defmodule KursonliKursWeb.Router do
     get "/", AdminController, :index
     get "/logout", AdminController, :admin_logout
 
-    get "/view_organization", AdminController, :view_organization
+    get "/organizations", AdminController, :view_organization
     get "/register_org", AdminController, :register_org
     post "/register_org_submit", AdminController, :register_org_submit
+    get "/delete_organization", AdminController, :delete_organization
 
     get "/currencies", AdminController, :currencies
     post "/currencies", AdminController, :create_currency_submit

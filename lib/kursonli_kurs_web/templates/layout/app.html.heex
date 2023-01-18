@@ -1,5 +1,15 @@
 <main class="">
-  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+  <p class="alert alert-info" id="alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+  <p class="alert alert-danger" id="alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :always) %></p>
   <%= @inner_content %>
 </main>
+
+<script>
+  setTimeout(function () {
+    document.getElementById('alert-info').style.display = 'none';
+  }, 5000);
+  setTimeout(function () {
+    document.getElementById('alert-danger').style.display = 'none';
+  }, 5000);
+</script>
