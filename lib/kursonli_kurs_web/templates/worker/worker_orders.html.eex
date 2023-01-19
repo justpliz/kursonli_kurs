@@ -206,7 +206,7 @@
 <%= render(KursonliKursWeb.WorkerView, "modal_worker_create_order.html" , conn: @conn, currencies_list:
   @currencies_list) %>
 
-<%= render(KursonliKursWeb.WorkerView, "chat_page.html" , conn: @conn) %>
+<%= render(KursonliKursWeb.WorkerView, "chat_page.html" , conn: @conn, message: @message) %>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {

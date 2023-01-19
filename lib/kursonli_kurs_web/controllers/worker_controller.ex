@@ -12,6 +12,8 @@ defmodule KursonliKursWeb.WorkerController do
     Cities
   }
 
+  alias KursonliKurs.EtsStorage.Chat
+
   @doc """
   GET /worker/login
   """
@@ -38,7 +40,8 @@ defmodule KursonliKursWeb.WorkerController do
       {:ok, worker} ->
         {:ok, org} = Organizations.do_get(id: worker.organization_id)
         {:ok, filial} = Filials.do_get(organization_id: org.id)
-        {:ok, city} = Cities.do_get(id: filial.city.id)
+        {:ok, city} = Cities.do_get(id: filial.city_id)
+        #  KursonliKursWeb.RoomChannel.notify(%{payload: %{notify: first_name}, type: :ping})
 
         conn
         |> put_session(:worker, %{
@@ -47,7 +50,10 @@ defmodule KursonliKursWeb.WorkerController do
           last_name: last_name,
           phone: worker.phone,
           email: worker.email,
-          city: city.name
+          city: %{
+            id: city.id,
+            city: city.name
+          }
         })
         |> put_flash(:info, "Добро пожаловать #{first_name}")
         |> redirect(to: "/worker")
@@ -113,9 +119,14 @@ defmodule KursonliKursWeb.WorkerController do
   def orders(conn, _params) do
     order_list = Orders.order_list()
     currencies_list = Currencies.all()
+    message = Chat.get_all_by_city("216e01f9-4f24-4331-9193-dc9b68b85af6")
 
     conn
-    |> render("worker_orders.html", order_list: order_list, currencies_list: currencies_list)
+    |> render("worker_orders.html",
+      order_list: order_list,
+      currencies_list: currencies_list,
+      message: message
+    )
   end
 
   @doc """
@@ -146,6 +157,7 @@ defmodule KursonliKursWeb.WorkerController do
     }
 
     with {:ok, order} <- Orders.create(opts) do
+
       conn
       |> put_flash(:info, "Ордер #{order.number} зарегестрирован")
       |> redirect(to: "/worker/orders")

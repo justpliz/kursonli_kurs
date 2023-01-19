@@ -1,5 +1,44 @@
 <main class="">
-  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+  <p class=" d-none" id="alert-info" role="alert">
+    <%= get_flash(@conn, :info) %>
+  </p>
+  <p class=" d-none" id="alert-danger" role="alert">
+    <%= get_flash(@conn, :error) %>
+  </p>
   <%= @inner_content %>
 </main>
+<script type="text/javascript">
+  setTimeout(function () {
+    const alertDangerText = $("#alert-danger").text()
+    const alertInfoText = $("#alert-info").text()
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      showConfirmButton: true,
+
+    })
+
+    if (alertInfoText.length > 4) {
+      Toast.fire({
+        icon: 'success',
+        title: alertInfoText.trim()
+      })
+
+    }
+
+
+    if (alertDangerText.length > 4) {
+      Toast.fire({
+        icon: 'error',
+        title: alertDangerText.trim()
+      })
+
+    }
+
+
+
+  }, 100)
+
+
+
+</script>
