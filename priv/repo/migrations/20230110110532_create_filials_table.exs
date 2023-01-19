@@ -8,17 +8,12 @@ defmodule KursonliKurs.Repo.Migrations.CreateFilialsTable do
       add :id, :binary_id, primary_key: true
 
       add :name, :string
-      add :tags, {:array, :string}
-      add :address, :string
-      add :coordinates, {:array, :string}
-      add :photo, :string
-      add :description, :jsonb
       add :paid_up_to, :naive_datetime
       add :payment_status, :payment_status
 
-      add :city_id, references(:cities, type: :uuid, on_delete: :nothing)
+      add :city_id, references(:cities, on_delete: :nothing)
       add :organization_id, references(:organizations, type: :uuid, on_delete: :nothing)
-      add :tariff_id, references(:tariffs, type: :uuid, on_delete: :nothing)
+      add :tariff_id, references(:tariffs, on_delete: :nothing)
 
       timestamps()
     end

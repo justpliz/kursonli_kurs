@@ -4,7 +4,7 @@ import Config
 config :kursonli_kurs, KursonliKurs.Repo,
   username: "lar",
   password: "NOJo7oHK2b",
-  database: "kursonlib",
+  database: "kursonline",
   hostname: "192.168.0.2",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
@@ -19,7 +19,7 @@ config :kursonli_kurs, KursonliKurs.Repo,
 config :kursonli_kurs, KursonliKursWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [port: 10410],
+  http: [port: 6001],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,

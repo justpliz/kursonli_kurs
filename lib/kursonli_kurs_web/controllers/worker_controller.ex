@@ -2,7 +2,15 @@ defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{Workers, Courses, Currencies, Orders, Filials}
+  alias KursonliKurs.Context.{
+    Workers,
+    Courses,
+    Currencies,
+    Orders,
+    Organizations,
+    Filials,
+    Cities
+  }
 
   @doc """
   GET /worker/login
@@ -28,13 +36,19 @@ defmodule KursonliKursWeb.WorkerController do
 
     case Workers.do_get(opts) do
       {:ok, worker} ->
+        # TODO переделать получение города
+        {:ok, org} = Organizations.do_get(id: worker.organization_id)
+        {:ok, filial} = Filials.do_get(organization_id: org.id)
+        {:ok, city} = Cities.do_get(id: filial.city.id)
+
         conn
         |> put_session(:worker, %{
           id: worker.id,
           first_name: first_name,
           last_name: last_name,
           phone: worker.phone,
-          email: worker.email
+          email: worker.email,
+          city: city.name
         })
         |> put_flash(:info, "Добро пожаловать #{first_name}")
         |> redirect(to: "/worker")
@@ -119,19 +133,18 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/create_order
   """
   def create_order_submit(conn, params) do
-    opts =
-      %{
-        date: Timex.now(),
-        number: generate_random_str(6),
-        type: :sale,
-        volume: params["volume"],
-        terms: params["terms"],
-        transfer: :red,
-        limit: params["limit"],
-        filial_id: hd(Filials.all()).id,
-        worker_id: get_session(conn, :worker).id,
-        course_id: hd(Courses.all()).id
-      }
+    opts = %{
+      date: Timex.now(),
+      number: generate_random_str(6),
+      type: :sale,
+      volume: params["volume"],
+      terms: params["terms"],
+      transfer: :red,
+      limit: params["limit"],
+      filial_id: hd(Filials.all()).id,
+      worker_id: get_session(conn, :worker).id,
+      course_id: hd(Courses.all()).id
+    }
 
     with {:ok, order} <- Orders.create(opts) do
       conn
