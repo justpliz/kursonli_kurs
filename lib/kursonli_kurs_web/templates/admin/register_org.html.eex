@@ -38,16 +38,6 @@
       </div>
 
       <div class="mb-2">
-        <label class="label_input">Имя сотрудника</label>
-        <%= text_input f, :first_name, class: "input_full" , required: "true", placeholder: "Иван" %>
-      </div>
-
-      <div class="mb-2">
-        <label class="label_input">Фамилия сотрудника</label>
-        <%= text_input f, :last_name, class: "input_full" , required: "true", placeholder: "Иванов" %>
-      </div>
-
-      <div class="mb-2">
         <label class="label_input">Email</label>
         <%= email_input f, :email, class: "input_full" , required: "true", placeholder: "name-email@gmail.com" %>
       </div>
@@ -72,4 +62,3 @@
       });
     });
   </script>
-

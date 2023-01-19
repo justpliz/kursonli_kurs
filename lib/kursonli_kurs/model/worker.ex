@@ -3,13 +3,13 @@ defmodule KursonliKurs.Model.Worker do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Organization, Order}
+  alias KursonliKurs.Model.{Filial, Order}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(email password phone organization_id)a
+  @required_fields ~w(email password phone filial_id)a
   @optional_fields ~w()a
 
   schema "workers" do
@@ -17,7 +17,7 @@ defmodule KursonliKurs.Model.Worker do
     field :phone, :string
     field :email, :string
 
-    belongs_to :organization, Organization, type: :binary_id
+    has_one :filial, Filial
     has_one :order, Order
 
     timestamps()

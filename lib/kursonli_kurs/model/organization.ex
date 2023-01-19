@@ -19,7 +19,6 @@ defmodule KursonliKurs.Model.Organization do
     belongs_to :admin, Admin, type: :binary_id
 
     has_one :filial, Filial
-    has_one :worker, Worker
 
     timestamps()
   end
