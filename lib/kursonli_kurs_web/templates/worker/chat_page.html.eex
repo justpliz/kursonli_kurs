@@ -18,7 +18,9 @@
                            <%= y["body"] %>
                         </p>
                      </div>
-                     <span class="text-xs text-gray-500 leading-none"><%= y["worker"]["first_name"] %></span>
+                     <span class="text-xs text-gray-500 leading-none">
+                        <%= y["worker"]["first_name"] %>
+                     </span>
                   </div>
                </div>
                <% else %>
@@ -29,7 +31,9 @@
                               <%= y["body"] %>
                            </p>
                         </div>
-                        <span class="text-xs text-gray-500 leading-none"><%= y["worker"]["first_name"] %></span>
+                        <span class="text-xs text-gray-500 leading-none">
+                           <%= y["worker"]["first_name"] %>
+                        </span>
                      </div>
                      <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
                   </div>

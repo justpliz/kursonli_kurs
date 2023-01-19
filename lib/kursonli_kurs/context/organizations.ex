@@ -29,6 +29,11 @@ defmodule KursonliKurs.Context.Organizations do
     |> Repo.insert()
   end
 
+
+  def delete(organization) do
+    Repo.delete(organization)
+  end
+
   @doc false
   @spec update(organization, params) :: {:ok, organization} | {:error, Ecto.Changeset.t()}
   def update(organization, params) do

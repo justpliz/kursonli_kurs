@@ -54,7 +54,7 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   @doc """
-  GET /admin/view_organization
+  GET /admin/organizations
   """
   def view_organization(conn, _params) do
     organization_list = Organizations.all()
@@ -107,13 +107,25 @@ defmodule KursonliKursWeb.AdminController do
          {:ok, _worker} <- Workers.create(worker_opts),
          {:ok, _filial} <- Filials.create(filial_opts) do
       conn
-      |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
+      |> put_flash(:always, "Организация успешно добавлена, пароль: #{password}")
       |> redirect(to: "/admin")
     else
       {:error, _reason} ->
         conn
         |> put_flash(:error, "Проверьте вводимые данные")
         |> redirect(to: "/admin/register_org")
+    end
+  end
+
+  @doc """
+  GET /admin/delete_organization
+  """
+  def delete_organization(conn, %{"id" => id}) do
+    with {:ok, organization} <- Organizations.do_get(id: id),
+         {:ok, organization} <- Organizations.delete(organization) do
+      conn
+      |> put_flash(:info, "#{organization.name} удалён")
+      |> redirect(to: "/admin/organizations")
     end
   end
 

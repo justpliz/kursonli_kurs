@@ -45,7 +45,7 @@ defmodule KursonliKurs.Context.Courses do
 
   @doc """
   get currency info from course.currency_id
-  f15a0dae-37bf-4bb0-9099-f67bc76d20de -> %{name: "Американский доллар", short_name: "USD"
+  f15a0dae-37bf-4bb0-9099-f67bc76d20de -> %{name: "Американский доллар", short_name: "USD"}
   """
   def get_currency(query) do
     c = from(c in Currency, select: %{name: c.name, short_name: c.short_name})

@@ -2,17 +2,7 @@ defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{
-    Workers,
-    Courses,
-    Currencies,
-    Orders,
-    Organizations,
-    Filials,
-    Cities
-  }
-
-  alias KursonliKurs.EtsStorage.Chat
+  alias KursonliKurs.Context.{Workers, Courses, Currencies, Orders, Filials}
 
   @doc """
   GET /worker/login
@@ -38,10 +28,10 @@ defmodule KursonliKursWeb.WorkerController do
 
     case Workers.do_get(opts) do
       {:ok, worker} ->
+        # TODO переделать получение города
         {:ok, org} = Organizations.do_get(id: worker.organization_id)
         {:ok, filial} = Filials.do_get(organization_id: org.id)
-        {:ok, city} = Cities.do_get(id: filial.city_id)
-        #  KursonliKursWeb.RoomChannel.notify(%{payload: %{notify: first_name}, type: :ping})
+        {:ok, city} = Cities.do_get(id: filial.city.id)
 
         conn
         |> put_session(:worker, %{
@@ -50,10 +40,7 @@ defmodule KursonliKursWeb.WorkerController do
           last_name: last_name,
           phone: worker.phone,
           email: worker.email,
-          city: %{
-            id: city.id,
-            city: city.name
-          }
+          city: city.name
         })
         |> put_flash(:info, "Добро пожаловать #{first_name}")
         |> redirect(to: "/worker")
@@ -143,6 +130,21 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/create_order
   """
   def create_order_submit(conn, params) do
+    # TODO Переделать event_info
+    session = get_session(conn, :worker)
+    opts =
+      %{
+        date: Timex.now(),
+        number: generate_random_str(6),
+        type: :sale,
+        volume: params["volume"],
+        terms: params["terms"],
+        transfer: :red,
+        limit: params["limit"],
+        filial_id: hd(Filials.all()).id,
+        worker_id: session.id,
+        course_id: hd(Courses.all()).id
+      }
     opts = %{
       date: Timex.now(),
       number: generate_random_str(6),
@@ -156,11 +158,21 @@ defmodule KursonliKursWeb.WorkerController do
       course_id: hd(Courses.all()).id
     }
 
+      event_info = %{
+        first_name: session.first_name,
+        last_name: session.last_name,
+        filial_name: hd(Filials.all()).name,
+        volume: params["volume"],
+        course: hd(Courses.all()).value_for_sale,
+        terms: params["terms"],
+        limit: params["limit"]
+      }
+
     with {:ok, order} <- Orders.create(opts) do
 
       conn
       |> put_flash(:info, "Ордер #{order.number} зарегестрирован")
-      |> redirect(to: "/worker/orders")
+      |> redirect(to: "/worker/orders", event_info: event_info)
     end
   end
 

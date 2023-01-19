@@ -8,7 +8,8 @@ defmodule KursonliKurs.Repo.Migrations.CreateWorkersTable do
       add :password, :string
       add :phone, :string
       add :email, :string
-      add :organization_id, references(:organizations, type: :uuid, on_delete: :nothing)
+      
+      add :filial_id, references(:filials, type: :uuid, on_delete: :nothing)
 
       timestamps()
     end

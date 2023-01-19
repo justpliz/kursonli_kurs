@@ -4,7 +4,7 @@ import Config
 config :kursonli_kurs, KursonliKurs.Repo,
   username: "lar",
   password: "NOJo7oHK2b",
-  database: "kursonlib",
+  database: "kursonline",
   hostname: "192.168.0.2",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
