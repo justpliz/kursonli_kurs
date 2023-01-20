@@ -1,39 +1,43 @@
 <div class="margin_content">
   <h1 class="title">Просмотр и создание городов</h1>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 table_sort">
-      <thead class="text-xs text-gray-700 uppercase bg-white">
-        <tr>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
-            Название города
-          </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
-            Короткое название города
-          </th>
-          <th scope="col" class="px-6 py-6 border-b-2 border-gray-200">
-            Управление
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= for item <- @cities_list do %>
-          <tr class="bg-white">
-            <td class="px-6 py-4 border-b-2">
-              <%= item.name %>
-            </td>
-            <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
-              <%= item.short_name %>
-            </td>
-            <td class="px-6 py-4 border-b-2 text-center">
-              <a href="/admin/delete_city?id=<%= item.id %>" class="">
-                <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-              </a>
-            </td>
+  <%= if Enum.count(@cities_list) >= 1 do %>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500 table_sort">
+        <thead class="text-xs text-gray-700 uppercase bg-white">
+          <tr>
+            <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
+              Название города
+            </th>
+            <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+              Короткое название города
+            </th>
+            <th scope="col" class="px-6 py-6 border-b-2 border-gray-200">
+              Управление
+            </th>
           </tr>
-          <% end %>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          <%= for item <- @cities_list do %>
+            <tr class="bg-white">
+              <td class="px-6 py-4 border-b-2">
+                <%= item.name %>
+              </td>
+              <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
+                <%= item.short_name %>
+              </td>
+              <td class="px-6 py-4 border-b-2 text-center">
+                <a href="/admin/delete_city?id=<%= item.id %>" class="">
+                  <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                </a>
+              </td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <h2 class="title_small">Вы пока не добавили ни одного города!</h2>
+  <% end %>
 
   <button id="modal-button" class="modal-button mt-4 btn_save">Добавить новый город</button>
 </div>
