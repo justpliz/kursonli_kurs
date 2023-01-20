@@ -35,9 +35,6 @@ defmodule KursonliKurs.Model.Filial do
     belongs_to :organization, Organization, type: :binary_id
     belongs_to :tariff, Tariff, type: :binary_id
 
-    many_to_many :currencies, Currency, join_through: "filials_currencies"
-    # has_many(:children, MODULE, foreign_key: :filal_id)
-
     has_one :order, Order
     has_one :course, Course
     has_one :courses_history, CoursesHistory
@@ -46,6 +43,8 @@ defmodule KursonliKurs.Model.Filial do
     has_one :worker, Worker
     has_one :setting, Setting
 
+    # Many-to-Many
+    many_to_many :currencies, Currency, join_through: "filials_currencies"
     has_one :filials_currencies, FilialCurrency
 
     timestamps()

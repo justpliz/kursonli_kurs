@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.FilialCurrency do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Filial}
+  alias KursonliKurs.Model.{Filial, Currency}
 
   @type t :: %__MODULE__{}
 
@@ -12,8 +12,7 @@ defmodule KursonliKurs.Model.FilialCurrency do
   @optional_fields ~w()a
 
   schema "filials_currencies" do
-    field :currency_id, :integer
-
+    belongs_to :currency, Currency
     belongs_to :filial, Filial, type: :binary_id
   end
 

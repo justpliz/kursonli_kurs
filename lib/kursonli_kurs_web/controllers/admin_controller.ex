@@ -79,7 +79,8 @@ defmodule KursonliKursWeb.AdminController do
   """
   def register_org_submit(conn, params) do
     password = generate_random_str(8)
-    currencies_list = params["currency"] |> IO.inspect(label: "currencies_list")
+    currencies_list = params["currency"]
+    |> Enum.map(fn x -> String.to_integer(x) end)
 
     org_opts =
       %{
