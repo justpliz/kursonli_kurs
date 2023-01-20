@@ -52,7 +52,7 @@ defmodule KursonliKurs.MixProject do
 
       # Enums for Ecto
       {:ecto_enum, "~> 1.4"},
-
+      {:ex2ms, "~> 1.0"},
       # Dates Formatting
       {:timex, "~> 3.6"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}

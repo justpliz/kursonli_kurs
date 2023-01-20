@@ -1,6 +1,7 @@
 defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
+  alias KursonliKurs.EtsStorage.Chat
 
   alias KursonliKurs.Context.{
     Workers,
@@ -46,7 +47,10 @@ defmodule KursonliKursWeb.WorkerController do
           last_name: last_name,
           phone: worker.phone,
           email: worker.email,
-          city: city.name
+          city: %{
+            id: city.id,
+            name: city.name
+          }
         })
         |> put_flash(:info, "Добро пожаловать #{first_name}")
         |> redirect(to: "/worker")
@@ -111,10 +115,16 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def orders(conn, _params) do
     order_list = Orders.order_list()
+    city_id = get_session(conn, :worker).city.id
     currencies_list = Currencies.all()
+    message = Chat.get_all_by_city(city_id)
 
     conn
-    |> render("worker_orders.html", order_list: order_list, currencies_list: currencies_list)
+    |> render("worker_orders.html",
+      order_list: order_list,
+      currencies_list: currencies_list,
+      message: message
+    )
   end
 
   @doc """
@@ -133,29 +143,42 @@ defmodule KursonliKursWeb.WorkerController do
   def create_order_submit(conn, params) do
     # TODO Переделать event_info
     session = get_session(conn, :worker)
-    opts =
-      %{
-        date: Timex.now(),
-        number: generate_random_str(6),
-        type: :sale,
-        volume: params["volume"],
-        terms: params["terms"],
-        transfer: :red,
-        limit: params["limit"],
-        filial_id: hd(Filials.all()).id,
-        worker_id: session.id,
-        course_id: hd(Courses.all()).id
-      }
 
-      event_info = %{
-        first_name: session.first_name,
-        last_name: session.last_name,
-        filial_name: hd(Filials.all()).name,
-        volume: params["volume"],
-        course: hd(Courses.all()).value_for_sale,
-        terms: params["terms"],
-        limit: params["limit"]
-      }
+    opts = %{
+      date: Timex.now(),
+      number: generate_random_str(6),
+      type: :sale,
+      volume: params["volume"],
+      terms: params["terms"],
+      transfer: :red,
+      limit: params["limit"],
+      filial_id: hd(Filials.all()).id,
+      worker_id: session.id,
+      course_id: hd(Courses.all()).id
+    }
+
+    opts = %{
+      date: Timex.now(),
+      number: generate_random_str(6),
+      type: :sale,
+      volume: params["volume"],
+      terms: params["terms"],
+      transfer: :red,
+      limit: params["limit"],
+      filial_id: hd(Filials.all()).id,
+      worker_id: get_session(conn, :worker).id,
+      course_id: hd(Courses.all()).id
+    }
+
+    event_info = %{
+      first_name: session.first_name,
+      last_name: session.last_name,
+      filial_name: hd(Filials.all()).name,
+      volume: params["volume"],
+      course: hd(Courses.all()).value_for_sale,
+      terms: params["terms"],
+      limit: params["limit"]
+    }
 
     with {:ok, order} <- Orders.create(opts) do
       conn

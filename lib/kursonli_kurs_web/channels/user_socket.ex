@@ -6,8 +6,9 @@ defmodule KursonliKursWeb.UserSocket do
   transport(:websocket, Phoenix.Transports.WebSocket)
   transport(:longpoll, Phoenix.Transports.LongPoll)
 
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(params, socket) do
+
+    {:ok, assign(socket, :user, params["worker"])}
   end
 
   def id(_socket), do: nil

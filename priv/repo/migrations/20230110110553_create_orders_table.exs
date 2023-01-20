@@ -4,21 +4,19 @@ defmodule KursonliKurs.Repo.Migrations.CreateOrdersTable do
   def change do
     OrderType.create_type()
     OrderTransfer.create_type()
-    OrderStatus.create_type()
 
     create table(:orders, primary_key: false) do
       add :id, :binary_id, primary_key: true
 
       add :date, :naive_datetime
       add :volume, :string
-      add :terms, :string, size: 30
+      add :course, :string
       add :transfer, :order_transfer
       add :limit, :string
+      add :terms, :string, size: 30
       add :type, :order_type
-      add :status, :order_status
       add :number, :string, size: 6
 
-      add :course_id, references(:courses, type: :uuid, on_delete: :nothing)
       add :filial_id, references(:filials, type: :uuid, on_delete: :nothing)
       add :worker_id, references(:workers, type: :uuid, on_delete: :nothing)
 
