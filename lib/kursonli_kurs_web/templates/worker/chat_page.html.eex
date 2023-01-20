@@ -1,18 +1,60 @@
-<div class="flex flex-col text-sm flex-grow w-1/5 bg-white shadow-xl rounded-lg overflow-hidden fixed right-0 top-0 h-full ">
-   <div class="flex-col flex-grow h-0 p-4 overflow-auto flex" id="chatWrapper">
-      <%= render(KursonliKursWeb.WorkerView, "chat_event.html", conn: @conn) %>
+<% workerr=Plug.Conn.get_session(@conn,:worker) %>
+   <div class="worker hidden" id="worker">
+      <% {:ok, worker}=Jason.encode(Plug.Conn.get_session(@conn,:worker)) %>
+         <%= worker %>
    </div>
-   <div class="bg-gray-300 p-4 items-end flex-0-0 ">
-      <input id="chat" class="flex items-center h-10 w-full rounded px-3 text-sm" type="text"
-         placeholder="Введите сообщение...">
-   </div>
-</div>
-<div class="worker hidden" id="worker">
-   <% {:ok, worker}=Jason.encode(Plug.Conn.get_session(@conn, :worker)) %>
-      <%= worker %>
-</div>
+   <div
+      class="flex flex-col flex-grow w-1/5 bg-white shadow-xl rounded-lg overflow-hidden fixed right-0 top-0 h-full  ">
+      <div class="flex-col flex-grow h-0 p-4 overflow-auto flex" id="chatWrapper">
+         <%= for {_,_,_,user_id, y} <- @message do %>
 
-<script>
-   const worker = document.querySelector("#worker")
-   localStorage.setItem("worker", worker.innerHTML)
-</script>
+            <%= if user_id !=workerr.id do %>
+
+               <div class="flex w-full mt-2 space-x-3 max-w-xs">
+                  <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
+                  <div>
+                     <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
+                        <p class="text-sm" id="text">
+                           <%= y["body"] %>
+                        </p>
+                     </div>
+                     <span class="text-xs text-gray-500 leading-none">
+                        <%= y["worker"]["first_name"] %>
+                     </span>
+                  </div>
+               </div>
+               <% else %>
+                  <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+                     <div>
+                        <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
+                           <p class="text-sm">
+                              <%= y["body"] %>
+                           </p>
+                        </div>
+                        <span class="text-xs text-gray-500 leading-none">
+                           <%= y["worker"]["first_name"] %>
+                        </span>
+                     </div>
+                     <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
+                  </div>
+                  <% end %>
+
+                     <% end %>
+      </div>
+      <div class="bg-gray-300 p-4 items-end flex-0-0 ">
+         <div class="grid grid-cols-4 gap-4 mb-2" id="userConnect">
+
+
+
+         </div>
+         <input id="chat" class="flex items-center h-10 w-full rounded px-3 text-sm" type="text"
+            placeholder="Введите сообщение...">
+      </div>
+   </div>
+
+
+
+   <script>
+      const worker = document.querySelector("#worker")
+      localStorage.setItem("worker", worker.innerHTML)
+   </script>

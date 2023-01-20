@@ -1,73 +1,76 @@
 /* работает) */
 /* font-family: 'Montserrat', sans-serif; */
 /* font-family: 'Mulish', sans-serif; */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Mulish:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Mulish:wght@200;300;400;500;600;700;800;900;1000&display=swap");
 
 * {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-   font-family: 'Mulish', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Mulish", sans-serif;
 }
 
 html,
 body {
-   height: 100%;
-   overflow-x: hidden;
-   margin: 0;
-   padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-   width: 100%;
-   min-height: 100%;
-   background-color: #fff;
+  width: 100%;
+  min-height: 100%;
+  background-color: #fff;
 }
 
 .content {
-   padding: 0px 20px 0 300px;
+  padding: 0px 20px 0 300px;
 }
 
 .content-worker {
-   padding: 0px 20px 0 300px;
+  padding: 0px 20px 0 300px;
 }
 
 .clean {
-   padding: 0;
+  padding: 0;
 }
 
 .hidden {
-   display: none;
+  display: none;
 }
 
 .flex-0-0 {
-   flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
 .flex {
-   flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .active-link.active {
-   color: #3689ce;
-   font-weight: 700;
+  color: #3689ce;
+  font-weight: 700;
 }
 
 th.sorted[data-order="1"],
 th.sorted[data-order="-1"] {
-   position: relative;
+  position: relative;
 }
 
 th.sorted[data-order="1"]::after,
 th.sorted[data-order="-1"]::after {
-   right: 8px;
-   position: absolute;
+  right: 8px;
+  position: absolute;
 }
 
 th.sorted[data-order="-1"]::after {
-   content: "▼"
+  content: "▼";
 }
 
 th.sorted[data-order="1"]::after {
-   content: "▲"
+  content: "▲";
+}
+#chatWrapper {
+  scroll-behavior: smooth;
 }
