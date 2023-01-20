@@ -16,7 +16,7 @@ defmodule KursonliKurs.Model.Currency do
     field :short_name, :string
     field :flag, :string
 
-    many_to_many :filial, Filial, join_through: "filials_currencies"
+    many_to_many :filials, Filial, join_through: "filials_currencies"
 
     has_one :course, Course
   end

@@ -20,7 +20,6 @@ defmodule KursonliKurs.Model.Setting do
     field :phones, :map
     field :qualities, :map
 
-    #TOTO Связь filial-setting
     belongs_to :filial, Filial
   end
 

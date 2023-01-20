@@ -17,8 +17,9 @@ defmodule KursonliKurs.Model.Worker do
     field :phone, :string
     field :email, :string
 
-    has_one :filial, Filial
     has_one :order, Order
+
+    belongs_to :filial, Filial, type: :binary_id
 
     timestamps()
   end

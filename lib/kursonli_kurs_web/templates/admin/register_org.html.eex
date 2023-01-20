@@ -19,17 +19,12 @@
 
       <div class="mb-2">
         <label class="label_input">Тип используемых валют</label>
-          <%= multiple_select f, :currency, Enum.map(@currencies_list, fn x -> x.short_name end), id: "choices-multiple", class: "input_full", required: "true" %>
+          <%= multiple_select f, :currency, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), id: "choices-multiple", class: "input_full", required: "true" %>
       </div>
 
       <div class="mb-2">
         <label class="label_input">Адрес организации</label>
         <%= text_input f, :address, class: "input_full" , required: "true", placeholder: "Жамбыла 4" %>
-      </div>
-
-      <div class="mb-2">
-        <label class="label_input">Фото</label>
-        <%= file_input f, :photo, class: "input_full" , accept: ".png, .jpg"%>
       </div>
 
       <div class="mb-2">
@@ -44,7 +39,7 @@
 
       <div class="mb-2">
         <label class="label_input">Телефон</label>
-        <%= telephone_input f, :phone, class: "input_full", data: [tel: ""], maxlength: 18, required: "true", placeholder: "+7 (707) 707-70-77" %>
+        <%= telephone_input f, :phone, class: "input_full", data: [tel: ""], maxlength: 18, required: "true", placeholder: "+7 (777) 777-77-77" %>
       </div>
 
       <div class="mb-2">
