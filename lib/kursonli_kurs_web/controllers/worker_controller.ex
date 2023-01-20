@@ -7,7 +7,6 @@ defmodule KursonliKursWeb.WorkerController do
     Courses,
     Currencies,
     Orders,
-    Organizations,
     Filials,
     Cities
   }
@@ -37,9 +36,8 @@ defmodule KursonliKursWeb.WorkerController do
     case Workers.do_get(opts) do
       {:ok, worker} ->
         # TODO переделать получение города
-        {:ok, org} = Organizations.do_get(id: worker.organization_id)
-        {:ok, filial} = Filials.do_get(organization_id: org.id)
-        {:ok, city} = Cities.do_get(id: filial.city.id)
+        {:ok, filial} = Filials.do_get(id: worker.filial_id)
+        {:ok, city} = Cities.do_get(id: filial.city_id)
 
         conn
         |> put_session(:worker, %{
