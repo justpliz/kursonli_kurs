@@ -82,7 +82,9 @@ defmodule KursonliKursWeb.RoomChannel do
   end
 
   defp check_city(city_id) do
+    IO.inspect(city_id)
+
     KursonliKurs.Context.Cities.all()
-    |> Enum.any?(fn x -> x.id == city_id end)
+    |> Enum.any?(fn x -> x.id == city_id |> String.to_integer() end)
   end
 end

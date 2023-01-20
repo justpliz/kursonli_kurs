@@ -1,6 +1,7 @@
 defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
+  alias KursonliKurs.EtsStorage.Chat
 
   alias KursonliKurs.Context.{
     Workers,
@@ -46,7 +47,10 @@ defmodule KursonliKursWeb.WorkerController do
           last_name: last_name,
           phone: worker.phone,
           email: worker.email,
-          city: city.name
+          city: %{
+            id: city.id,
+            name: city.name
+          }
         })
         |> put_flash(:info, "Добро пожаловать #{first_name}")
         |> redirect(to: "/worker")
@@ -111,8 +115,9 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def orders(conn, _params) do
     order_list = Orders.order_list()
+    city_id = get_session(conn, :worker).city.id
     currencies_list = Currencies.all()
-    message = Chat.get_all_by_city("216e01f9-4f24-4331-9193-dc9b68b85af6")
+    message = Chat.get_all_by_city(city_id)
 
     conn
     |> render("worker_orders.html",
