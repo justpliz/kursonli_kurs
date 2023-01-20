@@ -2,7 +2,15 @@ defmodule KursonliKursWeb.AdminController do
   use KursonliKursWeb, :controller
   action_fallback FallbackController
 
-  alias KursonliKurs.Context.{Cities, Workers, Admins, Filials, Organizations, Currencies, FilialsCurrencies}
+  alias KursonliKurs.Context.{
+    Cities,
+    Workers,
+    Admins,
+    Filials,
+    Organizations,
+    Currencies,
+    FilialsCurrencies
+  }
 
   @doc """
   GET /admin/login
@@ -79,34 +87,36 @@ defmodule KursonliKursWeb.AdminController do
   """
   def register_org_submit(conn, params) do
     password = generate_random_str(8)
-    currencies_list = params["currency"]
-    |> Enum.map(fn x -> String.to_integer(x) end)
 
-    org_opts =
-      %{
-        name: params["name"],
-        iin: params["iin"],
-        admin_id: get_session(conn, :admin).id
-      }
+    currencies_list =
+      params["currency"]
+      |> Enum.map(fn x -> String.to_integer(x) end)
 
-    worker_opts =
-      %{
-        email: params["email"],
-        phone: params["phone"],
-        password: hash_str(password)
-      }
+    org_opts = %{
+      name: params["name"],
+      iin: params["iin"],
+      admin_id: get_session(conn, :admin).id
+    }
 
-    filial_opts =
-      %{
-        name: params["filial_name"],
-        city_id: params["city_id"]
-      }
+    worker_opts = %{
+      email: params["email"],
+      phone: params["phone"],
+      password: hash_str(password)
+    }
+
+    filial_opts = %{
+      name: params["filial_name"],
+      city_id: params["city_id"]
+    }
 
     with {:ok, org} <- Organizations.create(org_opts),
          filial_opts <- Map.put(filial_opts, :organization_id, org.id),
          {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
-         Enum.map(currencies_list, fn x-> FilialsCurrencies.create(%{currency_id: x, filial_id: filial.id}) end) |> IO.inspect(label: "KEK1"),
+         Enum.map(currencies_list, fn x ->
+           FilialsCurrencies.create(%{currency_id: x, filial_id: filial.id})
+         end)
+         |> IO.inspect(label: "KEK1"),
          {:ok, _worker} <- Workers.create(worker_opts) do
       conn
       |> put_flash(:always, "Организация успешно добавлена, пароль: #{password}")
@@ -201,6 +211,67 @@ defmodule KursonliKursWeb.AdminController do
       conn
       |> put_flash(:info, "#{city.name} удалён")
       |> redirect(to: "/admin/cities")
+    end
+  end
+
+  @doc """
+  GET /admin/filials
+  """
+  def filials(conn, _params) do
+    org_list = Organizations.all()
+    cities_list = Cities.all()
+    currencies_list = Currencies.all()
+
+    conn
+    |> render("admin_filials.html",
+      cities_list: cities_list,
+      currencies_list: currencies_list,
+      org_list: org_list
+    )
+  end
+
+  @doc """
+  POST /admin/filials
+  """
+  def create_filial_submit(conn, params) do
+    password = generate_random_str(8)
+
+    currencies_list =
+      params["currency"]
+      |> Enum.map(fn x -> String.to_integer(x) end)
+
+    # org_opts = %{
+    #   name: params["name"],
+    #   iin: params["iin"]
+    # }
+
+    worker_opts = %{
+      email: params["email"],
+      phone: params["phone"],
+      password: hash_str(password)
+    }
+
+    filial_opts = %{
+      name: params["filial_name"],
+      city_id: params["city_id"],
+      org_id: params["org_id"]
+    }
+
+    with {:ok, filial} <- Filials.create(filial_opts),
+         worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
+         Enum.map(currencies_list, fn x ->
+           FilialsCurrencies.create(%{currency_id: x, filial_id: filial.id})
+         end)
+         |> IO.inspect(label: "пися попа"),
+         {:ok, _worker} <- Workers.create(worker_opts) do
+      conn
+      |> put_flash(:always, "Филиал успешно добавлен, пароль: #{password}")
+      |> redirect(to: "/admin/filials")
+    else
+      {:error, _reason} ->
+        conn
+        |> put_flash(:error, "Проверьте вводимые данные")
+        |> redirect(to: "/admin/filials")
     end
   end
 end

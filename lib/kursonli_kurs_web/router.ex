@@ -67,6 +67,10 @@ defmodule KursonliKursWeb.Router do
     get "/cities", AdminController, :cities
     post "/cities", AdminController, :create_city_submit
     get "/delete_city", AdminController, :delete_city
+
+    get "/filials", AdminController, :filials
+    post "/filials", AdminController, :create_filial_submit
+    # get "/delete_city", AdminController, :delete_city
   end
 
   scope "/worker", KursonliKursWeb do
