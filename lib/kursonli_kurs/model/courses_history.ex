@@ -1,4 +1,4 @@
-defmodule KursonliKurs.Model.City do
+defmodule KursonliKurs.Model.CoursesHistory do
   use Ecto.Schema
 
   import Ecto.Changeset
@@ -7,15 +7,16 @@ defmodule KursonliKurs.Model.City do
   @type t :: %__MODULE__{}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(name short_name)a
-  @optional_fields ~w(index)a
+  @required_fields ~w(date value_for_sale value_for_purchase currency)a
+  @optional_fields ~w()a
 
-  schema "cities" do
-    field :name, :string
-    field :short_name, :string
-    field :index, :string
+  schema "courses_histories" do
+    field :date, :naive_datetime
+    field :value_for_sale, :string
+    field :value_for_purchase, :string
+    field :currency, :string
 
-    has_one :filial, Filial
+    belongs_to :filial, Filial, type: :binary_id
   end
 
   @doc false

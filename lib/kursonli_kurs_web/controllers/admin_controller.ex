@@ -2,7 +2,7 @@ defmodule KursonliKursWeb.AdminController do
   use KursonliKursWeb, :controller
   action_fallback FallbackController
 
-  alias KursonliKurs.Context.{Cities, Workers, Admins, Filials, Organizations, Currencies}
+  alias KursonliKurs.Context.{Cities, Workers, Admins, Filials, Organizations, Currencies, FilialsCurrencies}
 
   @doc """
   GET /admin/login
@@ -79,33 +79,35 @@ defmodule KursonliKursWeb.AdminController do
   """
   def register_org_submit(conn, params) do
     password = generate_random_str(8)
+    currencies_list = params["currency"]
+    |> Enum.map(fn x -> String.to_integer(x) end)
 
-    org_opts = %{
-      name: params["name"],
-      photo: params["photo"],
-      iin: params["iin"],
-      admin_id: get_session(conn, :admin).id
-    }
+    org_opts =
+      %{
+        name: params["name"],
+        iin: params["iin"],
+        admin_id: get_session(conn, :admin).id
+      }
 
-    worker_opts = %{
-      first_name: params["first_name"],
-      last_name: params["last_name"],
-      email: params["email"],
-      phone: params["phone"],
-      password: hash_str(password)
-    }
+    worker_opts =
+      %{
+        email: params["email"],
+        phone: params["phone"],
+        password: hash_str(password)
+      }
 
-    filial_opts = %{
-      name: params["filial_name"],
-      address: params["address"],
-      city_id: params["city_id"]
-    }
+    filial_opts =
+      %{
+        name: params["filial_name"],
+        city_id: params["city_id"]
+      }
 
     with {:ok, org} <- Organizations.create(org_opts),
-         worker_opts <- Map.put(worker_opts, :organization_id, org.id),
          filial_opts <- Map.put(filial_opts, :organization_id, org.id),
-         {:ok, _worker} <- Workers.create(worker_opts),
-         {:ok, _filial} <- Filials.create(filial_opts) do
+         {:ok, filial} <- Filials.create(filial_opts),
+         worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
+         Enum.map(currencies_list, fn x-> FilialsCurrencies.create(%{currency_id: x, filial_id: filial.id}) end) |> IO.inspect(label: "KEK1"),
+         {:ok, _worker} <- Workers.create(worker_opts) do
       conn
       |> put_flash(:always, "Организация успешно добавлена, пароль: #{password}")
       |> redirect(to: "/admin")

@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.Organization do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Filial, Worker, Admin}
+  alias KursonliKurs.Model.{Filial, Admin}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -19,7 +19,6 @@ defmodule KursonliKurs.Model.Organization do
     belongs_to :admin, Admin, type: :binary_id
 
     has_one :filial, Filial
-    has_one :worker, Worker
 
     timestamps()
   end

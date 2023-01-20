@@ -16,7 +16,7 @@ defmodule KursonliKurs.Model.Course do
     field :value_for_sale, :string
     field :value_for_purchase, :string
 
-    belongs_to :currency, Currency, type: :binary_id
+    belongs_to :currency, Currency
     belongs_to :filial, Filial, type: :binary_id
 
     has_one :order, Order
