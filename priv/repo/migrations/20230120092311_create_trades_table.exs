@@ -2,7 +2,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateTradesTable do
   use Ecto.Migration
 
   def change do
-    OrderStatus.create_type()
+    # OrderStatus.create_type()
 
     create table(:trades) do
       add :terms, :string, size: 30

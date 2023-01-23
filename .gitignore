@@ -32,5 +32,5 @@ kursonli_kurs-*.tar
 npm-debug.log
 /assets/node_modules/
 
-config/dev.exs
+/config/dev.exs
 chat
