@@ -12,5 +12,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateHistoryTable do
 
       add :filial_id, references(:filials, type: :uuid, on_delete: :nothing)
     end
+
+    create index(:courses_history, [:date, :currency])
   end
 end

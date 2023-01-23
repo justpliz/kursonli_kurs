@@ -12,5 +12,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateCoursesTable do
 
       timestamps()
     end
+
+    create index(:courses, [:currency_id, :filial_id])
   end
 end

@@ -9,5 +9,6 @@ defmodule KursonliKurs.Repo.Migrations.CreateCurrenciesTable do
     end
 
     create index("currencies", [:name, :short_name], unique: true)
+    create index(:currencies, [:short_name])
   end
 end

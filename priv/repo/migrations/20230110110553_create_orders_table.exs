@@ -22,5 +22,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateOrdersTable do
 
       timestamps()
     end
+
+    create index(:orders, [:filial_id, :worker_id])
   end
 end

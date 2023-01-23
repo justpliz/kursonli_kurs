@@ -2,7 +2,17 @@ defmodule KursonliKursWeb.AdminController do
   use KursonliKursWeb, :controller
   action_fallback FallbackController
 
-  alias KursonliKurs.Context.{Cities, Workers, Admins, Filials, Organizations, Currencies, FilialsCurrencies}
+  alias KursonliKurs.Context.Courses
+
+  alias KursonliKurs.Context.{
+    Cities,
+    Workers,
+    Admins,
+    Filials,
+    Organizations,
+    Currencies,
+    FilialsCurrencies
+  }
 
   @doc """
   GET /admin/login
@@ -76,38 +86,40 @@ defmodule KursonliKursWeb.AdminController do
 
   @doc """
   GET /admin/register_org_submit
+  Создание связки "организаця-филиал-сотрудник-валюты"
   """
   def register_org_submit(conn, params) do
     password = generate_random_str(8)
-    currencies_list = params["currency"]
-    |> Enum.map(fn x -> String.to_integer(x) end)
 
-    org_opts =
-      %{
-        name: params["name"],
-        iin: params["iin"],
-        admin_id: get_session(conn, :admin).id
-      }
+    org_opts = %{
+      name: params["name"],
+      iin: params["iin"],
+      admin_id: get_session(conn, :admin).id
+    }
 
-    worker_opts =
-      %{
-        email: params["email"],
-        phone: params["phone"],
-        password: hash_str(password)
-      }
+    worker_opts = %{
+      email: params["email"],
+      phone: params["phone"],
+      password: hash_str(password)
+    }
 
-    filial_opts =
-      %{
-        name: params["filial_name"],
-        city_id: params["city_id"]
-      }
+    filial_opts = %{
+      name: params["filial_name"],
+      city_id: params["city_id"]
+    }
 
     with {:ok, org} <- Organizations.create(org_opts),
          filial_opts <- Map.put(filial_opts, :organization_id, org.id),
          {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
-         Enum.map(currencies_list, fn x-> FilialsCurrencies.create(%{currency_id: x, filial_id: filial.id}) end) |> IO.inspect(label: "KEK1"),
          {:ok, _worker} <- Workers.create(worker_opts) do
+      params["currency"]
+      |> Enum.map(fn currency ->
+        currency = String.to_integer(currency)
+        FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
+        Courses.create(%{filial_id: filial.id, currency_id: currency})
+      end)
+
       conn
       |> put_flash(:always, "Организация успешно добавлена, пароль: #{password}")
       |> redirect(to: "/admin")
@@ -120,9 +132,9 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   @doc """
-  GET /admin/delete_organization
+  GET /admin/archive_organization
   """
-  def delete_organization(conn, %{"id" => id}) do
+  def archive_organization(conn, %{"id" => id}) do
     with {:ok, organization} <- Organizations.do_get(id: id),
          {:ok, organization} <- Organizations.delete(organization) do
       conn

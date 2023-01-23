@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.Worker do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Filial, Order}
+  alias KursonliKurs.Model.{Filial, Order, Trade}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -18,6 +18,8 @@ defmodule KursonliKurs.Model.Worker do
     field :email, :string
 
     has_one :order, Order
+    has_one :trade, Trade
+
 
     belongs_to :filial, Filial, type: :binary_id
 

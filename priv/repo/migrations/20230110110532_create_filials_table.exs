@@ -19,5 +19,6 @@ defmodule KursonliKurs.Repo.Migrations.CreateFilialsTable do
     end
 
     create index("filials", [:name], unique: true)
+    create index(:filials, [:city_id, :organization_id, :tariff_id])
   end
 end

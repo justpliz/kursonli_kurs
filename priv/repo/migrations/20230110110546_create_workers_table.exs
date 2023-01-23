@@ -8,12 +8,13 @@ defmodule KursonliKurs.Repo.Migrations.CreateWorkersTable do
       add :password, :string
       add :phone, :string
       add :email, :string
-      
+
       add :filial_id, references(:filials, type: :uuid, on_delete: :nothing)
 
       timestamps()
     end
 
     create index("workers", [:email, :phone], unique: true)
+    create index(:workers, [:filial_id])
   end
 end

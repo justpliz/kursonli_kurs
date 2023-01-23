@@ -14,5 +14,6 @@ defmodule KursonliKurs.Repo.Migrations.CreateOrganizationsTable do
     end
 
     create index("organizations", [:name, :iin], unique: true)
+    create index(:organizations, [:name])
   end
 end

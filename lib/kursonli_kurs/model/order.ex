@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.Order do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Filial, Worker, Course}
+  alias KursonliKurs.Model.{Filial, Worker, Course, Trade}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -26,6 +26,8 @@ defmodule KursonliKurs.Model.Order do
     belongs_to :filial, Filial, type: :binary_id
     belongs_to :worker, Worker, type: :binary_id
     belongs_to :course, Course, type: :binary_id
+
+    has_one :trade, Trade
 
     timestamps()
   end
