@@ -1,5 +1,6 @@
 <div class="margin_content">
   <h1 class="title">Ордера на продажу</h1>
+  <h1 class="" id="org_title">Ордера на продажу</h1>
   <div class="relative w-9/12 overflow-x-auto shadow-md sm:rounded-lg">
     <table class="table_sort table-fixed text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
@@ -29,8 +30,9 @@
         </tr>
       </thead>
       <tbody>
-        <%= for item <- @order_list do %>
-          <tr class="bg-white">
+        <%= for item <- @order_list_sale do %>       
+          <tr class="bg-white order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>' >
+
             <td class="px-6 py-4">
               <%= item.filial_name %>
             </td>
@@ -57,8 +59,9 @@
                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
               </a>
             </td>
+            
           </tr>
-          <% end %>
+      <% end %>
       </tbody>
     </table>
   </div>
@@ -92,48 +95,44 @@
         </tr>
       </thead>
       <tbody>
-        <%#= for item <- @order_list do %>
-          <!-- <tr class="bg-white"> -->
-          <tr>
-            <td class="px-6 py-4">
-              <%#= item.filial_name %>
-            </td>
-            <!-- <td class="px-6 py-4">
-              <%#= item.filial_name %>
+  <%= for item <- @order_list_purshare do %>
+          <tr class="bg-white order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>'> 
+                
+    
+           <td class="px-6 py-4">
+              <%= item.filial_name %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%#= item.date %>
+              <%= item.date %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+             <%= item.currency_short_name %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%#= item.course_sale %>
+              <%= item.course_sale %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%#= item.volume %>
+              <%= item.volume %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%#= item.terms %>
+              <%= item.terms %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%#= item.transfer %>
+              <%= item.transfer %>
             </td>
-            <td class="px-6 py-4 text-center">
-              <div href="/worker/edit_order" class="order-click" data-map="<%#= Jason.encode!(item) %>">
-                <span class="material-symbols-outlined" style="color: blue; font-weight: 900;">add_circle</span>
-              </div>
-              <a href="/worker/delete_order?id=<%#= item.id %>">
-                <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-              </a>
-            </td> -->
+            
+     
           </tr>
-          <%# end %>
+         <% end %>
       </tbody>
     </table>
   </div>
 
 
   <h1 class="title">Мои ордера</h1>
+  
+  <button id="modal-button" class="modal-button mt-4 btn_save mb-3">Разместить</button>
+    <button  class="modal-button mt-4 btn_save mb-3" id="accept" data-item="">Принять</button>
   <div class="relative w-9/12 overflow-x-auto shadow-md sm:rounded-lg">
     <table class="table_sort table-fixed text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
@@ -163,44 +162,11 @@
         </tr>
       </thead>
       <tbody>
-        <%= for item <- @order_list do %>
-          <tr class="bg-white">
-            <td class="px-6 py-4">
-              <%= item.filial_name %>
-            </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.date %>
-            </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.currency_short_name %>
-            </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.course_sale %>
-            </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.volume %>
-            </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.terms %>
-            </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.transfer %>
-            </td>
-            <td class="px-6 py-4 flex items-center justify-center text-center">
-              <div href="/worker/edit_order" class="order-click" data-map="<%= Jason.encode!(item) %>">
-                <span class="material-symbols-outlined" style="color: blue; font-weight: 900;">edit_note</span>
-              </div>
-              <a href="/worker/delete_order?id=<%= item.id %>">
-                <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-              </a>
-            </td>
-          </tr>
-          <% end %>
+        <!--  -->
       </tbody>
     </table>
   </div>
 
-  <button id="modal-button" class="modal-button mt-4 btn_save">Разместить</button>
 </div>
 
 <%= render(KursonliKursWeb.WorkerView, "modal_worker_create_order.html" , conn: @conn, currencies_list:
@@ -229,67 +195,5 @@
     });
 
 
-    $(".order-click").click(function () {
-
-      const { course_purchase, course_sale, currency_short_name, date, filial_id, id, organization, terms, volume, transfer } = JSON.parse(this.dataset.map)
-
-      console.log(JSON.parse(this.dataset.map))
-      Swal.fire({
-        html: `
-<form action="/worker/update_order" method="post">
-  <div class="container_select">
-    <input class="hidden" id="filial_id" name="filial_id" value="${filial_id}">
     
-    <input class="hidden" id="course_id" name="course_id" value="${id}">
-
-    <input required name="type" id="purchase" value="purchase" checked id="default-radio-2" type="radio"
-      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
-    <label class="ml-2 text-sm font-medium text-gray-900" for="purchase">
-      purchase
-    </label>
-    <input required name="type" id="sale" value="sale" checked id="default-radio-2" type="radio"
-      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
-    <label class="ml-2 text-sm font-medium text-gray-900" for="sale">
-      sale
-    </label>
-  </div>
-
-  <input name="_csrf_token" type="hidden" value="CWM1QxI4PScIVX4lCn4xNScmFxcFXlkiH-q3TB_dRlIs85BSvKSyS6of">
-  <div>
-    <label class="label_input">Объем</label>
-    <input class="input_full" id="volume" name="volume" value="${volume}" required="true" type="text">
-  </div>
-
-  <div>
-    <label class="label_input">Цена продажи</label>
-    <input class="input_full" id="course" value="${course_sale}" name="course" required="true" type="text">
-  </div>
-
-  <div>
-    <label class="label_input">Цена покупки</label>
-    <input class="input_full" id="limit" name="limit" value="${course_purchase}" required="true" type="text">
-  </div>
-
-  <div>
-    <label class="label_input">Валюта</label>
-    <select class="input_full" id="currency" name="currency" required="true">
-      <option value="USD">USD</option>
-    </select>
-  </div>
-  <div>
-    <label class="label_input">Передача</label>
-    <input name="transfer" type="hidden" value="false"><input id="green" name="transfer" type="checkbox" value="true">
-    green
-    <input name="transfer" type="hidden" value="false"><input id="red" name="transfer" type="checkbox" value="true">
-    red
-    <input name="transfer" type="hidden" value="false"><input id="red_green" name="transfer" type="checkbox"
-      value="true">
-    red_green
-  </div>
-  <div>
-    <button class="btn_save mt-2" type="submit">Сохранить</button>
-  </div>
-</form>`,
-      })
-    })
   </script>

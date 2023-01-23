@@ -41,9 +41,10 @@ defmodule KursonliKurs.Context.Orders do
     Repo.delete(order)
   end
 
-  def order_list() do
+  def order_list(type \\ :sale) do
     from(
       order in Order,
+      where: order.type == ^type,
       join: filial in Filial,
       on: order.filial_id == filial.id,
       join: org in Organization,
@@ -54,6 +55,7 @@ defmodule KursonliKurs.Context.Orders do
         id: order.id,
         organization: org.name,
         filial_name: filial.name,
+        filial: filial,
         filial_id: order.filial_id,
         date: order.date,
         volume: order.volume,

@@ -41,7 +41,7 @@
           <label class="label_input">Передача</label>
           <%= for item <- Application.get_env(:kursonli_kurs, :order_transfer) do %>
             <div class="container_select">
-              <input name="type" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" type="checkbox"
+              <input name="order_tranfer" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" type="checkbox"
                 class="type_select rounded">
               <label class="label_select" for="<%= Atom.to_string(item) %>"><%= Atom.to_string(item) %></label>
             </div>
