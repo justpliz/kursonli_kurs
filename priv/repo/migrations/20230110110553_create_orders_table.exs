@@ -16,6 +16,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateOrdersTable do
       add :terms, :string, size: 30
       add :type, :order_type
       add :number, :string, size: 6
+      add :currency_id, references(:currencies)
 
       add :filial_id, references(:filials, type: :uuid, on_delete: :nothing)
       add :worker_id, references(:workers, type: :uuid, on_delete: :nothing)
@@ -23,6 +24,6 @@ defmodule KursonliKurs.Repo.Migrations.CreateOrdersTable do
       timestamps()
     end
 
-    create index(:orders, [:filial_id, :worker_id])
+    create index(:orders, [:filial_id, :worker_id, :currency_id])
   end
 end

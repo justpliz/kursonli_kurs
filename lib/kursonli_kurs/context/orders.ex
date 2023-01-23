@@ -44,27 +44,23 @@ defmodule KursonliKurs.Context.Orders do
   def order_list() do
     from(
       order in Order,
-      join: course in Course,
-      on: order.course_id == course.id,
-      join: currency in Currency,
-      on: course.currency_id == currency.id,
       join: filial in Filial,
       on: order.filial_id == filial.id,
       join: org in Organization,
       on: filial.organization_id == org.id,
+      join: c in Currency,
+      on: order.currency_id == c.id,
       select: %{
         id: order.id,
         organization: org.name,
         filial_name: filial.name,
         filial_id: order.filial_id,
         date: order.date,
-        course_sale: course.value_for_sale,
-        course_purchase: course.value_for_purchase,
-        currency_id: currency.id,
-        currency_short_name: currency.short_name,
         volume: order.volume,
         terms: order.terms,
-        transfer: order.transfer
+        transfer: order.transfer,
+        currency_short_name: c.short_name,
+        course_sale: order.course
       }
     )
     |> Repo.all()

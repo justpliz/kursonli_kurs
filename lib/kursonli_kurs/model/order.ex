@@ -3,13 +3,13 @@ defmodule KursonliKurs.Model.Order do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Filial, Worker, Course, Trade}
+  alias KursonliKurs.Model.{Filial, Worker, Trade, Currency}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(date volume type transfer status number filial_id worker_id course_id)a
+  @required_fields ~w(course date volume type transfer number filial_id worker_id currency_id )a
   @optional_fields ~w(terms limit)a
 
   schema "orders" do
@@ -18,14 +18,14 @@ defmodule KursonliKurs.Model.Order do
     field :terms, :string
     field :limit, :string
     field :number, :string
-
+    field :course, :string
     field :type, OrderType, default: "purchase"
     field :transfer, OrderTransfer, default: "red"
-    field :status, OrderStatus, default: "active"
+
+    field :currency_id, :id
 
     belongs_to :filial, Filial, type: :binary_id
     belongs_to :worker, Worker, type: :binary_id
-    belongs_to :course, Course, type: :binary_id
 
     has_one :trade, Trade
 

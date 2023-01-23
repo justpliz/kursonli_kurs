@@ -153,37 +153,15 @@ defmodule KursonliKursWeb.WorkerController do
       transfer: :red,
       limit: params["limit"],
       filial_id: hd(Filials.all()).id,
-      worker_id: session.id,
-      course_id: hd(Courses.all()).id
-    }
-
-    opts = %{
-      date: Timex.now(),
-      number: generate_random_str(6),
-      type: :sale,
-      volume: params["volume"],
-      terms: params["terms"],
-      transfer: :red,
-      limit: params["limit"],
-      filial_id: hd(Filials.all()).id,
       worker_id: get_session(conn, :worker).id,
-      course_id: hd(Courses.all()).id
-    }
-
-    event_info = %{
-      first_name: session.first_name,
-      last_name: session.last_name,
-      filial_name: hd(Filials.all()).name,
-      volume: params["volume"],
-      course: hd(Courses.all()).value_for_sale,
-      terms: params["terms"],
-      limit: params["limit"]
+      course: params["course"],
+      currency_id: params["currency_id"]
     }
 
     with {:ok, order} <- Orders.create(opts) do
       conn
       |> put_flash(:info, "Ордер #{order.number} зарегестрирован")
-      |> redirect(to: "/worker/orders", event_info: event_info)
+      |> redirect(to: "/worker/orders")
     end
   end
 
