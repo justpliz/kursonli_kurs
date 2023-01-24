@@ -118,7 +118,7 @@ defmodule KursonliKursWeb.AdminController do
       end)
 
       conn
-      |> put_flash(:always, "Организация успешно добавлена, пароль: #{password}")
+      |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
       |> redirect(to: "/admin")
     else
       {:error, _reason} ->
@@ -139,6 +139,7 @@ defmodule KursonliKursWeb.AdminController do
       |> redirect(to: "/admin/organizations")
     end
   end
+
 
   @doc """
   GET /admin/currencies
@@ -161,6 +162,16 @@ defmodule KursonliKursWeb.AdminController do
       |> put_flash(:info, "#{currencies.name} создан")
       |> redirect(to: "/admin/currencies")
     end
+  end
+
+  @doc """
+  GET /admin/update_currency
+  """
+  def update_currency(conn, _params) do
+    # Currencies.update(_, params)
+    conn
+    |> put_layout("admin_app.html")
+    |> redirect(to: "/admin/currencies")
   end
 
   @doc """

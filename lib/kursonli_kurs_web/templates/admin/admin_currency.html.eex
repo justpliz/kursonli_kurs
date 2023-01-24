@@ -1,7 +1,7 @@
 <div class="margin_content">
   <h1 class="title">Просмотр и создание курсов</h1>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 table_sort">
+    <table class="w-full text-sm text-left text-gray-500 table_sort border-collapse">
       <thead class="text-xs text-gray-700 uppercase bg-white">
         <tr>
           <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
@@ -24,7 +24,12 @@
             <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
               <%= item.short_name %>
             </td>
-            <td class="px-6 py-4 border-b-2 text-center">
+            <td class="px-6 py-4 border-b-2 border-gray-200 text-center flex justify-around">
+              <!-- <button href="#myModal" data-toggle="modal"> -->
+              <button class="cur-click" data-map="<%#= Jason.encode!(item) %>">
+                <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
+              </button>
+              <!-- </button> -->
               <a href="/admin/delete_currency?id=<%= item.id %>" class="">
                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
               </a>
@@ -36,6 +41,32 @@
   </div>
 
   <button id="modal-button" class="modal-button mt-4 btn_save">Добавить валюту</button>
+  <!-- <button href="#myModal" class="btn_save" data-toggle="modal">кнопка</button> -->
 </div>
 
 <%= render(KursonliKursWeb.AdminView, "modal_admin_currency_create.html" , conn: @conn) %>
+
+
+<script>
+  $(".cur-click").click(function () {
+    // const { name, short_name } = JSON.parse(this.dataset.map)
+    // console.log({ name, short_name })
+    Swal.fire({
+      showConfirmButton: false,
+      animation: false,
+      html: `
+        <form action="/admin/update_currency" method="get">
+          <div class="">
+            <label for="name">Название</label>
+            <input class="input_full" id="name" value="" name="name" required="true" type="text">
+           </div>
+           <div class="">
+              <label for="code">Короткое название</label>
+              <input class="input_full" id="short_name" value="" name="short_name" required="true" type="text">
+           </div>
+           <button class="btn_save mt-2" type="submit">Сохранить</button>
+        </form>
+      `,
+    })
+  })
+</script>

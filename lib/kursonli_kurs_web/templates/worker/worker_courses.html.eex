@@ -51,7 +51,7 @@
   <button id="modal-button" class="modal-button mt-4 btn_save">Добавить курс</button>
 </div>
 
-<%= render(KursonliKursWeb.WorkerView, "modal_worker_courses_add.html" , conn: @conn, currencies_list: @currencies_list) %>
+<%= render(KursonliKursWeb.WorkerView, "modal_worker_courses_add.html", conn: @conn, currencies_list: @currencies_list) %>
 
 
 

@@ -1,5 +1,5 @@
 <main class="">
-  <p class=" d-none" id="alert-info" role="alert">
+  <p class="d-none" id="alert-info" role="alert">
     <%= get_flash(@conn, :info) %>
   </p>
   <p class=" d-none" id="alert-danger" role="alert">
@@ -15,9 +15,7 @@
       toast: true,
       position: 'top-right',
       showConfirmButton: true,
-
     })
-
     if (alertInfoText.length > 4) {
       Toast.fire({
         icon: 'success',
@@ -25,20 +23,11 @@
       })
 
     }
-
-
     if (alertDangerText.length > 4) {
       Toast.fire({
         icon: 'error',
         title: alertDangerText.trim()
       })
-
     }
-
-
-
   }, 100)
-
-
-
 </script>

@@ -1,0 +1,30 @@
+<!-- <div class="modal fade" id="myModal">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header"> -->
+            <h5 class="">Редактирование валюты</h5>
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">×</span>
+            </button> -->
+         </div>
+         <div class="">
+            <%= form_for @conn, Routes.admin_path(@conn, :update_currency), fn f -> %>
+               <%= hidden_input f, :id, value: @currency.id %>
+               <div class="">
+                  <label for="name">Название</label>
+                  <%= text_input f, :name, class: "form-control" , id: "name" , value: @currency.name %>
+               </div>
+               <div class="">
+                  <label for="code">Короткое название</label>
+                  <%= text_input f, :code, class: "form-control" , id: "code" , value: @currency.short_name %>
+               </div>
+               <%= submit "Сохранить" , class: "btn_save" %>
+            <% end %>
+         </div>
+         <!-- <div class="modal-footer">
+            <button type="button" class="btn_save">Сохранить</button>
+            <button type="button" class="btn_cancel" data-dismiss="modal">Отмена</button>
+         </div> -->
+      <!-- </div>
+   </div>
+</div> -->

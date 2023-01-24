@@ -33,7 +33,6 @@ defmodule KursonliKurs.Context.Currencies do
     Repo.delete(course)
   end
 
-  @doc false
   @spec update(currency, params) :: {:ok, currency} | {:error, Ecto.Changeset.t()}
   def update(currency, params) do
     currency

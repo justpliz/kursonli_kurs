@@ -62,6 +62,7 @@ defmodule KursonliKursWeb.Router do
 
     get "/currencies", AdminController, :currencies
     post "/currencies", AdminController, :create_currency_submit
+    get "/update_currency", AdminController, :update_currency
     get "/delete_currency", AdminController, :delete_currency
 
     get "/cities", AdminController, :cities
@@ -70,7 +71,6 @@ defmodule KursonliKursWeb.Router do
 
     get "/filials", AdminController, :filials
     post "/filials", AdminController, :create_filial_submit
-    # get "/delete_city", AdminController, :delete_city
   end
 
   scope "/worker", KursonliKursWeb do
