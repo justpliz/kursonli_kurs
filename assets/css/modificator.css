@@ -20,7 +20,7 @@
       @apply focus:ring-blue-500 focus:border-blue-500;
    }
 
-   .input_text_uppercase{
+   .input_text_uppercase {
       @apply uppercase;
    }
 
@@ -80,7 +80,7 @@
       @apply flex items-center ml-7;
    }
 
-   .all_app_span{
+   .all_app_span {
       @apply pt-1;
    }
 
@@ -127,24 +127,29 @@
       @apply text-red-500;
    }
 
-   .type_select{
+   .type_select {
       @apply transition-all w-6 h-6 text-blue-600 bg-gray-100 border-gray-300;
       @apply focus:ring-blue-500;
    }
 
-   .label_select{
+   .label_select {
       @apply ml-2 text-sm font-medium text-gray-900 select-none;
    }
 
-   .container_select{
+   .container_select {
       @apply flex items-center mb-4;
    }
 
-   .icons_style{
+   .icons_style {
       @apply text-drab pr-2;
    }
 
-   .icons_admin_style{
+   .icons_admin_style {
       @apply text-gray-300 pr-2;
+   }
+
+   .order-click.selected {
+      @apply bg-lightBlub;
+      color:white;
    }
 }

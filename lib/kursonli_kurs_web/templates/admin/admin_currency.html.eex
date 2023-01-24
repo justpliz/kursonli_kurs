@@ -26,7 +26,7 @@
             </td>
             <td class="px-6 py-4 border-b-2 border-gray-200 text-center flex justify-around">
               <!-- <button href="#myModal" data-toggle="modal"> -->
-              <button class="cur-click" data-map="<%#= Jason.encode!(item) %>">
+              <button class="cur-click" data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
                 <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
               </button>
               <!-- </button> -->
@@ -47,26 +47,31 @@
 <%= render(KursonliKursWeb.AdminView, "modal_admin_currency_create.html" , conn: @conn) %>
 
 
-<script>
-  $(".cur-click").click(function () {
-    // const { name, short_name } = JSON.parse(this.dataset.map)
-    // console.log({ name, short_name })
-    Swal.fire({
-      showConfirmButton: false,
-      animation: false,
-      html: `
-        <form action="/admin/update_currency" method="get">
-          <div class="">
-            <label for="name">Название</label>
-            <input class="input_full" id="name" value="" name="name" required="true" type="text">
-           </div>
-           <div class="">
-              <label for="code">Короткое название</label>
-              <input class="input_full" id="short_name" value="" name="short_name" required="true" type="text">
-           </div>
-           <button class="btn_save mt-2" type="submit">Сохранить</button>
-        </form>
+  <script>
+    $(".cur-click").click(function () {
+      const { id, name, short_name } = JSON.parse(this.dataset.map)
+      // console.log({ name, short_name })
+      Swal.fire({
+        showConfirmButton: false,
+        showCloseButton: true,
+        html: `
+        <div class="p-1 flex items-center justify-between">
+          <h1 class="title_without_margin">Редактирование курса</h1>
+        </div>
+        <div class="">
+          <form action="/admin/update_currency" method="get">
+            <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
+
+            <label class="label_input" for="name">Название</label>
+            <input class="input_full" id="name" value="${name}" name="name" required="true" type="text">
+
+            <label class="label_input" for="short_name">Короткое название</label>
+            <input class="input_full" id="short_name" value="${short_name}" name="short_name" required="true" type="text">
+
+            <button class="btn_save mt-4" type="submit">Сохранить</button>
+          </form>
+        </div>
       `,
+      })
     })
-  })
-</script>
+  </script>

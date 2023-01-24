@@ -1,6 +1,6 @@
 defmodule KursonliKursWeb.AdminController do
   use KursonliKursWeb, :controller
-  action_fallback FallbackController
+  action_fallback(FallbackController)
 
   alias KursonliKurs.Context.{
     Cities,
@@ -140,7 +140,6 @@ defmodule KursonliKursWeb.AdminController do
     end
   end
 
-
   @doc """
   GET /admin/currencies
   """
@@ -167,11 +166,13 @@ defmodule KursonliKursWeb.AdminController do
   @doc """
   GET /admin/update_currency
   """
-  def update_currency(conn, _params) do
-    # Currencies.update(_, params)
-    conn
-    |> put_layout("admin_app.html")
-    |> redirect(to: "/admin/currencies")
+  def update_currency(conn, %{"id" => id} = params) do
+    with {:ok, currency} <- Currencies.do_get(id: String.to_integer(id)),
+         {:ok, _currency} <- Currencies.update(currency, params) do
+      conn
+      |> put_flash(:info, "изменен")
+      |> redirect(to: "/admin/currencies")
+    end
   end
 
   @doc """
@@ -264,15 +265,14 @@ defmodule KursonliKursWeb.AdminController do
     filial_opts = %{
       name: params["filial_name"],
       city_id: params["city_id"],
-      org_id: params["org_id"]
+      organization_id: params["org_id"]
     }
 
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          Enum.map(currencies_list, fn x ->
            FilialsCurrencies.create(%{currency_id: x, filial_id: filial.id})
-         end)
-         |> IO.inspect(label: "пися попа"),
+         end),
          {:ok, _worker} <- Workers.create(worker_opts) do
       conn
       |> put_flash(:always, "Филиал успешно добавлен, пароль: #{password}")
