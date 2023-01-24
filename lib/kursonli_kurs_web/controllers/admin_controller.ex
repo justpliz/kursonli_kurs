@@ -258,8 +258,7 @@ defmodule KursonliKursWeb.AdminController do
            Filials.create_filial_worker_seting(filial_opts, worker_opts, params["address"]),
          Enum.map(currencies_list, fn x ->
            FilialsCurrencies.create(%{currency_id: x, filial_id: filial.id})
-         end),
-         {:ok, _worker} <- Workers.create(worker_opts) do
+         end) do
       conn
       |> put_flash(:info, "Филиал успешно добавлен, пароль: #{password}")
       |> redirect(to: "/admin/filials")

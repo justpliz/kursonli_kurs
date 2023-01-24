@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.Order do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Filial, Worker, Trade, Currency}
+  alias KursonliKurs.Model.{Filial, Worker, Trade}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
