@@ -100,9 +100,8 @@ defmodule KursonliKursWeb.AdminController do
 
     with {:ok, org} <- Organizations.create(org_opts),
          filial_opts <- Map.put(filial_opts, :organization_id, org.id),
-         {:ok, filial} <- Filials.create(filial_opts),
-         worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
-         {:ok, _worker} <- Workers.create(worker_opts) do
+         {:ok, filial} <-
+           Filials.create_filial_worker_seting(filial_opts, worker_opts, params["address"]) do
       params["currency"]
       |> Enum.map(fn currency ->
         currency = String.to_integer(currency)
@@ -243,11 +242,6 @@ defmodule KursonliKursWeb.AdminController do
       params["currency"]
       |> Enum.map(fn x -> String.to_integer(x) end)
 
-    # org_opts = %{
-    #   name: params["name"],
-    #   iin: params["iin"]
-    # }
-
     worker_opts = %{
       email: params["email"],
       phone: params["phone"],
@@ -260,8 +254,8 @@ defmodule KursonliKursWeb.AdminController do
       organization_id: params["org_id"]
     }
 
-    with {:ok, filial} <- Filials.create(filial_opts),
-         worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
+    with {:ok, filial} <-
+           Filials.create_filial_worker_seting(filial_opts, worker_opts, params["address"]),
          Enum.map(currencies_list, fn x ->
            FilialsCurrencies.create(%{currency_id: x, filial_id: filial.id})
          end),

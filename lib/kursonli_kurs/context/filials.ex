@@ -5,6 +5,7 @@ defmodule KursonliKurs.Context.Filials do
   use KursonliKurs.Context
 
   alias KursonliKurs.Model.Filial
+  alias KursonliKurs.Context.{Filials, Workers, Settings}
 
   require Logger
 
@@ -35,5 +36,14 @@ defmodule KursonliKurs.Context.Filials do
     filial
     |> Filial.changeset(params)
     |> Repo.update()
+  end
+
+  def create_filial_worker_seting(filial_opts, worker_opts, address \\ "") do
+    with {:ok, filial} <- Filials.create(filial_opts),
+         worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
+         {:ok, _worker} <- Workers.create(worker_opts),
+         {:ok, _setting} <- Settings.create(%{filial_id: filial.id, address: address, coordinates: ["0","0"]}) do
+      {:ok, filial}
+    end
   end
 end
