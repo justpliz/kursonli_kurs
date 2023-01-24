@@ -10,13 +10,13 @@ defmodule KursonliKurs.Model.Trade do
 
   @timestamps_opts [type: :utc_datetime]
   @required_fields ~w(terms volume status worker_id order_id)a
-  @optional_fields ~w()a
+  @optional_fields ~w(item_order)a
 
   schema "trades" do
     field :terms, :string
     field :volume, :string
     field :status, OrderStatus, default: "active"
-
+    field :item_order, :map
     belongs_to :order, Order, type: :binary_id
     belongs_to :worker, Worker, type: :binary_id
 
