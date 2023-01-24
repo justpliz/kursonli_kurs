@@ -1,3 +1,42 @@
 <div class="margin_content">
-   найстроки)
+   <h1 class="title">Найстроки</h1>
+
+   <div class="">
+      <%= form_for @conn, Routes.worker_path(@conn, :login_form_submit), [multipart: true], fn f -> %>
+         <label class="label_input" for="file_input">Загрузка логотипа</label>
+         <%= file_input f, :login, class: "input_full cursor-pointer" , accept: ".png, .jpg" %>
+
+         <label>3 Качества редактировать текст??</label>
+         <div class="">
+            <%= text_input f, :login, placeholder: "" , class: "input_short", required: "true", maxlength: 40 %>
+            <%= text_input f, :login, placeholder: "" , class: "input_short", required: "true", maxlength: 40 %>
+            <%= text_input f, :login, placeholder: "" , class: "input_short", required: "true", maxlength: 40 %>
+         </div>
+         <label class="label_input">Адрес для карты</label>
+         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+
+         <label class="label_input">Лицензия ОП</label>
+         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+
+         <label class="label_input">Адрес, телефон, почта</label>
+         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+
+         <label class="label_input">График работы</label>
+         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+
+         <label class="label_input">Загрузка фото ОП</label>
+         <%= file_input f, :login, class: "input_full cursor-pointer" , accept: ".png, .jpg" %>
+
+         <label class="label_input">Описание ОП</label>
+         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+
+         <label class="label_input">Цвет валют и тд</label>
+         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+
+         <label class="label_input">Субдомен</label>
+         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+
+         <%= submit "Сохранить" , class: "btn_save my-2" %>
+      <% end %>
+   </div>
 </div>

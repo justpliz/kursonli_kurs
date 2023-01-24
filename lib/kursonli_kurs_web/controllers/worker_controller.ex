@@ -242,7 +242,7 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
-  GET /worker/settingsa
+  GET /worker/settings
   """
   def settings(conn, _params) do
     with {:ok, filial} <- Filials.do_get(id: get_session(conn, :worker).filial_id),
