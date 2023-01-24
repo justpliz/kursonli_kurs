@@ -32,6 +32,10 @@ body {
   padding: 0px 20px 0 300px;
 }
 
+.content-worker-order {
+  padding: 0 400px 0 0;
+}
+
 .clean {
   padding: 0;
 }

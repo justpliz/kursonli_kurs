@@ -7,7 +7,8 @@
 @import "./modificator.css";
 
 :disabled {
-  opacity: 0.5;
+  opacity: 0.2;
+  background-color: #5699d1;
   cursor: not-allowed;
 }
 

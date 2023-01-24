@@ -58,9 +58,10 @@ defmodule KursonliKursWeb.AdminController do
   """
   def view_organization(conn, _params) do
     organization_list = Organizations.all()
+    filials_list = Filials.all()
 
     conn
-    |> render("admin_index.html", organization_list: organization_list)
+    |> render("admin_index.html", organization_list: organization_list, filials_list: filials_list)
   end
 
   @doc """
@@ -71,7 +72,7 @@ defmodule KursonliKursWeb.AdminController do
     currencies_list = Currencies.all()
 
     conn
-    |> render("register_org.html", cities_list: cities_list, currencies_list: currencies_list)
+    |> render("admin_register_org.html", cities_list: cities_list, currencies_list: currencies_list)
   end
 
   @doc """
@@ -205,13 +206,25 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   @doc """
-  GET /admin/delete_city
+  GET /admin/cities/delete
   """
   def delete_city(conn, %{"id" => id}) do
     with {:ok, city} <- Cities.do_get(id: id),
          {:ok, city} <- Cities.delete(city) do
       conn
       |> put_flash(:info, "#{city.name} удалён")
+      |> redirect(to: "/admin/cities")
+    end
+  end
+
+  @doc """
+  GET /admin/cities/update
+  """
+  def update_city(conn, %{"id" => id} = params) do
+    with {:ok, city} <- Cities.do_get(id: String.to_integer(id)),
+         {:ok, _city} <- Cities.update(city, params) do
+      conn
+      |> put_flash(:info, "Город #{city.name} изменен")
       |> redirect(to: "/admin/cities")
     end
   end

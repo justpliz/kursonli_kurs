@@ -64,7 +64,7 @@
    }
 
    .margin_content {
-      @apply mt-6;
+      @apply my-6;
    }
 
    .app_user_container {

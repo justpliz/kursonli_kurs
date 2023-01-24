@@ -44,20 +44,16 @@ $("#accept").click(function () {
         html: `
         <div> 
           <h1> Ордер на покупку<h1>
-   
           <div>
-
-          <label class="label_input">${itemSaleH1} </label>
-          <input class="input_full number_input_only" id="volume_model" name="volume" required="true" type="text">
-        </div>
-        <h3> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span>  </h3>
+            <label class="label_input">${itemSaleH1} </label>
+            <input class="input_full number_input_only" id="volume_model" name="volume" required="true" type="text">
+          </div>
+          <h3> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span>  </h3>
         <div> 
-        Итого:
-        <span id="itemResult">
-         </span>
+          Итого:
+          <span id="itemResult"></span>
         </div>
       </div>
-   
         `,
         willOpen: () => {
           input()
@@ -72,10 +68,7 @@ $("#accept").click(function () {
             const course_sale_float = parseFloat(course_sale)
             itemeSale.innerHTML = e.currentTarget.value
             itemResult.innerHTML = volume * course_sale_float
-            
           })
-         
-          
         },
     showConfirmButton: false,
       })
@@ -83,7 +76,6 @@ $("#accept").click(function () {
   
 
   function input () {
-        
     var input = [...document.querySelectorAll('.number_input_only')];
     input.forEach((el) => {
       el.addEventListener("input", (e) => {

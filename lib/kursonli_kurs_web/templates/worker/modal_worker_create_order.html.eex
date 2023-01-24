@@ -9,53 +9,40 @@
         <label class="label_input">Тип</label>
         <%= for item <- check_config("order_type") do %>
           <div class="container_select">
-            <input required name="type" id="<%= item %>" value="<%= item %>" checked type="radio"
-              class="type_select">
+            <input required name="type" id="<%= item %>" value="<%= item %>" checked type="radio" class="type_select">
             <label class="label_select" for="<%= item %>">
               <%= item %>
             </label>
           </div>
         <% end %>
 
-        <div>
-          <label class="label_input">Объем</label>
-          <%= text_input f, :volume, class: "input_full number_input_only", required: "true" %>
-        </div>
+        <label class="label_input">Объем</label>
+        <%= text_input f, :volume, class: "input_full number_input_only" , required: "true" %>
 
-        <div>
-          <label class="label_input">Курс</label>
-          <%= text_input f, :course, class: "input_full ", required: "true" %>
-        </div>
+        <label class="label_input">Курс</label>
+        <%= text_input f, :course, class: "input_full number_input_only" , required: "true" %>
 
-        <div>
-          <label class="label_input">Лимит</label>
-          <%= text_input f, :limit, class: "input_full number_input_only", required: "true" %>
-        </div>
-     
-        <div>
-          <label class="label_input">Валюта</label>
-          <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), class: "input_full", required: "true" %>
-        </div>
+        <label class="label_input">Лимит</label>
+        <%= text_input f, :limit, class: "input_full number_input_only" , required: "true" %>
 
-        <div>
-          <label class="label_input">Передача</label>
-          <%= for item <- Application.get_env(:kursonli_kurs, :order_transfer) do %>
-            <div class="container_select">
-              <input name="order_tranfer" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" type="checkbox"
-                class="type_select rounded">
-              <label class="label_select" for="<%= Atom.to_string(item) %>"><%= Atom.to_string(item) %></label>
-            </div>
-          <% end %>
-        </div>
+        <label class="label_input">Валюта</label>
+        <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), class: "input_full", required: "true" %>
 
-        <div>
-          <label class="label_input">Адрес</label>
-          <!-- подлетает автоматом -->
-          <%= text_input f, :address, class: "input_full", disabled: "true", required: "true" %>
-        </div>
+        <label class="label_input">Передача</label>
+        <%= for item <- Application.get_env(:kursonli_kurs, :order_transfer) do %>
+          <div class="container_select">
+            <input name="order_tranfer" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>"
+              type="checkbox" class="type_select rounded">
+            <label class="label_select" for="<%= Atom.to_string(item) %>">
+              <%= Atom.to_string(item) %>
+            </label>
+          </div>
+        <% end %>
 
-        <div>
-          <label class="label_input">Условия</label>
+        <label class="label_input">Адрес</label>
+        <%= text_input f, :address, class: "input_full" , disabled: "true" , required: "true" %>
+
+        <label class="label_input">Условия</label>
           <%= text_input f, :terms, class: "input_full", required: "true" %>
         </div>
     </div>

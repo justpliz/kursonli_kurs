@@ -147,8 +147,8 @@ defmodule KursonliKursWeb.WorkerController do
   def create_order_submit(conn, params) do
     # TODO Переделать event_info
     session = get_session(conn, :worker)
-    params |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/worker_controller.ex:146")
-    session |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/worker_controller.ex:149")
+    # params |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/worker_controller.ex:146")
+    # session |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/worker_controller.ex:149")
 
     opts = %{
       date: Timex.now(),
