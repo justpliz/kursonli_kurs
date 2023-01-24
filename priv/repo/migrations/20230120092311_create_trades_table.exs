@@ -8,6 +8,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateTradesTable do
       add :terms, :string, size: 30
       add :volume, :string
       add :status, :order_status
+      add :item_order, :map
 
       add :worker_id, references(:workers, type: :uuid, on_delete: :nothing)
       add :order_id, references(:orders, type: :uuid, on_delete: :nothing)

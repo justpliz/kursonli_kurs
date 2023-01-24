@@ -55,7 +55,8 @@ defmodule KursonliKurs.MixProject do
       {:ex2ms, "~> 1.0"},
       # Dates Formatting
       {:timex, "~> 3.6"},
-      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
+      {:pw_helper, git: "https://github.com/kalachlegends/pw_helper", tag: "0.2.1"}
     ]
   end
 

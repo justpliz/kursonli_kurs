@@ -75,6 +75,10 @@ th.sorted[data-order="1"]::after {
 #chatWrapper {
   scroll-behavior: smooth;
 }
+.order-click.selected {
+  @apply bg-lightBlub;
+  color: white;
+}
 
 #myModal .modal-dialog {
   -webkit-transform: translate(0, -50%);

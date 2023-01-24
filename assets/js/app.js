@@ -23,6 +23,7 @@
 import { Socket } from "phoenix"
 import "./user_socket"
 import "./phone_input"
+import "./order_click"
 // And connect to the path in "lib/kursonli_kurs_web/endpoint.ex". We pass the
 // token for authentication. Read below how it should be used.
 
