@@ -8,12 +8,10 @@ defmodule KursonliKursWeb.PageController do
     render(conn, "index.html")
   end
 
-  def personal_page(conn, params) do
-    id = params["id"]
+  def personal_page(conn, %{"id" => id} = params) do
     with {:ok, filial} <- Filials.do_get(id: id) do
       conn
       |> render("personal_page.html", filial: filial)
     end
-
   end
 end

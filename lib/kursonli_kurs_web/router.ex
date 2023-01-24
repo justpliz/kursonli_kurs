@@ -91,14 +91,19 @@ defmodule KursonliKursWeb.Router do
     get "/orders", WorkerController, :orders
     get "/create_order", WorkerController, :create_order
     post "/create_order", WorkerController, :create_order_submit
-    get "/delete_order", WorkerController, :delete_order
     post "/update_order", WorkerController, :update_order
+    get "/delete_order", WorkerController, :delete_order
 
     get "/courses", WorkerController, :courses
     get "/create_course", WorkerController, :create_course
     post "/create_course", WorkerController, :create_course_submit
     post "/update_course", WorkerController, :update_course
     get "/delete_course", WorkerController, :delete_course
+
+    get "/settings", WorkerController, :settings
+    post "/create_setings", WorkerController, :create_setings
+    post "/create_setings_submit", WorkerController, :create_setings_submit
+    post "/update_settings", WorkerController, :update_settings
   end
 
   # Other scopes may use custom stacks.

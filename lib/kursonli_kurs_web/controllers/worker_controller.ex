@@ -9,7 +9,8 @@ defmodule KursonliKursWeb.WorkerController do
     Currencies,
     Orders,
     Filials,
-    Cities
+    Cities,
+    Settings
   }
 
   @doc """
@@ -115,8 +116,8 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/orders
   """
   def orders(conn, _params) do
-    order_list_purshare = Orders.order_list(:purchase) |> PwHelper.Normalize.repo()
-    order_list_sale = Orders.order_list(:sale) |> PwHelper.Normalize.repo()
+    order_list_purshare = Orders.order_list(:purchase)
+    order_list_sale = Orders.order_list(:sale)
     city_id = get_session(conn, :worker).city.id
     currencies_list = Currencies.all()
     message = Chat.get_all_by_city(city_id)
@@ -158,7 +159,7 @@ defmodule KursonliKursWeb.WorkerController do
       transfer: :red,
       limit: params["limit"],
       filial_id: session.filial_id,
-      worker_id: get_session(conn, :worker).id,
+      worker_id: session.id,
       course: params["course"],
       currency_id: params["currency_id"]
     }
@@ -237,6 +238,38 @@ defmodule KursonliKursWeb.WorkerController do
       conn
       |> put_flash(:info, "Курс удалён")
       |> redirect(to: "/worker/courses")
+    end
+  end
+
+  @doc """
+  GET /worker/settingsa
+  """
+  def settings(conn, _params) do
+    with {:ok, filial} <- Filials.do_get(id: get_session(conn, :worker).filial_id),
+         {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
+      conn
+      |> render("worker_settings.html", setting: setting)
+    end
+  end
+
+  @doc """
+  POST /worker/edit_settings
+  """
+  def update_settings(conn, params) do
+    opts = %{
+      address: params["address"],
+      photo: params["photo"],
+      description: params["description"],
+      coordinates: %{x: params["x"], y: params["y"]},
+      phones: params["phones"],
+      qualities: params["qualities"],
+      filial_id: params["filial_id"]
+    }
+
+    with {:ok, _setting} <- Settings.create(opts) do
+      conn
+      |> put_flash(:info, "Настройки добавлены")
+      |> redirect(to: "/worker/settings")
     end
   end
 end
