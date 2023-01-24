@@ -1,6 +1,6 @@
 <div>
   <div class="margin_content">
-    <h1 class="title">Данные организации</h1>
+    <h1 class="title">Создание организации</h1>
     <%= form_for @conn, Routes.admin_path(@conn, :register_org_submit), [multipart: true], fn f -> %>
       <div class="mb-2">
         <label class="label_input">Название</label>

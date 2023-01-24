@@ -54,21 +54,13 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   @doc """
-  GET /admin/
-  """
-  def index(conn, _params) do
-    conn
-    |> render("admin_index.html")
-  end
-
-  @doc """
   GET /admin/organizations
   """
   def view_organization(conn, _params) do
     organization_list = Organizations.all()
 
     conn
-    |> render("admin_organizations.html", organization_list: organization_list)
+    |> render("admin_index.html", organization_list: organization_list)
   end
 
   @doc """
@@ -170,7 +162,7 @@ defmodule KursonliKursWeb.AdminController do
     with {:ok, currency} <- Currencies.do_get(id: String.to_integer(id)),
          {:ok, _currency} <- Currencies.update(currency, params) do
       conn
-      |> put_flash(:info, "изменен")
+      |> put_flash(:info, "Курс #{currency.name} изменен")
       |> redirect(to: "/admin/currencies")
     end
   end
@@ -275,7 +267,7 @@ defmodule KursonliKursWeb.AdminController do
          end),
          {:ok, _worker} <- Workers.create(worker_opts) do
       conn
-      |> put_flash(:always, "Филиал успешно добавлен, пароль: #{password}")
+      |> put_flash(:info, "Филиал успешно добавлен, пароль: #{password}")
       |> redirect(to: "/admin/filials")
     else
       {:error, _reason} ->

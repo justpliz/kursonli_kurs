@@ -239,4 +239,12 @@ defmodule KursonliKursWeb.WorkerController do
       |> redirect(to: "/worker/courses")
     end
   end
+
+  @doc """
+  GET /worker/settings
+  """
+  def settings(conn, _params) do
+    conn
+    |> render("worker_index.html")
+  end
 end

@@ -15,6 +15,10 @@
       @apply block my-2 text-base font-medium text-gray-900;
    }
 
+   .pos {
+      @apply flex justify-start;
+   }
+
    .input_full {
       @apply shadow-sm bg-gray-100 border border-gray-300 text-drab text-base rounded-lg block w-full p-2.5;
       @apply focus:ring-blue-500 focus:border-blue-500;

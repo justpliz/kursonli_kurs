@@ -83,3 +83,16 @@ th.sorted[data-order="1"]::after {
   top: 50%;
   margin: 0 auto;
 }
+
+.styles_none,
+.styles_none:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.swal2-close:focus {
+  box-shadow: none !important;
+  border: none;
+  outline: none;
+}
