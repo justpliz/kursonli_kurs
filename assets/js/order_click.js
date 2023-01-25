@@ -54,22 +54,23 @@ $("#accept").click(function () {
   item.worker = getWorker()
  if (getWorker().id != worker_id) {
   Swal.fire({
+    showCloseButton: true,
     html: `
         <form action="/trades" method="post">
         <input name="_csrf_token" type="hidden" value="${crftoken}">
         <div> 
-          <h1> Ордер на покупку<h1>
+          <h1 class="title">Ордер на покупку<h1>
           <div>
-            <label class="label_input">${itemSaleH1} </label>
+            <label class="label_input pos">${itemSaleH1} </label>
             <input class="input_full number_input_only" id="volume_model" name="volume" required="true" type="text">
           </div>
           <h3> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span>  </h3>
-        <div> 
-          Итого:
-          <span id="itemResult"></span>
-        </div>
+          <div> 
+            Итого:
+            <span id="itemResult"></span>
+          </div>
 
-        <input  class="input_full hidden number_input_only"  name="order_id" value="${
+        <input class="input_full hidden number_input_only"  name="order_id" value="${
           id
         }" required="true" type="text">
         <input  class="input_full hidden number_input_only"  name="worker_id" value="${
@@ -78,10 +79,10 @@ $("#accept").click(function () {
         <input  class="input_full hidden item_order"  name="item_order" value='${
          JSON.stringify(item)
         }' >
-        <label class="label_input">Условия</label>
+        <label class="label_input pos">Условия</label>
         <input  class="input_full "  name="terms" value="" required="true" type="text">
       </div>
-      <button type="submit" class="btn_save ">Артем </button>
+      <button type="submit" class="btn_save mt-2">Подтвердить</button>
       </form>
         `,
     willOpen: () => {

@@ -18,6 +18,7 @@
 </head>
 
 <body class="min-w-full w-full bg-gray-100">
+  <input id="crf_token" value={Phoenix.Controller.get_csrf_token()}>
   <%= @inner_content %>
 </body>
 
