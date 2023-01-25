@@ -37,6 +37,12 @@ KursonliKurs.Context.Workers.create(%{
   filial_id: filial1.id
 })
 
+KursonliKurs.Context.Settings.create(%{
+  coordinates: ["0", "0"],
+  address: "address 1",
+  filial_id: filial1.id
+})
+
 # Create Org2
 {:ok, org2} =
   KursonliKurs.Context.Organizations.create(%{
@@ -56,5 +62,11 @@ KursonliKurs.Context.Workers.create(%{
   phone: "+7 (777) 777-77-77",
   password: KursonliKursWeb.GeneralHelper.hash_str("1234"),
   email: "dva@dva",
+  filial_id: filial2.id
+})
+
+KursonliKurs.Context.Settings.create(%{
+  coordinates: ["0", "0"],
+  address: "address 2",
   filial_id: filial2.id
 })

@@ -2,39 +2,51 @@
    <h1 class="title">Найстроки</h1>
 
    <div class="">
-      <%= form_for @conn, Routes.worker_path(@conn, :login_form_submit), [multipart: true], fn f -> %>
+      <%= form_for @conn, Routes.worker_path(@conn, :update_setting), [multipart: true], fn f -> %>
          <label class="label_input" for="file_input">Загрузка логотипа</label>
-         <%= file_input f, :login, class: "input_full cursor-pointer" , accept: ".png, .jpg" %>
+         <%= file_input f, :logo, class: "input_full cursor-pointer" , accept: ".png, .jpg" %>
 
-         <label>3 Качества редактировать текст??</label>
+         <label>3 Качества редактировать текст</label>
          <div class="">
-            <%= text_input f, :login, placeholder: "" , class: "input_short", required: "true", maxlength: 40 %>
-            <%= text_input f, :login, placeholder: "" , class: "input_short", required: "true", maxlength: 40 %>
-            <%= text_input f, :login, placeholder: "" , class: "input_short", required: "true", maxlength: 40 %>
+            <%= text_input f, :quality1, placeholder: "" , value: @setting.qualities["quality1"], class: "input_short", required: "true", maxlength: 40 %>
+            <%= text_input f, :quality2, placeholder: "" , value: @setting.qualities["quality2"], class: "input_short", required: "true", maxlength: 40 %>
+            <%= text_input f, :quality3, placeholder: "" , value: @setting.qualities["quality3"], class: "input_short", required: "true", maxlength: 40 %>
          </div>
          <label class="label_input">Адрес для карты</label>
-         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+         <%= text_input f, :address, placeholder: "" , value: @setting.address, class: "input_full" , required: "true" %>
 
          <label class="label_input">Лицензия ОП</label>
-         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+         <%= text_input f, :license, placeholder: "" , value: @setting.license, class: "input_full" , required: "true" %>
 
-         <label class="label_input">Адрес, телефон, почта</label>
-         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+         <label class="label_input">Телефоны</label>
+         <%= text_input f, :phones, placeholder: "" , value: @setting.phones["phone1"], class: "input_full" , required: "true" %>
+
+         <label class="label_input">Email</label>
+         <%= text_input f, :email, placeholder: "" , value: @setting.email, class: "input_full" , required: "true" %>
 
          <label class="label_input">График работы</label>
-         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+         <%= text_input f, :schedule, placeholder: "" , value: @setting.schedule["schedule"], class: "input_full" , required: "true" %>
 
          <label class="label_input">Загрузка фото ОП</label>
-         <%= file_input f, :login, class: "input_full cursor-pointer" , accept: ".png, .jpg" %>
+         <%= file_input f, :photo, class: "input_full cursor-pointer" , value: @setting.photo, accept: ".png, .jpg" %>
 
          <label class="label_input">Описание ОП</label>
-         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+         <%= text_input f, :description, placeholder: "" , value: @setting.description, class: "input_full" , required: "true" %>
 
-         <label class="label_input">Цвет валют и тд</label>
-         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+         <label class="label_input">Цвет валют</label>
+         <%= color_input f, :color_currency, placeholder: "" , value: @setting.colors["currency"], class: "input_full" , required: "true" %>
+
+         <label class="label_input">Цвет фона табло</label>
+         <%= color_input f, :color_scoreboard, placeholder: "" , value: @setting.colors["scoreboard"], class: "input_full" , required: "true" %>
+
+         <label class="label_input">Цвет качеств</label>
+         <%= color_input f, :color_qualities, placeholder: "" , value: @setting.colors["qualities"], class: "input_full" , required: "true" %>
+
+         <label class="label_input">Цвет текста качества</label>
+         <%= color_input f, :color_qualities_text, placeholder: "" , value: @setting.colors["qualities_text"], class: "input_full" , required: "true" %>
 
          <label class="label_input">Субдомен</label>
-         <%= text_input f, :login, placeholder: "" , class: "input_full" , required: "true" %>
+         <%= text_input f, :subdomen, placeholder: "" , value: @setting.subdomen, class: "input_full" , required: "true" %>
 
          <%= submit "Сохранить" , class: "btn_save my-2" %>
       <% end %>
