@@ -1,5 +1,112 @@
-<h1 class="title">Панель администратора</h1>
+<div class="margin_content">
+   <h1 class="title_without_margin">Просмотр всех организаций</h1>
+   <div class="relative overflow-x-auto shadow-md rounded-xl">
+      <table class="w-full text-sm text-left text-gray-500">
+         <thead class="text-xs text-white uppercase bg-blub">
+            <tr>
+               <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
+                  Название организации
+               </th>
+               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                  ИИН организации
+               </th>
+               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                  Создана
+               </th>
+               <!-- <th scope="col" class="px-6 border-2 border-t-0 border-r-0 border-gray-300 py-3 w-20">
+                  Управление
+               </th> -->
+            </tr>
+         </thead>
+         <tbody>
+            <%= for item <- @organization_list do %>
+               <tr class="bg-white border-b">
+                  <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                     <%= item.name %>
+                  </td>
+                  <td class="px-6 border-2 border-gray-300">
+                     <%= item.iin %>
+                  </td>
+                  <td class="px-6 border-2 border-gray-300">
+                     <%= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
+                  </td>
+                  <!-- <td class="px-9 border-2 border-gray-300 border-r-0">
+                     <button class="org-click styles_none"
+                        data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                        <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
+                     </button>
+                     <a href="/admin/delete_organization?id=<%#= item.id %>" class="">
+                        <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                     </a>
+                  </td> -->
+               </tr>
+               <% end %>
+         </tbody>
+      </table>
+   </div>
 
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-   Кнопка)
-</button> -->
+   <h1 class="title_without_margin mt-4">Просмотр всех филиалов</h1>
+   <div class="relative overflow-x-auto shadow-md rounded-xl">
+      <table class="w-full text-sm text-left text-gray-500">
+         <thead class="text-xs text-white uppercase bg-blub">
+            <tr>
+               <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
+                  Название филиала
+               </th>
+               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                  Статус оплаты
+               </th>
+               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                  Тариф
+               </th>
+               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                  Город
+               </th>
+               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                  Привязка к организации
+               </th>
+               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                  Дата создания филиала
+               </th>
+               <!-- <th scope="col" class="px-6 border-2 border-t-0 border-r-0 border-gray-300 py-3 w-20">
+                  Управление
+               </th> -->
+            </tr>
+         </thead>
+         <tbody>
+            <%= for item <- @filials_list do %>
+               <tr class="bg-white border-b">
+                  <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                     <%= item.name %>
+                  </td>
+                  <td class="px-6 border-2 border-gray-300">
+                     <%= item.payment_status %>
+                  </td>
+                  <td class="px-6 border-2 border-gray-300">
+                     <%= item.tariff_id %>
+                  </td>
+                  <td class="px-6 border-2 border-gray-300">
+                     <%= item.city_id %>
+                  </td>
+                  <td class="px-6 border-2 border-gray-300">
+                     <%= item.organization_id %>
+                  </td>
+                  <td class="px-6 border-2 border-gray-300">
+                     <%= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
+                  </td>
+                  <!-- <td class="px-9 border-2 border-gray-300 border-r-0">
+                     <button class="org-click styles_none"
+                        data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                        <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
+                     </button>
+                     <a href="/admin/delete_organization?id=<%#= item.id %>" class="">
+                        <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                     </a>
+                  </td> -->
+               </tr>
+               <% end %>
+         </tbody>
+      </table>
+   </div>
+</div>
+

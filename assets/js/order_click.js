@@ -59,18 +59,14 @@ $("#accept").click(function () {
         <input name="_csrf_token" type="hidden" value="${crftoken}">
         <div> 
           <h1> Ордер на покупку<h1>
-   
           <div>
-
-          <label class="label_input">${itemSaleH1} </label>
-          <input class="input_full number_input_only" id="volume_model" name="volume" required="true" type="text">
-        </div>
-        <h3> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span>  </h3>
+            <label class="label_input">${itemSaleH1} </label>
+            <input class="input_full number_input_only" id="volume_model" name="volume" required="true" type="text">
+          </div>
+          <h3> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span>  </h3>
         <div> 
-        Итого:
-        <span id="itemResult">
-         </span>
-         
+          Итого:
+          <span id="itemResult"></span>
         </div>
 
         <input  class="input_full hidden number_input_only"  name="order_id" value="${

@@ -17,10 +17,10 @@ defmodule KursonliKurs.Model.Setting do
     field :description, :string
     field :coordinates, {:array, :string}
     field :schedule, :map
-    field :phones, :map
+    field :phones, :string
     field :qualities, :map
 
-    belongs_to :filial, Filial
+    belongs_to :filial, Filial, type: :binary_id
   end
 
   @doc false

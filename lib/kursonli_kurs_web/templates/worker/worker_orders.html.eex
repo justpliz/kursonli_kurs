@@ -1,36 +1,35 @@
-<div class="margin_content">
-  <h1 class="title">Ордера на продажу</h1>
-  <h1 class="" id="org_title">Ордера на продажу</h1>
-  <div class="relative w-9/12 overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="table_sort table-fixed text-sm text-left text-gray-500">
+<div class="margin_content content-worker-order">
+  <h1 class="title" id="org_title">Ордера на продажу</h1>
+  <div class="relative overflow-x-auto shadow-md rounded-xl">
+    <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
         <tr>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-gray-200">
             Организация
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Время
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Валюта
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Курс
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Объём
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Условия
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Передача
           </th>
           <th scope="col" class="w-1/12 px-6 py-6 border-b-2 border-gray-200"></th>
         </tr>
       </thead>
       <tbody>
-        <%= for item <- @order_list_sale do %>       
+        <%= for item <- @order_list_sale do %>
           <tr class="bg-white order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>' >
 
             <td class="px-6 py-4">
@@ -59,106 +58,101 @@
                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
               </a>
             </td>
-            
           </tr>
-      <% end %>
+        <% end %>
       </tbody>
     </table>
   </div>
 
-  <h1 class="title">Ордера на покупку</h1>
-  <div class="relative w-9/12 overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="table_sort table-fixed text-sm text-left text-gray-500">
+  <h1 class="title mt-4">Ордера на покупку</h1>
+  <div class="relative overflow-x-auto shadow-md rounded-xl">
+    <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
         <tr>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-gray-200">
             Организация
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Время
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Валюта
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Курс
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Объём
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Условия
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Передача
           </th>
         </tr>
       </thead>
       <tbody>
-  <%= for item <- @order_list_purshare do %>
-          <tr class="bg-white order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>'> 
-                
-    
-           <td class="px-6 py-4">
+        <%= for item <- @order_list_purshare do %>
+          <tr class="bg-white order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>'>
+            <td class="px-6 py-4">
               <%= item.filial_name %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+            <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.date %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-             <%= item.currency_short_name %>
+            <td class="px-6 py-4 border-x-2 border-gray-200">
+              <%= item.currency_short_name %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+            <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.course_sale %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+            <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.volume %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+            <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.terms %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+            <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.transfer %>
             </td>
-            
-     
           </tr>
-         <% end %>
+          <% end %>
       </tbody>
     </table>
   </div>
 
+  <div class="flex py-4">
+    <button class="btn_save" id="createOrder" data-item="">Разместить</button>
+    <button class="btn_save ml-4" id="accept" data-item="">Принять</button>
+  </div>
 
-  <h1 class="title">Мои сделки</h1>
-  
-  <button id="modal-button" class="modal-button mt-4 btn_save mb-3">Разместить</button>
-    <button  class="modal-button mt-4 btn_save mb-3" id="accept" data-item="">Принять</button>
-  <div class="relative w-9/12 overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="table_sort table-fixed text-sm text-left text-gray-500">
+  <h1 class="title mb-4">Мои ордера</h1>
+  <div class="relative overflow-x-auto shadow-md rounded-xl">
+    <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
         <tr>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-gray-200">
             Организация
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Время
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Валюта
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Курс
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Объём
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Условия
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Передача
           </th>
-          <th scope="col" class="w-1/12 px-6 py-6 border-b-2 border-gray-200"></th>
         </tr>
       </thead>
       <tbody>
@@ -194,34 +188,64 @@
       </tbody>
     </table>
   </div>
-
 </div>
 
-<%= render(KursonliKursWeb.WorkerView, "modal_worker_create_order.html" , conn: @conn, currencies_list:
-  @currencies_list) %>
+<%#= render(KursonliKursWeb.WorkerView, "modal_worker_create_order.html", conn: @conn, currencies_list: @currencies_list) %>
+<%= render(KursonliKursWeb.WorkerView, "chat_page.html", conn: @conn, message: @message) %>
 
-<%= render(KursonliKursWeb.WorkerView, "chat_page.html" , conn: @conn, message: @message) %>
+<script>
+  $("#createOrder").click(function () {
+    Swal.fire({
+      showConfirmButton: false,
+      showCloseButton: true,
+      html: `
+      <div class="flex items-center justify-between">
+        <h1 class="title_without_margin">Создание ордера</h1>
+      </div>
+      <div class="px-1">
+        <%= form_for @conn, Routes.worker_path(@conn, :create_order_submit), fn f -> %>
+          <label class="label_input pos">Тип</label>
+          <%= for item <- check_config("order_type") do %>
+            <div class="container_select">
+              <input required name="type" id="<%= item %>" value="<%= item %>" checked type="radio" class="type_select">
+              <label class="label_select" for="<%= item %>">
+                <%= item %>
+              </label>
+            </div>
+          <% end %>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const getSort = ({ target }) => {
-        const order = (target.dataset.order = -(target.dataset.order || -1));
-        const index = [...target.parentNode.cells].indexOf(target);
-        const collator = new Intl.Collator(['ru'], { numeric: true });
-        const comparator = (index, order) => (a, b) => order * collator.compare(
-          a.children[index].innerHTML,
-          b.children[index].innerHTML
-        );
+          <label class="label_input pos">Объем</label>
+          <%= text_input f, :volume, class: "input_full number_input_only" , required: "true" %>
 
-        for (const tBody of target.closest('table').tBodies)
-          tBody.append(...[...tBody.rows].sort(comparator(index, order)));
+          <label class="label_input pos">Курс</label>
+          <%= text_input f, :course, class: "input_full number_input_only" , required: "true" %>
 
-        for (const cell of target.parentNode.cells)
-          cell.classList.toggle('sorted', cell === target);
-      };
-      document.querySelectorAll('.table_sort thead').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
-    });
+          <label class="label_input pos">Лимит</label>
+          <%= text_input f, :limit, class: "input_full number_input_only" , required: "true" %>
 
+          <label class="label_input pos">Валюта</label>
+          <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), class: "input_full", required: "true" %>
 
-    
-  </script>
+          <label class="label_input pos">Передача</label>
+          <div class="container_select">
+            <%= for item <- Application.get_env(:kursonli_kurs, :order_transfer) do %>
+              <input name="order_tranfer" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>"
+                type="checkbox" class="type_select rounded">
+              <label class="label_select mr-2" for="<%= Atom.to_string(item) %>">
+                <%= Atom.to_string(item) %>
+              </label>
+            <% end %>
+          </div>
+
+          <label class="label_input pos">Адрес</label>
+          <%= text_input f, :address, class: "input_full" , disabled: "true" , required: "true" %>
+
+          <label class="label_input pos">Условия</label>
+          <%= text_input f, :terms, class: "input_full" , required: "true", maxlength: 30 %>
+          <%= submit "Создать" , class: "btn_save pos mt-4" %>
+        <% end %>
+      </div>
+    `,
+    })
+  })
+</script>

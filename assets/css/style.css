@@ -32,6 +32,10 @@ body {
   padding: 0px 20px 0 300px;
 }
 
+.content-worker-order {
+  padding: 0 400px 0 0;
+}
+
 .clean {
   padding: 0;
 }
@@ -71,10 +75,28 @@ th.sorted[data-order="-1"]::after {
 th.sorted[data-order="1"]::after {
   content: "▲";
 }
+
 #chatWrapper {
   scroll-behavior: smooth;
 }
-.order-click.selected {
-  @apply bg-lightBlub;
-  color: white;
+
+#myModal .modal-dialog {
+  -webkit-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  top: 50%;
+  margin: 0 auto;
+}
+
+.styles_none,
+.styles_none:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.swal2-close:focus {
+  box-shadow: none !important;
+  border: none;
+  outline: none;
 }

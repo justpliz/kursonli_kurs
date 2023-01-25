@@ -71,10 +71,9 @@
             placeholder="Введите сообщение...">
       </div>
    </div>
+</div>
 
-
-
-   <script>
-      const worker = document.querySelector("#worker")
-      localStorage.setItem("worker", worker.innerHTML)
-   </script>
+<script>
+   const worker = document.querySelector("#worker")
+   localStorage.setItem("worker", worker.innerHTML)
+</script>

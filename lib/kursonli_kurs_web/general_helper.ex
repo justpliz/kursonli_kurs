@@ -42,4 +42,7 @@ defmodule KursonliKursWeb.GeneralHelper do
     Application.get_env(:kursonli_kurs, String.to_atom(conf_atom))
     |> Enum.map(fn x -> Atom.to_string(x) end)
   end
+
+  def date_to_string2(date),
+    do: "#{date.year}-#{date.month}-#{date.day}"
 end

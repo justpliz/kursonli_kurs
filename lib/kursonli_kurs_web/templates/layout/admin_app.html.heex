@@ -9,8 +9,6 @@
   <title>Admin Kurs-Online</title>
   <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css" )} />
   <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js" )}></script>
-  <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/phone_input.js"
-    )}></script>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
@@ -24,6 +22,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -39,38 +38,31 @@
           </a>
         </li>
         <li class="admin_app_li">
-          <a href="/admin/organizations" class="active-link admin_app_href">
-            <span class="icons_admin_style material-symbols-outlined"
-              style="font-weight: 500; font-size: 28px;">format_list_bulleted</span>
-            <span class="text-lg">Список организаций</span>
-          </a>
-        </li>
-        <li class="admin_app_li">
           <a href="/admin/register_org" class="active-link admin_app_href">
             <span class="icons_admin_style material-symbols-outlined"
               style="font-weight: 500; font-size: 28px;">corporate_fare</span>
-            <span class="text-lg">Создание организации</span>
+            <span class="text-lg">Организации</span>
           </a>
         </li>
         <li class="admin_app_li">
           <a href="/admin/currencies" class="active-link admin_app_href">
             <span class="icons_admin_style material-symbols-outlined"
               style="font-weight: 500; font-size: 28px;">payments</span>
-            <span class="text-lg">Создание валюты</span>
+            <span class="text-lg">Валюты</span>
           </a>
         </li>
         <li class="admin_app_li">
           <a href="/admin/cities" class="active-link admin_app_href">
             <span class="icons_admin_style material-symbols-outlined"
               style="font-weight: 500; font-size: 28px;">apartment</span>
-            <span class="text-lg">Создание городов</span>
+            <span class="text-lg">Города</span>
           </a>
         </li>
         <li class="admin_app_li">
           <a href="/admin/filials" class="active-link admin_app_href">
             <span class="icons_admin_style material-symbols-outlined"
               style="font-weight: 500; font-size: 28px;">lan</span>
-            <span class="text-lg">Создание филиала</span>
+            <span class="text-lg">Филиалы</span>
           </a>
         </li>
         <li class="admin_app_li app_user_li_absolute">

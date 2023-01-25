@@ -1,6 +1,6 @@
 <div>
   <div class="margin_content">
-    <h1 class="title">Данные организации</h1>
+    <h1 class="title">Создание организации</h1>
     <%= form_for @conn, Routes.admin_path(@conn, :register_org_submit), [multipart: true], fn f -> %>
       <div class="mb-2">
         <label class="label_input">Название</label>
@@ -39,7 +39,7 @@
 
       <div class="mb-2">
         <label class="label_input">Телефон</label>
-        <%= telephone_input f, :phone, class: "input_full", data: [tel: ""], maxlength: 18, required: "true", placeholder: "+7 (777) 777-77-77" %>
+        <%= telephone_input f, :phone, class: "input_full" , data: [tel: "" ], maxlength: 18, required: "true" %>
       </div>
 
       <div class="mb-2">

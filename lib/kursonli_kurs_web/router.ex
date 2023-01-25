@@ -22,8 +22,8 @@ defmodule KursonliKursWeb.Router do
     plug :put_root_layout, {KursonliKursWeb.LayoutView, "admin_app.html"}
   end
 
-  pipeline :all_app do
-    plug :put_root_layout, {KursonliKursWeb.LayoutView, "all_app.html"}
+  pipeline :worker_app do
+    plug :put_root_layout, {KursonliKursWeb.LayoutView, "worker_app.html"}
   end
 
   pipeline :clean do
@@ -42,7 +42,6 @@ defmodule KursonliKursWeb.Router do
   end
 
   scope "/admin", KursonliKursWeb do
-    # pipe_through :browser
     pipe_through [:browser, :clean]
 
     get "/login", AdminController, :login_form
@@ -57,7 +56,7 @@ defmodule KursonliKursWeb.Router do
   scope "/admin", KursonliKursWeb do
     pipe_through [:browser, :admin_check, :admin_app]
 
-    get "/", AdminController, :index
+    get "/", AdminController, :view_organization
     get "/logout", AdminController, :admin_logout
 
     get "/organizations", AdminController, :view_organization
@@ -65,17 +64,22 @@ defmodule KursonliKursWeb.Router do
     post "/register_org_submit", AdminController, :register_org_submit
     get "/delete_organization", AdminController, :delete_organization
 
-    get "/currencies", AdminController, :currencies
-    post "/currencies", AdminController, :create_currency_submit
-    get "/delete_currency", AdminController, :delete_currency
+    scope "/currencies" do
+      get "/", AdminController, :currencies
+      post "/", AdminController, :create_currency_submit
+      get "/update", AdminController, :update_currency
+      get "/delete", AdminController, :delete_currency
+    end
 
-    get "/cities", AdminController, :cities
-    post "/cities", AdminController, :create_city_submit
-    get "/delete_city", AdminController, :delete_city
+    scope "/cities" do
+      get "/", AdminController, :cities
+      post "/", AdminController, :create_city_submit
+      get "/update", AdminController, :update_city
+      get "/delete", AdminController, :delete_city
+    end
 
     get "/filials", AdminController, :filials
     post "/filials", AdminController, :create_filial_submit
-    # get "/delete_city", AdminController, :delete_city
   end
 
   scope "/worker", KursonliKursWeb do
@@ -86,7 +90,7 @@ defmodule KursonliKursWeb.Router do
   end
 
   scope "/worker", KursonliKursWeb do
-    pipe_through [:browser, :worker_check, :all_app]
+    pipe_through [:browser, :worker_check, :worker_app]
 
     get "/", WorkerController, :index
     get "/update_pass", WorkerController, :update_pass
@@ -96,14 +100,19 @@ defmodule KursonliKursWeb.Router do
     get "/orders", WorkerController, :orders
     get "/create_order", WorkerController, :create_order
     post "/create_order", WorkerController, :create_order_submit
-    get "/delete_order", WorkerController, :delete_order
     post "/update_order", WorkerController, :update_order
+    get "/delete_order", WorkerController, :delete_order
 
     get "/courses", WorkerController, :courses
     get "/create_course", WorkerController, :create_course
     post "/create_course", WorkerController, :create_course_submit
     post "/update_course", WorkerController, :update_course
     get "/delete_course", WorkerController, :delete_course
+
+    get "/settings", WorkerController, :settings
+    post "/create_setings", WorkerController, :create_setings
+    post "/create_setings_submit", WorkerController, :create_setings_submit
+    post "/update_settings", WorkerController, :update_settings
   end
 
   # Other scopes may use custom stacks.

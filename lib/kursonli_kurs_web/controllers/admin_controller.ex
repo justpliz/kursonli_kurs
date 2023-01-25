@@ -1,6 +1,6 @@
 defmodule KursonliKursWeb.AdminController do
   use KursonliKursWeb, :controller
-  action_fallback FallbackController
+  action_fallback(FallbackController)
 
   alias KursonliKurs.Context.{
     Cities,
@@ -54,21 +54,14 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   @doc """
-  GET /admin/
-  """
-  def index(conn, _params) do
-    conn
-    |> render("admin_index.html")
-  end
-
-  @doc """
   GET /admin/organizations
   """
   def view_organization(conn, _params) do
     organization_list = Organizations.all()
+    filials_list = Filials.all()
 
     conn
-    |> render("admin_organizations.html", organization_list: organization_list)
+    |> render("admin_index.html", organization_list: organization_list, filials_list: filials_list)
   end
 
   @doc """
@@ -79,7 +72,7 @@ defmodule KursonliKursWeb.AdminController do
     currencies_list = Currencies.all()
 
     conn
-    |> render("register_org.html", cities_list: cities_list, currencies_list: currencies_list)
+    |> render("admin_register_org.html", cities_list: cities_list, currencies_list: currencies_list)
   end
 
   @doc """
@@ -108,9 +101,8 @@ defmodule KursonliKursWeb.AdminController do
 
     with {:ok, org} <- Organizations.create(org_opts),
          filial_opts <- Map.put(filial_opts, :organization_id, org.id),
-         {:ok, filial} <- Filials.create(filial_opts),
-         worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
-         {:ok, _worker} <- Workers.create(worker_opts) do
+         {:ok, filial} <-
+           Filials.create_filial_worker_seting(filial_opts, worker_opts, params["address"]) do
       params["currency"]
       |> Enum.map(fn currency ->
         currency = String.to_integer(currency)
@@ -118,7 +110,7 @@ defmodule KursonliKursWeb.AdminController do
       end)
 
       conn
-      |> put_flash(:always, "Организация успешно добавлена, пароль: #{password}")
+      |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
       |> redirect(to: "/admin")
     else
       {:error, _reason} ->
@@ -164,6 +156,18 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   @doc """
+  GET /admin/update_currency
+  """
+  def update_currency(conn, %{"id" => id} = params) do
+    with {:ok, currency} <- Currencies.do_get(id: String.to_integer(id)),
+         {:ok, _currency} <- Currencies.update(currency, params) do
+      conn
+      |> put_flash(:info, "Курс #{currency.name} изменен")
+      |> redirect(to: "/admin/currencies")
+    end
+  end
+
+  @doc """
   GET /admin/delete_currency
   """
   def delete_currency(conn, %{"id" => id}) do
@@ -202,13 +206,25 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   @doc """
-  GET /admin/delete_city
+  GET /admin/cities/delete
   """
   def delete_city(conn, %{"id" => id}) do
     with {:ok, city} <- Cities.do_get(id: id),
          {:ok, city} <- Cities.delete(city) do
       conn
       |> put_flash(:info, "#{city.name} удалён")
+      |> redirect(to: "/admin/cities")
+    end
+  end
+
+  @doc """
+  GET /admin/cities/update
+  """
+  def update_city(conn, %{"id" => id} = params) do
+    with {:ok, city} <- Cities.do_get(id: String.to_integer(id)),
+         {:ok, _city} <- Cities.update(city, params) do
+      conn
+      |> put_flash(:info, "Город #{city.name} изменен")
       |> redirect(to: "/admin/cities")
     end
   end
@@ -239,11 +255,6 @@ defmodule KursonliKursWeb.AdminController do
       params["currency"]
       |> Enum.map(fn x -> String.to_integer(x) end)
 
-    # org_opts = %{
-    #   name: params["name"],
-    #   iin: params["iin"]
-    # }
-
     worker_opts = %{
       email: params["email"],
       phone: params["phone"],
@@ -253,18 +264,16 @@ defmodule KursonliKursWeb.AdminController do
     filial_opts = %{
       name: params["filial_name"],
       city_id: params["city_id"],
-      org_id: params["org_id"]
+      organization_id: params["org_id"]
     }
 
-    with {:ok, filial} <- Filials.create(filial_opts),
-         worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
+    with {:ok, filial} <-
+           Filials.create_filial_worker_seting(filial_opts, worker_opts, params["address"]),
          Enum.map(currencies_list, fn x ->
            FilialsCurrencies.create(%{currency_id: x, filial_id: filial.id})
-         end)
-         |> IO.inspect(label: "пися попа"),
-         {:ok, _worker} <- Workers.create(worker_opts) do
+         end) do
       conn
-      |> put_flash(:always, "Филиал успешно добавлен, пароль: #{password}")
+      |> put_flash(:info, "Филиал успешно добавлен, пароль: #{password}")
       |> redirect(to: "/admin/filials")
     else
       {:error, _reason} ->

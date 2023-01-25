@@ -67,5 +67,6 @@ defmodule KursonliKurs.Context.Orders do
       }
     )
     |> Repo.all()
+    |> PwHelper.Normalize.repo()
   end
 end
