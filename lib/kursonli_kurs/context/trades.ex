@@ -4,6 +4,7 @@ defmodule KursonliKurs.Context.Trades do
   """
   use KursonliKurs.Context
 
+  alias KursonliKurs.Model.Order
   alias KursonliKurs.Model.Trade
 
   require Logger
@@ -41,4 +42,14 @@ defmodule KursonliKurs.Context.Trades do
     |> Repo.update()
   end
 
+  def get_by_id_worker(worker_id) do
+    from(
+      trade in Trade,
+      where: trade.worker_id == ^worker_id,
+      join: order in Order,
+      on: trade.order_id == order.id
+    )
+    |> Repo.all()
+    |> PwHelper.Normalize.repo()
+  end
 end
