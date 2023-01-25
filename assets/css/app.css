@@ -163,3 +163,15 @@
     opacity: 0;
   }
 }
+[data-type="access"] .buttons-event {
+  display: none;
+}
+[data-type="access"] {
+  background: green;
+}
+[data-type="fail"] .buttons-event {
+  display: none;
+}
+[data-type="fail"] {
+  background: red;
+}

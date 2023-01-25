@@ -2,6 +2,29 @@ defmodule KursonliKurs.EtsStorage.Chat do
   require Logger
   import Ex2ms
 
+  @moduledoc """
+  # База чата на DETS
+  ## У чата есть всего несколько полей
+    {Ecto.UUID.generate(), city_id, Timex.now(), user_id, message_map} -> Сообщения в чате
+
+    - {Уникальный id,-,-,-,-}
+    - {-,Айди города от которого пришло сообщение,-,-,-}
+    - {-,-,Время отправления сообщения,-,-}
+    - {-,-,-,Айди отправителя,-}
+    - {-,-,-,-, Что это такое можно посмотреть снизу}
+
+  ## Что такое message_map ->
+    Это Map'а
+
+    У message map может быть тип text и event
+
+    Если type: event то еще прибавляеться ключ - type_event: "active"
+
+    ### Типы type_event
+    - active -> Активный у пользольвателя есть возможно принять отклонить
+    - fail -> Пользователь отклонил
+    - success -> Пользователь принял
+  """
   def init(_) do
     {:ok, []}
   end
@@ -40,6 +63,23 @@ defmodule KursonliKurs.EtsStorage.Chat do
       end
     )
     |> Enum.sort_by(fn {_, _, d, _, _} -> d end, Time)
+  end
+
+  def get_by_id(id) do
+    case :dets.lookup(:chat, id) do
+      [item] -> {:ok, item}
+      [] -> {:error, :not_found}
+    end
+  end
+
+  @doc """
+  # Обновляет message map по Id
+  """
+  def update_by_id_message(id, message_params) do
+    with {:ok, {x, y, z, j, object_message_map} = _item} <- get_by_id(id) do
+      new_map = object_message_map |> Map.merge(message_params)
+      {:ok, :dets.insert(:chat, {x, y, z, j, new_map})}
+    end
   end
 
   def delete_all() do

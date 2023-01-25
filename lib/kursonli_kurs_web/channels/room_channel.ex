@@ -43,10 +43,10 @@ defmodule KursonliKursWeb.RoomChannel do
     {:noreply, socket}
   end
 
-  def handle_info(:after_join, socket) do
-    push(socket, "presence_state", Presence.list(socket))
-    {:noreply, socket}
-  end
+  # def handle_info(:after_join, socket) do
+  #   push(socket, "presence_state", Presence.list(socket))
+  #   {:noreply, socket}
+  # end
 
   # def handle_info(:ping, socket) do
   #   push(socket, "new:msg", %{user: "SYSTEM", body: "ping"})
