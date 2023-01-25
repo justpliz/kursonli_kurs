@@ -89,7 +89,7 @@ $(function () {
     {
      
 
-      channel.push("new:msg", { body: this.value, worker: getWorker() })
+      channel.push("new:msg", { body: this.value, worker: getWorker(), type: "text" })
       this.value = ""
 
     }

@@ -4,7 +4,7 @@ defmodule KursonliKurs.Context.Orders do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.{Order, Course, Currency, Filial, Organization}
+  alias KursonliKurs.Model.{Order, Course, Currency, Filial, Organization, Worker}
 
   require Logger
 
@@ -61,6 +61,7 @@ defmodule KursonliKurs.Context.Orders do
         volume: order.volume,
         terms: order.terms,
         transfer: order.transfer,
+        worker_id: order.worker_id,
         currency_short_name: c.short_name,
         course_sale: order.course
       }

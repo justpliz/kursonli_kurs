@@ -156,32 +156,35 @@
         </tr>
       </thead>
       <tbody>
-        <%= for item <- @order_list_purshare do %>
-          <tr class="bg-white order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>'>
-
-            <td class="px-6 py-4">
-              <%= item.filial_name %>
+       <%= for item <- @trades do %>
+          <tr class="bg-white " data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>'> 
+                
+      
+           <td class="px-6 py-4">
+              <%= item.item_order["filial_name"] %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
-              <%= item.date %>
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+              <%= item.item_order["date"] %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
-              <%= item.currency_short_name %>
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+             <%= item.item_order["currency_short_name"] %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
-              <%= item.course_sale %>
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+              <%= item.item_order["course_sale"] %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
-              <%= item.volume %>
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+              <%= item.item_order["volume"] %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
-              <%= item.terms %>
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+              <%= item.item_order["terms"] %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
-              <%= item.transfer %>
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
+              <%= item.item_order["transfer"] %>
             </td>
+            
+     
           </tr>
-          <% end %>
+         <% end %>
       </tbody>
     </table>
   </div>

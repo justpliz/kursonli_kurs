@@ -5,9 +5,6 @@ defmodule KursonliKursWeb.RoomChannel do
   alias KursonliKurs.EtsStorage.{Chat, UserOnline}
 
   def join("rooms:lobby", message, socket) do
-    # Process.flag(:trap_exit, true)
-
-    # :timer.send_interval(5000, :ping)
     send(self, {:after_join, message})
 
     {:ok, socket}
@@ -64,7 +61,7 @@ defmodule KursonliKursWeb.RoomChannel do
   end
 
   def handle_in("new:msg", msg, socket) do
-    broadcast!(socket, "new:msg", %{user: msg["worker"], body: msg["body"]})
+    broadcast!(socket, "new:msg", %{user: msg["worker"], body: msg["body"], type: "text"})
 
     Chat.insert_message(msg["worker"]["id"], msg["worker"]["city"]["id"], msg)
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
@@ -74,8 +71,9 @@ defmodule KursonliKursWeb.RoomChannel do
     Endpoint.broadcast!("rooms:#{city_id}", "notify", %{notify: notify})
   end
 
-  def new_order(%{payload: %{new_order: new_order}, type: :new_order}, city_id) do
-    Endpoint.broadcast!("rooms:#{city_id}", "new:order", %{new_order: new_order})
+  def new_event("new:event", city_id, map_msg) do
+    Chat.insert_message(map_msg[:worker_id], city_id, map_msg)
+    Endpoint.broadcast!("rooms:#{city_id}", "new:event", map_msg)
   end
 
   defp check_city(city_id) do

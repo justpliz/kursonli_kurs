@@ -6,7 +6,7 @@ defmodule KursonliKurs.Model.Trade do
   alias KursonliKurs.Model.{Worker, Order}
 
   @type t :: %__MODULE__{}
-  @primary_key {:id, :binary_id, autogenerate: true}
+  # @primary_key {:id, :binary_id, autogenerate: true}
 
   @timestamps_opts [type: :utc_datetime]
   @required_fields ~w(terms volume status worker_id order_id)a

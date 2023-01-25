@@ -48,6 +48,11 @@ defmodule KursonliKursWeb.Router do
     post "/login", AdminController, :login_form_submit
   end
 
+  scope "/trades" do
+    pipe_through [:browser]
+    post "/", KursonliKursWeb.TradeController, :create_trade
+  end
+
   scope "/admin", KursonliKursWeb do
     pipe_through [:browser, :admin_check, :admin_app]
 
