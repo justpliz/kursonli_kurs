@@ -9,7 +9,8 @@ defmodule KursonliKursWeb.WorkerController do
     Currencies,
     Orders,
     Filials,
-    Cities
+    Cities,
+    Trades
   }
 
   @doc """
@@ -118,6 +119,7 @@ defmodule KursonliKursWeb.WorkerController do
     order_list_purshare = Orders.order_list(:purchase) |> PwHelper.Normalize.repo()
     order_list_sale = Orders.order_list(:sale) |> PwHelper.Normalize.repo()
     city_id = get_session(conn, :worker).city.id
+    worker = get_session(conn, :worker)
     currencies_list = Currencies.all()
     message = Chat.get_all_by_city(city_id)
 
@@ -126,7 +128,8 @@ defmodule KursonliKursWeb.WorkerController do
       order_list_purshare: order_list_purshare,
       order_list_sale: order_list_sale,
       currencies_list: currencies_list,
-      message: message
+      message: message,
+      trades: Trades.get_by_id_worker(worker.id)
     )
   end
 

@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
   <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 </head>
+<input id="crf_token" value={Phoenix.Controller.get_csrf_token()}>
 
 <body class="bg-gray-50">
   <div class="app">
@@ -26,50 +27,57 @@
           Routes.static_path(@conn, "/images/logo-line.svg" ) } alt=""></a>
 
       <ul class="w-full pt-6 relative h-full">
-        <% worker = Plug.Conn.get_session(@conn,:worker) %>
-        <div class="py-2 px-8">Пользователь: <span class="font-bold">
-          <%= worker[:first_name] %> <%= worker[:last_name] %>
-        </span></div>
-        
-        <li class="app_user_li">
-          <a href="/worker" class="app_user_a active-link">
-            <span class="icons_style material-symbols-outlined" style="font-weight: 700; font-size: 28px;">home</span>
-            <span class="text-lg all_app_span">Главная</span>
-          </a>
-        </li>
-        <li class="app_user_li">
-          <a href="/worker/orders" class="app_user_a active-link">
-            <span class="icons_style material-symbols-outlined" style="font-weight: 700; font-size: 28px;">edit_square</span>
-            <span class="text-lg all_app_span">Создание ордеров</span>
-          </a>
-        </li>
-        <li class="app_user_li">
-          <a href="/worker/courses" class="app_user_a active-link">
-            <span class="icons_style material-symbols-outlined" style="font-weight: 700; font-size: 28px;">trending_up</span>
-            <span class="text-lg">Смена курса</span>
-          </a>
-        </li>
-        <li class="app_user_li">
-          <a href="/worker/update_pass" class="app_user_a active-link">
-            <span class="icons_style material-symbols-outlined" style="font-weight: 700; font-size: 28px;">lock_open</span>
-            <span class="text-lg all_app_span">Смена пароля</span>
-          </a>
-        </li>
-        <li class="app_user_li">
-          <a href="#" class="app_user_a">
-            <span class="icons_style material-symbols-outlined" style="font-weight: 700; font-size: 28px;">language</span>
-            <select class="border-none outline-none text-lg p-0 pr-8 m-0">
-              <option class="border-none outline-none active:border-none active:outline-none" selected>Русский</option>
-              <option class="border-none outline-none active:border-none active:outline-none">Казахский</option>
-            </select>
-          </a>
-        </li>
-        <li class="app_user_li app_user_li_absolute">
-          <a href="/worker/logout" class="app_user_a">
-            <span class="icons_style material-symbols-outlined" style="font-weight: 700; font-size: 28px;">logout</span>
-            <span class="text-lg">Выйти</span>
-          </a>
-        </li>
+        <% worker=Plug.Conn.get_session(@conn,:worker) %>
+          <div class="py-2 px-8">Пользователь: <span class="font-bold">
+              <%= worker[:first_name] %>
+                <%= worker[:last_name] %>
+            </span></div>
+
+          <li class="app_user_li">
+            <a href="/worker" class="app_user_a active-link">
+              <span class="icons_style material-symbols-outlined" style="font-weight: 700; font-size: 28px;">home</span>
+              <span class="text-lg all_app_span">Главная</span>
+            </a>
+          </li>
+          <li class="app_user_li">
+            <a href="/worker/orders" class="app_user_a active-link">
+              <span class="icons_style material-symbols-outlined"
+                style="font-weight: 700; font-size: 28px;">edit_square</span>
+              <span class="text-lg all_app_span">Создание ордеров</span>
+            </a>
+          </li>
+          <li class="app_user_li">
+            <a href="/worker/courses" class="app_user_a active-link">
+              <span class="icons_style material-symbols-outlined"
+                style="font-weight: 700; font-size: 28px;">trending_up</span>
+              <span class="text-lg">Смена курса</span>
+            </a>
+          </li>
+          <li class="app_user_li">
+            <a href="/worker/update_pass" class="app_user_a active-link">
+              <span class="icons_style material-symbols-outlined"
+                style="font-weight: 700; font-size: 28px;">lock_open</span>
+              <span class="text-lg all_app_span">Смена пароля</span>
+            </a>
+          </li>
+          <li class="app_user_li">
+            <a href="#" class="app_user_a">
+              <span class="icons_style material-symbols-outlined"
+                style="font-weight: 700; font-size: 28px;">language</span>
+              <select class="border-none outline-none text-lg p-0 pr-8 m-0">
+                <option class="border-none outline-none active:border-none active:outline-none" selected>Русский
+                </option>
+                <option class="border-none outline-none active:border-none active:outline-none">Казахский</option>
+              </select>
+            </a>
+          </li>
+          <li class="app_user_li app_user_li_absolute">
+            <a href="/worker/logout" class="app_user_a">
+              <span class="icons_style material-symbols-outlined"
+                style="font-weight: 700; font-size: 28px;">logout</span>
+              <span class="text-lg">Выйти</span>
+            </a>
+          </li>
       </ul>
     </div>
 
