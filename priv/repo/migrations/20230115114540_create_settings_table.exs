@@ -4,13 +4,18 @@ defmodule KursonliKurs.Repo.Migrations.CreateSettingsTable do
   def change do
     create table(:settings) do
       add :tags, {:array, :string}
-      add :address, :string
-      add :photo, :string
-      add :description, :text
       add :coordinates, {:array, :string}
+      add :address, :string
+      add :logo, :string
+      add :photo, :string
+      add :license, :string
+      add :email, :string
+      add :subdomen, :string
+      add :description, :text
       add :schedule, :jsonb
-      add :phones, :string
+      add :phones, :jsonb
       add :qualities, :jsonb
+      add :colors, :jsonb
 
       add :filial_id, references(:filials, type: :uuid, on_delete: :nothing)
     end
