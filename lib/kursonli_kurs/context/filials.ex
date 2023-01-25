@@ -46,4 +46,15 @@ defmodule KursonliKurs.Context.Filials do
       {:ok, filial}
     end
   end
+
+  def filial_list() do
+    from(
+      filial in Filial,
+      select: %{
+        id: filial.id,
+        filial_name: filial.name,
+      }
+    )
+    |> Repo.all()
+  end
 end

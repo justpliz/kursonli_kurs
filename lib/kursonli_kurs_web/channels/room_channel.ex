@@ -14,8 +14,6 @@ defmodule KursonliKursWeb.RoomChannel do
   end
 
   def join("rooms:" <> private_subtopic, message, socket) do
-    IO.inspect(socket)
-
     if check_city(private_subtopic) do
       UserOnline.insert(
         socket.assigns[:user]["id"],
@@ -36,7 +34,6 @@ defmodule KursonliKursWeb.RoomChannel do
     users =
       UserOnline.get_online_users(city_id)
       |> Enum.map(fn {_id, _, _, user_map} = item -> user_map end)
-      |> IO.inspect()
 
     broadcast!(socket, "user:entered", %{
       online_users: users
@@ -82,8 +79,6 @@ defmodule KursonliKursWeb.RoomChannel do
   end
 
   defp check_city(city_id) do
-    IO.inspect(city_id)
-
     KursonliKurs.Context.Cities.all()
     |> Enum.any?(fn x -> x.id == city_id |> String.to_integer() end)
   end

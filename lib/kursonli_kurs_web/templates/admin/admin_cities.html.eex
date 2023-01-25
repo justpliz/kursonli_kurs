@@ -1,6 +1,5 @@
 <div class="margin_content">
   <h1 class="title">Просмотр и создание городов</h1>
-  <!-- Запрос для правильного отображения  -->
   <%= if Enum.count(@cities_list) >= 1 do %>
     <div class="relative overflow-x-auto shadow-md rounded-xl">
       <table class="w-full text-sm text-left text-gray-500">

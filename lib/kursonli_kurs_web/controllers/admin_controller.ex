@@ -58,7 +58,7 @@ defmodule KursonliKursWeb.AdminController do
   """
   def view_organization(conn, _params) do
     organization_list = Organizations.all()
-    filials_list = Filials.all()
+    filials_list = Filials.filial_list()
 
     conn
     |> render("admin_index.html", organization_list: organization_list, filials_list: filials_list)

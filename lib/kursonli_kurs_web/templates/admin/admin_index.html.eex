@@ -77,22 +77,22 @@
             <%= for item <- @filials_list do %>
                <tr class="bg-white border-b">
                   <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
-                     <%= item.name %>
+                     <%= item.filial_name %>
                   </td>
                   <td class="px-6 border-2 border-gray-300">
-                     <%= item.payment_status %>
+                     <%#= item.payment_status %>
                   </td>
                   <td class="px-6 border-2 border-gray-300">
-                     <%= item.tariff_id %>
+                     <%#= item.tariff_id %>
                   </td>
                   <td class="px-6 border-2 border-gray-300">
-                     <%= item.city_id %>
+                     <%#= item.city_id %>
                   </td>
                   <td class="px-6 border-2 border-gray-300">
-                     <%= item.organization_id %>
+                     <%#= item.organization_id %>
                   </td>
                   <td class="px-6 border-2 border-gray-300">
-                     <%= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
+                     <%#= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
                   </td>
                   <!-- <td class="px-9 border-2 border-gray-300 border-r-0">
                      <button class="org-click styles_none"
