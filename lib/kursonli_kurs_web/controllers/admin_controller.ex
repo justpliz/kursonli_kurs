@@ -59,9 +59,11 @@ defmodule KursonliKursWeb.AdminController do
   def view_organization(conn, _params) do
     organization_list = Organizations.all()
     filials_list = Filials.filial_list()
+    cities_list = Cities.all()
+    currencies_list = Currencies.all()
 
     conn
-    |> render("admin_index.html", organization_list: organization_list, filials_list: filials_list)
+    |> render("admin_index.html", organization_list: organization_list, filials_list: filials_list, cities_list: cities_list, currencies_list: currencies_list)
   end
 
   @doc """
@@ -132,6 +134,15 @@ defmodule KursonliKursWeb.AdminController do
     end
   end
 
+
+  def settings(conn, _params) do
+    currency_list = Currencies.all()
+    cities_list = Cities.all()
+
+    conn
+    |> render("admin_settings.html", currency_list: currency_list, cities_list: cities_list)
+  end
+
   @doc """
   GET /admin/currencies
   """
@@ -151,7 +162,7 @@ defmodule KursonliKursWeb.AdminController do
     with {:ok, currencies} <- Currencies.create(opts) do
       conn
       |> put_flash(:info, "#{currencies.name} создан")
-      |> redirect(to: "/admin/currencies")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -163,7 +174,7 @@ defmodule KursonliKursWeb.AdminController do
          {:ok, _currency} <- Currencies.update(currency, params) do
       conn
       |> put_flash(:info, "Курс #{currency.name} изменен")
-      |> redirect(to: "/admin/currencies")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -175,7 +186,7 @@ defmodule KursonliKursWeb.AdminController do
          {:ok, currency} <- Currencies.delete(currency) do
       conn
       |> put_flash(:info, "#{currency.name} удалён")
-      |> redirect(to: "/admin/currencies")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -201,7 +212,7 @@ defmodule KursonliKursWeb.AdminController do
     with {:ok, city} <- Cities.create(opts) do
       conn
       |> put_flash(:info, "#{city.name} создан")
-      |> redirect(to: "/admin/cities")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -213,7 +224,7 @@ defmodule KursonliKursWeb.AdminController do
          {:ok, city} <- Cities.delete(city) do
       conn
       |> put_flash(:info, "#{city.name} удалён")
-      |> redirect(to: "/admin/cities")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -225,7 +236,7 @@ defmodule KursonliKursWeb.AdminController do
          {:ok, _city} <- Cities.update(city, params) do
       conn
       |> put_flash(:info, "Город #{city.name} изменен")
-      |> redirect(to: "/admin/cities")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -236,12 +247,14 @@ defmodule KursonliKursWeb.AdminController do
     org_list = Organizations.all()
     cities_list = Cities.all()
     currencies_list = Currencies.all()
+    filials_list = Filials.filial_list()
 
     conn
     |> render("admin_filials.html",
       cities_list: cities_list,
       currencies_list: currencies_list,
-      org_list: org_list
+      org_list: org_list,
+      filials_list: filials_list
     )
   end
 

@@ -43,6 +43,68 @@
       <%= submit "Сохранить", class: "btn_save" %>
     </div>
     <% end %>
+
+
+    <h1 class="title_without_margin mt-4">Просмотр всех филиалов</h1>
+    <div class="relative overflow-x-auto shadow-md rounded-xl">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-white uppercase bg-blub">
+          <tr>
+            <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
+              Название филиала
+            </th>
+            <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+              Привязка к организации
+            </th>
+            <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+              Статус оплаты
+            </th>
+            <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+              Тариф
+            </th>
+            <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+              Дата оплаты тарифа
+            </th>
+            <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+              Город
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for item <- @filials_list do %>
+            <tr class="bg-white border-b">
+              <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                <%= item.filial_name %>
+              </td>
+              <td class="px-6 border-2 border-gray-300">
+                <%= item.org_name %>
+              </td>
+              <td class="px-6 border-2 border-gray-300">
+                <%= item.payment_status %>
+              </td>
+              <td class="px-6 border-2 border-gray-300">
+                <%= item.tariff %>
+              </td>
+              <td class="px-6 border-2 border-gray-300">
+                <%= item.tariff_pay %>
+              </td>
+              <td class="px-6 border-2 border-gray-300">
+                <%= item.city_name %>
+              </td>
+              <!-- <td class="px-9 border-2 border-gray-300 border-r-0">
+                 <button class="org-click styles_none"
+                    data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                    <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
+                 </button>
+                 <a href="/admin/delete_organization?id=<%#= item.id %>" class="">
+                    <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                 </a>
+              </td> -->
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
 </div>
 
 
