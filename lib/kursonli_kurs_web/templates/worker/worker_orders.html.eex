@@ -194,7 +194,7 @@
 
   <script>
     $("#createOrder").click(function () {
-      Swal.fire({
+      Modalka.fire({
         showConfirmButton: false,
         showCloseButton: true,
         willOpen: () => {

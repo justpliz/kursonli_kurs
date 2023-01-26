@@ -161,7 +161,7 @@
          <div class="hidden" id="currency" role="tabpanel" aria-labelledby="currency-tab">
             <div class="subtitle absolute top-2">Редактирование валют</div>
             <div class="bg-gray-200 w-full p-8 rounded-xl">
-               <%= for item <- @currency_list do %>
+               <%= for item <- Enum.sort(@currency_list, :asc) do %>
                   <div class="bg-white rounded-lg p-4 mb-4">
                      <div class="flex justify-between">
                         <label class="label_input basis-1/6 p-2">Название</label>
@@ -193,7 +193,7 @@
          <div class="hidden" id="cities" role="tabpanel" aria-labelledby="cities-tab">
             <div class="subtitle absolute top-2">Редактирование городов</div>
             <div class="bg-gray-200 w-full p-8 rounded-xl">
-               <%= for item <- @cities_list do %>
+               <%= for item <- Enum.sort(@cities_list, :asc) do %>
                   <div class="bg-white rounded-lg p-4 mb-4">
                      <div class="flex justify-between">
                         <label class="label_input basis-1/6 p-2">Название</label>

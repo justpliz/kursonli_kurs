@@ -1,6 +1,6 @@
 <script>
    $(".cities_create").click(function () {
-      Swal.fire({
+      Modalka.fire({
          showConfirmButton: false,
          showCloseButton: true,
          heightAuto: false,

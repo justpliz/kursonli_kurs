@@ -1,3 +1,4 @@
+/* @import "./null.css"; */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -5,7 +6,6 @@
 /* This file is for your main application CSS */
 @import "./style.css";
 @import "./modificator.css";
-/* @import "./null.css"; */
 
 :disabled {
   opacity: 0.2;
