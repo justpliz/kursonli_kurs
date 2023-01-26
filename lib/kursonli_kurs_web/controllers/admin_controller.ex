@@ -133,15 +133,15 @@ defmodule KursonliKursWeb.AdminController do
   @doc """
   GET /admin/archive_organization
   """
-  def archive_organization(conn, %{"id" => id} = params) do
-    with {:ok, organization} <- Organizations.do_get(id: id) |> IO.inspect(label: "kek1"),
-         filials <- Filials.all(organization_id: organization.id) |> IO.inspect(label: "kek2"),
-         {:ok, organization} <- Organizations.update(organization, %{status: "archive"}) |> IO.inspect(label: "kek3"),
+  def archive_organization(conn, %{"id" => id}) do
+    with {:ok, organization} <- Organizations.do_get(id: id),
+         filials <- Filials.all(organization_id: organization.id),
+         {:ok, organization} <- Organizations.update(organization, %{org_active_status: "archive"}),
           _filials <-
-           Enum.map(filials, fn x -> Filials.update(x, %{filial_active_status: "archive"}) end) |> IO.inspect(label: "kek4") do
+           Enum.map(filials, fn x -> Filials.update(x, %{filial_active_status: "archive"}) end) do
       conn
       |> put_flash(:info, "#{organization.name} перемещена в архив")
-      |> redirect(to: "/admin/organizations")
+      |> redirect(to: "/admin")
     end
   end
 
@@ -192,10 +192,9 @@ defmodule KursonliKursWeb.AdminController do
   GET /admin/delete_currency
   """
   def delete_currency(conn, %{"id" => id}) do
-    # TODO переделать запрос
     with {:ok, currency} <- Currencies.do_get(id: id),
          count <- FilialsCurrencies.count(currency_id: id) do
-      if count == [] do
+      if count == 0 do
         {:ok, currency} = Currencies.delete(currency)
 
         conn
