@@ -49,6 +49,16 @@
          <label class="label_input">Email</label>
          <%= text_input f, :email, placeholder: "", value: @setting.email, class: "input_full", required: "true" %>
 
+         
+         <%= submit "Сохранить", class: "btn_save my-2" %>
+      <% end %>
+         </div>
+         <!-- первый таб конец -->
+
+         <!-- второй таб -->
+         <div class="hidden" id="personal" role="tabpanel" aria-labelledby="personal-tab">         
+            <%= form_for @conn, Routes.worker_path(@conn, :update_setting), [multipart: true], fn f -> %>
+
          <label class="label_input">График работы ЗАГОЛОВОК</label>
             <label class="label_input">Будни</label>
             <%= text_input f, :schedule_weekdays, placeholder: "", value: @setting.schedule["schedule_weekdays"], class: "input_full", required: "true" %>
@@ -80,19 +90,13 @@
             <%= color_input f, :color_qualities_text, placeholder: "", value: @setting.colors["color_qualities_text"], class: "input_full", required: "true" %>
          </div>
 
-         <label class="label_input">Субдомен</label>
-         <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full", required: "true" %>
+            <label class="label_input">Субдомен</label>
+            <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full", required: "true" %>
          
-         <%= submit "Сохранить", class: "btn_save my-2" %>
-      <% end %>
-         </div>
-         <!-- первый таб -->
-
-         <!-- второй таб -->
-         <div class="hidden" id="personal" role="tabpanel" aria-labelledby="personal-tab">
-            <h1 class="title">Архивные записи</h1>
-         </div>
-         <!-- второй таб -->
+            <%= submit "Сохранить", class: "btn_save my-2" %>
+         <% end %>   
+      </div>
+         <!-- второй таб конец -->
       </div>
    </div>
 </div>

@@ -2,7 +2,7 @@ defmodule KursonliKursWeb.TariffController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{Tariffs, Organizations}
+  alias KursonliKurs.Context.{Tariffs, Filials}
 
   @doc """
   POST /admin/tariffs
@@ -33,16 +33,16 @@ defmodule KursonliKursWeb.TariffController do
   def delete_tariff(conn, %{"id" => id}) do
     # TODO count -> ensure
     with {:ok, tariff} <- Tariffs.do_get(id: id),
-         count <- Organizations.count(tariff_id: id) do
+         count <- Filials.count(tariff_id: id) do
       if count == 0 do
         {:ok, tariff} = Tariffs.delete(tariff)
 
         conn
-        |> put_flash(:info, "#{tariff.name} удалён")
+        |> put_flash(:info, "Тариф #{tariff.name} удалён")
         |> redirect(to: "/admin/settings")
       else
         conn
-        |> put_flash(:error, "#{tariff.name} используется некоторыми организациями")
+        |> put_flash(:error, "#{tariff.name} используется некоторыми филиалами")
         |> redirect(to: "/admin/settings")
       end
     end

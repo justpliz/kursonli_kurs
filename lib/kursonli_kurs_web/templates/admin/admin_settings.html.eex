@@ -64,7 +64,7 @@
                      <div class="flex gap-4">
                         <button class="currency_edit btn_save"
                            data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать тариф</button>
-                        <a href="/admin/currencies/delete?id=<%#= item.id %>" class="btn_cancel">
+                        <a href="/admin/tariffs/delete?id=<%= item.id %>" class="btn_cancel">
                            Удалить тариф
                         </a>
                      </div>

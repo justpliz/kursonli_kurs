@@ -4,7 +4,6 @@ defmodule KursonliKursWeb.AdminController do
 
   alias KursonliKurs.Context.{
     Cities,
-    Workers,
     Admins,
     Filials,
     Organizations,
