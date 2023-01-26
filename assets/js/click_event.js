@@ -10,7 +10,7 @@ $(".click-event").click(async function () {
       let element = document.querySelector(`[data-etsid="${item.ets_id}"]`);
       element.dataset.type = this.dataset.type;
       Toast.fire({
-        title: "Вы успешно приняли ордер",
+        title: "Вы успешно приняли сделку",
         icon: "success",
       });
     })
