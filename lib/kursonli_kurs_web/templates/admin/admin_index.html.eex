@@ -1,21 +1,18 @@
 <div class="margin_content">
    <!-- <h1 class="title_without_margin">Просмотр всех организаций</h1> -->
-   <input class="input_search_other mb-4" type="text" placeholder="Найти организацию" id="org-table-search-row" onkeyup="orgFilterSearch()">
+   <input class="input_search_other mb-4" type="text" placeholder="Найти организацию" id="org-table-search-row"
+      onkeyup="orgFilterSearch()">
 
    <div class="w-full">
       <div class="border-t-2 border-gray-200 mb-4">
          <ul class="flex flex-wrap my-4 relative" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
             <li class="mr-2" role="presentation">
-               <button
-                  class="inline-block btn_border active"
-                  id="dynamic-tab" data-tabs-target="#dynamic" type="button" role="tab" aria-controls="dynamic"
-                  aria-selected="true">Активные</button>
+               <button class="inline-block btn_border active" id="dynamic-tab" data-tabs-target="#dynamic" type="button"
+                  role="tab" aria-controls="dynamic" aria-selected="true">Активные</button>
             </li>
             <li class="mr-2" role="presentation">
-               <button
-                  class="inline-block btn_border"
-                  id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings"
-                  aria-selected="false">Архив</button>
+               <button class="inline-block btn_border" id="settings-tab" data-tabs-target="#settings" type="button"
+                  role="tab" aria-controls="settings" aria-selected="false">Архив</button>
             </li>
             <button class="btn_save absolute right-0 reg-org">Добавить</button>
          </ul>
@@ -44,9 +41,10 @@
                   </thead>
                   <tbody>
                      <%= for item <- @organization_list do %>
-                        <%= if item.org_active_status == :active do %>
+                        <%= if item.org_active_status==:active do %>
                            <tr class="bg-gray-100 border-b-0">
-                              <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                              <td
+                                 class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
                                  <%= item.name %>
                               </td>
                               <td class="px-6 border-2 border-gray-300">
@@ -56,16 +54,18 @@
                                  <%= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
                               </td>
                               <td class="px-9 border-2 border-gray-300 border-r-0">
-                                 <button class="accept_delete styles_none" data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
-                                    <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                                 <button class="accept_delete styles_none"
+                                    data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                                    <span class="material-symbols-outlined"
+                                       style="color: red; font-weight: 900;">delete</span>
                                  </button>
                                  <!-- <a href="/admin/archive_organization?id=<%#= item.id %>" class="">
                                     <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
                                  </a> -->
                               </td>
                            </tr>
-                        <% end %>
-                     <% end %>
+                           <% end %>
+                              <% end %>
                   </tbody>
                </table>
             </div>
@@ -97,7 +97,8 @@
                      <%= for item <- @organization_list do %>
                         <%= if item.org_active_status==:archive do %>
                            <tr class="bg-gray-100 border-b-0">
-                              <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                              <td
+                                 class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
                                  <%= item.name %>
                               </td>
                               <td class="px-6 border-2 border-gray-300">
@@ -108,12 +109,13 @@
                               </td>
                               <td class="px-9 border-2 border-gray-300 border-r-0">
                                  <a href="/admin/archive_organization?id=<%= item.id %>" class="">
-                                    <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                                    <span class="material-symbols-outlined"
+                                       style="color: red; font-weight: 900;">delete</span>
                                  </a>
                               </td>
                            </tr>
-                        <% end %>
-                     <% end %>
+                           <% end %>
+                              <% end %>
                   </tbody>
                </table>
             </div>
@@ -123,27 +125,28 @@
    </div>
 </div>
 
-<%= render(KursonliKursWeb.AdminView, "admin_register_org.html" , conn: @conn, cities_list: @cities_list, currencies_list: @currencies_list) %>
-<%= render(KursonliKursWeb.AdminView, "admin_accept_delete.html" , conn: @conn) %>
+<%= render(KursonliKursWeb.AdminView, "admin_register_org.html" , conn: @conn, cities_list: @cities_list,
+   currencies_list: @currencies_list) %>
+   <%= render(KursonliKursWeb.AdminView, "admin_accept_delete.html" , conn: @conn) %>
 
-<script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
-<script>
-   function orgFilterSearch() {
-      var phrase = document.getElementById('org-table-search-row');
-      var table = document.getElementById('org-table');
-      var regPhrase = new RegExp(phrase.value, 'i');
-      var flag = false;
-      for (var i = 1; i < table.rows.length; i++) {
-         flag = false;
-         for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
-            flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
-            if (flag) break;
+      <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
+      <script>
+         function orgFilterSearch() {
+            var phrase = document.getElementById('org-table-search-row');
+            var table = document.getElementById('org-table');
+            var regPhrase = new RegExp(phrase.value, 'i');
+            var flag = false;
+            for (var i = 1; i < table.rows.length; i++) {
+               flag = false;
+               for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+                  flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
+                  if (flag) break;
+               }
+               if (flag) {
+                  table.rows[i].style.display = "";
+               } else {
+                  table.rows[i].style.display = "none";
+               }
+            }
          }
-         if (flag) {
-            table.rows[i].style.display = "";
-         } else {
-            table.rows[i].style.display = "none";
-         }
-      }
-   }
-</script>
+      </script>

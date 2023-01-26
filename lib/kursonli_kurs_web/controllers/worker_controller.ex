@@ -152,7 +152,7 @@ defmodule KursonliKursWeb.WorkerController do
     session = get_session(conn, :worker)
 
     opts = %{
-      date: Timex.now(),
+      date: Timex.now("Asia/Almaty"),
       number: generate_random_str(6),
       type: params["type"],
       volume: params["volume"],
@@ -257,7 +257,9 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/update_setting
   """
   def update_setting(conn, params) do
-    #TODO доделать график работы и телефоны
+    logo = parse_image(params["logo"])
+    photo = parse_image(params["photo"])
+
     colors = %{
       "color_currency" => params["color_currency"],
       "colors_scoreboard" => params["colors_scoreboard"],
@@ -265,29 +267,38 @@ defmodule KursonliKursWeb.WorkerController do
       "color_qualities_text" => params["color_qualities_text"]
     }
 
-    quality = %{
+    qualities = %{
       "quality1" => params["quality1"],
       "quality2" => params["quality2"],
       "quality3" => params["quality3"]
     }
 
     phones = %{
-      "phone1" => params["phones"]
+      "phone1" => params["phone1"],
+      "phone2" => params["phone2"],
+      "phone3" => params["phone3"],
     }
 
     schedule = %{
-      "schedule" => params["schedule"]
+      "schedule_weekdays" => params["schedule_weekdays"],
+      "schedule_saturday" => params["schedule_saturday"],
+      "schedule_sunday" => params["schedule_sunday"],
+      "schedule_other" => params["schedule_other"]
     }
 
-    params =
-      params
-      |> Map.put("colors", colors)
-      |> Map.put("qualities", quality)
-      |> Map.put("phones", phones)
-      |> Map.put("schedule", schedule)
+    opts = %{
+      colors: colors,
+      qualities: qualities,
+      phones: phones,
+      email: params["email"],
+      schedule: schedule,
+      logo: logo,
+      photo: photo,
+      subdomen: params["subdomen"]
+    }
 
     with {:ok, setting} <- Settings.do_get(filial_id: get_session(conn, :worker).filial_id),
-         {:ok, _setting} <- Settings.update(setting, params) do
+         {:ok, _setting} <- Settings.update(setting, opts) do
       conn
       |> put_flash(:info, "Настройки обновлены")
       |> redirect(to: "/worker/settings")

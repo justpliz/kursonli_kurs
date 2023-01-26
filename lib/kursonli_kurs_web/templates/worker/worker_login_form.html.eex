@@ -35,7 +35,7 @@
           </div>
 
           <div>
-            <%= submit "Войти" , class: "btn_login_full" %>
+            <%= submit "Войти", class: "btn_login_full" %>
           </div>
         </div>
         <% end %>

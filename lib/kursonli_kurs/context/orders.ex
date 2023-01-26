@@ -41,6 +41,12 @@ defmodule KursonliKurs.Context.Orders do
     Repo.delete(order)
   end
 
+  def count(opts \\ []) do
+    Order
+    |> filter_by(opts)
+    |> Repo.aggregate(:count)
+  end
+
   def order_list(type \\ :sale) do
     from(
       order in Order,
