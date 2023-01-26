@@ -10,10 +10,10 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 {:ok, admin} = KursonliKurs.Context.Admins.create(%{login: "admin", password: "admin"})
-{:ok, city} = KursonliKurs.Context.Cities.create(%{name: "Караганда", short_name: "KRG"})
-KursonliKurs.Context.Cities.create(%{name: "Семей", short_name: "SMSK"})
-KursonliKurs.Context.Currencies.create(%{name: "Американский доллар", short_name: "USD"})
-KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR"})
+{:ok, city_krg} = KursonliKurs.Context.Cities.create(%{name: "Караганда", short_name: "KRG"})
+{:ok, city_smsk} = KursonliKurs.Context.Cities.create(%{name: "Семей", short_name: "SMSK"})
+{:ok, usd} = KursonliKurs.Context.Currencies.create(%{name: "Американский доллар", short_name: "USD"})
+{:ok, eur} = KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR"})
 
 # Create Org1
 {:ok, org1} =
@@ -27,7 +27,7 @@ KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR"})
 {:ok, filial1} =
   KursonliKurs.Context.Filials.create(%{
     name: "Odin1",
-    city_id: city.id,
+    city_id: city_krg.id,
     organization_id: org1.id
   })
 
@@ -36,6 +36,11 @@ KursonliKurs.Context.Workers.create(%{
   password: KursonliKursWeb.GeneralHelper.hash_str("1234"),
   email: "odin@odin",
   filial_id: filial1.id
+})
+
+KursonliKurs.Context.FilialsCurrencies.create(%{
+  filial_id: filial1.id,
+  currency_id: usd.id
 })
 
 KursonliKurs.Context.Settings.create(%{
@@ -56,7 +61,7 @@ KursonliKurs.Context.Settings.create(%{
 {:ok, filial2} =
   KursonliKurs.Context.Filials.create(%{
     name: "Dva1",
-    city_id: city.id,
+    city_id: city_krg.id,
     organization_id: org2.id
   })
 
@@ -65,6 +70,16 @@ KursonliKurs.Context.Workers.create(%{
   password: KursonliKursWeb.GeneralHelper.hash_str("1234"),
   email: "dva@dva",
   filial_id: filial2.id
+})
+
+KursonliKurs.Context.FilialsCurrencies.create(%{
+  filial_id: filial2.id,
+  currency_id: eur.id
+})
+
+KursonliKurs.Context.FilialsCurrencies.create(%{
+  filial_id: filial2.id,
+  currency_id: usd.id
 })
 
 KursonliKurs.Context.Settings.create(%{

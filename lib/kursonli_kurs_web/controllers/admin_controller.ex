@@ -194,8 +194,8 @@ defmodule KursonliKursWeb.AdminController do
   def delete_currency(conn, %{"id" => id}) do
     # TODO переделать запрос
     with {:ok, currency} <- Currencies.do_get(id: id),
-         filials <- FilialsCurrencies.all(currency_id: id) do
-      if filials == [] do
+         count <- FilialsCurrencies.count(currency_id: id) do
+      if count == [] do
         {:ok, currency} = Currencies.delete(currency)
 
         conn
