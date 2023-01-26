@@ -17,13 +17,13 @@
         <% end %>
 
         <label class="label_input">Объем</label>
-        <%= text_input f, :volume, class: "input_full number_input_only" , required: "true" %>
+        <%= text_input f, :volume, class: "input_full number_input_only", required: "true" %>
 
         <label class="label_input">Курс</label>
-        <%= text_input f, :course, class: "input_full number_input_only" , required: "true" %>
+        <%= text_input f, :course, class: "input_full number_input_only", required: "true" %>
 
         <label class="label_input">Лимит</label>
-        <%= text_input f, :limit, class: "input_full number_input_only" , required: "true" %>
+        <%= text_input f, :limit, class: "input_full number_input_only", required: "true" %>
 
         <label class="label_input">Валюта</label>
         <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), class: "input_full", required: "true" %>
@@ -40,7 +40,7 @@
         <% end %>
 
         <label class="label_input">Адрес</label>
-        <%= text_input f, :address, class: "input_full" , disabled: "true" , required: "true" %>
+        <%= text_input f, :address, class: "input_full", disabled: "true", required: "true" %>
 
         <label class="label_input">Условия</label>
           <%= text_input f, :terms, class: "input_full", required: "true" %>

@@ -190,7 +190,7 @@
   </div>
 </div>
 
-<%= render(KursonliKursWeb.WorkerView, "chat_page.html" , conn: @conn, message: @message) %>
+<%= render(KursonliKursWeb.WorkerView, "chat_page.html", conn: @conn, message: @message) %>
 
   <script>
     $("#createOrder").click(function () {
@@ -222,13 +222,13 @@
       <% end %>
 
       <label class="label_input pos">Объем</label>
-      <%= text_input f, :volume, class: "input_full number_input_only" , required: "true" %>
+      <%= text_input f, :volume, class: "input_full number_input_only", required: "true" %>
 
       <label class="label_input pos">Курс</label>
-      <%= text_input f, :course, class: "input_full number_input_only" , required: "true" %>
+      <%= text_input f, :course, class: "input_full number_input_only", required: "true" %>
 
       <label class="label_input pos">Лимит</label>
-      <%= text_input f, :limit, class: "input_full number_input_only" , required: "true" %>
+      <%= text_input f, :limit, class: "input_full number_input_only", required: "true" %>
 
       <label class="label_input pos">Валюта</label>
       <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), class: "input_full", required: "true" %>
@@ -245,11 +245,11 @@
       </div>
 
       <label class="label_input pos">Адрес</label>
-      <%= text_input f, :address, class: "input_full" , disabled: "true" , required: "true" %>
+      <%= text_input f, :address, class: "input_full", disabled: "true", required: "true" %>
 
       <label class="label_input pos">Условия</label>
-      <%= text_input f, :terms, class: "input_full" , required: "true", maxlength: 30 %>
-      <%= submit "Создать" , class: "btn_save pos mt-4" %>
+      <%= text_input f, :terms, class: "input_full", required: "true", maxlength: 30 %>
+      <%= submit "Создать", class: "btn_save pos mt-4" %>
     <% end %>
   </div>
 `,
