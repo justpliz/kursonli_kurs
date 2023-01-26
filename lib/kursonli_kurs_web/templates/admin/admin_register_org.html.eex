@@ -1,6 +1,6 @@
 <script>
   $(".reg-org").click(function () {
-    Swal.fire({
+    Modalka.fire({
       showConfirmButton: false,
       showCloseButton: true,
       heightAuto: false,
@@ -52,19 +52,6 @@
             </div>
         <% end %>
       `,
-      willOpen: () => {
-        var input = [...document.querySelectorAll('.number_input_only')];
-        input.forEach((el) => {
-          el.addEventListener("input", (e) => {
-            e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '');
-          })
-        });
-        $(document).ready(function () {
-        var multipleCancelButton = new Choices('#choices-multiple', {
-          removeItemButton: true,
-        });
-        });
-      },
     })
   })
 </script>

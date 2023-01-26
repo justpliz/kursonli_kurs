@@ -63,14 +63,14 @@
                      <div class="border-t-2 my-4 border-gray-200"></div>
                      <div class="flex gap-4">
                         <button class="currency_edit btn_save"
-                           data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать валюту</button>
+                           data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать тариф</button>
                         <a href="/admin/currencies/delete?id=<%#= item.id %>" class="btn_cancel">
-                           Удалить валюту
+                           Удалить тариф
                         </a>
                      </div>
                   </div>
                <%# end %>
-               <button class="currency_create btn_save_with_icon"><span class="material-symbols-outlined" style="font-weight: 900;">add_circle</span> Добавить валюту</button>
+               <button class="currency_create btn_save_with_icon"><span class="material-symbols-outlined" style="font-weight: 900;">add_circle</span> Добавить тариф</button>
             </div>
          </div>
          <!-- первый таб -->

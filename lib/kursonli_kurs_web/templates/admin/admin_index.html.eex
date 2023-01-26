@@ -115,7 +115,7 @@
                                  data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
                                  <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
                               </button> -->
-                              <a href="/admin/delete_organization?id=<%= item.id %>" class="">
+                              <a href="/admin/archive_organization?id=<%= item.id %>" class="">
                                  <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
                               </a>
                            </td>
