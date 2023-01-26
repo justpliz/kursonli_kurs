@@ -64,25 +64,21 @@ defmodule KursonliKursWeb.Router do
   scope "/admin", KursonliKursWeb do
     pipe_through [:browser, :admin_check, :admin_app]
 
-    get "/", AdminController, :view_organization
+    get "/", AdminController, :index
     get "/logout", AdminController, :admin_logout
 
     get "/settings", AdminController, :settings
 
-    get "/organizations", AdminController, :view_organization
-    get "/register_org", AdminController, :register_org
     post "/register_org_submit", AdminController, :register_org_submit
     get "/archive_organization", AdminController, :archive_organization
 
     scope "/currencies" do
-      get "/", AdminController, :currencies
       post "/", AdminController, :create_currency_submit
       get "/update", AdminController, :update_currency
       get "/delete", AdminController, :delete_currency
     end
 
     scope "/cities" do
-      get "/", AdminController, :cities
       post "/", AdminController, :create_city_submit
       get "/update", AdminController, :update_city
       get "/delete", AdminController, :delete_city
@@ -94,7 +90,6 @@ defmodule KursonliKursWeb.Router do
     end
 
     scope "/tariffs" do
-      get "/", TariffController, :tariffs
       post "/", TariffController, :create_tariff
       get "/update", TariffController, :update_tariff
       get "/delete", TariffController, :delete_tariff

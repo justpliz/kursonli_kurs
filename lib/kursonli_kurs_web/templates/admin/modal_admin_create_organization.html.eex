@@ -1,5 +1,5 @@
 <script>
-  $(".reg-org").click(function () {
+  $(".organization_create").click(function () {
     Modalka.fire({
       showConfirmButton: false,
       showCloseButton: true,

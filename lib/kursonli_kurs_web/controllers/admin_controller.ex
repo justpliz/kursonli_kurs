@@ -54,9 +54,9 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   @doc """
-  GET /admin/organizations
+  GET /admin/
   """
-  def view_organization(conn, _params) do
+  def index(conn, _params) do
     organization_list = Organizations.all()
     filials_list = Filials.filial_list()
     cities_list = Cities.all()
@@ -66,20 +66,6 @@ defmodule KursonliKursWeb.AdminController do
     |> render("admin_index.html",
       organization_list: organization_list,
       filials_list: filials_list,
-      cities_list: cities_list,
-      currencies_list: currencies_list
-    )
-  end
-
-  @doc """
-  GET /admin/register_org
-  """
-  def register_org(conn, _params) do
-    cities_list = Cities.all()
-    currencies_list = Currencies.all()
-
-    conn
-    |> render("admin_register_org.html",
       cities_list: cities_list,
       currencies_list: currencies_list
     )
@@ -136,8 +122,9 @@ defmodule KursonliKursWeb.AdminController do
   def archive_organization(conn, %{"id" => id}) do
     with {:ok, organization} <- Organizations.do_get(id: id),
          filials <- Filials.all(organization_id: organization.id),
-         {:ok, organization} <- Organizations.update(organization, %{org_active_status: "archive"}),
-          _filials <-
+         {:ok, organization} <-
+           Organizations.update(organization, %{org_active_status: "archive"}),
+         _filials <-
            Enum.map(filials, fn x -> Filials.update(x, %{filial_active_status: "archive"}) end) do
       conn
       |> put_flash(:info, "#{organization.name} перемещена в архив")
@@ -154,17 +141,11 @@ defmodule KursonliKursWeb.AdminController do
     tariff_list = Tariffs.all()
 
     conn
-    |> render("admin_settings.html", currency_list: currency_list, cities_list: cities_list, tariff_list: tariff_list)
-  end
-
-  @doc """
-  GET /admin/currencies
-  """
-  def currencies(conn, _params) do
-    currency_list = Currencies.all()
-
-    conn
-    |> render("admin_currency.html", currency_list: currency_list)
+    |> render("admin_settings.html",
+      currency_list: currency_list,
+      cities_list: cities_list,
+      tariff_list: tariff_list
+    )
   end
 
   def create_currency_submit(conn, params) do
@@ -210,16 +191,6 @@ defmodule KursonliKursWeb.AdminController do
         |> redirect(to: "/admin/settings")
       end
     end
-  end
-
-  @doc """
-  GET /admin/cities
-  """
-  def cities(conn, _params) do
-    cities_list = Cities.all()
-
-    conn
-    |> render("admin_cities.html", cities_list: cities_list)
   end
 
   @doc """
@@ -270,13 +241,15 @@ defmodule KursonliKursWeb.AdminController do
     cities_list = Cities.all()
     currencies_list = Currencies.all()
     filials_list = Filials.filial_list()
+    tariff_list = Tariffs.all()
 
     conn
     |> render("admin_filials.html",
       cities_list: cities_list,
       currencies_list: currencies_list,
       org_list: org_list,
-      filials_list: filials_list
+      filials_list: filials_list,
+      tariff_list: tariff_list
     )
   end
 

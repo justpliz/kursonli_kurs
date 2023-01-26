@@ -42,7 +42,7 @@
                         </div>
                      </div>
                      <div class="flex justify-between">
-                        <label class="label_input basis-1/6 p-2">Срок действия (дней)</label>
+                        <label class="label_input basis-1/6 p-2">Описание</label>
                         <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
                            <%= item.description %>
                         </div>
@@ -206,10 +206,10 @@
    </div>
 </div>
 
-<%= render(KursonliKursWeb.AdminView, "admin_currency.html", conn: @conn) %>
+<%= render(KursonliKursWeb.AdminView, "modal_admin_edit_currency.html", conn: @conn) %>
 <%= render(KursonliKursWeb.AdminView, "modal_admin_currency_create.html", conn: @conn) %>
 
-<%= render(KursonliKursWeb.AdminView, "admin_cities.html", conn: @conn) %>
+<%= render(KursonliKursWeb.AdminView, "modal_admin_edit_cities.html", conn: @conn) %>
 <%= render(KursonliKursWeb.AdminView, "modal_admin_cities_create.html", conn: @conn) %>
 
 <%= render(KursonliKursWeb.AdminView, "modal_admin_create_tariff.html", conn: @conn) %>

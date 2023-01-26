@@ -1,7 +1,6 @@
 <div class="margin_content">
-   <!-- <h1 class="title_without_margin">Просмотр всех организаций</h1> -->
-   <input class="input_search_other mb-4" type="text" placeholder="Найти организацию" id="org-table-search-row"
-      onkeyup="orgFilterSearch()">
+   <input class="input_search_other mb-4 table_search_input" type="text" placeholder="Найти организацию"
+      onkeyup="filterSearch()">
 
    <div class="w-full">
       <div class="border-t-2 border-gray-200 mb-4">
@@ -14,7 +13,7 @@
                <button class="inline-block btn_border" id="settings-tab" data-tabs-target="#settings" type="button"
                   role="tab" aria-controls="settings" aria-selected="false">Архив</button>
             </li>
-            <button class="btn_save absolute right-0 reg-org">Добавить</button>
+            <button class="btn_save absolute right-0 organization_create">Добавить</button>
          </ul>
       </div>
       <div id="myTabContent">
@@ -22,7 +21,7 @@
          <div class="" id="dynamic" role="tabpanel" aria-labelledby="dynamic-tab">
             <!-- сортровку через селект) -->
             <div class="relative overflow-x-auto rounded-xl">
-               <table class="w-full text-sm text-lefttext-gray-800" id="org-table">
+               <table class="w-full text-sm text-lefttext-gray-800 table_search">
                   <thead class="text-xs uppercase bg-gray-100">
                      <tr>
                         <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
@@ -44,16 +43,16 @@
                         <%= if item.org_active_status==:active do %>
                            <tr class="bg-gray-100 border-b-0">
                               <td
-                                 class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                 class="px-6 border-2 border-b-0 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
                                  <%= item.name %>
                               </td>
-                              <td class="px-6 border-2 border-gray-300">
+                              <td class="px-6 border-2 border-b-0 border-gray-300">
                                  <%= item.iin %>
                               </td>
-                              <td class="px-6 border-2 border-gray-300">
+                              <td class="px-6 border-2 border-b-0 border-gray-300">
                                  <%= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
                               </td>
-                              <td class="px-9 border-2 border-gray-300 border-r-0">
+                              <td class="px-9 border-2 border-b-0 border-gray-300 border-r-0">
                                  <button class="accept_delete styles_none"
                                     data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
                                     <span class="material-symbols-outlined"
@@ -64,8 +63,8 @@
                                  </a> -->
                               </td>
                            </tr>
-                           <% end %>
-                              <% end %>
+                        <% end %>
+                     <% end %>
                   </tbody>
                </table>
             </div>
@@ -76,7 +75,7 @@
          <div class="hidden" id="settings" role="tabpanel" aria-labelledby="settings-tab">
             <h1 class="title">Архивные записи</h1>
             <div class="relative overflow-x-auto rounded-xl">
-               <table class="w-full text-sm text-lefttext-gray-800" id="org-table">
+               <table class="w-full text-sm text-lefttext-gray-800 table_search">
                   <thead class="text-xs uppercase bg-gray-100">
                      <tr>
                         <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
@@ -85,11 +84,8 @@
                         <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
                            Короткое название города
                         </th>
-                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3 border-r-0">
                            Создана
-                        </th>
-                        <th scope="col" class="px-6 border-2 border-t-0 border-r-0 border-gray-300 py-3">
-                           Управление
                         </th>
                      </tr>
                   </thead>
@@ -98,24 +94,18 @@
                         <%= if item.org_active_status==:archive do %>
                            <tr class="bg-gray-100 border-b-0">
                               <td
-                                 class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                 class="px-6 border-2 border-b-0 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
                                  <%= item.name %>
                               </td>
-                              <td class="px-6 border-2 border-gray-300">
+                              <td class="px-6 border-2 border-b-0 border-gray-300">
                                  <%= item.iin %>
                               </td>
-                              <td class="px-6 border-2 border-gray-300">
+                              <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
                                  <%= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
                               </td>
-                              <td class="px-9 border-2 border-gray-300 border-r-0">
-                                 <a href="/admin/archive_organization?id=<%= item.id %>" class="">
-                                    <span class="material-symbols-outlined"
-                                       style="color: red; font-weight: 900;">delete</span>
-                                 </a>
-                              </td>
                            </tr>
-                           <% end %>
-                              <% end %>
+                        <% end %>
+                     <% end %>
                   </tbody>
                </table>
             </div>
@@ -125,28 +115,28 @@
    </div>
 </div>
 
-<%= render(KursonliKursWeb.AdminView, "admin_register_org.html" , conn: @conn, cities_list: @cities_list,
-   currencies_list: @currencies_list) %>
-   <%= render(KursonliKursWeb.AdminView, "admin_accept_delete.html" , conn: @conn) %>
+<%= render(KursonliKursWeb.AdminView, "modal_admin_create_organization.html" , conn: @conn, cities_list: @cities_list, currencies_list: @currencies_list) %>
+<%= render(KursonliKursWeb.AdminView, "admin_accept_delete.html" , conn: @conn) %>
 
-      <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
-      <script>
-         function orgFilterSearch() {
-            var phrase = document.getElementById('org-table-search-row');
-            var table = document.getElementById('org-table');
-            var regPhrase = new RegExp(phrase.value, 'i');
-            var flag = false;
-            for (var i = 1; i < table.rows.length; i++) {
-               flag = false;
-               for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
-                  flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
-                  if (flag) break;
-               }
-               if (flag) {
-                  table.rows[i].style.display = "";
-               } else {
-                  table.rows[i].style.display = "none";
-               }
-            }
+<script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
+
+<script>
+   function filterSearch() {
+      var phrase = document.getElementsByClassName('table_search_input');
+      var table = document.getElementsByClassName('table_search');
+      var regPhrase = new RegExp(phrase[0].value, 'i');
+      var flag = false;
+      for (var i = 1; i < table[0].rows.length; i++) {
+         flag = false;
+         for (var j = table[0].rows[i].cells.length - 1; j >= 0; j--) {
+            flag = regPhrase.test(table[0].rows[i].cells[j].innerHTML);
+            if (flag) break;
          }
-      </script>
+         if (flag) {
+            table[0].rows[i].style.display = "";
+         } else {
+            table[0].rows[i].style.display = "none";
+         }
+      }
+   }
+</script>
