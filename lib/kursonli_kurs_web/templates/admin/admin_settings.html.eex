@@ -47,24 +47,11 @@
                            <%= item.description %>
                         </div>
                      </div>
-                     <!-- <div class="flex">
-                        <label class="label_input basis-1/6 p-2">Активно?</label>
-                        <div class="flex gap-">
-                           <div class="flex justify-start items-center">
-                              <input required name="type" id="Yes" value="" type="radio" class="type_select">
-                              <label class="label_input p-2" for="Yes">Да</label>
-                           </div>
-                           <div class="flex justify-start items-center">
-                              <input required name="type" id="No" value="" checked type="radio" class="type_select">
-                              <label class="label_input p-2" for="No">Нет</label>
-                           </div>
-                        </div>
-                     </div> -->
                      <div class="border-t-2 my-4 border-gray-200"></div>
                      <div class="flex gap-4">
-                        <button class="currency_edit btn_save"
-                           data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать тариф</button>
-                        <a href="/admin/currencies/delete?id=<%#= item.id %>" class="btn_cancel">
+                        <button class="tariff_edit btn_save"
+                           data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать тариф</button>
+                        <a href="/admin/tariffs/delete?id=<%= item.id %>" class="btn_cancel">
                            Удалить тариф
                         </a>
                      </div>
@@ -226,6 +213,7 @@
 <%= render(KursonliKursWeb.AdminView, "modal_admin_cities_create.html", conn: @conn) %>
 
 <%= render(KursonliKursWeb.AdminView, "modal_admin_create_tariff.html", conn: @conn) %>
+<%= render(KursonliKursWeb.AdminView, "modal_admin_tariff_edit.html", conn: @conn) %>
 
 <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
 <script>

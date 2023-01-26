@@ -12,7 +12,7 @@ defmodule KursonliKurs.Context.Tariffs do
   @type params :: Map.t()
 
   def get(opts \\ []) do
-    WorkTariffer
+    Tariff
     |> filter_by(opts)
     |> Repo.one()
   end
