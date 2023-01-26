@@ -20,7 +20,8 @@ KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR"})
   KursonliKurs.Context.Organizations.create(%{
     name: "Org_odin",
     iin: "123456789",
-    admin_id: admin.id
+    admin_id: admin.id,
+    org_active_status: :active
   })
 
 {:ok, filial1} =
@@ -48,7 +49,8 @@ KursonliKurs.Context.Settings.create(%{
   KursonliKurs.Context.Organizations.create(%{
     name: "Org_dva",
     iin: "987654321",
-    admin_id: admin.id
+    admin_id: admin.id,
+    org_active_status: :active
   })
 
 {:ok, filial2} =

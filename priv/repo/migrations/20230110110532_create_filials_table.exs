@@ -10,6 +10,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateFilialsTable do
       add :name, :string
       add :paid_up_to, :naive_datetime
       add :payment_status, :payment_status
+      add :filial_active_status, :active_status
 
       add :city_id, references(:cities, on_delete: :nothing)
       add :organization_id, references(:organizations, type: :uuid, on_delete: :nothing)

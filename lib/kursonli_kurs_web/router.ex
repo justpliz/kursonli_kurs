@@ -64,7 +64,7 @@ defmodule KursonliKursWeb.Router do
     get "/organizations", AdminController, :view_organization
     get "/register_org", AdminController, :register_org
     post "/register_org_submit", AdminController, :register_org_submit
-    get "/delete_organization", AdminController, :delete_organization
+    get "/archive_organization", AdminController, :archive_organization
 
     scope "/currencies" do
       get "/", AdminController, :currencies
@@ -80,8 +80,10 @@ defmodule KursonliKursWeb.Router do
       get "/delete", AdminController, :delete_city
     end
 
-    get "/filials", AdminController, :filials
-    post "/filials", AdminController, :create_filial_submit
+    scope "/filials" do
+      get "/", AdminController, :filials
+      post "/", AdminController, :create_filial_submit
+    end
   end
 
   scope "/worker", KursonliKursWeb do
