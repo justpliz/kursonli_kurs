@@ -92,6 +92,13 @@ defmodule KursonliKursWeb.Router do
       get "/", AdminController, :filials
       post "/", AdminController, :create_filial_submit
     end
+
+    scope "/tariffs" do
+      get "/", TariffController, :tariifs
+      post "/", TariffController, :create_tariffs_submit
+      get "/update", TariffController, :update_tariff
+      get "/delete", TariffController, :delete_tariff
+    end
   end
 
   scope "/worker", KursonliKursWeb do

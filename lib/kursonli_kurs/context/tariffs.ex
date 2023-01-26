@@ -29,6 +29,10 @@ defmodule KursonliKurs.Context.Tariffs do
     |> Repo.insert()
   end
 
+  def delete(tariff) do
+    Repo.delete(tariff)
+  end
+
   @doc false
   @spec update(tariff, params) :: {:ok, tariff} | {:error, Ecto.Changeset.t()}
   def update(tariff, params) do
