@@ -163,10 +163,10 @@
     opacity: 0;
   }
 }
-[data-type="access"] .buttons-event {
+[data-type="success"] .buttons-event {
   display: none;
 }
-[data-type="access"] {
+[data-type="success"] {
   background: green;
 }
 [data-type="fail"] .buttons-event {

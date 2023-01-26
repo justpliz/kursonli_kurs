@@ -7,6 +7,8 @@ $(".click-event").click(async function () {
   await axios
     .post("/api/v1/trade", item)
     .then(() => {
+      let element = document.querySelector(`[data-etsid="${item.ets_id}"]`);
+      element.dataset.type = this.dataset.type;
       Toast.fire({
         title: "Вы успешно приняли ордер",
         icon: "success",

@@ -10,7 +10,7 @@
       
    <%= if y[:type] == "event" and y[:item_order]["worker_id"] == workerr.id do %>
 
-   <div class="w-full bg-blub p-4 text-white rounded  event"  data-type='<%= y["type_event"] %>'>
+   <div class="w-full bg-blub p-4 text-white rounded  event"  data-etsid="<%= id %>" data-type='<%= y["type_event"] %>'>
       <div class="text-gray-200">На Ваш ордер на продажу: <%= y.item_order["volume"] %>  по курсу <%= y.item_order["course_sale"] %> </div>
       <div class="font-bold">Поступило предложение от <%= y.item_order["worker"]["first_name"] %>: <%= y.item_order["organization"] %></div>
       <div class="text-gray-200">предложено  <%= y.volume %>  по курсу <%= y.item_order["course_sale"] %>
