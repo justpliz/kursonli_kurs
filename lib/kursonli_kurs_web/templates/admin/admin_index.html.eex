@@ -7,13 +7,13 @@
          <ul class="flex flex-wrap my-4 relative" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
             <li class="mr-2" role="presentation">
                <button
-                  class="inline-block btn_save active"
+                  class="inline-block btn_border active"
                   id="dynamic-tab" data-tabs-target="#dynamic" type="button" role="tab" aria-controls="dynamic"
                   aria-selected="true">Активные</button>
             </li>
             <li class="mr-2" role="presentation">
                <button
-                  class="inline-block btn_save"
+                  class="inline-block btn_border"
                   id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings"
                   aria-selected="false">Архив</button>
             </li>

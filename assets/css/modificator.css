@@ -11,6 +11,10 @@
       @apply text-gray-600 text-base;
    }
 
+   .subtitle_black {
+      @apply text-black text-xl font-bold;
+   }
+
    .title_without_margin {
       @apply font-bold text-2xl;
    }
@@ -43,8 +47,18 @@
       @apply hover:bg-blue-700;
    }
 
+   .btn_border {
+      @apply text-tableGray transition-all border-2 border-blub font-medium rounded-lg text-base px-5 py-2.5 text-center;
+      @apply focus:ring-0 focus:outline-none focus:ring-blue-300;
+      @apply hover:bg-blub hover:text-white;
+   }
+
+   .btn_border.active {
+      @apply text-white transition-all bg-blub border-2 border-blub font-medium rounded-lg text-base px-5 py-2.5 text-center;
+   }
+
    .btn_save_with_icon {
-      @apply flex items-center justify-center text-white transition-all bg-blub font-medium rounded-lg text-base px-5 py-4 text-center;
+      @apply flex items-center justify-center text-white transition-all bg-blub font-medium rounded-lg text-base px-5 gap-2 py-3;
       @apply focus:ring-4 focus:outline-none focus:ring-blue-300;
       @apply hover:bg-blue-700;
    }
