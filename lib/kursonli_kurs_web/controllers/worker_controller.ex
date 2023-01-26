@@ -152,7 +152,7 @@ defmodule KursonliKursWeb.WorkerController do
     session = get_session(conn, :worker)
 
     opts = %{
-      date: Timex.now(),
+      date: Timex.now("Asia/Almaty"),
       number: generate_random_str(6),
       type: params["type"],
       volume: params["volume"],
