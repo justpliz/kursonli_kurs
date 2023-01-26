@@ -35,7 +35,7 @@ defmodule KursonliKurs.Context.Trades do
   end
 
   @doc false
-  @spec update(trade, params) :: {:ok, trade} | {:error, Ecto.Changeset.t()}
+
   def update(trade, params) do
     trade
     |> Trade.changeset(params)

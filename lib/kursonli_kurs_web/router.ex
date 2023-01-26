@@ -10,7 +10,10 @@ defmodule KursonliKursWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline(:admin_check, do: plug(KursonliKurs.Auth.AdminCheck))
+  pipeline(:admin_check) do
+    plug(KursonliKurs.Auth.AdminCheck)
+    plug :fetch_session
+  end
 
   pipeline(:worker_check, do: plug(KursonliKurs.Auth.WorkerCheck))
 
@@ -41,6 +44,11 @@ defmodule KursonliKursWeb.Router do
     get "/azazaza/:id", PageController, :personal_page
   end
 
+  scope "/api/v1", KursonliKursWeb do
+    pipe_through [:api]
+    post "/trade", TradeController, :ajax_update_message_map
+  end
+
   scope "/admin", KursonliKursWeb do
     pipe_through [:browser, :clean]
 
@@ -48,9 +56,9 @@ defmodule KursonliKursWeb.Router do
     post "/login", AdminController, :login_form_submit
   end
 
-  scope "/trades" do
+  scope "/trades", KursonliKursWeb do
     pipe_through [:browser]
-    post "/", KursonliKursWeb.TradeController, :create_trade
+    post "/", TradeController, :create_trade
   end
 
   scope "/admin", KursonliKursWeb do

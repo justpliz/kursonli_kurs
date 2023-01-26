@@ -118,6 +118,12 @@ defmodule KursonliKurs.Context do
         Enum.reduce(opts_to_remove, opts, &Keyword.delete(&2, &1))
       end
 
+      defp opts_to_map(opts) when is_map(opts), do: opts
+
+      defp opts_to_map(opts) when is_list(opts) do
+        Enum.reduce(opts, %{}, fn {key, value}, acc -> Map.put(acc, key, value) end)
+      end
+
       # check if prodived id is uuid
       defguard uuid?(id) when is_binary(id) and byte_size(id) == 36
     end
