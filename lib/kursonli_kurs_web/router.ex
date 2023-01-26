@@ -94,8 +94,8 @@ defmodule KursonliKursWeb.Router do
     end
 
     scope "/tariffs" do
-      get "/", TariffController, :tariifs
-      post "/", TariffController, :create_tariffs_submit
+      get "/", TariffController, :tariffs
+      post "/", TariffController, :create_tariff
       get "/update", TariffController, :update_tariff
       get "/delete", TariffController, :delete_tariff
     end

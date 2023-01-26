@@ -27,27 +27,27 @@
          <div class="" id="tariffs" role="tabpanel" aria-labelledby="tariffs-tab">
             <div class="subtitle absolute top-2">Редактирование тарифов</div>
             <div class="bg-gray-200 w-full p-8 rounded-xl">
-               <%#= for item <- @currency_list do %>
+               <%= for item <- @tariff_list do %>
                   <div class="bg-white rounded-lg p-4 mb-4">
                      <div class="flex justify-between">
                         <label class="label_input basis-1/6 p-2">Название</label>
                         <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
-                           <%#= item.name %>
+                           <%= item.name %>
                         </div>
                      </div>
                      <div class="flex justify-between">
                         <label class="label_input basis-1/6 p-2">Сумма оплаты</label>
                         <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
-                           <%#= item.short_name %>
+                           <%= item.price %>
                         </div>
                      </div>
                      <div class="flex justify-between">
                         <label class="label_input basis-1/6 p-2">Срок действия (дней)</label>
                         <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
-                           <%#= item.short_name %>
+                           <%= item.description %>
                         </div>
                      </div>
-                     <div class="flex">
+                     <!-- <div class="flex">
                         <label class="label_input basis-1/6 p-2">Активно?</label>
                         <div class="flex gap-">
                            <div class="flex justify-start items-center">
@@ -59,7 +59,7 @@
                               <label class="label_input p-2" for="No">Нет</label>
                            </div>
                         </div>
-                     </div>
+                     </div> -->
                      <div class="border-t-2 my-4 border-gray-200"></div>
                      <div class="flex gap-4">
                         <button class="currency_edit btn_save"
@@ -69,8 +69,8 @@
                         </a>
                      </div>
                   </div>
-               <%# end %>
-               <button class="currency_create btn_save_with_icon"><span class="material-symbols-outlined" style="font-weight: 900;">add_circle</span> Добавить тариф</button>
+               <% end %>
+               <button class="tariff_create btn_save_with_icon"><span class="material-symbols-outlined" style="font-weight: 900;">add_circle</span> Добавить тариф</button>
             </div>
          </div>
          <!-- первый таб -->
@@ -79,80 +79,74 @@
          <div class="hidden" id="payment" role="tabpanel" aria-labelledby="payment-tab">
             <div class="subtitle absolute top-2">Текст уведомлений</div>
             <div class="bg-gray-200 w-full p-8 rounded-xl">
-               <%#= for item <- @currency_list do %>
-                  <h1 class="subtitle_black pl-2">Доступ к сервису</h1>
-                  <div class="bg-white rounded-lg p-4 mb-4">
-                     <div class="flex justify-between pb-2">
-                        <label class="label_input p-2 basis-1/6">Заголовок</label>
-                        <input type="text" class="input_full" placeholder="Заголовок">
-                     </div>
-                     <div class="flex justify-between pb-2">
-                        <label class="label_input p-2 basis-1/6">Текст</label>
-                        <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
-                     </div>
-                     <div class="flex justify-between">
-                        <label class="label_input p-2 basis-1/6">Изображение</label>
-                        <input type="file" class="input_full">
-                     </div>
-                     <div class="border-t-2 my-4 border-gray-200"></div>
-                     <div class="flex gap-4">
-                        <button class="currency_edit btn_save"
-                           data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
-                     </div>
+               <h1 class="subtitle_black pl-2">Доступ к сервису</h1>
+               <div class="bg-white rounded-lg p-4 mb-4">
+                  <div class="flex justify-between pb-2">
+                     <label class="label_input p-2 basis-1/6">Заголовок</label>
+                     <input type="text" class="input_full" placeholder="Заголовок">
                   </div>
-               <%# end %>
+                  <div class="flex justify-between pb-2">
+                     <label class="label_input p-2 basis-1/6">Текст</label>
+                     <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
+                  </div>
+                  <div class="flex justify-between">
+                     <label class="label_input p-2 basis-1/6">Изображение</label>
+                     <input type="file" class="input_full">
+                  </div>
+                  <div class="border-t-2 my-4 border-gray-200"></div>
+                  <div class="flex gap-4">
+                     <button class="currency_edit btn_save"
+                        data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
+                  </div>
+               </div>
             </div>
             <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
-               <%#= for item <- @currency_list do %>
-                  <h1 class="subtitle_black pl-2">Истечение срока</h1>
-                  <div class="bg-white rounded-lg p-4 mb-4">
-                     <div class="flex justify-between pb-2">
-                        <label class="label_input p-2 basis-1/6">Заголовок 1</label>
-                        <input type="text" class="input_full" placeholder="Заголовок 1">
-                     </div>
-                     <div class="flex justify-between pb-2">
-                        <label class="label_input p-2 basis-1/6">Заголовок 2</label>
-                        <input type="text" class="input_full" placeholder="Заголовок 2">
-                     </div>
-                     <div class="flex justify-between pb-2">
-                        <label class="label_input p-2 basis-1/6">Текст</label>
-                        <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
-                     </div>
-                     <div class="flex justify-between">
-                        <label class="label_input p-2 basis-1/6">Изображение</label>
-                        <input type="file" class="input_full">
-                     </div>
-                     <div class="border-t-2 my-4 border-gray-200"></div>
-                     <div class="flex gap-4">
-                        <button class="currency_edit btn_save"
-                           data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
-                     </div>
+               <h1 class="subtitle_black pl-2">Истечение срока</h1>
+               <div class="bg-white rounded-lg p-4 mb-4">
+                  <div class="flex justify-between pb-2">
+                     <label class="label_input p-2 basis-1/6">Заголовок 1</label>
+                     <input type="text" class="input_full" placeholder="Заголовок 1">
                   </div>
-               <%# end %>
+                  <div class="flex justify-between pb-2">
+                     <label class="label_input p-2 basis-1/6">Заголовок 2</label>
+                     <input type="text" class="input_full" placeholder="Заголовок 2">
+                  </div>
+                  <div class="flex justify-between pb-2">
+                     <label class="label_input p-2 basis-1/6">Текст</label>
+                     <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
+                  </div>
+                  <div class="flex justify-between">
+                     <label class="label_input p-2 basis-1/6">Изображение</label>
+                     <input type="file" class="input_full">
+                  </div>
+                  <div class="border-t-2 my-4 border-gray-200"></div>
+                  <div class="flex gap-4">
+                     <button class="currency_edit btn_save"
+                        data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
+                  </div>
+               </div>
             </div>
             <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
-               <%#= for item <- @currency_list do %>
-                  <h1 class="subtitle_black pl-2">Инструкция к оплате</h1>
-                  <div class="bg-white rounded-lg p-4 mb-4">
-                     <div class="flex justify-between pb-2">
-                        <label class="label_input p-2 basis-1/6">Заголовок</label>
-                        <input type="text" class="input_full" placeholder="Заголовок">
-                     </div>
-                     <div class="flex justify-between pb-2">
-                        <label class="label_input p-2 basis-1/6">Текст</label>
-                        <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
-                     </div>
-                     <div class="flex justify-between">
-                        <label class="label_input p-2 basis-1/6">Изображение</label>
-                        <input type="file" class="input_full">
-                     </div>
-                     <div class="border-t-2 my-4 border-gray-200"></div>
-                     <div class="flex gap-4">
-                        <button class="currency_edit btn_save"
-                           data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
-                     </div>
+               <h1 class="subtitle_black pl-2">Инструкция к оплате</h1>
+               <div class="bg-white rounded-lg p-4 mb-4">
+                  <div class="flex justify-between pb-2">
+                     <label class="label_input p-2 basis-1/6">Заголовок</label>
+                     <input type="text" class="input_full" placeholder="Заголовок">
                   </div>
-               <%# end %>
+                  <div class="flex justify-between pb-2">
+                     <label class="label_input p-2 basis-1/6">Текст</label>
+                     <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
+                  </div>
+                  <div class="flex justify-between">
+                     <label class="label_input p-2 basis-1/6">Изображение</label>
+                     <input type="file" class="input_full">
+                  </div>
+                  <div class="border-t-2 my-4 border-gray-200"></div>
+                  <div class="flex gap-4">
+                     <button class="currency_edit btn_save"
+                        data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
+                  </div>
+               </div>
             </div>
          </div>
          <!-- второй таб -->
@@ -231,6 +225,7 @@
 <%= render(KursonliKursWeb.AdminView, "admin_cities.html", conn: @conn) %>
 <%= render(KursonliKursWeb.AdminView, "modal_admin_cities_create.html", conn: @conn) %>
 
+<%= render(KursonliKursWeb.AdminView, "modal_admin_create_tariff.html", conn: @conn) %>
 
 <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
 <script>

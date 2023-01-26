@@ -5,23 +5,13 @@ defmodule KursonliKursWeb.TariffController do
   alias KursonliKurs.Context.{Tariffs, Organizations}
 
   @doc """
-  GET /admin/tariffs
-  """
-  def cities(conn, _params) do
-    tariff_list = Tariffs.all()
-
-    conn
-    |> render("admin_tariffs.html", tariff_list: tariff_list)
-  end
-
-  @doc """
   POST /admin/tariffs
   """
   def create_tariff(conn, params) do
     with {:ok, _tariff} <- Tariffs.create(params) do
       conn
       |> put_flash(:info, "Новый тариф успешно создан")
-      |> redirect(to: "/admin/tariffs")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -33,7 +23,7 @@ defmodule KursonliKursWeb.TariffController do
          {:ok, _city} <- Tariffs.update(tariff, params) do
       conn
       |> put_flash(:info, " #{tariff.name} изменен")
-      |> redirect(to: "/admin/tariffs")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -49,11 +39,11 @@ defmodule KursonliKursWeb.TariffController do
 
         conn
         |> put_flash(:info, "#{tariff.name} удалён")
-        |> redirect(to: "/admin/tariffs")
+        |> redirect(to: "/admin/settings")
       else
         conn
         |> put_flash(:error, "#{tariff.name} используется некоторыми организациями")
-        |> redirect(to: "/admin/tariffs")
+        |> redirect(to: "/admin/settings")
       end
     end
   end

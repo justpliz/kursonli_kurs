@@ -9,7 +9,8 @@ defmodule KursonliKursWeb.AdminController do
     Filials,
     Organizations,
     Currencies,
-    FilialsCurrencies
+    FilialsCurrencies,
+    Tariffs
   }
 
   @doc """
@@ -145,12 +146,16 @@ defmodule KursonliKursWeb.AdminController do
     end
   end
 
+  @doc """
+  GET /admin/settings
+  """
   def settings(conn, _params) do
     currency_list = Currencies.all()
     cities_list = Cities.all()
+    tariff_list = Tariffs.all()
 
     conn
-    |> render("admin_settings.html", currency_list: currency_list, cities_list: cities_list)
+    |> render("admin_settings.html", currency_list: currency_list, cities_list: cities_list, tariff_list: tariff_list)
   end
 
   @doc """
