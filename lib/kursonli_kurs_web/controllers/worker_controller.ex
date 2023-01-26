@@ -150,8 +150,6 @@ defmodule KursonliKursWeb.WorkerController do
   def create_order_submit(conn, params) do
     # TODO Переделать event_info
     session = get_session(conn, :worker)
-    # params |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/worker_controller.ex:146")
-    # session |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/worker_controller.ex:149")
 
     opts = %{
       date: Timex.now(),
@@ -249,7 +247,7 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def settings(conn, _params) do
     with {:ok, filial} <- Filials.do_get(id: get_session(conn, :worker).filial_id),
-         {:ok, setting} <- Settings.do_get(filial_id: filial.id) |> IO.inspect() do
+         {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
       conn
       |> render("worker_settings.html", setting: setting)
     end

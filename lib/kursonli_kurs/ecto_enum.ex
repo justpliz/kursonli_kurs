@@ -7,3 +7,5 @@ defenum(OrderTransfer, :order_transfer, Application.get_env(:kursonli_kurs, :ord
 defenum(OrderStatus, :order_status, [:success, :fail, :active])
 
 defenum(PaymentStatus, :payment_status, [:paid, :not_paid])
+
+defenum(ActiveStatus, :active_status, [:active, :archive])

@@ -63,7 +63,12 @@ defmodule KursonliKursWeb.AdminController do
     currencies_list = Currencies.all()
 
     conn
-    |> render("admin_index.html", organization_list: organization_list, filials_list: filials_list, cities_list: cities_list, currencies_list: currencies_list)
+    |> render("admin_index.html",
+      organization_list: organization_list,
+      filials_list: filials_list,
+      cities_list: cities_list,
+      currencies_list: currencies_list
+    )
   end
 
   @doc """
@@ -74,7 +79,10 @@ defmodule KursonliKursWeb.AdminController do
     currencies_list = Currencies.all()
 
     conn
-    |> render("admin_register_org.html", cities_list: cities_list, currencies_list: currencies_list)
+    |> render("admin_register_org.html",
+      cities_list: cities_list,
+      currencies_list: currencies_list
+    )
   end
 
   @doc """
@@ -125,15 +133,17 @@ defmodule KursonliKursWeb.AdminController do
   @doc """
   GET /admin/archive_organization
   """
-  def archive_organization(conn, %{"id" => id}) do
-    with {:ok, organization} <- Organizations.do_get(id: id),
-         {:ok, organization} <- Organizations.delete(organization) do
+  def archive_organization(conn, %{"id" => id} = params) do
+    with {:ok, organization} <- Organizations.do_get(id: id) |> IO.inspect(label: "kek1"),
+         filials <- Filials.all(organization_id: organization.id) |> IO.inspect(label: "kek2"),
+         {:ok, organization} <- Organizations.update(organization, %{status: "archive"}) |> IO.inspect(label: "kek3"),
+          _filials <-
+           Enum.map(filials, fn x -> Filials.update(x, %{filial_active_status: "archive"}) end) |> IO.inspect(label: "kek4") do
       conn
-      |> put_flash(:info, "#{organization.name} удалён")
+      |> put_flash(:info, "#{organization.name} перемещена в архив")
       |> redirect(to: "/admin/organizations")
     end
   end
-
 
   def settings(conn, _params) do
     currency_list = Currencies.all()
@@ -182,11 +192,20 @@ defmodule KursonliKursWeb.AdminController do
   GET /admin/delete_currency
   """
   def delete_currency(conn, %{"id" => id}) do
+    # TODO переделать запрос
     with {:ok, currency} <- Currencies.do_get(id: id),
-         {:ok, currency} <- Currencies.delete(currency) do
-      conn
-      |> put_flash(:info, "#{currency.name} удалён")
-      |> redirect(to: "/admin/settings")
+         filials <- FilialsCurrencies.all(currency_id: id) do
+      if filials == [] do
+        {:ok, currency} = Currencies.delete(currency)
+
+        conn
+        |> put_flash(:info, "#{currency.name} удалён")
+        |> redirect(to: "/admin/settings")
+      else
+        conn
+        |> put_flash(:error, "#{currency.name} используется некоторыми филиалами")
+        |> redirect(to: "/admin/settings")
+      end
     end
   end
 
