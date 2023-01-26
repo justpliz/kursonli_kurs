@@ -59,9 +59,16 @@ defmodule KursonliKursWeb.AdminController do
   def view_organization(conn, _params) do
     organization_list = Organizations.all()
     filials_list = Filials.filial_list()
+    cities_list = Cities.all()
+    currencies_list = Currencies.all()
 
     conn
-    |> render("admin_index.html", organization_list: organization_list, filials_list: filials_list)
+    |> render("admin_index.html",
+      organization_list: organization_list,
+      filials_list: filials_list,
+      cities_list: cities_list,
+      currencies_list: currencies_list
+    )
   end
 
   @doc """
@@ -72,7 +79,10 @@ defmodule KursonliKursWeb.AdminController do
     currencies_list = Currencies.all()
 
     conn
-    |> render("admin_register_org.html", cities_list: cities_list, currencies_list: currencies_list)
+    |> render("admin_register_org.html",
+      cities_list: cities_list,
+      currencies_list: currencies_list
+    )
   end
 
   @doc """
@@ -123,13 +133,24 @@ defmodule KursonliKursWeb.AdminController do
   @doc """
   GET /admin/archive_organization
   """
-  def archive_organization(conn, %{"id" => id}) do
-    with {:ok, organization} <- Organizations.do_get(id: id),
-         {:ok, organization} <- Organizations.delete(organization) do
+  def archive_organization(conn, %{"id" => id} = params) do
+    with {:ok, organization} <- Organizations.do_get(id: id) |> IO.inspect(label: "kek1"),
+         filials <- Filials.all(organization_id: organization.id) |> IO.inspect(label: "kek2"),
+         {:ok, organization} <- Organizations.update(organization, %{status: "archive"}) |> IO.inspect(label: "kek3"),
+          _filials <-
+           Enum.map(filials, fn x -> Filials.update(x, %{filial_active_status: "archive"}) end) |> IO.inspect(label: "kek4") do
       conn
-      |> put_flash(:info, "#{organization.name} удалён")
+      |> put_flash(:info, "#{organization.name} перемещена в архив")
       |> redirect(to: "/admin/organizations")
     end
+  end
+
+  def settings(conn, _params) do
+    currency_list = Currencies.all()
+    cities_list = Cities.all()
+
+    conn
+    |> render("admin_settings.html", currency_list: currency_list, cities_list: cities_list)
   end
 
   @doc """
@@ -151,7 +172,7 @@ defmodule KursonliKursWeb.AdminController do
     with {:ok, currencies} <- Currencies.create(opts) do
       conn
       |> put_flash(:info, "#{currencies.name} создан")
-      |> redirect(to: "/admin/currencies")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -163,7 +184,7 @@ defmodule KursonliKursWeb.AdminController do
          {:ok, _currency} <- Currencies.update(currency, params) do
       conn
       |> put_flash(:info, "Курс #{currency.name} изменен")
-      |> redirect(to: "/admin/currencies")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -171,11 +192,20 @@ defmodule KursonliKursWeb.AdminController do
   GET /admin/delete_currency
   """
   def delete_currency(conn, %{"id" => id}) do
+    # TODO переделать запрос
     with {:ok, currency} <- Currencies.do_get(id: id),
-         {:ok, currency} <- Currencies.delete(currency) do
-      conn
-      |> put_flash(:info, "#{currency.name} удалён")
-      |> redirect(to: "/admin/currencies")
+         count <- FilialsCurrencies.count(currency_id: id) do
+      if count == [] do
+        {:ok, currency} = Currencies.delete(currency)
+
+        conn
+        |> put_flash(:info, "#{currency.name} удалён")
+        |> redirect(to: "/admin/settings")
+      else
+        conn
+        |> put_flash(:error, "#{currency.name} используется некоторыми филиалами")
+        |> redirect(to: "/admin/settings")
+      end
     end
   end
 
@@ -201,7 +231,7 @@ defmodule KursonliKursWeb.AdminController do
     with {:ok, city} <- Cities.create(opts) do
       conn
       |> put_flash(:info, "#{city.name} создан")
-      |> redirect(to: "/admin/cities")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -213,7 +243,7 @@ defmodule KursonliKursWeb.AdminController do
          {:ok, city} <- Cities.delete(city) do
       conn
       |> put_flash(:info, "#{city.name} удалён")
-      |> redirect(to: "/admin/cities")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -225,7 +255,7 @@ defmodule KursonliKursWeb.AdminController do
          {:ok, _city} <- Cities.update(city, params) do
       conn
       |> put_flash(:info, "Город #{city.name} изменен")
-      |> redirect(to: "/admin/cities")
+      |> redirect(to: "/admin/settings")
     end
   end
 
@@ -236,12 +266,14 @@ defmodule KursonliKursWeb.AdminController do
     org_list = Organizations.all()
     cities_list = Cities.all()
     currencies_list = Currencies.all()
+    filials_list = Filials.filial_list()
 
     conn
     |> render("admin_filials.html",
       cities_list: cities_list,
       currencies_list: currencies_list,
-      org_list: org_list
+      org_list: org_list,
+      filials_list: filials_list
     )
   end
 

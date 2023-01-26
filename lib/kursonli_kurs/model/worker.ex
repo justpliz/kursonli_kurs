@@ -20,7 +20,6 @@ defmodule KursonliKurs.Model.Worker do
     has_one :order, Order
     has_one :trade, Trade
 
-
     belongs_to :filial, Filial, type: :binary_id
 
     timestamps()

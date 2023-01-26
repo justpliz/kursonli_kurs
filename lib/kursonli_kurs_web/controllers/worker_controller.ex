@@ -150,8 +150,6 @@ defmodule KursonliKursWeb.WorkerController do
   def create_order_submit(conn, params) do
     # TODO Переделать event_info
     session = get_session(conn, :worker)
-    # params |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/worker_controller.ex:146")
-    # session |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/worker_controller.ex:149")
 
     opts = %{
       date: Timex.now(),
@@ -256,22 +254,42 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
-  POST /worker/edit_settings
+  POST /worker/update_setting
   """
-  def update_settings(conn, params) do
-    opts = %{
-      address: params["address"],
-      photo: params["photo"],
-      description: params["description"],
-      coordinates: %{x: params["x"], y: params["y"]},
-      phones: params["phones"],
-      qualities: params["qualities"],
-      filial_id: params["filial_id"]
+  def update_setting(conn, params) do
+    #TODO доделать график работы и телефоны
+    colors = %{
+      "color_currency" => params["color_currency"],
+      "colors_scoreboard" => params["colors_scoreboard"],
+      "color_qualities" => params["color_qualities"],
+      "color_qualities_text" => params["color_qualities_text"]
     }
 
-    with {:ok, _setting} <- Settings.create(opts) do
+    quality = %{
+      "quality1" => params["quality1"],
+      "quality2" => params["quality2"],
+      "quality3" => params["quality3"]
+    }
+
+    phones = %{
+      "phone1" => params["phones"]
+    }
+
+    schedule = %{
+      "schedule" => params["schedule"]
+    }
+
+    params =
+      params
+      |> Map.put("colors", colors)
+      |> Map.put("qualities", quality)
+      |> Map.put("phones", phones)
+      |> Map.put("schedule", schedule)
+
+    with {:ok, setting} <- Settings.do_get(filial_id: get_session(conn, :worker).filial_id),
+         {:ok, _setting} <- Settings.update(setting, params) do
       conn
-      |> put_flash(:info, "Настройки добавлены")
+      |> put_flash(:info, "Настройки обновлены")
       |> redirect(to: "/worker/settings")
     end
   end

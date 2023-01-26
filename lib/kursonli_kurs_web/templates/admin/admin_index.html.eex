@@ -1,112 +1,217 @@
 <div class="margin_content">
-   <h1 class="title_without_margin">Просмотр всех организаций</h1>
-   <div class="relative overflow-x-auto shadow-md rounded-xl">
-      <table class="w-full text-sm text-left text-gray-500">
-         <thead class="text-xs text-white uppercase bg-blub">
-            <tr>
-               <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
-                  Название организации
-               </th>
-               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-                  ИИН организации
-               </th>
-               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-                  Создана
-               </th>
-               <!-- <th scope="col" class="px-6 border-2 border-t-0 border-r-0 border-gray-300 py-3 w-20">
-                  Управление
-               </th> -->
-            </tr>
-         </thead>
-         <tbody>
-            <%= for item <- @organization_list do %>
-               <tr class="bg-white border-b">
-                  <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
-                     <%= item.name %>
-                  </td>
-                  <td class="px-6 border-2 border-gray-300">
-                     <%= item.iin %>
-                  </td>
-                  <td class="px-6 border-2 border-gray-300">
-                     <%= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
-                  </td>
-                  <!-- <td class="px-9 border-2 border-gray-300 border-r-0">
-                     <button class="org-click styles_none"
-                        data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
-                        <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
-                     </button>
-                     <a href="/admin/delete_organization?id=<%#= item.id %>" class="">
-                        <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-                     </a>
-                  </td> -->
-               </tr>
-               <% end %>
-         </tbody>
-      </table>
-   </div>
+   <!-- <h1 class="title_without_margin">Просмотр всех организаций</h1> -->
+   <input class="input_search_other mb-4" type="text" placeholder="Найти организацию" id="org-table-search-row" onkeyup="orgFilterSearch()">
 
-   <h1 class="title_without_margin mt-4">Просмотр всех филиалов</h1>
-   <div class="relative overflow-x-auto shadow-md rounded-xl">
-      <table class="w-full text-sm text-left text-gray-500">
-         <thead class="text-xs text-white uppercase bg-blub">
-            <tr>
-               <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
-                  Название филиала
-               </th>
-               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-                  Статус оплаты
-               </th>
-               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-                  Тариф
-               </th>
-               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-                  Город
-               </th>
-               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-                  Привязка к организации
-               </th>
-               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-                  Дата создания филиала
-               </th>
-               <!-- <th scope="col" class="px-6 border-2 border-t-0 border-r-0 border-gray-300 py-3 w-20">
-                  Управление
-               </th> -->
-            </tr>
-         </thead>
-         <tbody>
-            <%= for item <- @filials_list do %>
-               <tr class="bg-white border-b">
-                  <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
-                     <%= item.filial_name %>
-                  </td>
-                  <td class="px-6 border-2 border-gray-300">
-                     <%#= item.payment_status %>
-                  </td>
-                  <td class="px-6 border-2 border-gray-300">
-                     <%#= item.tariff_id %>
-                  </td>
-                  <td class="px-6 border-2 border-gray-300">
-                     <%#= item.city_id %>
-                  </td>
-                  <td class="px-6 border-2 border-gray-300">
-                     <%#= item.organization_id %>
-                  </td>
-                  <td class="px-6 border-2 border-gray-300">
-                     <%#= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
-                  </td>
-                  <!-- <td class="px-9 border-2 border-gray-300 border-r-0">
-                     <button class="org-click styles_none"
-                        data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
-                        <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
-                     </button>
-                     <a href="/admin/delete_organization?id=<%#= item.id %>" class="">
-                        <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-                     </a>
-                  </td> -->
-               </tr>
-               <% end %>
-         </tbody>
-      </table>
+   <div class="w-full">
+      <div class="border-t-2 border-gray-200 mb-4">
+         <ul class="flex flex-wrap my-4 relative" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+            <li class="mr-2" role="presentation">
+               <button
+                  class="inline-block btn_border active"
+                  id="dynamic-tab" data-tabs-target="#dynamic" type="button" role="tab" aria-controls="dynamic"
+                  aria-selected="true">Активные</button>
+            </li>
+            <li class="mr-2" role="presentation">
+               <button
+                  class="inline-block btn_border"
+                  id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings"
+                  aria-selected="false">Архив</button>
+            </li>
+            <button class="btn_save absolute right-0 reg-org">Добавить</button>
+         </ul>
+      </div>
+      <div id="myTabContent">
+         <!-- первый таб -->
+         <div class="" id="dynamic" role="tabpanel" aria-labelledby="dynamic-tab">
+            <!-- сортровку через селект) -->
+            <div class="relative overflow-x-auto rounded-xl">
+               <table class="w-full text-sm text-lefttext-gray-800" id="org-table">
+                  <thead class="text-xs uppercase bg-gray-100">
+                     <tr>
+                        <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
+                           Организация
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                           Email
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                           Тариф
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                           Дата истечения тарифа
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                           Город
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-r-0 border-gray-300 py-3 w-20"></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <%= for item <- @filials_list do %>
+                        <tr class="bg-gray-100 border-b-0">
+                           <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                              <%= item.filial_name %>
+                           </td>
+                           <td class="px-6 border-2 border-gray-300">
+                              <%= item.org_name %>
+                           </td>
+                           <td class="px-6 border-2 border-gray-300">
+                              <%= item.tariff %>
+                           </td>
+                           <td class="px-6 border-2 border-gray-300">
+                              <%= item.tariff_pay %>
+                           </td>
+                           <td class="px-6 border-2 border-gray-300">
+                              <%= item.city_name %>
+                           </td>
+                           <td class="px-9 border-2 border-gray-300 border-r-0">
+                             <!-- <button class="org-click styles_none"
+                                data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                                <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
+                             </button> -->
+                             <a href="/admin/delete_organization?id=<%#= item.id %>" class="">
+                                <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                             </a>
+                           </td>
+                        </tr>
+                     <% end %>
+                  </tbody>
+               </table>
+            </div>
+
+            <!-- <h1 class="title">Просмотр всех организаций</h1> -->
+            <div class="relative overflow-x-auto shadow-md rounded-xl">
+               <table class="w-full text-sm text-left text-gray-500">
+                  <thead class="text-xs text-white uppercase bg-blub">
+                     <tr>
+                        <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
+                           Название организации
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                           Короткое название города
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                           Создана
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-r-0 border-gray-300 py-3 w-20">
+                           Управление
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <%= for item <- @organization_list do %>
+                        <tr class="bg-white border-b">
+                           <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                              <%= item.name %>
+                           </td>
+                           <td class="px-6 border-2 border-gray-300">
+                              <%= item.iin %>
+                           </td>
+                           <td class="px-6 border-2 border-gray-300">
+                              <%= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
+                           </td>
+                           <td class="px-9 border-2 border-gray-300 border-r-0">
+                              <!-- <button class="org-click styles_none"
+                                 data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                                 <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
+                              </button> -->
+                              <a href="/admin/delete_organization?id=<%= item.id %>" class="">
+                                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                              </a>
+                           </td>
+                        </tr>
+                        <% end %>
+                  </tbody>
+               </table>
+            </div>
+
+
+         </div>
+         <!-- первый таб -->
+
+         <!-- второй таб -->
+         <div class="hidden" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+            <h1 class="title">Архивные записи</h1>
+            <div class="relative overflow-x-auto rounded-xl">
+               <table class="w-full text-sm text-lefttext-gray-800">
+                  <thead class="text-xs uppercase bg-gray-100">
+                     <tr>
+                        <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
+                           Организация
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                           Email
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                           Дата истечения тарифа
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                           Тариф
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                           Город
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-r-0 border-gray-300 py-3 w-20"></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <%#= for item <- @ do %>
+                        <tr class="bg-gray-100 border-b-0">
+                           <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                              <%#= item.filial_name %>
+                           </td>
+                           <td class="px-6 border-2 border-gray-300">
+                              <%#= item.org_name %>
+                           </td>
+                           <td class="px-6 border-2 border-gray-300">
+                              <%#= item.tariff %>
+                           </td>
+                           <td class="px-6 border-2 border-gray-300">
+                              <%#= item.tariff_pay %>
+                           </td>
+                           <td class="px-6 border-2 border-gray-300">
+                              <%#= item.city_name %>
+                           </td>
+                           <td class="px-9 border-2 border-gray-300 border-r-0">
+                              <!-- <button class="org-click styles_none"
+                                 data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                                 <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
+                              </button> -->
+                              <a href="/admin/delete_organization?id=<%#= item.id %>" class="">
+                                 <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                              </a>
+                           </td>
+                        </tr>
+                        <%# end %>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <!-- второй таб -->
+      </div>
    </div>
 </div>
 
+<%= render(KursonliKursWeb.AdminView, "admin_register_org.html" , conn: @conn, cities_list: @cities_list, currencies_list: @currencies_list) %>
+
+<script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
+<script>
+   function orgFilterSearch() {
+      var phrase = document.getElementById('org-table-search-row');
+      var table = document.getElementById('org-table');
+      var regPhrase = new RegExp(phrase.value, 'i');
+      var flag = false;
+      for (var i = 1; i < table.rows.length; i++) {
+         flag = false;
+         for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+            flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
+            if (flag) break;
+         }
+         if (flag) {
+            table.rows[i].style.display = "";
+         } else {
+            table.rows[i].style.display = "none";
+         }
+      }
+   }
+</script>

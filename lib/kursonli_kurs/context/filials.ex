@@ -4,7 +4,7 @@ defmodule KursonliKurs.Context.Filials do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.Filial
+  alias KursonliKurs.Model.{Filial, City, Organization}
   alias KursonliKurs.Context.{Filials, Workers, Settings}
 
   require Logger
@@ -47,12 +47,24 @@ defmodule KursonliKurs.Context.Filials do
     end
   end
 
+
+  # TODO: переписать)
   def filial_list() do
     from(
       filial in Filial,
+      join: city in City,
+      on: filial.city_id == city.id,
+      join: org in Organization,
+      on: filial.organization_id == org.id,
       select: %{
         id: filial.id,
         filial_name: filial.name,
+        payment_status: filial.payment_status,
+        tariff: filial.tariff_id,
+        org_name: filial.organization_id,
+        city_name: city.name,
+        org_name: org.name,
+        tariff_pay: filial.paid_up_to
       }
     )
     |> Repo.all()

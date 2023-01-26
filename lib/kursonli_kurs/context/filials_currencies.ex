@@ -36,4 +36,10 @@ defmodule KursonliKurs.Context.FilialsCurrencies do
     |> FilialCurrency.changeset(params)
     |> Repo.update()
   end
+
+  def count(opts \\ []) do
+    FilialCurrency
+    |> filter_by(opts)
+    |> Repo.aggregate(:count)
+  end
 end

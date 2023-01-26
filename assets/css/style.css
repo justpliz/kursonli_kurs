@@ -12,8 +12,6 @@
 
 html,
 body {
-  height: 100%;
-  overflow-x: hidden;
   margin: 0;
   padding: 0;
 }
@@ -24,8 +22,10 @@ body {
   background-color: #fff;
 }
 
-.content {
-  padding: 0px 20px 0 300px;
+.content_admin {
+  width: 90%;
+  margin: 0 auto;
+  padding: 0px 20px 0 280px;
 }
 
 .content-worker {
@@ -99,4 +99,9 @@ th.sorted[data-order="1"]::after {
   box-shadow: none !important;
   border: none;
   outline: none;
+}
+
+html.swal2-shown,
+body.swal2-shown {
+  overflow-y: auto !important;
 }

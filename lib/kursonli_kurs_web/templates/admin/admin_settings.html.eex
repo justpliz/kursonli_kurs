@@ -1,0 +1,251 @@
+<div class="margin_content">
+   <h1 class="title">Настройки</h1>
+
+   <div class="w-full relative">
+      <div class="border-t-2 border-gray-200 mb-4">
+         <ul class="flex flex-wrap mt-12 relative" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+            <li class="mr-2" role="presentation">
+               <button class="inline-block btn_border active" id="tariffs-tab" data-tabs-target="#tariffs" type="button"
+                  role="tab" aria-controls="tariffs" aria-selected="true">Тарифы</button>
+            </li>
+            <li class="mr-2" role="presentation">
+               <button class="inline-block btn_border" id="payment-tab" data-tabs-target="#payment" type="button"
+                  role="tab" aria-controls="payment" aria-selected="false">Оплата</button>
+            </li>
+            <li class="mr-2" role="presentation">
+               <button class="inline-block btn_border " id="currency-tab" data-tabs-target="#currency" type="button"
+                  role="tab" aria-controls="currency" aria-selected="false">Валюты</button>
+            </li>
+            <li class="mr-2" role="presentation">
+               <button class="inline-block btn_border" id="cities-tab" data-tabs-target="#cities" type="button"
+                  role="tab" aria-controls="cities" aria-selected="false">Города</button>
+            </li>
+         </ul>
+      </div>
+      <div id="myTabContent">
+         <!-- первый таб -->
+         <div class="" id="tariffs" role="tabpanel" aria-labelledby="tariffs-tab">
+            <div class="subtitle absolute top-2">Редактирование тарифов</div>
+            <div class="bg-gray-200 w-full p-8 rounded-xl">
+               <%#= for item <- @currency_list do %>
+                  <div class="bg-white rounded-lg p-4 mb-4">
+                     <div class="flex justify-between">
+                        <label class="label_input basis-1/6 p-2">Название</label>
+                        <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                           <%#= item.name %>
+                        </div>
+                     </div>
+                     <div class="flex justify-between">
+                        <label class="label_input basis-1/6 p-2">Сумма оплаты</label>
+                        <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                           <%#= item.short_name %>
+                        </div>
+                     </div>
+                     <div class="flex justify-between">
+                        <label class="label_input basis-1/6 p-2">Срок действия (дней)</label>
+                        <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                           <%#= item.short_name %>
+                        </div>
+                     </div>
+                     <div class="flex">
+                        <label class="label_input basis-1/6 p-2">Активно?</label>
+                        <div class="flex gap-">
+                           <div class="flex justify-start items-center">
+                              <input required name="type" id="Yes" value="" type="radio" class="type_select">
+                              <label class="label_input p-2" for="Yes">Да</label>
+                           </div>
+                           <div class="flex justify-start items-center">
+                              <input required name="type" id="No" value="" checked type="radio" class="type_select">
+                              <label class="label_input p-2" for="No">Нет</label>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="border-t-2 my-4 border-gray-200"></div>
+                     <div class="flex gap-4">
+                        <button class="currency_edit btn_save"
+                           data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать валюту</button>
+                        <a href="/admin/currencies/delete?id=<%#= item.id %>" class="btn_cancel">
+                           Удалить валюту
+                        </a>
+                     </div>
+                  </div>
+               <%# end %>
+               <button class="currency_create btn_save_with_icon"><span class="material-symbols-outlined" style="font-weight: 900;">add_circle</span> Добавить валюту</button>
+            </div>
+         </div>
+         <!-- первый таб -->
+
+         <!-- второй таб -->
+         <div class="hidden" id="payment" role="tabpanel" aria-labelledby="payment-tab">
+            <div class="subtitle absolute top-2">Текст уведомлений</div>
+            <div class="bg-gray-200 w-full p-8 rounded-xl">
+               <%#= for item <- @currency_list do %>
+                  <h1 class="subtitle_black pl-2">Доступ к сервису</h1>
+                  <div class="bg-white rounded-lg p-4 mb-4">
+                     <div class="flex justify-between pb-2">
+                        <label class="label_input p-2 basis-1/6">Заголовок</label>
+                        <input type="text" class="input_full" placeholder="Заголовок">
+                     </div>
+                     <div class="flex justify-between pb-2">
+                        <label class="label_input p-2 basis-1/6">Текст</label>
+                        <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
+                     </div>
+                     <div class="flex justify-between">
+                        <label class="label_input p-2 basis-1/6">Изображение</label>
+                        <input type="file" class="input_full">
+                     </div>
+                     <div class="border-t-2 my-4 border-gray-200"></div>
+                     <div class="flex gap-4">
+                        <button class="currency_edit btn_save"
+                           data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
+                     </div>
+                  </div>
+               <%# end %>
+            </div>
+            <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
+               <%#= for item <- @currency_list do %>
+                  <h1 class="subtitle_black pl-2">Истечение срока</h1>
+                  <div class="bg-white rounded-lg p-4 mb-4">
+                     <div class="flex justify-between pb-2">
+                        <label class="label_input p-2 basis-1/6">Заголовок 1</label>
+                        <input type="text" class="input_full" placeholder="Заголовок 1">
+                     </div>
+                     <div class="flex justify-between pb-2">
+                        <label class="label_input p-2 basis-1/6">Заголовок 2</label>
+                        <input type="text" class="input_full" placeholder="Заголовок 2">
+                     </div>
+                     <div class="flex justify-between pb-2">
+                        <label class="label_input p-2 basis-1/6">Текст</label>
+                        <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
+                     </div>
+                     <div class="flex justify-between">
+                        <label class="label_input p-2 basis-1/6">Изображение</label>
+                        <input type="file" class="input_full">
+                     </div>
+                     <div class="border-t-2 my-4 border-gray-200"></div>
+                     <div class="flex gap-4">
+                        <button class="currency_edit btn_save"
+                           data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
+                     </div>
+                  </div>
+               <%# end %>
+            </div>
+            <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
+               <%#= for item <- @currency_list do %>
+                  <h1 class="subtitle_black pl-2">Инструкция к оплате</h1>
+                  <div class="bg-white rounded-lg p-4 mb-4">
+                     <div class="flex justify-between pb-2">
+                        <label class="label_input p-2 basis-1/6">Заголовок</label>
+                        <input type="text" class="input_full" placeholder="Заголовок">
+                     </div>
+                     <div class="flex justify-between pb-2">
+                        <label class="label_input p-2 basis-1/6">Текст</label>
+                        <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
+                     </div>
+                     <div class="flex justify-between">
+                        <label class="label_input p-2 basis-1/6">Изображение</label>
+                        <input type="file" class="input_full">
+                     </div>
+                     <div class="border-t-2 my-4 border-gray-200"></div>
+                     <div class="flex gap-4">
+                        <button class="currency_edit btn_save"
+                           data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
+                     </div>
+                  </div>
+               <%# end %>
+            </div>
+         </div>
+         <!-- второй таб -->
+
+         <!-- третий таб -->
+         <div class="hidden" id="currency" role="tabpanel" aria-labelledby="currency-tab">
+            <div class="subtitle absolute top-2">Редактирование валют</div>
+            <div class="bg-gray-200 w-full p-8 rounded-xl">
+               <%= for item <- @currency_list do %>
+                  <div class="bg-white rounded-lg p-4 mb-4">
+                     <div class="flex justify-between">
+                        <label class="label_input basis-1/6 p-2">Название</label>
+                        <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                           <%= item.name %>
+                        </div>
+                     </div>
+                     <div class="flex justify-between">
+                        <label class="label_input basis-1/6 p-2">Короткое название</label>
+                        <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                           <%= item.short_name %>
+                        </div>
+                     </div>
+                     <div class="border-t-2 my-4 border-gray-200"></div>
+                     <div class="flex gap-4">
+                        <button class="currency_edit btn_save" data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать валюту</button>
+                        <a href="/admin/currencies/delete?id=<%= item.id %>" class="btn_cancel">
+                           Удалить валюту
+                        </a>
+                     </div>
+                  </div>
+               <% end %>
+               <button class="currency_create btn_save_with_icon"><span class="material-symbols-outlined" style="font-weight: 900;">add_circle</span> Добавить валюту</button>
+            </div>
+         </div>
+         <!-- третий таб -->
+
+         <!-- четвертый таб -->
+         <div class="hidden" id="cities" role="tabpanel" aria-labelledby="cities-tab">
+            <div class="subtitle absolute top-2">Редактирование городов</div>
+            <div class="bg-gray-200 w-full p-8 rounded-xl">
+               <%= for item <- @cities_list do %>
+                  <div class="bg-white rounded-lg p-4 mb-4">
+                     <div class="flex justify-between">
+                        <label class="label_input basis-1/6 p-2">Название</label>
+                        <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                           <%= item.name %>
+                        </div>
+                     </div>
+                     <div class="flex justify-between">
+                        <label class="label_input basis-1/6 p-2">Короткое название</label>
+                        <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                           <%= item.short_name %>
+                        </div>
+                     </div>
+                     <div class="border-t-2 my-4 border-gray-200"></div>
+                     <div class="flex gap-4">
+                        <button class="city_edit btn_save"
+                           data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать город</button>
+                        <a href="/admin/cities/delete?id=<%= item.id %>" class="btn_cancel">
+                           Удалить город
+                        </a>
+                     </div>
+                  </div>
+               <% end %>
+               <button class="cities_create btn_save_with_icon"><span class="material-symbols-outlined" style="font-weight: 900;">add_circle</span> Добавить город</button>
+            </div>
+         </div>
+         <!-- четвертый таб -->
+      </div>
+   </div>
+</div>
+
+<%= render(KursonliKursWeb.AdminView, "admin_currency.html" , conn: @conn) %>
+<%= render(KursonliKursWeb.AdminView, "modal_admin_currency_create.html" , conn: @conn) %>
+
+<%= render(KursonliKursWeb.AdminView, "admin_cities.html" , conn: @conn) %>
+<%= render(KursonliKursWeb.AdminView, "modal_admin_cities_create.html" , conn: @conn) %>
+
+
+<script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
+<script>
+   // const elements = [...document.querySelectorAll("[aria-labelledby]")] 
+
+   // const path = window.location.href.replace(/.+#/, "")
+   // elements.forEach((e) => {
+   //   const atr = e.getAttribute("aria-labelledby")
+   //  const regex = new RegExp(path)
+   //  const isTab =  regex.test(atr)
+   //    if (isTab) {
+   //       e.classList.remove("hidden")
+   //    }
+   //    else {
+   //        e.classList.add("hidden")
+   //    }
+   // })
+</script>

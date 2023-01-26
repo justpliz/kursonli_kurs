@@ -15,7 +15,6 @@ defmodule KursonliKursWeb.TradeController do
 
     with {:ok, item} <- Trades.create(params) do
       item = item |> PwHelper.Normalize.repo()
-      item |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/trade_controller.ex:15")
 
       KursonliKursWeb.RoomChannel.new_event(
         "new:event",

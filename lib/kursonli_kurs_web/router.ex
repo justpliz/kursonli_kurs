@@ -67,10 +67,12 @@ defmodule KursonliKursWeb.Router do
     get "/", AdminController, :view_organization
     get "/logout", AdminController, :admin_logout
 
+    get "/settings", AdminController, :settings
+
     get "/organizations", AdminController, :view_organization
     get "/register_org", AdminController, :register_org
     post "/register_org_submit", AdminController, :register_org_submit
-    get "/delete_organization", AdminController, :delete_organization
+    get "/archive_organization", AdminController, :archive_organization
 
     scope "/currencies" do
       get "/", AdminController, :currencies
@@ -86,8 +88,10 @@ defmodule KursonliKursWeb.Router do
       get "/delete", AdminController, :delete_city
     end
 
-    get "/filials", AdminController, :filials
-    post "/filials", AdminController, :create_filial_submit
+    scope "/filials" do
+      get "/", AdminController, :filials
+      post "/", AdminController, :create_filial_submit
+    end
   end
 
   scope "/worker", KursonliKursWeb do
@@ -117,10 +121,10 @@ defmodule KursonliKursWeb.Router do
     post "/update_course", WorkerController, :update_course
     get "/delete_course", WorkerController, :delete_course
 
-    get "/settings", WorkerController, :settings
-    post "/create_setings", WorkerController, :create_setings
-    post "/create_setings_submit", WorkerController, :create_setings_submit
-    post "/update_settings", WorkerController, :update_settings
+    scope "/settings" do
+      get "/", WorkerController, :settings
+      post "/update", WorkerController, :update_setting
+    end
   end
 
   # Other scopes may use custom stacks.
