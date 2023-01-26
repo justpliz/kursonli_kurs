@@ -164,3 +164,15 @@
     opacity: 0;
   }
 }
+[data-type="success"] .buttons-event {
+  display: none;
+}
+[data-type="success"] {
+  background: green;
+}
+[data-type="fail"] .buttons-event {
+  display: none;
+}
+[data-type="fail"] {
+  background: red;
+}
