@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <input id="crf_token" value={Phoenix.Controller.get_csrf_token()}>
+  <input id="crf_token" class="hidden" value={Phoenix.Controller.get_csrf_token()}>
   <div class="clean">
     <%= @inner_content %>
   </div>

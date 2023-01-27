@@ -158,7 +158,7 @@
    }
 
    .href_index {
-      @apply border py-4 px-10 text-white font-extrabold rounded-xl transition-all;
+      @apply border-2 py-4 px-10 text-white font-extrabold rounded-xl transition-all;
       @apply hover:bg-white hover:text-dblue;
    }
 

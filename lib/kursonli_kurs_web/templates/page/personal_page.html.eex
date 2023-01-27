@@ -1,23 +1,102 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>API карт 2ГИС</title>
-        <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
-        <script type="text/javascript">
-            var map;
+<div class="mx-auto w-full bg-dblue shadow-xl">
+    <div class="max-w-1440 flex justify-between items-center mx-auto h-20 text-gray-300">
+        <ul class="flex gap-10 text-lg">
+            <a href="#">
+                <li class="hover:underline cursor-pointer hover:text-white">Адрес</li>
+            </a>
+            <a href="#">
+                <li class="hover:underline cursor-pointer hover:text-white">О компании</li>
+            </a>
+            <a href="#">
+                <li class="hover:underline cursor-pointer hover:text-white">Номер телефона</li>
+            </a>
+        </ul>
+        <a href="/" class="flex">
+            <img src="/images/white-line-logo.svg" alt="">
+        </a>
+        <a href="tel:77077777777" class="flex items-center gap-2 hover:text-white hover:underline">
+            <span class="material-symbols-outlined" style="color: white; font-weight: 700;">schedule</span>
+            +7 707 342 423
+        </a>
+    </div>
+</div>
 
-            DG.then(function () {
-                map = DG.map('map', {
-                    center: [49.815224, 73.084355],
-                    zoom: 13
-                });
+<div class="max-w-1440 mx-auto mt-4">
+    <div class="flex gap-8">
+        <div class="bg-blub p-6 text-white rounded-xl flex_percent">
+            <div class="flex flex-col items-center justify-center">
+                <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
+                <div class="text-sm">на ЧИСЛО января ГОД ВРЕМЯ</div>
 
-                DG.marker([49.815224, 73.084355]).addTo(map).bindPopup('Тут моя хата');
-            });
-        </script>
-    </head>
-    <body>
-        <h1>Личный кабинет ОП</h1>
-        <div id="map" style="width:500px; height:400px"></div>
-    </body>
-</html>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <div class="bg-gray-200 rounded-xl p-6">
+                <h2 class="uppercase font-bold">калькулятор курса</h2>
+                <div class="">
+                    <h3>У меня есть</h3>
+                    <input type="input" class="input_full">
+                    <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">sync_alt</span>
+                    <h3>Я получу</h3>
+                    <input type="input" class="input_full">
+                </div>
+            </div>
+
+            <div class="bg-gray-200 rounded-xl p-6">
+                <h2 class="font-bold text-center">Национальный банк</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex gap-8 mt-10">
+        <div class="flex33 flex items-center bg-blub rounded-xl p-6">
+            <span class="material-symbols-outlined pr-6" style="color: white; font-weight: 700;">sync_alt</span>
+            <div class="text-white uppercase text-lg">Далеко-далеко, за словесными.</div>
+        </div>
+        <div class="flex33 flex items-center bg-blub rounded-xl p-6">
+            <span class="material-symbols-outlined pr-6" style="color: white; font-weight: 700;">sync_alt</span>
+            <div class="text-white uppercase text-lg">Далеко-далеко за словесными горами. </div>
+        </div>
+        <div class="flex33 flex items-center bg-blub rounded-xl p-6">
+            <span class="material-symbols-outlined pr-6" style="color: white; font-weight: 700;">sync_alt</span>
+            <div class="text-white uppercase text-lg">Далеко-далеко за словесными горами в стране гласных и согласных
+                живут рыбные тексты.</div>
+        </div>
+    </div>
+
+    <div class="flex mt-10 gap-6">
+        <div id="map" class="rounded-xl w-2/3 h-600"></div>
+        <div class="bg-gray-200 shadow-xl rounded-xl flex-auto py-10 px-8">
+            <h2 class="uppercase font-bold text-lg relative title_before">Адрес обменника</h2>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- <div id="map" class="tex" style="width:500px; height:400px"></div> -->
+
+
+<script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
+<script>
+    var map;
+    DG.then(function () {
+        let map = DG.map('map', {
+            center: [49.815224, 73.084355],
+            zoom: 17
+        });
+        DG.popup([49.815224, 73.084355])
+            .setLatLng([49.815224, 73.084355])
+            .setContent('Хата Абая Сериковича')
+            .openOn(map);
+        // DG.marker([49.815224, 73.084355]).addTo(map).setContent('Тут моя хата');
+    });
+</script>

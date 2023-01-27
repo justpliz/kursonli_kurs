@@ -1,0 +1,127 @@
+<div class="mx-auto w-full bg-dblue">
+  <div class="max-w-1440 flex justify-between items-center mx-auto h-20">
+    <a href="/"><img src="/images/white-line-logo.svg" alt=""></a>
+
+    <div class="relative w-1/5">
+      <input class="input_search table_search_input" type="text" placeholder="" id="index-table-search-row"
+        onkeyup="filterSearch()">
+      <div class="absolute inset-y-0 right-4 flex items-center pl-3 pointer-events-none">
+        <img src="/images/icons/search.svg" alt="">
+      </div>
+    </div>
+    
+    <a href="/worker/login" class="href_index">Войти</a>
+  </div>
+</div>
+
+<div class="max-w-1440 mx-auto">
+  <div class="flex py-8 ">
+    <span class="font-bold pr-4">
+      Алматы
+      (<span class="font-bold text-red-500">24</span>)
+    </span>
+    <span class="font-bold pr-4">
+      Караг
+      (<span class="font-bold text-red-500">14</span>)
+    </span>
+  </div>
+
+  <div class="font-black text-black pb-4">
+    Курсы валют в обменных пунктах в городе ГОРОД на ДАТА
+  </div>
+
+  <div class="relative overflow-x-auto rounded-xl">
+    <table class="w-full text-sm text-lefttext-gray-800 table_search table_sort">
+      <thead class="text-sm uppercase bg-gray-200">
+        <tr>
+          <th scope="col" class="py-6 px-4 border-2 border-l-0 border-t-0 border-gray-300">
+            Обменный пункт
+          </th>
+          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300">
+            Время
+          </th>
+          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300">
+            usd
+          </th>
+          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300">
+            eur
+          </th>
+          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300">
+            rub
+          </th>
+          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300 border-r-0">
+            Контакты
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <%#= for item <- @organization_list do %>
+          <%#= if item.org_active_status==:active do %>
+            <tr class="bg-gray-100 border-b-0">
+              <td
+                class="px-6 border-2 border-b-0 border-gray-300 border-l-0 py-3 font-medium text-gray-900">
+                Lorem, ipsum dolor.
+              </td>
+              <td class="px-6 border-2 border-b-0 border-gray-300">
+                20022-23-19 16^81237
+              </td>
+              <td class="px-6 border-2 border-b-0 border-gray-300">
+                <span>1</span>
+                <span>1</span>
+              </td>
+              <td class="px-6 border-2 border-b-0 border-gray-300">
+                4
+              </td>
+              <td class="px-6 border-2 border-b-0 border-gray-300">
+                2
+              </td>
+              <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
+                Lorem ipsum dolor sit.
+              </td>
+            </tr>
+            <%# end %>
+          <%# end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  function filterSearch() {
+    var phrase = document.getElementsByClassName('table_search_input');
+    var table = document.getElementsByClassName('table_search');
+    var regPhrase = new RegExp(phrase[0].value, 'i');
+    var flag = false;
+    for (var i = 1; i < table[0].rows.length; i++) {
+      flag = false;
+      for (var j = table[0].rows[i].cells.length - 1; j >= 0; j--) {
+        flag = regPhrase.test(table[0].rows[i].cells[j].innerHTML);
+        if (flag) break;
+      }
+      if (flag) {
+        table[0].rows[i].style.display = "";
+      } else {
+        table[0].rows[i].style.display = "none";
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const getSort = ({ target }) => {
+      const order = (target.dataset.order = -(target.dataset.order || -1));
+      const index = [...target.parentNode.cells].indexOf(target);
+      const collator = new Intl.Collator(['ru'], { numeric: true });
+      const comparator = (index, order) => (a, b) => order * collator.compare(
+        a.children[index].innerHTML,
+        b.children[index].innerHTML
+      );
+
+      for (const tBody of target.closest('table').tBodies)
+        tBody.append(...[...tBody.rows].sort(comparator(index, order)));
+
+      for (const cell of target.parentNode.cells)
+        cell.classList.toggle('sorted', cell === target);
+    };
+    document.querySelectorAll('.table_sort thead').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
+  });
+</script>

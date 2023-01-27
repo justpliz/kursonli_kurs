@@ -13,12 +13,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="min-w-full w-full bg-gray-100">
-  <input id="crf_token" value={Phoenix.Controller.get_csrf_token()}>
+<body class="mx-auto">
+  <input id="crf_token" class="hidden" value={Phoenix.Controller.get_csrf_token()}>
   <%= @inner_content %>
 </body>
 

@@ -22,11 +22,15 @@ module.exports = {
         '600': '600px',
         '60': '60px',
       },
+      maxWidth: {
+        '1440': '1440px',
+      },
       minWidth: {
         '600': '600px',
       },
       height: {
         '600': '600px',
+        '700': '700px',
       },
       width: {
         '600': '600px',

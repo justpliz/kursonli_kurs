@@ -21,7 +21,7 @@
 </head>
 
 <body class="bg-gray-50">
-  <input id="crf_token" value={Phoenix.Controller.get_csrf_token()}>
+  <input id="crf_token" class="hidden" value={Phoenix.Controller.get_csrf_token()}>
   <div class="app">
     <div class="app_user_container">
       <a href="/worker"><img class="mt-10 m-auto scale-110 w-full" src={

@@ -105,3 +105,22 @@ html.swal2-shown,
 body.swal2-shown {
   overflow-y: auto !important;
 }
+
+.flex_percent {
+  flex: 1 1 70%;
+}
+
+.flex33 {
+  flex: 1 1 33%;
+}
+
+.title_before::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 40px;
+  width: 40px;
+  height: 6px;
+  border-radius: 10px;
+  background-color: red;
+}
