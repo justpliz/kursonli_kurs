@@ -41,7 +41,7 @@ defmodule KursonliKursWeb.Router do
     pipe_through [:browser, :index]
 
     get "/", PageController, :index
-    get "/azazaza/:id", PageController, :personal_page
+    get "/personal/:id", PageController, :personal_page
   end
 
   scope "/api/v1", KursonliKursWeb do
@@ -65,9 +65,9 @@ defmodule KursonliKursWeb.Router do
     pipe_through [:browser, :admin_check, :admin_app]
 
     get "/", AdminController, :index
-    get "/logout", AdminController, :admin_logout
-
     get "/settings", AdminController, :settings
+
+    get "/logout", AdminController, :admin_logout
 
     post "/register_org_submit", AdminController, :register_org_submit
     get "/archive_organization", AdminController, :archive_organization

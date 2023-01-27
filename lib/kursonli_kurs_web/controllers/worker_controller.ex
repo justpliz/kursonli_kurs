@@ -215,7 +215,7 @@ defmodule KursonliKursWeb.WorkerController do
   def create_course_submit(conn, params) do
     opts = %{
       currency_id: params["currency_id"],
-      filial_id: hd(Filials.all()).id,
+      filial_id: get_session(conn, :worker).filial_id,
       value_for_sale: params["value_for_sale"],
       value_for_purchase: params["value_for_purchase"]
     }
