@@ -1,54 +1,8 @@
 <div class="margin_content">
-  <h1 class="title">Создание филиала</h1>
-  <%= form_for @conn, Routes.admin_path(@conn, :create_filial_submit), [multipart: true], fn f -> %>
-    <div class="mb-2">
-      <label class="label_input">Организация</label>
-      <%= select f, :org_id, Enum.map(@org_list, fn x -> {x.name, x.id} end), class: "input_full", required:
-        "true" %>
-    </div>
-
-    <div class="mb-2">
-      <label class="label_input">Название филиала</label>
-      <%= text_input f, :filial_name, class: "input_full", required: "true", placeholder: "ИП Medium" %>
-    </div>
-
-    <div class="mb-2">
-      <label class="label_input">Город</label>
-      <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", required:
-        "true" %>
-    </div>
-
-    <div class="mb-2">
-      <label class="label_input">Тип используемых валют</label>
-      <%= multiple_select f, :currency, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), id:
-        "choices-multiple", class: "input_full", required: "true" %>
-    </div>
-
-    <div class="mb-2">
-      <label class="label_input">Адрес организации</label>
-      <%= text_input f, :address, class: "input_full", required: "true", placeholder: "Жамбыла 4" %>
-    </div>
-
-    <div class="mb-2">
-      <label class="label_input">Email</label>
-      <%= email_input f, :email, class: "input_full", required: "true", placeholder: "name-email@gmail.com" %>
-    </div>
-
-    <div class="mb-2">
-      <label class="label_input">Телефон</label>
-      <%= telephone_input f, :phone, class: "input_full", data: [tel: "" ], maxlength: 18, required: "true", placeholder: "+7 (777) 777-77-77" %>
-    </div>
-
-    <div class="mb-2">
-      <%= submit "Сохранить", class: "btn_save" %>
-    </div>
-    <% end %>
-
-
     <h1 class="title_without_margin mt-4">Просмотр всех филиалов</h1>
-    <div class="relative overflow-x-auto shadow-md rounded-xl">
-      <table class="w-full text-sm text-left text-gray-500">
-        <thead class="text-xs text-white uppercase bg-blub">
+    <div class="relative overflow-x-auto rounded-xl">
+      <table class="w-full text-sm text-lefttext-gray-800">
+        <thead class="text-xs uppercase bg-gray-100">
           <tr>
             <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
               Название филиала
@@ -63,55 +17,40 @@
               Тариф
             </th>
             <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-              Дата оплаты тарифа
+              Цена тарифа
             </th>
-            <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+            <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3 border-r-0">
               Город
             </th>
           </tr>
         </thead>
         <tbody>
           <%= for item <- @filials_list do %>
-            <tr class="bg-white border-b">
-              <td class="px-6 border-2 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+            <tr class="bg-gray-100 border-b-0">
+              <td class="px-6 border-2 border-b-0 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
                 <%= item.filial_name %>
               </td>
-              <td class="px-6 border-2 border-gray-300">
+              <td class="px-6 border-2 border-b-0 border-gray-300">
                 <%= item.org_name %>
               </td>
-              <td class="px-6 border-2 border-gray-300">
+              <td class="px-6 border-2 border-b-0 border-gray-300">
                 <%= item.payment_status %>
               </td>
-              <td class="px-6 border-2 border-gray-300">
-                <%= item.tariff %>
+              <td class="px-6 border-2 border-b-0 border-gray-300">
+                <%= item.tariff_name %>
               </td>
-              <td class="px-6 border-2 border-gray-300">
-                <%= item.tariff_pay %>
+              <td class="px-6 border-2 border-b-0 border-gray-300">
+                <%= item.tariff_price %>
               </td>
-              <td class="px-6 border-2 border-gray-300">
+              <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
                 <%= item.city_name %>
               </td>
-              <!-- <td class="px-9 border-2 border-gray-300 border-r-0">
-                 <button class="org-click styles_none"
-                    data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
-                    <span class="material-symbols-outlined" style="color: blue; font-weight: 500;">edit</span>
-                 </button>
-                 <a href="/admin/delete_organization?id=<%#= item.id %>" class="">
-                    <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-                 </a>
-              </td> -->
             </tr>
             <% end %>
         </tbody>
       </table>
     </div>
+    <button class="filial_create btn_save_with_icon mt-2"><span class="material-symbols-outlined" style="font-weight: 900;">add_circle</span> Добавить филиал</button>
 </div>
 
-
-<script>
-  $(document).ready(function () {
-    var multipleCancelButton = new Choices('#choices-multiple', {
-      removeItemButton: true,
-    });
-  });
-</script>
+<%= render(KursonliKursWeb.AdminView, "modal_admin_create_filial.html" , conn: @conn, org_list: @org_list, cities_list: @cities_list, currencies_list: @currencies_list) %>

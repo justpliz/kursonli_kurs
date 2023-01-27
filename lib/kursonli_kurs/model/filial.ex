@@ -34,7 +34,7 @@ defmodule KursonliKurs.Model.Filial do
 
     belongs_to :city, City
     belongs_to :organization, Organization, type: :binary_id
-    belongs_to :tariff, Tariff, type: :binary_id
+    belongs_to :tariff, Tariff
 
     has_one :order, Order
     has_one :course, Course

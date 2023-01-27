@@ -7,8 +7,8 @@ defmodule KursonliKurs.Model.Setting do
   @type t :: %__MODULE__{}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(address filial_id)a
-  @optional_fields ~w(tags coordinates description photo schedule phones license qualities colors)a
+  @required_fields ~w(address coordinates photo logo description filial_id)a
+  @optional_fields ~w(tags schedule phones license qualities colors email subdomen)a
 
   schema "settings" do
     field :tags, {:array, :string}
@@ -19,7 +19,7 @@ defmodule KursonliKurs.Model.Setting do
     field :license, :string
     field :email, :string
     field :subdomen, :string
-    field :description, :string
+    field :description, :string, default: "Описание будет позже"
     field :schedule, :map
     field :phones, :map
     field :qualities, :map

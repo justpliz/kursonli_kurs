@@ -1,6 +1,6 @@
 <script>
    $(".currency_create").click(function () {
-      Swal.fire({
+      Modalka.fire({
          showConfirmButton: false,
          showCloseButton: true,
          heightAuto: false,
@@ -11,10 +11,12 @@
             <div class="px-1">
               <%= form_for @conn, Routes.admin_path(@conn, :create_currency_submit), fn f -> %>
                   <label class="label_input pos">Полное название валюты</label>
-                  <%= text_input f, :name, class: "input_full" , required: "true" %>
+                  <%= text_input f, :name, class: "input_full", required: "true" %>
+
                   <label class="label_input pos">Короткое название валюты</label>
-                  <%= text_input f, :short_name, class: "input_full input_text_uppercase" , required: "true" %>
-                  <%= submit "Добавить" , class: "btn_save pos mt-2" %>
+                  <%= text_input f, :short_name, class: "input_full input_text_uppercase", required: "true" %>
+                  
+                  <%= submit "Добавить", class: "btn_save pos mt-2" %>
                <% end %>
             </div>
          `,

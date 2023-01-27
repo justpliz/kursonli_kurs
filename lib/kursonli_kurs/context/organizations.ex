@@ -29,9 +29,14 @@ defmodule KursonliKurs.Context.Organizations do
     |> Repo.insert()
   end
 
-
   def delete(organization) do
     Repo.delete(organization)
+  end
+
+  def count(opts \\ []) do
+    Organization
+    |> filter_by(opts)
+    |> Repo.aggregate(:count)
   end
 
   @doc false

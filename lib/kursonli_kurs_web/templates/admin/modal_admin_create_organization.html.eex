@@ -1,6 +1,6 @@
 <script>
-  $(".reg-org").click(function () {
-    Swal.fire({
+  $(".organization_create").click(function () {
+    Modalka.fire({
       showConfirmButton: false,
       showCloseButton: true,
       heightAuto: false,
@@ -9,12 +9,12 @@
         <%= form_for @conn, Routes.admin_path(@conn, :register_org_submit), [multipart: true], fn f -> %>
           <div class="mb-2">
             <label class="label_input pos">Название</label>
-            <%= text_input f, :name, class: "input_full" , required: "true", placeholder: "TОО “Taur Exchange”" %>
+            <%= text_input f, :name, class: "input_full", required: "true", placeholder: "TОО “Taur Exchange”" %>
           </div>
 
             <div class="mb-2">
               <label class="label_input pos">Название филиала</label>
-              <%= text_input f, :filial_name, class: "input_full" , required: "true", placeholder: "ИП Medium" %>
+              <%= text_input f, :filial_name, class: "input_full", required: "true", placeholder: "ИП Medium" %>
             </div>
 
             <div class="mb-2">
@@ -29,42 +29,29 @@
 
             <div class="mb-2">
               <label class="label_input pos">Адрес организации</label>
-              <%= text_input f, :address, class: "input_full" , required: "true", placeholder: "Жамбыла 4" %>
+              <%= text_input f, :address, class: "input_full", required: "true", placeholder: "Жамбыла 4" %>
             </div>
 
             <div class="mb-2">
               <label class="label_input pos">ИИН/БИН</label>
-              <%= text_input f, :iin, class: "input_full number_input_only" , required: "true", maxlength: 12, minlength: 12, placeholder: "ИИН/БИН" %>
+              <%= text_input f, :iin, class: "input_full number_input_only", required: "true", maxlength: 12, minlength: 12, placeholder: "ИИН/БИН" %>
             </div>
 
             <div class="mb-2">
               <label class="label_input pos">Email</label>
-              <%= email_input f, :email, class: "input_full" , required: "true", placeholder: "name-email@gmail.com" %>
+              <%= email_input f, :email, class: "input_full", required: "true", placeholder: "name-email@gmail.com" %>
             </div>
 
             <div class="mb-2">
               <label class="label_input pos">Телефон</label>
-              <%= telephone_input f, :phone, class: "input_full" , data: [tel: "" ], maxlength: 18, required: "true" %>
+              <%= telephone_input f, :phone, class: "input_full", data: [tel: "" ], maxlength: 18, required: "true" %>
             </div>
 
             <div class="mb-2">
-              <%= submit "Сохранить" , class: "btn_save pos" %>
+              <%= submit "Сохранить", class: "btn_save pos" %>
             </div>
         <% end %>
       `,
-      willOpen: () => {
-        var input = [...document.querySelectorAll('.number_input_only')];
-        input.forEach((el) => {
-          el.addEventListener("input", (e) => {
-            e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '');
-          })
-        });
-        $(document).ready(function () {
-        var multipleCancelButton = new Choices('#choices-multiple', {
-          removeItemButton: true,
-        });
-        });
-      },
     })
   })
 </script>

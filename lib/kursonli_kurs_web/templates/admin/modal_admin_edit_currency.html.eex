@@ -1,7 +1,7 @@
 <script>
   $(".currency_edit").click(function () {
     const { id, name, short_name } = JSON.parse(this.dataset.map)
-    Swal.fire({
+    Modalka.fire({
       showConfirmButton: false,
       showCloseButton: true,
       heightAuto: false,

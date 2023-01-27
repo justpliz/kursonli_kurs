@@ -24,6 +24,7 @@ import "./user_socket";
 import "./phone_input";
 import "./order_click";
 import "./click_event";
+import "./helper/modal_script";
 // And connect to the path in "lib/kursonli_kurs_web/endpoint.ex". We pass the
 // token for authentication. Read below how it should be used.
 
@@ -41,9 +42,9 @@ let liveSocket = new LiveSocket("/live", Socket, {
 });
 
 // Show progress bar on live navigation and form submits
-topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
-window.addEventListener("phx:page-loading-start", (info) => topbar.show());
-window.addEventListener("phx:page-loading-stop", (info) => topbar.hide());
+topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" })
+window.addEventListener("phx:page-loading-start", info => topbar.show())
+window.addEventListener("phx:page-loading-stop", info => topbar.hide())
 
 // connect if there are any LiveViews on the page
 liveSocket.connect();

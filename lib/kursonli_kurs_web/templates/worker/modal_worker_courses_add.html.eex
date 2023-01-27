@@ -11,17 +11,17 @@
             <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), class: "input_full", required: "true" %>
             <div>
                <label class="label_input">Цена продажи</label>
-               <%= text_input f, :value_for_sale, class: "input_full number_input_only" , required: "true" %>
+               <%= text_input f, :value_for_sale, class: "input_full number_input_only", required: "true" %>
             </div>
             <div>
                <label class="label_input">Цена покупки</label>
-               <%= text_input f, :value_for_purchase, class: "input_full number_input_only" , required: "true" %>
+               <%= text_input f, :value_for_purchase, class: "input_full number_input_only", required: "true" %>
             </div>
       </div>
       <div class="p-3 flex items-center justify-start">
          <div>
             <div>
-               <%= submit "Сохранить" , class: "btn_save" %>
+               <%= submit "Сохранить", class: "btn_save" %>
             </div>
             <% end %>
          </div>

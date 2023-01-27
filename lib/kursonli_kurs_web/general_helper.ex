@@ -45,6 +45,16 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   def date_to_string2(date), do: "#{date.year}-#{date.month}-#{date.day}"
 
+  def parse_image(%Plug.Upload{
+        content_type: _content_type,
+        filename: filename,
+        path: path
+      }) do
+    path <> "/" <> filename
+  end
+
+  def parse_image(nil), do: ""
+
   def normalize_order_type(type) do
     if type == "sale" do
       "Продажу"

@@ -30,8 +30,7 @@ defmodule KursonliKursWeb.TradeController do
 
   def ajax_update_message_map(conn, params) do
     params["type_event"]
-    |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/trade_controller.ex:33")
-
+   
     with item_trade <- Trades.get(id: params["id"]),
          _item_trad_up <-
            Trades.update(item_trade, %{
