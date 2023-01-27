@@ -248,8 +248,15 @@ defmodule KursonliKursWeb.WorkerController do
   def settings(conn, _params) do
     with {:ok, filial} <- Filials.do_get(id: get_session(conn, :worker).filial_id),
          {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
+      photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
+      logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
+
       conn
-      |> render("worker_settings.html", setting: setting)
+      |> render("worker_settings.html",
+        setting: setting,
+        photo_path: photo_path,
+        logo_path: logo_path
+      )
     end
   end
 
@@ -257,8 +264,8 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/update_setting
   """
   def update_setting(conn, params) do
-    logo = parse_image(params["logo"])
-    photo = parse_image(params["photo"])
+    logo = get_image_path(params["logo"], :logo)
+    photo = get_image_path(params["photo"], :photo)
 
     colors = %{
       "color_currency" => params["color_currency"],
@@ -276,7 +283,7 @@ defmodule KursonliKursWeb.WorkerController do
     phones = %{
       "phone1" => params["phone1"],
       "phone2" => params["phone2"],
-      "phone3" => params["phone3"],
+      "phone3" => params["phone3"]
     }
 
     schedule = %{
@@ -294,6 +301,7 @@ defmodule KursonliKursWeb.WorkerController do
       schedule: schedule,
       logo: logo,
       photo: photo,
+      license: params["license"],
       subdomen: params["subdomen"]
     }
 

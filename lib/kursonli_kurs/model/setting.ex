@@ -14,8 +14,8 @@ defmodule KursonliKurs.Model.Setting do
     field :tags, {:array, :string}
     field :coordinates, {:array, :string}
     field :address, :string
-    field :logo, :string, default: "default_logo.jpg"
-    field :photo, :string, default: "default_photo.jpg"
+    field :logo, :string, default: Path.expand("priv/static/images/photo/default_photo.jpg")
+    field :photo, :string, default: Path.expand("priv/static/images/logo/default_logo.jpg")
     field :license, :string
     field :email, :string
     field :subdomen, :string

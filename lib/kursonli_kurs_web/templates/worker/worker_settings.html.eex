@@ -20,11 +20,11 @@
       <div id="myTabContent">
          <!-- первый таб -->
          <div class="" id="main" role="tabpanel" aria-labelledby="main-tab">
-            <%= form_for @conn, Routes.worker_path(@conn, :update_setting), [multipart: true], fn f -> %>
+         <%= form_for @conn, Routes.worker_path(@conn, :update_setting), [multipart: true], fn f -> %>
 
          <label class="label_input" for="file_input">Загрузка логотипа</label>
-         <%= file_input f, :logo, class: "input_full cursor-pointer", value: @setting.logo, accept: ".png, .jpg" %>
-         <img src="<%= @setting.logo %>">
+            <%= file_input f, :logo, class: "input_full cursor-pointer", value: @setting.logo, accept: ".png, .jpg" %>
+         <img src="<%= @logo_path %>">
 
          <label>3 Качества редактировать текст</label>
          <div class="">
@@ -34,47 +34,43 @@
          </div>
 
          <label class="label_input">Адрес для карты</label>
-         <%= text_input f, :address, placeholder: "", value: @setting.address, class: "input_full", required: "true" %>
+            <%= text_input f, :address, placeholder: "", value: @setting.address, class: "input_full", required: "true" %>
 
          <label class="label_input">Лицензия ОП</label>
-         <%= text_input f, :license, placeholder: "", value: @setting.license, class: "input_full", required: "true" %>
+            <%= text_input f, :license, placeholder: "", value: @setting.license, class: "input_full", required: "true" %>
 
          <label class="label_input">Телефоны</label>
-            <div class="flex">
-               <%= text_input f, :phone1, placeholder: "", value: @setting.phones["phone1"], class: "input_short", required: "true" %>
-               <%= text_input f, :phone2, placeholder: "", value: @setting.phones["phone2"], class: "input_short", required: "true" %>
-               <%= text_input f, :phone3, placeholder: "", value: @setting.phones["phone3"], class: "input_short", required: "true" %>
-            </div>
+         <div class="flex">
+            <%= text_input f, :phone1, placeholder: "", value: @setting.phones["phone1"], class: "input_short", required: "true" %>
+            <%= text_input f, :phone2, placeholder: "", value: @setting.phones["phone2"], class: "input_short", required: "true" %>
+            <%= text_input f, :phone3, placeholder: "", value: @setting.phones["phone3"], class: "input_short", required: "true" %>
+         </div>
 
          <label class="label_input">Email</label>
-         <%= text_input f, :email, placeholder: "", value: @setting.email, class: "input_full", required: "true" %>
+            <%= text_input f, :email, placeholder: "", value: @setting.email, class: "input_full", required: "true" %>
 
-         
-         <%= submit "Сохранить", class: "btn_save my-2" %>
-      <% end %>
          </div>
          <!-- первый таб конец -->
 
          <!-- второй таб -->
          <div class="hidden" id="personal" role="tabpanel" aria-labelledby="personal-tab">         
-            <%= form_for @conn, Routes.worker_path(@conn, :update_setting), [multipart: true], fn f -> %>
 
          <label class="label_input">График работы ЗАГОЛОВОК</label>
-            <label class="label_input">Будни</label>
+         <label class="label_input">Будни</label>
             <%= text_input f, :schedule_weekdays, placeholder: "", value: @setting.schedule["schedule_weekdays"], class: "input_full", required: "true" %>
-            <label class="label_input">Суббота</label>
+         <label class="label_input">Суббота</label>
             <%= text_input f, :schedule_saturday, placeholder: "", value: @setting.schedule["schedule_saturday"], class: "input_full", required: "true" %>
-            <label class="label_input">Воскресенье</label>
+         <label class="label_input">Воскресенье</label>
             <%= text_input f, :schedule_sunday, placeholder: "", value: @setting.schedule["schedule_sunday"], class: "input_full", required: "true" %>
-            <label class="label_input">Дополнителная информация</label>
+         <label class="label_input">Дополнителная информация</label>
             <%= text_input f, :schedule_other, placeholder: "", value: @setting.schedule["schedule_other"], class: "input_full", required: "true" %>
 
          <label class="label_input">Загрузка фото ОП</label>
-         <%= file_input f, :photo, class: "input_full cursor-pointer", value: @setting.photo, accept: ".png, .jpg" %>
-         <img src="<%= @setting.photo %>">
+            <%= file_input f, :photo, class: "input_full cursor-pointer", value: @setting.photo, accept: ".png, .jpg" %>
+            <img src="<%= @photo_path %>">
 
          <label class="label_input">Описание ОП</label>
-         <%= text_input f, :description, placeholder: "", value: @setting.description, class: "input_full", required: "true" %>
+            <%= text_input f, :description, placeholder: "", value: @setting.description, class: "input_full", required: "true" %>
 
          <div class="flex">
             <label class="label_input">Цвет валют</label>
@@ -92,11 +88,12 @@
 
             <label class="label_input">Субдомен</label>
             <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full", required: "true" %>
-         
-            <%= submit "Сохранить", class: "btn_save my-2" %>
-         <% end %>   
+
       </div>
          <!-- второй таб конец -->
+                  
+      <%= submit "Сохранить", class: "btn_save my-2" %>
+      <% end %>   
       </div>
    </div>
 </div>
