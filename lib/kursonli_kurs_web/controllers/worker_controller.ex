@@ -184,9 +184,11 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
-  POST /worker/update_course
+  POST /worker/update_order
   """
-  def update_course(%{method: "POST"} = conn, params) do
+  def update_order(conn, params) do
+    IO.inspect(params, label: "KEK")
+    IO.inspect(conn, label: "LOL")
     %{
       id: params["id"],
       value_for_sale: params["value_for_sale"],
@@ -194,7 +196,7 @@ defmodule KursonliKursWeb.WorkerController do
     }
 
     conn
-    # |> render("worker_courses.html", course_list: course_list)
+    |> render("worker_courses.html")
   end
 
   @doc """
@@ -213,16 +215,34 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/courses
   """
   def courses(conn, _params) do
-    courses_list = Courses.all()
-    currencies_list = Currencies.all()
+    #TODO переделать запрос
+    filial_id = get_session(conn, :worker).filial_id
+    courses_list = Filials.get_courses_list(filial_id)
 
     conn
-    |> render("worker_courses.html", courses_list: courses_list, currencies_list: currencies_list)
+    |> render("worker_courses.html", courses_list: courses_list)
+  end
+
+  @doc """
+  GET /worker/update_course
+  """
+  def update_course(conn, params) do
+    IO.inspect(params, label: "KEK")
+    IO.inspect(conn, label: "LOL")
+    %{
+      id: params["id"],
+      value_for_sale: params["value_for_sale"],
+      value_for_purchase: params["value_for_purchase"]
+    }
+
+    conn
+    |> render("worker_courses.html")
   end
 
   @doc """
   POST /worker/create_course
   """
+  # TODO ненужная функция
   def create_course_submit(conn, params) do
     opts = %{
       currency_id: params["currency_id"],

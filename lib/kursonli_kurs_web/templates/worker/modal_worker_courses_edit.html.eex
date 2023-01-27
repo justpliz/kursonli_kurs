@@ -1,0 +1,28 @@
+<script>
+    $(".course_edit").click(function () {
+       const {currency_name, currency_short_name, value_for_purchase, value_for_sale } = JSON.parse(this.dataset.map)
+       Modalka.fire({
+          showConfirmButton: false,
+          showCloseButton: true,
+          html: `
+           <div class="flex items-center justify-between">
+             <h1 class="title_without_margin">Редактирование тарифа ${currency_short_name}</h1>
+           </div>
+           <div class="px-1">
+             <form action="/worker/update_course" method="post">
+              <input class="hidden" id="course_id" value="${course_id}" name="course_id" required="true" type="text">
+ 
+               <label class="label_input pos" for="price">Цена покупки</label>
+               <input class="input_full number_input_only" id="value_for_purchase" value="${value_for_purchase}" name="value_for_purchase" required="true" type="text">
+ 
+               <label class="label_input pos" for="description">Цена продажи</label>
+               <input class="input_full" id="value_for_sale" value="${value_for_sale}" name="value_for_sale" required="true" type="text">
+ 
+               <button class="btn_save my-2 pos" type="submit">Сохранить</button>
+             </form>
+           </div>
+         `,
+       })
+    })
+ </script>
+ 
