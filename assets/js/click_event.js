@@ -1,6 +1,7 @@
 import axios from "axios";
 import Toast from "./helper/toast";
-$(".click-event").click(async function () {
+$(".click-event").click(eventClick);
+export async function eventClick() {
   const item = JSON.parse(this.dataset.item);
   item.type_event = this.dataset.type;
   console.log(item);
@@ -20,4 +21,4 @@ $(".click-event").click(async function () {
         icon: "error",
       });
     });
-});
+}

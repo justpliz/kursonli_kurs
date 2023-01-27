@@ -54,4 +54,12 @@ defmodule KursonliKursWeb.GeneralHelper do
   end
 
   def parse_image(nil), do: ""
+
+  def normalize_order_type(type) do
+    if type == "sale" do
+      "Продажу"
+    else
+      "Покупку"
+    end
+  end
 end

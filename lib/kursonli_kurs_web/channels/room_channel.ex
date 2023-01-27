@@ -72,8 +72,9 @@ defmodule KursonliKursWeb.RoomChannel do
   end
 
   def new_event("new:event", city_id, map_msg) do
-    Chat.insert_message(map_msg[:worker_id], city_id, map_msg)
-    Endpoint.broadcast!("rooms:#{city_id}", "new:event", map_msg)
+    {id, _, _, user_id, message} = Chat.insert_message(map_msg[:worker_id], city_id, map_msg)
+
+    Endpoint.broadcast!("rooms:#{city_id}", "new:event", Map.put(message, "ets_id", id))
   end
 
   defp check_city(city_id) do

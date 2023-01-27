@@ -44,10 +44,14 @@ defmodule KursonliKurs.EtsStorage.Chat do
   end
 
   def insert_message(user_id, city_id, message_map) do
+    table = {Ecto.UUID.generate(), city_id, Timex.now("Asia/Almaty"), user_id, message_map}
+
     :dets.insert_new(
       :chat,
-      {Ecto.UUID.generate(), city_id, Timex.now("Asia/Almaty"), user_id, message_map}
+      table
     )
+
+    table
   end
 
   def get_messages_by_city_id() do
