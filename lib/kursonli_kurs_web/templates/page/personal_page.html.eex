@@ -1,13 +1,13 @@
 <div class="mx-auto w-full bg-white shadow-xl">
     <div class="max-w-1440 flex justify-between items-center mx-auto h-20 text-black">
         <ul class="flex gap-10 text-lg">
-            <a href="#">
+            <a href="">
                 <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
             </a>
-            <a href="#">
+            <a href="">
                 <li class="hover:underline cursor-pointer hover:text-gray-500">О компании</li>
             </a>
-            <a href="#">
+            <a href="">
                 <li class="hover:underline cursor-pointer hover:text-gray-500">Номер телефона</li>
             </a>
         </ul>
@@ -24,10 +24,31 @@
 <div class="max-w-1440 mx-auto mt-4 pb-8">
     <div class="flex gap-8">
         <div class="bg-blub p-6 text-white rounded-xl w-2/3">
-            <div class="flex flex-col items-center justify-center">
+            <div class="text-center">
                 <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
                 <div class="text-sm">на ЧИСЛО января ГОД ВРЕМЯ</div>
-
+                <div class="grid_con">
+                    <div class="wrapper pt-4 pb-2">
+                        <div>
+                            <p class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">Покупка</p>
+                        </div>
+                        <div class=""></div>
+                        <div>
+                            <p class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">Продажа</p>
+                        </div>
+                    </div>
+                    <div class="wrapper gap-y-2">
+                        <div class="bg-white text-black font-bold text-center rounded-md py-2">
+                            455.2
+                        </div>
+                        <div class="text-white uppercase font-bold text-center rounded-md py-2">
+                            Валюта
+                        </div>
+                        <div class="bg-white text-black font-bold text-center rounded-md py-2">
+                            543
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -111,16 +132,19 @@
         <div class="flex50">
             <h3 class="uppercase font-bold text-lg relative title_before">ОБМЕННЫЙ ПУНКТ в городе и филиале</h3>
             <div class="pt-10">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi dicta aperiam, ea possimus cum reprehenderit facere odio rerum sunt mollitia voluptates velit impedit nisi labore harum quos? Eius fugiat ex quo, vel eligendi recusandae voluptatum autem molestias dicta sequi tempora totam aperiam exercitationem perspiciatis, assumenda officiis, perferendis optio laudantium modi ea illum maiores! Facere illo reiciendis earum ratione nostrum corporis praesentium eaque a, veniam repellat debitis reprehenderit nesciunt ex accusantium, qui in neque repudiandae quia, laboriosam illum. Fugit modi delectus nostrum, cupiditate consectetur omnis aspernatur culpa cum illo aliquam porro quae id ex eum tempore excepturi, asperiores dolorem possimus nisi.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi dicta aperiam, ea possimus cum
+                reprehenderit facere odio rerum sunt mollitia voluptates velit impedit nisi labore harum quos? Eius
+                fugiat ex quo, vel eligendi recusandae voluptatum autem molestias dicta sequi tempora totam aperiam
+                exercitationem perspiciatis, assumenda officiis, perferendis optio laudantium modi ea illum maiores!
+                Facere illo reiciendis earum ratione nostrum corporis praesentium eaque a, veniam repellat debitis
+                reprehenderit nesciunt ex accusantium, qui in neque repudiandae quia, laboriosam illum. Fugit modi
+                delectus nostrum, cupiditate consectetur omnis aspernatur culpa cum illo aliquam porro quae id ex eum
+                tempore excepturi, asperiores dolorem possimus nisi.
             </div>
         </div>
     </div>
 
 </div>
-
-
-
-
 
 <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
 <script>

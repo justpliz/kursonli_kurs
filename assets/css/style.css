@@ -52,7 +52,7 @@ body {
   flex: 1 1 auto;
 }
 
-.width_30{
+.width_30 {
   width: 32%;
 }
 
@@ -133,4 +133,18 @@ body.swal2-shown {
   width: 40px;
   height: 6px;
   @apply bg-blub absolute rounded-xl;
+}
+
+.sale_bue {
+  background-color: rgb(255, 255, 255, .3);
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+}
+
+.grid_con {
+  width: 75%;
+  margin: 0 auto;
 }
