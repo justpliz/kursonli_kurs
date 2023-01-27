@@ -1,29 +1,29 @@
-<div class="mx-auto w-full bg-dblue shadow-xl">
-    <div class="max-w-1440 flex justify-between items-center mx-auto h-20 text-gray-300">
+<div class="mx-auto w-full bg-white shadow-xl">
+    <div class="max-w-1440 flex justify-between items-center mx-auto h-20 text-black">
         <ul class="flex gap-10 text-lg">
             <a href="#">
-                <li class="hover:underline cursor-pointer hover:text-white">Адрес</li>
+                <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
             </a>
             <a href="#">
-                <li class="hover:underline cursor-pointer hover:text-white">О компании</li>
+                <li class="hover:underline cursor-pointer hover:text-gray-500">О компании</li>
             </a>
             <a href="#">
-                <li class="hover:underline cursor-pointer hover:text-white">Номер телефона</li>
+                <li class="hover:underline cursor-pointer hover:text-gray-500">Номер телефона</li>
             </a>
         </ul>
         <a href="/" class="flex">
-            <img src="/images/white-line-logo.svg" alt="">
+            <img src="/images/logo-line.svg" alt="">
         </a>
-        <a href="tel:77077777777" class="flex items-center gap-2 hover:text-white hover:underline">
-            <span class="material-symbols-outlined" style="color: white; font-weight: 700;">schedule</span>
+        <a href="tel:77077777777" class="flex items-center gap-2 hover:text-gray-500 hover:underline">
+            <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">schedule</span>
             +7 707 342 423
         </a>
     </div>
 </div>
 
-<div class="max-w-1440 mx-auto mt-4">
+<div class="max-w-1440 mx-auto mt-4 pb-8">
     <div class="flex gap-8">
-        <div class="bg-blub p-6 text-white rounded-xl flex_percent">
+        <div class="bg-blub p-6 text-white rounded-xl w-2/3">
             <div class="flex flex-col items-center justify-center">
                 <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
                 <div class="text-sm">на ЧИСЛО января ГОД ВРЕМЯ</div>
@@ -34,12 +34,16 @@
         <div class="flex flex-col gap-4">
             <div class="bg-gray-200 rounded-xl p-6">
                 <h2 class="uppercase font-bold">калькулятор курса</h2>
-                <div class="">
-                    <h3>У меня есть</h3>
-                    <input type="input" class="input_full">
-                    <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">sync_alt</span>
-                    <h3>Я получу</h3>
-                    <input type="input" class="input_full">
+                <div class="flex gap-2 items-end">
+                    <div class="flex flex-col">
+                        <h3>У меня есть</h3>
+                        <input type="input" class="input_full">
+                    </div>
+                    <div class="material-symbols-outlined pb-3" style="color: #3689ce; font-weight: 700;">sync_alt</div>
+                    <div class="flex flex-col">
+                        <h3>Я получу</h3>
+                        <input type="input" class="input_full">
+                    </div>
                 </div>
             </div>
 
@@ -66,23 +70,56 @@
     </div>
 
     <div class="flex mt-10 gap-6">
-        <div id="map" class="rounded-xl w-2/3 h-600"></div>
-        <div class="bg-gray-200 shadow-xl rounded-xl flex-auto py-10 px-8">
+        <div id="map" class="rounded-xl flex_66 h-600"></div>
+
+        <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30">
             <h2 class="uppercase font-bold text-lg relative title_before">Адрес обменника</h2>
+            <div class="relative pt-10 flex flex-col">
+                <div class="flex pb-4">
+                    <span class="material-symbols-outlined pr-4"
+                        style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
+                    <div class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, explicabo.</div>
+                </div>
+
+                <div class="flex pb-4">
+                    <span class="material-symbols-outlined pr-4"
+                        style="color: #3689ce; font-size: 32px;    font-weight: 900;">schedule</span>
+                    <div class="">Далеко-далеко за словесными горами, в стране гласнсогласных живут рыбные тексты.</div>
+                </div>
+
+                <div class="flex pb-4">
+                    <span class="material-symbols-outlined pr-4"
+                        style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
+                    <div class="flex flex-col">
+                        <a href="tel:" class="hover:underline">+7 (707) 342 423</a>
+                        <a href="tel:" class="hover:underline">+7 (707) 342 423</a>
+                        <a href="tel:" class="hover:underline">+7 (707) 342 423</a>
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <span class="material-symbols-outlined pr-4"
+                        style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
+                    <a href="mailto:mail@htmlacademy.ru" class="">test@mail</a>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div class="flex mt-10 gap-10">
+        <img src="/images/about.jpg" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl">
+        <div class="flex50">
+            <h3 class="uppercase font-bold text-lg relative title_before">ОБМЕННЫЙ ПУНКТ в городе и филиале</h3>
+            <div class="pt-10">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi dicta aperiam, ea possimus cum reprehenderit facere odio rerum sunt mollitia voluptates velit impedit nisi labore harum quos? Eius fugiat ex quo, vel eligendi recusandae voluptatum autem molestias dicta sequi tempora totam aperiam exercitationem perspiciatis, assumenda officiis, perferendis optio laudantium modi ea illum maiores! Facere illo reiciendis earum ratione nostrum corporis praesentium eaque a, veniam repellat debitis reprehenderit nesciunt ex accusantium, qui in neque repudiandae quia, laboriosam illum. Fugit modi delectus nostrum, cupiditate consectetur omnis aspernatur culpa cum illo aliquam porro quae id ex eum tempore excepturi, asperiores dolorem possimus nisi.
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
 
-
-
-
-
-
-
-
-<!-- <div id="map" class="tex" style="width:500px; height:400px"></div> -->
 
 
 <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
