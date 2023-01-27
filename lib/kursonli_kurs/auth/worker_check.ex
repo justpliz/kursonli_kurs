@@ -11,17 +11,22 @@ defmodule KursonliKurs.Auth.WorkerCheck do
   def check_worker(conn, _opts) do
     session_data = get_session(conn, :worker)
 
-    if not is_nil(session_data) do
+    if !is_nil(session_data) do
       conn
     else
-      conn
-      |> put_status(:unauthorized)
-      |> redirect(to: "/worker/login")
+      not_auth(conn)
     end
   end
 
   def index(conn, _params) do
     conn
     |> redirect(to: "/worker")
+  end
+
+  def not_auth(conn, message \\ "Вы не авторизованы") do
+    conn
+    |> put_status(:unauthorized)
+    |> put_flash(:error, message)
+    |> redirect(to: "/worker/login")
   end
 end

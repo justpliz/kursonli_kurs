@@ -3,19 +3,22 @@
 import { Socket } from "phoenix";
 // Bring in Phoenix channels client library:
 import { eventClick } from "./click_event";
-const meowMix = new Audio("/images/sound/meow_mix.mp3");
-const audioObj = new Audio("/images/sound/Cat Short.mp3");
+const meowMix = new Audio("/images/sound/llv-132676.mp3");
+const audioObj = new Audio(
+  "/images/sound/short-success-sound-glockenspiel-treasure-video-game-6346.mp3"
+);
 // audioObj.play()
 const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"));
 };
 const userConnectEl = document.querySelector("#userConnect");
-const worker = getWorker();
+
 $(function () {
+  const worker = getWorker();
   let socket = new Socket("/socket", {
-    logger: (kind, msg, data) => {
-      console.log(`${kind}: ${msg}`, data);
-    },
+    // logger: (kind, msg, data) => {
+    //   console.log(`${kind}: ${msg}`, data);
+    // },
   });
   socket.connect({ user_id: worker.id, worker });
 
@@ -24,6 +27,27 @@ $(function () {
   // subtopic is its id - in this case 42:
 
   console.log(worker);
+  let channelOnline = socket.channel(`online:${worker.id}`);
+  channelOnline
+    .join()
+    .receive("ok", (resp) => {
+      console.log("Joined successfully", resp);
+    })
+    .receive("error", (resp) => {
+      console.log("Unable to join", resp);
+    });
+  channelOnline.on("leave", () => {
+    console.log("LEAVE -------");
+    localStorage.removeItem("worker");
+    window.location.href = "/worker/logout";
+  });
+  channelOnline.on("notification", (payload) => {
+    meowMix.play();
+    Toast.fire({
+      title: payload.message,
+      icon: "success",
+    });
+  });
   let channel = socket.channel(`rooms:${worker.city.id}`, { worker: worker });
   channel
     .join()
@@ -133,13 +157,11 @@ const templateEvent = (map) => {
   <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="${
     map.ets_id
   }" data-type='${map.type_event}'>
-  <div class="text-gray-200">На Ваш ордер на TODO: ${map.item_order.volume}  ${
+  <div class="text-gray-200">На Ваш ордер на : ${map.item_order.volume}  ${
     map.item_order.currency_short_name
-  } ${map.currency_short_name}   по курсу ${
-    map.item_order["course_sale"]
-  }  </div>
+  }    по курсу ${map.item_order.course_sale}  </div>
   <div class="font-bold">Поступило предложение от  ${
-    map.item_order.first_name
+    map.item_order.worker_name
   }:  ${map.item_order.organization}</div>
   <div class="text-gray-200">предложено  ${map.volume} ${
     map.item_order.currency_short_name
@@ -161,8 +183,10 @@ const templateEvent = (map) => {
 
   chatWrapper.insertAdjacentHTML("beforeend", html);
   setTimeout(() => {
-    document
-      .querySelector(`[data-etsid="${map.ets_id}"]`)
-      .addEventListener("click", eventClick);
-  }, 3000);
+    [
+      ...document
+        .querySelector(`[data-etsid="${map.ets_id}"]`)
+        .querySelectorAll(".click-event"),
+    ].forEach((e) => e.addEventListener("click", eventClick));
+  }, 100);
 };
