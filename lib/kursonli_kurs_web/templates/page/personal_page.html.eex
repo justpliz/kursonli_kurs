@@ -1,6 +1,6 @@
-<div class="mx-auto w-full bg-white shadow-xl">
-    <div class="max-w-1440 flex justify-between items-center mx-auto h-20 text-black">
-        <ul class="flex gap-10 text-lg">
+<div class="w-full bg-white shadow-xl">
+    <div class="w-1440 flex justify-between items-center mx-auto h-20 text-black">
+        <ul class="d_flex gap-10 text-lg">
             <a href="">
                 <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
             </a>
@@ -11,15 +11,16 @@
                 <li class="hover:underline cursor-pointer hover:text-gray-500">Номер телефона</li>
             </a>
         </ul>
-        <a href="/" class="flex">
+        <a href="/" class="">
             <img src="/images/logo-line.svg" alt="">
         </a>
-        <a href="tel:77077777777" class="flex items-center gap-2 hover:text-gray-500 hover:underline">
+        <a href="tel:" class="d_flex gap-2 hover:text-gray-500">
             <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">schedule</span>
             +7 707 342 423
         </a>
     </div>
 </div>
+
 
 <div class="max-w-1440 mx-auto mt-4 pb-8">
     <div class="flex gap-8">
@@ -30,11 +31,15 @@
                 <div class="grid_con">
                     <div class="wrapper pt-4 pb-2">
                         <div>
-                            <p class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">Покупка</p>
+                            <p
+                                class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
+                                Покупка</p>
                         </div>
                         <div class=""></div>
                         <div>
-                            <p class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">Продажа</p>
+                            <p
+                                class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
+                                Продажа</p>
                         </div>
                     </div>
                     <div class="wrapper gap-y-2">
