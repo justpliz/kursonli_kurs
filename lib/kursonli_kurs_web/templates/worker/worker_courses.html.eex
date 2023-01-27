@@ -22,22 +22,22 @@
         </tr>
       </thead>
       <tbody>
-        <%= for i <- @courses_list do %>
+        <%= for item <- @courses_list do %>
           <tr class="bg-white">
             <td class="px-6 py-4 border-b-2">
-              <%= i.course_id %>
+              <%= item.currency_name %>
             </td>
             <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
-              <%= i.currency_short_name %>
+              <%= item.currency_short_name %>
             </td>
             <td class="px-6 py-4 border-2">
-              <%= i.value_for_purchase %>
+              <%= item.value_for_purchase %>
             </td>
             <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
-              <%= i.value_for_sale %>
+              <%= item.value_for_sale %>
             </td>
             <td class="px-6 py-4 border-b-2 text-center">
-              <button class="course_edit btn_save" data-map="<%= i |> PwHelper.Normalize.repo |> Jason.encode!() %>">Изменить</button>
+              <button class="course_edit btn_save" data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Изменить</button>
             </td>
           </tr>
           <% end %>
@@ -47,4 +47,4 @@
   </div>
 </div>
 
-<%= render(KursonliKursWeb.WorkerView, "modal_worker_courses_edit.html", conn: @conn, courses_list: @courses_list) %>
+<%= render(KursonliKursWeb.WorkerView, "modal_worker_courses_edit.html", conn: @conn) %>

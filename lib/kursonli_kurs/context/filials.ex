@@ -48,13 +48,12 @@ defmodule KursonliKurs.Context.Filials do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          {:ok, _worker} <- Workers.create(worker_opts),
-         {:ok, _setting} <- Settings.create(%{filial_id: filial.id, address: address, coordinates: ["0","0"]}) do
+         {:ok, _setting} <-
+           Settings.create(%{filial_id: filial.id, address: address, coordinates: ["0", "0"]}) do
       {:ok, filial}
     end
   end
 
-
-  # TODO: переписать)
   def filial_list() do
     from(
       filial in Filial,

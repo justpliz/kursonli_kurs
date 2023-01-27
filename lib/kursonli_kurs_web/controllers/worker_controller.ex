@@ -189,6 +189,7 @@ defmodule KursonliKursWeb.WorkerController do
   def update_order(conn, params) do
     IO.inspect(params, label: "KEK")
     IO.inspect(conn, label: "LOL")
+
     %{
       id: params["id"],
       value_for_sale: params["value_for_sale"],
@@ -215,7 +216,7 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/courses
   """
   def courses(conn, _params) do
-    #TODO переделать запрос
+    # TODO переделать запрос
     filial_id = get_session(conn, :worker).filial_id
     courses_list = Filials.get_courses_list(filial_id)
 
@@ -228,7 +229,7 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def update_course(conn, params) do
     IO.inspect(params, label: "KEK")
-    IO.inspect(conn, label: "LOL")
+
     %{
       id: params["id"],
       value_for_sale: params["value_for_sale"],
@@ -261,6 +262,7 @@ defmodule KursonliKursWeb.WorkerController do
   @doc """
   GET /worker/delete_course
   """
+  # TODO тоже уже не нужное по идее
   def delete_course(conn, %{"id" => id}) do
     with {:ok, courses} <- Courses.do_get(id: id),
          {:ok, _course} <- Courses.delete(courses) do
