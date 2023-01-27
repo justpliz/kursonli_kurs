@@ -13,7 +13,8 @@ $(".order-click").click(function () {
   const item = JSON.parse(this.dataset.item);
 
   console.log(item);
-  $("#org_title").text();
+  $("#org_title .name").text(item.worker_name);
+  $("#org_title .title").text(item.address);
   document.querySelector("#accept").dataset.item = this.dataset.item;
 });
 
@@ -40,9 +41,9 @@ $("#accept").click(function () {
     volume,
     transfer,
     type,
-    worker_id
+    worker_id,
   } = item;
-  
+
   let itemSale = "";
   let itemSaleH1 = "";
   if (type == "sale") itemSale = "Вы продаете:";
@@ -50,12 +51,12 @@ $("#accept").click(function () {
 
   if (type == "sale") itemSaleH1 = "Укажите сумму продажи:";
   else itemSaleH1 = "Укажите сумму покупки:";
-  console.log(item)
-  item.worker = getWorker()
- if (getWorker().id != worker_id) {
-  Swal.fire({
-    showCloseButton: true,
-    html: `
+  console.log(item);
+  item.worker = getWorker();
+  if (getWorker().id != worker_id) {
+    Swal.fire({
+      showCloseButton: true,
+      html: `
         <form action="/trades" method="post">
         <input name="_csrf_token" type="hidden" value="${crftoken}">
         <div> 
@@ -70,57 +71,54 @@ $("#accept").click(function () {
             <span id="itemResult"></span>
           </div>
 
-        <input class="input_full hidden number_input_only"  name="order_id" value="${
-          id
-        }" required="true" type="text">
+        <input class="input_full hidden number_input_only"  name="order_id" value="${id}" required="true" type="text">
         <input  class="input_full hidden number_input_only"  name="worker_id" value="${
           getWorker().id
         }" >
-        <input  class="input_full hidden item_order"  name="item_order" value='${
-         JSON.stringify(item)
-        }' >
+        <input  class="input_full hidden item_order"  name="item_order" value='${JSON.stringify(
+          item
+        )}' >
         <label class="label_input pos">Условия</label>
         <input  class="input_full "  name="terms" value="" required="true" type="text">
       </div>
       <button type="submit" class="btn_save mt-2">Подтвердить</button>
       </form>
         `,
-    willOpen: () => {
-      input();
+      willOpen: () => {
+        input();
 
-      const volume_model = document.querySelector("#volume_model");
-      const itemeSale = document.querySelector("#itemSale");
-      const itemCourse = document.querySelector("#itemCourse");
+        const volume_model = document.querySelector("#volume_model");
+        const itemeSale = document.querySelector("#itemSale");
+        const itemCourse = document.querySelector("#itemCourse");
 
-      itemCourse.innerHTML = course_sale;
-      const itemResult = document.querySelector("#itemResult");
-      volume_model.addEventListener("input", (e) => {
-        const volume = parseInt(e.currentTarget.value);
-        const course_sale_float = parseFloat(course_sale);
-        itemeSale.innerHTML = e.currentTarget.value;
-        itemResult.innerHTML = volume * course_sale_float;
-      });
-    },
-    showConfirmButton: false,
-  });
- }else {
-  Toast.fire({
-    title: "Это ваш ордер!",
-    icon: "error"
-  })
- }
-  
+        itemCourse.innerHTML = course_sale;
+        const itemResult = document.querySelector("#itemResult");
+        volume_model.addEventListener("input", (e) => {
+          const volume = parseInt(e.currentTarget.value);
+          const course_sale_float = parseFloat(course_sale);
+          itemeSale.innerHTML = e.currentTarget.value;
+          itemResult.innerHTML = volume * course_sale_float;
+        });
+      },
+      showConfirmButton: false,
+    });
+  } else {
+    Toast.fire({
+      title: "Это ваш ордер!",
+      icon: "error",
+    });
+  }
 });
 
-  function input () {
-    var input = [...document.querySelectorAll('.number_input_only')];
-    input.forEach((el) => {
-      el.addEventListener("input", (e) => {
-        e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '');
-      })
-   })
-  }
-  /*GOVNO ---------*/
+function input() {
+  var input = [...document.querySelectorAll(".number_input_only")];
+  input.forEach((el) => {
+    el.addEventListener("input", (e) => {
+      e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, "");
+    });
+  });
+}
+/*GOVNO ---------*/
 
 // `
 //   <form action="/worker/update_order" method="post">

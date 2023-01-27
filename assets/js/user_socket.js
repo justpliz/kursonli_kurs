@@ -10,12 +10,13 @@ const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"));
 };
 const userConnectEl = document.querySelector("#userConnect");
-const worker = getWorker();
+
 $(function () {
+  const worker = getWorker();
   let socket = new Socket("/socket", {
-    logger: (kind, msg, data) => {
-      console.log(`${kind}: ${msg}`, data);
-    },
+    // logger: (kind, msg, data) => {
+    //   console.log(`${kind}: ${msg}`, data);
+    // },
   });
   socket.connect({ user_id: worker.id, worker });
 
@@ -24,6 +25,20 @@ $(function () {
   // subtopic is its id - in this case 42:
 
   console.log(worker);
+  let channelOnline = socket.channel(`online:${worker.id}`);
+  channelOnline
+    .join()
+    .receive("ok", (resp) => {
+      console.log("Joined successfully", resp);
+    })
+    .receive("error", (resp) => {
+      console.log("Unable to join", resp);
+    });
+  channelOnline.on("leave", () => {
+    console.log("LEAVE -------");
+    localStorage.removeItem("worker");
+    window.location.href = "/worker/logout";
+  });
   let channel = socket.channel(`rooms:${worker.city.id}`, { worker: worker });
   channel
     .join()
@@ -135,9 +150,7 @@ const templateEvent = (map) => {
   }" data-type='${map.type_event}'>
   <div class="text-gray-200">На Ваш ордер на TODO: ${map.item_order.volume}  ${
     map.item_order.currency_short_name
-  } ${map.currency_short_name}   по курсу ${
-    map.item_order["course_sale"]
-  }  </div>
+  } ${map.currency_short_name}   по курсу ${map.item_order.course_sale}  </div>
   <div class="font-bold">Поступило предложение от  ${
     map.item_order.first_name
   }:  ${map.item_order.organization}</div>
@@ -161,8 +174,10 @@ const templateEvent = (map) => {
 
   chatWrapper.insertAdjacentHTML("beforeend", html);
   setTimeout(() => {
-    document
-      .querySelector(`[data-etsid="${map.ets_id}"]`)
-      .addEventListener("click", eventClick);
-  }, 3000);
+    [
+      ...document
+        .querySelector(`[data-etsid="${map.ets_id}"]`)
+        .querySelectorAll(".click-event"),
+    ].forEach((e) => e.addEventListener("click", eventClick));
+  }, 100);
 };

@@ -4,7 +4,7 @@ defmodule KursonliKurs.Context.Orders do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.{Order, Course, Currency, Filial, Organization, Worker}
+  alias KursonliKurs.Model.{Order, Course, Currency, Filial, Organization, Worker, Setting}
 
   require Logger
 
@@ -57,18 +57,22 @@ defmodule KursonliKurs.Context.Orders do
       on: filial.organization_id == org.id,
       join: c in Currency,
       on: order.currency_id == c.id,
+      join: set in Setting,
+      on: filial.id == set.filial_id,
       select: %{
         id: order.id,
         organization: org.name,
         filial_name: filial.name,
         filial: filial,
         filial_id: order.filial_id,
+        address: set.address,
         date: order.date,
         volume: order.volume,
         terms: order.terms,
         transfer: order.transfer,
         worker_id: order.worker_id,
         currency_short_name: c.short_name,
+        worker_name: order.worker_name,
         course_sale: order.course
       }
     )

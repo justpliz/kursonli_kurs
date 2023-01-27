@@ -1,3 +1,8 @@
+<% workerr=Plug.Conn.get_session(@conn,:worker) %>
+   <div class="worker hidden" id="worker">
+      <% {:ok, worker}=Jason.encode(Plug.Conn.get_session(@conn,:worker)) %>
+         <%= worker %>
+   </div>
 <div class="margin_content">
   <h1 class="title">Панель сотрудника</h1>
 
