@@ -1,7 +1,9 @@
 defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
-  alias KursonliKurs.EtsStorage.Chat
+  alias KursonliKursWeb.OnlineChannel
+  alias Phoenix.Endpoint
+  alias KursonliKurs.EtsStorage.{Chat, SessionWorker, UserOnline}
 
   alias KursonliKurs.Context.{
     Workers,
@@ -41,6 +43,11 @@ defmodule KursonliKursWeb.WorkerController do
         # TODO переделать получение города
         {:ok, filial} = Filials.do_get(id: worker.filial_id)
         {:ok, city} = Cities.do_get(id: filial.city_id)
+        SessionWorker.insert(worker.id)
+
+        if SessionWorker.check_user(worker.id) do
+          OnlineChannel.leave(worker.id)
+        end
 
         conn
         |> put_session(:worker, %{
@@ -56,7 +63,7 @@ defmodule KursonliKursWeb.WorkerController do
           }
         })
         |> put_flash(:info, "Добро пожаловать #{first_name}")
-        |> redirect(to: "/worker")
+        |> redirect(to: "/worker/orders")
 
       {:error, :not_found} ->
         conn
@@ -69,6 +76,9 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/logout
   """
   def worker_logout(conn, _params) do
+    session = get_session(conn, :worker)
+    SessionWorker.delete_by_id(session.id)
+
     conn
     |> delete_session(:worker)
     |> redirect(to: "/worker/login")
@@ -162,6 +172,7 @@ defmodule KursonliKursWeb.WorkerController do
       filial_id: session.filial_id,
       worker_id: session.id,
       course: params["course"],
+      worker_name: session.first_name,
       currency_id: params["currency_id"]
     }
 
@@ -248,8 +259,15 @@ defmodule KursonliKursWeb.WorkerController do
   def settings(conn, _params) do
     with {:ok, filial} <- Filials.do_get(id: get_session(conn, :worker).filial_id),
          {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
+      photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
+      logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
+
       conn
-      |> render("worker_settings.html", setting: setting)
+      |> render("worker_settings.html",
+        setting: setting,
+        photo_path: photo_path,
+        logo_path: logo_path
+      )
     end
   end
 
@@ -257,8 +275,8 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/update_setting
   """
   def update_setting(conn, params) do
-    logo = parse_image(params["logo"])
-    photo = parse_image(params["photo"])
+    logo = get_image_path(params["logo"], :logo)
+    photo = get_image_path(params["photo"], :photo)
 
     colors = %{
       "color_currency" => params["color_currency"],
@@ -276,7 +294,7 @@ defmodule KursonliKursWeb.WorkerController do
     phones = %{
       "phone1" => params["phone1"],
       "phone2" => params["phone2"],
-      "phone3" => params["phone3"],
+      "phone3" => params["phone3"]
     }
 
     schedule = %{
@@ -294,6 +312,7 @@ defmodule KursonliKursWeb.WorkerController do
       schedule: schedule,
       logo: logo,
       photo: photo,
+      license: params["license"],
       subdomen: params["subdomen"]
     }
 

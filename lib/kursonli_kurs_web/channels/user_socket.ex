@@ -3,6 +3,7 @@ defmodule KursonliKursWeb.UserSocket do
 
   channel "rooms:*", KursonliKursWeb.RoomChannel
 
+  channel "online:*", KursonliKursWeb.OnlineChannel
   transport(:websocket, Phoenix.Transports.WebSocket)
   transport(:longpoll, Phoenix.Transports.LongPoll)
 

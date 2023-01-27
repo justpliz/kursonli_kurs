@@ -2,6 +2,7 @@ import axios from "axios";
 import Toast from "./helper/toast";
 $(".click-event").click(eventClick);
 export async function eventClick() {
+  console.log(this);
   const item = JSON.parse(this.dataset.item);
   item.type_event = this.dataset.type;
   console.log(item);

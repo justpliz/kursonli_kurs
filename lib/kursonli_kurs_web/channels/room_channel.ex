@@ -56,7 +56,7 @@ defmodule KursonliKursWeb.RoomChannel do
   def terminate(reason, socket) do
     UserOnline.delete_online_user(socket.assigns[:user]["id"])
     online_event(socket)
-    Logger.debug("> leave #{inspect(reason)}")
+
     :ok
   end
 

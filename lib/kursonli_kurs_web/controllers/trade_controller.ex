@@ -2,6 +2,8 @@ defmodule KursonliKursWeb.TradeController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
+  alias Phoenix.Endpoint
+
   alias KursonliKurs.Context.{
     Trades
   }
@@ -29,14 +31,19 @@ defmodule KursonliKursWeb.TradeController do
   end
 
   def ajax_update_message_map(conn, params) do
-    params["type_event"]
-   
     with item_trade <- Trades.get(id: params["id"]),
          _item_trad_up <-
            Trades.update(item_trade, %{
              status: params["type_event"]
            }),
          {:ok, item} <- Chat.update_by_id_message(params["ets_id"], params) do
+      params |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/trade_controller.ex:41")
+
+      KursonliKursWeb.OnlineChannel.notification(
+        params["worker_id"],
+        "ВНИМАНИЕ ВАМ ОТВЕТИЛИ НА СДЕЛКУ ПЕРЕЗАГРУЗИТЕ СТРАНИЦУ! #{params["type_event"]}"
+      )
+
       json(conn, %{item: item})
     else
       {:error, _reason} ->

@@ -45,15 +45,27 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   def date_to_string2(date), do: "#{date.year}-#{date.month}-#{date.day}"
 
-  def parse_image(%Plug.Upload{
-        content_type: _content_type,
-        filename: filename,
-        path: path
-      }) do
-    path <> "/" <> filename
+  def get_image_path(nil, type) do
+    case type do
+      :logo -> "images/logo/default_logo.jpg"
+      :photo -> "images/logo/default_photo.jpg"
+    end
   end
 
-  def parse_image(nil), do: ""
+  def get_image_path(upload, type) do
+    new_path =
+      case type do
+        :logo -> Path.expand("priv/static/images/logo/#{upload.filename}")
+        :photo -> Path.expand("priv/static/images/photo/#{upload.filename}")
+      end
+
+    File.cp(upload.path, new_path)
+
+    case type do
+      :logo -> "images/logo/#{upload.filename}"
+      :photo -> "images/photo/#{upload.filename}"
+    end
+  end
 
   def normalize_order_type(type) do
     if type == "sale" do
