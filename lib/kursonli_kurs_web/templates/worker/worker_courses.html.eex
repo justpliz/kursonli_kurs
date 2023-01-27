@@ -16,17 +16,19 @@
           <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
             Цена продажи
           </th>
-          <th scope="col" class="px-6 py-6 border-b-2 border-gray-200"></th>
+          <th scope="col" class="px-6 py-6 border-b-2 border-gray-200">
+            Редактирование
+          </th>
         </tr>
       </thead>
       <tbody>
         <%= for i <- @courses_list do %>
           <tr class="bg-white">
             <td class="px-6 py-4 border-b-2">
-              <%= i.currency.name %>
+              <%= i.course_id %>
             </td>
             <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
-              <%= i.currency.short_name %>
+              <%= i.currency_short_name %>
             </td>
             <td class="px-6 py-4 border-2">
               <%= i.value_for_purchase %>
@@ -35,23 +37,14 @@
               <%= i.value_for_sale %>
             </td>
             <td class="px-6 py-4 border-b-2 text-center">
-              <!-- <a href="/worker/update_course?id=<%= i.id %>" class="">
-                <span class="material-symbols-outlined text-blub" style=" font-weight: 900;">edit_note</span>
-              </a> -->
-              <a href="/worker/delete_course?id=<%= i.id %>" class="">
-                <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-              </a>
+              <button class="course_edit btn_save" data-map="<%= i |> PwHelper.Normalize.repo |> Jason.encode!() %>">Изменить</button>
             </td>
           </tr>
           <% end %>
       </tbody>
     </table>
-  </div>
 
-  <button id="modal-button" class="modal-button mt-4 btn_save">Добавить курс</button>
+  </div>
 </div>
 
-<%= render(KursonliKursWeb.WorkerView, "modal_worker_courses_add.html", conn: @conn, currencies_list: @currencies_list) %>
-
-
-
+<%= render(KursonliKursWeb.WorkerView, "modal_worker_courses_edit.html", conn: @conn, courses_list: @courses_list) %>
