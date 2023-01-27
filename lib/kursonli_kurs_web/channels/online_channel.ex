@@ -24,6 +24,13 @@ defmodule KursonliKursWeb.OnlineChannel do
     Endpoint.broadcast!("online:#{user_id}", "leave", %{})
   end
 
+  @doc """
+  # Отправляет по айди воркера сообщение
+  """
+  def notification(user_id, message) do
+    Endpoint.broadcast!("online:#{user_id}", "notification", %{message: message})
+  end
+
   defp check_user(worker_id) do
     KursonliKurs.Context.Workers.all()
     |> Enum.any?(fn x -> x.id == worker_id end)
