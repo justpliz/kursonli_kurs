@@ -25,6 +25,10 @@ defmodule KursonliKurs.Application do
       %{
         id: KursonliKurs.EtsStorage.UserOnline,
         start: {KursonliKurs.EtsStorage.UserOnline, :start_link, []}
+      },
+      %{
+        id: KursonliKurs.EtsStorage.SessionWorker,
+        start: {KursonliKurs.EtsStorage.SessionWorker, :start_link, []}
       }
     ]
 

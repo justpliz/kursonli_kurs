@@ -1,7 +1,9 @@
 defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
-  alias KursonliKurs.EtsStorage.Chat
+  alias KursonliKursWeb.OnlineChannel
+  alias Phoenix.Endpoint
+  alias KursonliKurs.EtsStorage.{Chat, SessionWorker, UserOnline}
 
   alias KursonliKurs.Context.{
     Workers,
@@ -41,6 +43,11 @@ defmodule KursonliKursWeb.WorkerController do
         # TODO переделать получение города
         {:ok, filial} = Filials.do_get(id: worker.filial_id)
         {:ok, city} = Cities.do_get(id: filial.city_id)
+        SessionWorker.insert(worker.id)
+
+        if SessionWorker.check_user(worker.id) do
+          OnlineChannel.leave(worker.id)
+        end
 
         conn
         |> put_session(:worker, %{
@@ -56,7 +63,7 @@ defmodule KursonliKursWeb.WorkerController do
           }
         })
         |> put_flash(:info, "Добро пожаловать #{first_name}")
-        |> redirect(to: "/worker")
+        |> redirect(to: "/worker/orders")
 
       {:error, :not_found} ->
         conn
@@ -69,6 +76,9 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/logout
   """
   def worker_logout(conn, _params) do
+    session = get_session(conn, :worker)
+    SessionWorker.delete_by_id(session.id)
+
     conn
     |> delete_session(:worker)
     |> redirect(to: "/worker/login")
@@ -162,6 +172,7 @@ defmodule KursonliKursWeb.WorkerController do
       filial_id: session.filial_id,
       worker_id: session.id,
       course: params["course"],
+      worker_name: session.first_name,
       currency_id: params["currency_id"]
     }
 
