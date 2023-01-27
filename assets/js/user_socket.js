@@ -2,8 +2,9 @@
 // you uncomment its entry in "assets/js/app.js".
 import { Socket } from "phoenix";
 // Bring in Phoenix channels client library:
-
-const audioObj = new Audio("/images/icq.mp3");
+import { eventClick } from "./click_event";
+const meowMix = new Audio("/images/sound/meow_mix.mp3");
+const audioObj = new Audio("/images/sound/Cat Short.mp3");
 // audioObj.play()
 const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"));
@@ -115,6 +116,10 @@ $(function () {
       templateTagsInsert(element.first_name, element.id);
     });
   });
+  channel.on("new:event", (payload) => {
+    meowMix.play();
+    templateEvent(payload);
+  });
   channel.on("notify", (payload) => {
     audioObj.play();
     Toast.fire({
@@ -123,3 +128,41 @@ $(function () {
     });
   });
 });
+const templateEvent = (map) => {
+  const html = `
+  <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="${
+    map.ets_id
+  }" data-type='${map.type_event}'>
+  <div class="text-gray-200">На Ваш ордер на TODO: ${map.item_order.volume}  ${
+    map.item_order.currency_short_name
+  } ${map.currency_short_name}   по курсу ${
+    map.item_order["course_sale"]
+  }  </div>
+  <div class="font-bold">Поступило предложение от  ${
+    map.item_order.first_name
+  }:  ${map.item_order.organization}</div>
+  <div class="text-gray-200">предложено  ${map.volume} ${
+    map.item_order.currency_short_name
+  } по курсу ${map.item_order.course_sale} 
+  </div> 
+  <div class="w-full bg-white text-black text-center py-2 my-2 rounded" >
+     Ваши условия:   ${map.terms} 
+  </div>
+  <div class="flex gap-2 buttons-event">
+     <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event" data-type="success"  data-item='${JSON.stringify(
+       map
+     )}'>Принять</button>
+     <button class="bg-red-600 rounded w-full py-2 items-center justify-center flex click-event" data-type="fail" data-item='${JSON.stringify(
+       map
+     )}'>Отклонить</button>
+  </div>
+</div>
+  `;
+
+  chatWrapper.insertAdjacentHTML("beforeend", html);
+  setTimeout(() => {
+    document
+      .querySelector(`[data-etsid="${map.ets_id}"]`)
+      .addEventListener("click", eventClick);
+  }, 3000);
+};

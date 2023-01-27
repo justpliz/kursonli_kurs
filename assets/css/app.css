@@ -174,5 +174,5 @@
   display: none;
 }
 [data-type="fail"] {
-  background: red;
+  @apply bg-red-500;
 }

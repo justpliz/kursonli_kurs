@@ -44,4 +44,12 @@ defmodule KursonliKursWeb.GeneralHelper do
   end
 
   def date_to_string2(date), do: "#{date.year}-#{date.month}-#{date.day}"
+
+  def normalize_order_type(type) do
+    if type == "sale" do
+      "Продажу"
+    else
+      "Покупку"
+    end
+  end
 end

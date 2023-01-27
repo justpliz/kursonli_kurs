@@ -9,12 +9,12 @@
          <%= for {id,_,_,user_id, y} <- @message do %>
       
    <%= if y[:type] == "event" and y[:item_order]["worker_id"] == workerr.id do %>
-
-   <div class="w-full bg-blub p-4 text-white rounded  event"  data-etsid="<%= id %>" data-type='<%= y["type_event"] %>'>
-      <div class="text-gray-200">На Ваш ордер на продажу: <%= y.item_order["volume"] %>  по курсу <%= y.item_order["course_sale"] %> </div>
+   <% order_type = KursonliKursWeb.GeneralHelper.normalize_order_type( y[:item_order]["type"]) %>
+   <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="<%= id %>" data-type='<%= y["type_event"] %>'>
+      <div class="text-gray-200">На Ваш ордер на <%= order_type %>: <%= y.item_order["volume"] %> <%= y[:item_order]["currency_short_name"] %> <%= y["currency_short_name"] %>   по курсу <%= y.item_order["course_sale"] %> </div>
       <div class="font-bold">Поступило предложение от <%= y.item_order["worker"]["first_name"] %>: <%= y.item_order["organization"] %></div>
-      <div class="text-gray-200">предложено  <%= y.volume %>  по курсу <%= y.item_order["course_sale"] %>
-      </div>
+      <div class="text-gray-200">предложено  <%= y.volume %> <%= y[:item_order]["currency_short_name"] %>  по курсу <%= y.item_order["course_sale"] %>
+      </div> 
       <div class="w-full bg-white text-black text-center py-2 my-2 rounded" >
          Ваши условия: <%#= courses.yslovie %>  <%= y.terms %> 
       </div>
@@ -41,6 +41,7 @@
                   </div>
                </div>
                <% else %>
+               <%= if y[:type] != "event"  do %>
                   <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
                      <div>
                         <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
@@ -54,6 +55,7 @@
                      </div>
                      <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
                   </div>
+                    <% end %>
                   <% end %>
 
                       <% end %>   
