@@ -17,7 +17,11 @@
  
                <label class="label_input pos" for="description">Цена продажи</label>
                <input class="input_full number_input_only" id="value_for_sale" value="${value_for_sale}" name="value_for_sale" required="true" type="text">
- 
+
+               <label class="label_input">Изменить для всех филиалов
+               <input name="change_all_filials" type="hidden" value="false"><input id="green" name="change_all_filials" type="checkbox" value="true">
+               </label>
+
                <button class="btn_save my-2 pos" type="submit">Сохранить</button>
              </form>
            </div>
