@@ -93,3 +93,15 @@ inputTwoPass.addEventListener("input", handleChange);
 $("#myModal").on("shown.bs.modal", function () {
   $("#myInput").trigger("focus");
 });
+
+
+function scrollToSection(event) {
+  event.preventDefault();
+  var sectionId = this.getAttribute("href");
+  var section = document.querySelector(sectionId);
+  section.scrollIntoView({ behavior: 'smooth' });
+}
+var links = document.querySelectorAll("a[href^='#']");
+links.forEach(function (link) {
+  link.addEventListener("click", scrollToSection);
+});

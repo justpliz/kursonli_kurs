@@ -1,17 +1,43 @@
+<style>
+    :root{
+        --qual: <%= @setting.colors["color_qualities"] %>;
+        --qual_text: <%= @setting.colors["color_qualities_text"] %>;
+        --scoreboard: <%= @setting.colors["color_scoreboard"] %>;
+        --currency: <%= @setting.colors["color_currency"] %>;
+    }
+
+    .qual{
+        background-color: var(--qual) !important;
+    }
+
+    .qual_text{
+        color: var(--qual_text) !important;
+    }
+
+    .scoreboard{
+        background-color: var(--scoreboard) !important;
+    }
+
+    .currency{
+        color: var(--currency) !important;
+    }
+</style>
+
 <div class="w-full bg-white shadow-xl">
     <div class="w-1440 flex justify-between items-center mx-auto h-20 text-black">
         <ul class="d_flex gap-10 text-lg">
-            <a href="">
-                <li class="hover:underline cursor-pointer hover:text-gray-500"> <%= @setting.address %></li>
+            <a href="#adress" class="link_to">
+                <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
             </a>
-            <a href="">
+            <a href="#descripton" class="link_to">
                 <li class="hover:underline cursor-pointer hover:text-gray-500">О компании</li>
             </a>
         </ul>
         <a href="/" class="">
-            <img src="/images/logo-line.svg" alt="">
+            <img src="<%= @photo_path %>" alt="" class="w-40 h-14">
+            <!-- <img src="/images/logo-line.svg" alt=""> -->
         </a>
-        <a href="tel:" class="d_flex gap-2 hover:text-gray-500">
+        <a class="d_flex gap-2 hover:text-gray-500" href='tel:<%= @setting.phones["phone_for_header"] %>'>
             <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">schedule</span>
             <%= @setting.phones["phone_for_header"] %>
         </a>
@@ -21,37 +47,37 @@
 
 <div class="max-w-1440 mx-auto mt-4 pb-8">
     <div class="flex gap-8">
-        <div class="bg-blub p-6 text-white rounded-xl w-2/3">
+        <div class="scoreboard bg-blub p-6 text-white rounded-xl w-2/3">
             <div class="text-center">
                 <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
                 <div class="text-sm">на ЧИСЛО января ГОД ВРЕМЯ</div>
                 <div class="grid_con">
                     <div class="wrapper pt-4 pb-2">
                         <div>
-                            <p
-                                class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
-                                Покупка</p>
+                            <p class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
+                                Покупка
+                            </p>
                         </div>
                         <div class=""></div>
                         <div>
-                            <p
-                                class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
-                                Продажа</p>
+                            <p class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
+                                Продажа
+                            </p>
                         </div>
                     </div>
-                    <%= for item <- @courses_list do %>
                     <div class="wrapper gap-y-2">
-                        <div class="bg-white text-black font-bold text-center rounded-md py-2">
+                    <%= for item <- @courses_list do %>
+                        <div class="bg-white currency font-bold text-center rounded-md py-2">
                             <%= item.value_for_purchase %>
                         </div>
                         <div class="text-white uppercase font-bold text-center rounded-md py-2">
                             <%= item.currency_short_name %>
                         </div>
-                        <div class="bg-white text-black font-bold text-center rounded-md py-2">
+                        <div class="bg-white currency font-bold text-center rounded-md py-2">
                             <%= item.value_for_sale %>
                         </div>
+                        <% end %>
                     </div>
-                    <% end %>
                 </div>
             </div>
         </div>
@@ -79,22 +105,28 @@
     </div>
 
     <div class="flex gap-8 mt-10">
-        <div class="flex33 flex items-center bg-blub rounded-xl p-6">
-            <span class="material-symbols-outlined pr-6" style="color: white; font-weight: 700;">sync_alt</span>
-            <div class="text-white uppercase text-lg"><%= @setting.qualities["quality1"] %></div>
+        <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
+            <img src="/images/icons/qual1.svg" alt="" class="pr-4">
+            <div class="qual_text uppercase text-lg">
+                <%= @setting.qualities["quality1"] %>
+            </div>
         </div>
-        <div class="flex33 flex items-center bg-blub rounded-xl p-6">
-            <span class="material-symbols-outlined pr-6" style="color: white; font-weight: 700;">sync_alt</span>
-            <div class="text-white uppercase text-lg"><%= @setting.qualities["quality2"] %></div>
+        <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
+            <img src="/images/icons/qual2.svg" alt="" class="pr-4">
+            <div class="qual_text uppercase text-lg">
+                <%= @setting.qualities["quality2"] %>
+            </div>
         </div>
-        <div class="flex33 flex items-center bg-blub rounded-xl p-6">
-            <span class="material-symbols-outlined pr-6" style="color: white; font-weight: 700;">sync_alt</span>
-            <div class="text-white uppercase text-lg"><%= @setting.qualities["quality3"] %></div>
+        <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
+            <img src="/images/icons/qual3.svg" alt="" class="pr-4">
+            <div class="qual_text uppercase text-lg">
+                <%= @setting.qualities["quality3"] %>
+            </div>
         </div>
     </div>
 
-    <div class="flex mt-10 gap-6">
-        <div id="map" class="rounded-xl flex_66 h-600"></div>
+    <div class="flex mt-10 gap-6" id="adress">
+        <div id="map" class="map"></div>
 
         <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30">
             <h2 class="uppercase font-bold text-lg relative title_before">Адрес обменника</h2>
@@ -102,63 +134,64 @@
                 <div class="flex pb-4">
                     <span class="material-symbols-outlined pr-4"
                         style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
-                    <div class=""><%= @setting.address %></div>
+                    <div class="">
+                        <%= @setting.address %>
+                    </div>
                 </div>
 
                 <div class="flex pb-4">
-                    <span class="material-symbols-outlined pr-4"
-                        style="color: #3689ce; font-size: 32px;    font-weight: 900;">schedule</span>
-                    <div class="">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %></div>
-                    <div class="">СБ <%= @setting.schedule["schedule_saturday"] %></div>
-                    <div class="">Вс <%= @setting.schedule["schedule_sunday"] %></div>
-                    <div class=""><%= @setting.schedule["schedule_other"] %></div>
+                    <span class="material-symbols-outlined pr-4" style="color: #3689ce; font-size: 32px; font-weight: 900;">schedule</span>
+                    <div class="flex-none">
+                        <div class="">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %></div>
+                        <div class="">СБ <%= @setting.schedule["schedule_saturday"] %></div>
+                        <div class="">Вс <%= @setting.schedule["schedule_sunday"] %></div>
+                        <div class=""><%= @setting.schedule["schedule_other"] %></div>
+                    </div>
                 </div>
 
                 <div class="flex pb-4">
                     <span class="material-symbols-outlined pr-4"
                         style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
                     <div class="flex flex-col">
-                        <a href="tel:" class="hover:underline"><%= @setting.phones["phone1"] %></a>
-                        <a href="tel:" class="hover:underline"><%= @setting.phones["phone2"] %></a>
-                        <a href="tel:" class="hover:underline"><%= @setting.phones["phone3"] %></a>
+                        <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline"><%= @setting.phones["phone1"] %></a>
+                        <a href='tel:<%= @setting.phones["phone2"] %>' class="hover:underline"><%= @setting.phones["phone2"] %></a>
+                        <a href='tel:<%= @setting.phones["phone3"] %>' class="hover:underline"><%= @setting.phones["phone3"] %></a>
                     </div>
                 </div>
 
                 <div class="flex">
                     <span class="material-symbols-outlined pr-4"
                         style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
-                    <a href="mailto:mail@htmlacademy.ru" class=""><%= @setting.email %></a>
+                    <a href="mailto:<%= @setting.email %>" class=""><%= @setting.email %></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="flex mt-10 gap-10">
-        <img src="/images/about.jpg" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl">
+    <div class="flex mt-10 gap-10" id="descripton">
+        <img src="<%= @photo_path %>" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl">
         <div class="flex50">
-            <h3 class="uppercase font-bold text-lg relative title_before">ОБМЕННЫЙ ПУНКТ в городе и филиале</h3>
+            <h3 class="uppercase font-bold text-lg relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city %> <%= @filial.name %></h3>
             <div class="pt-10">
                 <%= @setting.description %>
             </div>
         </div>
     </div>
-
 </div>
 
 <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
 <script>
     var map;
-    const { coordinates } = JSON.parse(this.dataset.map);
+    let x = "<%= @x_coord %>";
+    let y = "<%= @y_coord %>";
     DG.then(function () {
         let map = DG.map('map', {
-            center: [49.815224, 73.084355],
+            center: [x, y],
             zoom: 17
         });
-        console.log(coordinates)
-        DG.popup([49.815224, 73.084355])
-            .setLatLng([49.815224, 73.084355])
+        DG.popup([x, y])
+            .setLatLng([x, y])
             .setContent('Хата Абая Сериковича')
             .openOn(map);
-        // DG.marker([49.815224, 73.084355]).addTo(map).setContent('Тут моя хата');
     });
 </script>

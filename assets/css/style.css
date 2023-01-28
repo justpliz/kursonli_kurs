@@ -8,6 +8,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Mulish", sans-serif;
+  scrollbar-color: #3689ce #e5e7eb;
 }
 
 html,
@@ -21,6 +22,19 @@ body {
   min-height: 100%;
   background-color: #fff;
 }
+
+::-webkit-scrollbar-track {
+  background-color: #e5e7eb;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blub;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
 
 .content_admin {
   width: 90%;
@@ -151,5 +165,44 @@ body.swal2-shown {
 
 .d_flex{
   display: flex;
+}
+
+.map{
+  width: 100%;
+  height: 600px;
+}
+
+.input-file {
+  position: relative;
+  display: inline-block;
+}
+
+.input-file span {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  font-size: 16px;
+  vertical-align: middle;
+  color: rgb(255 255 255);
+  text-align: center;
+  line-height: 22px;
+  height: 40px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  transition: background-color 0.2s;
+  @apply bg-blub rounded-lg;
+}
+
+.input-file input[type=file] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
 }
 

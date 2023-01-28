@@ -302,7 +302,7 @@ defmodule KursonliKursWeb.WorkerController do
 
     colors = %{
       "color_currency" => params["color_currency"],
-      "colors_scoreboard" => params["colors_scoreboard"],
+      "color_scoreboard" => params["color_scoreboard"],
       "color_qualities" => params["color_qualities"],
       "color_qualities_text" => params["color_qualities_text"]
     }

@@ -97,4 +97,15 @@ defmodule KursonliKurs.Context.Filials do
     )
     |> Repo.all()
   end
+
+  def get_city_by_filial_id(filial_id) do
+    from(
+      filial in Filial,
+      where: filial.id == ^filial_id,
+      join: city in City,
+      on: filial.city_id == city.id,
+      select: city.name
+    )
+    |> Repo.all
+  end
 end
