@@ -118,10 +118,10 @@ defmodule KursonliKursWeb.Router do
     get "/delete_order", WorkerController, :delete_order
 
     get "/courses", WorkerController, :courses
-    get "/create_course", WorkerController, :create_course
-    post "/create_course", WorkerController, :create_course_submit
+    # get "/create_course", WorkerController, :create_course
+    # post "/create_course", WorkerController, :create_course_submit
     get "/update_course", WorkerController, :update_course
-    get "/delete_course", WorkerController, :delete_course
+    # get "/delete_course", WorkerController, :delete_course
 
     scope "/settings" do
       get "/", WorkerController, :settings
