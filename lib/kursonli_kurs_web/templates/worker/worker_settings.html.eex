@@ -39,6 +39,9 @@
          <label class="label_input">Лицензия ОП</label>
             <%= text_input f, :license, placeholder: "", value: @setting.license, class: "input_full", required: "true" %>
 
+         <label class="label_input">Телефон для шапки</label>
+         <%= text_input f, :phone_for_header, placeholder: "", value: @setting.phones["phone_for_header"], class: "input_short", required: "true" %>
+         
          <label class="label_input">Телефоны</label>
          <div class="flex">
             <%= text_input f, :phone1, placeholder: "", value: @setting.phones["phone1"], class: "input_short", required: "true" %>

@@ -92,7 +92,8 @@ defmodule KursonliKurs.Context.Filials do
         currency_name: c.name,
         currency_short_name: c.short_name,
         value_for_sale: course.value_for_sale,
-        value_for_purchase: course.value_for_purchase
+        value_for_purchase: course.value_for_purchase,
+        updated_at: course.updated_at
       }
     )
     |> Repo.all()

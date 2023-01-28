@@ -2,13 +2,10 @@
     <div class="max-w-1440 flex justify-between items-center mx-auto h-20 text-black">
         <ul class="flex gap-10 text-lg">
             <a href="">
-                <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
+                <li class="hover:underline cursor-pointer hover:text-gray-500"> <%= @setting.address %></li>
             </a>
             <a href="">
                 <li class="hover:underline cursor-pointer hover:text-gray-500">О компании</li>
-            </a>
-            <a href="">
-                <li class="hover:underline cursor-pointer hover:text-gray-500">Номер телефона</li>
             </a>
         </ul>
         <a href="/" class="flex">
@@ -16,7 +13,7 @@
         </a>
         <a href="tel:77077777777" class="flex items-center gap-2 hover:text-gray-500 hover:underline">
             <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">schedule</span>
-            +7 707 342 423
+            <%= @setting.phones["phone_for_header"] %>
         </a>
     </div>
 </div>
@@ -37,17 +34,19 @@
                             <p class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">Продажа</p>
                         </div>
                     </div>
+                    <%= for item <- @courses_list do %>
                     <div class="wrapper gap-y-2">
                         <div class="bg-white text-black font-bold text-center rounded-md py-2">
-                            455.2
+                            <%= item.value_for_purchase %>
                         </div>
                         <div class="text-white uppercase font-bold text-center rounded-md py-2">
-                            Валюта
+                            <%= item.currency_short_name %>
                         </div>
                         <div class="bg-white text-black font-bold text-center rounded-md py-2">
-                            543
+                            <%= item.value_for_sale %>
                         </div>
                     </div>
+                    <% end %>
                 </div>
             </div>
         </div>
@@ -77,16 +76,15 @@
     <div class="flex gap-8 mt-10">
         <div class="flex33 flex items-center bg-blub rounded-xl p-6">
             <span class="material-symbols-outlined pr-6" style="color: white; font-weight: 700;">sync_alt</span>
-            <div class="text-white uppercase text-lg">Далеко-далеко, за словесными.</div>
+            <div class="text-white uppercase text-lg"><%= @setting.qualities["quality1"] %></div>
         </div>
         <div class="flex33 flex items-center bg-blub rounded-xl p-6">
             <span class="material-symbols-outlined pr-6" style="color: white; font-weight: 700;">sync_alt</span>
-            <div class="text-white uppercase text-lg">Далеко-далеко за словесными горами. </div>
+            <div class="text-white uppercase text-lg"><%= @setting.qualities["quality2"] %></div>
         </div>
         <div class="flex33 flex items-center bg-blub rounded-xl p-6">
             <span class="material-symbols-outlined pr-6" style="color: white; font-weight: 700;">sync_alt</span>
-            <div class="text-white uppercase text-lg">Далеко-далеко за словесными горами в стране гласных и согласных
-                живут рыбные тексты.</div>
+            <div class="text-white uppercase text-lg"><%= @setting.qualities["quality3"] %></div>
         </div>
     </div>
 
@@ -99,29 +97,32 @@
                 <div class="flex pb-4">
                     <span class="material-symbols-outlined pr-4"
                         style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
-                    <div class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, explicabo.</div>
+                    <div class=""><%= @setting.address %></div>
                 </div>
 
                 <div class="flex pb-4">
                     <span class="material-symbols-outlined pr-4"
                         style="color: #3689ce; font-size: 32px;    font-weight: 900;">schedule</span>
-                    <div class="">Далеко-далеко за словесными горами, в стране гласнсогласных живут рыбные тексты.</div>
+                    <div class="">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %></div>
+                    <div class="">СБ <%= @setting.schedule["schedule_saturday"] %></div>
+                    <div class="">Вс <%= @setting.schedule["schedule_sunday"] %></div>
+                    <div class=""><%= @setting.schedule["schedule_other"] %></div>
                 </div>
 
                 <div class="flex pb-4">
                     <span class="material-symbols-outlined pr-4"
                         style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
                     <div class="flex flex-col">
-                        <a href="tel:" class="hover:underline">+7 (707) 342 423</a>
-                        <a href="tel:" class="hover:underline">+7 (707) 342 423</a>
-                        <a href="tel:" class="hover:underline">+7 (707) 342 423</a>
+                        <a href="tel:" class="hover:underline"><%= @setting.phones["phone1"] %></a>
+                        <a href="tel:" class="hover:underline"><%= @setting.phones["phone2"] %></a>
+                        <a href="tel:" class="hover:underline"><%= @setting.phones["phone3"] %></a>
                     </div>
                 </div>
 
                 <div class="flex">
                     <span class="material-symbols-outlined pr-4"
                         style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
-                    <a href="mailto:mail@htmlacademy.ru" class="">test@mail</a>
+                    <a href="mailto:mail@htmlacademy.ru" class=""><%= @setting.email %></a>
                 </div>
             </div>
         </div>
@@ -132,14 +133,7 @@
         <div class="flex50">
             <h3 class="uppercase font-bold text-lg relative title_before">ОБМЕННЫЙ ПУНКТ в городе и филиале</h3>
             <div class="pt-10">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi dicta aperiam, ea possimus cum
-                reprehenderit facere odio rerum sunt mollitia voluptates velit impedit nisi labore harum quos? Eius
-                fugiat ex quo, vel eligendi recusandae voluptatum autem molestias dicta sequi tempora totam aperiam
-                exercitationem perspiciatis, assumenda officiis, perferendis optio laudantium modi ea illum maiores!
-                Facere illo reiciendis earum ratione nostrum corporis praesentium eaque a, veniam repellat debitis
-                reprehenderit nesciunt ex accusantium, qui in neque repudiandae quia, laboriosam illum. Fugit modi
-                delectus nostrum, cupiditate consectetur omnis aspernatur culpa cum illo aliquam porro quae id ex eum
-                tempore excepturi, asperiores dolorem possimus nisi.
+                <%= @setting.description %>
             </div>
         </div>
     </div>
@@ -149,11 +143,13 @@
 <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
 <script>
     var map;
+    const { coordinates } = JSON.parse(this.dataset.map);
     DG.then(function () {
         let map = DG.map('map', {
             center: [49.815224, 73.084355],
             zoom: 17
         });
+        console.log(coordinates)
         DG.popup([49.815224, 73.084355])
             .setLatLng([49.815224, 73.084355])
             .setContent('Хата Абая Сериковича')

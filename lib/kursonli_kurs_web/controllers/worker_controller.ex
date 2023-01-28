@@ -312,6 +312,7 @@ defmodule KursonliKursWeb.WorkerController do
     }
 
     phones = %{
+      "phone_for_header" => params["phone_for_header"],
       "phone1" => params["phone1"],
       "phone2" => params["phone2"],
       "phone3" => params["phone3"]
@@ -323,6 +324,8 @@ defmodule KursonliKursWeb.WorkerController do
       "schedule_sunday" => params["schedule_sunday"],
       "schedule_other" => params["schedule_other"]
     }
+
+    change_all_filials = true
 
     opts = %{
       colors: colors,
