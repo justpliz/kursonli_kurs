@@ -2,9 +2,8 @@ defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
   alias KursonliKursWeb.OnlineChannel
-  alias Phoenix.Endpoint
-  alias KursonliKurs.EtsStorage.{Chat, SessionWorker, UserOnline}
-
+  alias KursonliKurs.EtsStorage.{Chat, SessionWorker}
+  
   alias KursonliKurs.Context.{
     Workers,
     Courses,
@@ -228,16 +227,35 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/update_course
   """
   def update_course(conn, params) do
-    IO.inspect(params, label: "KEK")
+    change_all_filials = params["change_all_filials"]
 
-    %{
-      id: params["id"],
+    opts = %{
       value_for_sale: params["value_for_sale"],
       value_for_purchase: params["value_for_purchase"]
     }
 
-    conn
-    |> render("worker_courses.html")
+    case change_all_filials do
+      # TODO Ну это говно точно переделать надо
+      true ->
+        filial_id = get_session(conn, :worker).filial_id
+        {:ok, filial} = Filials.do_get(id: filial_id)
+        {:ok, filials} = Filials.all(organization_id: filial.organization_id)
+
+        {:ok, course} = Courses.do_get(id: params["course_id"])
+        {:ok, courses} = Courses.all(currency_id: course.currency_id)
+        # Enum.reduce(courses, [] fn x, acc ->
+
+        # end)
+
+      false ->
+        with {:ok, course} <- Courses.do_get(id: params["course_id"]),
+             {:ok, _course} <- Courses.update(course, opts) do
+          courses_list = Filials.get_courses_list(course.filial_id)
+
+          conn
+          |> render("worker_courses.html", courses_list: courses_list)
+        end
+    end
   end
 
   @doc """
@@ -260,22 +278,6 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
-  GET /worker/delete_course
-  """
-  # TODO тоже уже не нужное по идее
-  def delete_course(conn, %{"id" => id}) do
-    with {:ok, courses} <- Courses.do_get(id: id),
-         {:ok, _course} <- Courses.delete(courses) do
-      # тут эта темка тоже не отрабатывает, и карренски не удаляется из таблицы
-      #  {:ok, currency} <- Currencies.do_get(id: id),
-      #  {:ok, _currency} <- Currencies.delete(currency) do
-      conn
-      |> put_flash(:info, "Курс удалён")
-      |> redirect(to: "/worker/courses")
-    end
-  end
-
-  @doc """
   GET /worker/settings
   """
   def settings(conn, _params) do
@@ -283,12 +285,15 @@ defmodule KursonliKursWeb.WorkerController do
          {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
+      [x_coord, y_coord] = setting.coordinates
 
       conn
       |> render("worker_settings.html",
         setting: setting,
         photo_path: photo_path,
-        logo_path: logo_path
+        logo_path: logo_path,
+        x_coord: x_coord,
+        y_coord: y_coord
       )
     end
   end
