@@ -2,11 +2,13 @@ defmodule KursonliKursWeb.PageController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{Filials, Settings}
+  alias KursonliKurs.Context.{Filials, Settings, Cities}
 
-  def index(conn, params) do
-    courses_list = Filials.get_filial_by_city(params["city_id"])
-    render(conn, "index.html", courses_list: courses_list)
+  def index(conn, %{"city_name" => city_name} \\ %{"city_name" => "Алматы"}) do
+    with {:ok, city} <- Cities.do_get(name: city_name) do
+      courses_list = Filials.get_filial_by_city(city.id)
+      render(conn, "index.html", courses_list: courses_list)
+    end
   end
 
   def personal_page(conn, %{"id" => id}) do
