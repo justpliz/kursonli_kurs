@@ -3,7 +3,7 @@ defmodule KursonliKursWeb.WorkerController do
   action_fallback(KursonliKursWeb.FallbackController)
   alias KursonliKursWeb.OnlineChannel
   alias KursonliKurs.EtsStorage.{Chat, SessionWorker}
-  
+
   alias KursonliKurs.Context.{
     Workers,
     Courses,
@@ -243,9 +243,10 @@ defmodule KursonliKursWeb.WorkerController do
 
         {:ok, course} = Courses.do_get(id: params["course_id"])
         {:ok, courses} = Courses.all(currency_id: course.currency_id)
-        # Enum.reduce(courses, [] fn x, acc ->
 
-        # end)
+      # Enum.reduce(courses, [] fn x, acc ->
+
+      # end)
 
       false ->
         with {:ok, course} <- Courses.do_get(id: params["course_id"]),
@@ -285,15 +286,12 @@ defmodule KursonliKursWeb.WorkerController do
          {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
-      [x_coord, y_coord] = setting.coordinates
 
       conn
       |> render("worker_settings.html",
         setting: setting,
         photo_path: photo_path,
-        logo_path: logo_path,
-        x_coord: x_coord,
-        y_coord: y_coord
+        logo_path: logo_path
       )
     end
   end
@@ -332,7 +330,7 @@ defmodule KursonliKursWeb.WorkerController do
       "schedule_other" => params["schedule_other"]
     }
 
-    change_all_filials = true
+    tags = [params["gold"], params["wholesale_rate"]]
 
     opts = %{
       colors: colors,
@@ -343,7 +341,8 @@ defmodule KursonliKursWeb.WorkerController do
       logo: logo,
       photo: photo,
       license: params["license"],
-      subdomen: params["subdomen"]
+      subdomen: params["subdomen"],
+      tags: tags
     }
 
     with {:ok, setting} <- Settings.do_get(filial_id: get_session(conn, :worker).filial_id),

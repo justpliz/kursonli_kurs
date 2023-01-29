@@ -29,8 +29,8 @@ defmodule KursonliKurs.Model.Setting do
   end
 
   @doc false
-  def changeset(city, attrs) do
-    city
+  def changeset(setting, attrs) do
+    setting
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
   end

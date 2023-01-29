@@ -189,8 +189,9 @@
 <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
 <script>
     var map;
-    let x = "<%= @x_coord %>";
-    let y = "<%= @y_coord %>";
+    "<%= [x, y] = @setting.coordinates %>";
+    let x = "<%= x %>";
+    let y = "<%= y %>";
     DG.then(function () {
         let map = DG.map('map', {
             center: [x, y],

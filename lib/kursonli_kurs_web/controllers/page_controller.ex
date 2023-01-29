@@ -2,12 +2,22 @@ defmodule KursonliKursWeb.PageController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{Filials, Settings}
+  alias KursonliKurs.Context.{Filials, Settings, Cities}
 
-  def index(conn, _params) do
-    courses_list = Filials.get_courses_list("8201ed61-ea34-4ee4-a004-0b413957a146")
-    conn
-    |> render("index.html", courses_list: courses_list)
+  def index(conn, params) do
+    #TODO переделать запрос
+    name = if not is_nil(params["city_name"]), do: params["city_name"], else: "Алматы"
+    with {:ok, city} <- Cities.do_get(name: name) do
+      city_list =
+        Cities.all()
+        |> Enum.map(fn city ->
+          count = Filials.count(city_id: city.id)
+          Map.put(city, :count, count)
+        end)
+
+      courses_list = Filials.get_filial_by_city(city.id)
+      render(conn, "index.html", courses_list: courses_list, city_list: city_list)
+    end
   end
 
   def personal_page(conn, %{"id" => id}) do
