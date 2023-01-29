@@ -51,4 +51,8 @@ defmodule KursonliKurs.Context.Courses do
     c = from(c in Currency, select: %{name: c.name, short_name: c.short_name})
     from(query, preload: [currency: ^c])
   end
+
+  def courses_for_index() do
+    
+  end
 end

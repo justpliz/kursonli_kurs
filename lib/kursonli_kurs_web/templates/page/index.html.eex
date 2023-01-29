@@ -14,6 +14,56 @@
   </div>
 </div>
 
+<style>
+  table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background-color: lightgray;
+}
+
+</style>
+
+  <table id="table">
+    <thead>
+      <tr>
+        <th>
+          <select id="name-sort" onchange="sortTable()">
+            <option value="0">Name</option>
+            <option value="1">Ascending</option>
+            <option value="-1">Descending</option>
+          </select>
+        </th>
+        <th>
+          <select id="phone-sort" onchange="sortTable()">
+            <option value="0">Phone</option>
+            <option value="1">Ascending</option>
+            <option value="-1">Descending</option>
+          </select>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John Doe</td>
+        <td>555-555-5555</td>
+      </tr>
+      <tr>
+        <td>Jane Doe</td>
+        <td>555-555-5556</td>
+      </tr>
+      <tr>
+        <td>Bob Smith</td>
+        <td>555-555-5557</td>
+      </tr>
+    </tbody>
+  </table>
 
 <div class="max-w-1440 mx-auto">
   <div class="flex py-8 ">
@@ -38,16 +88,16 @@
           <th scope="col" class="py-6 px-4 border-2 border-l-0 border-t-0 border-gray-300">
             Обменный пункт
           </th>
-          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300">
+          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300 sorted_tr">
             Время
           </th>
-          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300">
+          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300 sorted_tr">
             usd
           </th>
-          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300">
+          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300 sorted_tr">
             eur
           </th>
-          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300">
+          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300 sorted_tr">
             rub
           </th>
           <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300 border-r-0">
@@ -56,32 +106,29 @@
         </tr>
       </thead>
       <tbody>
-        <%#= for item <- @organization_list do %>
-          <%#= if item.org_active_status==:active do %>
-            <tr class="bg-gray-100 border-b-0">
-              <td
-                class="px-6 border-2 border-b-0 border-gray-300 border-l-0 py-3 font-medium text-gray-900">
-                Lorem, ipsum dolor.
-              </td>
-              <td class="px-6 border-2 border-b-0 border-gray-300">
-                20022-23-19 16^81237
-              </td>
-              <td class="px-6 border-2 border-b-0 border-gray-300">
-                <span>1</span>
-                <span>1</span>
-              </td>
-              <td class="px-6 border-2 border-b-0 border-gray-300">
-                4
-              </td>
-              <td class="px-6 border-2 border-b-0 border-gray-300">
-                2
-              </td>
-              <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
-                Lorem ipsum dolor sit.
-              </td>
-            </tr>
-            <%# end %>
-          <%# end %>
+        <%= for item <- @courses_list do %>
+          <tr class="bg-gray-100 border-b-0">
+            <td class="px-6 border-2 border-b-0 border-gray-300 border-l-0 py-3 font-medium text-gray-900">
+              psum dolor.
+            </td>
+            <td class="px-6 border-2 border-b-0 border-gray-300">
+              <%= item.updated_at %>
+            </td>
+            <td class="px-6 border-2 border-b-0 border-gray-300">
+              <span>1</span>
+              <span>1</span>
+            </td>
+            <td class="px-6 border-2 border-b-0 border-gray-300">
+              4
+            </td>
+            <td class="px-6 border-2 border-b-0 border-gray-300">
+              2
+            </td>
+            <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
+              Lorem ipsum dolor sit.
+            </td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   </div>
@@ -123,6 +170,61 @@
       for (const cell of target.parentNode.cells)
         cell.classList.toggle('sorted', cell === target);
     };
-    document.querySelectorAll('.table_sort thead').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
+    document.querySelectorAll('.table_sort .sorted_tr').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
   });
+
+  function sortTable() {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("table");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < (rows.length - 1); i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[0];
+          y = rows[i + 1].getElementsByTagName("TD")[0];
+          // Check if the two rows should switch place
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+
 </script>

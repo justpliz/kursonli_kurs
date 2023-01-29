@@ -45,6 +45,13 @@
 </div>
 
 
+<div class="block">
+    <div class="block__header">
+    <div class="block__text">
+        <h1 class="block__title"></h1>
+    </div>
+</div>
+
 <div class="max-w-1440 mx-auto mt-4 pb-8">
     <div class="flex gap-8">
         <div class="scoreboard bg-blub p-6 text-white rounded-xl w-2/3">

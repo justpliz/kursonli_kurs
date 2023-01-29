@@ -4,7 +4,16 @@ defmodule KursonliKurs.Context.Filials do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.{Filial, City, Organization, Tariff, FilialCurrency, Currency, Course}
+  alias KursonliKurs.Model.{
+    Filial,
+    City,
+    Organization,
+    Tariff,
+    FilialCurrency,
+    Currency,
+    Course
+  }
+
   alias KursonliKurs.Context.{Filials, Workers, Settings}
 
   require Logger
@@ -106,6 +115,6 @@ defmodule KursonliKurs.Context.Filials do
       on: filial.city_id == city.id,
       select: city.name
     )
-    |> Repo.all
+    |> Repo.all()
   end
 end
