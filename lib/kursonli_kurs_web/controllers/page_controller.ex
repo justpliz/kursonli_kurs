@@ -4,10 +4,19 @@ defmodule KursonliKursWeb.PageController do
 
   alias KursonliKurs.Context.{Filials, Settings, Cities}
 
-  def index(conn, %{"city_name" => city_name} \\ %{"city_name" => "Алматы"}) do
-    with {:ok, city} <- Cities.do_get(name: city_name) do
+  def index(conn, params) do
+    #TODO переделать запрос
+    name = if not is_nil(params["city_name"]), do: params["city_name"], else: "Алматы"
+    with {:ok, city} <- Cities.do_get(name: name) do
+      city_list =
+        Cities.all()
+        |> Enum.map(fn city ->
+          count = Filials.count(city_id: city.id) - 1
+          Map.put(city, :count, count)
+        end)
+
       courses_list = Filials.get_filial_by_city(city.id)
-      render(conn, "index.html", courses_list: courses_list)
+      render(conn, "index.html", courses_list: courses_list, city_list: city_list)
     end
   end
 
