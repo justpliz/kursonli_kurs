@@ -11,7 +11,7 @@ defmodule KursonliKursWeb.PageController do
       city_list =
         Cities.all()
         |> Enum.map(fn city ->
-          count = Filials.count(city_id: city.id) - 1
+          count = Filials.count(city_id: city.id)
           Map.put(city, :count, count)
         end)
 
