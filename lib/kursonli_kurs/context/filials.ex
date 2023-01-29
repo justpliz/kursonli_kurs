@@ -4,7 +4,7 @@ defmodule KursonliKurs.Context.Filials do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.{Filial, City, Organization, Tariff, FilialCurrency, Currency, Course}
+  alias KursonliKurs.Model.{Filial, City, Organization, Tariff, FilialCurrency, Currency, Setting, Course}
   alias KursonliKurs.Context.{Filials, Workers, Settings}
 
   require Logger
@@ -105,6 +105,29 @@ defmodule KursonliKurs.Context.Filials do
       join: city in City,
       on: filial.city_id == city.id,
       select: city.name
+    )
+    |> Repo.all
+  end
+
+  def get_filial_by_city(city_id) do
+    from(
+      filial in Filial,
+      where: filial.city_id == ^ city_id,
+      join: course in Course,
+      on: course.filial_id == filial.id,
+      join: setting in Setting,
+      on: setting.filial_id == filial.id,
+      join: currency in Currency,
+      on: course.currency_id == currency.id,
+      select: %{
+        filial_name: filial.name,
+        updated_at: course.updated_at,
+        currency_short_name: currency.short_name,
+        value_for_purchase: course.value_for_purchase,
+        value_for_sale: course.value_for_sale,
+        phones: setting.phones,
+        tags: setting.tags
+      }
     )
     |> Repo.all
   end
