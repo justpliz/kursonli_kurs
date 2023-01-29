@@ -120,6 +120,7 @@ defmodule KursonliKurs.Context.Filials do
       join: currency in Currency,
       on: course.currency_id == currency.id,
       select: %{
+        filial_id: filial.id,
         filial_name: filial.name,
         updated_at: course.updated_at,
         currency_short_name: currency.short_name,

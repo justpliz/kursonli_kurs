@@ -54,17 +54,19 @@
                   <%= telephone_input f, :phone3, placeholder: "", value: @setting.phones["phone3"], class: "input_short", data: [tel: ""], maxlength: 18, required: "true" %>
                </div>
 
-               <%= [gold, wholesale_rate] = @setting.tags %>
+               <%#= [gold, wholesale_rate] = @setting.tags %>
                <div class="flex items-center gap-2">
                   <label class="label_input" for="green">Продажа золота</label>
-                  <input name="gold" type="hidden" value=<%= gold %>>
-                  <input id="green" name="gold" type="checkbox" value=<%= gold %> class="type_select rounded">
+                  <input name="gold" type="hidden" value='<%= @setting.tags["gold"] %>'>
+                  <input id="green" name="gold" type="checkbox" value='@setting.tags["gold"]' class="type_select rounded">
                </div>
 
                <div class="flex items-center gap-2"></div>
                   <label class="label_input" for="green">Оптовый курс</label>
-                  <input name="wholesale_rate" type="hidden" value=<%= wholesale_rate %>>
-                  <input id="green" name="wholesale_rate" type="checkbox" value=<%= wholesale_rate %> class="type_select rounded">
+                  <%#= [gold, wholesale_rate]=@setting.tags %>
+                  <%= text_input f, :license, placeholder: "" , value: @setting.tags["gold"], class: "input_full" , required: "true" %>
+                  <input name="wholesale_rate" type="hidden" value='<%= @setting.tags["wholesale_rate"] %>'>
+                  <input id="green" name="wholesale_rate" type="checkbox" value='<%= @setting.tags["wholesale_rate"] %>' class="type_select rounded">
                </div>
 
                <label class="label_input pt-2">Email</label>

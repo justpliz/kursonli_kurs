@@ -5,8 +5,9 @@ defmodule KursonliKursWeb.PageController do
   alias KursonliKurs.Context.{Filials, Settings, Cities}
 
   def index(conn, params) do
-    #TODO переделать запрос
+    # TODO переделать запрос
     name = if not is_nil(params["city_name"]), do: params["city_name"], else: "Алматы"
+
     with {:ok, city} <- Cities.do_get(name: name) do
       city_list =
         Cities.all()
@@ -16,8 +17,15 @@ defmodule KursonliKursWeb.PageController do
         end)
 
       courses_list = Filials.get_filial_by_city(city.id)
-      render(conn, "index.html", courses_list: courses_list, city_list: city_list)
+
+      conn
+      |> render("index.html", courses_list: courses_list, city_list: city_list)
     end
+  end
+
+  def test(conn, _params) do
+    conn
+    |> render("test.html")
   end
 
   def personal_page(conn, %{"id" => id}) do
