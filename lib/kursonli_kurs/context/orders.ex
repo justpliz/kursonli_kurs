@@ -4,7 +4,7 @@ defmodule KursonliKurs.Context.Orders do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.{Order, Course, Currency, Filial, Organization, Worker, Setting}
+  alias KursonliKurs.Model.{Order, Currency, Filial, Organization, Setting}
 
   require Logger
 

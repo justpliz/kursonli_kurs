@@ -80,12 +80,10 @@ defmodule KursonliKurs.Context.Filials do
     from(
       filial in Filial,
       where: filial.id == ^filial_id,
-      join: fc in FilialCurrency,
-      on: fc.filial_id == filial.id,
-      join: c in Currency,
-      on: c.id == fc.currency_id,
       join: course in Course,
-      on: course.currency_id == c.id,
+      on: course.filial_id == filial.id,
+      join: c in Currency,
+      on: c.id == course.currency_id,
       select: %{
         course_id: course.id,
         currency_name: c.name,
@@ -97,6 +95,11 @@ defmodule KursonliKurs.Context.Filials do
     )
     |> Repo.all()
   end
+
+  # def get_courses_list(query) do
+  #   c = from(c in Currency, select: %{name: c.name, short_name: c.short_name})
+  #   from(query, preload: [currency: ^c])
+  # end
 
   def get_city_by_filial_id(filial_id) do
     from(

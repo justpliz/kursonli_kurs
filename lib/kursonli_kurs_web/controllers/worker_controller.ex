@@ -216,8 +216,8 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def courses(conn, _params) do
     # TODO переделать запрос
-    filial_id = get_session(conn, :worker).filial_id
-    courses_list = Filials.get_courses_list(filial_id)
+    filial_id = get_session(conn, :worker).filial_id |> IO.inspect(label: "lol")
+    courses_list = Filials.get_courses_list(filial_id) |> IO.inspect(label: "kek")
 
     conn
     |> render("worker_courses.html", courses_list: courses_list)
@@ -227,8 +227,7 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/update_course
   """
   def update_course(conn, params) do
-    change_all_filials = params["change_all_filials"]
-
+    change_all_filials = String.to_atom(params["change_all_filials"])
     opts = %{
       value_for_sale: params["value_for_sale"],
       value_for_purchase: params["value_for_purchase"]

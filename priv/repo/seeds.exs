@@ -9,9 +9,12 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+# mix ecto.rollback --step 20 && mix ecto.migrate && mix run priv/repo/seeds.exs
+
 {:ok, admin} = KursonliKurs.Context.Admins.create(%{login: "admin", password: "admin"})
 {:ok, city_krg} = KursonliKurs.Context.Cities.create(%{name: "Караганда", short_name: "KRG"})
 {:ok, city_smsk} = KursonliKurs.Context.Cities.create(%{name: "Семей", short_name: "SMSK"})
+{:ok, city_ala} = KursonliKurs.Context.Cities.create(%{name: "Алматы", short_name: "ALA"})
 {:ok, usd} = KursonliKurs.Context.Currencies.create(%{name: "Американский доллар", short_name: "USD"})
 {:ok, eur} = KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR"})
 
@@ -44,8 +47,15 @@ KursonliKurs.Context.FilialsCurrencies.create(%{
 })
 
 KursonliKurs.Context.Settings.create(%{
-  coordinates: ["0", "0"],
   address: "address 1",
+  filial_id: filial1.id
+})
+
+KursonliKurs.Context.Courses.create(%{
+  value_for_sale: "-",
+  value_for_purchase: "-",
+  date: Timex.now("Asia/Almaty"),
+  currency_id: usd.id,
   filial_id: filial1.id
 })
 
@@ -83,7 +93,22 @@ KursonliKurs.Context.FilialsCurrencies.create(%{
 })
 
 KursonliKurs.Context.Settings.create(%{
-  coordinates: ["0", "0"],
   address: "address 2",
+  filial_id: filial2.id
+})
+
+KursonliKurs.Context.Courses.create(%{
+  value_for_sale: "-",
+  value_for_purchase: "-",
+  date: Timex.now("Asia/Almaty"),
+  currency_id: usd.id,
+  filial_id: filial2.id
+})
+
+KursonliKurs.Context.Courses.create(%{
+  value_for_sale: "-",
+  value_for_purchase: "-",
+  date: Timex.now("Asia/Almaty"),
+  currency_id: eur.id,
   filial_id: filial2.id
 })

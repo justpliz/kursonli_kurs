@@ -4,6 +4,11 @@ defmodule KursonliKursWeb.PageController do
 
   alias KursonliKurs.Context.{Filials, Settings, Cities}
 
+  def redirect_almaty(conn, _params) do
+    conn
+    |> redirect(to: "/city?name=Алматы")
+  end
+
   def index(conn, params) do
     # TODO переделать запрос
     name = if not is_nil(params["name"]), do: params["name"], else: "Алматы"
