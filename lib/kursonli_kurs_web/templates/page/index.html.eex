@@ -42,9 +42,11 @@
           <th scope="col" class="border-2 w-5p border-r-0 border-t-0 border-gray-300 sorted_tr bg_th"></th>
           <th scope="col" class="py-6 px-4 w-10p border-2 border-x-0 border-t-0 border-gray-300">
             <select class="select_table">
-              <option value="USD">USD</option>
-              <option value="RUB">RUB</option>
-              <option value="EUR">EUR</option>
+              <%= for item <- @currency_list do %>
+                <option value="<%= item.short_name %>">
+                  <%= item.short_name %>
+                </option>
+              <% end %>
             </select>
           </th>
           <th scope="col" class="border-2 w-5p border-t-0 border-l-0 border-gray-300 sorted_tr bg_th"></th>
@@ -52,20 +54,34 @@
           <th scope="col" class="border-2 w-5p border-r-0 border-t-0 border-gray-300 sorted_tr bg_th"></th>
           <th scope="col" class="py-6 px-4 w-10p border-2 border-x-0 border-t-0 border-gray-300">
             <select class="select_table">
+              <%= for item <- @currency_list do %>
+                <option value="<%= item.short_name %>">
+                  <%= item.short_name %>
+                </option>
+              <% end %>
+            </select>
+            <!-- <select class="select_table">
               <option value="EUR">EUR</option>
               <option value="USD">USD</option>
               <option value="RUB">RUB</option>
-            </select>
+            </select> -->
           </th>
           <th scope="col" class="border-2 w-5p border-t-0 border-l-0 border-gray-300 sorted_tr bg_th"></th>
 
           <th scope="col" class="border-2 w-5p border-r-0 border-t-0 border-gray-300 sorted_tr bg_th"></th>
           <th scope="col" class="py-6 px-4 w-10p border-2 border-x-0 border-t-0 border-gray-300">
             <select class="select_table">
+              <%= for item <- @currency_list do %>
+                <option value="<%= item.short_name %>">
+                  <%= item.short_name %>
+                </option>
+              <% end %>
+            </select>
+            <!-- <select class="select_table">
               <option value="RUB">RUB</option>
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>
-            </select>
+            </select> -->
           </th>
           <th scope="col" class="border-2 w-5p border-t-0 border-l-0 border-gray-300 sorted_tr bg_th"></th>
 

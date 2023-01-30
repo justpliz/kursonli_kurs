@@ -2,6 +2,7 @@ defmodule KursonliKursWeb.PageController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
+  alias KursonliKurs.Context.Currencies
   alias KursonliKurs.Context.{Filials, Settings, Cities}
 
   def redirect_almaty(conn, _params) do
@@ -22,9 +23,15 @@ defmodule KursonliKursWeb.PageController do
         end)
 
       courses_list = Filials.get_filial_by_city(city.id)
+      currency_list = Currencies.all()
 
       conn
-      |> render("index.html", courses_list: courses_list, city_list: city_list, name: name)
+      |> render("index.html",
+        courses_list: courses_list,
+        city_list: city_list,
+        name: name,
+        currency_list: currency_list
+      )
     end
   end
 

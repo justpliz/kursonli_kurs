@@ -75,46 +75,19 @@ body {
   font-weight: 700;
 }
 
-/* .bg_th div::before {
-  content: "";
-  position: absolute;
-  left: 40%;
-  top: 35%;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  background: url("/images/icons/up.svg") no-repeat;
-} */
-
 .bg_th {
   background: url("/images/icons/up.svg") no-repeat;
   background-position: center;
+  cursor: pointer;
 }
 
-.bg_th[data-order="1"] {
-  background: url("/images/icons/up.svg") no-repeat;
+.bg_th[data-order] {
   transform: rotate(180deg);
 }
 
-/* th.sorted[data-order="1"],
-th.sorted[data-order="-1"] {
-  position: relative;
+.bg_th[data-order="1"] {
+  transform: rotate(0deg);
 }
-
-th.sorted[data-order="1"]::after,
-th.sorted[data-order="-1"]::after {
-  right: 35%;
-  top: 35%;
-  position: absolute;
-}
-
-th.sorted[data-order="-1"]::after {
-  content: url(/images/icons/down.svg);
-}
-
-th.sorted[data-order="1"]::after {
-  content: url(/images/icons/up.svg);
-} */
 
 #chatWrapper {
   scroll-behavior: smooth;
