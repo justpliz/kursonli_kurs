@@ -34,7 +34,7 @@
             </a>
         </ul>
         <a href="/" class="">
-            <img src="<%= @photo_path %>" alt="" class="w-40 h-14">
+            <img src="<%= @logo_path %>" alt="" class="w-40 h-14">
             <!-- <img src="/images/logo-line.svg" alt=""> -->
         </a>
         <a class="d_flex gap-2 hover:text-gray-500" href='tel:<%= @setting.phones["phone_for_header"] %>'>
@@ -138,7 +138,7 @@
         <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30">
             <h2 class="uppercase font-bold text-lg relative title_before">Адрес обменника</h2>
             <div class="relative pt-10 flex flex-col">
-                <div class="flex pb-4">
+                <div class="d_flex pb-4 items-center">
                     <span class="material-symbols-outlined pr-4"
                         style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
                     <div class="">
@@ -146,7 +146,7 @@
                     </div>
                 </div>
 
-                <div class="flex pb-4">
+                <div class="d_flex pb-4">
                     <span class="material-symbols-outlined pr-4" style="color: #3689ce; font-size: 32px; font-weight: 900;">schedule</span>
                     <div class="flex-none">
                         <div class="">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %></div>
@@ -156,17 +156,17 @@
                     </div>
                 </div>
 
-                <div class="flex pb-4">
+                <div class="d_flex pb-4">
                     <span class="material-symbols-outlined pr-4"
                         style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
-                    <div class="flex flex-col">
+                    <div class="d_flex flex-col">
                         <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline"><%= @setting.phones["phone1"] %></a>
                         <a href='tel:<%= @setting.phones["phone2"] %>' class="hover:underline"><%= @setting.phones["phone2"] %></a>
                         <a href='tel:<%= @setting.phones["phone3"] %>' class="hover:underline"><%= @setting.phones["phone3"] %></a>
                     </div>
                 </div>
 
-                <div class="flex">
+                <div class="d_flex items-center">
                     <span class="material-symbols-outlined pr-4"
                         style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
                     <a href="mailto:<%= @setting.email %>" class=""><%= @setting.email %></a>

@@ -6,7 +6,7 @@ defmodule KursonliKursWeb.PageController do
 
   def index(conn, params) do
     # TODO переделать запрос
-    name = if not is_nil(params["city_name"]), do: params["city_name"], else: "Алматы"
+    name = if not is_nil(params["name"]), do: params["name"], else: "Алматы"
 
     with {:ok, city} <- Cities.do_get(name: name) do
       city_list =
@@ -19,7 +19,7 @@ defmodule KursonliKursWeb.PageController do
       courses_list = Filials.get_filial_by_city(city.id)
 
       conn
-      |> render("index.html", courses_list: courses_list, city_list: city_list)
+      |> render("index.html", courses_list: courses_list, city_list: city_list, name: name)
     end
   end
 

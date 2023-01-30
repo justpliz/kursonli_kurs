@@ -18,14 +18,14 @@
 <div class="max-w-1440 mx-auto">
   <div class="flex py-8 ">
     <%= for item <- @city_list do %>
-    <a class="font-bold pr-4" href="city?name=<%= item.name %>">
-      <%= item.name %> (<span class="font-bold text-red-500"><%= item.count %></span>)
-    </a>
-    <% end %>
+      <a class="font-bold pr-4" href="city?name=<%= item.name %>">
+        <%= item.name %> (<span class="font-bold text-red-500"><%= item.count %></span>)
+      </a>
+      <% end %>
   </div>
 
   <div class="font-black text-black pb-4">
-    Курсы валют в обменных пунктах в городе ГОРОД на ДАТА
+    Курсы валют в обменных пунктах в городе <%= @name %> на <%#= @date_now %>
   </div>
 
   <div class="relative overflow-x-auto rounded-xl">
@@ -38,15 +38,33 @@
           <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300 sorted_tr">
             Время
           </th>
-          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300 sorted_tr">
-            usd
+          <th scope="col" class="border-2 border-r-0 border-t-0 border-gray-300 sorted_tr"></th>
+          <th scope="col" class="py-6 px-4 border-2 border-x-0 border-t-0 border-gray-300">
+            <select class="select_table">
+              <option value="USD">USD</option>
+              <option value="RUB">RUB</option>
+              <option value="EUR">EUR</option>
+            </select>
           </th>
-          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300 sorted_tr">
-            eur
+          <th scope="col" class="border-2 border-t-0 border-l-0 border-gray-300 sorted_tr"></th>
+          <th scope="col" class="border-2 border-r-0 border-t-0 border-gray-300 sorted_tr"></th>
+          <th scope="col" class="py-6 px-4 border-2 border-x-0 border-t-0 border-gray-300">
+            <select class="select_table">
+              <option value="EUR">EUR</option>
+              <option value="USD">USD</option>
+              <option value="RUB">RUB</option>
+            </select>
           </th>
-          <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300 sorted_tr">
-            rub
+          <th scope="col" class="border-2 border-t-0 border-l-0 border-gray-300 sorted_tr"></th>
+          <th scope="col" class="border-2 border-r-0 border-t-0 border-gray-300 sorted_tr"></th>
+          <th scope="col" class="py-6 px-4 border-2 border-x-0 border-t-0 border-gray-300">
+            <select class="select_table">
+              <option value="RUB">RUB</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+            </select>
           </th>
+          <th scope="col" class="border-2 border-t-0 border-l-0 border-gray-300 sorted_tr"></th>
           <th scope="col" class="py-6 px-4 border-2 border-t-0 border-gray-300 border-r-0">
             Контакты
           </th>
@@ -54,30 +72,49 @@
       </thead>
       <tbody>
         <%= for item <- @courses_list do %>
-          <%#= if item.filial_id==id do %>
           <tr class="bg-gray-100 border-b-0">
-            <td class="px-6 border-2 border-b-0 border-gray-300 border-l-0 py-3 font-medium text-gray-900">
+            <td colspan="1" class="px-6 border-2 border-b-0 border-gray-300 border-l-0 py-3 font-medium text-gray-900">
               <%= item.filial_name %>
+              <%= item.tags %>
+              FORMULA-7
+              ТОО "Stilo Exchange"
             </td>
-            <td class="px-6 border-2 border-b-0 border-gray-300">
+            <td colspan="1" class="px-6 border-2 border-b-0 border-gray-300">
               <%= item.updated_at %>
+              2023-10-01 25:23:23
             </td>
-            <td class="px-6 border-2 border-b-0 border-gray-300">
-              <span>1</span>
-              <span>1</span>
-            </td>
-            <td class="px-6 border-2 border-b-0 border-gray-300">
-              4
-            </td>
-            <td class="px-6 border-2 border-b-0 border-gray-300">
+            <td colspan="1" class="px-6 border-2 border-b-0 border-r-0 border-gray-300 text-center">
               <%= item.value_for_sale %>
+                456
             </td>
-            <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
+            <td colspan="1" class="px-6 border-2 border-b-0 border-x-0 border-gray-300 td_before relative">
+            </td>
+            <td colspan="1" class="px-6 border-2 border-b-0 border-l-0 border-gray-300 text-center">
+              500
+            </td>
+            <td colspan="1" class="px-6 border-2 border-b-0 border-r-0 border-gray-300 text-center">
+              <%= item.value_for_sale %>
+                456
+            </td>
+            <td colspan="1" class="px-6 border-2 border-b-0 border-x-0 border-gray-300 td_before relative">
+            </td>
+            <td colspan="1" class="px-6 border-2 border-b-0 border-l-0 border-gray-300 text-center">
+              500
+            </td>
+            <td colspan="1" class="px-6 border-2 border-b-0 border-r-0 border-gray-300 text-center">
+              <%= item.value_for_sale %>
+                456
+            </td>
+            <td colspan="1" class="px-6 border-2 border-b-0 border-x-0 border-gray-300 td_before relative">
+            </td>
+            <td colspan="1" class="px-6 border-2 border-b-0 border-l-0 border-gray-300 text-center">
+              500
+            </td>
+            <td colspan="1" class="px-6 border-2 border-b-0 border-gray-300 border-r-0 text-center">
               <%= item.phones["phone1"] %>
+              +7 (707) 777-77-77
             </td>
-          </tr>
-          <%# end %>
-        <% end %>
+          <% end %>
       </tbody>
     </table>
   </div>

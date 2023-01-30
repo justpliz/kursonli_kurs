@@ -41,7 +41,7 @@ defmodule KursonliKursWeb.Router do
     pipe_through [:browser, :index]
 
     get "/city", PageController, :index
-    # get "/test", PageController, :test
+    get "/test", PageController, :test
     get "/personal/:id", PageController, :personal_page
   end
 
