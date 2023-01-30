@@ -9,7 +9,8 @@ defmodule KursonliKursWeb.AdminController do
     Organizations,
     Currencies,
     FilialsCurrencies,
-    Tariffs
+    Tariffs,
+    Courses
   }
 
   @doc """
@@ -102,6 +103,7 @@ defmodule KursonliKursWeb.AdminController do
       params["currency"]
       |> Enum.map(fn currency ->
         currency = String.to_integer(currency)
+        Courses.create(%{date: Timex.now("Asia/Almaty"), currency_id: currency, filial_id: filial.id})
         FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
       end)
 
@@ -277,8 +279,9 @@ defmodule KursonliKursWeb.AdminController do
 
     with {:ok, filial} <-
            Filials.create_filial_worker_seting(filial_opts, worker_opts, params["address"]),
-         Enum.map(currencies_list, fn x ->
-           FilialsCurrencies.create(%{currency_id: x, filial_id: filial.id})
+         Enum.map(currencies_list, fn currency ->
+          Courses.create(%{date: Timex.now("Asia/Almaty"), currency_id: currency, filial_id: filial.id})
+           FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
          end) do
       conn
       |> put_flash(:info, "Филиал успешно добавлен, пароль: #{password}")
