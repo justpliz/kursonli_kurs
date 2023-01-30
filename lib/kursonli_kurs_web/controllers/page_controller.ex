@@ -4,9 +4,14 @@ defmodule KursonliKursWeb.PageController do
 
   alias KursonliKurs.Context.{Filials, Settings, Cities}
 
+  def redirect_almaty(conn, _params) do
+    conn
+    |> redirect(to: "/city?name=Алматы")
+  end
+
   def index(conn, params) do
     # TODO переделать запрос
-    name = if not is_nil(params["city_name"]), do: params["city_name"], else: "Алматы"
+    name = if not is_nil(params["name"]), do: params["name"], else: "Алматы"
 
     with {:ok, city} <- Cities.do_get(name: name) do
       city_list =
@@ -16,7 +21,7 @@ defmodule KursonliKursWeb.PageController do
           Map.put(city, :count, count)
         end)
 
-      courses_list = Filials.get_filial_by_city(city.id)
+      courses_list = Filials.get_filial_by_city(city.id) |> IO.inspect()
 
       conn
       |> render("index.html", courses_list: courses_list, city_list: city_list)
