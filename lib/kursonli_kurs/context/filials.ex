@@ -125,7 +125,7 @@ defmodule KursonliKurs.Context.Filials do
       select: %{
         filial_id: filial.id,
         filial_name: filial.name,
-        updated_at: course.updated_at,
+        date: course.date,
         currency_short_name: currency.short_name,
         value_for_purchase: course.value_for_purchase,
         value_for_sale: course.value_for_sale,

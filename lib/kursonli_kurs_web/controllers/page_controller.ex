@@ -28,12 +28,7 @@ defmodule KursonliKursWeb.PageController do
     end
   end
 
-  def test(conn, _params) do
-    conn
-    |> render("test.html")
-  end
-
-  def personal_page(conn, %{"id" => id}) do
+  def personal_page(conn, %{"filial" => id}) do
     with {:ok, filial} <- Filials.do_get(id: id),
          {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
       setting = setting |> PwHelper.Normalize.repo()

@@ -43,7 +43,8 @@ defmodule KursonliKursWeb.GeneralHelper do
     |> Enum.map(fn x -> Atom.to_string(x) end)
   end
 
-  def date_to_string2(date), do: "#{date.year}-#{date.month}-#{date.day}"
+  def date_to_string_data(date), do: "#{date.year}-#{date.month}-#{date.day}"
+  def date_to_string_time(date), do: "#{date.hour}:#{date.minute}:#{date.second}"
 
   def get_image_path(nil, type) do
     case type do

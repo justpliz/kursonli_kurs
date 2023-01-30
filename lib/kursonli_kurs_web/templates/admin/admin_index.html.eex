@@ -50,7 +50,7 @@
                                  <%= item.iin %>
                               </td>
                               <td class="px-6 border-2 border-b-0 border-gray-300">
-                                 <%= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
+                                 <%= KursonliKursWeb.GeneralHelper.date_to_string_data(item.inserted_at) %>
                               </td>
                               <td class="px-9 border-2 border-b-0 border-gray-300 border-r-0">
                                  <button class="accept_delete styles_none"
@@ -63,8 +63,8 @@
                                  </a> -->
                               </td>
                            </tr>
-                        <% end %>
-                     <% end %>
+                           <% end %>
+                              <% end %>
                   </tbody>
                </table>
             </div>
@@ -101,11 +101,11 @@
                                  <%= item.iin %>
                               </td>
                               <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
-                                 <%= KursonliKursWeb.GeneralHelper.date_to_string2(item.inserted_at) %>
+                                 <%= KursonliKursWeb.GeneralHelper.date_to_string_data(item.inserted_at) %>
                               </td>
                            </tr>
-                        <% end %>
-                     <% end %>
+                           <% end %>
+                              <% end %>
                   </tbody>
                </table>
             </div>
@@ -115,28 +115,29 @@
    </div>
 </div>
 
-<%= render(KursonliKursWeb.AdminView, "modal_admin_create_organization.html" , conn: @conn, cities_list: @cities_list, currencies_list: @currencies_list) %>
-<%= render(KursonliKursWeb.AdminView, "admin_accept_delete.html" , conn: @conn) %>
+<%= render(KursonliKursWeb.AdminView, "modal_admin_create_organization.html" , conn: @conn, cities_list: @cities_list,
+   currencies_list: @currencies_list) %>
+   <%= render(KursonliKursWeb.AdminView, "admin_accept_delete.html" , conn: @conn) %>
 
-<script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
+      <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
 
-<script>
-   function filterSearch() {
-      var phrase = document.getElementsByClassName('table_search_input');
-      var table = document.getElementsByClassName('table_search');
-      var regPhrase = new RegExp(phrase[0].value, 'i');
-      var flag = false;
-      for (var i = 1; i < table[0].rows.length; i++) {
-         flag = false;
-         for (var j = table[0].rows[i].cells.length - 1; j >= 0; j--) {
-            flag = regPhrase.test(table[0].rows[i].cells[j].innerHTML);
-            if (flag) break;
+      <script>
+         function filterSearch() {
+            var phrase = document.getElementsByClassName('table_search_input');
+            var table = document.getElementsByClassName('table_search');
+            var regPhrase = new RegExp(phrase[0].value, 'i');
+            var flag = false;
+            for (var i = 1; i < table[0].rows.length; i++) {
+               flag = false;
+               for (var j = table[0].rows[i].cells.length - 1; j >= 0; j--) {
+                  flag = regPhrase.test(table[0].rows[i].cells[j].innerHTML);
+                  if (flag) break;
+               }
+               if (flag) {
+                  table[0].rows[i].style.display = "";
+               } else {
+                  table[0].rows[i].style.display = "none";
+               }
+            }
          }
-         if (flag) {
-            table[0].rows[i].style.display = "";
-         } else {
-            table[0].rows[i].style.display = "none";
-         }
-      }
-   }
-</script>
+      </script>
