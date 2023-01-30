@@ -4,7 +4,7 @@ defmodule KursonliKurs.Context.Courses do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.{Currency, Course}
+  alias KursonliKurs.Model.{Currency, Course, Filial, Organization}
 
   require Logger
 
@@ -50,5 +50,18 @@ defmodule KursonliKurs.Context.Courses do
   def get_currency(query) do
     c = from(c in Currency, select: %{name: c.name, short_name: c.short_name})
     from(query, preload: [currency: ^c])
+  end
+
+  def get_all_courses_by_filial(org_id, currency_id) do
+    from(
+      org in Organization,
+      where: org.id == ^org_id,
+      join: filial in Filial,
+      on: filial.organization_id == org.id,
+      join: course in Course,
+      on: course.filial_id == filial.id and course.currency_id == ^currency_id,
+      select: course
+    )
+    |> Repo.all
   end
 end
