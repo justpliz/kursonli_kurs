@@ -293,4 +293,16 @@ defmodule KursonliKursWeb.AdminController do
         |> redirect(to: "/admin/filials")
     end
   end
+
+  @doc """
+  GET /admin/update_filial
+  """
+  def update_filial(conn, %{"id" => id} = params) do
+    with {:ok, filial} <- Filials.do_get(id: id),
+         {:ok, fiiial} <- Filials.update(filial, params) do
+      conn
+      |> put_flash(:info, "Курс #{fiiial.name} изменен")
+      |> redirect(to: "/admin/filials")
+    end
+  end
 end

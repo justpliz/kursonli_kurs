@@ -37,7 +37,7 @@ defmodule KursonliKursWeb.TradeController do
              status: params["type_event"]
            }),
          {:ok, item} <- Chat.update_by_id_message(params["ets_id"], params) do
-      params |> IO.inspect(label: "lib/kursonli_kurs_web/controllers/trade_controller.ex:41")
+      params
 
       KursonliKursWeb.OnlineChannel.notification(
         params["worker_id"],

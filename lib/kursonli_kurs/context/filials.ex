@@ -96,11 +96,6 @@ defmodule KursonliKurs.Context.Filials do
     |> Repo.all()
   end
 
-  # def get_courses_list(query) do
-  #   c = from(c in Currency, select: %{name: c.name, short_name: c.short_name})
-  #   from(query, preload: [currency: ^c])
-  # end
-
   def get_city_by_filial_id(filial_id) do
     from(
       filial in Filial,

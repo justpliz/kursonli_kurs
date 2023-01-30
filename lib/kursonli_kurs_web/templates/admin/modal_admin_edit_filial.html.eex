@@ -1,0 +1,29 @@
+<script>
+    $(".filial_edit").click(function () {
+      const { id, filial_name, paid_up_to, tariff_name } = JSON.parse(this.dataset.map)
+      Modalka.fire({
+        showConfirmButton: false,
+        showCloseButton: true,
+        heightAuto: false,
+        html: `
+          <div class="flex items-center justify-between">
+            <h1 class="title_without_margin">Редактирование филиала</h1>
+          </div>
+          <div class="px-1">
+            <form action="/admin/filials/update" method="get">
+              <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
+  
+              <label class="label_input pos" for="filial_name">Название</label>
+              <input class="input_full" id="filial_name" value="${filial_name}" name="filial_name" required="true" type="text">
+
+              <label class="label_input pos" for="tariff_name">Название тарифа</label>
+              <input class="input_full" id="tariff_name" value="${tariff_name}" name="tariff_name" required="true" type="text">
+  
+              <button class="btn_save my-2 pos" type="submit">Сохранить</button>
+            </form>
+          </div>
+        `,
+      })
+    })
+  </script>
+  

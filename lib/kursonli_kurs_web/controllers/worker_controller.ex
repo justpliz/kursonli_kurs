@@ -186,9 +186,6 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/update_order
   """
   def update_order(conn, params) do
-    IO.inspect(params, label: "KEK")
-    IO.inspect(conn, label: "LOL")
-
     %{
       id: params["id"],
       value_for_sale: params["value_for_sale"],
@@ -216,8 +213,8 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def courses(conn, _params) do
     # TODO переделать запрос
-    filial_id = get_session(conn, :worker).filial_id |> IO.inspect(label: "lol")
-    courses_list = Filials.get_courses_list(filial_id) |> IO.inspect(label: "kek")
+    filial_id = get_session(conn, :worker).filial_id
+    courses_list = Filials.get_courses_list(filial_id)
 
     conn
     |> render("worker_courses.html", courses_list: courses_list)
@@ -238,14 +235,15 @@ defmodule KursonliKursWeb.WorkerController do
       true ->
         filial_id = get_session(conn, :worker).filial_id
         {:ok, filial} = Filials.do_get(id: filial_id)
-        {:ok, filials} = Filials.all(organization_id: filial.organization_id)
 
         {:ok, course} = Courses.do_get(id: params["course_id"])
-        {:ok, courses} = Courses.all(currency_id: course.currency_id)
 
-      # Enum.reduce(courses, [] fn x, acc ->
+      Courses.get_all_courses_by_filial(filial.organization_id, course.currency_id)
+      |> Enum.map(fn course -> Courses.update(course, opts) end)
 
-      # end)
+      courses_list = Filials.get_courses_list(filial_id)
+      conn
+      |> render("worker_courses.html", courses_list: courses_list)
 
       false ->
         with {:ok, course} <- Courses.do_get(id: params["course_id"]),
@@ -329,7 +327,7 @@ defmodule KursonliKursWeb.WorkerController do
       "schedule_other" => params["schedule_other"]
     }
 
-    tags = [params["gold"], params["wholesale_rate"]] |> IO.inspect()
+    tags = [params["gold"], params["wholesale_rate"]]
 
     opts = %{
       colors: colors,
