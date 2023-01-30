@@ -46,7 +46,7 @@
 
                <label class="label_input">Телефон отображаемый в шапке сайта</label>
                <%= telephone_input f, :phone_for_header, placeholder: "", value: @setting.phones["phone_for_header"], class: "input_short", data: [tel: ""], maxlength: 18, required: "true" %>
-                  
+
                <label class="label_input pt-2">Допольнительные телефоны</label>
                <div class="flex gap-4">
                   <%= telephone_input f, :phone1, placeholder: "", value: @setting.phones["phone1"], class: "input_short", data: [tel: ""], maxlength: 18, required: "true" %>
@@ -54,19 +54,20 @@
                   <%= telephone_input f, :phone3, placeholder: "", value: @setting.phones["phone3"], class: "input_short", data: [tel: ""], maxlength: 18, required: "true" %>
                </div>
 
-               <%#= [gold, wholesale_rate] = @setting.tags %>
-               <div class="flex items-center gap-2">
-                  <label class="label_input" for="green">Продажа золота</label>
-                  <input name="gold" type="hidden" value='<%= @setting.tags["gold"] %>'>
-                  <input id="green" name="gold" type="checkbox" value='@setting.tags["gold"]' class="type_select rounded">
+               <div class="hidden">
+                  <%= [gold, wholesale_rate]=@setting.tags %>
                </div>
-
-               <div class="flex items-center gap-2"></div>
-                  <label class="label_input" for="green">Оптовый курс</label>
-                  <%#= [gold, wholesale_rate]=@setting.tags %>
-                  <%= text_input f, :license, placeholder: "" , value: @setting.tags["gold"], class: "input_full" , required: "true" %>
-                  <input name="wholesale_rate" type="hidden" value='<%= @setting.tags["wholesale_rate"] %>'>
-                  <input id="green" name="wholesale_rate" type="checkbox" value='<%= @setting.tags["wholesale_rate"] %>' class="type_select rounded">
+               <div class="flex justify-start items-center gap-2 pt-2">
+                  <div class="d_flex items-center justify-center gap-2">
+                     <label class="label_input" for="gold">Продажа золота</label>
+                     <!-- <input name="gold" id="gold" type="hidden" value="<%#= gold %>"> -->
+                     <input name="gold" id="gold" type="checkbox" value="<%= gold %>" class="type_select rounded">
+                  </div>
+                  
+                  <div class="d_flex items-center justify-center gap-2"></div>
+                  <label class="label_input" for="wholesale_rate">Оптовый курс</label>
+                  <!-- <input name="wholesale_rate" id="wholesale_rate" type="hidden" value="<%#= wholesale_rate %>"> -->
+                  <input name="wholesale_rate" id="wholesale_rate" type="checkbox" value="<%= wholesale_rate %>" class="type_select rounded">
                </div>
 
                <label class="label_input pt-2">Email</label>

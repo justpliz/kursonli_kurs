@@ -330,7 +330,7 @@ defmodule KursonliKursWeb.WorkerController do
       "schedule_other" => params["schedule_other"]
     }
 
-    tags = [params["gold"], params["wholesale_rate"]]
+    tags = [params["gold"], params["wholesale_rate"]] |> IO.inspect()
 
     opts = %{
       colors: colors,
