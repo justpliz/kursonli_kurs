@@ -6,6 +6,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateSettingsTable do
       add :tags, {:array, :string}
       add :coordinates, {:array, :string}
       add :address, :string
+      add :popup, :string
       add :logo, :string
       add :photo, :string
       add :license, :string

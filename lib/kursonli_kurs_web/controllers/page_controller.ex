@@ -21,7 +21,7 @@ defmodule KursonliKursWeb.PageController do
           Map.put(city, :count, count)
         end)
 
-      courses_list = Filials.get_filial_by_city(city.id) |> IO.inspect()
+      courses_list = Filials.get_filial_by_city(city.id)
 
       conn
       |> render("index.html", courses_list: courses_list, city_list: city_list)

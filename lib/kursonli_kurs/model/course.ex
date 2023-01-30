@@ -15,6 +15,7 @@ defmodule KursonliKurs.Model.Course do
   schema "courses" do
     field :value_for_sale, :string, default: "-"
     field :value_for_purchase, :string, default: "-"
+    field :date, :naive_datetime
 
     belongs_to :currency, Currency
     belongs_to :filial, Filial, type: :binary_id

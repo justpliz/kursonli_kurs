@@ -55,19 +55,19 @@
                </div>
 
                <div class="hidden">
-                  <%= [gold, wholesale_rate]=@setting.tags %>
+                  <%= [gold, wholesale_rate]= @setting.tags %>
                </div>
                <div class="flex justify-start items-center gap-2 pt-2">
                   <div class="d_flex items-center justify-center gap-2">
                      <label class="label_input" for="gold">Продажа золота</label>
-                     <!-- <input name="gold" id="gold" type="hidden" value="<%#= gold %>"> -->
-                     <input name="gold" id="gold" type="checkbox" value="<%= gold %>" class="type_select rounded">
+                   <%= checkbox f, :gold, checked: String.to_atom(gold), class: "type_select rounded" %>
                   </div>
+
                   
                   <div class="d_flex items-center justify-center gap-2"></div>
                   <label class="label_input" for="wholesale_rate">Оптовый курс</label>
-                  <!-- <input name="wholesale_rate" id="wholesale_rate" type="hidden" value="<%#= wholesale_rate %>"> -->
-                  <input name="wholesale_rate" id="wholesale_rate" type="checkbox" value="<%= wholesale_rate %>" class="type_select rounded">
+                
+                  <%= checkbox f, :wholesale_rate, checked: String.to_atom(wholesale_rate), class: "type_select rounded" %>
                </div>
 
                <label class="label_input pt-2">Email</label>
