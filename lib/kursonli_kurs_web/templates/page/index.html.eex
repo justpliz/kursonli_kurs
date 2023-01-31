@@ -26,12 +26,11 @@
       <% end %>
   </div>
 
-  <div class="font-black text-black pb-4">
-    Курсы валют в обменных пунктах в городе <%= @name %> на <%=
-        KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
+  <div class="font-black text-black text-2xl pb-4">
+    Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-3xl"><%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %></span>
   </div>
 
-  <div class="relative overflow-x-auto rounded-xl">
+  <div class="relative overflow-x-auto rounded-xl hidden">
     <table class="w-full text-sm text-lefttext-gray-800 table-fixed table_search table_sort">
       <thead class="text-sm uppercase bg-gray-200">
         <tr>
@@ -97,10 +96,10 @@
               <div class="">
                 <%= if String.to_atom(gold) do %>
                   <span class="bg-yellow-500 rounded px-2">Золото</span>
-                  <% end %>
-                    <%= if String.to_atom(wholesale_rate) do %>
-                      <span class="bg-green-600 rounded px-2">Оптовый курс</span>
-                      <% end %>
+                <% end %>
+                <%= if String.to_atom(wholesale_rate) do %>
+                  <span class="bg-green-600 rounded px-2">Оптовый курс</span>
+                <% end %>
               </div>
             </td>
             <td class="px-6 border-2 border-b-0 border-gray-300">
@@ -143,6 +142,104 @@
               <div><a class="hover:underline" href='tel:<%= item.phones["phone3"] %>'>
                   <%= item.phones["phone3"] %>
                 </a></div>
+            </td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+
+
+  <!-- как хочет любовь -->
+
+
+  <div class="relative w-full pt-10">
+    <table class="w-full text-sm text-left text-gray-500 table-fixed" id="index-table">
+      <thead class="bg-tableGray text-white uppercase">
+        <tr class="uppercase">
+          <th scope="col" class="w-1/4 px-6 py-4 border-l-2 border-tableGray whitespace-nowrap">
+            ОБМЕННЫЙ ПУНКТ
+          </th>
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+            Время
+          </th>
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+            <select class="select_table" data-select="1">
+              <%= for item <- @currency_list do %>
+                <option value="<%= item.short_name %>">
+                  <%= item.short_name %>
+                </option>
+              <% end %>
+            </select>
+          </th>
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+            <select class="select_table" data-select="2">
+              <%= for item <- @currency_list do %>
+                <option value="<%= item.short_name %>">
+                  <%= item.short_name %>
+                </option>
+              <% end %>
+            </select>
+          </th>
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+            <select class="select_table" data-select="3">
+              <%= for item <- @currency_list do %>
+                <option value="<%= item.short_name %>">
+                  <%= item.short_name %>
+                </option>
+              <% end %>
+            </select>
+          </th>
+          <th scope="col" class="w-1/6 px-6 py-4 border-r-2 border-tableGray">
+            контакты
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for item <- @courses_list do %>
+          <tr class="bg-white text-black">
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <a href="personal?filial=<%= item.filial_id %>">
+                <%= item.filial_name %> - <%= item.currency_short_name %>
+              </a>
+              <div class="hidden">
+                <%= [gold, wholesale_rate]=item.tags %>
+              </div>
+              <div class="">
+                <%= if String.to_atom(gold) do %>
+                  <span class="bg-yellow-500 rounded px-2">Золото</span>
+                <% end %>
+                <%= if String.to_atom(wholesale_rate) do %>
+                  <span class="bg-green-600 rounded px-2">Оптовый курс</span>
+                <% end %>
+              </div>
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%= KursonliKursWeb.GeneralHelper.date_to_string_time(item.date) %>
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.course_sale %>
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <%#= item.volume %>
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray">
+              <a class="block hover:underline" href='tel:<%= item.phones["phone1"] %>'>
+                  <%= item.phones["phone1"] %>
+              </a>
+              <a class="block hover:underline" href='tel:<%= item.phones["phone2"] %>'>
+                <%= item.phones["phone2"] %>
+              </a>
+              <a class="block hover:underline" href='tel:<%= item.phones["phone3"] %>'>
+                <%= item.phones["phone3"] %>
+              </a>
             </td>
           </tr>
           <% end %>
