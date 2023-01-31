@@ -84,14 +84,6 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
-  GET /worker/
-  """
-  def index(conn, _params) do
-    conn
-    |> render("worker_index.html")
-  end
-
-  @doc """
   GET /worker/update_pass
   """
   def update_pass(conn, _params) do

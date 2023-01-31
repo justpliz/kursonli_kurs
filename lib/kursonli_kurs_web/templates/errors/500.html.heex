@@ -1,1 +1,35 @@
-<h1>500</h1>
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+   <meta charset="utf-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta name="csrf-token" content={csrf_token_value()}>
+   <title>500</title>
+   <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css" )} />
+   <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js" )}></script>
+   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
+   <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+   <input id="crf_token" class="hidden" value={Phoenix.Controller.get_csrf_token()}>
+   <div class="clean">
+      <section class="flex items-center h-screen p-16 bg-gray-200 text-gray-800">
+         <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
+            <div class="max-w-md text-center">
+               <h2 class="mb-8 font-extrabold text-9xl">
+                  <span class="sr-only">Ошибка</span>500
+               </h2>
+               <p class="text-2xl font-semibold mb-8 md:text-3xl">Извините, мы не смогли обработать ваш запрос.</p>
+               <a href="/" class="px-8 py-3 text-xl font-semibold rounded hover:underline">Вернуться назад</a>
+            </div>
+         </div>
+      </section>
+   </div>
+</body>
+
+</html>

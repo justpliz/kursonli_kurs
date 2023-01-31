@@ -108,7 +108,6 @@ defmodule KursonliKursWeb.Router do
   scope "/worker", KursonliKursWeb do
     pipe_through [:browser, :worker_check, :worker_app]
 
-    get "/", WorkerController, :index
     get "/update_pass", WorkerController, :update_pass
     post "/update_pass", WorkerController, :update_pass_submit
     get "/logout", WorkerController, :worker_logout
