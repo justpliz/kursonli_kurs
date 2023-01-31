@@ -37,7 +37,7 @@ defmodule KursonliKurs.Model.Filial do
     belongs_to :tariff, Tariff
 
     has_one :order, Order
-    has_one :course, Course
+    has_many :course, Course
     has_one :courses_history, CoursesHistory
 
     # One-to-One

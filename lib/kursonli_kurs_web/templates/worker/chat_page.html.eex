@@ -4,7 +4,7 @@
          <%= worker %>
    </div>
    <div
-      class="flex flex-col flex-grow w-1/5 bg-white shadow-xl rounded-lg overflow-hidden fixed right-0 top-0 h-full  ">
+      class="d_flex flex-col flex-grow w-1/5 bg-white shadow-xl rounded-lg overflow-hidden fixed right-0 top-0 h-full  ">
       <div class="flex-col flex-grow h-0 p-4 overflow-auto flex" id="chatWrapper">
          <%= for {id,_,_,user_id, y} <- @message do %>
       
@@ -18,7 +18,7 @@
       <div class="w-full bg-white text-black text-center py-2 my-2 rounded" >
          Ваши условия: <%#= courses.yslovie %>  <%= y.terms %> 
       </div>
-      <div class="flex gap-2 buttons-event">
+      <div class="d_flex gap-2 buttons-event">
          <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event" data-type="success"  data-item="<%= Map.put(y,:ets_id, id) |> Jason.encode!() %>">Принять</button>
          <button class="bg-red-600 rounded w-full py-2 items-center justify-center flex click-event" data-type="fail" data-item="<%= Map.put(y,:ets_id, id) |> Jason.encode!() %>">Отклонить</button>
       </div>

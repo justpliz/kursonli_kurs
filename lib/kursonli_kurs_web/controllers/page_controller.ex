@@ -25,6 +25,8 @@ defmodule KursonliKursWeb.PageController do
       courses_list = Filials.get_filial_by_city(city.id)
       currency_list = Currencies.all()
 
+      
+
       conn
       |> render("index.html",
         courses_list: courses_list,

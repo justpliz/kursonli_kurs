@@ -157,7 +157,7 @@ const templateEvent = (map) => {
   <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="${
     map.ets_id
   }" data-type='${map.type_event}'>
-  <div class="text-gray-200">На Ваш ордер на : ${map.item_order.volume}  ${
+  <div class="text-gray-200">Ваш ордер на: ${map.item_order.volume}  ${
     map.item_order.currency_short_name
   }    по курсу ${map.item_order.course_sale}  </div>
   <div class="font-bold">Поступило предложение от  ${

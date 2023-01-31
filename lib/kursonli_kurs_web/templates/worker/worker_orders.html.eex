@@ -1,6 +1,6 @@
 <div class="margin_content content-worker-order">
   <h1 class="title">Ордера на продажу</h1>
-  <h2 class="title flex justify-between" id="org_title"><span class="name"></span> <span class="title text-red-400"></span>  </h2>
+  <h2 class="title flex justify-between" id="org_title"><span class="name"></span> <span class="title text-blub"></span>  </h2>
   <div class="relative overflow-x-auto shadow-md rounded-xl">
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
