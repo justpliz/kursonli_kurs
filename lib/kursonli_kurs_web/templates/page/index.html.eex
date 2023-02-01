@@ -78,11 +78,11 @@
           <tr class="bg-white text-black" data-id="<%= item.filial.id %>"
             data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
             <td class="px-6 py-4 border-2 border-tableGray">
-              <span class="font-bold text-base"><%= item.organization.name %></span>
-              <a href="personal?filial=<%= item.filial.id %>" class="block font-bold text-sm">
+              <span class="font-bold text-base block"><%= item.organization.name %></span>
+              <a href="personal?filial=<%= item.filial.id %>" class="font-bold text-sm">
                 <%= item.filial.name %>
               </a>
-              <%= item.setting.address %>
+              <span class="block"><%= item.setting.address %></span>
               <div class="hidden">
                 <%= [gold, wholesale_rate]=item.setting.tags %>
               </div>
