@@ -10,7 +10,8 @@ defmodule KursonliKursWeb.AdminController do
     Currencies,
     FilialsCurrencies,
     Tariffs,
-    Courses
+    Courses,
+    Settings
   }
 
   @doc """
@@ -103,7 +104,13 @@ defmodule KursonliKursWeb.AdminController do
       params["currency"]
       |> Enum.map(fn currency ->
         currency = String.to_integer(currency)
-        Courses.create(%{date: Timex.now("Asia/Almaty"), currency_id: currency, filial_id: filial.id})
+
+        Courses.create(%{
+          date: Timex.now("Asia/Almaty"),
+          currency_id: currency,
+          filial_id: filial.id
+        })
+
         FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
       end)
 
@@ -280,7 +287,12 @@ defmodule KursonliKursWeb.AdminController do
     with {:ok, filial} <-
            Filials.create_filial_worker_seting(filial_opts, worker_opts, params["address"]),
          Enum.map(currencies_list, fn currency ->
-          Courses.create(%{date: Timex.now("Asia/Almaty"), currency_id: currency, filial_id: filial.id})
+           Courses.create(%{
+             date: Timex.now("Asia/Almaty"),
+             currency_id: currency,
+             filial_id: filial.id
+           })
+
            FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
          end) do
       conn
@@ -298,8 +310,15 @@ defmodule KursonliKursWeb.AdminController do
   GET /admin/update_filial
   """
   def update_filial(conn, %{"id" => id} = params) do
+    IO.inspect(params)
+    opts = %{
+      coordinates: [params["x_coordinate"], params["y_coordinate"]],
+      popup_text: params["popup_text"]
+    }
     with {:ok, filial} <- Filials.do_get(id: id),
-         {:ok, fiiial} <- Filials.update(filial, params) do
+         {:ok, fiiial} <- Filials.update(filial, params),
+         {:ok, setting} <- Settings.do_get(filial_id: id),
+         {:ok, _setting} <- Settings.update(setting, opts) do
       conn
       |> put_flash(:info, "Курс #{fiiial.name} изменен")
       |> redirect(to: "/admin/filials")

@@ -1,6 +1,7 @@
 <script>
+  
     $(".filial_edit").click(function () {
-      const { id, filial_name, paid_up_to, tariff_name } = JSON.parse(this.dataset.map)
+      const { id, coordinates, popup_text } = JSON.parse(this.dataset.map)
       Modalka.fire({
         showConfirmButton: false,
         showCloseButton: true,
@@ -13,12 +14,16 @@
             <form action="/admin/filials/update" method="get">
               <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
   
-              <label class="label_input pos" for="filial_name">Название</label>
-              <input class="input_full" id="filial_name" value="${filial_name}" name="filial_name" required="true" type="text">
-
-              <label class="label_input pos" for="tariff_name">Название тарифа</label>
-              <input class="input_full" id="tariff_name" value="${tariff_name}" name="tariff_name" required="true" type="text">
+              <label class="label_input pos" for="x_coordinate">Координата X</label>
+              <input class="input_full" id="x_coordinate" value="${coordinates[0]}" name="x_coordinate" required="true" type="text">
   
+              <label class="label_input pos" for="y_coordinate">Координата Y</label>
+              <input class="input_full" id="y_coordinate" value="${coordinates[1]}" name="y_coordinate" required="true" type="text">
+
+              
+              <label class="label_input pos" for="popup_text">Текст попапа</label>
+              <input class="input_full" id="popup_text" value="${popup_text}" name="popup_text" required="true" type="text">
+              
               <button class="btn_save my-2 pos" type="submit">Сохранить</button>
             </form>
           </div>
