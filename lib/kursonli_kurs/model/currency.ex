@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.Currency do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Course, Filial, FilialCurrency, Order}
+  alias KursonliKurs.Model.{Course, Filial, FilialCurrency}
 
   @type t :: %__MODULE__{}
 

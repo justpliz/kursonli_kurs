@@ -11,6 +11,10 @@
   scrollbar-color: #3689ce #e5e7eb;
 }
 
+.font {
+  font-family: 'Montserrat', sans-serif;
+}
+
 html,
 body {
   margin: 0;

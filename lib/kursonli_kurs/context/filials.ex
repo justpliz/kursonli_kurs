@@ -117,50 +117,20 @@ defmodule KursonliKurs.Context.Filials do
     |> Repo.all()
   end
 
-    def get_filial_by_city(city_id) do
-    from(
-      filial in Filial,
-      where: filial.city_id == ^ city_id,
-      join: course in Course,
-      on: course.filial_id == filial.id,
-      join: setting in Setting,
-      on: setting.filial_id == filial.id,
-      join: currency in Currency,
-      on: course.currency_id == currency.id,
-      select: %{
-        filial_id: filial.id,
-        filial_name: filial.name,
-        date: course.date,
-        currency_short_name: currency.short_name,
-        value_for_purchase: course.value_for_purchase,
-        value_for_sale: course.value_for_sale,
-        phones: setting.phones,
-        tags: setting.tags
-      }
+  def get_filial_by_city(city_id) do
+    Repo.all(
+      from f in Filial,
+        where: f.city_id == ^city_id,
+        join: s in Setting,
+        on: s.filial_id == f.id,
+        join: c in assoc(f, :course),
+        left_join: cr in assoc(c, :currency),
+        preload: [course: {c, currency: cr}],
+        select: [%{filial: f, setting: s}]
     )
-    |> Repo.all
+    # Assoc gonvo
+    # NENAVZHY ABAY'A
+    # p.s. ARTEM serikovich
+    |> Enum.map(fn x -> x |> hd() end)
   end
-
-  # def get_filial_by_city(city_id) do
-  #   Repo.all(
-  #     from f in Filial,
-  #     where: f.city_id == ^city_id,
-  #       join: s in Setting,
-  #       on: s.filial_id == f.id,
-  #       join: c in assoc(f, :course),
-  #       join: cr in assoc(c, :currency),
-  #       preload: [course: {c, currency: cr}],
-  #       select: [f, s]
-  #       #   select: %{
-  #       #   filial_id: f.id,
-  #       #   filial_name: f.name,
-  #       #   date: c.date,
-  #       #   currency_short_name: cr.short_name,
-  #       #   value_for_purchase: c.value_for_purchase,
-  #       #   value_for_sale: c.value_for_sale,
-  #       #   phones: s.phones,
-  #       #   tags: s.tags
-  #       # }
-  #   )
-  # end
 end
