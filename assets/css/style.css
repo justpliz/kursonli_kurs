@@ -7,8 +7,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Mulish", sans-serif;
   scrollbar-color: #3689ce #e5e7eb;
+}
+
+.font_app {
+  font-family: "Mulish", sans-serif;
 }
 
 .font {
@@ -213,4 +216,24 @@ body.swal2-shown {
   width: 40px;
   height: 3px;
   @apply bg-gray-400;
+}
+
+th.sorted[data-order="1"],
+th.sorted[data-order="-1"] {
+  position: relative;
+}
+
+th.sorted[data-order="1"]::after,
+th.sorted[data-order="-1"]::after {
+  right: 8px;
+  top: 35%;
+  position: absolute;
+}
+
+th.sorted[data-order="-1"]::after {
+  content: "▼"
+}
+
+th.sorted[data-order="1"]::after {
+  content: "▲"
 }

@@ -1,3 +1,4 @@
+<div class="font">
 <div class="mx-auto w-full bg-dblue">
   <div class="max-w-1440 flex justify-between items-center mx-auto h-20">
     <a href="/"><img src="/images/white-line-logo.svg" alt=""></a>
@@ -16,63 +17,58 @@
 
 
 <div class="max-w-1440 mx-auto">
-  <div class="flex py-8 ">
+  <div class="flex py-8 text-dblue">
     <%= for item <- @city_list do %>
-      <a class="font-bold pr-4" href="city?name=<%= item.name %>">
+      <a class="font-medium pr-4" href="city?name=<%= item.name %>">
         <%= item.name %> (<span class="font-bold text-red-500"><%= item.count %></span>)
       </a>
       <% end %>
   </div>
 
-  <div class="font-black text-black text-2xl pb-4">
-    Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-3xl">
+  <div class="font-bold text-dblue text-lg">
+    Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl">
         <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
       </span>
   </div>
 
-  <!-- как хочет любовь -->
-
-  <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!()  %>">
-
-  </div>
-  <div class="relative w-full pt-10">
-    <table class="w-full text-sm text-left text-gray-500 table-fixed table_search" id="index-table">
+  <div class="relative w-full pt-4">
+    <table class="w-full text-sm text-left text-gray-500 table-fixed table_search table_sort" id="index-table">
       <thead class="bg-tableGray text-white uppercase">
         <tr class="uppercase">
-          <th scope="col" class="w-1/4 px-6 py-4 border-l-2 border-tableGray whitespace-nowrap">
+          <th scope="col" class="w-1/4 px-6 py-4 border-2 border-gray-200">
             ОБМЕННЫЙ ПУНКТ
           </th>
-          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 sorted_tr">
             Время
           </th>
-          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 sorted_tr">
             <select class="select_table" data-select="1">
               <%= for item <- @currency_list do %>
-                <option value="<%= item.short_name %>">
+                <option class="text-black" value="<%= item.short_name %>">
                   <%= item.short_name %>
                 </option>
                 <% end %>
             </select>
           </th>
-          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 sorted_tr">
             <select class="select_table" data-select="2">
               <%= for item <- @currency_list do %>
-                <option value="<%= item.short_name %>">
+                <option class="text-black" value="<%= item.short_name %>">
+                  <%= item.short_name %>
+                </option>
+                <% end %>
+            </select>
+          </th>
+          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 sorted_tr">
+            <select class="select_table" data-select="3">
+              <%= for item <- @currency_list do %>
+                <option class="text-black" value="<%= item.short_name %>">
                   <%= item.short_name %>
                 </option>
                 <% end %>
             </select>
           </th>
           <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
-            <select class="select_table" data-select="3">
-              <%= for item <- @currency_list do %>
-                <option value="<%= item.short_name %>">
-                  <%= item.short_name %>
-                </option>
-                <% end %>
-            </select>
-          </th>
-          <th scope="col" class="w-1/6 px-6 py-4 border-r-2 border-tableGray">
             контакты
           </th>
         </tr>
@@ -82,49 +78,60 @@
           <tr class="bg-white text-black" data-id="<%= item.filial.id %>"
             data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
             <td class="px-6 py-4 border-2 border-tableGray">
-              <a href="personal?filial=<%= item.filial.id %>">
+              <span class="font-bold text-base"><%= item.organization.name %></span>
+              <a href="personal?filial=<%= item.filial.id %>" class="block font-bold text-sm">
                 <%= item.filial.name %>
               </a>
+              <%= item.setting.address %>
               <div class="hidden">
                 <%= [gold, wholesale_rate]=item.setting.tags %>
               </div>
-              <div class="">
+              <div class="mt-2">
                 <%= if String.to_atom(gold) do %>
-                  <span class="bg-yellow-500 rounded px-2">Золото</span>
+                  <span class="bg-greatYellow text-sm text-white px-6 py-2">Золото</span>
                 <% end %>
                 <%= if String.to_atom(wholesale_rate) do %>
-                  <span class="bg-green-600 rounded px-2">Оптовый курс</span>
+                  <span class="bg-greatGreen text-sm text-white px-6 py-2">Оптовый курс</span>
                 <% end %>
               </div>
             </td>
-            <td class="px-6 py-4 border-2 border-tableGray">
-              <%= KursonliKursWeb.GeneralHelper.date_to_string_time(item.filial.course |> hd() |> Map.get(:date)) %>
+            <td class="px-6 py-4 border-2 border-tableGray text-center">
+              <span class=""><%= KursonliKursWeb.GeneralHelper.date_to_string_time(item.filial.course |> hd() |> Map.get(:date)) %></span>
             </td>
             <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="1">
-              <span class="sale">
-                <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
-              </span>
-              <span class="pushare">
-                <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
-              </span>
-            </td>
-            <td class="px-6 py-4 border-2 border-tableGray dataget"  data-select="2">
-              <span class="sale">
-                <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
-              </span>
-              <span class="pushare">
-                <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
-              </span>
-            </td>
-            <td class="px-6 py-4 border-2 border-tableGray dataget"  data-select="3">
+              <div class="d_flex justify-between items-center">
                 <span class="sale">
                   <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
                 </span>
+                <span>-</span>
                 <span class="pushare">
                   <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
                 </span>
+              </div>
             </td>
-            <td class="px-6 py-4 border-2 border-tableGray">
+            <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="2">
+              <div class="d_flex justify-between items-center">
+                <span class="sale">
+                  <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
+                </span>
+                <span>-</span>
+                <span class="pushare">
+                  <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
+                </span>
+              </div>
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray dataget"  data-select="3">
+              <div class="d_flex justify-between items-center">
+                <span class="sale">
+                  <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
+                </span>
+                <span>-</span>
+                <span class="pushare">
+                  <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
+                </span>
+              </div>
+            </td>
+            <td class="px-6 py-4 border-2 border-tableGray text-center">
               <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
                 <%= item.setting.phones["phone1"] %>
               </a>
@@ -140,6 +147,8 @@
       </tbody>
     </table>
   </div>
+  <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!()  %>"></div>
+</div>
 </div>
 
 <script>

@@ -1,6 +1,9 @@
 window.Modalka = Swal.mixin({
    scrollbarPadding: false,
    heightAuto: false,
+   customClass: {
+      container: 'font_app',
+   },
    willOpen: (toast) => {
       var input = [...document.querySelectorAll('.number_input_only')];
       input.forEach((el) => {

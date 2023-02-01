@@ -9,7 +9,6 @@ defmodule KursonliKurs.Context.Filials do
     City,
     Organization,
     Tariff,
-    FilialCurrency,
     Currency,
     Setting,
     Course
@@ -123,14 +122,13 @@ defmodule KursonliKurs.Context.Filials do
         where: f.city_id == ^city_id,
         join: s in Setting,
         on: s.filial_id == f.id,
+        join: org in Organization,
+        on: org.id == f.organization_id,
         join: c in assoc(f, :course),
         left_join: cr in assoc(c, :currency),
         preload: [course: {c, currency: cr}],
-        select: [%{filial: f, setting: s}]
+        select: [%{filial: f, setting: s, organization: org}]
     )
-    # Assoc gonvo
-    # NENAVZHY ABAY'A
-    # p.s. ARTEM serikovich
     |> Enum.map(fn x -> x |> hd() end)
   end
 end

@@ -194,12 +194,12 @@
     let y = "<%= y %>";
     DG.then(function () {
         let map = DG.map('map', {
-            center: [x, y],
+            center: [y,x],
             zoom: 17
         });
-        DG.popup([x, y])
-            .setLatLng([x, y])
-            .setContent('Хата Абая Сериковича')
+        DG.popup([y, x])
+            .setLatLng([y, x])
+            .setContent('Информация о вашем филиале')
             .openOn(map);
     });
 </script>

@@ -16,7 +16,9 @@ module.exports = {
         tableGray: '#515151',
         dblue: '#000045',
         blub: '#3689ce',
-        lightBlub: '#5699d1'
+        lightBlub: '#5699d1',
+        greatGreen: '#A7FFB5',
+        greatYellow: '#FFC69D',
       },
       minHeight: {
         '600': '600px',

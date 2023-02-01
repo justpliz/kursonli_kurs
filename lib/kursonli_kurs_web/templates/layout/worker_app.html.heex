@@ -21,6 +21,7 @@
 </head>
 
 <body class="bg-gray-50">
+  <div class="font_app">
   <input id="crf_token" class="hidden" value={Phoenix.Controller.get_csrf_token()}>
   <div class="app">
     <div class="app_user_container">
@@ -88,6 +89,7 @@
     <div class="content-worker">
       <%= @inner_content %>
     </div>
+  </div>
   </div>
 </body>
 
