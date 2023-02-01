@@ -72,6 +72,8 @@ defmodule KursonliKurs.Context.Filials do
       on: filial.organization_id == org.id,
       left_join: tariff in Tariff,
       on: filial.tariff_id == tariff.id,
+      join: setting in Setting,
+      on: setting.filial_id == filial.id,
       select: %{
         id: filial.id,
         filial_name: filial.name,
@@ -79,7 +81,8 @@ defmodule KursonliKurs.Context.Filials do
         payment_status: filial.payment_status,
         tariff_name: tariff.name,
         tariff_price: tariff.price,
-        city_name: city.name
+        city_name: city.name,
+        coordinates: setting.coordinates
       }
     )
     |> Repo.all()
