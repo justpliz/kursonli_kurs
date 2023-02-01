@@ -91,42 +91,43 @@
                   <span class="bg-greatYellow text-sm text-white px-6 py-2">Золото</span>
                 <% end %>
                 <%= if String.to_atom(wholesale_rate) do %>
-                  <span class="bg-greatGreen text-sm text-white px-6 py-2">Оптовый курс</span>
+                  <span class="bg-greatGreen text-sm text-black px-6 py-2">Оптовый курс</span>
                 <% end %>
               </div>
             </td>
             <td class="px-6 py-4 border-2 border-tableGray text-center">
-              <span class=""><%= KursonliKursWeb.GeneralHelper.date_to_string_time(item.filial.course |> hd() |> Map.get(:date)) %></span>
+              <span class="text-xl font-bold"><%= KursonliKursWeb.GeneralHelper.date_to_string_time(item.filial.course |> hd() |> Map.get(:date)) %></span>
+              <span class="block">Несколько часов назад</span>
             </td>
             <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="1">
               <div class="d_flex justify-between items-center">
-                <span class="sale">
+                <span class="sale font-bold text-xl">
                   <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
                 </span>
-                <span>-</span>
-                <span class="pushare">
+                <span class="font-bold text-xl">—</span>
+                <span class="pushare font-bold text-xl">
                   <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
                 </span>
               </div>
             </td>
             <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="2">
               <div class="d_flex justify-between items-center">
-                <span class="sale">
+                <span class="sale font-bold text-xl">
                   <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
                 </span>
-                <span>-</span>
-                <span class="pushare">
+                <span class="font-bold text-xl">—</span>
+                <span class="pushare font-bold text-xl">
                   <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
                 </span>
               </div>
             </td>
             <td class="px-6 py-4 border-2 border-tableGray dataget"  data-select="3">
               <div class="d_flex justify-between items-center">
-                <span class="sale">
+                <span class="sale font-bold text-xl">
                   <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
                 </span>
-                <span>-</span>
-                <span class="pushare">
+                <span class="font-bold text-xl">—</span>
+                <span class="pushare font-bold text-xl">
                   <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
                 </span>
               </div>
