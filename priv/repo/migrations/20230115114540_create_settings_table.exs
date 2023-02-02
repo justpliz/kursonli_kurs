@@ -21,6 +21,6 @@ defmodule KursonliKurs.Repo.Migrations.CreateSettingsTable do
       add :filial_id, references(:filials, type: :uuid, on_delete: :nothing)
     end
 
-    create index(:settings, [:address, :phones])
+    create index(:settings, [:address_2gis, :phones, :coordinates])
   end
 end

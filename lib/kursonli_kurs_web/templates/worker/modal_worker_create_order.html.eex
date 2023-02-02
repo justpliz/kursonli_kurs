@@ -40,7 +40,7 @@
         <% end %>
 
         <label class="label_input">Адрес</label>
-        <%= text_input f, :address, class: "input_full", disabled: "true", required: "true" %>
+        <%= text_input f, :fililal_address, class: "input_full", disabled: "true", required: "true" %>
 
         <label class="label_input">Условия</label>
           <%= text_input f, :terms, class: "input_full", required: "true" %>

@@ -53,12 +53,12 @@ defmodule KursonliKurs.Context.Filials do
     |> Repo.aggregate(:count)
   end
 
-  def create_filial_worker_seting(filial_opts, worker_opts, address \\ "") do
+  def create_filial_worker_seting(filial_opts, worker_opts, fililal_address \\ "") do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          {:ok, _worker} <- Workers.create(worker_opts),
          {:ok, _setting} <-
-           Settings.create(%{filial_id: filial.id, address: address, coordinates: ["0", "0"]}) do
+           Settings.create(%{filial_id: filial.id, fililal_address: fililal_address, coordinates: ["0", "0"]}) do
       {:ok, filial}
     end
   end

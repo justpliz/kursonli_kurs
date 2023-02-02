@@ -12,9 +12,9 @@
 # mix ecto.rollback --step 20 && mix ecto.migrate && mix run priv/repo/seeds.exs
 
 {:ok, admin} = KursonliKurs.Context.Admins.create(%{login: "admin", password: "admin"})
-{:ok, city_krg} = KursonliKurs.Context.Cities.create(%{name: "Караганда", short_name: "KRG"})
-{:ok, city_smsk} = KursonliKurs.Context.Cities.create(%{name: "Семей", short_name: "SMSK"})
-{:ok, city_ala} = KursonliKurs.Context.Cities.create(%{name: "Алматы", short_name: "ALA"})
+{:ok, city_krg} = KursonliKurs.Context.Cities.create(%{name: "Караганда", short_name: "KRG", eng_name: "karaganda"})
+{:ok, city_smsk} = KursonliKurs.Context.Cities.create(%{name: "Семей", short_name: "SMSK", eng_name: "semey"})
+{:ok, city_ala} = KursonliKurs.Context.Cities.create(%{name: "Алматы", short_name: "ALA", eng_name: "almaty"})
 {:ok, usd} = KursonliKurs.Context.Currencies.create(%{name: "Американский доллар", short_name: "USD"})
 {:ok, eur} = KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR"})
 
@@ -47,7 +47,7 @@ KursonliKurs.Context.FilialsCurrencies.create(%{
 })
 
 KursonliKurs.Context.Settings.create(%{
-  address: "address 1",
+  address_2gis: "Address for 2 gis1",
   filial_id: filial1.id
 })
 
@@ -93,7 +93,7 @@ KursonliKurs.Context.FilialsCurrencies.create(%{
 })
 
 KursonliKurs.Context.Settings.create(%{
-  address: "address 2",
+  address_2gis: "Address for 2 gis1",
   filial_id: filial2.id
 })
 

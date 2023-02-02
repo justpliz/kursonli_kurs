@@ -8,11 +8,12 @@ defmodule KursonliKurs.Model.City do
 
   @timestamps_opts [type: :utc_datetime]
   @required_fields ~w(name short_name)a
-  @optional_fields ~w(index)a
+  @optional_fields ~w(eng_name index)a
 
   schema "cities" do
     field :name, :string
     field :short_name, :string
+    field :eng_name, :string
     field :index, :string
 
     has_one :filial, Filial
