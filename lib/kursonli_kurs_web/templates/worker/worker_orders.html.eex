@@ -220,14 +220,14 @@
   <div class="flex items-center justify-between">
     <h1 class="title_without_margin">Создание ордера</h1>
   </div>
-  <div class="px-1">
+  <div class="px-2">
     <%= form_for @conn, Routes.worker_path(@conn, :create_order_submit), fn f -> %>
       <label class="label_input pos">Тип</label>
       <%= for item <- check_config("order_type") do %>
         <div class="container_select">
           <input required name="type" id="<%= item %>" value="<%= item %>" checked type="radio" class="type_select">
           <label class="label_select" for="<%= item %>">
-            <%= item %>
+            <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item) %>
           </label>
         </div>
       <% end %>

@@ -112,7 +112,7 @@ defmodule KursonliKursWeb.WorkerController do
          {:ok, _worker} <- Workers.update(worker, %{password: new_pass}) do
       conn
       |> put_flash(:info, "Пароль успешно изменен")
-      |> redirect(to: "/worker")
+      |> redirect(to: "/worker/orders")
     end
   end
 
@@ -210,8 +210,12 @@ defmodule KursonliKursWeb.WorkerController do
     filial_id = get_session(conn, :worker).filial_id
     courses_list = Filials.get_courses_list(filial_id)
 
+    last_date =
+      Filials.get_last_date_for_course(filial_id)
+      |> date_to_string_all()
+
     conn
-    |> render("worker_courses.html", courses_list: courses_list)
+    |> render("worker_courses.html", courses_list: courses_list, last_date: last_date)
   end
 
   @doc """
@@ -219,9 +223,11 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def update_course(conn, params) do
     change_all_filials = String.to_atom(params["change_all_filials"])
+
     opts = %{
       value_for_sale: params["value_for_sale"],
-      value_for_purchase: params["value_for_purchase"]
+      value_for_purchase: params["value_for_purchase"],
+      date: Timex.now("Asia/Almaty")
     }
 
     case change_all_filials do
@@ -232,20 +238,17 @@ defmodule KursonliKursWeb.WorkerController do
 
         {:ok, course} = Courses.do_get(id: params["course_id"])
 
-      Courses.get_all_courses_by_filial(filial.organization_id, course.currency_id)
-      |> Enum.map(fn course -> Courses.update(course, opts) end)
+        Courses.get_all_courses_by_filial(filial.organization_id, course.currency_id)
+        |> Enum.map(fn course -> Courses.update(course, opts) end)
 
-      courses_list = Filials.get_courses_list(filial_id)
-      conn
-      |> render("worker_courses.html", courses_list: courses_list)
+        conn
+        |> redirect(to: "/worker/courses")
 
       false ->
         with {:ok, course} <- Courses.do_get(id: params["course_id"]),
              {:ok, _course} <- Courses.update(course, opts) do
-          courses_list = Filials.get_courses_list(course.filial_id)
-
           conn
-          |> render("worker_courses.html", courses_list: courses_list)
+          |> redirect(to: "/worker/courses")
         end
     end
   end
