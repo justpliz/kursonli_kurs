@@ -1,24 +1,24 @@
 <style>
-    :root{
-        --qual: <%= @setting.colors["color_qualities"] %>;
-        --qual_text: <%= @setting.colors["color_qualities_text"] %>;
-        --scoreboard: <%= @setting.colors["color_scoreboard"] %>;
-        --currency: <%= @setting.colors["color_currency"] %>;
+    :root {
+        --qual: <%=@setting.colors["color_qualities"] %>;
+        --qual_text: <%=@setting.colors["color_qualities_text"] %>;
+        --scoreboard: <%=@setting.colors["color_scoreboard"] %>;
+        --currency: <%=@setting.colors["color_currency"] %>;
     }
 
-    .qual{
+    .qual {
         background-color: var(--qual) !important;
     }
 
-    .qual_text{
+    .qual_text {
         color: var(--qual_text) !important;
     }
 
-    .scoreboard{
+    .scoreboard {
         background-color: var(--scoreboard) !important;
     }
 
-    .currency{
+    .currency {
         color: var(--currency) !important;
     }
 </style>
@@ -47,159 +47,232 @@
 
 <div class="block">
     <div class="block__header">
-    <div class="block__text">
-        <h1 class="block__title"></h1>
-    </div>
-</div>
-
-<div class="max-w-1440 mx-auto mt-4 pb-8">
-    <div class="flex gap-8">
-        <div class="scoreboard bg-blub p-6 text-white rounded-xl w-2/3">
-            <div class="text-center">
-                <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
-                <div class="text-sm">на ЧИСЛО января ГОД ВРЕМЯ</div>
-                <div class="grid_con">
-                    <div class="wrapper pt-4 pb-2">
-                        <div>
-                            <p class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
-                                Покупка
-                            </p>
-                        </div>
-                        <div class=""></div>
-                        <div>
-                            <p class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
-                                Продажа
-                            </p>
-                        </div>
-                    </div>
-                    <div class="wrapper gap-y-2">
-                    <%= for item <- @courses_list do %>
-                        <div class="bg-white currency font-bold text-center rounded-md py-2">
-                            <%= item.value_for_purchase %>
-                        </div>
-                        <div class="text-white uppercase font-bold text-center rounded-md py-2">
-                            <%= item.currency_short_name %>
-                        </div>
-                        <div class="bg-white currency font-bold text-center rounded-md py-2">
-                            <%= item.value_for_sale %>
-                        </div>
-                        <% end %>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex flex-col gap-4">
-            <div class="bg-gray-200 rounded-xl p-6">
-                <h2 class="uppercase font-bold">калькулятор курса</h2>
-                <div class="flex gap-2 items-end">
-                    <div class="flex flex-col">
-                        <h3>У меня есть</h3>
-                        <input type="input" class="input_full">
-                    </div>
-                    <div class="material-symbols-outlined pb-3" style="color: #3689ce; font-weight: 700;">sync_alt</div>
-                    <div class="flex flex-col">
-                        <h3>Я получу</h3>
-                        <input type="input" class="input_full">
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-gray-200 rounded-xl p-6">
-                <h2 class="font-bold text-center">Национальный банк</h2>
-            </div>
+        <div class="block__text">
+            <h1 class="block__title"></h1>
         </div>
     </div>
 
-    <div class="flex gap-8 mt-10">
-        <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
-            <img src="/images/icons/qual1.svg" alt="" class="pr-4">
-            <div class="qual_text uppercase text-lg">
-                <%= @setting.qualities["quality1"] %>
+    <div class="max-w-1440 mx-auto mt-4 pb-8">
+        <div class="flex gap-8">
+            <div class="scoreboard bg-blub p-6 text-white rounded-xl w-2/3">
+                <div class="text-center">
+                    <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
+                    <div class="text-sm">на ЧИСЛО января ГОД ВРЕМЯ</div>
+                    <div class="grid_con">
+                        <div class="wrapper pt-4 pb-2">
+                            <div>
+                                <p
+                                    class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
+                                    Покупка
+                                </p>
+                            </div>
+                            <div class=""></div>
+                            <div>
+                                <p
+                                    class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
+                                    Продажа
+                                </p>
+                            </div>
+                        </div>
+                        <div class="wrapper gap-y-2">
+                            <%= for item <- @courses_list do %>
+                                <div class="bg-white currency font-bold text-center rounded-md py-2">
+                                    <%= item.value_for_purchase %>
+                                </div>
+                                <div class="text-white uppercase font-bold text-center rounded-md py-2">
+                                    <%= item.currency_short_name %>
+                                </div>
+                                <div class="bg-white currency font-bold text-center rounded-md py-2">
+                                    <%= item.value_for_sale %>
+                                </div>
+                                <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <div class="bg-gray-200 rounded-xl p-6">
+                    <h2 class="uppercase font-bold">калькулятор курса</h2>
+                    <div class="flex gap-2 items-end">
+                        <div class="flex flex-col">
+                            <h3>У меня есть</h3>
+                            <input type="input" class="input_full">
+                        </div>
+                        <div class="material-symbols-outlined pb-3" style="color: #3689ce; font-weight: 700;">sync_alt
+                        </div>
+                        <div class="flex flex-col">
+                            <h3>Я получу</h3>
+                            <input type="input" class="input_full">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-200 rounded-xl p-6">
+                    <h2 class="font-bold text-center">Национальный банк</h2>
+                </div>
             </div>
         </div>
-        <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
-            <img src="/images/icons/qual2.svg" alt="" class="pr-4">
-            <div class="qual_text uppercase text-lg">
-                <%= @setting.qualities["quality2"] %>
+
+        <div class="flex gap-8 mt-10">
+            <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
+                <img src="/images/icons/qual1.svg" alt="" class="pr-4">
+                <div class="qual_text uppercase text-lg">
+                    <%= @setting.qualities["quality1"] %>
+                </div>
+            </div>
+            <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
+                <img src="/images/icons/qual2.svg" alt="" class="pr-4">
+                <div class="qual_text uppercase text-lg">
+                    <%= @setting.qualities["quality2"] %>
+                </div>
+            </div>
+            <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
+                <img src="/images/icons/qual3.svg" alt="" class="pr-4">
+                <div class="qual_text uppercase text-lg">
+                    <%= @setting.qualities["quality3"] %>
+                </div>
             </div>
         </div>
-        <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
-            <img src="/images/icons/qual3.svg" alt="" class="pr-4">
-            <div class="qual_text uppercase text-lg">
-                <%= @setting.qualities["quality3"] %>
+
+        <div class="flex mt-10 gap-6" id="adress">
+
+            <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30">
+                <h2 class="uppercase font-bold text-lg relative title_before">Адрес обменника</h2>
+                <div class="relative pt-10 flex flex-col">
+                    <div class="d_flex pb-4 items-center">
+                        <span class="material-symbols-outlined pr-4"
+                            style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
+                        <div class="">
+                            <%= @setting.address %>
+                        </div>
+                    </div>
+
+                    <div class="d_flex pb-4">
+                        <span class="material-symbols-outlined pr-4"
+                            style="color: #3689ce; font-size: 32px; font-weight: 900;">schedule</span>
+                        <div class="flex-none">
+                            <div class="">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %>
+                            </div>
+                            <div class="">СБ <%= @setting.schedule["schedule_saturday"] %>
+                            </div>
+                            <div class="">Вс <%= @setting.schedule["schedule_sunday"] %>
+                            </div>
+                            <div class="">
+                                <%= @setting.schedule["schedule_other"] %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d_flex pb-4">
+                        <span class="material-symbols-outlined pr-4"
+                            style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
+                        <div class="d_flex flex-col">
+                            <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline">
+                                <%= @setting.phones["phone1"] %>
+                            </a>
+                            <a href='tel:<%= @setting.phones["phone2"] %>' class="hover:underline">
+                                <%= @setting.phones["phone2"] %>
+                            </a>
+                            <a href='tel:<%= @setting.phones["phone3"] %>' class="hover:underline">
+                                <%= @setting.phones["phone3"] %>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="d_flex items-center">
+                        <span class="material-symbols-outlined pr-4"
+                            style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
+                        <a href="mailto:<%= @setting.email %>" class="">
+                            <%= @setting.email %>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex mt-10 gap-10" id="descripton">
+            <img src="<%= @photo_path %>" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl">
+            <div class="flex50">
+                <h3 class="uppercase font-bold text-lg relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city %>
+                        <%= @filial.name %>
+                </h3>
+                <div class="pt-10">
+                    <%= @setting.description %>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="flex mt-10 gap-6" id="adress">
-        <div id="map" class="map"></div>
-
-        <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30">
-            <h2 class="uppercase font-bold text-lg relative title_before">Адрес обменника</h2>
-            <div class="relative pt-10 flex flex-col">
-                <div class="d_flex pb-4 items-center">
-                    <span class="material-symbols-outlined pr-4"
-                        style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
-                    <div class="">
-                        <%= @setting.address %>
-                    </div>
-                </div>
-
-                <div class="d_flex pb-4">
-                    <span class="material-symbols-outlined pr-4" style="color: #3689ce; font-size: 32px; font-weight: 900;">schedule</span>
-                    <div class="flex-none">
-                        <div class="">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %></div>
-                        <div class="">СБ <%= @setting.schedule["schedule_saturday"] %></div>
-                        <div class="">Вс <%= @setting.schedule["schedule_sunday"] %></div>
-                        <div class=""><%= @setting.schedule["schedule_other"] %></div>
-                    </div>
-                </div>
-
-                <div class="d_flex pb-4">
-                    <span class="material-symbols-outlined pr-4"
-                        style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
-                    <div class="d_flex flex-col">
-                        <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline"><%= @setting.phones["phone1"] %></a>
-                        <a href='tel:<%= @setting.phones["phone2"] %>' class="hover:underline"><%= @setting.phones["phone2"] %></a>
-                        <a href='tel:<%= @setting.phones["phone3"] %>' class="hover:underline"><%= @setting.phones["phone3"] %></a>
-                    </div>
-                </div>
-
-                <div class="d_flex items-center">
-                    <span class="material-symbols-outlined pr-4"
-                        style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
-                    <a href="mailto:<%= @setting.email %>" class=""><%= @setting.email %></a>
-                </div>
-            </div>
+    <div class="map">
+        <a class="dg-widget-link"
+            href="http://2gis.kz/almaty/firm/9429940000800892/center/76.94045305252077,43.2510013156758/zoom/16?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=bigMap">Посмотреть
+            на карте Алматы
+        </a>
+        
+        <div class="dg-widget-link">
+            <a href="http://2gis.kz/almaty/firm/9429940000800892/photos/9429940000800892/center/76.94045305252077,43.2510013156758/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
+                компании
+            </a>
         </div>
+
+        <div class="dg-widget-link">
+            <a href="http://2gis.kz/almaty/center/76.940445,43.250712/zoom/16/routeTab/rsType/bus/to/76.940445,43.250712╎Мер-Нур, обменный пункт?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=route">Найти
+                проезд до Мер-Нур, обменный пункт
+            </a>
+        </div>
+
+        <script charset="utf-8" src="https://widgets.2gis.com/js/DGWidgetLoader.js"></script>
+
+        <script charset="utf-8">new DGWidgetLoader({
+                "width": 640,
+                "height": 600,
+                "borderColor": "#a3a3a3",
+                "pos": { "lat": 43.2510013156758, "lon": 76.94045305252077, "zoom": 16 },
+                "opt": { "city": "almaty" },
+                "org": [{ "id": "9429940000800892" }]
+            });
+        </script>
+
+        <noscript style="color:#c00;font-size:16px;font-weight:bold;">Виджет карты использует JavaScript. Включите его в
+            настройках вашего браузера.
+        </noscript>
     </div>
 
-    <div class="flex mt-10 gap-10" id="descripton">
-        <img src="<%= @photo_path %>" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl">
-        <div class="flex50">
-            <h3 class="uppercase font-bold text-lg relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city %> <%= @filial.name %></h3>
-            <div class="pt-10">
-                <%= @setting.description %>
-            </div>
-        </div>
-    </div>
-</div>
 
-<script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
-<script>
-    var map;
-    "<%= [x, y] = @setting.coordinates %>";
-    let x = "<%= x %>";
-    let y = "<%= y %>";
-    DG.then(function () {
-        let map = DG.map('map', {
-            center: [y,x],
-            zoom: 17
-        });
-        DG.popup([y, x])
-            .setLatLng([y, x])
-            .setContent('Информация о вашем филиале')
-            .openOn(map);
-    });
-</script>
+
+<!-- ПРИМЕРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРР -->
+    <div class="map">
+        <a class="dg-widget-link"
+            href="http://2gis.kz/almaty/firm/9429940000800892/center/76.94045305252077,43.2510013156758/zoom/16?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=bigMap">Посмотреть
+            на карте Алматы
+        </a>
+
+        <div class="dg-widget-link">
+            <a href="http://2gis.kz/almaty/firm/9429940000800892/photos/9429940000800892/center/76.94045305252077,43.2510013156758/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
+                компании
+            </a>
+        </div>
+
+        <div class="dg-widget-link">
+            <a href="http://2gis.kz/almaty/center/76.940445,43.250712/zoom/16/routeTab/rsType/bus/to/76.940445,43.250712╎Мер-Нур, обменный пункт?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=route">Найти
+                проезд до Мер-Нур, обменный пункт
+            </a>
+        </div>
+
+        <script charset="utf-8" src="https://widgets.2gis.com/js/DGWidgetLoader.js"></script>
+
+        <script charset="utf-8">new DGWidgetLoader({
+                "width": 640,
+                "height": 600,
+                "borderColor": "#a3a3a3",
+                "pos": { "lat": 43.2510013156758, "lon": 76.94045305252077, "zoom": 16 },
+                "opt": { "city": "almaty" },
+                "org": [{ "id": "9429940000800892" }]
+            });
+        </script>
+
+        <noscript style="color:#c00;font-size:16px;font-weight:bold;">Виджет карты использует JavaScript. Включите его в
+            настройках вашего браузера.
+        </noscript>
+    </div>

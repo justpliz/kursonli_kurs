@@ -68,12 +68,13 @@ defmodule KursonliKurs.Context.Orders do
         address: set.address,
         date: order.date,
         volume: order.volume,
+        limit: order.limit,
         terms: order.terms,
         transfer: order.transfer,
         worker_id: order.worker_id,
         currency_short_name: c.short_name,
         worker_name: order.worker_name,
-        course_sale: order.course
+        course_sale: order.course,
       }
     )
     |> Repo.all()

@@ -21,12 +21,14 @@
             Объём
           </th>
           <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
+            Лимит
+          </th>
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Условия
           </th>
           <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Передача
           </th>
-          <th scope="col" class="w-1/12 px-6 py-6 border-b-2 border-gray-200"></th>
         </tr>
       </thead>
       <tbody>
@@ -49,15 +51,13 @@
               <%= item.volume %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
+              <%= item.limit %>
+            </td>
+            <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.terms %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.transfer %>
-            </td>
-            <td class="px-6 py-4 text-center">
-              <a href="/worker/delete_order?id=<%= item.id %>">
-                <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-              </a>
             </td>
           </tr>
           <% end %>
@@ -86,6 +86,9 @@
             Объём
           </th>
           <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
+            Лимит
+          </th>
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Условия
           </th>
           <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
@@ -110,6 +113,9 @@
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.volume %>
+            </td>
+            <td class="px-6 py-4 border-x-2 border-gray-200">
+              <%= item.limit %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.terms %>

@@ -41,6 +41,7 @@ defmodule KursonliKursWeb.WorkerController do
       {:ok, worker} ->
         # TODO переделать получение города
         {:ok, filial} = Filials.do_get(id: worker.filial_id)
+        {:ok, setting} = Settings.do_get(filial_id: filial.id)
         {:ok, city} = Cities.do_get(id: filial.city_id)
         SessionWorker.insert(worker.id)
 
@@ -56,6 +57,8 @@ defmodule KursonliKursWeb.WorkerController do
           last_name: last_name,
           phone: worker.phone,
           email: worker.email,
+          filial_name: filial.name,
+          address: setting.address,
           city: %{
             id: city.id,
             name: city.name

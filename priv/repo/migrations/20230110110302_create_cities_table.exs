@@ -5,6 +5,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateCitiesTable do
     create table(:cities) do
       add :name, :string
       add :short_name, :string
+      add :eng_name, :string
       add :index, :string
     end
 
