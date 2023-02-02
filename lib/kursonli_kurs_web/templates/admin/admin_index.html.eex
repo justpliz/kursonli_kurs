@@ -59,13 +59,10 @@
                                     <span class="material-symbols-outlined"
                                        style="color: red; font-weight: 900;">delete</span>
                                  </button>
-                                 <!-- <a href="/admin/archive_organization?id=<%#= item.id %>" class="">
-                                    <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-                                 </a> -->
                               </td>
                            </tr>
                            <% end %>
-                              <% end %>
+                        <% end %>
                   </tbody>
                </table>
             </div>
@@ -108,18 +105,15 @@
                                  <%= KursonliKursWeb.GeneralHelper.date_to_string_data(item.inserted_at) %>
                               </td>
                               <td class="px-9 border-2 border-b-0 border-gray-300 border-r-0">
-                                 <button class="accept_delete styles_none"
+                                 <button class="accept_update styles_none"
                                     data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
                                     <span class="material-symbols-outlined"
-                                       style="color: red; font-weight: 900;">delete</span>
+                                       style="color: red; font-weight: 900;">update</span>
                                  </button>
-                                 <!-- <a href="/admin/archive_organization?id=<%#= item.id %>" class="">
-                                    <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-                                 </a> -->
                               </td>
                            </tr>
                            <% end %>
-                              <% end %>
+                        <% end %>
                   </tbody>
                </table>
             </div>
@@ -131,7 +125,7 @@
 
 <%= render(KursonliKursWeb.AdminView, "modal_admin_create_organization.html" , conn: @conn, cities_list: @cities_list,
    currencies_list: @currencies_list) %>
-   <%= render(KursonliKursWeb.AdminView, "admin_accept_delete.html" , conn: @conn) %>
+   <%= render(KursonliKursWeb.AdminView, "admin_accept_update.html" , conn: @conn) %>
 
       <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
 
