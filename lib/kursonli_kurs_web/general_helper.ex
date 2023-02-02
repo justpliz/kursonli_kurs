@@ -45,6 +45,7 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   def date_to_string_data(date), do: "#{date.year}-#{date.month}-#{date.day}"
   def date_to_string_time(date), do: "#{date.hour}:#{date.minute}:#{date.second}"
+  def date_to_string_all(date), do: "#{date.year}-#{date.month}-#{date.day} #{date.hour}:#{date.minute}:#{date.second}"
 
   def get_image_path(nil, type) do
     case type do

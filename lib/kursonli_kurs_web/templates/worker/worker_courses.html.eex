@@ -1,5 +1,9 @@
 <div class="margin_content">
-  <h1 class="title">Список курсов</h1>
+  <div class="flex justify-between">
+    <h1 class="title">Список курсов</h1>
+    <div class="text-base">Последнее обновление курса: <%= @last_date %>
+    </div>
+  </div>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 table_sort">
       <thead class="text-xs text-gray-700 uppercase bg-white">
@@ -37,7 +41,9 @@
               <%= item.value_for_sale %>
             </td>
             <td class="px-6 py-4 border-b-2 text-center">
-              <button class="course_edit btn_save" data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Изменить</button>
+              <button class="course_edit" data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                <span class="material-symbols-outlined" style="@apply text-blub; font-weight: 900;">edit</span>
+              </button>
             </td>
           </tr>
           <% end %>
@@ -47,4 +53,4 @@
   </div>
 </div>
 
-<%= render(KursonliKursWeb.WorkerView, "modal_worker_courses_edit.html", conn: @conn) %>
+<%= render(KursonliKursWeb.WorkerView, "modal_worker_courses_edit.html" , conn: @conn) %>

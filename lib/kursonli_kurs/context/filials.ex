@@ -102,7 +102,7 @@ defmodule KursonliKurs.Context.Filials do
         currency_short_name: c.short_name,
         value_for_sale: course.value_for_sale,
         value_for_purchase: course.value_for_purchase,
-        updated_at: course.updated_at
+        date: course.date
       }
     )
     |> Repo.all()
@@ -117,6 +117,18 @@ defmodule KursonliKurs.Context.Filials do
       select: city.name
     )
     |> Repo.all()
+  end
+
+  def get_last_date_for_course(filial_id) do
+    Repo.one from(
+      filial in Filial,
+      where: filial.id == ^filial_id,
+      join: course in Course,
+      on: course.filial_id == filial.id,
+      order_by: [desc: course.date],
+      limit: 1,
+      select: course.date
+    )
   end
 
   def get_filial_by_city(city_id) do

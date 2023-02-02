@@ -3,78 +3,97 @@
       <% {:ok, worker}=Jason.encode(Plug.Conn.get_session(@conn,:worker)) %>
          <%= worker %>
    </div>
-   <div
-      class="d_flex flex-col flex-grow w-1/5 bg-white shadow-xl rounded-lg overflow-hidden fixed right-0 top-0 h-full  ">
-      <div class="flex-col flex-grow h-0 p-4 overflow-auto flex" id="chatWrapper">
-         <%= for {id,_,_,user_id, y} <- @message do %>
-      
-   <%= if y[:type] == "event" and y[:item_order]["worker_id"] == workerr.id do %>
-   <% order_type = KursonliKursWeb.GeneralHelper.normalize_order_type( y[:item_order]["type"]) %>
-   <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="<%= id %>" data-type='<%= y["type_event"] %>'>
-      <div class="text-gray-200">На Ваш ордер на <%= order_type %>: <%= y.item_order["volume"] %> <%= y[:item_order]["currency_short_name"] %> <%= y["currency_short_name"] %>   по курсу <%= y.item_order["course_sale"] %> </div>
-      <div class="font-bold">Поступило предложение от <%= y.item_order["worker"]["first_name"] %>: <%= y.item_order["organization"] %></div>
-      <div class="text-gray-200">предложено  <%= y.volume %> <%= y[:item_order]["currency_short_name"] %>  по курсу <%= y.item_order["course_sale"] %>
-      </div> 
-      <div class="w-full bg-white text-black text-center py-2 my-2 rounded" >
-         Ваши условия: <%#= courses.yslovie %>  <%= y.terms %> 
-      </div>
-      <div class="d_flex gap-2 buttons-event">
-         <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event" data-type="success"  data-item="<%= Map.put(y,:ets_id, id) |> Jason.encode!() %>">Принять</button>
-         <button class="bg-red-600 rounded w-full py-2 items-center justify-center flex click-event" data-type="fail" data-item="<%= Map.put(y,:ets_id, id) |> Jason.encode!() %>">Отклонить</button>
-      </div>
-   </div>
-
-            <% else %>
-            <%= if user_id !=workerr.id do %>
-
-               <div class="flex w-full mt-2 space-x-3 max-w-xs">
-                  <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
-                  <div>
-                     <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
-                        <p class="text-sm" id="text">
-                           <%= y["body"] %>
-                        </p>
-                     </div>
-                     <span class="text-xs text-gray-500 leading-none">
-                        <%= y["worker"]["first_name"] %>
-                     </span>
-                  </div>
-               </div>
-               <% else %>
-               <%= if y[:type] != "event"  do %>
-                  <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-                     <div>
-                        <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
-                           <p class="text-sm">
-                              <%= y["body"] %>
-                           </p>
+   <div class="w-1/5 bg-white shadow-xl overflow-hidden fixed right-0 top-0 h-full">
+      <div class="p-4 overflow-auto h-full min-h-full relative">
+         <div class="chatsss" id="chatWrapper">
+            <%= for {id,_,_,user_id, y} <- @message do %>
+               <%= if y[:type]=="event" and y[:item_order]["worker_id"]==workerr.id do %>
+                  <% order_type=KursonliKursWeb.GeneralHelper.normalize_order_type( y[:item_order]["type"]) %>
+                     <div class="w-full mt-2 bg-blub p-4 text-white rounded  event" data-etsid="<%= id %>"
+                        data-type='<%= y["type_event"] %>'>
+                        <div class="text-gray-200">На Ваш ордер на <%= order_type %>: <%= y.item_order["volume"] %>
+                                 <%= y[:item_order]["currency_short_name"] %>
+                                    <%= y["currency_short_name"] %> по курсу <%= y.item_order["course_sale"] %>
                         </div>
-                        <span class="text-xs text-gray-500 leading-none">
-                           <%= y["worker"]["first_name"] %>
-                        </span>
+                        <div class="font-bold">Поступило предложение от <%= y.item_order["worker"]["first_name"] %>: <%=
+                                 y.item_order["organization"] %>
+                        </div>
+                        <div class="text-gray-200">предложено <%= y.volume %>
+                              <%= y[:item_order]["currency_short_name"] %> по курсу <%= y.item_order["course_sale"] %>
+                        </div>
+                        <div class="w-full bg-white text-black text-center py-2 my-2 rounded">
+                           Ваши условия: <%#= courses.yslovie %>
+                              <%= y.terms %>
+                        </div>
+                        <div class="d_flex gap-2 buttons-event">
+                           <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event"
+                              data-type="success"
+                              data-item="<%= Map.put(y,:ets_id, id) |> Jason.encode!() %>">Принять</button>
+                           <button class="bg-red-600 rounded w-full py-2 items-center justify-center flex click-event"
+                              data-type="fail"
+                              data-item="<%= Map.put(y,:ets_id, id) |> Jason.encode!() %>">Отклонить</button>
+                        </div>
                      </div>
-                     <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
-                  </div>
-                    <% end %>
-                  <% end %>
 
-                      <% end %>   
-                      <% end %>
-                     
-      </div>
-      <div class="bg-gray-300 p-4 items-end flex-0-0 ">
-         <div class="grid grid-cols-4 gap-4 mb-2" id="userConnect">
+                     <% else %>
+                        <%= if user_id !=workerr.id do %>
 
+                           <div class="flex w-full mt-2 space-x-3 max-w-xs">
+                              <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
+                              <div>
+                                 <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
+                                    <p class="text-sm" id="text">
+                                       <%= y["body"] %>
+                                    </p>
+                                 </div>
+                                 <span class="text-xs text-gray-500 leading-none">
+                                    <%= y["worker"]["first_name"] %>
+                                 </span>
+                              </div>
+                           </div>
+                           <% else %>
+                              <%= if y[:type] !="event" do %>
+                                 <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+                                    <div>
+                                       <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
+                                          <p class="text-sm">
+                                             <%= y["body"] %>
+                                          </p>
+                                       </div>
+                                       <span class="text-xs text-gray-500 leading-none">
+                                          <%= y["worker"]["first_name"] %>
+                                       </span>
+                                    </div>
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
+                                 </div>
+                                 <% end %>
+                                    <% end %>
 
-
+                                       <% end %>
+                                          <% end %>
          </div>
-         <input id="chat" class="flex items-center h-10 w-full rounded px-3 text-sm" type="text"
+      </div>
+      <div class="absolute w-full bottom-0 bg-gray-300 p-4 items-end flex-0-0 ">
+         <div class="grid grid-cols-4 gap-4 mb-2" id="userConnect">
+         </div>
+         <input id="chat" class="d_flex items-center h-10 w-full rounded px-3 text-sm" type="text"
             placeholder="Введите сообщение...">
       </div>
    </div>
-</div>
-
-<script>
-   const worker = document.querySelector("#worker")
-   localStorage.setItem("worker", worker.innerHTML)
-</script>
+   </div>
+   <style>
+      .chatsss {
+         max-height: 100%;
+         display: block;
+         height: auto;
+         position: absolute;
+         bottom: 120px;
+         right: 0;
+         padding-right: 8px;
+         overflow: auto;
+      }
+   </style>
+   <script>
+      const worker = document.querySelector("#worker")
+      localStorage.setItem("worker", worker.innerHTML)
+   </script>

@@ -53,19 +53,31 @@
           <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 sorted_tr">
             <select class="select_table" data-select="2">
               <%= for item <- @currency_list do %>
-                <option class="text-black" value="<%= item.short_name %>">
-                  <%= item.short_name %>
-                </option>
+                <%= if item.short_name == "EUR" do %>
+                  <option class="text-black" selected="selected" value="<%= item.short_name %>">
+                    <%= item.short_name %>
+                  </option>
+                <% else %>
+                  <option class="text-black" value="<%= item.short_name %>">
+                    <%= item.short_name %>
+                  </option>
                 <% end %>
+              <% end %>
             </select>
           </th>
           <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 sorted_tr">
             <select class="select_table" data-select="3">
               <%= for item <- @currency_list do %>
-                <option class="text-black" value="<%= item.short_name %>">
-                  <%= item.short_name %>
-                </option>
+                <%= if item.short_name == "TUG" do %>
+                  <option class="text-black" selected="selected" value="<%= item.short_name %>">
+                    <%= item.short_name %>
+                  </option>
+                <% else %>
+                  <option class="text-black" value="<%= item.short_name %>">
+                    <%= item.short_name %>
+                  </option>
                 <% end %>
+              <% end %>
             </select>
           </th>
           <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
@@ -88,16 +100,19 @@
               </div>
               <div class="mt-2">
                 <%= if String.to_atom(gold) do %>
-                  <span class="bg-greatYellow text-sm text-white px-6 py-2">Золото</span>
+                  <span class="bg-greatYellow text-sm text-white px-6 py-1">Золото</span>
                 <% end %>
                 <%= if String.to_atom(wholesale_rate) do %>
-                  <span class="bg-greatGreen text-sm text-black px-6 py-2">Оптовый курс</span>
+                  <span class="bg-greatGreen text-sm text-white px-6 py-1">Оптовый курс</span>
                 <% end %>
               </div>
             </td>
             <td class="px-6 py-4 border-2 border-tableGray text-center">
-              <span class="text-xl font-bold"><%= KursonliKursWeb.GeneralHelper.date_to_string_time(item.filial.course |> hd() |> Map.get(:date)) %></span>
-              <span class="block">Несколько часов назад</span>
+              <div class="time-container">
+                  <span class="text-xl font-bold flex flex-col time">
+                    <%= KursonliKursWeb.GeneralHelper.date_to_string_all(item.filial.course |> hd() |> Map.get(:date)) %>
+                  </span>
+                </div>
             </td>
             <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="1">
               <div class="d_flex justify-between items-center">
@@ -113,7 +128,12 @@
             <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="2">
               <div class="d_flex justify-between items-center">
                 <span class="sale font-bold text-xl">
-                  <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
+                  <%#= if item.filial.course |> hd |> Map.get(:short_name) == "USD" do %>
+                    <%#= item.filial.course |> hd |> Map.get(:value_for_sale) %>
+                    <!-- текст -->
+                  <%# else %>
+                    <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
+                  <%# end %>
                 </span>
                 <span class="font-bold text-xl">—</span>
                 <span class="pushare font-bold text-xl">
@@ -220,4 +240,41 @@
       }
     }
   }
+
+  function timeSince(time) {
+    const minute = 60;
+    const hour = minute * 60;
+    const day = hour * 24;
+
+    const currentDate = new Date();
+    const elapsedSeconds = (currentDate - time) / 1000;
+
+    if (elapsedSeconds < minute) {
+      return `Несколько секунд назад`;
+    } else if (elapsedSeconds < hour) {
+      return `${Math.floor(elapsedSeconds / minute)} минут назад`;
+    } else if ((Math.floor(elapsedSeconds / day) === 0)) {
+      if (Math.floor(elapsedSeconds / hour) < 5) {
+        return `${Math.floor(elapsedSeconds / hour)} часа назад`;
+      } else {
+        return `${Math.floor(elapsedSeconds / hour)} часов назад`;
+      }
+    } else {
+      return `Больше суток назад`;
+    }
+  }
+
+  const timeContainers = document.querySelectorAll('.time-container');
+  timeContainers.forEach(container => {
+    const timeElements = container.querySelectorAll('.time');
+    timeElements.forEach(timeElement => {
+      const timeString = timeElement.textContent.split(" ")[1];
+      const currentYear = new Date().getFullYear();
+      const currentMonth = new Date().getMonth() + 1;
+      const currentDay = new Date().getDate();
+      const time = new Date(`${currentYear}-${currentMonth}-${currentDay} ${timeString}`);
+
+      timeElement.innerHTML = `${timeString}<span class="text-xs font-medium italic">${timeSince(time)}</span>`;
+    });
+  });
 </script>

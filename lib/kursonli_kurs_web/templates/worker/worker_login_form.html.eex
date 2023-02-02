@@ -7,7 +7,7 @@
       <%= form_for @conn, Routes.worker_path(@conn, :login_form_submit), fn f -> %>
       <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
           <h1 class="title_worker">
-            Войти в аккаунт работника
+            Войти в аккаунт сотрудника обменного пункта
           </h1>
           <div>
             <label class="label_worker_login">Имя</label>

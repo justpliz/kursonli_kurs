@@ -101,7 +101,7 @@ $(function () {
   };
   const templateTagsInsert = (name, worker_id) => {
     const html = `<div id="worker_id"
-    class="text-xs items-center  text-center font-bold leading-sm uppercase p-1 bg-blue-200 text-blue-700 rounded-full justify-center">
+    class="text-xs items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border border-gray-400 text-black justify-center">
 
     ${name}
  </div>`;
@@ -123,10 +123,11 @@ $(function () {
 
   channel.on("new:msg", (payload) => {
     const worker = getWorker();
+
     setTimeout(() => {
       chatWrapper.scrollTop = chatWrapper.scrollHeight;
     }, 10);
-
+    console.log(payload)
     if (worker.id == payload.user.id) {
       templateChatYour(payload.body, payload.user.first_name);
     } else {
@@ -154,29 +155,25 @@ $(function () {
 });
 const templateEvent = (map) => {
   const html = `
-  <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="${
-    map.ets_id
-  }" data-type='${map.type_event}'>
-  <div class="text-gray-200">Ваш ордер на: ${map.item_order.volume}  ${
-    map.item_order.currency_short_name
-  }    по курсу ${map.item_order.course_sale}  </div>
-  <div class="font-bold">Поступило предложение от  ${
-    map.item_order.worker_name
-  }:  ${map.item_order.organization}</div>
-  <div class="text-gray-200">предложено  ${map.volume} ${
-    map.item_order.currency_short_name
-  } по курсу ${map.item_order.course_sale} 
-  </div> 
+  <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="${map.ets_id
+    }" data-type='${map.type_event}'>
+  <div class="text-gray-200">Ваш ордер на: ${map.item_order.volume}  ${map.item_order.currency_short_name
+    }    по курсу ${map.item_order.course_sale}  </div>
+  <div class="font-bold">Поступило предложение от ${map.item_order.worker_name
+    }: ${map.item_order.organization}</div>
+  <div class="text-gray-200">предложено ${map.volume} ${map.item_order.currency_short_name
+    } по курсу ${map.item_order.course_sale}
+  </div>
   <div class="w-full bg-white text-black text-center py-2 my-2 rounded" >
-     Ваши условия:   ${map.terms} 
+     Ваши условия: ${map.terms}
   </div>
   <div class="flex gap-2 buttons-event">
      <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event" data-type="success"  data-item='${JSON.stringify(
-       map
-     )}'>Принять</button>
+      map
+    )}'>Принять</button>
      <button class="bg-red-600 rounded w-full py-2 items-center justify-center flex click-event" data-type="fail" data-item='${JSON.stringify(
-       map
-     )}'>Отклонить</button>
+      map
+    )}'>Отклонить</button>
   </div>
 </div>
   `;
