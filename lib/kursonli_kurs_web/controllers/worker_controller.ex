@@ -56,6 +56,8 @@ defmodule KursonliKursWeb.WorkerController do
           last_name: last_name,
           phone: worker.phone,
           email: worker.email,
+          filial_name: filial.name,
+          fililal_address: filial.fililal_address,
           city: %{
             id: city.id,
             name: city.name

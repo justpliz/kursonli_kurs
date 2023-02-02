@@ -57,23 +57,22 @@ defmodule KursonliKurs.Context.Orders do
       on: filial.organization_id == org.id,
       join: c in Currency,
       on: order.currency_id == c.id,
-      join: set in Setting,
-      on: filial.id == set.filial_id,
       select: %{
         id: order.id,
         organization: org.name,
         filial_name: filial.name,
         filial: filial,
         filial_id: order.filial_id,
-        address: set.address,
+        fililal_address: filial.fililal_address,
         date: order.date,
         volume: order.volume,
+        limit: order.limit,
         terms: order.terms,
         transfer: order.transfer,
         worker_id: order.worker_id,
         currency_short_name: c.short_name,
         worker_name: order.worker_name,
-        course_sale: order.course
+        course_sale: order.course,
       }
     )
     |> Repo.all()

@@ -19,6 +19,7 @@
       <div id="myTabContent">
          <!-- первый таб -->
          <div class="" id="dynamic" role="tabpanel" aria-labelledby="dynamic-tab">
+            <h1 class="title">Активные организации</h1>
             <!-- сортровку через селект) -->
             <div class="relative overflow-x-auto rounded-xl">
                <table class="w-full text-sm text-lefttext-gray-800 table_search">
@@ -28,7 +29,7 @@
                            Название организации
                         </th>
                         <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-                           Короткое название города
+                           ИИН/БИН
                         </th>
                         <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
                            Создана
@@ -73,7 +74,7 @@
 
          <!-- второй таб -->
          <div class="hidden" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-            <h1 class="title">Архивные записи</h1>
+            <h1 class="title">Архивные организации</h1>
             <div class="relative overflow-x-auto rounded-xl">
                <table class="w-full text-sm text-lefttext-gray-800 table_search">
                   <thead class="text-xs uppercase bg-gray-100">
@@ -82,10 +83,13 @@
                            Название организации
                         </th>
                         <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-                           Короткое название города
+                           ИИН/БИН
                         </th>
                         <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3 border-r-0">
                            Создана
+                        </th>
+                        <th scope="col" class="px-6 border-2 border-t-0 border-r-0 border-gray-300 py-3">
+                           Управление
                         </th>
                      </tr>
                   </thead>
@@ -102,6 +106,16 @@
                               </td>
                               <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
                                  <%= KursonliKursWeb.GeneralHelper.date_to_string_data(item.inserted_at) %>
+                              </td>
+                              <td class="px-9 border-2 border-b-0 border-gray-300 border-r-0">
+                                 <button class="accept_delete styles_none"
+                                    data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                                    <span class="material-symbols-outlined"
+                                       style="color: red; font-weight: 900;">delete</span>
+                                 </button>
+                                 <!-- <a href="/admin/archive_organization?id=<%#= item.id %>" class="">
+                                    <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                                 </a> -->
                               </td>
                            </tr>
                            <% end %>

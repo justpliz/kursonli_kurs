@@ -71,7 +71,7 @@ defmodule KursonliKursWeb.Router do
     get "/logout", AdminController, :admin_logout
 
     post "/register_org_submit", AdminController, :register_org_submit
-    get "/archive_organization", AdminController, :archive_organization
+    get "/update_org_status", AdminController, :update_org_status
 
     scope "/currencies" do
       post "/", AdminController, :create_currency_submit

@@ -94,7 +94,7 @@
               <a href="personal?filial=<%= item.filial.id %>" class="font-bold text-sm">
                 <%= item.filial.name %>
               </a>
-              <span class="block"><%= item.setting.address %></span>
+              <span class="block"><%= item.filial.fililal_address %></span>
               <div class="hidden">
                 <%= [gold, wholesale_rate]=item.setting.tags %>
               </div>

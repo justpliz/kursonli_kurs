@@ -39,7 +39,7 @@
                </div>
 
                <label class="label_input">Адрес для карты</label>
-               <%= text_input f, :address, placeholder: "", value: @setting.address, class: "input_full", required: "true" %>
+               <%= text_input f, :address_2gis, placeholder: "", value: @setting.address_2gis, class: "input_full", required: "true" %>
 
                <label class="label_input">Лицензия ОП</label>
                <%= text_input f, :license, placeholder: "", value: @setting.license, class: "input_full" %>

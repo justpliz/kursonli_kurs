@@ -34,7 +34,7 @@
 
                   <div class="mb-2">
                     <label class="label_input pos">Адрес организации</label>
-                    <%= text_input f, :address, class: "input_full", required: "true", placeholder: "Жамбыла 4" %>
+                    <%= text_input f, :fililal_address, class: "input_full", required: "true", placeholder: "Жамбыла 4" %>
                   </div>
 
                   <div class="mb-2">

@@ -5,8 +5,8 @@ defmodule KursonliKurs.Repo.Migrations.CreateSettingsTable do
     create table(:settings) do
       add :tags, {:array, :string}
       add :coordinates, {:array, :string}
-      add :address, :string
-      add :popup, :string
+      add :address_2gis, :string
+      add :firm_id, :integer
       add :logo, :string
       add :photo, :string
       add :license, :string
@@ -21,6 +21,6 @@ defmodule KursonliKurs.Repo.Migrations.CreateSettingsTable do
       add :filial_id, references(:filials, type: :uuid, on_delete: :nothing)
     end
 
-    create index(:settings, [:address, :phones])
+    create index(:settings, [:address_2gis, :phones, :coordinates])
   end
 end

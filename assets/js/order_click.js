@@ -14,7 +14,8 @@ $(".order-click").click(function () {
 
   console.log(item);
   $("#org_title .name").text(item.worker_name);
-  $("#org_title .title").text(item.address);
+  $("#org_title .title").text(item.filial_address);
+  $("#org_title .phone").text(item.phone);
   document.querySelector("#accept").dataset.item = this.dataset.item;
 });
 

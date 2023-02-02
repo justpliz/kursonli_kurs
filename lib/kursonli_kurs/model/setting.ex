@@ -7,14 +7,14 @@ defmodule KursonliKurs.Model.Setting do
   @type t :: %__MODULE__{}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(address coordinates photo logo description filial_id)a
-  @optional_fields ~w(tags schedule phones license qualities colors email subdomen)a
+  @required_fields ~w(address_2gis coordinates photo logo description filial_id)a
+  @optional_fields ~w(tags schedule phones license qualities colors email subdomen firm_id)a
 
   schema "settings" do
     field :tags, {:array, :string}, default: ["false", "false"]
     field :coordinates, {:array, :string}, default: ["76.944551", "43.239521"]
-    field :address, :string
-    field :popup, :string, default: "Здесь будет описаие работы вашего филиала"
+    field :address_2gis, :string, default: ""
+    field :firm_id, :integer
     field :logo, :string, default: "images/logo/default_logo.jpg"
     field :photo, :string, default: "images/photo/default_photo.jpg"
     field :license, :string, default: ""
