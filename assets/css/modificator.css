@@ -193,4 +193,12 @@
    .order-click.selected {
       @apply bg-lightBlub text-white;
    }
+
+   .red_circle{
+      @apply transition-all rounded-full w-6 h-6 bg-red-400 border-none;
+   }
+
+   .green_circle{
+      @apply transition-all rounded-full w-6 h-6 bg-green-400 border-none;
+   }
 }

@@ -45,8 +45,12 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   def date_to_string_data(date), do: "#{date.year}-#{date.month}-#{date.day}"
   def date_to_string_time(date), do: "#{date.hour}:#{date.minute}:#{date.second}"
-  def date_to_string_all(date), do: "#{date.year}-#{date.month}-#{date.day} #{date.hour}:#{date.minute}:#{date.second}"
-  def string_date_to_datetime(date), do: date |> Timex.parse!("{YYYY}-{0M}-{D}") |> Timex.to_datetime
+
+  def date_to_string_all(date),
+    do: "#{date.year}-#{date.month}-#{date.day} #{date.hour}:#{date.minute}:#{date.second}"
+
+  def string_date_to_datetime(date),
+    do: date |> Timex.parse!("{YYYY}-{0M}-{D}") |> Timex.to_datetime()
 
   def get_image_path(nil, type) do
     case type do
@@ -75,6 +79,14 @@ defmodule KursonliKursWeb.GeneralHelper do
       "Продажу"
     else
       "Покупку"
+    end
+  end
+
+  def normalize_status_trade(type) do
+    case type do
+      "active" -> "Активная"
+      "fail" -> "Отклонено"
+      "success" -> "Принята"
     end
   end
 end

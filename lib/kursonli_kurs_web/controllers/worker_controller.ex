@@ -153,6 +153,7 @@ defmodule KursonliKursWeb.WorkerController do
   def create_order_submit(conn, params) do
     # TODO Переделать event_info
     session = get_session(conn, :worker)
+    IO.inspect(params)
 
     opts = %{
       date: Timex.now("Asia/Almaty"),
@@ -160,7 +161,7 @@ defmodule KursonliKursWeb.WorkerController do
       type: params["type"],
       volume: params["volume"],
       terms: params["terms"],
-      transfer: :red,
+      transfer: params["transfer"],
       limit: params["limit"],
       filial_id: session.filial_id,
       worker_id: session.id,
@@ -169,7 +170,7 @@ defmodule KursonliKursWeb.WorkerController do
       currency_id: params["currency_id"]
     }
 
-    with {:ok, order} <- Orders.create(opts) do
+    with {:ok, order} <- Orders.create(opts) |> IO.inspect() do
       conn
       |> put_flash(:info, "Ордер #{order.number} зарегестрирован")
       |> redirect(to: "/worker/orders")

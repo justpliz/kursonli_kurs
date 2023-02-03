@@ -70,6 +70,7 @@ $("#accept").click(function () {
           <div class="pos gap-1"> 
             Итого:
             <span id="itemResult"></span>
+            тенге
           </div>
 
         <input class="input_full hidden number_input_only" name="order_id" value="${id}" required="true" type="text">
