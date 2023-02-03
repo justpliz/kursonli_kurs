@@ -194,7 +194,7 @@
         <div class="flex mt-10 gap-10" id="descripton">
             <img src="<%= @photo_path %>" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl">
             <div class="flex50">
-                <h3 class="uppercase font-bold text-lg relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city %>
+                <h3 class="uppercase font-bold text-lg relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city_name %>
                         <%= @filial.name %>
                 </h3>
                 <div class="pt-10">
@@ -203,22 +203,11 @@
             </div>
         </div>
     </div>
-
+    <div class="hidden"><%= [x_coord, y_coord] = @setting.coordinates %></div>
     <div class="map">
-        <a class="dg-widget-link"
-            href="http://2gis.kz/almaty/firm/<%= @setting.firm_id %>/center/76.94045305252077,43.2510013156758/zoom/16?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=bigMap">Посмотреть
-            на карте Алматы
-        </a>
-        
         <div class="dg-widget-link">
-            <a href="http://2gis.kz/almaty/firm/9429940000800892/photos/9429940000800892/center/76.94045305252077,43.2510013156758/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
+            <a href="http://2gis.kz/<%= @city_eng_name %>/firm/<%= @setting.firm_id %>/photos/<%= @setting.firm_id %>/center/<%= x_coord %>,<%= y_coord %>/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
                 компании
-            </a>
-        </div>
-
-        <div class="dg-widget-link">
-            <a href="http://2gis.kz/almaty/center/76.940445,43.250712/zoom/16/routeTab/rsType/bus/to/76.940445,43.250712╎Мер-Нур, обменный пункт?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=route">Найти
-                проезд до Мер-Нур, обменный пункт
             </a>
         </div>
 
@@ -228,47 +217,9 @@
                 "width": 640,
                 "height": 600,
                 "borderColor": "#a3a3a3",
-                "pos": { "lat": 43.2510013156758, "lon": 76.94045305252077, "zoom": 16 },
-                "opt": { "city": "almaty" },
-                "org": [{ "id": "9429940000800892" }]
-            });
-        </script>
-
-        <noscript style="color:#c00;font-size:16px;font-weight:bold;">Виджет карты использует JavaScript. Включите его в
-            настройках вашего браузера.
-        </noscript>
-    </div>
-
-
-
-<!-- ПРИМЕРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРРР -->
-    <div class="map">
-        <a class="dg-widget-link"
-            href="http://2gis.kz/almaty/firm/9429940000800892/center/76.94045305252077,43.2510013156758/zoom/16?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=bigMap">Посмотреть
-            на карте Алматы
-        </a>
-
-        <div class="dg-widget-link">
-            <a href="http://2gis.kz/almaty/firm/9429940000800892/photos/9429940000800892/center/76.94045305252077,43.2510013156758/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
-                компании
-            </a>
-        </div>
-
-        <div class="dg-widget-link">
-            <a href="http://2gis.kz/almaty/center/76.940445,43.250712/zoom/16/routeTab/rsType/bus/to/76.940445,43.250712╎Мер-Нур, обменный пункт?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=route">Найти
-                проезд до Мер-Нур, обменный пункт
-            </a>
-        </div>
-
-        <script charset="utf-8" src="https://widgets.2gis.com/js/DGWidgetLoader.js"></script>
-
-        <script charset="utf-8">new DGWidgetLoader({
-                "width": 640,
-                "height": 600,
-                "borderColor": "#a3a3a3",
-                "pos": { "lat": 43.2510013156758, "lon": 76.94045305252077, "zoom": 16 },
-                "opt": { "city": "almaty" },
-                "org": [{ "id": "9429940000800892" }]
+                "pos": { "lon": "<%= x_coord %>", "lat": "<%= y_coord %>", "zoom": 16 },
+                "opt": { "city": "<%= @city_eng_name %>" },
+                "org": [{ "id": "<%= @setting.firm_id %>" }]
             });
         </script>
 

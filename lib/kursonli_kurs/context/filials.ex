@@ -58,7 +58,11 @@ defmodule KursonliKurs.Context.Filials do
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          {:ok, _worker} <- Workers.create(worker_opts),
          {:ok, _setting} <-
-           Settings.create(%{filial_id: filial.id, fililal_address: fililal_address, coordinates: ["0", "0"]}) do
+           Settings.create(%{
+             filial_id: filial.id,
+             fililal_address: fililal_address,
+             coordinates: ["0", "0"]
+           }) do
       {:ok, filial}
     end
   end
@@ -116,20 +120,22 @@ defmodule KursonliKurs.Context.Filials do
       where: filial.id == ^filial_id,
       join: city in City,
       on: filial.city_id == city.id,
-      select: city.name
+      select: %{name: city.name, eng_name: city.eng_name}
     )
-    |> Repo.all()
+    |> Repo.one()
   end
 
   def get_last_date_for_course(filial_id) do
-    Repo.one from(
-      filial in Filial,
-      where: filial.id == ^filial_id,
-      join: course in Course,
-      on: course.filial_id == filial.id,
-      order_by: [desc: course.date],
-      limit: 1,
-      select: course.date
+    Repo.one(
+      from(
+        filial in Filial,
+        where: filial.id == ^filial_id,
+        join: course in Course,
+        on: course.filial_id == filial.id,
+        order_by: [desc: course.date],
+        limit: 1,
+        select: course.date
+      )
     )
   end
 
