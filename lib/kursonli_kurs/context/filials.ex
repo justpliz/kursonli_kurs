@@ -81,6 +81,7 @@ defmodule KursonliKurs.Context.Filials do
       select: %{
         id: filial.id,
         filial_name: filial.name,
+        filial_active_status: filial.filial_active_status,
         paid_up_to: filial.paid_up_to,
         org_name: org.name,
         city_name: city.name,

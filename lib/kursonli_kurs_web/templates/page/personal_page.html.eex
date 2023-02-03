@@ -110,6 +110,7 @@
 
                 <div class="bg-gray-200 rounded-xl p-6">
                     <h2 class="font-bold text-center">Национальный банк</h2>
+                    <div id="kyrs"></div><script type="text/javascript"> ;(function($){ $( "#kyrs" ).load("https://kurs-tenge.kz/informers/kursinfo.php?kursinfo=5"); })(jQuery); </script> 
                 </div>
             </div>
         </div>

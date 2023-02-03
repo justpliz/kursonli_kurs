@@ -13,14 +13,13 @@
                <button class="inline-block btn_border" id="settings-tab" data-tabs-target="#settings" type="button"
                   role="tab" aria-controls="settings" aria-selected="false">Архив</button>
             </li>
-            <button class="btn_save absolute right-0 organization_create">Добавить</button>
+            <button class="btn_save absolute right-0 organization_create">Добавить организацию</button>
          </ul>
       </div>
       <div id="myTabContent">
          <!-- первый таб -->
          <div class="" id="dynamic" role="tabpanel" aria-labelledby="dynamic-tab">
             <h1 class="title">Активные организации</h1>
-            <!-- сортровку через селект) -->
             <div class="relative overflow-x-auto rounded-xl">
                <table class="w-full text-sm text-lefttext-gray-800 table_search">
                   <thead class="text-xs uppercase bg-gray-100">
@@ -108,7 +107,7 @@
                                  <button class="accept_update styles_none"
                                     data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
                                     <span class="material-symbols-outlined"
-                                       style="color: red; font-weight: 900;">update</span>
+                                       style="color: #3689ce; font-weight: 900;">update</span>
                                  </button>
                               </td>
                            </tr>
