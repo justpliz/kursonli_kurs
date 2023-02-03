@@ -1,6 +1,18 @@
+<style>
+  .colors {
+    background:
+      linear-gradient(-135deg, #f87171 50%, transparent 50%),
+      linear-gradient(45deg, #4ade80 51%, transparent 51%);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    border: none;
+  }
+</style>
 <div class="margin_content content-worker-order">
   <h1 class="title">Ордера на продажу</h1>
-  <h2 class="title flex justify-between" id="org_title"><span class="name"></span> <span class="title text-blub"></span>  </h2>
+  <h2 class="title flex justify-between" id="org_title"><span class="name"></span> <span class="title text-blub"></span>
+  </h2>
   <div class="relative overflow-x-auto shadow-md rounded-xl">
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
@@ -58,6 +70,18 @@
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.transfer %>
+              <%= if item.transfer=="green" do %>
+                <input name="order_tranfer" id="<%= item.transfer %>" value="<%= item.transfer %>" type="radio"
+                  class="transition-all rounded-full w-6 h-6 bg-red-400 border-none">
+                <% end %>
+                  <%= if item.transfer=="red" do %>
+                    <input name="order_tranfer" id="<%= item.transfer %>" value="<%= item.transfer %>" type="radio"
+                      class="transition-all rounded-full w-6 h-6 bg-green-400 border-none">
+                    <% end %>
+                      <%= if item.transfer=="red_green" do %>
+                        <input name="order_tranfer" id="<%= item.transfer %>" value="<%= item.transfer %>" type="radio"
+                          class="transition-all colors">
+                        <% end %>
             </td>
           </tr>
           <% end %>
@@ -160,7 +184,7 @@
           <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Передача
           </th>
-           <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Статус сделки
           </th>
         </tr>
@@ -189,11 +213,9 @@
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               <%= item.item_order["transfer"] %>
             </td>
-
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-                <%= item.status %>
+              <%= item.status %>
             </td>
-
           </tr>
           <% end %>
       </tbody>
@@ -201,7 +223,7 @@
   </div>
 </div>
 
-<%= render(KursonliKursWeb.WorkerView, "chat_page.html", conn: @conn, message: @message) %>
+<%= render(KursonliKursWeb.WorkerView, "chat_page.html" , conn: @conn, message: @message) %>
 
   <script>
     $("#createOrder").click(function () {
@@ -209,12 +231,14 @@
         showConfirmButton: false,
         showCloseButton: true,
         willOpen: () => {
-          var input = [...document.querySelectorAll('.number_input_only')];
-          input.forEach((el) => {
-            el.addEventListener("input", (e) => {
-              e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '');
-            })
-          });
+          let inputs = document.getElementsByClassName("bit_input");
+          for (let i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener("input", function () {
+              let numString = this.value.replace(/\D/g, "");
+              let parts = numString.split(/(?=(?:\d{3})+$)/);
+              this.value = parts.join(" ");
+            });
+          }
         },
         html: `
   <div class="flex items-center justify-between">
@@ -233,25 +257,30 @@
       <% end %>
 
       <label class="label_input pos">Объем</label>
-      <%= text_input f, :volume, class: "input_full number_input_only", required: "true" %>
+      <%= text_input f, :volume, class: "input_full bit_input", required: "true" %>
 
       <label class="label_input pos">Курс</label>
       <%= text_input f, :course, class: "input_full number_input_only", required: "true" %>
 
       <label class="label_input pos">Лимит</label>
-      <%= text_input f, :limit, class: "input_full number_input_only", required: "true" %>
+      <%= text_input f, :limit, class: "input_full bit_input", required: "true" %>
 
       <label class="label_input pos">Валюта</label>
       <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), class: "input_full", required: "true" %>
 
       <label class="label_input pos">Передача</label>
-      <div class="container_select">
+      <div class="container_select gap-4">
         <%= for item <- Application.get_env(:kursonli_kurs, :order_transfer) do %>
-          <input name="order_tranfer" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>"
-            type="checkbox" class="type_select rounded">
-          <label class="label_select mr-2" for="<%= Atom.to_string(item) %>">
-            <%= Atom.to_string(item) %>
-          </label>
+          <%= if Atom.to_string(item)=="green" do %>
+            <input name="order_tranfer" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" type="radio" class="transition-all rounded-full w-6 h-6 bg-red-400 border-none">
+          <% end %>
+          <%= if Atom.to_string(item)=="red" do %>
+            <input name="order_tranfer" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" type="radio" class="transition-all rounded-full w-6 h-6 bg-green-400 border-none">
+          <% end %>
+          <%= if Atom.to_string(item)=="red_green" do %>
+            <input name="order_tranfer" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>"
+              type="radio" class="transition-all colors">
+          <% end %>
         <% end %>
       </div>
 

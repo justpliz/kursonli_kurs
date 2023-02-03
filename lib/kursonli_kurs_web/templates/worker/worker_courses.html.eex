@@ -50,7 +50,8 @@
             </td>
             <%= hidden_input f, :course_id, value: item.course_id, class: "input_full" %>
               <td class="px-6 py-4 border-x-2 border-t-2">
-                <%= text_input f, :value_for_purchase, class: "input_full number_input_only", value: item.value_for_purchase %>
+                <%= text_input f, :value_for_purchase, class: "input_full number_input_only" , value:
+                  item.value_for_purchase %>
               </td>
               <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
                 <%= text_input f, :value_for_sale, class: "input_full number_input_only" , value: item.value_for_sale %>
@@ -63,7 +64,7 @@
               </td>
           </tr>
           <% end %>
-        <% end %>
+            <% end %>
       </tbody>
     </table>
   </div>
