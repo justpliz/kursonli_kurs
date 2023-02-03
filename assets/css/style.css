@@ -78,7 +78,7 @@ body {
 }
 
 .width_30 {
-  width: 32%;
+  width: 45%;
 }
 
 .active-link.active {
@@ -174,7 +174,10 @@ body.swal2-shown {
 }
 
 .map {
-  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  width: 95%;
   height: 600px;
 }
 

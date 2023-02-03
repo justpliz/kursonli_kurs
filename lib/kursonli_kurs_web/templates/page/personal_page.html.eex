@@ -22,33 +22,34 @@
         color: var(--currency) !important;
     }
 </style>
-
-<div class="w-full bg-white shadow-xl">
-    <div class="w-1440 flex justify-between items-center mx-auto h-20 text-black">
-        <ul class="d_flex gap-10 text-lg">
-            <a href="#adress" class="link_to">
-                <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
+<div class="font">
+    <div class="w-full bg-white shadow-xl">
+        <div class="w-1440 flex justify-between items-center mx-auto h-20 text-black">
+            <ul class="d_flex gap-10 text-lg">
+                <a href="#adress" class="link_to">
+                    <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
+                </a>
+                <a href="#descripton" class="link_to">
+                    <li class="hover:underline cursor-pointer hover:text-gray-500">О компании</li>
+                </a>
+            </ul>
+            <a href="/" class="">
+                <img src="<%= @logo_path %>" alt="" class="w-40 h-14">
+                <!-- <img src="/images/logo-line.svg" alt=""> -->
             </a>
-            <a href="#descripton" class="link_to">
-                <li class="hover:underline cursor-pointer hover:text-gray-500">О компании</li>
+            <a class="d_flex gap-2 hover:text-gray-500" href='tel:<%= @setting.phones["phone_for_header"] %>'>
+                <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">schedule</span>
+                <%= @setting.phones["phone_for_header"] %>
             </a>
-        </ul>
-        <a href="/" class="">
-            <img src="<%= @logo_path %>" alt="" class="w-40 h-14">
-            <!-- <img src="/images/logo-line.svg" alt=""> -->
-        </a>
-        <a class="d_flex gap-2 hover:text-gray-500" href='tel:<%= @setting.phones["phone_for_header"] %>'>
-            <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">schedule</span>
-            <%= @setting.phones["phone_for_header"] %>
-        </a>
+        </div>
     </div>
-</div>
 
 
-<div class="block">
-    <div class="block__header">
-        <div class="block__text">
-            <h1 class="block__title"></h1>
+    <div class="block">
+        <div class="block__header">
+            <div class="block__text">
+                <h1 class="block__title"></h1>
+            </div>
         </div>
     </div>
 
@@ -110,7 +111,9 @@
 
                 <div class="bg-gray-200 rounded-xl p-6">
                     <h2 class="font-bold text-center">Национальный банк</h2>
-                    <div id="kyrs"></div><script type="text/javascript"> ;(function($){ $( "#kyrs" ).load("https://kurs-tenge.kz/informers/kursinfo.php?kursinfo=5"); })(jQuery); </script> 
+                    <div id="kyrs"></div>
+                    <script
+                        type="text/javascript"> ; (function ($) { $("#kyrs").load("https://kurs-tenge.kz/informers/kursinfo.php?kursinfo=5"); })(jQuery); </script>
                 </div>
             </div>
         </div>
@@ -137,6 +140,28 @@
         </div>
 
         <div class="flex mt-10 gap-6" id="adress">
+            <div class="hidden">
+                <%= [x_coord, y_coord]=@setting.coordinates %>
+            </div>
+            <div class="map">
+                <div class="dg-widget-link">
+                    <a
+                        href="http://2gis.kz/<%= @city_eng_name %>/firm/<%= @setting.firm_id %>/photos/<%= @setting.firm_id %>/center/<%= x_coord %>,<%= y_coord %>/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
+                        компании
+                    </a>
+                </div>
+                <script charset="utf-8" src="https://widgets.2gis.com/js/DGWidgetLoader.js"></script>
+                <script charset="utf-8">
+                    new DGWidgetLoader({
+                        "width": 1200,
+                        "height": 600,
+                        "borderColor": "#fff",
+                        "pos": { "lon": "<%= x_coord %>", "lat": "<%= y_coord %>", "zoom": 16 },
+                        "opt": { "city": "<%= @city_eng_name %>" },
+                        "org": [{ "id": "<%= @setting.firm_id %>" }]
+                    });
+                </script>
+            </div>
 
             <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30">
                 <h2 class="uppercase font-bold text-lg relative title_before">Адрес обменника</h2>
@@ -204,27 +229,4 @@
             </div>
         </div>
     </div>
-    <div class="hidden"><%= [x_coord, y_coord] = @setting.coordinates %></div>
-    <div class="map">
-        <div class="dg-widget-link">
-            <a href="http://2gis.kz/<%= @city_eng_name %>/firm/<%= @setting.firm_id %>/photos/<%= @setting.firm_id %>/center/<%= x_coord %>,<%= y_coord %>/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
-                компании
-            </a>
-        </div>
-
-        <script charset="utf-8" src="https://widgets.2gis.com/js/DGWidgetLoader.js"></script>
-
-        <script charset="utf-8">new DGWidgetLoader({
-                "width": 640,
-                "height": 600,
-                "borderColor": "#a3a3a3",
-                "pos": { "lon": "<%= x_coord %>", "lat": "<%= y_coord %>", "zoom": 16 },
-                "opt": { "city": "<%= @city_eng_name %>" },
-                "org": [{ "id": "<%= @setting.firm_id %>" }]
-            });
-        </script>
-
-        <noscript style="color:#c00;font-size:16px;font-weight:bold;">Виджет карты использует JavaScript. Включите его в
-            настройках вашего браузера.
-        </noscript>
-    </div>
+</div>
