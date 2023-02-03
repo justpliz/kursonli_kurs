@@ -77,12 +77,14 @@ defmodule KursonliKurs.Context.Filials do
       select: %{
         id: filial.id,
         filial_name: filial.name,
+        paid_up_to: filial.paid_up_to,
         org_name: org.name,
-        payment_status: filial.payment_status,
+        city_name: city.name,
         tariff_name: tariff.name,
         tariff_price: tariff.price,
-        city_name: city.name,
-        coordinates: setting.coordinates
+        coordinates: setting.coordinates,
+        address_2gis: setting.address_2gis,
+        firm_id: setting.firm_id
       }
     )
     |> Repo.all()

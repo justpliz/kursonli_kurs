@@ -2,8 +2,6 @@ defmodule KursonliKursWeb.TradeController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias Phoenix.Endpoint
-
   alias KursonliKurs.Context.{
     Trades
   }

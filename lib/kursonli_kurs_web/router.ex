@@ -88,7 +88,7 @@ defmodule KursonliKursWeb.Router do
     scope "/filials" do
       get "/", AdminController, :filials
       post "/", AdminController, :create_filial_submit
-      get "/update", AdminController, :update_filial
+      post "/update", AdminController, :update_filial
     end
 
     scope "/tariffs" do

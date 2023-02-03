@@ -11,13 +11,10 @@
               Привязка к организации
             </th>
             <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-              Статус оплаты
-            </th>
-            <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
               Тариф
             </th>
             <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
-              Цена тарифа
+              Оплачено до:
             </th>
             <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3 border-r-0">
               Город
@@ -37,13 +34,10 @@
                 <%= item.org_name %>
               </td>
               <td class="px-6 border-2 border-b-0 border-gray-300">
-                <%= item.payment_status %>
-              </td>
-              <td class="px-6 border-2 border-b-0 border-gray-300">
                 <%= item.tariff_name %>
               </td>
               <td class="px-6 border-2 border-b-0 border-gray-300">
-                <%= item.tariff_price %>
+                <%= item.paid_up_to %>
               </td>
               <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
                 <%= item.city_name %>
@@ -59,5 +53,5 @@
     <button class="filial_create btn_save_with_icon mt-2"><span class="material-symbols-outlined" style="font-weight: 900;">add_circle</span> Добавить филиал</button>
 </div>
 
-<%= render(KursonliKursWeb.AdminView, "modal_admin_edit_filial.html", conn: @conn) %>
+<%= render(KursonliKursWeb.AdminView, "modal_admin_edit_filial.html", conn: @conn, tariff_list: @tariff_list, cities_list: @cities_list) %>
 <%= render(KursonliKursWeb.AdminView, "modal_admin_create_filial.html" , conn: @conn, org_list: @org_list, cities_list: @cities_list, currencies_list: @currencies_list) %>

@@ -14,7 +14,7 @@ defmodule KursonliKurs.Model.Setting do
     field :tags, {:array, :string}, default: ["false", "false"]
     field :coordinates, {:array, :string}, default: ["76.944551", "43.239521"]
     field :address_2gis, :string, default: ""
-    field :firm_id, :integer
+    field :firm_id, :string
     field :logo, :string, default: "images/logo/default_logo.jpg"
     field :photo, :string, default: "images/photo/default_photo.jpg"
     field :license, :string, default: ""
