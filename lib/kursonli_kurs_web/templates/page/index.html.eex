@@ -19,13 +19,13 @@
 <div class="max-w-1440 mx-auto">
   <div class="flex py-8 text-dblue">
     <%= for item <- @city_list do %>
-      <a class="font-medium pr-4" href="city?name=<%= item.name %>">
+      <a class="font-bold pr-4" href="city?name=<%= item.name %>">
         <%= item.name %> (<span class="font-bold text-red-500"><%= item.count %></span>)
       </a>
       <% end %>
   </div>
 
-  <div class="font-bold text-dblue text-lg">
+  <div class="font-bold text-black text-lg">
     Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl">
         <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
       </span>

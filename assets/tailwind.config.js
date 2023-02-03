@@ -19,6 +19,7 @@ module.exports = {
         lightBlub: '#5699d1',
         greatGreen: '#A7FFB5',
         greatYellow: '#FFC69D',
+        grey: '#f3f3f3',
       },
       minHeight: {
         '600': '600px',

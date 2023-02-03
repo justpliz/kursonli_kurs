@@ -76,6 +76,7 @@ defmodule KursonliKursWeb.AdminController do
   Создание связки "организаця-филиал-сотрудник-валюты"
   """
   def register_org_submit(conn, params) do
+    # создается, но выдается ошибка)
     password = generate_random_str(8)
 
     org_opts = %{
@@ -123,7 +124,7 @@ defmodule KursonliKursWeb.AdminController do
       {:error, _reason} ->
         conn
         |> put_flash(:error, "Проверьте вводимые данные")
-        |> redirect(to: "/admin/register_org")
+        |> redirect(to: "/admin")
     end
   end
 
