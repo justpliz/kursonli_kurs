@@ -128,16 +128,19 @@ defmodule KursonliKursWeb.AdminController do
   @doc """
   GET /admin/update_org_status
   """
-  def update_org_status(conn, %{"id" => id} = params) do
-    IO.inspect(params)
+  def update_org_status(conn, %{"id" => id, "org_active_status" => status}) do
+    status  = case status do
+      "active" -> "archive"
+      "archive" -> "active"
+    end
     with {:ok, organization} <- Organizations.do_get(id: id),
          filials <- Filials.all(organization_id: organization.id),
          {:ok, organization} <-
-           Organizations.update(organization, %{org_active_status: "archive"}),
+           Organizations.update(organization, %{org_active_status: status}),
          _filials <-
-           Enum.map(filials, fn x -> Filials.update(x, %{filial_active_status: "archive"}) end) do
+           Enum.map(filials, fn x -> Filials.update(x, %{filial_active_status: status}) end) do
       conn
-      |> put_flash(:info, "#{organization.name} перемещена в архив")
+      |> put_flash(:info, "статус #{organization.name} успешно обновлен")
       |> redirect(to: "/admin")
     end
   end
