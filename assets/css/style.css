@@ -241,3 +241,13 @@ th.sorted[data-order="-1"]::after {
 th.sorted[data-order="1"]::after {
   content: "▲"
 }
+
+.colors {
+  background:
+    linear-gradient(-90deg, #f87171 50%, transparent 50%),
+    linear-gradient(90deg, #4ade80 50%, transparent 50%);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: none;
+}

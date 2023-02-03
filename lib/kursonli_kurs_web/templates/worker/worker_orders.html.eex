@@ -1,14 +1,3 @@
-<style>
-  .colors {
-    background:
-      linear-gradient(-135deg, #f87171 50%, transparent 50%),
-      linear-gradient(45deg, #4ade80 51%, transparent 51%);
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    border: none;
-  }
-</style>
 <div class="margin_content content-worker-order">
   <h1 class="title">Ордера на продажу</h1>
   <h2 class="title flex justify-between" id="org_title"><span class="name"></span> <span class="title text-blub"></span>
@@ -45,8 +34,9 @@
       </thead>
       <tbody>
         <%= for item <- @order_list_sale do %>
+        <%= if item.currency_short_name == "USD" do %>
+        <% end %>
           <tr class="bg-white order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>'>
-
             <td class="px-6 py-4">
               <%= item.filial_name %>
             </td>
@@ -69,19 +59,14 @@
               <%= item.terms %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
-              <%= item.transfer %>
-              <%= if item.transfer=="green" do %>
-                <input name="order_tranfer" id="<%= item.transfer %>" value="<%= item.transfer %>" type="radio"
-                  class="transition-all rounded-full w-6 h-6 bg-red-400 border-none">
-                <% end %>
-                  <%= if item.transfer=="red" do %>
-                    <input name="order_tranfer" id="<%= item.transfer %>" value="<%= item.transfer %>" type="radio"
-                      class="transition-all rounded-full w-6 h-6 bg-green-400 border-none">
-                    <% end %>
-                      <%= if item.transfer=="red_green" do %>
-                        <input name="order_tranfer" id="<%= item.transfer %>" value="<%= item.transfer %>" type="radio"
-                          class="transition-all colors">
-                        <% end %>
+              <%= case item.transfer do %>
+                <% "green" -> %> 
+                  <div name="order_tranfer" id="<%= item.transfer %>" class="green_circle"></div>
+                <% "red" -> %>
+                  <div name="order_tranfer" id="<%= item.transfer %>" class="red_circle"></div>
+                <% "red_green" -> %> 
+                  <div name="order_tranfer" id="<%= item.transfer %>" class="transition-all colors"></div>
+              <% end %>
             </td>
           </tr>
           <% end %>
@@ -145,7 +130,14 @@
               <%= item.terms %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
-              <%= item.transfer %>
+              <%= case item.transfer do %>
+                <% "green" -> %>
+                  <div name="order_tranfer" id="<%= item.transfer %>" class="green_circle"></div>
+                <% "red" -> %>
+                  <div name="order_tranfer" id="<%= item.transfer %>" class="red_circle"></div>
+                <% "red_green" -> %>
+                  <div name="order_tranfer" id="<%= item.transfer %>" class="transition-all colors"></div>
+              <% end %>
             </td>
           </tr>
           <% end %>
@@ -210,11 +202,18 @@
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               <%= item.terms %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.item_order["transfer"] %>
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words"> 
+              <%= case item.item_order["transfer"] do %>
+                <% "green" -> %>
+                  <div id='item.item_order["transfer"]' class="green_circle"></div>
+                <% "red" -> %>
+                  <div id='item.item_order["transfer"]' class="red_circle"></div>
+                <% "red_green" -> %>
+                  <div id='item.item_order["transfer"]' class="transition-all colors"></div>
+              <% end %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
-              <%= item.status %>
+              <%= KursonliKursWeb.GeneralHelper.normalize_status_trade(item.status) %>
             </td>
           </tr>
           <% end %>
@@ -231,6 +230,13 @@
         showConfirmButton: false,
         showCloseButton: true,
         willOpen: () => {
+          var input = [...document.querySelectorAll('.number_input_only')];
+          input.forEach((el) => {
+            el.addEventListener("input", (e) => {
+              e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '');
+            })
+          });
+
           let inputs = document.getElementsByClassName("bit_input");
           for (let i = 0; i < inputs.length; i++) {
             inputs[i].addEventListener("input", function () {
@@ -271,15 +277,13 @@
       <label class="label_input pos">Передача</label>
       <div class="container_select gap-4">
         <%= for item <- Application.get_env(:kursonli_kurs, :order_transfer) do %>
-          <%= if Atom.to_string(item)=="green" do %>
-            <input name="order_tranfer" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" type="radio" class="transition-all rounded-full w-6 h-6 bg-red-400 border-none">
-          <% end %>
-          <%= if Atom.to_string(item)=="red" do %>
-            <input name="order_tranfer" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>" type="radio" class="transition-all rounded-full w-6 h-6 bg-green-400 border-none">
-          <% end %>
-          <%= if Atom.to_string(item)=="red_green" do %>
-            <input name="order_tranfer" id="<%= Atom.to_string(item) %>" value="<%= Atom.to_string(item) %>"
-              type="radio" class="transition-all colors">
+          <%= case item do %>
+            <% :red -> %>
+              <input required name="transfer" id="<%= item %>" value="<%= item %>" type="radio" class="red_circle">
+            <% :green -> %>
+              <input required name="transfer" id="<%= item %>" value="<%= item %>" type="radio" class="green_circle">
+            <% :red_green -> %>
+              <input required name="transfer" id="<%= item %>" value="<%= item %>" type="radio" class="transition-all colors">
           <% end %>
         <% end %>
       </div>

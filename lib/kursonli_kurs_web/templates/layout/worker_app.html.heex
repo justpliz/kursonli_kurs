@@ -25,7 +25,7 @@
   <input id="crf_token" class="hidden" value={Phoenix.Controller.get_csrf_token()}>
   <div class="app">
     <div class="app_user_container">
-      <a href="/worker"><img class="mt-10 m-auto scale-110 w-full" src={
+      <a href="/worker/orders"><img class="mt-10 m-auto scale-110 w-full" src={
           Routes.static_path(@conn, "/images/logo-line.svg" ) } alt=""></a>
       <ul class="w-full pt-6 relative h-full">
         <% worker=Plug.Conn.get_session(@conn,:worker) %>
