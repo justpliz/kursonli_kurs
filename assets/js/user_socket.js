@@ -3,9 +3,9 @@
 import { Socket } from "phoenix";
 // Bring in Phoenix channels client library:
 import { eventClick } from "./click_event";
-const meowMix = new Audio("/images/sound/llv-132676.mp3");
+const meowMix = new Audio("/images/sound/notice.mp3");
 const audioObj = new Audio(
-  "/images/sound/short-success-sound-glockenspiel-treasure-video-game-6346.mp3"
+  "/images/sound/notice.mp3"
 );
 // audioObj.play()
 const getWorker = () => {

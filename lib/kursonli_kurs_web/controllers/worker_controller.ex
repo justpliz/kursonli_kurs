@@ -219,9 +219,10 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
-  GET /worker/update_course
+  POST /worker/update_course
   """
   def update_course(conn, params) do
+    IO.inspect(params)
     change_all_filials = String.to_atom(params["change_all_filials"])
 
     opts = %{

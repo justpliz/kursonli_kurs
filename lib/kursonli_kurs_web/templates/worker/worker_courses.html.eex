@@ -1,8 +1,22 @@
 <div class="margin_content">
-  <div class="flex justify-between">
-    <h1 class="title">Список курсов</h1>
-    <div class="text-base">Последнее обновление курса: <%= @last_date %>
+  <div class="d_flex justify-between items-center pb-4">
+    <div class="text-base flex-1-1">Последнее обновление курса: <%= @last_date %>
     </div>
+    <%= form_for @conn, Routes.worker_path(@conn, :update_course), fn f -> %>
+      <div class="d_flex gap-4">
+        <button class="btn_save d_flex items-center justify-center" type="submit">
+          <span class="material-symbols-outlined" style="color: #fff; font-weight: 500; font-size: 20px;">
+            save
+          </span>
+          Сохранить изменения
+        </button>
+        <a href="/worker/courses" class="btn_cancel flex items-center justify-center" type="submit">
+          <span class="material-symbols-outlined" style="color: #111111; font-weight: 500; font-size: 20px;">
+            cancel
+          </span>
+          Отменить изменения
+        </a>
+      </div>
   </div>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 table_sort">
@@ -11,7 +25,7 @@
           <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
             Валюта
           </th>
-          <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-x-2 border-gray-200">
             Короткое название
           </th>
           <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-gray-200">
@@ -20,37 +34,39 @@
           <th scope="col" class="columns-2 px-6 py-6 border-b-2 border-x-2 border-gray-200">
             Цена продажи
           </th>
-          <th scope="col" class="px-6 py-6 border-b-2 border-gray-200">
-            Редактирование
+          <th scope="col" class="columns-1 px-6 py-6 border-b-2 border-gray-200">
+            Изменить для всех филиалов
           </th>
         </tr>
       </thead>
       <tbody>
-        <%= for item <- @courses_list do %>
+        <%= for item <- Enum.sort(@courses_list, :asc) do %>
           <tr class="bg-white">
-            <td class="px-6 py-4 border-b-2">
+            <td class="px-6 py-4 border-t-2">
               <%= item.currency_name %>
             </td>
-            <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
+            <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
               <%= item.currency_short_name %>
             </td>
-            <td class="px-6 py-4 border-2">
-              <%= item.value_for_purchase %>
-            </td>
-            <td class="px-6 py-4 border-b-2 border-x-2 border-gray-200">
-              <%= item.value_for_sale %>
-            </td>
-            <td class="px-6 py-4 border-b-2 text-center">
-              <button class="course_edit" data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
-                <span class="material-symbols-outlined" style="@apply text-blub; font-weight: 900;">edit</span>
-              </button>
-            </td>
+            <%= hidden_input f, :course_id, value: item.course_id, class: "input_full" %>
+              <td class="px-6 py-4 border-x-2 border-t-2">
+                <%= text_input f, :value_for_purchase, class: "input_full number_input_only", value: item.value_for_purchase %>
+              </td>
+              <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
+                <%= text_input f, :value_for_sale, class: "input_full number_input_only" , value: item.value_for_sale %>
+              </td>
+              <td class="px-6 py-4 border-t-2">
+                <div class="flex items-center justify-center">
+                  <input name="change_all_filials" type="hidden" value="false">
+                  <input id="green" name="change_all_filials" type="checkbox" value="true" class="type_select rounded">
+                </div>
+              </td>
           </tr>
           <% end %>
+        <% end %>
       </tbody>
     </table>
-
   </div>
 </div>
 
-<%= render(KursonliKursWeb.WorkerView, "modal_worker_courses_edit.html" , conn: @conn) %>
+<%#= render(KursonliKursWeb.WorkerView, "modal_worker_courses_edit.html" , conn: @conn) %>

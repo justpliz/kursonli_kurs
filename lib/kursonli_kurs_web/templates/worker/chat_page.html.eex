@@ -89,7 +89,8 @@
          position: absolute;
          bottom: 120px;
          right: 0;
-         padding-right: 8px;
+         left: 4px;
+         padding: 0 8px;
          overflow: auto;
       }
    </style>

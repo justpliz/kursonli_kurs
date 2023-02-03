@@ -68,7 +68,7 @@
           <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 sorted_tr">
             <select class="select_table" data-select="3">
               <%= for item <- @currency_list do %>
-                <%= if item.short_name == "TUG" do %>
+                <%= if item.short_name == "RUB" do %>
                   <option class="text-black" selected="selected" value="<%= item.short_name %>">
                     <%= item.short_name %>
                   </option>
