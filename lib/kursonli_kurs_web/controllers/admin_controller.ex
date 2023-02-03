@@ -60,14 +60,12 @@ defmodule KursonliKursWeb.AdminController do
   """
   def index(conn, _params) do
     organization_list = Organizations.all()
-    filials_list = Filials.filial_list()
     cities_list = Cities.all()
     currencies_list = Currencies.all()
 
     conn
     |> render("admin_index.html",
       organization_list: organization_list,
-      filials_list: filials_list,
       cities_list: cities_list,
       currencies_list: currencies_list
     )
@@ -100,7 +98,11 @@ defmodule KursonliKursWeb.AdminController do
     with {:ok, org} <- Organizations.create(org_opts),
          filial_opts <- Map.put(filial_opts, :organization_id, org.id),
          {:ok, filial} <-
-           Filials.create_filial_worker_seting(filial_opts, worker_opts, params["fililal_address"]) do
+           Filials.create_filial_worker_seting(
+             filial_opts,
+             worker_opts,
+             params["fililal_address"]
+           ) do
       params["currency"]
       |> Enum.map(fn currency ->
         currency = String.to_integer(currency)
@@ -129,10 +131,12 @@ defmodule KursonliKursWeb.AdminController do
   GET /admin/update_org_status
   """
   def update_org_status(conn, %{"id" => id, "org_active_status" => status}) do
-    status  = case status do
-      "active" -> "archive"
-      "archive" -> "active"
-    end
+    status =
+      case status do
+        "active" -> "archive"
+        "archive" -> "active"
+      end
+
     with {:ok, organization} <- Organizations.do_get(id: id),
          filials <- Filials.all(organization_id: organization.id),
          {:ok, organization} <-
@@ -289,7 +293,11 @@ defmodule KursonliKursWeb.AdminController do
     }
 
     with {:ok, filial} <-
-           Filials.create_filial_worker_seting(filial_opts, worker_opts, params["fililal_address"]),
+           Filials.create_filial_worker_seting(
+             filial_opts,
+             worker_opts,
+             params["fililal_address"]
+           ),
          Enum.map(currencies_list, fn currency ->
            Courses.create(%{
              date: Timex.now("Asia/Almaty"),
@@ -314,17 +322,25 @@ defmodule KursonliKursWeb.AdminController do
   GET /admin/update_filial
   """
   def update_filial(conn, %{"id" => id} = params) do
-    IO.inspect(params)
-    opts = %{
-      coordinates: [params["x_coordinate"], params["y_coordinate"]],
-      popup_text: params["popup_text"]
+    filial_opts = %{
+      name: params["filial_name"],
+      paid_up_to: string_date_to_datetime(params["paid_up_to"]),
+      tariff_id: params["tariff"],
+      city_id: params["city_id"]
     }
+
+    setting_opts = %{
+      coordinates: [params["x_coordinate"], params["y_coordinate"]],
+      address_2gis: params["address_2gis"],
+      firm_id: params["firm_id"]
+    }
+
     with {:ok, filial} <- Filials.do_get(id: id),
-         {:ok, fiiial} <- Filials.update(filial, params),
+         {:ok, fiiial} <- Filials.update(filial, filial_opts),
          {:ok, setting} <- Settings.do_get(filial_id: id),
-         {:ok, _setting} <- Settings.update(setting, opts) do
+         {:ok, _setting} <- Settings.update(setting, setting_opts) do
       conn
-      |> put_flash(:info, "Курс #{fiiial.name} изменен")
+      |> put_flash(:info, "Парамерты #{fiiial.name} успешно изменены")
       |> redirect(to: "/admin/filials")
     end
   end

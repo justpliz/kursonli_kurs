@@ -206,7 +206,7 @@
 
     <div class="map">
         <a class="dg-widget-link"
-            href="http://2gis.kz/almaty/firm/9429940000800892/center/76.94045305252077,43.2510013156758/zoom/16?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=bigMap">Посмотреть
+            href="http://2gis.kz/almaty/firm/<%= @setting.firm_id %>/center/76.94045305252077,43.2510013156758/zoom/16?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=bigMap">Посмотреть
             на карте Алматы
         </a>
         

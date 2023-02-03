@@ -23,7 +23,7 @@ defmodule KursonliKurs.Model.Filial do
 
   @timestamps_opts [type: :utc_datetime]
   @required_fields ~w(name city_id organization_id)a
-  @optional_fields ~w(paid_up_to payment_status tariff_id filial_active_status)a
+  @optional_fields ~w(paid_up_to tariff_id filial_active_status)a
 
   schema "filials" do
     field :name, :string
@@ -31,7 +31,6 @@ defmodule KursonliKurs.Model.Filial do
     field :fililal_address, :string
 
     field :filial_active_status, ActiveStatus, default: "active"
-    field :payment_status, PaymentStatus, default: "not_paid"
 
     belongs_to :city, City
     belongs_to :organization, Organization, type: :binary_id
