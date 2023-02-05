@@ -53,16 +53,11 @@ defmodule KursonliKurs.Context.Filials do
     |> Repo.aggregate(:count)
   end
 
-  def create_filial_worker_seting(filial_opts, worker_opts, fililal_address \\ "") do
+  def create_filial_worker_seting(filial_opts, worker_opts) do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          {:ok, _worker} <- Workers.create(worker_opts),
-         {:ok, _setting} <-
-           Settings.create(%{
-             filial_id: filial.id,
-             fililal_address: fililal_address,
-             coordinates: ["0", "0"]
-           }) do
+         {:ok, _setting} <- Settings.create(%{filial_id: filial.id}) |> IO.inspect() do
       {:ok, filial}
     end
   end
@@ -140,15 +135,31 @@ defmodule KursonliKurs.Context.Filials do
     )
   end
 
+  # def get_filial_by_city(city_id) do
+  #   Repo.all(
+  #     from f in Filial,
+  #       where: f.city_id == ^city_id,
+  #       join: s in Setting,
+  #       on: s.filial_id == f.id,
+  #       join: org in Organization,
+  #       on: org.id == f.organization_id,
+  #       join: c in assoc(f, :course),
+  #       left_join: cr in assoc(c, :currency),
+  #       preload: [course: {c, currency: cr}],
+  #       select: [%{filial: f, setting: s, organization: org}]
+  #   )
+  #   |> Enum.map(fn x -> x |> hd() end)
+  # end
+
   def get_filial_by_city(city_id) do
     Repo.all(
       from f in Filial,
         where: f.city_id == ^city_id,
-        join: s in Setting,
+        left_join: s in Setting,
         on: s.filial_id == f.id,
         join: org in Organization,
         on: org.id == f.organization_id,
-        join: c in assoc(f, :course),
+        left_join: c in assoc(f, :course),
         left_join: cr in assoc(c, :currency),
         preload: [course: {c, currency: cr}],
         select: [%{filial: f, setting: s, organization: org}]

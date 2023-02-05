@@ -101,8 +101,7 @@ defmodule KursonliKursWeb.AdminController do
          {:ok, filial} <-
            Filials.create_filial_worker_seting(
              filial_opts,
-             worker_opts,
-             params["fililal_address"]
+             worker_opts
            ) do
       params["currency"]
       |> Enum.map(fn currency ->
@@ -296,8 +295,7 @@ defmodule KursonliKursWeb.AdminController do
     with {:ok, filial} <-
            Filials.create_filial_worker_seting(
              filial_opts,
-             worker_opts,
-             params["fililal_address"]
+             worker_opts
            ),
          Enum.map(currencies_list, fn currency ->
            Courses.create(%{
