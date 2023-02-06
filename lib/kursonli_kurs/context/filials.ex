@@ -139,26 +139,10 @@ defmodule KursonliKurs.Context.Filials do
     )
   end
 
-  # def get_filial_by_city(city_id) do
-  #   Repo.all(
-  #     from f in Filial,
-  #       where: f.city_id == ^city_id,
-  #       join: s in Setting,
-  #       on: s.filial_id == f.id,
-  #       join: org in Organization,
-  #       on: org.id == f.organization_id,
-  #       join: c in assoc(f, :course),
-  #       left_join: cr in assoc(c, :currency),
-  #       preload: [course: {c, currency: cr}],
-  #       select: [%{filial: f, setting: s, organization: org}]
-  #   )
-  #   |> Enum.map(fn x -> x |> hd() end)
-  # end
-
   def get_filial_by_city(city_id) do
     Repo.all(
       from f in Filial,
-        where: f.city_id == ^city_id,
+        where: f.city_id == ^city_id and f.filial_active_status == :active,
         left_join: s in Setting,
         on: s.filial_id == f.id,
         join: org in Organization,
