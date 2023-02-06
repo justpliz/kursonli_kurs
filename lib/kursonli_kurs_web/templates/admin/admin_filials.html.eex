@@ -152,11 +152,11 @@
 
 
 
-<%= render(KursonliKursWeb.AdminView, "modal_admin_edit_filial.html" , conn: @conn, tariff_list: @tariff_list,
+<%= render(KursonliKursWeb.AdminView, "modal_admin_edit_filial.html", conn: @conn, tariff_list: @tariff_list,
   cities_list: @cities_list) %>
-  <%= render(KursonliKursWeb.AdminView, "modal_admin_create_filial.html" , conn: @conn, org_list: @org_list,
+  <%= render(KursonliKursWeb.AdminView, "modal_admin_create_filial.html", conn: @conn, org_list: @org_list,
     cities_list: @cities_list, currencies_list: @currencies_list) %>
-    <%= render(KursonliKursWeb.AdminView, "admin_filial_update_status.html" , conn: @conn) %>
+    <%= render(KursonliKursWeb.AdminView, "admin_filial_update_status.html", conn: @conn) %>
 
       <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
 

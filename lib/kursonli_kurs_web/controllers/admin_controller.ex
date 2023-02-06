@@ -343,4 +343,19 @@ defmodule KursonliKursWeb.AdminController do
       |> redirect(to: "/admin/filials")
     end
   end
+
+  def update_filial_status(conn, %{"id" => id, "filial_active_status" => status}) do
+    status =
+      case status do
+        "active" -> "archive"
+        "archive" -> "active"
+      end
+
+    with {:ok, filial} <- Filials.do_get(id: id),
+         {:ok, filial} <- Filials.update(filial, %{filial_active_status: status}) do
+      conn
+      |> put_flash(:info, "статус #{filial.name} успешно обновлен")
+      |> redirect(to: "/admin/filials")
+    end
+  end
 end
