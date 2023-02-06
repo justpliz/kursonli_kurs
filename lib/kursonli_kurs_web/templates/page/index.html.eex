@@ -1,175 +1,197 @@
 <div class="font">
-<div class="mx-auto w-full bg-dblue">
-  <div class="max-w-1440 flex justify-between items-center mx-auto h-20">
-    <a href="/"><img src="/images/white-line-logo.svg" alt=""></a>
+  <div class="mx-auto w-full bg-dblue">
+    <div class="max-w-1440 flex justify-between items-center mx-auto h-20">
+      <a href="/"><img src="/images/white-line-logo.svg" alt=""></a>
 
-    <div class="relative w-1/5">
-      <input class="input_search table_search_input" type="text" placeholder="" id="index-table-search-row"
-        onkeyup="filterSearch()">
-      <div class="absolute inset-y-0 right-4 flex items-center pl-3 pointer-events-none">
-        <img src="/images/icons/search.svg" alt="">
+      <div class="relative w-1/5">
+        <input class="input_search table_search_input" type="text" placeholder="" id="index-table-search-row"
+          onkeyup="filterSearch()">
+        <div class="absolute inset-y-0 right-4 flex items-center pl-3 pointer-events-none">
+          <img src="/images/icons/search.svg" alt="">
+        </div>
       </div>
+
+      <a href="/worker/login" class="href_index">Войти</a>
+    </div>
+  </div>
+
+
+  <div class="max-w-1440 mx-auto">
+    <div class="flex py-8 text-dblue">
+      <%= for item <- @city_list do %>
+        <a class="font-bold pr-4" href="city?name=<%= item.name %>">
+          <%= item.name %> (<span class="font-bold text-red-500">
+              <%= item.count %>
+            </span>)
+        </a>
+        <% end %>
     </div>
 
-    <a href="/worker/login" class="href_index">Войти</a>
-  </div>
-</div>
+    <div class="font-bold text-black text-lg">
+      Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl">
+          <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
+        </span>
+    </div>
 
-
-<div class="max-w-1440 mx-auto">
-  <div class="flex py-8 text-dblue">
-    <%= for item <- @city_list do %>
-      <a class="font-bold pr-4" href="city?name=<%= item.name %>">
-        <%= item.name %> (<span class="font-bold text-red-500"><%= item.count %></span>)
-      </a>
-      <% end %>
-  </div>
-
-  <div class="font-bold text-black text-lg">
-    Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl">
-        <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
-      </span>
-  </div>
-
-  <div class="relative w-full pt-4">
-    <table class="w-full text-sm text-left text-gray-500 table-fixed table_search table_sort" id="index-table">
-      <thead class="bg-tableGray text-white uppercase">
-        <tr class="uppercase">
-          <th scope="col" class="w-1/4 px-6 py-4 border-2 border-gray-200">
-            ОБМЕННЫЙ ПУНКТ
-          </th>
-          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 sorted_tr">
-            Время
-          </th>
-          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 sorted_tr">
-            <select class="select_table" data-select="1">
-              <%= for item <- @currency_list do %>
-                <option class="text-black" value="<%= item.short_name %>">
-                  <%= item.short_name %>
-                </option>
-                <% end %>
-            </select>
-          </th>
-          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 sorted_tr">
-            <select class="select_table" data-select="2">
-              <%= for item <- @currency_list do %>
-                <%= if item.short_name == "EUR" do %>
-                  <option class="text-black" selected="selected" value="<%= item.short_name %>">
-                    <%= item.short_name %>
-                  </option>
-                <% else %>
-                  <option class="text-black" value="<%= item.short_name %>">
-                    <%= item.short_name %>
-                  </option>
-                <% end %>
-              <% end %>
-            </select>
-          </th>
-          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 sorted_tr">
-            <select class="select_table" data-select="3">
-              <%= for item <- @currency_list do %>
-                <%= if item.short_name == "RUB" do %>
-                  <option class="text-black" selected="selected" value="<%= item.short_name %>">
-                    <%= item.short_name %>
-                  </option>
-                <% else %>
-                  <option class="text-black" value="<%= item.short_name %>">
-                    <%= item.short_name %>
-                  </option>
-                <% end %>
-              <% end %>
-            </select>
-          </th>
-          <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
-            контакты
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= for item <- @courses_list do %>
-          <tr class="bg-white text-black" data-id="<%= item.filial.id %>"
-            data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
-            <td class="px-6 py-4 border-2 border-tableGray">
-              <span class="font-bold text-base block"><%= item.organization.name %></span>
-              <a href="personal?filial=<%= item.filial.id %>" class="font-bold text-sm">
-                <%= item.filial.name %>
-              </a>
-              <span class="block"><%= item.filial.fililal_address %></span>
-              <div class="hidden">
-                <%= [gold, wholesale_rate]=item.setting.tags %>
+    <div class="relative w-full pt-4">
+      <table class="w-full text-sm text-left text-gray-500 table-fixed table_search" id="index-table">
+        <thead class="bg-tableGray text-white uppercase">
+          <tr class="uppercase">
+            <th scope="col" class="w-1/4 px-6 py-4 border-2 border-gray-200">
+              ОБМЕННЫЙ ПУНКТ
+            </th>
+            <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+              <div class="flex justify-between">
+                <img class="img_sort cursor-pointer" src="/images/icons/up.svg" alt="">
+                Время
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
-              <div class="mt-2">
-                <%= if String.to_atom(gold) do %>
-                  <span class="bg-greatYellow text-sm text-white px-6 py-1">Золото</span>
-                <% end %>
-                <%= if String.to_atom(wholesale_rate) do %>
-                  <span class="bg-greatGreen text-sm text-white px-6 py-1">Оптовый курс</span>
-                <% end %>
+            </th>
+            <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+              <div class="flex justify-between">
+                <img class="img_sort cursor-pointer" src="/images/icons/up.svg" alt="">
+                <select class="select_table" data-select="1">
+                  <%= for item <- @currency_list do %>
+                    <option class="text-black" value="<%= item.short_name %>">
+                      <%= item.short_name %>
+                    </option>
+                    <% end %>
+                </select>
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
-            </td>
-            <td class="px-6 py-4 border-2 border-tableGray text-center">
-              <div class="time-container">
+            </th>
+            <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 ">
+              <div class="flex justify-between">
+                <img class="img_sort cursor-pointer" src="/images/icons/up.svg" alt="">
+                <select class="select_table" data-select="2">
+                  <%= for item <- @currency_list do %>
+                    <%= if item.short_name=="EUR" do %>
+                      <option class="text-black" selected="selected" value="<%= item.short_name %>">
+                        <%= item.short_name %>
+                      </option>
+                    <% else %>
+                      <option class="text-black" value="<%= item.short_name %>">
+                        <%= item.short_name %>
+                      </option>
+                      <% end %>
+                    <% end %>
+                </select>
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
+              </div>
+            </th>
+            <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+              <div class="flex justify-between">
+                <img class="img_sort cursor-pointer" src="/images/icons/up.svg" alt="">
+                <select class="select_table" data-select="3">
+                  <%= for item <- @currency_list do %>
+                    <%= if item.short_name=="RUB" do %>
+                      <option class="text-black" selected="selected" value="<%= item.short_name %>">
+                        <%= item.short_name %>
+                      </option>
+                    <% else %>
+                      <option class="text-black" value="<%= item.short_name %>">
+                        <%= item.short_name %>
+                      </option>
+                    <% end %>
+                  <% end %>
+                </select>
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
+              </div>
+            </th>
+            <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+              контакты
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for item <- @courses_list do %>
+            <tr class="bg-white text-black" data-id="<%= item.filial.id %>"
+              data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
+              <td class="px-6 py-4 border-2 border-tableGray">
+                <span class="font-bold text-base block">
+                  <%= item.organization.name %>
+                </span>
+                <a href="personal?filial=<%= item.filial.id %>" class="font-bold text-sm">
+                  <%= item.filial.name %>
+                </a>
+                <span class="block">
+                  <%= item.filial.fililal_address %>
+                </span>
+                <div class="hidden">
+                  <%= [gold, wholesale_rate]=item.setting.tags %>
+                </div>
+                <div class="mt-2">
+                  <%= if String.to_atom(gold) do %>
+                    <span class="bg-greatYellow text-sm text-white px-6 py-1">Золото</span>
+                    <% end %>
+                      <%= if String.to_atom(wholesale_rate) do %>
+                        <span class="bg-greatGreen text-sm text-white px-6 py-1">Оптовый курс</span>
+                        <% end %>
+                </div>
+              </td>
+              <td class="px-6 py-4 border-2 border-tableGray text-center">
+                <div class="time-container">
                   <span class="text-xl font-bold flex flex-col time">
                     <%= KursonliKursWeb.GeneralHelper.date_to_string_all(item.filial.course |> hd() |> Map.get(:date)) %>
                   </span>
                 </div>
-            </td>
-            <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="1">
-              <div class="d_flex justify-between items-center">
-                <span class="sale font-bold text-xl">
-                  <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
-                </span>
-                <span class="font-bold text-xl">—</span>
-                <span class="pushare font-bold text-xl">
-                  <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
-                </span>
-              </div>
-            </td>
-            <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="2">
-              <div class="d_flex justify-between items-center">
-                <span class="sale font-bold text-xl">
-                  <%#= if item.filial.course |> hd |> Map.get(:short_name) == "USD" do %>
-                    <%#= item.filial.course |> hd |> Map.get(:value_for_sale) %>
-                    <!-- текст -->
-                  <%# else %>
+              </td>
+              <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="1">
+                <div class="d_flex justify-between items-center">
+                  <span class="sale font-bold text-xl">
                     <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
-                  <%# end %>
-                </span>
-                <span class="font-bold text-xl">—</span>
-                <span class="pushare font-bold text-xl">
-                  <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
-                </span>
-              </div>
-            </td>
-            <td class="px-6 py-4 border-2 border-tableGray dataget"  data-select="3">
-              <div class="d_flex justify-between items-center">
-                <span class="sale font-bold text-xl">
-                  <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
-                </span>
-                <span class="font-bold text-xl">—</span>
-                <span class="pushare font-bold text-xl">
-                  <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
-                </span>
-              </div>
-            </td>
-            <td class="px-6 py-4 border-2 border-tableGray text-center">
-              <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
-                <%= item.setting.phones["phone1"] %>
-              </a>
-              <a class="block hover:underline" href='tel:<%= item.setting.phones["phone2"] %>'>
-                <%= item.setting.phones["phone2"] %>
-              </a>
-              <a class="block hover:underline" href='tel:<%= item.setting.phones["phone3"] %>'>
-                <%= item.setting.phones["phone3"] %>
-              </a>
-            </td>
-          </tr>
-          <% end %>
-      </tbody>
-    </table>
+                  </span>
+                  <span class="font-bold text-xl">—</span>
+                  <span class="pushare font-bold text-xl">
+                    <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
+                  </span>
+                </div>
+              </td>
+              <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="2">
+                <div class="d_flex justify-between items-center">
+                  <span class="sale font-bold text-xl">
+                    <%#= if item.filial.course |> hd |> Map.get(:short_name) == "USD" do %>
+                      <%#= item.filial.course |> hd |> Map.get(:value_for_sale) %>
+                      <!-- текст -->
+                    <%# else %>
+                      <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
+                    <%# end %>
+                  </span>
+                  <span class="font-bold text-xl">—</span>
+                  <span class="pushare font-bold text-xl">
+                    <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
+                  </span>
+                </div>
+              </td>
+              <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="3">
+                <div class="d_flex justify-between items-center">
+                  <span class="sale font-bold text-xl">
+                    <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
+                  </span>
+                  <span class="font-bold text-xl">—</span>
+                  <span class="pushare font-bold text-xl">
+                    <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
+                  </span>
+                </div>
+              </td>
+              <td class="px-6 py-4 border-2 border-tableGray text-center">
+                <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
+                  <%= item.setting.phones["phone1"] %>
+                </a>
+                <a class="block hover:underline" href='tel:<%= item.setting.phones["phone2"] %>'>
+                  <%= item.setting.phones["phone2"] %>
+                </a>
+                <a class="block hover:underline" href='tel:<%= item.setting.phones["phone3"] %>'>
+                  <%= item.setting.phones["phone3"] %>
+                </a>
+              </td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!()  %>"></div>
   </div>
-  <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!()  %>"></div>
-</div>
 </div>
 
 <script>
@@ -203,23 +225,52 @@
       })
     }));
 
-    const getSort = ({ target }) => {
-      const order = (target.dataset.order = -(target.dataset.order || -1));
-      const index = [...target.parentNode.cells].indexOf(target);
-      const collator = new Intl.Collator({ numeric: true });
-      const comparator = (index, order) => (a, b) => order * collator.compare(
-        a.children[index].innerHTML,
-        b.children[index].innerHTML
-      );
+    $("#index-table").click(function (e) {
+      if ($(e.target).is(".img_sort")) {
+        function sortTable(header) {
+          var table = document.getElementById("index-table");
+          var rows = table.getElementsByTagName("tbody")[0].rows;
+          var sortDirection = header.getAttribute("data-sort-direction") === "asc" ? "desc" : "asc";
+          header.setAttribute("data-sort-direction", sortDirection);
+          var colIndex = header.cellIndex;
 
-      for (const tBody of target.closest('table').tBodies)
-        tBody.append(...[...tBody.rows].sort(comparator(index, order)));
+          rows = Array.from(rows).sort((a, b) => {
+            var aValue = a.cells[colIndex].textContent;
+            var bValue = b.cells[colIndex].textContent;
+            if (colIndex === 1) {
+              aValue = new Date(aValue);
+              bValue = new Date(bValue);
+            } else {
+              aValue = parseFloat(aValue.match(/\d+(?:\.\d+)?/));
+              bValue = parseFloat(bValue.match(/\d+(?:\.\d+)?/));
+            }
 
-      for (const cell of target.parentNode.cells)
-        cell.classList.toggle('sorted', cell === target);
+            return sortDirection === "asc"
+              ? aValue > bValue
+                ? 1
+                : aValue < bValue
+                  ? -1
+                  : 0
+              : bValue > aValue
+                ? 1
+                : bValue < aValue
+                  ? -1
+                  : 0;
+          });
 
-    };
-    document.querySelectorAll('.table_sort .sorted_tr').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
+          for (var i = 0; i < rows.length; i++) {
+            table.getElementsByTagName("tbody")[0].appendChild(rows[i]);
+          }
+        }
+
+        var headers = document.getElementById("index-table").getElementsByTagName("th");
+        for (var i = 0; i < headers.length; i++) {
+          headers[i].addEventListener("click", function () {
+            sortTable(this);
+          });
+        }
+      }
+    });
   });
 
   function filterSearch() {
