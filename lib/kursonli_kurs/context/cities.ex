@@ -41,4 +41,9 @@ defmodule KursonliKurs.Context.Cities do
     |> Repo.update()
   end
 
+  def count(opts \\ []) do
+    City
+    |> filter_by(opts)
+    |> Repo.aggregate(:count)
+  end
 end
