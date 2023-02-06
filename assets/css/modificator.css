@@ -33,7 +33,7 @@
    }
 
    .select_table {
-      @apply shadow-sm bg-transparent border border-gray-300 text-white rounded text-base block w-full px-4 py-2;
+      @apply shadow-sm bg-transparent border relative border-gray-300 text-black bg-white text-base block w-full px-2 py-1;
       @apply focus:border-transparent;
       @apply active:border-transparent;
    }

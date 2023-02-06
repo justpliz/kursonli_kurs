@@ -57,6 +57,16 @@ $("#accept").click(function () {
   if (getWorker().id != worker_id) {
     Swal.fire({
       showCloseButton: true,
+      willOpen: () => {
+        let inputs = document.getElementsByClassName("bit_inputt");
+        for (let i = 0; i < inputs.length; i++) {
+          inputs[i].addEventListener("input", function () {
+            let numString = this.value.replace(/\D/g, "");
+            let parts = numString.split(/(?=(?:\d{3})+$)/);
+            this.value = parts.join(" ");
+          });
+        }
+      },
       html: `
         <form action="/trades" method="post">
         <input name="_csrf_token" type="hidden" value="${crftoken}">
@@ -64,7 +74,7 @@ $("#accept").click(function () {
           <h1 class="title pos">Ордер на покупку<h1>
           <div>
             <label class="label_input pos">${itemSaleH1} </label>
-            <input class="input_full number_input_only" id="volume_model" name="volume" required="true" type="text" maxlength="30">
+            <input class="input_full bit_inputt" id="volume_model" name="volume" required="true" type="text" maxlength="30">
           </div>
           <h3 class="pos gap-1"> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span></h3>
           <div class="pos gap-1"> 

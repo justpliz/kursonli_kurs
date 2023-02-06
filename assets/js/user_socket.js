@@ -101,7 +101,7 @@ $(function () {
   };
   const templateTagsInsert = (name, worker_id) => {
     const html = `<div id="worker_id"
-    class="text-xs items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border border-gray-400 text-black justify-center">
+    class="text-xs d_flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center">
 
     ${name}
  </div>`;

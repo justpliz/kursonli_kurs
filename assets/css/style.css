@@ -254,3 +254,14 @@ th.sorted[data-order="1"]::after {
   height: 24px;
   border: none;
 }
+
+.select_table {
+  margin: 0 15px;
+  background: #fff url("/images/icons/select.svg") no-repeat top right;
+  background-size: contain;
+}
+
+.bg_table {
+  background-color: #A7FFB5;
+  padding: 3px 5px;
+}

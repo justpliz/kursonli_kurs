@@ -255,7 +255,7 @@
       <label class="label_input pos">Тип</label>
       <%= for item <- check_config("order_type") do %>
         <div class="container_select">
-          <input required name="type" id="<%= item %>" value="<%= item %>" checked type="radio" class="type_select">
+          <input required name="type" id="<%= item %>" value="<%= item %>" type="radio" class="type_select", required>
           <label class="label_select" for="<%= item %>">
             <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item) %>
           </label>
@@ -292,8 +292,8 @@
       <%= text_input f, :fililal_address, class: "input_full", disabled: "true", required: "true" %>
 
       <label class="label_input pos">Условия</label>
-      <%= text_input f, :terms, class: "input_full", required: "true", maxlength: 30 %>
-      <%= submit "Создать", class: "btn_save pos mt-4" %>
+      <%= text_input f, :terms, class: "input_full", maxlength: 30 %>
+      <%= submit "Разместить ордер", class: "btn_save pos mt-4" %>
     <% end %>
   </div>
 `,

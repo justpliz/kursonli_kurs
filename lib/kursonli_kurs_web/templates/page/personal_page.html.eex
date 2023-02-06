@@ -112,8 +112,8 @@
                 <div class="bg-gray-200 rounded-xl p-6">
                     <h2 class="font-bold text-center">Национальный банк</h2>
                     <div id="kyrs"></div>
-                    <script
-                        type="text/javascript"> ; (function ($) { $("#kyrs").load("https://kurs-tenge.kz/informers/kursinfo.php?kursinfo=5"); })(jQuery); </script>
+                    <script>(function ($) { $("#kyrs").load("https://kurs-tenge.kz/informers/kursinfo.php?kursinfo=5"); })(jQuery);</script>
+
                 </div>
             </div>
         </div>
@@ -230,3 +230,139 @@
         </div>
     </div>
 </div>
+
+
+<style>
+    
+#kursinfo5 {
+  width: 80%;
+  font-size: 14px;
+  font-family: arial;
+  border: 1px solid transparent;
+  line-height: 1.1;
+  margin: 0px auto;
+  max-width: 100%;
+  display: block;
+}
+
+#kursinfo5 p {
+  margin: 0;
+  display: none;
+}
+
+#kursinfo5 .logo {
+  display: none;
+  background-image: URL(https://kurs-tenge.kz/informers/img/logo.png);
+  font-size: 1.4em;
+  padding: 5px 0 5px 40px;
+  background-size: 35px;
+  background-repeat: no-repeat;
+}
+
+#kursinfo5 .logo p {
+  font-size: 0.8em;
+  display: none;
+}
+
+#kursinfo5 .headtabl {
+  float: left;
+  font-weight: bold;
+  font-size: 12px;
+  display: none;
+}
+
+#kursinfo5 table {
+  margin: 5px auto;
+  width: 100%;
+}
+
+#kursinfo5 table tr th {
+  text-align: left;
+}
+
+#kursinfo5 .headerkurs {
+display: none;
+  background: none;
+  padding: 0 3px;
+  text-shadow: 1px 1px 1px #fff;
+  height: 40px;
+  margin: 0 0 10px;
+}
+
+#kursinfo5 .kontentinfo {
+  padding: 2px;
+}
+
+#kursinfo5 .kontentinfo .dat {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #5c5c5c;
+}
+
+#kursinfo5 .kontentinfo p.green {
+  color: green;
+}
+
+#kursinfo5 .kontentinfo .info {
+  font-size: 11px;
+}
+
+#kursinfo5 .kontentinfo .info i {
+  font-size: 13px;
+  margin: 0 5px;
+}
+
+#kursinfo5 .kontentinfo .info:nth-child(4) i {
+  color: #349A9A;
+}
+
+#kursinfo5 .kontentinfo .info:nth-child(5) i {
+  color: #2C61CA;
+}
+
+#kursinfo5 .kontentinfo a {
+  text-decoration: none;
+  text-align: center;
+  display: none;
+}
+
+#kursinfo5 .kantry {
+  background-repeat: no-repeat;
+  padding: 5px 0;
+}
+
+#kursinfo5 .kyrsvalyt .USD {
+  width: 40%;
+  background-image: none;
+}
+
+#kursinfo5 .kyrsvalyt .EUR {
+  width: 40%;
+  background-image: none;
+}
+
+#kursinfo5 .kyrsvalyt .CNY {
+  width: 40%;
+  background-image: none;
+}
+
+#kursinfo5 .kyrsvalyt .RUB {
+  width: 40%;
+  background-image: none;
+}
+
+#kursinfo5 .kyrsvalyt td.level-up,
+#kursinfo5 .kyrsvalyt td.level-down {
+  background-image: none;
+  background-repeat: no-repeat;
+  background-size: 0px;
+  background-position: left center;
+  padding: 0 0 0 0px;
+}
+
+#kursinfo5 .kyrsvalyt td.level-down {
+  background-image: none;
+  color: red;
+}
+</style>

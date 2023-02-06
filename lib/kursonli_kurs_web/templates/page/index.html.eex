@@ -19,17 +19,13 @@
   <div class="max-w-1440 mx-auto">
     <div class="flex py-8 text-dblue">
       <%= for item <- @city_list do %>
-        <a class="font-bold pr-4" href="city?name=<%= item.name %>">
-          <%= item.name %> (<span class="font-bold text-red-500">
-              <%= item.count %>
-            </span>)
-        </a>
-        <% end %>
+        <a class="font-bold pr-4" href="city?name=<%= item.name %>"><%= item.name %> (<span class="font-bold text-red-500"><%= item.count %></span>)</a>
+      <% end %>
     </div>
 
     <div class="font-bold text-black text-lg">
       Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl">
-          <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
+          <%= KursonliKursWeb.GeneralHelper.date_to_string_data_dot(Timex.now) %>
         </span>
     </div>
 
@@ -37,19 +33,18 @@
       <table class="w-full text-sm text-left text-gray-500 table-fixed table_search" id="index-table">
         <thead class="bg-tableGray text-white uppercase">
           <tr class="uppercase">
-            <th scope="col" class="w-1/4 px-6 py-4 border-2 border-gray-200">
+            <th scope="col" class="w-1/4 px-6 py-4 border-l-0 border-2 border-gray-200">
               ОБМЕННЫЙ ПУНКТ
             </th>
             <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
               <div class="flex justify-between">
-                <img class="img_sort cursor-pointer" src="/images/icons/up.svg" alt="">
                 Время
-                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
+                <img class="img_sort cursor-pointer" src="/images/icons/time-down.svg" alt="">
               </div>
             </th>
             <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
               <div class="flex justify-between">
-                <img class="img_sort cursor-pointer" src="/images/icons/up.svg" alt="">
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="1">
                   <%= for item <- @currency_list do %>
                     <option class="text-black" value="<%= item.short_name %>">
@@ -60,9 +55,9 @@
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
             </th>
-            <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200 ">
+            <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
               <div class="flex justify-between">
-                <img class="img_sort cursor-pointer" src="/images/icons/up.svg" alt="">
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="2">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="EUR" do %>
@@ -81,7 +76,7 @@
             </th>
             <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
               <div class="flex justify-between">
-                <img class="img_sort cursor-pointer" src="/images/icons/up.svg" alt="">
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="3">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="RUB" do %>
@@ -98,7 +93,7 @@
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
             </th>
-            <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
+            <th scope="col" class="w-1/6 px-6 py-4 border-2 border-r-0 border-gray-200">
               контакты
             </th>
           </tr>
@@ -107,7 +102,7 @@
           <%= for item <- @courses_list do %>
             <tr class="bg-white text-black" data-id="<%= item.filial.id %>"
               data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
-              <td class="px-6 py-4 border-2 border-tableGray">
+              <td class="px-6 py-4 border-2 border-l-0 border-tableGray">
                 <span class="font-bold text-base block">
                   <%= item.organization.name %>
                 </span>
@@ -123,10 +118,10 @@
                 <div class="mt-2">
                   <%= if String.to_atom(gold) do %>
                     <span class="bg-greatYellow text-sm text-white px-6 py-1">Золото</span>
-                    <% end %>
-                      <%= if String.to_atom(wholesale_rate) do %>
-                        <span class="bg-greatGreen text-sm text-white px-6 py-1">Оптовый курс</span>
-                        <% end %>
+                  <% end %>
+                  <%= if String.to_atom(wholesale_rate) do %>
+                      <span class="bg-greatGreen text-sm text-white px-6 py-1">Оптовый курс</span>
+                  <% end %>
                 </div>
               </td>
               <td class="px-6 py-4 border-2 border-tableGray text-center">
@@ -134,47 +129,48 @@
                   <span class="text-xl font-bold flex flex-col time">
                     <%= KursonliKursWeb.GeneralHelper.date_to_string_all(item.filial.course |> hd() |> Map.get(:date)) %>
                   </span>
-                </div>
               </td>
+              <div class="hidden"><% sale = item.filial.course |> hd |> Map.get(:value_for_sale) %></div>
+              <div class="hidden"><% purchase = item.filial.course |> hd |> Map.get(:value_for_purchase) %></div>
               <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="1">
                 <div class="d_flex justify-between items-center">
                   <span class="sale font-bold text-xl">
-                    <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
+                    <%= sale %>
                   </span>
                   <span class="font-bold text-xl">—</span>
                   <span class="pushare font-bold text-xl">
-                    <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
+                    <%= purchase %>
                   </span>
                 </div>
               </td>
               <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="2">
                 <div class="d_flex justify-between items-center">
                   <span class="sale font-bold text-xl">
-                    <%#= if item.filial.course |> hd |> Map.get(:short_name) == "USD" do %>
-                      <%#= item.filial.course |> hd |> Map.get(:value_for_sale) %>
+                    <%= if item.filial.course |> hd |> Map.get(:short_name) == "USD" do %>
+                      <%= sale %>
                       <!-- текст -->
-                    <%# else %>
-                      <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
-                    <%# end %>
+                    <% else %>
+                      <%= sale %>
+                    <% end %>
                   </span>
                   <span class="font-bold text-xl">—</span>
                   <span class="pushare font-bold text-xl">
-                    <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
+                    <%= purchase %>
                   </span>
                 </div>
               </td>
               <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="3">
                 <div class="d_flex justify-between items-center">
                   <span class="sale font-bold text-xl">
-                    <%= item.filial.course |> hd |> Map.get(:value_for_sale) %>
+                    <%= sale %>
                   </span>
                   <span class="font-bold text-xl">—</span>
                   <span class="pushare font-bold text-xl">
-                    <%= item.filial.course |> hd |> Map.get(:value_for_purchase) %>
+                    <%= purchase %>
                   </span>
                 </div>
               </td>
-              <td class="px-6 py-4 border-2 border-tableGray text-center">
+              <td class="px-6 py-4 border-2 border-r-0 border-tableGray text-center">
                 <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
                   <%= item.setting.phones["phone1"] %>
                 </a>
@@ -196,6 +192,9 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    
+
+
     const elements = [...document.querySelectorAll("[data-id]")]
     let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
     const selectTable = [...document.querySelectorAll(".select_table")]
@@ -305,7 +304,9 @@
     } else if (elapsedSeconds < hour) {
       return `${Math.floor(elapsedSeconds / minute)} минут назад`;
     } else if ((Math.floor(elapsedSeconds / day) === 0)) {
-      if (Math.floor(elapsedSeconds / hour) < 5) {
+      if (Math.floor(elapsedSeconds / hour) <= 1) {
+        return `${Math.floor(elapsedSeconds / hour)} час назад`;
+      } else if(Math.floor(elapsedSeconds / hour) < 5){
         return `${Math.floor(elapsedSeconds / hour)} часа назад`;
       } else {
         return `${Math.floor(elapsedSeconds / hour)} часов назад`;

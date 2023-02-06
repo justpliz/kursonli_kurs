@@ -44,6 +44,7 @@ defmodule KursonliKursWeb.GeneralHelper do
   end
 
   def date_to_string_data(date), do: "#{date.year}-#{date.month}-#{date.day}"
+  def date_to_string_data_dot(date), do: "#{date.year}.#{date.month}.#{date.day}"
   def date_to_string_time(date), do: "#{date.hour}:#{date.minute}:#{date.second}"
 
   def date_to_string_all(date),
