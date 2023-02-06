@@ -4,8 +4,7 @@
       <a href="/"><img src="/images/white-line-logo.svg" alt=""></a>
 
       <div class="relative w-1/5">
-        <input class="input_search table_search_input" type="text" placeholder="" id="index-table-search-row"
-          onkeyup="filterSearch()">
+        <input class="input_search search-input" type="text" placeholder="">
         <div class="absolute inset-y-0 right-4 flex items-center pl-3 pointer-events-none">
           <img src="/images/icons/search.svg" alt="">
         </div>
@@ -39,7 +38,7 @@
             <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
               <div class="flex justify-between">
                 Время
-                <img class="img_sort cursor-pointer" src="/images/icons/time-down.svg" alt="">
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
             </th>
             <th scope="col" class="w-1/6 px-6 py-4 border-2 border-gray-200">
@@ -98,7 +97,7 @@
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="data-table">
           <%= for item <- @courses_list do %>
             <tr class="bg-white text-black" data-id="<%= item.filial.id %>"
               data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
@@ -192,9 +191,6 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    
-
-
     const elements = [...document.querySelectorAll("[data-id]")]
     let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
     const selectTable = [...document.querySelectorAll(".select_table")]
@@ -271,25 +267,6 @@
       }
     });
   });
-
-  function filterSearch() {
-    var phrase = document.getElementsByClassName('table_search_input');
-    var table = document.getElementsByClassName('table_search');
-    var regPhrase = new RegExp(phrase[0].value, 'i');
-    var flag = false;
-    for (var i = 1; i < table[0].rows.length; i++) {
-      flag = false;
-      for (var j = table[0].rows[i].cells.length - 1; j >= 0; j--) {
-        flag = regPhrase.test(table[0].rows[i].cells[j].innerHTML);
-        if (flag) break;
-      }
-      if (flag) {
-        table[0].rows[i].style.display = "";
-      } else {
-        table[0].rows[i].style.display = "none";
-      }
-    }
-  }
 
   function timeSince(time) {
     const minute = 60;

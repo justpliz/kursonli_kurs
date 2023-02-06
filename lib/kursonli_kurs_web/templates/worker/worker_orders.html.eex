@@ -1,5 +1,5 @@
 <div class="margin_content content-worker-order">
-  <h1 class="title">Ордера на продажу</h1>
+  <h1 class="title_without_margin">Ордера на продажу</h1>
   <h2 class="title flex justify-between" id="org_title"><span class="name"></span> <span class="title text-blub"></span>
   </h2>
   <div class="relative overflow-x-auto shadow-md rounded-xl">
@@ -20,9 +20,6 @@
           </th>
           <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Объём
-          </th>
-          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
-            Лимит
           </th>
           <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Условия
@@ -51,9 +48,6 @@
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.volume %>
-            </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
-              <%= item.limit %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.terms %>
@@ -95,9 +89,6 @@
             Объём
           </th>
           <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
-            Лимит
-          </th>
-          <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
             Условия
           </th>
           <th scope="col" class="p-6 border-b-2 border-x-2 border-gray-200">
@@ -124,9 +115,6 @@
               <%= item.volume %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
-              <%= item.limit %>
-            </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= item.terms %>
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
@@ -146,8 +134,8 @@
   </div>
 
   <div class="flex py-4">
-    <button class="btn_save" id="createOrder" data-item="">Разместить</button>
-    <button class="modal-button btn_save ml-4" id="accept" data-item="">Принять</button>
+    <button class="modal-button btn_save" id="accept" data-item="">Принять</button>
+    <button class="btn_save ml-4" id="createOrder" data-item="">Разместить</button>
   </div>
 
   <h1 class="title mb-4">Мои сделки</h1>

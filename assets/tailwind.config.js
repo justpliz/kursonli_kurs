@@ -34,6 +34,7 @@ module.exports = {
       height: {
         '600': '600px',
         '700': '700px',
+        '2p': '2px',
       },
       width: {
         '600': '600px',
@@ -42,6 +43,9 @@ module.exports = {
         '10p': '10%',
         '14p': '14%',
       },
+      margin: {
+        '2p': '0px'
+      }
     }
   },
   plugins: [

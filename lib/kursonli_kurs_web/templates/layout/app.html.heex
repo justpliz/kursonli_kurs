@@ -1,8 +1,8 @@
 <main class="">
-  <p class="d-none" id="alert-info" role="alert">
+  <p class="hidden" id="alert-info" role="alert">
     <%= get_flash(@conn, :info) %>
   </p>
-  <p class=" d-none" id="alert-danger" role="alert">
+  <p class=" hidden" id="alert-danger" role="alert">
     <%= get_flash(@conn, :error) %>
   </p>
   <%= @inner_content %>
@@ -14,7 +14,13 @@
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-right',
-      showConfirmButton: true,
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
     })
     if (alertInfoText.length > 4) {
       Toast.fire({

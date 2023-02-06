@@ -24,7 +24,10 @@ import "./user_socket";
 import "./phone_input";
 import "./order_click";
 import "./click_event";
+import "./helper/search_input";
 import "./helper/modal_script";
+import "./helper/active_link";
+import "./helper/tabs";
 // And connect to the path in "lib/kursonli_kurs_web/endpoint.ex". We pass the
 // token for authentication. Read below how it should be used.
 
@@ -54,14 +57,6 @@ liveSocket.connect();
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
-
-const activeLink = [...document.querySelectorAll(".active-link")];
-const path = window.location;
-activeLink.forEach((e) => {
-  if (e.href == path.href) {
-    e.classList.add("active");
-  }
-});
 
 function input() {
   var input = [...document.querySelectorAll(".number_input_only")];
