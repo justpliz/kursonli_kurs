@@ -83,7 +83,13 @@ body {
 
 .active-link.active {
   color: #3689ce;
-  font-weight: 700;
+}
+
+.active-link.active li{
+  @apply bg-blub text-white;
+}
+.active-link.active .icons_style {
+  @apply text-white;
 }
 
 .bg_th {
@@ -253,4 +259,24 @@ th.sorted[data-order="1"]::after {
   width: 24px;
   height: 24px;
   border: none;
+}
+
+.select_table {
+  margin: 0 15px;
+  background: #fff url("/images/icons/select.svg") no-repeat top right;
+  background-size: contain;
+}
+
+.bg_table {
+  background-color: #A7FFB5;
+  padding: 3px 5px;
+}
+
+.tab-content {
+  display: none;
+  padding: 20px 0 0 0;
+}
+
+.tab-content.active {
+  display: block;
 }

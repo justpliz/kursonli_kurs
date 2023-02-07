@@ -179,7 +179,7 @@ defmodule KursonliKursWeb.WorkerController do
 
     with {:ok, order} <- Orders.create(opts) do
       conn
-      |> put_flash(:info, "Ордер #{order.number} зарегестрирован")
+      |> put_flash(:info, "Ордер #{order.number} зарегистрирован ")
       |> redirect(to: "/worker/orders")
     end
   end

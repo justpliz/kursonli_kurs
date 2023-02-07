@@ -56,7 +56,13 @@ $("#accept").click(function () {
   item.worker = getWorker();
   if (getWorker().id != worker_id) {
     Swal.fire({
-      showCloseButton: true,
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      },
       html: `
         <form action="/trades" method="post">
         <input name="_csrf_token" type="hidden" value="${crftoken}">
@@ -64,7 +70,7 @@ $("#accept").click(function () {
           <h1 class="title pos">Ордер на покупку<h1>
           <div>
             <label class="label_input pos">${itemSaleH1} </label>
-            <input class="input_full number_input_only" id="volume_model" name="volume" required="true" type="text" maxlength="30">
+            <input class="input_full bit_input" id="volume_model" name="volume" required="true" type="text" maxlength="30">
           </div>
           <h3 class="pos gap-1"> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span></h3>
           <div class="pos gap-1"> 
@@ -101,13 +107,31 @@ $("#accept").click(function () {
           itemeSale.innerHTML = e.currentTarget.value;
           itemResult.innerHTML = volume * course_sale_float;
         });
+        
+        let inputs = document.getElementsByClassName("bit_input");
+        for (let i = 0; i < inputs.length; i++) {
+          inputs[i].addEventListener("input", function () {
+            let numString = this.value.replace(/\D/g, "");
+            let parts = numString.split(/(?=(?:\d{3})+$)/);
+            this.value = parts.join(" ");
+          });
+        }
       },
       showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
     });
   } else {
     Toast.fire({
       title: "Это ваш ордер!",
       icon: "error",
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
     });
   }
 });

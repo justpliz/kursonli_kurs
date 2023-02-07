@@ -46,7 +46,7 @@ defmodule KursonliKurs.Model.Setting do
         color_currency: "#000000",
         color_qualities: "#000000",
         color_scoreboard: "#000000",
-        color_qualities_text: "#000000"
+        color_qualities_text: "#ffffff"
       }
 
     belongs_to :filial, Filial, type: :binary_id

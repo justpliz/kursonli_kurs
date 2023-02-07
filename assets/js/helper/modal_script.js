@@ -81,5 +81,13 @@ window.Modalka = Swal.mixin({
          phoneInput.addEventListener('input', onPhoneInput, false);
          phoneInput.addEventListener('paste', onPhonePaste, false);
       }
+      let inputs = document.getElementsByClassName("bit_input");
+      for (let i = 0; i < inputs.length; i++) {
+         inputs[i].addEventListener("input", function () {
+            let numString = this.value.replace(/\D/g, "");
+            let parts = numString.split(/(?=(?:\d{3})+$)/);
+            this.value = parts.join(" ");
+         });
+      }
    }
 })

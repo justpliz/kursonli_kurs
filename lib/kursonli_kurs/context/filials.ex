@@ -11,7 +11,8 @@ defmodule KursonliKurs.Context.Filials do
     Tariff,
     Currency,
     Setting,
-    Course
+    Course,
+    Worker
   }
 
   alias KursonliKurs.Context.{Filials, Workers, Settings}
@@ -69,10 +70,12 @@ defmodule KursonliKurs.Context.Filials do
       on: filial.city_id == city.id,
       join: org in Organization,
       on: filial.organization_id == org.id,
-      left_join: tariff in Tariff,
-      on: filial.tariff_id == tariff.id,
       join: setting in Setting,
       on: setting.filial_id == filial.id,
+      join: worker in Worker,
+      on: worker.filial_id == filial.id,
+      left_join: tariff in Tariff,
+      on: filial.tariff_id == tariff.id,
       select: %{
         id: filial.id,
         filial_name: filial.name,
@@ -84,7 +87,8 @@ defmodule KursonliKurs.Context.Filials do
         tariff_price: tariff.price,
         coordinates: setting.coordinates,
         address_2gis: setting.address_2gis,
-        firm_id: setting.firm_id
+        firm_id: setting.firm_id,
+        email: worker.email
       }
     )
     |> Repo.all()
