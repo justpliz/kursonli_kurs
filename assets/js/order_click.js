@@ -42,6 +42,7 @@ $("#accept").click(function () {
     terms,
     volume,
     transfer,
+    limit,
     type,
     worker_id,
   } = item;
@@ -54,11 +55,18 @@ $("#accept").click(function () {
 }
   else { itemSale = "Вы покупаете:"; }
 
-  if (type == "sale") { modalTitle = "Ордер на покупку"; }
-  else { modalTitle = "Ордер на продажу"; }
+  if (type == "sale") { modalTitle = "Ордер на продажу"; }
+  else { modalTitle = "Ордер на покупку"; }
 
   if (type == "sale") { itemSaleH1 = "Укажите сумму продажи:"; }
   else { itemSaleH1 = "Укажите сумму покупки:"; }
+
+  if (limit == "") {
+    limitText = "без лимита"
+  } else{
+    limitText = limit
+  }
+
 
   item.worker = getWorker();
   if (getWorker().id != worker_id) {
@@ -74,13 +82,13 @@ $("#accept").click(function () {
           <h1 class="title_modal_center">${modalTitle}<h1>
           <div>
             <label class="label_input pos">${itemSaleH1} </label>
-            <input class="input_full bit_input" id="volume_model" name="volume" required="true" type="text" maxlength="30">
+            <input class="input_full number_input_only" id="volume_model" name="volume" required="true" type="text" maxlength="30">
           </div>
           <h3 class="pos gap-1"> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span></h3>
-          <div class="pos gap-1"> 
-            Итого:
+          <div class="pos text-2xl font-bold text-blub gap-1"> 
+            <div class="uppercase">Итого:</div>
             <span id="itemResult"></span>
-            тенге
+            тг.
           </div>
 
         <input class="input_full hidden number_input_only" name="order_id" value="${id}" required="true" type="text">
@@ -89,6 +97,9 @@ $("#accept").click(function () {
         <input  class="input_full hidden item_order" name="item_order" value='${JSON.stringify(
           item
         )}' >
+        <div class="label_input pos">Лимит: ${limitText}</div>
+        <div class="label_input pos">Самовыз: <div class="trs">${transfer}</div></div>
+        
         <label class="label_input pos">Условия:</label>
         <input class="input_full " name="terms" value="" type="text" maxlength="30">
       </div>

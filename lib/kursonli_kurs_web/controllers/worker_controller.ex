@@ -136,13 +136,16 @@ defmodule KursonliKursWeb.WorkerController do
     currencies_list = Currencies.all()
     message = Chat.get_all_by_city(city_id)
 
+    address = worker.fililal_address
+
     conn
     |> render("worker_orders.html",
       order_list_purchase: order_list_purchase,
       order_list_sale: order_list_sale,
       currencies_list: currencies_list,
       message: message,
-      trades: Trades.get_by_id_worker(worker.id)
+      trades: Trades.get_by_id_worker(worker.id),
+      address: address
     )
   end
 

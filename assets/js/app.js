@@ -68,23 +68,6 @@ function input() {
 }
 input();
 
-const inputOnePass = document.querySelector("#new_pass");
-const inputTwoPass = document.querySelector("#re_new_pass");
-const errosHtml = document.querySelector("#error");
-const regSubmit = document.querySelector("#reg_submit");
-const handleChange = (e) => {
-  if (inputOnePass.value == inputTwoPass.value) {
-    errosHtml.innerHTML =
-      "<span class='text-green-600'>Пароли совпадают</span>";
-    regSubmit.removeAttribute("disabled");
-  } else {
-    errosHtml.innerHTML = "<span class='text-red-600'>Пароль не верный</span>";
-    regSubmit.setAttribute("disabled", "true");
-  }
-};
-inputOnePass.addEventListener("input", handleChange);
-inputTwoPass.addEventListener("input", handleChange);
-
 $("#myModal").on("shown.bs.modal", function () {
   $("#myInput").trigger("focus");
 });
