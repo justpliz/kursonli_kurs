@@ -17,7 +17,7 @@ module.exports = {
         dblue: '#000045',
         blub: '#3689ce',
         lightBlub: '#5699d1',
-        greatGreen: '#A7FFB5',
+        greatGreen: '#67d368',
         greatYellow: '#FFC69D',
         grey: '#f3f3f3',
       },

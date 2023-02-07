@@ -17,6 +17,7 @@
 {:ok, city_ala} = KursonliKurs.Context.Cities.create(%{name: "Алматы", short_name: "ALA", eng_name: "almaty"})
 {:ok, usd} = KursonliKurs.Context.Currencies.create(%{name: "Американский доллар", short_name: "USD", color: "#ffffff"})
 {:ok, eur} = KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR", color: "#ffffff"})
+{:ok, rub} = KursonliKurs.Context.Currencies.create(%{name: "Российский рубль", short_name: "RUB", color: "#ffffff"})
 
 # Create Org1
 {:ok, org1} =
@@ -95,6 +96,11 @@ KursonliKurs.Context.FilialsCurrencies.create(%{
   currency_id: usd.id
 })
 
+KursonliKurs.Context.FilialsCurrencies.create(%{
+  filial_id: filial2.id,
+  currency_id: rub.id
+})
+
 KursonliKurs.Context.Settings.create(%{
   address_2gis: "Address for 2 gis1",
   filial_id: filial2.id
@@ -113,5 +119,13 @@ KursonliKurs.Context.Courses.create(%{
   value_for_purchase: "-",
   date: Timex.now("Asia/Almaty"),
   currency_id: eur.id,
+  filial_id: filial2.id
+})
+
+KursonliKurs.Context.Courses.create(%{
+  value_for_sale: "-",
+  value_for_purchase: "-",
+  date: Timex.now("Asia/Almaty"),
+  currency_id: rub.id,
   filial_id: filial2.id
 })

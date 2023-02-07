@@ -29,6 +29,7 @@ $("#accept").click(function () {
     });
     return "";
   }
+
   const crftoken = document.querySelector("#crf_token").value;
   const item = JSON.parse(this.dataset.item);
   const {
@@ -50,23 +51,41 @@ $("#accept").click(function () {
   let itemSale = "";
   let itemSaleH1 = "";
   let modalTitle = "";
-  if (type == "sale") { 
-    itemSale = "Вы продаете:"; 
-}
-  else { itemSale = "Вы покупаете:"; }
+  if (type == "sale") {
+    itemSale = "Вы продаете:";
+  } else {
+    itemSale = "Вы покупаете:";
+  }
 
-  if (type == "sale") { modalTitle = "Ордер на продажу"; }
-  else { modalTitle = "Ордер на покупку"; }
+  if (type == "sale") {
+    modalTitle = "Ордер на продажу";
+  } else {
+    modalTitle = "Ордер на покупку";
+  }
 
-  if (type == "sale") { itemSaleH1 = "Укажите сумму продажи:"; }
-  else { itemSaleH1 = "Укажите сумму покупки:"; }
+  if (type == "sale") {
+    itemSaleH1 = "Укажите сумму продажи:";
+  } else {
+    itemSaleH1 = "Укажите сумму покупки:";
+  }
 
   if (limit == "") {
     limitText = "без лимита"
-  } else{
+  } else {
     limitText = limit
   }
+  
+  if (transfer == "red") {
+    transferBlock = "red_circle"
+  } else if (transfer == "green"){
+    transferBlock = "green_circle"
+  } else{
+    transferBlock = "colors"
+  }
 
+  const element = document.createElement("trs");
+  element.classList.add(transferBlock);
+  document.body.appendChild(element);
 
   item.worker = getWorker();
   if (getWorker().id != worker_id) {
@@ -76,37 +95,46 @@ $("#accept").click(function () {
       showConfirmButton: false,
       focusConfirm: false,
       html: `
-        <form action="/trades" method="post">
+      <form action="/trades" method="post">
         <input name="_csrf_token" type="hidden" value="${crftoken}">
-        <div> 
+        <div class="px-1">
           <h1 class="title_modal_center">${modalTitle}<h1>
-          <div>
-            <label class="label_input pos">${itemSaleH1} </label>
+          <div class="pt-2">
+            <label class="label_modal text-neutral-400 pos">${itemSaleH1}</label>
             <input class="input_full number_input_only" id="volume_model" name="volume" required="true" type="text" maxlength="30">
           </div>
           <h3 class="pos gap-1"> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span></h3>
-          <div class="pos text-2xl font-bold text-blub gap-1"> 
+          <div class="pos py-4 text-2xl font-bold text-blub gap-1">
             <div class="uppercase">Итого:</div>
             <span id="itemResult"></span>
             тг.
           </div>
 
-        <input class="input_full hidden number_input_only" name="order_id" value="${id}" required="true" type="text">
-        <input  class="input_full hidden number_input_only" name="worker_id" value="${getWorker().id
-        }" >
-        <input  class="input_full hidden item_order" name="item_order" value='${JSON.stringify(
-          item
-        )}' >
-        <div class="label_input pos">Лимит: ${limitText}</div>
-        <div class="label_input pos">Самовыз: <div class="trs">${transfer}</div></div>
-        
-        <label class="label_input pos">Условия:</label>
-        <input class="input_full " name="terms" value="" type="text" maxlength="30">
-      </div>
-      <button type="submit" class="btn_save mt-2 pos">Подтвердить</button>
+          <input class="input_full hidden number_input_only" name="order_id" value="${id}" required="true" type="text">
+
+          <input class="input_full hidden number_input_only" name="worker_id" value="${getWorker().id}" >
+          <input class="input_full hidden item_order" name="item_order" value='${JSON.stringify(item)}' >
+
+          <div class="label_modal pos">Лимит: ${limitText}</div>
+          <div class="label_modal pos">Самовыз:
+            <div class="ml-2 ${transferBlock}"></div>
+          </div>
+
+          <label class="label_modal pos">Ваши условия:</label>
+          <input class="input_full" name="terms" type="text" maxlength="30">
+        </div>
+        <div class="d_flex justify-between mt-4 gap-4">
+        <button type="submit" class="w-full btn_save">Подтвердить</button>
+        <button class="w-full btn_cancel">Отменить</button>
+        </div>
       </form>
         `,
       willOpen: () => {
+        const btnCancel = document.querySelector(".btn_cancel");
+        btnCancel.addEventListener("click", function () {
+          Swal.close();
+        });
+
         input();
 
         const volume_model = document.querySelector("#volume_model");

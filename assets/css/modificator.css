@@ -31,6 +31,10 @@
       @apply block my-2 text-base font-medium text-gray-900;
    }
 
+   .label_modal {
+      @apply block my-2 text-base font-normal text-neutral-400;
+   }
+
    .pos {
       @apply flex justify-start;
    }
