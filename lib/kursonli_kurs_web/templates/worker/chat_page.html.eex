@@ -8,7 +8,7 @@
          <div class="chatsss" id="chatWrapper">
             <%= for {id,_,_,user_id, y} <- @message do %>
                <%= if y[:type]=="event" and y[:item_order]["worker_id"]==workerr.id do %>
-                  <% order_type=KursonliKursWeb.GeneralHelper.normalize_order_type( y[:item_order]["type"]) %>
+                  <% order_type=KursonliKursWeb.GeneralHelper.normalize_order_type( y[:item_order]["type"], :multi) %>
                      <div class="w-full mt-2 bg-blub p-4 text-white rounded  event" data-etsid="<%= id %>"
                         data-type='<%= y["type_event"] %>'>
                         <div class="text-gray-200">На Ваш ордер на <%= order_type %>: <%= y.item_order["volume"] %>
