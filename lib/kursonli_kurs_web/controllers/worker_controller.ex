@@ -19,8 +19,14 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/login
   """
   def login_form(conn, _params) do
+    user = %{
+      first_name: "",
+      email: "",
+      phone: ""
+    }
+
     conn
-    |> render("worker_login_form.html")
+    |> render("worker_login_form.html", user: user)
     |> halt()
   end
 
@@ -29,10 +35,8 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def login_form_submit(conn, params) do
     first_name = params["first_name"]
-    last_name = params["last_name"]
 
     opts = [
-      phone: params["phone"],
       email: params["email"],
       password: hash_str(params["password"])
     ]
@@ -53,7 +57,6 @@ defmodule KursonliKursWeb.WorkerController do
           id: worker.id,
           first_name: first_name,
           filial_id: filial.id,
-          last_name: last_name,
           phone: worker.phone,
           email: worker.email,
           filial_name: filial.name,
@@ -67,9 +70,14 @@ defmodule KursonliKursWeb.WorkerController do
         |> redirect(to: "/worker/orders")
 
       {:error, :not_found} ->
+        user = %{
+          first_name: params["first_name"],
+          email: params["email"],
+          phone: params["phone"]
+        }
         conn
         |> put_flash(:error, "Ввведены некорректные данные")
-        |> redirect(to: "/worker/login")
+        |> render("worker_login_form.html", user: user)
     end
   end
 
@@ -153,7 +161,6 @@ defmodule KursonliKursWeb.WorkerController do
   def create_order_submit(conn, params) do
     # TODO Переделать event_info
     session = get_session(conn, :worker)
-    IO.inspect(params)
 
     opts = %{
       date: Timex.now("Asia/Almaty"),
@@ -170,7 +177,7 @@ defmodule KursonliKursWeb.WorkerController do
       currency_id: params["currency_id"]
     }
 
-    with {:ok, order} <- Orders.create(opts) |> IO.inspect() do
+    with {:ok, order} <- Orders.create(opts) do
       conn
       |> put_flash(:info, "Ордер #{order.number} зарегестрирован")
       |> redirect(to: "/worker/orders")
@@ -223,17 +230,28 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/update_course
   """
   def update_course(conn, params) do
-    IO.inspect(params)
-    change_all_filials = String.to_atom(params["change_all_filials"])
+    courses_list =
+      params
+      |> Map.delete("_csrf_token")
+      |> Enum.map(fn {k, v} -> {String.split(k, "|"), v} end)
+      |> Enum.reduce(%{}, fn {[id, key], value}, acc ->
+        Map.put(acc, id, Map.merge(Map.get(acc, id, %{}), %{key => value}))
+      end)
 
-    opts = %{
-      value_for_sale: params["value_for_sale"],
-      value_for_purchase: params["value_for_purchase"],
-      date: Timex.now("Asia/Almaty")
-    }
+    # def update do
 
+    # end
+    # change_all_filials = String.to_atom(params["change_all_filials"])
+
+    # opts = %{
+    #   value_for_sale: params["value_for_sale"],
+    #   value_for_purchase: params["value_for_purchase"],
+    #   date: Timex.now("Asia/Almaty")
+    # }
+  end
+
+  def change_all_filials(change_all_filials, conn, params) do
     case change_all_filials do
-      # TODO Ну это говно точно переделать надо
       true ->
         filial_id = get_session(conn, :worker).filial_id
         {:ok, filial} = Filials.do_get(id: filial_id)
@@ -241,14 +259,14 @@ defmodule KursonliKursWeb.WorkerController do
         {:ok, course} = Courses.do_get(id: params["course_id"])
 
         Courses.get_all_courses_by_filial(filial.organization_id, course.currency_id)
-        |> Enum.map(fn course -> Courses.update(course, opts) end)
+        # |> Enum.map(fn course -> Courses.update(course, opts) end)
 
         conn
         |> redirect(to: "/worker/courses")
 
       false ->
-        with {:ok, course} <- Courses.do_get(id: params["course_id"]),
-             {:ok, _course} <- Courses.update(course, opts) do
+        with {:ok, course} <- Courses.do_get(id: params["course_id"]) do
+          #  {:ok, _course} <- Courses.update(course, opts) do
           conn
           |> redirect(to: "/worker/courses")
         end

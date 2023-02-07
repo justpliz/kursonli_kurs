@@ -30,7 +30,7 @@
       <ul class="w-full pt-6 relative h-full">
         <% worker=Plug.Conn.get_session(@conn,:worker) %>
           <div class="py-2 px-8">Пользователь: <span class="font-bold">
-              <%= worker[:filial_name] %> (<%= worker[:first_name] %> <%= worker[:last_name] %>)
+              <%= worker[:filial_name] %> (<%= worker[:first_name] %>)
               <%= worker[:fililal_address] %>
             </span></div>
 

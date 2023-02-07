@@ -40,7 +40,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= for item <- Enum.sort(@courses_list, :asc) do %>
+        <%= for item <- @courses_list do %>
           <tr class="bg-white">
             <td class="px-6 py-4 border-t-2">
               <%= item.currency_name %>
@@ -48,20 +48,20 @@
             <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
               <%= item.currency_short_name %>
             </td>
-            <%= hidden_input f, :course_id, value: item.course_id, class: "input_full" %>
-              <td class="px-6 py-4 border-x-2 border-t-2">
-                <%= text_input f, :value_for_purchase, class: "input_full number_input_only" , value:
-                  item.value_for_purchase %>
-              </td>
-              <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
-                <%= text_input f, :value_for_sale, class: "input_full number_input_only" , value: item.value_for_sale %>
-              </td>
-              <td class="px-6 py-4 border-t-2">
-                <div class="flex items-center justify-center">
-                  <input name="change_all_filials" type="hidden" value="false">
-                  <input id="green" name="change_all_filials" type="checkbox" value="true" class="type_select rounded">
-                </div>
-              </td>
+            <td class="px-6 py-4 border-x-2 border-t-2">
+              <%= text_input f, :"#{item.course_id}|value_for_purchase", class: "input_full number_input_only" , value:
+                item.value_for_purchase %>
+            </td>
+            <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
+              <%= text_input f, :"#{item.course_id}|value_for_sale", class: "input_full number_input_only" , value:
+                item.value_for_sale %>
+            </td>
+            <td class="px-6 py-4 border-t-2">
+              <div class="flex items-center justify-center">
+                <input name='<%= "#{item.course_id}|change_all_filials" %>' type="hidden" value="false">
+                <input id="green" name="change_all_filials" type="checkbox" value="true" class="type_select rounded">
+              </div>
+            </td>
           </tr>
           <% end %>
             <% end %>
@@ -69,5 +69,3 @@
     </table>
   </div>
 </div>
-
-<%#= render(KursonliKursWeb.WorkerView, "modal_worker_courses_edit.html" , conn: @conn) %>
