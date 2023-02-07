@@ -12,6 +12,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateOrdersTable do
       add :volume, :string
       add :course, :string
       add :worker_name, :string
+      add :worker_phone, :string
       add :transfer, :order_transfer
       add :limit, :string
       add :terms, :string, size: 30

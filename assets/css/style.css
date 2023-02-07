@@ -280,3 +280,7 @@ th.sorted[data-order="1"]::after {
 .tab-content.active {
   display: block;
 }
+
+.title_modal_center::before{
+  
+}

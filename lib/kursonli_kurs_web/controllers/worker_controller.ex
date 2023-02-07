@@ -129,7 +129,7 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/orders
   """
   def orders(conn, _params) do
-    order_list_purshare = Orders.order_list(:purchase)
+    order_list_purchase = Orders.order_list(:purchase) |> IO.inspect()
     order_list_sale = Orders.order_list(:sale)
     city_id = get_session(conn, :worker).city.id
     worker = get_session(conn, :worker)
@@ -138,7 +138,7 @@ defmodule KursonliKursWeb.WorkerController do
 
     conn
     |> render("worker_orders.html",
-      order_list_purshare: order_list_purshare,
+      order_list_purchase: order_list_purchase,
       order_list_sale: order_list_sale,
       currencies_list: currencies_list,
       message: message,

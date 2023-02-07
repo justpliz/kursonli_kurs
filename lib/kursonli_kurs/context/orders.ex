@@ -4,7 +4,7 @@ defmodule KursonliKurs.Context.Orders do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.{Order, Currency, Filial, Organization, Setting}
+  alias KursonliKurs.Model.{Order, Currency, Filial, Organization}
 
   require Logger
 
@@ -47,7 +47,7 @@ defmodule KursonliKurs.Context.Orders do
     |> Repo.aggregate(:count)
   end
 
-  def order_list(type \\ :sale) do
+  def order_list(type) do
     from(
       order in Order,
       where: order.type == ^type,
@@ -61,6 +61,7 @@ defmodule KursonliKurs.Context.Orders do
         id: order.id,
         organization: org.name,
         filial_name: filial.name,
+        type: order.type,
         filial: filial,
         filial_id: order.filial_id,
         fililal_address: filial.fililal_address,
@@ -72,7 +73,8 @@ defmodule KursonliKurs.Context.Orders do
         worker_id: order.worker_id,
         currency_short_name: c.short_name,
         worker_name: order.worker_name,
-        course_sale: order.course,
+        worker_phone: order.worker_phone,
+        course_sale: order.course
       }
     )
     |> Repo.all()

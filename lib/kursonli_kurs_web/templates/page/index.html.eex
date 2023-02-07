@@ -105,7 +105,7 @@
           <%= for item <- @courses_list do %>
             <tr class="bg-white text-black" data-id="<%= item.filial.id %>"
               data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
-              <td class="px-6 py-4 border-2 border-l-0 border-tableGray">
+              <td class="px-6 py-4 border-2 border-b-0 border-l-0 border-tableGray">
                 <span class="font-bold text-base block">
                   <%= item.organization.name %>
                 </span>
@@ -127,7 +127,7 @@
                         <% end %>
                 </div>
               </td>
-              <td class="px-6 py-4 border-2 border-tableGray text-center">
+              <td class="px-6 py-4 border-2 border-b-0 border-tableGray text-center">
                 <div class="time-container">
                   <span class="text-xl font-bold flex flex-col time">
                     <%= KursonliKursWeb.GeneralHelper.date_to_string_all(item.filial.course |> hd() |> Map.get(:date))
@@ -140,18 +140,18 @@
               <div class="hidden">
                 <% purchase=item.filial.course |> hd |> Map.get(:value_for_purchase) %>
               </div>
-              <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="1">
+              <td class="px-6 py-4 border-2 border-b-0 border-tableGray dataget" data-select="1">
                 <div class="d_flex justify-between items-center">
                   <span class="sale font-bold text-xl">
                     <%= sale %>
                   </span>
-                  <span class="font-bold text-xl">—</span>
-                  <span class="pushare font-bold text-xl">
+                  <span class="font-bold border-b-0 text-xl">—</span>
+                  <span class="purchase font-bold text-xl">
                     <%= purchase %>
                   </span>
                 </div>
               </td>
-              <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="2">
+              <td class="px-6 py-4 border-2 border-b-0 border-tableGray dataget" data-select="2">
                 <div class="d_flex justify-between items-center">
                   <span class="sale font-bold text-xl">
                     <%= if item.filial.course |> hd |> Map.get(:short_name) == "USD" do %>
@@ -162,23 +162,23 @@
                             <% end %>
                   </span>
                   <span class="font-bold text-xl">—</span>
-                  <span class="pushare font-bold text-xl">
+                  <span class="purchase font-bold text-xl">
                     <%= purchase %>
                   </span>
                 </div>
               </td>
-              <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="3">
+              <td class="px-6 py-4 border-2 border-b-0 border-tableGray dataget" data-select="3">
                 <div class="d_flex justify-between items-center">
                   <span class="sale font-bold text-xl">
                     <%= sale %>
                   </span>
                   <span class="font-bold text-xl">—</span>
-                  <span class="pushare font-bold text-xl">
+                  <span class="purchase font-bold text-xl">
                     <%= purchase %>
                   </span>
                 </div>
               </td>
-              <td class="px-6 py-4 border-2 border-r-0 border-tableGray text-center">
+              <td class="px-6 py-4 border-2 border-b-0 border-r-0 border-tableGray text-center">
                 <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
                   <%= item.setting.phones["phone1"] %>
                 </a>
@@ -211,7 +211,7 @@
       elements.forEach((value, index) => {
         const elemGiveData = value.querySelector(`.dataget[data-select="${currentSelect}"]`)
         const elemFindSale = elemGiveData.querySelector(`.sale`)
-        const elemFindPushare = elemGiveData.querySelector(`.pushare`)
+        const elemFindPurchase = elemGiveData.querySelector(`.purchase`)
         const item = JSON.parse(value.dataset.item)
 
         const find = item.filial.course.find((el) => {
@@ -220,11 +220,11 @@
         })
         if (find != undefined) {
           elemFindSale.innerHTML = find.value_for_sale
-          elemFindPushare.innerHTML = find.value_for_purchase
+          elemFindPurchase.innerHTML = find.value_for_purchase
         }
         else {
           elemFindSale.innerHTML = "-"
-          elemFindPushare.innerHTML = "-"
+          elemFindPurchase.innerHTML = "-"
         }
       })
     }));

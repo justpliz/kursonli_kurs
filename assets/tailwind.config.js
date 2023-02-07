@@ -45,6 +45,9 @@ module.exports = {
       },
       margin: {
         '2p': '0px'
+      },
+      fontSize: {
+        'small': '10px',
       }
     }
   },
