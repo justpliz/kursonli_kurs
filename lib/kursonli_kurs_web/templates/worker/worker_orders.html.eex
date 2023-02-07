@@ -1,7 +1,12 @@
 <div class="margin_content content-worker-order">
-  <h1 class="title_without_margin">Ордера на продажу</h1>
-  <h2 class="title flex justify-between" id="org_title"><span class="name"></span> <span class="title text-blub"></span>
-  </h2>
+  <div class="title_small mb-2 flex justify-between" id="org_title">
+    Ордера на продажу
+    <h2 class="text-sm text-red-400">
+      <span class="name"></span>
+      <span class="phone text-blub"></span>
+      <span class="pl-4 text-neutral-400 address"></span>
+    </h2>
+  </div>
   <div class="relative overflow-x-auto shadow-md rounded-xl">
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
@@ -54,11 +59,11 @@
             </td>
             <td class="px-6 py-4 border-x-2 border-gray-200">
               <%= case item.transfer do %>
-                <% "green" -> %> 
+                <% "green" -> %>
                   <div name="order_tranfer" id="<%= item.transfer %>" class="green_circle"></div>
                 <% "red" -> %>
                   <div name="order_tranfer" id="<%= item.transfer %>" class="red_circle"></div>
-                <% "red_green" -> %> 
+                <% "red_green" -> %>
                   <div name="order_tranfer" id="<%= item.transfer %>" class="transition-all colors"></div>
               <% end %>
             </td>
@@ -68,7 +73,7 @@
     </table>
   </div>
 
-  <h1 class="title mt-4">Ордера на покупку</h1>
+  <h1 class="title_small mb-2 mt-4">Ордера на покупку</h1>
   <div class="relative overflow-x-auto shadow-md rounded-xl">
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
@@ -138,7 +143,7 @@
     <button class="btn_save ml-4" id="createOrder" data-item="">Разместить</button>
   </div>
 
-  <h1 class="title mb-4">Мои сделки</h1>
+  <h1 class="title_small mb-2">Мои сделки</h1>
   <div class="relative overflow-x-auto shadow-md rounded-xl">
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-white">
@@ -190,7 +195,7 @@
             <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               <%= item.terms %>
             </td>
-            <td class="px-6 py-4 border-x-2 border-gray-200 break-words"> 
+            <td class="px-6 py-4 border-x-2 border-gray-200 break-words">
               <%= case item.item_order["transfer"] do %>
                 <% "green" -> %>
                   <div id='item.item_order["transfer"]' class="green_circle"></div>

@@ -142,7 +142,7 @@
                   <div class="flex justify-between">
                      <label class="label_input basis-1/6 p-2">Цвет валюты</label>
                      <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
-                        <input type="color" class="w-full">
+                        <input type="color" disabled id="color" value="<%= item.color %>" class="w-full">
                      </div>
                   </div>
                   <div class="border-t-2 my-4 border-gray-200"></div>

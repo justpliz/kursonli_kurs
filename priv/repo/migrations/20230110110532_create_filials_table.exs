@@ -7,7 +7,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateFilialsTable do
 
       add :name, :string
       add :fililal_address, :string
-      add :paid_up_to, :naive_datetime
+      add :paid_up_to, :date
       add :filial_active_status, :active_status
 
       add :city_id, references(:cities, on_delete: :nothing)

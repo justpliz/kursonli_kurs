@@ -57,7 +57,7 @@ defmodule KursonliKursWeb.WorkerController do
           id: worker.id,
           first_name: first_name,
           filial_id: filial.id,
-          phone: worker.phone,
+          phone: params["phone"],
           email: worker.email,
           filial_name: filial.name,
           fililal_address: filial.fililal_address,
@@ -75,6 +75,7 @@ defmodule KursonliKursWeb.WorkerController do
           email: params["email"],
           phone: params["phone"]
         }
+
         conn
         |> put_flash(:error, "Ввведены некорректные данные")
         |> render("worker_login_form.html", user: user)
@@ -174,8 +175,9 @@ defmodule KursonliKursWeb.WorkerController do
       worker_id: session.id,
       course: params["course"],
       worker_name: session.first_name,
+      worker_phone: session.phone,
       currency_id: params["currency_id"]
-    }
+    } |> IO.inspect()
 
     with {:ok, order} <- Orders.create(opts) do
       conn

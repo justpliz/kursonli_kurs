@@ -43,16 +43,12 @@ defmodule KursonliKursWeb.GeneralHelper do
     |> Enum.map(fn x -> Atom.to_string(x) end)
   end
 
-  def date_to_string_data(date), do: "#{date.year}-#{date.month}-#{date.day}"
-  def date_to_string_data_dot(date), do: "#{date.year}.#{date.month}.#{date.day}"
-  def date_to_string_data(date), do: Timex.format!(date, "{YYYY}-{0M}-{0D}")
+  def date_to_string_data(date), do: Timex.format!(date, "{0D}.{0M}.{YYYY}")
+
   def date_to_string_time(date), do: "#{date.hour}:#{date.minute}:#{date.second}"
 
   def date_to_string_all(date),
     do: "#{date.year}-#{date.month}-#{date.day} #{date.hour}:#{date.minute}:#{date.second}"
-
-  def string_date_to_datetime(date),
-    do: date |> Timex.parse!("{YYYY}-{0M}-{D}") |> Timex.to_datetime()
 
   def get_image_path(nil, type) do
     case type do

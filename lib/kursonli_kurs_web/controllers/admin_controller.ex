@@ -87,7 +87,6 @@ defmodule KursonliKursWeb.AdminController do
 
     worker_opts = %{
       email: params["email"],
-      phone: params["phone"],
       password: hash_str(password)
     }
 
@@ -168,7 +167,8 @@ defmodule KursonliKursWeb.AdminController do
   def create_currency_submit(conn, params) do
     opts = %{
       name: params["name"],
-      short_name: String.upcase(params["short_name"])
+      short_name: String.upcase(params["short_name"]),
+      color: params["color"],
     }
 
     with {:ok, currencies} <- Currencies.create(opts) do
@@ -282,7 +282,6 @@ defmodule KursonliKursWeb.AdminController do
 
     worker_opts = %{
       email: params["email"],
-      phone: params["phone"],
       password: hash_str(password)
     }
 
@@ -323,7 +322,7 @@ defmodule KursonliKursWeb.AdminController do
   def update_filial(conn, %{"id" => id} = params) do
     filial_opts = %{
       name: params["filial_name"],
-      paid_up_to: string_date_to_datetime(params["paid_up_to"]),
+      paid_up_to: params["paid_up_to"],
       tariff_id: params["tariff"],
       city_id: params["city_id"]
     }

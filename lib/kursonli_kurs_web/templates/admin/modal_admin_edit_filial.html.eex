@@ -33,7 +33,7 @@
               <%= select f, :tariff_id, Enum.map(@tariff_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${tariff_name}" %>
               
               <label class="label_input pos" for="city_id">Город</label>
-              <%= select f, :city_id, [{"-- Выберите город --", 0} | Enum.map(@cities_list, fn x -> {x.name, x.id} end)], class: "input_full", value: "${city_name}", required: "true" %>
+              <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${city_name}", required: "true" %>
 
               <label class="label_input pos" for="paid_up_to">Оплачен до:</label>
               <%= date_input f, :paid_up_to, class: "input_full", value: "${paid_up_to}", required: "true" %>

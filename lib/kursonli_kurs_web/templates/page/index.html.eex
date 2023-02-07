@@ -18,13 +18,17 @@
   <div class="max-w-1440 mx-auto">
     <div class="flex py-8 text-dblue">
       <%= for item <- @city_list do %>
-        <a class="font-bold pr-4" href="city?name=<%= item.name %>"><%= item.name %> (<span class="font-bold text-red-500"><%= item.count %></span>)</a>
-      <% end %>
+        <a class="font-bold pr-4" href="city?name=<%= item.name %>">
+          <%= item.name %> (<span class="font-bold text-red-500">
+              <%= item.count %>
+            </span>)
+        </a>
+        <% end %>
     </div>
 
     <div class="font-bold text-black text-lg">
       Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl">
-          <%= KursonliKursWeb.GeneralHelper.date_to_string_data_dot(Timex.now) %>
+          <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
         </span>
     </div>
 
@@ -63,12 +67,12 @@
                       <option class="text-black" selected="selected" value="<%= item.short_name %>">
                         <%= item.short_name %>
                       </option>
-                    <% else %>
-                      <option class="text-black" value="<%= item.short_name %>">
-                        <%= item.short_name %>
-                      </option>
-                      <% end %>
-                    <% end %>
+                      <% else %>
+                        <option class="text-black" value="<%= item.short_name %>">
+                          <%= item.short_name %>
+                        </option>
+                        <% end %>
+                          <% end %>
                 </select>
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
@@ -82,12 +86,12 @@
                       <option class="text-black" selected="selected" value="<%= item.short_name %>">
                         <%= item.short_name %>
                       </option>
-                    <% else %>
-                      <option class="text-black" value="<%= item.short_name %>">
-                        <%= item.short_name %>
-                      </option>
-                    <% end %>
-                  <% end %>
+                      <% else %>
+                        <option class="text-black" value="<%= item.short_name %>">
+                          <%= item.short_name %>
+                        </option>
+                        <% end %>
+                          <% end %>
                 </select>
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
@@ -117,20 +121,25 @@
                 <div class="mt-2">
                   <%= if String.to_atom(gold) do %>
                     <span class="bg-greatYellow text-sm text-white px-6 py-1">Золото</span>
-                  <% end %>
-                  <%= if String.to_atom(wholesale_rate) do %>
-                      <span class="bg-greatGreen text-sm text-white px-6 py-1">Оптовый курс</span>
-                  <% end %>
+                    <% end %>
+                      <%= if String.to_atom(wholesale_rate) do %>
+                        <span class="bg-greatGreen text-sm text-white px-6 py-1">Оптовый курс</span>
+                        <% end %>
                 </div>
               </td>
               <td class="px-6 py-4 border-2 border-tableGray text-center">
                 <div class="time-container">
                   <span class="text-xl font-bold flex flex-col time">
-                    <%= KursonliKursWeb.GeneralHelper.date_to_string_all(item.filial.course |> hd() |> Map.get(:date)) %>
+                    <%= KursonliKursWeb.GeneralHelper.date_to_string_all(item.filial.course |> hd() |> Map.get(:date))
+                      %>
                   </span>
               </td>
-              <div class="hidden"><% sale = item.filial.course |> hd |> Map.get(:value_for_sale) %></div>
-              <div class="hidden"><% purchase = item.filial.course |> hd |> Map.get(:value_for_purchase) %></div>
+              <div class="hidden">
+                <% sale=item.filial.course |> hd |> Map.get(:value_for_sale) %>
+              </div>
+              <div class="hidden">
+                <% purchase=item.filial.course |> hd |> Map.get(:value_for_purchase) %>
+              </div>
               <td class="px-6 py-4 border-2 border-tableGray dataget" data-select="1">
                 <div class="d_flex justify-between items-center">
                   <span class="sale font-bold text-xl">
@@ -147,10 +156,10 @@
                   <span class="sale font-bold text-xl">
                     <%= if item.filial.course |> hd |> Map.get(:short_name) == "USD" do %>
                       <%= sale %>
-                      <!-- текст -->
-                    <% else %>
-                      <%= sale %>
-                    <% end %>
+                        <!-- текст -->
+                        <% else %>
+                          <%= sale %>
+                            <% end %>
                   </span>
                   <span class="font-bold text-xl">—</span>
                   <span class="pushare font-bold text-xl">
@@ -283,7 +292,7 @@
     } else if ((Math.floor(elapsedSeconds / day) === 0)) {
       if (Math.floor(elapsedSeconds / hour) <= 1) {
         return `${Math.floor(elapsedSeconds / hour)} час назад`;
-      } else if(Math.floor(elapsedSeconds / hour) < 5){
+      } else if (Math.floor(elapsedSeconds / hour) < 5) {
         return `${Math.floor(elapsedSeconds / hour)} часа назад`;
       } else {
         return `${Math.floor(elapsedSeconds / hour)} часов назад`;

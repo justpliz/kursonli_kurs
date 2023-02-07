@@ -15,8 +15,8 @@
 {:ok, city_krg} = KursonliKurs.Context.Cities.create(%{name: "Караганда", short_name: "KRG", eng_name: "karaganda"})
 {:ok, city_smsk} = KursonliKurs.Context.Cities.create(%{name: "Семей", short_name: "SMSK", eng_name: "semey"})
 {:ok, city_ala} = KursonliKurs.Context.Cities.create(%{name: "Алматы", short_name: "ALA", eng_name: "almaty"})
-{:ok, usd} = KursonliKurs.Context.Currencies.create(%{name: "Американский доллар", short_name: "USD"})
-{:ok, eur} = KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR"})
+{:ok, usd} = KursonliKurs.Context.Currencies.create(%{name: "Американский доллар", short_name: "USD", color: "#ffffff"})
+{:ok, eur} = KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR", color: "#ffffff"})
 
 # Create Org1
 {:ok, org1} =
@@ -37,7 +37,6 @@
   })
 
 KursonliKurs.Context.Workers.create(%{
-  phone: "+7 (707) 777-77-77",
   password: KursonliKursWeb.GeneralHelper.hash_str("1234"),
   email: "odin@odin",
   filial_id: filial1.id
@@ -81,7 +80,6 @@ KursonliKurs.Context.Courses.create(%{
   })
 
 KursonliKurs.Context.Workers.create(%{
-  phone: "+7 (777) 777-77-77",
   password: KursonliKursWeb.GeneralHelper.hash_str("1234"),
   email: "dva@dva",
   filial_id: filial2.id

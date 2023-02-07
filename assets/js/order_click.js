@@ -14,7 +14,7 @@ $(".order-click").click(function () {
 
   console.log(item);
   $("#org_title .name").text(item.worker_name);
-  $("#org_title .title").text(item.filial_address);
+  $("#org_title .address").text(item.fililal_address);
   $("#org_title .phone").text(item.phone);
   document.querySelector("#accept").dataset.item = this.dataset.item;
 });
@@ -56,13 +56,10 @@ $("#accept").click(function () {
   item.worker = getWorker();
   if (getWorker().id != worker_id) {
     Swal.fire({
+      showCloseButton: true,
+      showCancelButton: false,
       showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      },
+      focusConfirm: false,
       html: `
         <form action="/trades" method="post">
         <input name="_csrf_token" type="hidden" value="${crftoken}">
@@ -87,7 +84,7 @@ $("#accept").click(function () {
           item
         )}' >
         <label class="label_input pos">Условия:</label>
-        <input class="input_full " name="terms" value="" required="true" type="text" maxlength="30">
+        <input class="input_full " name="terms" value="" type="text" maxlength="30">
       </div>
       <button type="submit" class="btn_save mt-2 pos">Подтвердить</button>
       </form>
@@ -117,9 +114,6 @@ $("#accept").click(function () {
           });
         }
       },
-      showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true,
     });
   } else {
     Toast.fire({
