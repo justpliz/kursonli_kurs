@@ -12,7 +12,7 @@
                <form action="/admin/filials/update_filial_status" method="get">
                   <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
                   <input class="hidden" id="filial_active_status" value="${filial_active_status}" name="filial_active_status" required="true" type="text">
-                  <div class="text-left my-4">При активации организации все филиалы зарегестрированные от данной организации будут так же активны.
+                  <div class="text-left my-4">При активации организации все филиалы зарегистрированные от данной организации будут так же активны.
                   Вы уверены?</div>
                   <button class="btn_save my-2 pos" type="submit">Архивировать</button>
                </form>
@@ -37,7 +37,7 @@
                <form action="/admin/filials/update_filial_status" method="get">
                   <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
                   <input class="hidden" id="filial_active_status" value="${filial_active_status}" name="filial_active_status" required="true" type="text">
-                  <div class="text-left my-4">При добавлении организации в архив все филиалы зарегестрированные от данной организации будут так же архивированы.
+                  <div class="text-left my-4">При добавлении организации в архив все филиалы зарегистрированные от данной организации будут так же архивированы.
                   Вы уверены?</div>
                   <button class="btn_save my-2 pos" type="submit">Сделать активным</button>
                </form>
