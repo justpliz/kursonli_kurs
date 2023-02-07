@@ -163,21 +163,23 @@ defmodule KursonliKursWeb.WorkerController do
     # TODO Переделать event_info
     session = get_session(conn, :worker)
 
-    opts = %{
-      date: Timex.now("Asia/Almaty"),
-      number: generate_random_str(6),
-      type: params["type"],
-      volume: params["volume"],
-      terms: params["terms"],
-      transfer: params["transfer"],
-      limit: params["limit"],
-      filial_id: session.filial_id,
-      worker_id: session.id,
-      course: params["course"],
-      worker_name: session.first_name,
-      worker_phone: session.phone,
-      currency_id: params["currency_id"]
-    } |> IO.inspect()
+    opts =
+      %{
+        date: Timex.now("Asia/Almaty"),
+        number: generate_random_str(6),
+        type: params["type"],
+        volume: params["volume"],
+        terms: params["terms"],
+        transfer: params["transfer"],
+        limit: params["limit"],
+        filial_id: session.filial_id,
+        worker_id: session.id,
+        course: params["course"],
+        worker_name: session.first_name,
+        worker_phone: session.phone,
+        currency_id: params["currency_id"]
+      }
+      |> IO.inspect()
 
     with {:ok, order} <- Orders.create(opts) do
       conn
@@ -232,6 +234,8 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/update_course
   """
   def update_course(conn, params) do
+    filial_id = get_session(conn, :worker).filial_id
+
     courses_list =
       params
       |> Map.delete("_csrf_token")
@@ -239,39 +243,34 @@ defmodule KursonliKursWeb.WorkerController do
       |> Enum.reduce(%{}, fn {[id, key], value}, acc ->
         Map.put(acc, id, Map.merge(Map.get(acc, id, %{}), %{key => value}))
       end)
+      |> Enum.map(fn {id, course} -> update_one_course(id, course, filial_id) end)
 
-    # def update do
-
-    # end
-    # change_all_filials = String.to_atom(params["change_all_filials"])
-
-    # opts = %{
-    #   value_for_sale: params["value_for_sale"],
-    #   value_for_purchase: params["value_for_purchase"],
-    #   date: Timex.now("Asia/Almaty")
-    # }
+    conn
+    |> redirect(to: "/worker/courses")
   end
 
-  def change_all_filials(change_all_filials, conn, params) do
-    case change_all_filials do
+  @doc """
+  check "change_all_filials
+  """
+  def update_one_course(course_id, course, filial_id) do
+    opts = %{
+      value_for_sale: course["value_for_sale"],
+      value_for_purchase: course["value_for_purchase"],
+      date: Timex.now("Asia/Almaty")
+    }
+
+    case String.to_atom(course["change_all_filials"]) do
       true ->
-        filial_id = get_session(conn, :worker).filial_id
         {:ok, filial} = Filials.do_get(id: filial_id)
 
-        {:ok, course} = Courses.do_get(id: params["course_id"])
+        {:ok, course} = Courses.do_get(id: course_id)
 
         Courses.get_all_courses_by_filial(filial.organization_id, course.currency_id)
-        # |> Enum.map(fn course -> Courses.update(course, opts) end)
-
-        conn
-        |> redirect(to: "/worker/courses")
+        |> Enum.map(fn course -> Courses.update(course, opts) end)
 
       false ->
-        with {:ok, course} <- Courses.do_get(id: params["course_id"]) do
-          #  {:ok, _course} <- Courses.update(course, opts) do
-          conn
-          |> redirect(to: "/worker/courses")
-        end
+        {:ok, course} = Courses.do_get(id: course_id)
+        {:ok, _course} = Courses.update(course, opts)
     end
   end
 

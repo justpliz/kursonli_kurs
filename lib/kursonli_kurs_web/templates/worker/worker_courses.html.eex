@@ -59,7 +59,7 @@
             <td class="px-6 py-4 border-t-2">
               <div class="flex items-center justify-center">
                 <input name='<%= "#{item.course_id}|change_all_filials" %>' type="hidden" value="false">
-                <input id="green" name="change_all_filials" type="checkbox" value="true" class="type_select rounded">
+                <input id="green" name='<%= "#{item.course_id}|change_all_filials" %>' type="checkbox" value="true" class="type_select rounded">
               </div>
             </td>
           </tr>

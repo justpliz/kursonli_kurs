@@ -274,6 +274,7 @@ defmodule KursonliKursWeb.AdminController do
   POST /admin/filials
   """
   def create_filial_submit(conn, params) do
+    IO.inspect(params)
     password = generate_random_str(8)
 
     currencies_list =
@@ -288,6 +289,7 @@ defmodule KursonliKursWeb.AdminController do
     filial_opts = %{
       name: params["filial_name"],
       city_id: params["city_id"],
+      fililal_address: params["fililal_address"],
       organization_id: params["org_id"]
     }
 
