@@ -58,7 +58,7 @@ defmodule KursonliKurs.Context.Filials do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          {:ok, _worker} <- Workers.create(worker_opts),
-         {:ok, _setting} <- Settings.create(%{filial_id: filial.id}) |> IO.inspect() do
+         {:ok, _setting} <- Settings.create(%{filial_id: filial.id}) do
       {:ok, filial}
     end
   end
@@ -102,7 +102,9 @@ defmodule KursonliKurs.Context.Filials do
       on: course.filial_id == filial.id,
       join: c in Currency,
       on: c.id == course.currency_id,
+      order_by: [c.id],
       select: %{
+        currency_id: c.id,
         course_id: course.id,
         currency_name: c.name,
         currency_short_name: c.short_name,

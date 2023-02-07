@@ -44,9 +44,8 @@ defmodule KursonliKursWeb.GeneralHelper do
   end
 
   def date_to_string_data(date), do: "#{date.year}-#{date.month}-#{date.day}"
-
-  def date_to_string_data_dot(date), do: "#{date.day}.#{date.month}.#{date.year}"
-
+  def date_to_string_data_dot(date), do: "#{date.year}.#{date.month}.#{date.day}"
+  def date_to_string_data(date), do: Timex.format!(date, "{YYYY}-{0M}-{0D}")
   def date_to_string_time(date), do: "#{date.hour}:#{date.minute}:#{date.second}"
 
   def date_to_string_all(date),
@@ -77,11 +76,13 @@ defmodule KursonliKursWeb.GeneralHelper do
     end
   end
 
-  def normalize_order_type(type) do
-    if type == "sale" do
-      "Продажу"
-    else
-      "Покупку"
+  def normalize_order_type(type, opts) do
+    case opts do
+      :single ->
+        if type == "sale", do: "Продажa", else: "Покупкa"
+
+      :multi ->
+        if type == "sale", do: "Продажу", else: "Покупку"
     end
   end
 

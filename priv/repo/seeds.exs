@@ -31,6 +31,8 @@
   KursonliKurs.Context.Filials.create(%{
     name: "Odin1",
     city_id: city_krg.id,
+    fililal_address: "Жамбыла 4",
+    filial_active_status: "active",
     organization_id: org1.id
   })
 
@@ -48,7 +50,8 @@ KursonliKurs.Context.FilialsCurrencies.create(%{
 
 KursonliKurs.Context.Settings.create(%{
   address_2gis: "Address for 2 gis1",
-  filial_id: filial1.id
+  filial_id: filial1.id,
+  tags: ["true", "true"]
 })
 
 KursonliKurs.Context.Courses.create(%{
@@ -72,6 +75,8 @@ KursonliKurs.Context.Courses.create(%{
   KursonliKurs.Context.Filials.create(%{
     name: "Dva1",
     city_id: city_krg.id,
+    fililal_address: "Бейкер стрит",
+    filial_active_status: "active",
     organization_id: org2.id
   })
 
