@@ -3,19 +3,21 @@ const Toast = Swal.mixin({
   position: "top-right",
   showConfirmButton: true,
 });
+
 const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"));
 };
+
 $(".order-click").click(function () {
   $(".order-click").removeClass("selected");
   $(this).addClass("selected");
 
   const item = JSON.parse(this.dataset.item);
+  console.log(item)
 
-  console.log(item);
   $("#org_title .name").text(item.worker_name);
   $("#org_title .address").text(item.fililal_address);
-  $("#org_title .phone").text(item.phone);
+  $("#org_title .phone").text(item.worker_phone);
   document.querySelector("#accept").dataset.item = this.dataset.item;
 });
 
@@ -29,7 +31,6 @@ $("#accept").click(function () {
   }
   const crftoken = document.querySelector("#crf_token").value;
   const item = JSON.parse(this.dataset.item);
-  console.log(item);
   const {
     course_purchase,
     course_sale,
@@ -47,12 +48,18 @@ $("#accept").click(function () {
 
   let itemSale = "";
   let itemSaleH1 = "";
-  if (type == "sale") itemSale = "Вы продаете:";
-  else itemSale = "Вы покупаете:";
+  let modalTitle = "";
+  if (type == "sale") { 
+    itemSale = "Вы продаете:"; 
+}
+  else { itemSale = "Вы покупаете:"; }
 
-  if (type == "sale") itemSaleH1 = "Укажите сумму продажи:";
-  else itemSaleH1 = "Укажите сумму покупки:";
-  console.log(item);
+  if (type == "sale") { modalTitle = "Ордер на покупку"; }
+  else { modalTitle = "Ордер на продажу"; }
+
+  if (type == "sale") { itemSaleH1 = "Укажите сумму продажи:"; }
+  else { itemSaleH1 = "Укажите сумму покупки:"; }
+
   item.worker = getWorker();
   if (getWorker().id != worker_id) {
     Swal.fire({
@@ -64,7 +71,7 @@ $("#accept").click(function () {
         <form action="/trades" method="post">
         <input name="_csrf_token" type="hidden" value="${crftoken}">
         <div> 
-          <h1 class="title pos">Ордер на покупку<h1>
+          <h1 class="title_modal_center">${modalTitle}<h1>
           <div>
             <label class="label_input pos">${itemSaleH1} </label>
             <input class="input_full bit_input" id="volume_model" name="volume" required="true" type="text" maxlength="30">
@@ -77,8 +84,7 @@ $("#accept").click(function () {
           </div>
 
         <input class="input_full hidden number_input_only" name="order_id" value="${id}" required="true" type="text">
-        <input  class="input_full hidden number_input_only" name="worker_id" value="${
-          getWorker().id
+        <input  class="input_full hidden number_input_only" name="worker_id" value="${getWorker().id
         }" >
         <input  class="input_full hidden item_order" name="item_order" value='${JSON.stringify(
           item
@@ -104,7 +110,7 @@ $("#accept").click(function () {
           itemeSale.innerHTML = e.currentTarget.value;
           itemResult.innerHTML = volume * course_sale_float;
         });
-        
+
         let inputs = document.getElementsByClassName("bit_input");
         for (let i = 0; i < inputs.length; i++) {
           inputs[i].addEventListener("input", function () {

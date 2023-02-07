@@ -129,7 +129,7 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/orders
   """
   def orders(conn, _params) do
-    order_list_purshare = Orders.order_list(:purchase)
+    order_list_purchase = Orders.order_list(:purchase) |> IO.inspect()
     order_list_sale = Orders.order_list(:sale)
     city_id = get_session(conn, :worker).city.id
     worker = get_session(conn, :worker)
@@ -138,7 +138,7 @@ defmodule KursonliKursWeb.WorkerController do
 
     conn
     |> render("worker_orders.html",
-      order_list_purshare: order_list_purshare,
+      order_list_purchase: order_list_purchase,
       order_list_sale: order_list_sale,
       currencies_list: currencies_list,
       message: message,
@@ -163,21 +163,23 @@ defmodule KursonliKursWeb.WorkerController do
     # TODO Переделать event_info
     session = get_session(conn, :worker)
 
-    opts = %{
-      date: Timex.now("Asia/Almaty"),
-      number: generate_random_str(6),
-      type: params["type"],
-      volume: params["volume"],
-      terms: params["terms"],
-      transfer: params["transfer"],
-      limit: params["limit"],
-      filial_id: session.filial_id,
-      worker_id: session.id,
-      course: params["course"],
-      worker_name: session.first_name,
-      worker_phone: session.phone,
-      currency_id: params["currency_id"]
-    } |> IO.inspect()
+    opts =
+      %{
+        date: Timex.now("Asia/Almaty"),
+        number: generate_random_str(6),
+        type: params["type"],
+        volume: params["volume"],
+        terms: params["terms"],
+        transfer: params["transfer"],
+        limit: params["limit"],
+        filial_id: session.filial_id,
+        worker_id: session.id,
+        course: params["course"],
+        worker_name: session.first_name,
+        worker_phone: session.phone,
+        currency_id: params["currency_id"]
+      }
+      |> IO.inspect()
 
     with {:ok, order} <- Orders.create(opts) do
       conn
