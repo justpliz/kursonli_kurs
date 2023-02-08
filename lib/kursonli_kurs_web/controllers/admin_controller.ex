@@ -101,7 +101,7 @@ defmodule KursonliKursWeb.AdminController do
            Filials.create_filial_worker_seting(
              filial_opts,
              worker_opts
-           ) do
+           ),
       params["currency"]
       |> Enum.map(fn currency ->
         currency = String.to_integer(currency)
@@ -113,7 +113,7 @@ defmodule KursonliKursWeb.AdminController do
         })
 
         FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
-      end)
+      end) do
 
       conn
       |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
@@ -168,7 +168,7 @@ defmodule KursonliKursWeb.AdminController do
     opts = %{
       name: params["name"],
       short_name: String.upcase(params["short_name"]),
-      color: params["color"],
+      color: params["color"]
     }
 
     with {:ok, currencies} <- Currencies.create(opts) do

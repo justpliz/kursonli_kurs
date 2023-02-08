@@ -15,7 +15,7 @@ defmodule KursonliKurs.Model.Order do
   schema "orders" do
     field :date, :naive_datetime
     field :volume, :string
-    field :terms, :string
+    field :terms, :string, default: ""
     field :limit, :string
     field :number, :string
     field :course, :string

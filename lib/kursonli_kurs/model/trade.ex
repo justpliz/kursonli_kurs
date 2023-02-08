@@ -9,11 +9,11 @@ defmodule KursonliKurs.Model.Trade do
   # @primary_key {:id, :binary_id, autogenerate: true}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(terms volume status worker_id order_id)a
-  @optional_fields ~w(item_order)a
+  @required_fields ~w(volume status worker_id order_id)a
+  @optional_fields ~w(item_order terms)a
 
   schema "trades" do
-    field :terms, :string
+    field :terms, :string, default: ""
     field :volume, :string
     field :status, OrderStatus, default: "active"
     field :item_order, :map

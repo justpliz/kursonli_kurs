@@ -348,7 +348,12 @@ defmodule KursonliKursWeb.WorkerController do
       "schedule_other" => params["schedule_other"]
     }
 
-    tags = [params["gold"], params["wholesale_rate"]]
+    promo = %{
+      "promo1" => params["promo1"],
+      "promo2" => params["promo2"]
+    }
+
+    tags = [params["wholesale_rate"], params["gold"]]
 
     opts = %{
       colors: colors,
@@ -360,7 +365,8 @@ defmodule KursonliKursWeb.WorkerController do
       photo: photo,
       license: params["license"],
       subdomen: params["subdomen"],
-      tags: tags
+      tags: tags,
+      promo: promo
     }
 
     with {:ok, setting} <- Settings.do_get(filial_id: get_session(conn, :worker).filial_id),

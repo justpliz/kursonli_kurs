@@ -77,7 +77,7 @@
         </table>
       </div>
     </div>
-    
+
     <div class="tab-content" id="tab2-content">
       <h1 class="title">Архивные филиалы</h1>
       <div class="relative overflow-x-auto rounded-xl">

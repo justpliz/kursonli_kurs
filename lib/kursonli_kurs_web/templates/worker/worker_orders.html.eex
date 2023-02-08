@@ -3,7 +3,7 @@
     Ордера на продажу
     <div class="text-sm text-red-400">
       <span class="name"></span>
-      <span class="phone"></span>
+      <a href="tel:" class="phone underline"></a>
       <span class="pl-4 text-neutral-400 address"></span>
     </div>
   </div>
@@ -59,11 +59,11 @@
               <%= case item.transfer do %>
                 <% "green" -> %>
                   <div name="order_tranfer" id="<%= item.transfer %>" class="green_circle"></div>
-                <% "red" -> %>
-                  <div name="order_tranfer" id="<%= item.transfer %>" class="red_circle"></div>
-                <% "red_green" -> %>
-                  <div name="order_tranfer" id="<%= item.transfer %>" class="transition-all colors"></div>
-              <% end %>
+                  <% "red" -> %>
+                    <div name="order_tranfer" id="<%= item.transfer %>" class="red_circle"></div>
+                    <% "red_green" -> %>
+                      <div name="order_tranfer" id="<%= item.transfer %>" class="transition-all colors"></div>
+                      <% end %>
             </td>
           </tr>
           <% end %>
@@ -124,11 +124,11 @@
               <%= case item.transfer do %>
                 <% "green" -> %>
                   <div name="order_tranfer" id="<%= item.transfer %>" class="green_circle"></div>
-                <% "red" -> %>
-                  <div name="order_tranfer" id="<%= item.transfer %>" class="red_circle"></div>
-                <% "red_green" -> %>
-                  <div name="order_tranfer" id="<%= item.transfer %>" class="transition-all colors"></div>
-              <% end %>
+                  <% "red" -> %>
+                    <div name="order_tranfer" id="<%= item.transfer %>" class="red_circle"></div>
+                    <% "red_green" -> %>
+                      <div name="order_tranfer" id="<%= item.transfer %>" class="transition-all colors"></div>
+                      <% end %>
             </td>
           </tr>
           <% end %>
@@ -170,6 +170,9 @@
           <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
             Статус сделки
           </th>
+          <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -197,14 +200,24 @@
               <%= case item.item_order["transfer"] do %>
                 <% "green" -> %>
                   <div id='item.item_order["transfer"]' class="green_circle"></div>
-                <% "red" -> %>
-                  <div id='item.item_order["transfer"]' class="red_circle"></div>
-                <% "red_green" -> %>
-                  <div id='item.item_order["transfer"]' class="transition-all colors"></div>
-              <% end %>
+                  <% "red" -> %>
+                    <div id='item.item_order["transfer"]' class="red_circle"></div>
+                    <% "red_green" -> %>
+                      <div id='item.item_order["transfer"]' class="transition-all colors"></div>
+                      <% end %>
             </td>
             <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
               <%= KursonliKursWeb.GeneralHelper.normalize_status_trade(item.status) %>
+            </td>
+            <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+              <button class="filial_edit styles_none"
+                data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                <span class="material-symbols-outlined" style="color:#3689ce; font-weight: 900;">edit</span>
+              </button>
+              <button class="filial_edit styles_none"
+                data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                <span class="material-symbols-outlined" style="color:red; font-weight: 900;">delete</span>
+              </button>
             </td>
           </tr>
           <% end %>
@@ -214,4 +227,5 @@
 </div>
 
 <%= render(KursonliKursWeb.WorkerView, "chat_page.html" , conn: @conn, message: @message) %>
-<%= render(KursonliKursWeb.WorkerView, "modal_worker_orders_add.html" , conn: @conn, message: @message, currencies_list: @currencies_list, address: @address) %>
+  <%= render(KursonliKursWeb.WorkerView, "modal_worker_orders_add.html" , conn: @conn, message: @message,
+    currencies_list: @currencies_list, address: @address) %>

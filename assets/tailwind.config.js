@@ -48,6 +48,13 @@ module.exports = {
       },
       fontSize: {
         'small': '10px',
+      },
+      screens: {
+        '2xl': { 'max': '1540px' },
+        'xl': { 'max': '1280px' },
+        'lg': { 'max': '1000px' },
+        'md': { 'max': '769px' },
+        'sm': { 'max': '640px' },
       }
     }
   },

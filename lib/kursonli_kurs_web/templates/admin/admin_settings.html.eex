@@ -197,10 +197,10 @@
 </div>
 
 <%= render(KursonliKursWeb.AdminView, "modal_admin_edit_currency.html" , conn: @conn) %>
-<%= render(KursonliKursWeb.AdminView, "modal_admin_currency_create.html" , conn: @conn) %>
+   <%= render(KursonliKursWeb.AdminView, "modal_admin_currency_create.html" , conn: @conn) %>
 
-<%= render(KursonliKursWeb.AdminView, "modal_admin_edit_cities.html" , conn: @conn) %>
-<%= render(KursonliKursWeb.AdminView, "modal_admin_cities_create.html" , conn: @conn) %>
+      <%= render(KursonliKursWeb.AdminView, "modal_admin_edit_cities.html" , conn: @conn) %>
+         <%= render(KursonliKursWeb.AdminView, "modal_admin_cities_create.html" , conn: @conn) %>
 
-<%= render(KursonliKursWeb.AdminView, "modal_admin_create_tariff.html" , conn: @conn) %>
-<%= render(KursonliKursWeb.AdminView, "modal_admin_tariff_edit.html" , conn: @conn) %>
+            <%= render(KursonliKursWeb.AdminView, "modal_admin_create_tariff.html" , conn: @conn) %>
+               <%= render(KursonliKursWeb.AdminView, "modal_admin_tariff_edit.html" , conn: @conn) %>

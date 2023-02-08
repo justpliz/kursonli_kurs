@@ -3,13 +3,13 @@
       <% {:ok, worker}=Jason.encode(Plug.Conn.get_session(@conn,:worker)) %>
          <%= worker %>
    </div>
-   <div class="w-1/5 bg-white shadow-xl overflow-hidden fixed right-0 top-0 h-full">
+   <div class="w-1/5 2xl:w-1/6 bg-white shadow-xl overflow-hidden fixed right-0 top-0 h-full">
       <div class="p-4 overflow-auto h-full min-h-full relative">
          <div class="chatsss" id="chatWrapper">
             <%= for {id,_,_,user_id, y} <- @message do %>
                <%= if y[:type]=="event" and y[:item_order]["worker_id"]==workerr.id do %>
                   <% order_type=KursonliKursWeb.GeneralHelper.normalize_order_type( y[:item_order]["type"], :multi) %>
-                     <div class="w-full mt-2 bg-blub p-4 text-white rounded  event" data-etsid="<%= id %>"
+                     <div class="w-full mt-2 bg-blub p-4 text-white 2xl:text-small rounded  event" data-etsid="<%= id %>"
                         data-type='<%= y["type_event"] %>'>
                         <div class="text-gray-200">На Ваш ордер на <%= order_type %>: <%= y.item_order["volume"] %>
                                  <%= y[:item_order]["currency_short_name"] %>
@@ -73,10 +73,10 @@
                                           <% end %>
          </div>
       </div>
-      <div class="absolute w-full bottom-0 bg-gray-300 p-4 items-end flex-0-0 ">
+      <div class="absolute w-full bottom-0 bg-gray-300 p-4 2xl:p-2 items-end flex-0-0 ">
          <div class="grid grid-cols-4 gap-4 mb-2" id="userConnect">
          </div>
-         <input id="chat" class="d_flex items-center h-10 w-full rounded px-3 text-sm" type="text"
+         <input id="chat" class="d_flex items-center h-10 w-full 2xl:text-small rounded px-3 2xl:h-8 text-sm" type="text"
             placeholder="Введите сообщение...">
       </div>
    </div>
