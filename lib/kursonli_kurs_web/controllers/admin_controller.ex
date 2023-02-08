@@ -76,7 +76,6 @@ defmodule KursonliKursWeb.AdminController do
   Создание связки "организаця-филиал-сотрудник-валюты"
   """
   def register_org_submit(conn, params) do
-    # создается, но выдается ошибка)
     password = generate_random_str(8)
 
     org_opts = %{
@@ -92,7 +91,8 @@ defmodule KursonliKursWeb.AdminController do
 
     filial_opts = %{
       name: params["filial_name"],
-      city_id: params["city_id"]
+      city_id: params["city_id"],
+      fililal_address: params["fililal_address"]
     }
 
     with {:ok, org} <- Organizations.create(org_opts),
