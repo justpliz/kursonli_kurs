@@ -13,7 +13,6 @@ $(".order-click").click(function () {
   $(this).addClass("selected");
 
   const item = JSON.parse(this.dataset.item);
-  console.log(item)
 
   $("#org_title .name").text(item.worker_name);
   $("#org_title .address").text(item.fililal_address);

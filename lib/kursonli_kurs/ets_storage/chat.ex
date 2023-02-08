@@ -5,10 +5,10 @@ defmodule KursonliKurs.EtsStorage.Chat do
   @moduledoc """
   # База чата на DETS
   ## У чата есть всего несколько полей
-    {Ecto.UUID.generate(), city_id, Timex.now(), user_id, message_map} -> Сообщения в чате
+    {Ecto.UUID.generate(), worker_id, Timex.now(), user_id, message_map} -> Сообщения в чате
 
     - {Уникальный id,-,-,-,-}
-    - {-,Айди города от которого пришло сообщение,-,-,-}
+    - {-,Айди сотрудника с которым начался чат,-,-,-}
     - {-,-,Время отправления сообщения,-,-}
     - {-,-,-,Айди отправителя,-}
     - {-,-,-,-, Что это такое можно посмотреть снизу}
@@ -43,8 +43,8 @@ defmodule KursonliKurs.EtsStorage.Chat do
     end
   end
 
-  def insert_message(user_id, city_id, message_map) do
-    table = {Ecto.UUID.generate(), city_id, Timex.now("Asia/Almaty"), user_id, message_map}
+  def insert_message(user_id, worker_id, message_map) do
+    table = {Ecto.UUID.generate(), worker_id, Timex.now("Asia/Almaty"), user_id, message_map}
 
     :dets.insert_new(
       :chat,
@@ -54,19 +54,17 @@ defmodule KursonliKurs.EtsStorage.Chat do
     table
   end
 
-  def get_messages_by_city_id() do
-    :dets.select(:chat, [{{:"$1", :_, :"$3"}, [], [:"$_"]}])
-  end
 
-  def get_all_by_city(city_id) do
+  def get_all_by_city(worker_id) do
     :dets.select(
       :chat,
       fun do
-        {x, y, z, j, l} = item when y == ^city_id ->
+        {x, y, z, j, l} = item when y == ^worker_id ->
           item
       end
     )
     |> Enum.sort_by(fn {_, _, d, _, _} -> d end, Time)
+    |> IO.inspect()
   end
 
   def get_by_id(id) do

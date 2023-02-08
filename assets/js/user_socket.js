@@ -3,12 +3,13 @@
 import { Socket } from "phoenix";
 // Bring in Phoenix channels client library:
 import { eventClick } from "./click_event";
+import { handleClickWorker } from "./worker_click";
 const meowMix = new Audio("/images/sound/notice.mp3");
 const audioObj = new Audio(
   "/images/sound/notice.mp3"
 );
 // audioObj.play()
-const getWorker = () => {
+export const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"));
 };
 const userConnectEl = document.querySelector("#userConnect");
@@ -17,7 +18,6 @@ $(function () {
   const worker = getWorker();
   let socket = new Socket("/socket", {
     // logger: (kind, msg, data) => {
-    //   console.log(`${kind}: ${msg}`, data);
     // },
   });
   socket.connect({ user_id: worker.id, worker });
@@ -26,7 +26,6 @@ $(function () {
   // Let's assume you have a channel with a topic named `room` and the
   // subtopic is its id - in this case 42:
 
-  console.log(worker);
   let channelOnline = socket.channel(`online:${worker.id}`);
   channelOnline
     .join()
@@ -88,57 +87,55 @@ $(function () {
 
     chatWrapper.insertAdjacentHTML("beforeend", html);
   };
-  const templateSystem = (name) => {
-    const html = `
-      <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-      <div>
-
-         <span class="text-xs text-gray-500 leading-none">Подкючился -> ${name}</span>
-      </div>
-    </div>`;
-
-    chatWrapper.insertAdjacentHTML("beforeend", html);
-  };
+ 
   const templateTagsInsert = (name, worker_id) => {
-    const html = `<div id="worker_id"
-    class="text-xs d_flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center">
+    const html = `<div
+    class="text-xs d_flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center worker_click" data-id="${worker_id}"
+    "}">
 
     ${name}
  </div>`;
+    setTimeout(() => {
+      document.querySelector(`[data-id="${worker_id}"]`).addEventListener("click",  async (e) => (
+     await   handleClickWorker(e, socket)
+      ))
+
+    }, 100)
     userConnectEl.insertAdjacentHTML("beforeend", html);
   };
-  $("#chat").keypress(function (e) {
-    var key = e.which;
+  // $("#chat").keypress(function (e) {
+  //   var key = e.which;
 
-    if (key == 13 && this.value != "") {
-      // the enter key code
-      channel.push("new:msg", {
-        body: this.value,
-        worker: getWorker(),
-        type: "text",
-      });
-      this.value = "";
-    }
-  });
+  //   if (key == 13 && this.value != "") {
+  //     // the enter key code
+  //     channel.push("new:msg", {
+  //       body: this.value,
+  //       worker: getWorker(),
+  //       type: "text",
+  //     });
+  //     this.value = "";
+  //   }
+  // });
 
-  channel.on("new:msg", (payload) => {
-    const worker = getWorker();
+  // channel.on("new:msg", (payload) => {
+  //   const worker = getWorker();
 
-    setTimeout(() => {
-      chatWrapper.scrollTop = chatWrapper.scrollHeight;
-    }, 10);
-    console.log(payload)
-    if (worker.id == payload.user.id) {
-      templateChatYour(payload.body, payload.user.first_name);
-    } else {
-      audioObj.play();
-      templateChatNewMe(payload.body, payload.user.first_name);
-    }
-  });
+  //   setTimeout(() => {
+  //     chatWrapper.scrollTop = chatWrapper.scrollHeight;
+  //   }, 10);
+  //   if (worker.id == payload.user.id) {
+  //     templateChatYour(payload.body, payload.user.first_name);
+  //   } else {
+  //     audioObj.play();
+  //     templateChatNewMe(payload.body, payload.user.first_name);
+  //   }
+  // });
   channel.on("user:entered", (payload) => {
     userConnectEl.innerHTML = "";
     payload.online_users.forEach((element) => {
-      templateTagsInsert(element.first_name, element.id);
+      if (worker.id != element.id){
+        templateTagsInsert(element.first_name, element.id);
+      }
     });
   });
   channel.on("new:event", (payload) => {

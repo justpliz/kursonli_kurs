@@ -29,6 +29,9 @@ defmodule KursonliKursWeb.WorkerController do
     |> render("worker_login_form.html", user: user)
     |> halt()
   end
+  def get_all_message_chat_worker_id(conn, params) do
+    json(conn, %{chat_messages: Chat.get_all_by_city(params["worker_id"])  |> Enum.map(fn {x, y, z, j, l} -> l end)})
+  end
 
   @doc """
   POST /worker/login
