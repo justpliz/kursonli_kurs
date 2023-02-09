@@ -140,12 +140,12 @@
             </div>
          </div>
 
-         <label class="label_input pt-2">Описание ОП</label>
-         <%= text_input f, :description, placeholder: "", value: @setting.description, class: "input_full",
-            required: "true" %>
+         <label class="label_input pt-2">Субдомен</label>
+         <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full" %>
 
-            <label class="label_input pt-2">Субдомен</label>
-            <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full" %>
+         <label class="label_input pt-2">Описание ОП</label>
+         <%= textarea f, :description, placeholder: "", value: @setting.description, class: "min-h-300 input_full",
+            required: "true" %>
       </div>
    </div>
 

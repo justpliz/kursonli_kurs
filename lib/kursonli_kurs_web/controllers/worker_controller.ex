@@ -354,7 +354,6 @@ defmodule KursonliKursWeb.WorkerController do
     }
 
     tags = [params["wholesale_rate"], params["gold"]]
-
     opts = %{
       colors: colors,
       qualities: qualities,
@@ -365,6 +364,7 @@ defmodule KursonliKursWeb.WorkerController do
       photo: photo,
       license: params["license"],
       subdomen: params["subdomen"],
+      description: params["description"],
       tags: tags,
       promo: promo
     }
