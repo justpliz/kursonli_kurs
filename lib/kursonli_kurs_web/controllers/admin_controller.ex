@@ -11,7 +11,8 @@ defmodule KursonliKursWeb.AdminController do
     FilialsCurrencies,
     Tariffs,
     Courses,
-    Settings
+    Settings,
+    Workers
   }
 
   @doc """
@@ -102,19 +103,18 @@ defmodule KursonliKursWeb.AdminController do
              filial_opts,
              worker_opts
            ),
-      params["currency"]
-      |> Enum.map(fn currency ->
-        currency = String.to_integer(currency)
+         params["currency"]
+         |> Enum.map(fn currency ->
+           currency = String.to_integer(currency)
 
-        Courses.create(%{
-          date: Timex.now("Asia/Almaty"),
-          currency_id: currency,
-          filial_id: filial.id
-        })
+           Courses.create(%{
+             date: Timex.now("Asia/Almaty"),
+             currency_id: currency,
+             filial_id: filial.id
+           })
 
-        FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
-      end) do
-
+           FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
+         end) do
       conn
       |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
       |> redirect(to: "/admin")
@@ -315,6 +315,20 @@ defmodule KursonliKursWeb.AdminController do
         conn
         |> put_flash(:error, "Проверьте вводимые данные")
         |> redirect(to: "/admin/filials")
+    end
+  end
+
+  @doc """
+  GET /admin/filials/reset_password
+  """
+  def reset_password(conn, %{"filial_id" => id}) do
+    password = generate_random_str(8)
+
+    with {:ok, worker} <- Workers.do_get(filial_id: id),
+         {:ok, _worker} <- Workers.update(worker, %{password: hash_str(password)}) do
+      conn
+      |> put_flash(:info, "Пароль успешно сброшен, новый пароль: #{password}")
+      |> redirect(to: "/admin/filials")
     end
   end
 

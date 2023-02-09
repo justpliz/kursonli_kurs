@@ -65,6 +65,9 @@
                       data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
                       <span class="material-symbols-outlined" style="color:#3689ce; font-weight: 900;">edit</span>
                     </button>
+                    <a href="filials/reset_password?filial_id=<%= item.id %>">
+                      <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 500;">lock_reset</span>
+                    </a>
                     <button class="accept_delete_filial styles_none"
                       data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
                       <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
