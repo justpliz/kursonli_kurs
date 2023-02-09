@@ -295,20 +295,24 @@
     const currentDate = new Date();
     const elapsedSeconds = (currentDate - time) / 1000;
 
-    if (elapsedSeconds < minute) {
-      return `Несколько секунд назад`;
-    } else if (elapsedSeconds < hour) {
-      return `${Math.floor(elapsedSeconds / minute)} минут назад`;
-    } else if ((Math.floor(elapsedSeconds / day) === 0)) {
-      if (Math.floor(elapsedSeconds / hour) <= 1) {
-        return `${Math.floor(elapsedSeconds / hour)} час назад`;
-      } else if (Math.floor(elapsedSeconds / hour) < 5) {
-        return `${Math.floor(elapsedSeconds / hour)} часа назад`;
-      } else {
-        return `${Math.floor(elapsedSeconds / hour)} часов назад`;
-      }
-    } else {
+    if (elapsedSeconds < 0) {
       return `Больше суток назад`;
+    }
+    else {
+      if (elapsedSeconds < minute) {
+        return `Несколько секунд назад`;
+      }
+      else if (elapsedSeconds < hour) {
+        return `${Math.floor(elapsedSeconds / minute)} мин. назад`;
+      } else if ((Math.floor(elapsedSeconds / day) === 0)) {
+        if (Math.floor(elapsedSeconds / hour) <= 1) {
+          return `${Math.floor(elapsedSeconds / hour)} час назад`;
+        } else if (Math.floor(elapsedSeconds / hour) < 5) {
+          return `${Math.floor(elapsedSeconds / hour)} часа назад`;
+        } else {
+          return `${Math.floor(elapsedSeconds / hour)} часов назад`;
+        }
+      }
     }
   }
 
