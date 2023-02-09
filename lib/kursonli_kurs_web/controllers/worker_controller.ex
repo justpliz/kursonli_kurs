@@ -139,7 +139,7 @@ defmodule KursonliKursWeb.WorkerController do
     city_id = get_session(conn, :worker).city.id
     worker = get_session(conn, :worker)
     currencies_list = Currencies.all()
-    message = Chat.get_all_by_city(city_id)
+    message = Chat.get_all_by_city(city_id) |> IO.inspect()
 
     address = worker.fililal_address
 

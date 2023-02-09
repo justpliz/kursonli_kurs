@@ -103,33 +103,33 @@ $(function () {
     }, 100)
     userConnectEl.insertAdjacentHTML("beforeend", html);
   };
-  // $("#chat").keypress(function (e) {
-  //   var key = e.which;
+  $("#chat").keypress(function (e) {
+    var key = e.which;
 
-  //   if (key == 13 && this.value != "") {
-  //     // the enter key code
-  //     channel.push("new:msg", {
-  //       body: this.value,
-  //       worker: getWorker(),
-  //       type: "text",
-  //     });
-  //     this.value = "";
-  //   }
-  // });
+    if (key == 13 && this.value != "") {
+      // the enter key code
+      channel.push("new:msg", {
+        body: this.value,
+        worker: getWorker(),
+        type: "text",
+      });
+      this.value = "";
+    }
+  });
 
-  // channel.on("new:msg", (payload) => {
-  //   const worker = getWorker();
+  channel.on("new:msg", (payload) => {
+    const worker = getWorker();
 
-  //   setTimeout(() => {
-  //     chatWrapper.scrollTop = chatWrapper.scrollHeight;
-  //   }, 10);
-  //   if (worker.id == payload.user.id) {
-  //     templateChatYour(payload.body, payload.user.first_name);
-  //   } else {
-  //     audioObj.play();
-  //     templateChatNewMe(payload.body, payload.user.first_name);
-  //   }
-  // });
+    setTimeout(() => {
+      chatWrapper.scrollTop = chatWrapper.scrollHeight;
+    }, 10);
+    if (worker.id == payload.user.id) {
+      templateChatYour(payload.body, payload.user.first_name);
+    } else {
+      audioObj.play();
+      templateChatNewMe(payload.body, payload.user.first_name);
+    }
+  });
   channel.on("user:entered", (payload) => {
     userConnectEl.innerHTML = "";
     payload.online_users.forEach((element) => {

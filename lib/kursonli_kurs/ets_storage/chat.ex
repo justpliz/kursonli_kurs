@@ -56,19 +56,29 @@ defmodule KursonliKurs.EtsStorage.Chat do
   #   |> Enum.sort_by(fn {_, _, d, _, _} -> d end, Time)
   # end
 
-  def insert_message(user_id, worker_id, message_map) do
-    id = GeneralHelper.compare_workers_id(user_id, worker_id)
-
-    Logger.info("CHANNEL INSERT -> #{ID}")
-    IO.inspect(id, label: "insert")
-    table = {Ecto.UUID.generate(), id, Timex.now("Asia/Almaty"), user_id, message_map}
-
-    :dets.insert_new(
-      :chat,
-      table
-    )
-
+  def insert_message(user_id, worker_id, message_map, type \\ "city") do
+ if type == "city" do
+  table = {Ecto.UUID.generate(), user_id, Timex.now("Asia/Almaty"), user_id, message_map}
+  Logger.info("CHANNEL INSERT -> #{user_id}")
+  :dets.insert_new(
+    :chat,
     table
+  )
+  table
+ else
+  id = GeneralHelper.compare_workers_id(user_id, worker_id)
+
+  Logger.info("CHANNEL INSERT -> #{ID}")
+  IO.inspect(id, label: "insert")
+  table = {Ecto.UUID.generate(), id, Timex.now("Asia/Almaty"), user_id, message_map}
+
+  :dets.insert_new(
+    :chat,
+    table
+  )
+
+  table
+ end
   end
 
   def get_all_by_city(worker_id) do

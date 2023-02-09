@@ -37,13 +37,13 @@ defmodule KursonliKursWeb.RoomChannel do
     })
   end
 
-  def handle_info({:after_join, msg}, socket) do
+  def handle_info({:after_join, _msg}, socket) do
     online_event(socket)
     push(socket, "join", %{status: "connected"})
     {:noreply, socket}
   end
 
-  def terminate(reason, socket) do
+  def terminate(_reason, socket) do
     UserOnline.delete_online_user(socket.assigns[:user]["id"])
     online_event(socket)
 
@@ -53,7 +53,7 @@ defmodule KursonliKursWeb.RoomChannel do
   def handle_in("new:msg", msg, socket) do
     broadcast!(socket, "new:msg", %{user: msg["worker"], body: msg["body"], type: "text"})
 
-    Chat.insert_message(msg["worker"]["id"], msg["worker"]["city"]["id"], msg)
+    Chat.insert_message(msg["worker"]["city"]["id"], msg["worker"]["id"], msg)
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
 
@@ -62,7 +62,7 @@ defmodule KursonliKursWeb.RoomChannel do
   end
 
   def new_event("new:event", city_id, map_msg) do
-    {id, _, _, user_id, message} = Chat.insert_message(map_msg[:worker_id], city_id, map_msg)
+    {id, _, _, _user_id, message} = Chat.insert_message(map_msg[:worker_id], city_id, map_msg)
 
     Endpoint.broadcast!("rooms:#{city_id}", "new:event", Map.put(message, "ets_id", id))
   end
