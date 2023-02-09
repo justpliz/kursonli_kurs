@@ -30,7 +30,9 @@ defmodule KursonliKursWeb.WorkerController do
     |> halt()
   end
   def get_all_message_chat_worker_id(conn, params) do
-    json(conn, %{chat_messages: Chat.get_all_by_city(params["worker_id"])  |> Enum.map(fn {x, y, z, j, l} -> l end)})
+    id = compare_workers_id(params["user_id"], params["worker_id"])
+    IO.inspect(id,label: "get")
+    json(conn, %{chat_messages: Chat.get_all_by_city(id)  |> Enum.map(fn {x, _y, _z, _j, l} -> l |> Map.put(:ets_id,x) end)})
   end
 
   @doc """

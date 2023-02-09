@@ -30,7 +30,9 @@
       <% end %>
   </div>
 </div>
-
+<script>
+  localStorage.removeItem("worker")
+</script>
 <style>
   .login-container {
     left: 0;

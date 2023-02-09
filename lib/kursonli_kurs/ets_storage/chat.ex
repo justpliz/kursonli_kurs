@@ -1,6 +1,7 @@
 defmodule KursonliKurs.EtsStorage.Chat do
   require Logger
   import Ex2ms
+  alias KursonliKursWeb.GeneralHelper
 
   @moduledoc """
   # База чата на DETS
@@ -43,8 +44,24 @@ defmodule KursonliKurs.EtsStorage.Chat do
     end
   end
 
+  # def dialog(worker_id, user_id) do
+  #   if user_id > worker_id, do: worker_id <> user_id, else: user_id <> worker_id
+  #   :dets.select(
+  #     :chat,
+  #     fun do
+  #       {_x, worker_id, _z, user_id, l} = item when worker_id >  ->
+  #         item
+  #     end
+  #   )
+  #   |> Enum.sort_by(fn {_, _, d, _, _} -> d end, Time)
+  # end
+
   def insert_message(user_id, worker_id, message_map) do
-    table = {Ecto.UUID.generate(), worker_id, Timex.now("Asia/Almaty"), user_id, message_map}
+    id = GeneralHelper.compare_workers_id(user_id, worker_id)
+
+    Logger.info("CHANNEL INSERT -> #{ID}")
+    IO.inspect(id, label: "insert")
+    table = {Ecto.UUID.generate(), id, Timex.now("Asia/Almaty"), user_id, message_map}
 
     :dets.insert_new(
       :chat,
@@ -53,7 +70,6 @@ defmodule KursonliKurs.EtsStorage.Chat do
 
     table
   end
-
 
   def get_all_by_city(worker_id) do
     :dets.select(
@@ -64,7 +80,8 @@ defmodule KursonliKurs.EtsStorage.Chat do
       end
     )
     |> Enum.sort_by(fn {_, _, d, _, _} -> d end, Time)
-    |> IO.inspect()
+
+    # |> IO.inspect(label: "-----")
   end
 
   def get_by_id(id) do

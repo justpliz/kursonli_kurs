@@ -113,7 +113,7 @@ defmodule KursonliKursWeb.Router do
     get "/update_pass", WorkerController, :update_pass
     post "/update_pass", WorkerController, :update_pass_submit
     get "/logout", WorkerController, :worker_logout
-    get "/chat/:worker_id", WorkerController, :get_all_message_chat_worker_id
+    get "/chat", WorkerController, :get_all_message_chat_worker_id
     get "/orders", WorkerController, :orders
     get "/create_order", WorkerController, :create_order
     post "/create_order", WorkerController, :create_order_submit

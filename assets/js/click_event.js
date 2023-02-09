@@ -4,6 +4,7 @@ $(".click-event").click(eventClick);
 export async function eventClick() {
   const item = JSON.parse(this.dataset.item);
   item.type_event = this.dataset.type;
+  console.log(item)
   await axios
     .post("/api/v1/trade", item)
     .then(() => {

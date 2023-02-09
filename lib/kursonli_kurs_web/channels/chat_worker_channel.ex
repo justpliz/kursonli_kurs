@@ -3,6 +3,7 @@ defmodule KursonliKursWeb.ChatWorkerChannel do
   require Logger
   alias KursonliKursWeb.Endpoint
   alias KursonliKurs.EtsStorage.{Chat}
+  alias KursonliKursWeb.GeneralHelper
 
   def handle_info({:after_join, _msg}, socket) do
     push(socket, "join", %{status: "connected"})
@@ -13,12 +14,10 @@ defmodule KursonliKursWeb.ChatWorkerChannel do
     :ok
   end
 
-  def join("worker:" <> private_subtopic, _message, socket) do
-    if check_user(private_subtopic) do
-      {:ok, assign(socket, :receiver,private_subtopic)}
-    else
-      {:error, %{reason: "city_not_found"}}
-    end
+  def join("worker:" <> _private_subtopic, message, socket) do
+    IO.inspect(message)
+      {:ok, assign(socket, :receiver, message["worker_id"])}
+
   end
 
   def handle_in("new:msg", msg, socket) do
@@ -28,18 +27,18 @@ defmodule KursonliKursWeb.ChatWorkerChannel do
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
 
-  def notify(%{payload: %{notify: notify}, type: :ping}, city_id) do
-    Endpoint.broadcast!("rooms:#{city_id}", "notify", %{notify: notify})
+
+
+
+  def new_event("new:event", item, map_msg) do
+    compared_id = GeneralHelper.compare_workers_id(item["worker_id"], item["worker"]["id"])
+    {id, _, _, _user_id, message} = Chat.insert_message(item["worker_id"], item["worker"]["id"], map_msg)
+
+    Endpoint.broadcast!("worker:#{compared_id}", "new:event", Map.put(message, "ets_id", id))
   end
 
-  def new_event("new:event", city_id, map_msg) do
-    {id, _, _, _user_id, message} = Chat.insert_message(map_msg[:worker_id], city_id, map_msg)
-
-    Endpoint.broadcast!("rooms:#{city_id}", "new:event", Map.put(message, "ets_id", id))
-  end
-
-  defp check_user(worker_id) do
-    KursonliKurs.Context.Workers.all()
-    |> Enum.any?(fn x -> x.id == worker_id end)
-  end
+  # defp check_user(worker_id) do
+  #   KursonliKurs.Context.Workers.all()
+  #   |> Enum.any?(fn x -> x.id == worker_id end)
+  # end
 end
