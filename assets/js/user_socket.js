@@ -89,9 +89,11 @@ $(function () {
   };
  
   const templateTagsInsert = (name, worker_id) => {
+
     const html = `<div
     class="text-xs d_flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center worker_click" data-id="${worker_id}"
     "}">
+
 
     ${name}
  </div>`;

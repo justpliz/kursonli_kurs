@@ -17,6 +17,7 @@ $(".order-click").click(function () {
   $("#org_title .name").text(item.worker_name);
   $("#org_title .address").text(item.fililal_address);
   $("#org_title .phone").text(item.worker_phone);
+  $("#org_title .phone").attr("href", `tel:${item.worker_phone}`);
   document.querySelector("#accept").dataset.item = this.dataset.item;
 });
 
@@ -68,23 +69,25 @@ $("#accept").click(function () {
     itemSaleH1 = "Укажите сумму покупки:";
   }
 
-  if (limit == "") {
+  if (limit == "" || limit == null) {
     limitText = "без лимита"
   } else {
     limitText = limit
   }
-  
+
   if (transfer == "red") {
     transferBlock = "red_circle"
-  } else if (transfer == "green"){
+  } else if (transfer == "green") {
     transferBlock = "green_circle"
-  } else{
+  } else {
     transferBlock = "colors"
   }
 
   const element = document.createElement("trs");
   element.classList.add(transferBlock);
   document.body.appendChild(element);
+
+  const emptyTerms = ""
 
   item.worker = getWorker();
   if (getWorker().id != worker_id) {
@@ -120,7 +123,7 @@ $("#accept").click(function () {
           </div>
 
           <label class="label_modal pos">Ваши условия:</label>
-          <input class="input_full" name="terms" type="text" maxlength="30">
+          <input class="input_full" value="${terms}" name="terms" type="text" maxlength="30">
         </div>
         <div class="d_flex justify-between mt-4 gap-4">
         <button type="submit" class="w-full btn_save">Подтвердить</button>

@@ -7,8 +7,8 @@ defmodule KursonliKurs.Model.Setting do
   @type t :: %__MODULE__{}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(address_2gis coordinates photo logo description filial_id)a
-  @optional_fields ~w(tags schedule phones license qualities colors email subdomen firm_id)a
+  @required_fields ~w(tags address_2gis coordinates description email photo logo filial_id)a
+  @optional_fields ~w(schedule phones license qualities colors subdomen firm_id promo)a
 
   schema "settings" do
     field :tags, {:array, :string}, default: ["false", "false"]
@@ -22,6 +22,12 @@ defmodule KursonliKurs.Model.Setting do
     field :email, :string, default: "email@email.kz"
     field :subdomen, :string, default: ""
     field :description, :string, default: "Описание будет добавлено позже"
+
+    field :promo, :map,
+      default: %{
+        promo1: "",
+        promo2: "",
+      }
 
     field :schedule, :map,
       default: %{

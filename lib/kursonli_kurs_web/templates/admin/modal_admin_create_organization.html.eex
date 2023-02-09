@@ -34,7 +34,7 @@
 
             <div class="mb-2">
               <label class="label_input pos">ИИН/БИН</label>
-              <%= text_input f, :iin, class: "input_full number_input_only", required: "true", maxlength: 12, minlength: 12, placeholder: "ИИН/БИН" %>
+              <%= text_input f, :iin, class: "input_full number_input_only", required: "true", minlength: 12, maxlength: 12, placeholder: "ИИН/БИН" %>
             </div>
 
             <div class="mb-2">

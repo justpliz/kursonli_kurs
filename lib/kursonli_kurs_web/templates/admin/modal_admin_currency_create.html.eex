@@ -17,7 +17,7 @@
                   <%= text_input f, :short_name, class: "input_full input_text_uppercase", required: "true" %>
 
                   <label class="label_input pos">Цвет валюты</label>
-                  <%= color_input f, :color, placeholder: "", class: "w-full" , required: "true" %>
+                  <%= color_input f, :color, placeholder: "", class: "w-full", required: "true" %>
                   
                   <%= submit "Добавить", class: "btn_save pos mt-2" %>
                <% end %>

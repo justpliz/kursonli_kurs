@@ -25,7 +25,7 @@
 
 <script>
    $(".accept_delete").click(function () {
-      const { id, org_active_status } = JSON.parse(this.dataset.map)
+      const { id, org_active_status, name } = JSON.parse(this.dataset.map)
       Modalka.fire({
          showConfirmButton: false,
          showCancelButton: false,

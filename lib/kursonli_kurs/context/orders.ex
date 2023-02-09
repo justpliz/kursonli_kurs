@@ -57,6 +57,7 @@ defmodule KursonliKurs.Context.Orders do
       on: filial.organization_id == org.id,
       join: c in Currency,
       on: order.currency_id == c.id,
+      order_by: [desc: order.date],
       select: %{
         id: order.id,
         organization: org.name,

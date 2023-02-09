@@ -19,9 +19,7 @@
     <div class="flex py-8 text-dblue">
       <%= for item <- @city_list do %>
         <a class="font-bold pr-4" href="city?name=<%= item.name %>">
-          <%= item.name %> (<span class="font-bold text-red-500">
-              <%= item.count %>
-            </span>)
+          <div><%= item.name %> (<span class="font-bold text-red-500"><%= item.count %></span>)</div>
         </a>
         <% end %>
     </div>
@@ -122,15 +120,21 @@
                   <%= item.filial.fililal_address %>
                 </span>
                 <div class="hidden">
-                  <%= [gold, wholesale_rate]=item.setting.tags %>
+                  <%= [wholesale_rate, gold]=item.setting.tags %>
                 </div>
                 <div class="mt-2">
+                  <%= if String.to_atom(wholesale_rate) do %>
+                  <span class="bg-greatGreen text-sm uppercase text-white px-4 py-1">Оптовый курс</span>
+                  <% end %>
                   <%= if String.to_atom(gold) do %>
                     <span class="bg-greatYellow text-sm uppercase text-white px-4 py-1">Золото</span>
                     <% end %>
-                      <%= if String.to_atom(wholesale_rate) do %>
-                        <span class="bg-greatGreen text-sm uppercase text-white px-4 py-1">Оптовый курс</span>
-                        <% end %>
+                </div>
+                <div class="block mt-2">
+                  <%= item.setting.promo["promo1"] %>
+                </div>
+                <div class="block">
+                  <%= item.setting.promo["promo2"] %>
                 </div>
               </td>
               <td class="px-6 py-4 border-2 border-b-0 border-tableGray text-center">
@@ -291,20 +295,24 @@
     const currentDate = new Date();
     const elapsedSeconds = (currentDate - time) / 1000;
 
-    if (elapsedSeconds < minute) {
-      return `Несколько секунд назад`;
-    } else if (elapsedSeconds < hour) {
-      return `${Math.floor(elapsedSeconds / minute)} минут назад`;
-    } else if ((Math.floor(elapsedSeconds / day) === 0)) {
-      if (Math.floor(elapsedSeconds / hour) <= 1) {
-        return `${Math.floor(elapsedSeconds / hour)} час назад`;
-      } else if (Math.floor(elapsedSeconds / hour) < 5) {
-        return `${Math.floor(elapsedSeconds / hour)} часа назад`;
-      } else {
-        return `${Math.floor(elapsedSeconds / hour)} часов назад`;
-      }
-    } else {
+    if (elapsedSeconds < 0) {
       return `Больше суток назад`;
+    }
+    else {
+      if (elapsedSeconds < minute) {
+        return `Несколько секунд назад`;
+      }
+      else if (elapsedSeconds < hour) {
+        return `${Math.floor(elapsedSeconds / minute)} мин. назад`;
+      } else if ((Math.floor(elapsedSeconds / day) === 0)) {
+        if (Math.floor(elapsedSeconds / hour) <= 1) {
+          return `${Math.floor(elapsedSeconds / hour)} час назад`;
+        } else if (Math.floor(elapsedSeconds / hour) < 5) {
+          return `${Math.floor(elapsedSeconds / hour)} часа назад`;
+        } else {
+          return `${Math.floor(elapsedSeconds / hour)} часов назад`;
+        }
+      }
     }
   }
 

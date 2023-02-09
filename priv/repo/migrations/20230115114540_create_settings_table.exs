@@ -17,6 +17,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateSettingsTable do
       add :phones, :jsonb
       add :qualities, :jsonb
       add :colors, :jsonb
+      add :promo, :jsonb
 
       add :filial_id, references(:filials, type: :uuid, on_delete: :nothing)
     end

@@ -25,6 +25,7 @@ import "./phone_input";
 import "./order_click";
 import "./click_event";
 import "./helper/search_input";
+import "./helper/number_only";
 import "./helper/modal_script";
 import "./helper/active_link";
 import "./helper/tabs";
@@ -57,41 +58,3 @@ liveSocket.connect();
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
-
-function input() {
-  var input = [...document.querySelectorAll(".number_input_only")];
-  input.forEach((el) => {
-    el.addEventListener("input", (e) => {
-      e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, "");
-    });
-  });
-}
-input();
-
-$("#myModal").on("shown.bs.modal", function () {
-  $("#myInput").trigger("focus");
-});
-
-
-function scrollToSection(event) {
-  event.preventDefault();
-  var sectionId = this.getAttribute("href");
-  var section = document.querySelector(sectionId);
-  section.scrollIntoView({ behavior: 'smooth' });
-}
-var links = document.querySelectorAll("a[href^='#']");
-links.forEach(function (link) {
-  link.addEventListener("click", scrollToSection);
-});
-
-function formatInputNumber(className) {
-  let inputs = document.getElementsByClassName(className);
-  for (let i = 0; i < inputs.length; i++) {
-    inputs[i].addEventListener("input", function () {
-      let numString = this.value.replace(/\D/g, "");
-      let parts = numString.split(/(?=(?:\d{3})+$)/);
-      this.value = parts.join(" ");
-    });
-  }
-}
-formatInputNumber("input-num");

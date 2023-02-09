@@ -134,7 +134,7 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/orders
   """
   def orders(conn, _params) do
-    order_list_purchase = Orders.order_list(:purchase) |> IO.inspect()
+    order_list_purchase = Orders.order_list(:purchase)
     order_list_sale = Orders.order_list(:sale)
     city_id = get_session(conn, :worker).city.id
     worker = get_session(conn, :worker)
@@ -187,7 +187,6 @@ defmodule KursonliKursWeb.WorkerController do
         worker_phone: session.phone,
         currency_id: params["currency_id"]
       }
-      |> IO.inspect()
 
     with {:ok, order} <- Orders.create(opts) do
       conn
@@ -323,8 +322,9 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/update_setting
   """
   def update_setting(conn, params) do
-    logo = get_image_path(params["logo"], :logo)
-    photo = get_image_path(params["photo"], :photo)
+    filial_id = get_session(conn, :worker).filial_id
+    logo = get_image_path(params["logo"], :logo, filial_id)
+    photo = get_image_path(params["photo"], :photo, filial_id)
 
     colors = %{
       "color_currency" => params["color_currency"],
@@ -353,8 +353,12 @@ defmodule KursonliKursWeb.WorkerController do
       "schedule_other" => params["schedule_other"]
     }
 
-    tags = [params["gold"], params["wholesale_rate"]]
+    promo = %{
+      "promo1" => params["promo1"],
+      "promo2" => params["promo2"]
+    }
 
+    tags = [params["wholesale_rate"], params["gold"]]
     opts = %{
       colors: colors,
       qualities: qualities,
@@ -365,10 +369,12 @@ defmodule KursonliKursWeb.WorkerController do
       photo: photo,
       license: params["license"],
       subdomen: params["subdomen"],
-      tags: tags
+      description: params["description"],
+      tags: tags,
+      promo: promo
     }
 
-    with {:ok, setting} <- Settings.do_get(filial_id: get_session(conn, :worker).filial_id),
+    with {:ok, setting} <- Settings.do_get(filial_id: filial_id),
          {:ok, _setting} <- Settings.update(setting, opts) do
       conn
       |> put_flash(:info, "Настройки обновлены")

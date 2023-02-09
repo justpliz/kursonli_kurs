@@ -24,6 +24,7 @@ module.exports = {
       minHeight: {
         '600': '600px',
         '60': '60px',
+        '300': '300px',
       },
       maxWidth: {
         '1440': '1440px',
@@ -48,6 +49,13 @@ module.exports = {
       },
       fontSize: {
         'small': '10px',
+      },
+      screens: {
+        '2xl': { 'max': '1540px' },
+        'xl': { 'max': '1280px' },
+        'lg': { 'max': '1000px' },
+        'md': { 'max': '769px' },
+        'sm': { 'max': '640px' },
       }
     }
   },

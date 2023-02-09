@@ -11,7 +11,8 @@ defmodule KursonliKursWeb.AdminController do
     FilialsCurrencies,
     Tariffs,
     Courses,
-    Settings
+    Settings,
+    Workers
   }
 
   @doc """
@@ -76,7 +77,6 @@ defmodule KursonliKursWeb.AdminController do
   Создание связки "организаця-филиал-сотрудник-валюты"
   """
   def register_org_submit(conn, params) do
-    # создается, но выдается ошибка)
     password = generate_random_str(8)
 
     org_opts = %{
@@ -92,7 +92,8 @@ defmodule KursonliKursWeb.AdminController do
 
     filial_opts = %{
       name: params["filial_name"],
-      city_id: params["city_id"]
+      city_id: params["city_id"],
+      fililal_address: params["fililal_address"]
     }
 
     with {:ok, org} <- Organizations.create(org_opts),
@@ -101,20 +102,19 @@ defmodule KursonliKursWeb.AdminController do
            Filials.create_filial_worker_seting(
              filial_opts,
              worker_opts
-           ) do
-      params["currency"]
-      |> Enum.map(fn currency ->
-        currency = String.to_integer(currency)
+           ),
+         params["currency"]
+         |> Enum.map(fn currency ->
+           currency = String.to_integer(currency)
 
-        Courses.create(%{
-          date: Timex.now("Asia/Almaty"),
-          currency_id: currency,
-          filial_id: filial.id
-        })
+           Courses.create(%{
+             date: Timex.now("Asia/Almaty"),
+             currency_id: currency,
+             filial_id: filial.id
+           })
 
-        FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
-      end)
-
+           FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
+         end) do
       conn
       |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
       |> redirect(to: "/admin")
@@ -168,7 +168,7 @@ defmodule KursonliKursWeb.AdminController do
     opts = %{
       name: params["name"],
       short_name: String.upcase(params["short_name"]),
-      color: params["color"],
+      color: params["color"]
     }
 
     with {:ok, currencies} <- Currencies.create(opts) do
@@ -274,7 +274,6 @@ defmodule KursonliKursWeb.AdminController do
   POST /admin/filials
   """
   def create_filial_submit(conn, params) do
-    IO.inspect(params)
     password = generate_random_str(8)
 
     currencies_list =
@@ -315,6 +314,20 @@ defmodule KursonliKursWeb.AdminController do
         conn
         |> put_flash(:error, "Проверьте вводимые данные")
         |> redirect(to: "/admin/filials")
+    end
+  end
+
+  @doc """
+  GET /admin/filials/reset_password
+  """
+  def reset_password(conn, %{"filial_id" => id}) do
+    password = generate_random_str(8)
+
+    with {:ok, worker} <- Workers.do_get(filial_id: id),
+         {:ok, _worker} <- Workers.update(worker, %{password: hash_str(password)}) do
+      conn
+      |> put_flash(:info, "Пароль успешно сброшен, новый пароль: #{password}")
+      |> redirect(to: "/admin/filials")
     end
   end
 

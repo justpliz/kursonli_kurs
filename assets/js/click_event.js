@@ -11,6 +11,9 @@ export async function eventClick() {
       let element = document.querySelector(`[data-etsid="${item.ets_id}"]`);
       element.dataset.type = this.dataset.type;
       Toast.fire({
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
         title: "Вы успешно приняли сделку",
         icon: "success",
       });
