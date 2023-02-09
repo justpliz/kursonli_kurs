@@ -29,6 +29,11 @@ defmodule KursonliKursWeb.WorkerController do
     |> render("worker_login_form.html", user: user)
     |> halt()
   end
+  def get_all_message_chat_worker_id(conn, params) do
+    id = compare_workers_id(params["user_id"], params["worker_id"])
+    IO.inspect(id,label: "get")
+    json(conn, %{chat_messages: Chat.get_all_by_city(id)  |> Enum.map(fn {x, _y, _z, _j, l} -> l |> Map.put(:ets_id,x) end)})
+  end
 
   @doc """
   POST /worker/login
@@ -134,7 +139,7 @@ defmodule KursonliKursWeb.WorkerController do
     city_id = get_session(conn, :worker).city.id
     worker = get_session(conn, :worker)
     currencies_list = Currencies.all()
-    message = Chat.get_all_by_city(city_id)
+    message = Chat.get_all_by_city(city_id) |> IO.inspect()
 
     address = worker.fililal_address
 

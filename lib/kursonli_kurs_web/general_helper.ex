@@ -90,4 +90,8 @@ defmodule KursonliKursWeb.GeneralHelper do
       "success" -> "Принята"
     end
   end
+
+  def compare_workers_id(worker1, worker2) do
+    if worker1 > worker2, do: worker2 <> worker1, else: worker1 <> worker2
+  end
 end
