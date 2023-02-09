@@ -40,7 +40,6 @@ defmodule KursonliKursWeb.PageController do
          {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
       setting = setting |> PwHelper.Normalize.repo()
       courses_list = Filials.get_courses_list(filial.id)
-      # TODO переделать коорды
       [x_coord, y_coord] = setting.coordinates
       city = Filials.get_city_by_filial_id(filial.id)
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"

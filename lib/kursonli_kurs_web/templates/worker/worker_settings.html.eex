@@ -9,9 +9,9 @@
       <div class="tab-content" id="tab1-content">
          <%= form_for @conn, Routes.worker_path(@conn, :update_setting), [multipart: true], fn f -> %>
 
-            <label class="label_input pt-2" for="file_input">Загрузка логотипа (160x56)</label>
+            <label class="label_input pt-2">Загрузка логотипа (160x56)</label>
             <label class="input-file">
-               <%= file_input f, :logo, class: "", name: "file", value: @setting.logo, accept: ".png, .jpg" %>
+               <%= file_input f, :logo, value: @setting.logo, accept: ".png, .jpg" %>
                   <span>Выберите файл</span>
             </label>
 
