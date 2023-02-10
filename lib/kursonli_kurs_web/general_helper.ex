@@ -50,14 +50,15 @@ defmodule KursonliKursWeb.GeneralHelper do
   def date_to_string_all(date),
     do: "#{date.year}-#{date.month}-#{date.day} #{date.hour}:#{date.minute}:#{date.second}"
 
-  def get_image_path(nil, type) do
+  def get_image_path(nil, type, filial_id) do
+    {:ok, setting} = KursonliKurs.Context.Settings.do_get(filial_id: filial_id)
     case type do
-      :logo -> "images/logo/default_logo.jpg"
-      :photo -> "images/logo/default_photo.jpg"
+      :logo -> setting.logo
+      :photo -> setting.photo
     end
   end
 
-  def get_image_path(upload, type) do
+  def get_image_path(upload, type, _filial_id) do
     new_path =
       case type do
         :logo -> Path.expand("priv/static/images/logo/#{upload.filename}")
@@ -88,5 +89,9 @@ defmodule KursonliKursWeb.GeneralHelper do
       "fail" -> "Отклонено"
       "success" -> "Принята"
     end
+  end
+
+  def compare_workers_id(worker1, worker2) do
+    if worker1 > worker2, do: worker2 <> worker1, else: worker1 <> worker2
   end
 end

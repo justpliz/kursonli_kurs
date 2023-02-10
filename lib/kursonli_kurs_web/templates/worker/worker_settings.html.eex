@@ -9,9 +9,9 @@
       <div class="tab-content" id="tab1-content">
          <%= form_for @conn, Routes.worker_path(@conn, :update_setting), [multipart: true], fn f -> %>
 
-            <label class="label_input pt-2" for="file_input">Загрузка логотипа (160x56)</label>
+            <label class="label_input pt-2">Загрузка логотипа (160x56)</label>
             <label class="input-file">
-               <%= file_input f, :logo, class: "", name: "file", value: @setting.logo, accept: ".png, .jpg" %>
+               <%= file_input f, :logo, value: @setting.logo, accept: ".png, .jpg" %>
                   <span>Выберите файл</span>
             </label>
 
@@ -140,12 +140,12 @@
             </div>
          </div>
 
-         <label class="label_input pt-2">Описание ОП</label>
-         <%= text_input f, :description, placeholder: "", value: @setting.description, class: "input_full",
-            required: "true" %>
+         <label class="label_input pt-2">Субдомен</label>
+         <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full" %>
 
-            <label class="label_input pt-2">Субдомен</label>
-            <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full" %>
+         <label class="label_input pt-2">Описание ОП</label>
+         <%= textarea f, :description, placeholder: "", value: @setting.description, class: "min-h-300 input_full",
+            required: "true" %>
       </div>
    </div>
 

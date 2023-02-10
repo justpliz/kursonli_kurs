@@ -9,16 +9,19 @@ defmodule KursonliKursWeb.TradeController do
   alias KursonliKurs.EtsStorage.Chat
 
   def create_trade(conn, params) do
-    item_map = params["item_order"] |> Jason.decode!()
+    item_map = params["item_order"] |> Jason.decode!() |> IO.inspect()
 
     params = params |> Map.delete("item_order") |> Map.put("item_order", item_map)
 
     with {:ok, item} <- Trades.create(params) do
       item = item |> PwHelper.Normalize.repo()
-
-      KursonliKursWeb.RoomChannel.new_event(
+      KursonliKursWeb.OnlineChannel.notification(
+        item_map["worker_id"],
+        "Вам пришло предложение от #{item_map["worker_name"]}"
+      )
+      KursonliKursWeb.ChatWorkerChannel.new_event(
         "new:event",
-        item.item_order["filial"]["city_id"],
+        item_map,
         Map.merge(item, %{type: "event", type_event: "active"})
       )
 

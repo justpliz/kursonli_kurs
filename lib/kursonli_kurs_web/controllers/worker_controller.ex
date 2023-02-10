@@ -29,6 +29,11 @@ defmodule KursonliKursWeb.WorkerController do
     |> render("worker_login_form.html", user: user)
     |> halt()
   end
+  def get_all_message_chat_worker_id(conn, params) do
+    id = compare_workers_id(params["user_id"], params["worker_id"])
+    IO.inspect(id,label: "get")
+    json(conn, %{chat_messages: Chat.get_all_by_city(id)  |> Enum.map(fn {x, _y, _z, _j, l} -> l |> Map.put(:ets_id,x) end)})
+  end
 
   @doc """
   POST /worker/login
@@ -129,12 +134,12 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/orders
   """
   def orders(conn, _params) do
-    order_list_purchase = Orders.order_list(:purchase) |> IO.inspect()
+    order_list_purchase = Orders.order_list(:purchase)
     order_list_sale = Orders.order_list(:sale)
     city_id = get_session(conn, :worker).city.id
     worker = get_session(conn, :worker)
     currencies_list = Currencies.all()
-    message = Chat.get_all_by_city(city_id)
+    message = Chat.get_all_by_city(city_id) |> IO.inspect()
 
     address = worker.fililal_address
 
@@ -182,7 +187,6 @@ defmodule KursonliKursWeb.WorkerController do
         worker_phone: session.phone,
         currency_id: params["currency_id"]
       }
-      |> IO.inspect()
 
     with {:ok, order} <- Orders.create(opts) do
       conn
@@ -318,8 +322,9 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/update_setting
   """
   def update_setting(conn, params) do
-    logo = get_image_path(params["logo"], :logo)
-    photo = get_image_path(params["photo"], :photo)
+    filial_id = get_session(conn, :worker).filial_id
+    logo = get_image_path(params["logo"], :logo, filial_id)
+    photo = get_image_path(params["photo"], :photo, filial_id)
 
     colors = %{
       "color_currency" => params["color_currency"],
@@ -354,7 +359,6 @@ defmodule KursonliKursWeb.WorkerController do
     }
 
     tags = [params["wholesale_rate"], params["gold"]]
-
     opts = %{
       colors: colors,
       qualities: qualities,
@@ -365,11 +369,12 @@ defmodule KursonliKursWeb.WorkerController do
       photo: photo,
       license: params["license"],
       subdomen: params["subdomen"],
+      description: params["description"],
       tags: tags,
       promo: promo
     }
 
-    with {:ok, setting} <- Settings.do_get(filial_id: get_session(conn, :worker).filial_id),
+    with {:ok, setting} <- Settings.do_get(filial_id: filial_id),
          {:ok, _setting} <- Settings.update(setting, opts) do
       conn
       |> put_flash(:info, "Настройки обновлены")
