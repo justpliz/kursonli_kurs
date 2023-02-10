@@ -47,7 +47,7 @@ body {
 }
 
 @media (max-width: 1540px) {
-.content-worker-order {
+  .content-worker-order {
     padding: 0 260px 0 0;
   }
 }

@@ -170,7 +170,7 @@
           <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
             Статус сделки
           </th>
-          <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="py-2 border-b-2 border-x-2 border-gray-200">
 
           </th>
         </tr>
@@ -209,7 +209,7 @@
             <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
               <%= KursonliKursWeb.GeneralHelper.normalize_status_trade(item.status) %>
             </td>
-            <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+            <td class="py-2 border-x-2 border-gray-200 text-center">
               <button class="filial_edit styles_none"
                 data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
                 <span class="material-symbols-outlined" style="color:#3689ce; font-weight: 900;">edit</span>
