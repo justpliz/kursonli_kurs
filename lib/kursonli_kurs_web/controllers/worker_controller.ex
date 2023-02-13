@@ -139,9 +139,9 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/orders
   """
   def orders(conn, _params) do
-    order_list_purchase = Orders.order_list(:purchase)
-    order_list_sale = Orders.order_list(:sale)
     city_id = get_session(conn, :worker).city.id
+    order_list_purchase = Orders.order_list(:purchase, city_id)
+    order_list_sale = Orders.order_list(:sale, city_id)
     worker = get_session(conn, :worker)
     currencies_list = Currencies.all()
     message = Chat.get_all_by_city(city_id)

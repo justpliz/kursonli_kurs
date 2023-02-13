@@ -52,12 +52,12 @@ defmodule KursonliKurs.Context.Orders do
     |> Repo.aggregate(:count)
   end
 
-  def order_list(type) do
+  def order_list(type, city_id) do
     from(
       order in Order,
       where: order.type == ^type,
       join: filial in Filial,
-      on: order.filial_id == filial.id,
+      on: order.filial_id == filial.id and filial.city_id == ^city_id,
       join: org in Organization,
       on: filial.organization_id == org.id,
       join: c in Currency,
