@@ -1,0 +1,17 @@
+<script>
+    $(".accept_delete_trade").click(function () {
+       const { id } = JSON.parse(this.dataset.map)
+       Modalka.fire({
+          showConfirmButton: false,
+          showCancelButton: false,
+          showCloseButton: true,
+          html: `
+               <h1 class="title_without_margin text-left">Действительно удалить ордер?</h1>
+             <div class="px-1">
+                   <div class="text-left my-4"> Это действие необратимо. Вы действительно хотите удалить ваш ордер?</div>
+                   <a href="/worker/delete_order?id=${id}" class="btn_save my-2" type="submit">Удалить</a>
+             </div>
+          `,
+       })
+    })
+ </script>

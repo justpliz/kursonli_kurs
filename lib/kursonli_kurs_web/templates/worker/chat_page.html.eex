@@ -13,72 +13,9 @@
             <span class="sr-only">Loading...</span>
         </div>
          <div class="chatsss" id="chatWrapper">
-            
-            <%= for {id,_,_,user_id, y} <- @message do %>
-               <%= if y[:type]=="event" and y[:item_order]["worker_id"]==workerr.id do %>
-                  <% order_type=KursonliKursWeb.GeneralHelper.normalize_order_type( y[:item_order]["type"], :multi) %>
-                     <div class="w-full mt-2 bg-blub p-4 text-white 2xl:text-small rounded  event" data-etsid="<%= id %>"
-                        data-type='<%= y["type_event"] %>'>
-                        <div class="text-gray-200">На Ваш ордер на <%= order_type %>: <%= y.item_order["volume"] %>
-                                 <%= y[:item_order]["currency_short_name"] %>
-                                    <%= y["currency_short_name"] %> по курсу <%= y.item_order["course_sale"] %>
-                        </div>
-                        <div class="font-bold">Поступило предложение от <%= y.item_order["worker"]["first_name"] %>: <%=
-                                 y.item_order["organization"] %>
-                        </div>
-                        <div class="text-gray-200">предложено <%= y.volume %>
-                              <%= y[:item_order]["currency_short_name"] %> по курсу <%= y.item_order["course_sale"] %>
-                        </div>
-                        <div class="w-full bg-white text-black text-center py-2 my-2 rounded">
-                           Ваши условия: <%#= courses.yslovie %>
-                              <%= y.terms %>
-                        </div>
-                        <div class="d_flex gap-2 buttons-event">
-                           <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event"
-                              data-type="success"
-                              data-item="<%= Map.put(y,:ets_id, id) |> Jason.encode!() %>">Принять</button>
-                           <button class="bg-red-600 rounded w-full py-2 items-center justify-center flex click-event"
-                              data-type="fail"
-                              data-item="<%= Map.put(y,:ets_id, id) |> Jason.encode!() %>">Отклонить</button>
-                        </div>
-                     </div>
-
-                     <% else %>
-                        <%= if user_id !=workerr.id do %>
-
-                           <div class="flex w-full mt-2 space-x-3 max-w-xs">
-                              <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
-                              <div>
-                                 <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
-                                    <p class="text-sm" id="text">
-                                       <%= y["body"] %>
-                                    </p>
-                                 </div>
-                                 <span class="text-xs text-gray-500 leading-none">
-                                    <%= y["worker"]["first_name"] %>
-                                 </span>
-                              </div>
-                           </div>
-                           <% else %>
-                              <%= if y[:type] !="event" do %>
-                                 <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-                                    <div>
-                                       <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
-                                          <p class="text-sm">
-                                             <%= y["body"] %>
-                                          </p>
-                                       </div>
-                                       <span class="text-xs text-gray-500 leading-none">
-                                          <%= y["worker"]["first_name"] %>
-                                       </span>
-                                    </div>
-                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
-                                 </div>
-                                 <% end %>
-                                    <% end %>
-
-                                       <% end %>
-                                          <% end %>
+            <div class="center">
+               Выберите чат для общения 
+            </div>
          </div>
       </div>
       <div class="absolute w-full bottom-0 bg-gray-300 p-4 2xl:p-2 items-end flex-0-0 ">
@@ -100,6 +37,9 @@
          left: 4px;
          padding: 0 8px;
          overflow: auto;
+      }
+      .center {
+        padding-bottom: 300px;
       }
    </style>
    <script>

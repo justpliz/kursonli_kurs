@@ -5,6 +5,7 @@ defmodule KursonliKurs.Context.Orders do
   use KursonliKurs.Context
 
   alias KursonliKurs.Model.{Order, Currency, Filial, Organization}
+  alias KursonliKurs.Context.{Courses, Filials}
 
   require Logger
 
@@ -14,12 +15,16 @@ defmodule KursonliKurs.Context.Orders do
   def get(opts \\ []) do
     Order
     |> filter_by(opts)
+    |> Courses.get_currency
+    |> Filials.get_filail_name
     |> Repo.one()
   end
 
   def all(opts \\ []) do
     Order
     |> filter_by(opts)
+    |> Courses.get_currency
+    |> Filials.get_filail_name
     |> Repo.all()
   end
 
@@ -47,12 +52,12 @@ defmodule KursonliKurs.Context.Orders do
     |> Repo.aggregate(:count)
   end
 
-  def order_list(type) do
+  def order_list(type, city_id) do
     from(
       order in Order,
       where: order.type == ^type,
       join: filial in Filial,
-      on: order.filial_id == filial.id,
+      on: order.filial_id == filial.id and filial.city_id == ^city_id,
       join: org in Organization,
       on: filial.organization_id == org.id,
       join: c in Currency,

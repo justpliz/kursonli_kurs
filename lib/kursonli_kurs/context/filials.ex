@@ -54,6 +54,14 @@ defmodule KursonliKurs.Context.Filials do
     |> Repo.aggregate(:count)
   end
 
+  @doc """
+  get filial info from filail_id
+  """
+  def get_filail_name(query) do
+    f = from(f in Filial, select: %{name: f.name})
+    from(query, preload: [filial: ^f])
+  end
+
   def create_filial_worker_seting(filial_opts, worker_opts) do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),

@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.Order do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Filial, Worker, Trade}
+  alias KursonliKurs.Model.{Filial, Worker, Trade, Currency}
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -24,10 +24,9 @@ defmodule KursonliKurs.Model.Order do
     field :type, OrderType, default: "purchase"
     field :transfer, OrderTransfer, default: "red"
 
-    field :currency_id, :id
-
     belongs_to :filial, Filial, type: :binary_id
     belongs_to :worker, Worker, type: :binary_id
+    belongs_to :currency, Currency
 
     has_one :trade, Trade
 

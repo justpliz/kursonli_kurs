@@ -106,17 +106,17 @@ $(function () {
     userConnectEl.insertAdjacentHTML("beforeend", html);
   };
   $("#chat").keypress(function (e) {
-    var key = e.which;
+    // var key = e.which;
 
-    if (key == 13 && this.value != "") {
-      // the enter key code
-      channel.push("new:msg", {
-        body: this.value,
-        worker: getWorker(),
-        type: "text",
-      });
-      this.value = "";
-    }
+    // if (key == 13 && this.value != "") {
+    //   // the enter key code
+    //   channel.push("new:msg", {
+    //     body: this.value,
+    //     worker: getWorker(),
+    //     type: "text",
+    //   });
+    //   this.value = "";
+    // }
   });
 
   channel.on("new:msg", (payload) => {

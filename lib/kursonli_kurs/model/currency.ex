@@ -3,7 +3,7 @@ defmodule KursonliKurs.Model.Currency do
 
   import Ecto.Changeset
 
-  alias KursonliKurs.Model.{Course, Filial, FilialCurrency}
+  alias KursonliKurs.Model.{Course, Filial, FilialCurrency, Order}
 
   @type t :: %__MODULE__{}
 
@@ -21,6 +21,7 @@ defmodule KursonliKurs.Model.Currency do
     has_one :filials_currencies, FilialCurrency
 
     has_one :course, Course
+    has_one :order, Order
   end
 
   @doc false
