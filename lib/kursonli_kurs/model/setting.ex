@@ -39,10 +39,10 @@ defmodule KursonliKurs.Model.Setting do
 
     field :phones, :map,
       default: %{
-        phone1: "+7 (777) 777-77-77",
-        phone2: "+7 (777) 777-77-77",
-        phone3: "+7 (777) 777-77-77",
-        phone_for_header: "+7 (777) 777-77-77"
+        phone1: "",
+        phone2: "",
+        phone3: "",
+        phone_for_header: ""
       }
 
     field :qualities, :map,

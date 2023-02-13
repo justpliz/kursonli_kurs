@@ -56,6 +56,7 @@ module.exports = {
         'lg': { 'max': '1000px' },
         'md': { 'max': '769px' },
         'sm': { 'max': '640px' },
+        'mb': { 'max': '425px' },
       }
     }
   },

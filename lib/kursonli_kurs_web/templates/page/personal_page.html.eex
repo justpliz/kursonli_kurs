@@ -24,8 +24,8 @@
 </style>
 <div class="font">
     <div class="w-full bg-white shadow-xl">
-        <div class="w-1440 flex justify-between items-center mx-auto h-20 text-black">
-            <ul class="d_flex gap-10 text-lg">
+        <div class="w-1440 mb:w-auto mb:flex-col mb:h-auto mb:py-2 flex justify-between items-center mx-auto h-20 text-black">
+            <ul class="d_flex gap-10 text-lg mb:gap-4">
                 <a href="#adress" class="link_to">
                     <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
                 </a>
@@ -33,7 +33,7 @@
                     <li class="hover:underline cursor-pointer hover:text-gray-500">О компании</li>
                 </a>
             </ul>
-            <a href="/" class="">
+            <a href="/" class="mb:py-2">
                 <img src="<%= @logo_path %>" alt="" class="w-40 h-14">
                 <!-- <img src="/images/logo-line.svg" alt=""> -->
             </a>
@@ -54,8 +54,8 @@
     </div>
 
     <div class="max-w-1440 mx-auto mt-4 pb-8">
-        <div class="flex gap-8">
-            <div class="scoreboard bg-blub p-6 text-white rounded-xl w-2/3">
+        <div class="flex gap-8 mb:flex-col mb:items-center px-2">
+            <div class="scoreboard bg-blub p-6 text-white rounded-xl w-2/3 mb:w-full">
                 <div class="text-center">
                     <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
                     <div class="text-sm">на ЧИСЛО января ГОД ВРЕМЯ</div>
@@ -92,8 +92,8 @@
                 </div>
             </div>
 
-            <div class="flex flex-col gap-4">
-                <div class="bg-gray-200 rounded-xl p-6">
+            <div class="flex flex-col gap-4 mb:w-full">
+                <div class="bg-gray-200 rounded-xl p-6 hidden">
                     <h2 class="uppercase font-bold">калькулятор курса</h2>
                     <div class="flex gap-2 items-end">
                         <div class="flex flex-col">
@@ -137,7 +137,7 @@
             </div>
         </div>
 
-        <div class="flex gap-8 mt-10">
+        <div class="flex gap-8 mt-10 mb:flex-col mb:gap-2 mb:mt-4 mb:px-2">
             <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
                 <img src="/images/icons/qual1.svg" alt="" class="pr-4">
                 <div class="qual_text uppercase text-lg">
@@ -158,11 +158,11 @@
             </div>
         </div>
 
-        <div class="flex mt-10 gap-6" id="adress">
+        <div class="flex mt-10 mb:mt-4 gap-6 mb:flex-col mb:px-2" id="adress">
             <div class="hidden">
                 <%= [x_coord, y_coord]=@setting.coordinates %>
             </div>
-            <div class="map">
+            <div class="map mb:h-72 mb:w-full">
                 <div class="dg-widget-link">
                     <a
                         href="http://2gis.kz/<%= @city_eng_name %>/firm/<%= @setting.firm_id %>/photos/<%= @setting.firm_id %>/center/<%= x_coord %>,<%= y_coord %>/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
@@ -182,13 +182,13 @@
                 </script>
             </div>
 
-            <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30">
-                <h2 class="uppercase font-bold text-lg relative title_before">Адрес обменника</h2>
+            <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30 mb:w-full mb:px-4">
+                <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменника</h2>
                 <div class="relative pt-10 flex flex-col">
                     <div class="d_flex pb-4 items-center">
                         <span class="material-symbols-outlined pr-4"
                             style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
-                        <div class="">
+                        <div class="mb:text-xs">
                             <%= @setting.address_2gis %>
                         </div>
                     </div>
@@ -197,13 +197,13 @@
                         <span class="material-symbols-outlined pr-4"
                             style="color: #3689ce; font-size: 32px; font-weight: 900;">schedule</span>
                         <div class="flex-none">
-                            <div class="">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %>
+                            <div class="mb:text-xs">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %>
                             </div>
-                            <div class="">СБ <%= @setting.schedule["schedule_saturday"] %>
+                            <div class="mb:text-xs">СБ <%= @setting.schedule["schedule_saturday"] %>
                             </div>
-                            <div class="">Вс <%= @setting.schedule["schedule_sunday"] %>
+                            <div class="mb:text-xs">Вс <%= @setting.schedule["schedule_sunday"] %>
                             </div>
-                            <div class="">
+                            <div class="mb:text-xs">
                                 <%= @setting.schedule["schedule_other"] %>
                             </div>
                         </div>
@@ -212,7 +212,7 @@
                     <div class="d_flex pb-4">
                         <span class="material-symbols-outlined pr-4"
                             style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
-                        <div class="d_flex flex-col">
+                        <div class="d_flex flex-col mb:text-xs">
                             <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline">
                                 <%= @setting.phones["phone1"] %>
                             </a>
@@ -228,7 +228,7 @@
                     <div class="d_flex items-center">
                         <span class="material-symbols-outlined pr-4"
                             style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
-                        <a href="mailto:<%= @setting.email %>" class="">
+                        <a href="mailto:<%= @setting.email %>" class="mb:text-xs">
                             <%= @setting.email %>
                         </a>
                     </div>
@@ -236,13 +236,13 @@
             </div>
         </div>
 
-        <div class="flex mt-10 gap-10" id="descripton">
-            <img src="<%= @photo_path %>" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl">
-            <div class="flex50">
-                <h3 class="uppercase font-bold text-lg relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city_name %>
+        <div class="flex mt-10 gap-10 mb:flex-col-reverse mb:mt-6 mb:px-2" id="descripton">
+            <img src="<%= @photo_path %>" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl mb:w-full">
+            <div class="flex50 mb:w-full mb:px-2">
+                <h3 class="uppercase font-bold text-lg mb:text-sm relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city_name %>
                         <%= @filial.name %>
                 </h3>
-                <div class="pt-10">
+                <div class="pt-10 mb:pt-6 mb:-mb-8 mb:text-xs">
                     <p style="white-space: pre-line">
                         <%= @setting.description %>
                     </p>

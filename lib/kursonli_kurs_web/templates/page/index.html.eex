@@ -1,51 +1,54 @@
 <div class="font">
   <div class="mx-auto w-full bg-dblue">
-    <div class="max-w-1440 flex justify-between items-center mx-auto h-20">
-      <a href="/"><img src="/images/white-line-logo.svg" alt=""></a>
+    <div class="max-w-1440 flex justify-between items-center mb:flex-col mb:h-auto mb:py-4 mb:px-8 mx-auto h-20 ">
+      <div class="d_flex mb:items-center">
+        <a href="/"><img src="/images/white-line-logo.svg" class="mb:w-4/5" alt=""></a>
+        <a href="/worker/login" class="href_index hidden mb:block">Войти</a>
+      </div>
 
-      <div class="relative w-1/5">
+      <div class="relative w-1/5 mb:w-full mb:py-2">
         <input class="input_search search-input" type="text" placeholder="">
         <div class="absolute inset-y-0 right-4 flex items-center pl-3 pointer-events-none">
           <img src="/images/icons/search.svg" alt="">
         </div>
       </div>
 
-      <a href="/worker/login" class="href_index">Войти</a>
+      <a href="/worker/login" class="href_index mb:hidden">Войти</a>
     </div>
   </div>
 
 
-  <div class="max-w-1440 mx-auto">
-    <div class="flex py-8 text-dblue">
+  <div class="max-w-1440 mx-auto mb:px-2">
+    <div class="flex py-8 mb:py-4 text-dblue">
       <%= for item <- @city_list do %>
-        <a class="font-bold pr-4" href="city?name=<%= item.name %>">
+        <a class="font-bold pr-4 mb:text-sm" href="city?name=<%= item.name %>">
           <div><%= item.name %> (<span class="font-bold text-red-500"><%= item.count %></span>)</div>
         </a>
         <% end %>
     </div>
 
-    <div class="font-bold text-black text-lg">
-      Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl">
+    <div class="font-bold text-black text-lg mb:text-sm">
+      Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl mb:text-lg">
           <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
         </span>
     </div>
 
     <div class="relative w-full pt-4">
-      <table class="w-full text-sm text-left text-gray-500 table-fixed table_search" id="index-table">
+      <table class="w-full text-sm mb:text-xs text-left text-gray-500 table-fixed table_search" id="index-table">
         <thead class="bg-tableGray text-white uppercase">
           <tr class="uppercase">
-            <th scope="col" class="w-1/4 px-6 py-1 border-l-0 border-2 border-gray-200">
+            <th scope="col" class="w-1/4 px-6 mb:px-2 py-1 mb:text-small border-l-0 border-2 border-gray-200">
               ОБМЕННЫЙ ПУНКТ
             </th>
-            <th scope="col" class="w-1/6 px-6 py-1 border-2 border-gray-200">
+            <th scope="col" class="w-1/6 px-6 mb:px-2 py-1 mb:text-small border-2 border-gray-200">
               <div class="flex justify-between">
                 Время
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
             </th>
-            <th scope="col" class="w-1/6 px-6 py-1 border-2 border-gray-200">
+            <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200">
               <div class="flex justify-between">
-                <img class="img_sortt cursor-pointer" src="/images/icons/down.svg" alt="">
+                <img class="img_sortt cursor-pointer mb:hidden" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="1">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="USD" do %>
@@ -62,7 +65,7 @@
                 <img class="img_sortt cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
             </th>
-            <th scope="col" class="w-1/6 px-6 py-1 border-2 border-gray-200">
+            <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200 mb:hidden">
               <div class="flex justify-between">
                 <img class="img_sortt cursor-pointer" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="2">
@@ -81,7 +84,7 @@
                 <img class="img_sortt cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
             </th>
-            <th scope="col" class="w-1/6 px-6 py-1 border-2 border-gray-200">
+            <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200 mb:hidden">
               <div class="flex justify-between">
                 <img class="img_sortt cursor-pointer" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="3">
@@ -100,7 +103,7 @@
                 <img class="img_sortt cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
             </th>
-            <th scope="col" class="w-1/6 px-6 py-1 border-2 border-r-0 border-gray-200">
+            <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-r-0 border-gray-200 mb:hidden">
               контакты
             </th>
           </tr>
@@ -109,37 +112,52 @@
           <%= for item <- @courses_list do %>
             <tr class="bg-white text-black" data-id="<%= item.filial.id %>"
               data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
-              <td class="px-6 py-1 border-2 border-b-0 border-l-0 border-tableGray">
-                <span class="font-bold text-sm block">
+              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-l-0 border-tableGray">
+                <span class="font-bold text-sm mb:text-xs block">
                   <%= item.organization.name %>
                 </span>
-                <a href="personal?filial=<%= item.filial.id %>" class="font-bold text-xs underline">
+                <a href="personal?filial=<%= item.filial.id %>" class="font-bold text-xs mb:text-small underline">
                   <%= item.filial.name %>
                 </a>
-                <span class="block text-xs">
+                <span class="block text-xs mb:text-small">
                   <%= item.filial.fililal_address %>
                 </span>
                 <div class="hidden">
                   <%= [wholesale_rate, gold]=item.setting.tags %>
                 </div>
-                <div class="mt-2">
+                <div class="mt-2 mb:mt-1">
                   <%= if String.to_atom(wholesale_rate) do %>
-                  <span class="bg-greatGreen text-xs uppercase text-white px-4 py-1">Оптовый курс</span>
+                  <div class="mb:mt-2">
+                  <span class="bg-greatGreen text-xs mb:text-small uppercase text-white px-4 mb:px-2 py-1">Оптовый курс</span>
+                  </div>
                   <% end %>
                   <%= if String.to_atom(gold) do %>
-                    <span class="bg-greatYellow text-xs uppercase text-white px-4 py-1">Золото</span>
+                  <div class="mt-2 mb:mt-2">
+                    <span class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1">Золото</span>
+                  </div>
                     <% end %>
                 </div>
-                <div class="block mt-2 text-xs">
+                <div class="block mt-2 text-xs mb:text-small">
                   <%= item.setting.promo["promo1"] %>
                 </div>
-                <div class="block text-xs">
+                <div class="block text-xs mb:text-small">
                   <%= item.setting.promo["promo2"] %>
                 </div>
+                <div class="hidden mb:block mb:mt-1">
+                  <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
+                    <%= item.setting.phones["phone1"] %>
+                  </a>
+                  <a class="block hover:underline" href='tel:<%= item.setting.phones["phone2"] %>'>
+                    <%= item.setting.phones["phone2"] %>
+                  </a>
+                  <a class="block hover:underline" href='tel:<%= item.setting.phones["phone3"] %>'>
+                    <%= item.setting.phones["phone3"] %>
+                  </a>
+                </div>
               </td>
-              <td class="px-6 py-1 border-2 border-b-0 border-tableGray text-center">
+              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray text-center">
                 <div class="time-container">
-                  <span class="text-base font-bold flex flex-col time">
+                  <span class="text-base mb:text-sm font-bold flex flex-col time">
                     <%= KursonliKursWeb.GeneralHelper.date_to_string_all(item.filial.course |> hd() |> Map.get(:date))
                       %>
                   </span>
@@ -150,18 +168,18 @@
               <div class="hidden">
                 <% purchase=item.filial.course |> hd |> Map.get(:value_for_purchase) %>
               </div>
-              <td class="px-6 py-1 border-2 border-b-0 border-tableGray dataget" data-select="1">
+              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 dataget" data-select="1">
                 <div class="d_flex justify-between items-center">
-                  <span class="sale font-bold text-base">
+                  <span class="sale font-bold text-base mb:text-sm">
                     <%= sale %>
                   </span>
-                  <span class="font-bold border-b-0 text-base">—</span>
-                  <span class="purchase font-bold text-base">
+                  <span class="font-bold border-b-0 text-base mb:text-small">—</span>
+                  <span class="purchase font-bold text-base mb:text-sm">
                     <%= purchase %>
                   </span>
                 </div>
               </td>
-              <td class="px-6 py-1 border-2 border-b-0 border-tableGray dataget" data-select="2">
+              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="2">
                 <div class="d_flex justify-between items-center">
                   <span class="sale font-bold text-base">
                       <%= sale %>
@@ -172,7 +190,7 @@
                   </span>
                 </div>
               </td>
-              <td class="px-6 py-1 border-2 border-b-0 border-tableGray dataget" data-select="3">
+              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="3">
                 <div class="d_flex justify-between items-center">
                   <span class="sale font-bold text-base">
                     <%= sale %>
@@ -183,7 +201,7 @@
                   </span>
                 </div>
               </td>
-              <td class="px-6 text-xs py-1 border-2 border-b-0 border-r-0 border-tableGray text-center">
+              <td class="px-6 mb:px-2 text-xs mb:text-small py-1 border-2 border-b-0 border-r-0 border-tableGray text-center mb:hidden">
                 <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
                   <%= item.setting.phones["phone1"] %>
                 </a>
