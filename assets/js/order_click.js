@@ -7,8 +7,7 @@ const Toast = Swal.mixin({
 const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"));
 };
-
-$(".order-click").click(function () {
+export function order_click(e) {
   $(".order-click").removeClass("selected");
   $(this).addClass("selected");
 
@@ -19,7 +18,8 @@ $(".order-click").click(function () {
   $("#org_title .phone").text(item.worker_phone);
   $("#org_title .phone").attr("href", `tel:${item.worker_phone}`);
   document.querySelector("#accept").dataset.item = this.dataset.item;
-});
+}
+$(".order-click").click(order_click);
 
 $("#accept").click(function () {
   if (this.dataset.item == "") {
@@ -51,6 +51,7 @@ $("#accept").click(function () {
   let itemSale = "";
   let itemSaleH1 = "";
   let modalTitle = "";
+  
   if (type == "sale") {
     itemSale = "Вы продаете:";
   } else {
@@ -87,7 +88,6 @@ $("#accept").click(function () {
   element.classList.add(transferBlock);
   document.body.appendChild(element);
 
-  const emptyTerms = ""
 
   item.worker = getWorker();
   if (getWorker().id != worker_id) {

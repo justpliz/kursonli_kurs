@@ -86,4 +86,38 @@ defmodule KursonliKurs.Context.Orders do
     |> Repo.all()
     |> PwHelper.Normalize.repo()
   end
+
+  def order_one(id,city_id) do
+    from(
+      order in Order,
+      where: order.id == ^id,
+      join: filial in Filial,
+      on: order.filial_id == filial.id and filial.city_id == ^city_id,
+      join: org in Organization,
+      on: filial.organization_id == org.id,
+      join: c in Currency,
+      on: order.currency_id == c.id,
+      order_by: [desc: order.date],
+      select: %{
+        id: order.id,
+        organization: org.name,
+        filial_name: filial.name,
+        type: order.type,
+        filial: filial,
+        filial_id: order.filial_id,
+        fililal_address: filial.fililal_address,
+        date: order.date,
+        volume: order.volume,
+        limit: order.limit,
+        terms: order.terms,
+        transfer: order.transfer,
+        worker_id: order.worker_id,
+        currency_short_name: c.short_name,
+        worker_name: order.worker_name,
+        worker_phone: order.worker_phone,
+        course_sale: order.course
+      }
+    )
+    |> Repo.one()
+  end
 end

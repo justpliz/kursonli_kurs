@@ -61,6 +61,9 @@ defmodule KursonliKursWeb.RoomChannel do
     Endpoint.broadcast!("rooms:#{city_id}", "notify", %{notify: notify})
   end
 
+  def order(order, city_id) do
+    Endpoint.broadcast!("rooms:#{city_id}", "new:order", %{data: order |>  PwHelper.Normalize.repo()})
+  end
   def new_event("new:event", city_id, map_msg) do
     {id, _, _, _user_id, message} = Chat.insert_message(map_msg[:worker_id], city_id, map_msg)
 

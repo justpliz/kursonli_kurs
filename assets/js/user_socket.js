@@ -3,6 +3,7 @@
 import { Socket } from "phoenix";
 // Bring in Phoenix channels client library:
 import { eventClick } from "./click_event";
+import { templateNewOrder } from "./template/new_order";
 import { handleClickWorker } from "./worker_click";
 const meowMix = new Audio("/images/sound/notice.mp3");
 const audioObj = new Audio(
@@ -143,6 +144,9 @@ $(function () {
   channel.on("new:event", (payload) => {
     meowMix.play();
     templateEvent(payload);
+  });
+  channel.on("new:order", (payload) => {
+    templateNewOrder(payload.data)
   });
   channel.on("notify", (payload) => {
     audioObj.play();

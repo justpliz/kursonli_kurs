@@ -1,7 +1,8 @@
 defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
-  alias KursonliKursWeb.OnlineChannel
+  alias KursonliKurs.Model.Currency
+  alias KursonliKursWeb.{OnlineChannel, RoomChannel}
   alias KursonliKurs.EtsStorage.{Chat, SessionWorker}
 
   alias KursonliKurs.Context.{
@@ -168,6 +169,7 @@ defmodule KursonliKursWeb.WorkerController do
   def create_order(conn, _params) do
     currencies_list = Currencies.all()
 
+    # OnlineChannel.order()
     conn
     |> render("worker_orders.html", currencies_list: currencies_list)
   end
@@ -194,7 +196,11 @@ defmodule KursonliKursWeb.WorkerController do
       currency_id: params["currency_id"]
     }
 
-    with {:ok, order} <- Orders.create(opts) do
+    with {:ok, order} <- Orders.create(opts) |> IO.inspect() do
+      new_order = Orders.order_one(order.id, session.city.id) |> IO.inspect()
+
+      RoomChannel.order(new_order, session.city.id)
+
       conn
       |> put_flash(:info, "Ордер #{order.number} зарегистрирован ")
       |> redirect(to: "/worker/orders")
