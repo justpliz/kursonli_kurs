@@ -46,6 +46,7 @@
 
    .select_table {
       @apply shadow-sm bg-transparent border relative border-gray-300 text-black bg-white text-base block w-full px-2 py-1;
+      @apply mb:text-small;
       @apply focus:border-transparent;
       @apply active:border-transparent;
    }
@@ -177,6 +178,7 @@
 
    .href_index {
       @apply border-2 py-4 px-10 text-white font-extrabold rounded-xl transition-all;
+      @apply mb:py-2 mb:px-6;
       @apply hover:bg-white hover:text-dblue;
    }
 

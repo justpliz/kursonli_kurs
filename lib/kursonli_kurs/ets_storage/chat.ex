@@ -72,13 +72,13 @@ defmodule KursonliKurs.EtsStorage.Chat do
   IO.inspect(id, label: "insert")
   table = {Ecto.UUID.generate(), id, Timex.now("Asia/Almaty"), user_id, message_map}
 
-  :dets.insert_new(
-    :chat,
-    table
-  )
+      :dets.insert_new(
+        :chat,
+        table
+      )
 
-  table
- end
+      table
+    end
   end
 
   def get_all_by_city(worker_id) do

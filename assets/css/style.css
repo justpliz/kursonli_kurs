@@ -234,6 +234,12 @@ body.swal2-shown {
   background-size: contain;
 }
 
+@media (max-width: 425px) {
+  .select_table {
+    margin: 0;
+  }
+}
+
 .bg_table {
   background-color: #A7FFB5;
   padding: 3px 5px;
