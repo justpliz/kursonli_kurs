@@ -98,13 +98,32 @@
                     <div class="flex gap-2 items-end">
                         <div class="flex flex-col">
                             <h3>У меня есть</h3>
-                            <input type="input" class="input_full">
+                            <div class="flex">
+
+                                <input type="text" class="input_full number_input_only" />
+                                <select id="cur1" class="input_full">
+                                    <%= for item <- @courses_list do %>
+                                    <option value="<%= item.currency_short_name %>">
+                                        <%= item.currency_short_name %>
+                                    </option>
+                                    <% end %>
+                                </select>
+                            </div>
                         </div>
                         <div class="material-symbols-outlined pb-3" style="color: #3689ce; font-weight: 700;">sync_alt
                         </div>
                         <div class="flex flex-col">
                             <h3>Я получу</h3>
-                            <input type="input" class="input_full">
+                            <div class="flex">
+                                <input type="number" class="input_full number_input_only" />
+                                <select id="cur1" class="input_full">
+                                    <%= for item <- @courses_list do %>
+                                    <option value="<%= item.currency_short_name %>">
+                                        <%= item.currency_short_name %>
+                                    </option>
+                                    <% end %>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -245,6 +264,16 @@
         max-width: 100%;
         display: block;
     }
+    #kursinfo5 {
+        width: 80%;
+        font-size: 14px;
+        font-family: arial;
+        border: 1px solid transparent;
+        line-height: 1.1;
+        margin: 0px auto;
+        max-width: 100%;
+        display: block;
+    }
 
     #kursinfo5 p {
         margin: 0;
@@ -367,3 +396,18 @@
         color: red;
     }
 </style>
+
+<script>
+    const volume_model = document.querySelector("#volume_model");
+    const itemeSale = document.querySelector("#itemSale");
+    const itemCourse = document.querySelector("#itemCourse");
+
+    itemCourse.innerHTML = course_sale;
+    const itemResult = document.querySelector("#itemResult");
+    volume_model.addEventListener("input", (e) => {
+        const volume = parseInt(e.currentTarget.value);
+        const course_sale_float = parseFloat(course_sale);
+        itemeSale.innerHTML = e.currentTarget.value;
+        itemResult.innerHTML = volume * course_sale_float;
+    });
+</script>
