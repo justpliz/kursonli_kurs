@@ -136,68 +136,154 @@
     </table>
   </div>
 
-  <div class="flex py-4">
-    <button class="modal-button btn_save" id="accept" data-item="">Принять</button>
-    <button class="btn_save ml-4" id="createOrder" data-item="">Разместить</button>
+  <div class="flex justify-between py-4">
+    <div class="">
+      <button class="modal-button btn_save" id="accept" data-item="">Принять</button>
+      <button class="btn_save ml-2" id="createOrder" data-item="">Разместить</button>
+    </div>
+    <div class="relative">
+      <button class="btn_border tab-btn" id="tab1-btn">Я учавствую</button>
+      <button class="btn_border tab-btn" id="tab2-btn">Я сделал</button>
+    </div>
+  </div>
+  
+  
+  <h1 class="title_small">Мои сделки</h1>
+  <div class="tab-content" id="tab1-content">
+    <div class="relative overflow-x-auto text-xs shadow-md rounded-xl">
+      <table class="table-fixed w-full text-left text-gray-500">
+        <thead class="text-gray-700 uppercase bg-white">
+          <tr>
+            <th scope="col" class="py-2 px-6 border-b-2 border-gray-200">
+              Тип
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Время
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Валюта
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Курс
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Объём
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Условия
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Передача
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Организация
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Статус сделки
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for item <- @trades do %>
+            <tr class="bg-white" data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>'>
+              <td class="px-6 py-2">
+                <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item.item_order["type"], :single) %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= item.item_order["date"] %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= item.item_order["currency_short_name"] %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= item.item_order["course_sale"] %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= item.item_order["volume"] %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= item.terms %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= case item.item_order["transfer"] do %>
+                  <% "green" -> %>
+                    <div id='item.item_order["transfer"]' class="green_circle"></div>
+                    <% "red" -> %>
+                      <div id='item.item_order["transfer"]' class="red_circle"></div>
+                      <% "red_green" -> %>
+                        <div id='item.item_order["transfer"]' class="transition-all colors"></div>
+                        <% end %>
+              </td>
+              <td class="px-6 py-2">
+                <%= item.item_order["filial_name"] %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= KursonliKursWeb.GeneralHelper.normalize_status_trade(item.status) %>
+              </td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <h1 class="title_small mb-2">Мои сделки</h1>
-  <div class="relative overflow-x-auto text-xs shadow-md rounded-xl">
-    <table class="table-fixed w-full text-left text-gray-500">
-      <thead class="text-gray-700 uppercase bg-white">
-        <tr>
-          <th scope="col" class="py-2 px-6 border-b-2 border-gray-200">
-            Организация
-          </th>
-          <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
-            Время
-          </th>
-          <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
-            Валюта
-          </th>
-          <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
-            Курс
-          </th>
-          <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
-            Объём
-          </th>
-          <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
-            Условия
-          </th>
-          <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
-            Передача
-          </th>
-          <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
-            Статус сделки
-          </th>
-          <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
-
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= for item <- @trades do %>
-          <tr class="bg-white" data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>'>
-            <td class="px-6 py-2">
-              <%= item.item_order["filial_name"] %>
-            </td>
-            <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
-              <%= item.item_order["date"] %>
-            </td>
-            <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
-              <%= item.item_order["currency_short_name"] %>
-            </td>
-            <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
-              <%= item.item_order["course_sale"] %>
-            </td>
-            <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
-              <%= item.item_order["volume"] %>
-            </td>
-            <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
-              <%= item.terms %>
-            </td>
-            <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
-              <%= case item.item_order["transfer"] do %>
+  <div class="tab-content" id="tab2-content">
+    <div class="relative overflow-x-auto text-xs shadow-md rounded-xl">
+      <table class="table-fixed w-full text-left text-gray-500">
+        <thead class="text-gray-700 uppercase bg-white">
+          <tr>
+            <th scope="col" class="py-2 px-6 border-b-2 border-gray-200">
+              Тип
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Время
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Валюта
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Курс
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Объём
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Условия
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Передача
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Организация
+            </th>
+            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              Управление
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for item <- @my_trades do %>
+            <tr class="bg-white" data-item='<%= item |> Jason.encode!() %>'>
+              <td class="px-6 py-2">
+                <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item[:type], :single) %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= item.date %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= item.currency.short_name %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= item.course %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= item.volume %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= item.terms %>
+              </td>
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <%= case item.transfer do %>
                 <% "green" -> %>
                   <div id='item.item_order["transfer"]' class="green_circle"></div>
                   <% "red" -> %>
@@ -205,27 +291,32 @@
                     <% "red_green" -> %>
                       <div id='item.item_order["transfer"]' class="transition-all colors"></div>
                       <% end %>
-            </td>
-            <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
-              <%= KursonliKursWeb.GeneralHelper.normalize_status_trade(item.status) %>
-            </td>
-            <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
-              <button class="filial_edit styles_none"
-                data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
-                <span class="material-symbols-outlined" style="color:#3689ce; font-weight: 900;">edit</span>
-              </button>
-              <button class="filial_edit styles_none"
-                data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
-                <span class="material-symbols-outlined" style="color:red; font-weight: 900;">delete</span>
-              </button>
-            </td>
-          </tr>
-          <% end %>
-      </tbody>
-    </table>
+              </td>
+              <td class="px-6 py-2">
+                <%= item.filial.name %>
+              </td>
+
+              <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <button class="accept_update_trade styles_none"
+                  data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                  <span class="material-symbols-outlined" style="color:#3689ce; font-weight: 900;">edit</span>
+                </button>
+                <button class="accept_delete_trade styles_none"
+                  data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                  <span class="material-symbols-outlined" style="color:red; font-weight: 900;">delete</span>
+                </button>
+              </td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <%= render(KursonliKursWeb.WorkerView, "chat_page.html" , conn: @conn, message: @message) %>
   <%= render(KursonliKursWeb.WorkerView, "modal_worker_orders_add.html" , conn: @conn, message: @message,
     currencies_list: @currencies_list, address: @address) %>
+
+    <%= render(KursonliKursWeb.WorkerView, "modal_delete_trade.html" , conn: @conn, id: @trades) %>
+      <%= render(KursonliKursWeb.WorkerView, "modal_update_trade.html" , conn: @conn, id: @trades, currencies_list: @currencies_list) %>

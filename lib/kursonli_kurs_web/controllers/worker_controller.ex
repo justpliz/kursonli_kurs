@@ -29,10 +29,15 @@ defmodule KursonliKursWeb.WorkerController do
     |> render("worker_login_form.html", user: user)
     |> halt()
   end
+
   def get_all_message_chat_worker_id(conn, params) do
     id = compare_workers_id(params["user_id"], params["worker_id"])
-    IO.inspect(id,label: "get")
-    json(conn, %{chat_messages: Chat.get_all_by_city(id)  |> Enum.map(fn {x, _y, _z, _j, l} -> l |> Map.put(:ets_id,x) end)})
+
+    json(conn, %{
+      chat_messages:
+        Chat.get_all_by_city(id)
+        |> Enum.map(fn {x, _y, _z, _j, l} -> l |> Map.put(:ets_id, x) end)
+    })
   end
 
   @doc """
@@ -139,9 +144,11 @@ defmodule KursonliKursWeb.WorkerController do
     city_id = get_session(conn, :worker).city.id
     worker = get_session(conn, :worker)
     currencies_list = Currencies.all()
-    message = Chat.get_all_by_city(city_id) |> IO.inspect()
+    message = Chat.get_all_by_city(city_id)
 
     address = worker.fililal_address
+
+    my_trades = Orders.all(worker_id: worker.id) |> PwHelper.Normalize.repo()
 
     conn
     |> render("worker_orders.html",
@@ -150,6 +157,7 @@ defmodule KursonliKursWeb.WorkerController do
       currencies_list: currencies_list,
       message: message,
       trades: Trades.get_by_id_worker(worker.id),
+      my_trades: my_trades,
       address: address
     )
   end
@@ -168,25 +176,23 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/create_order
   """
   def create_order_submit(conn, params) do
-    # TODO Переделать event_info
     session = get_session(conn, :worker)
 
-    opts =
-      %{
-        date: Timex.now("Asia/Almaty"),
-        number: generate_random_str(6),
-        type: params["type"],
-        volume: params["volume"],
-        terms: params["terms"],
-        transfer: params["transfer"],
-        limit: params["limit"],
-        filial_id: session.filial_id,
-        worker_id: session.id,
-        course: params["course"],
-        worker_name: session.first_name,
-        worker_phone: session.phone,
-        currency_id: params["currency_id"]
-      }
+    opts = %{
+      date: Timex.now("Asia/Almaty"),
+      number: generate_random_str(6),
+      type: params["type"],
+      volume: params["volume"],
+      terms: params["terms"],
+      transfer: params["transfer"],
+      limit: params["limit"],
+      filial_id: session.filial_id,
+      worker_id: session.id,
+      course: params["course"],
+      worker_name: session.first_name,
+      worker_phone: session.phone,
+      currency_id: params["currency_id"]
+    }
 
     with {:ok, order} <- Orders.create(opts) do
       conn
@@ -199,14 +205,29 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/update_order
   """
   def update_order(conn, params) do
-    %{
-      id: params["id"],
-      value_for_sale: params["value_for_sale"],
-      value_for_purchase: params["value_for_purchase"]
+    session = get_session(conn, :worker)
+
+    opts = %{
+      date: Timex.now("Asia/Almaty"),
+      type: params["order_type"],
+      volume: params["volume"],
+      terms: params["terms"],
+      transfer: params["transfer"],
+      limit: params["limit"],
+      filial_id: session.filial_id,
+      worker_id: session.id,
+      course: params["course"],
+      worker_name: session.first_name,
+      worker_phone: session.phone,
+      currency_id: params["currency_id"]
     }
 
-    conn
-    |> render("worker_courses.html")
+    with {:ok, order} <- Orders.do_get(id: params["id"]),
+         {:ok, order} <- Orders.update(order, opts) do
+      conn
+      |> put_flash(:info, "Ордер #{order.number} обновлен")
+      |> redirect(to: "/worker/orders")
+    end
   end
 
   @doc """
@@ -243,14 +264,13 @@ defmodule KursonliKursWeb.WorkerController do
   def update_course(conn, params) do
     filial_id = get_session(conn, :worker).filial_id
 
-    courses_list =
-      params
-      |> Map.delete("_csrf_token")
-      |> Enum.map(fn {k, v} -> {String.split(k, "|"), v} end)
-      |> Enum.reduce(%{}, fn {[id, key], value}, acc ->
-        Map.put(acc, id, Map.merge(Map.get(acc, id, %{}), %{key => value}))
-      end)
-      |> Enum.map(fn {id, course} -> update_one_course(id, course, filial_id) end)
+    params
+    |> Map.delete("_csrf_token")
+    |> Enum.map(fn {k, v} -> {String.split(k, "|"), v} end)
+    |> Enum.reduce(%{}, fn {[id, key], value}, acc ->
+      Map.put(acc, id, Map.merge(Map.get(acc, id, %{}), %{key => value}))
+    end)
+    |> Enum.map(fn {id, course} -> update_one_course(id, course, filial_id) end)
 
     conn
     |> redirect(to: "/worker/courses")
@@ -359,6 +379,7 @@ defmodule KursonliKursWeb.WorkerController do
     }
 
     tags = [params["wholesale_rate"], params["gold"]]
+
     opts = %{
       colors: colors,
       qualities: qualities,
