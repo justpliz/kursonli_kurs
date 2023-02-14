@@ -191,6 +191,7 @@
               </td>
               <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
                 <%= item.item_order["date"] %>
+                <div class="hidden"><%= item.inserted_at %></div>
               </td>
               <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
                 <%= item.item_order["currency_short_name"] %>

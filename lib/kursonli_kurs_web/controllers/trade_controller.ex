@@ -15,10 +15,12 @@ defmodule KursonliKursWeb.TradeController do
 
     with {:ok, item} <- Trades.create(params) do
       item = item |> PwHelper.Normalize.repo()
+
       KursonliKursWeb.OnlineChannel.notification(
         item_map["worker_id"],
         "Вам пришло предложение от #{item_map["worker_name"]}"
       )
+
       KursonliKursWeb.ChatWorkerChannel.new_event(
         "new:event",
         item_map,
@@ -38,11 +40,9 @@ defmodule KursonliKursWeb.TradeController do
              status: params["type_event"]
            }),
          {:ok, item} <- Chat.update_by_id_message(params["ets_id"], params) do
-      params
-
       KursonliKursWeb.OnlineChannel.notification(
         params["worker_id"],
-        "ВНИМАНИЕ ВАМ ОТВЕТИЛИ НА СДЕЛКУ ПЕРЕЗАГРУЗИТЕ СТРАНИЦУ! #{params["type_event"]}"
+        "Вам ответили на сделку!"
       )
 
       json(conn, %{item: item})

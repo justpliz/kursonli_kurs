@@ -4,7 +4,6 @@ $(".click-event").click(eventClick);
 export async function eventClick() {
   const item = JSON.parse(this.dataset.item);
   item.type_event = this.dataset.type;
-  console.log(item)
   await axios
     .post("/api/v1/trade", item)
     .then(() => {
@@ -14,7 +13,7 @@ export async function eventClick() {
         showConfirmButton: false,
         timer: 5000,
         timerProgressBar: true,
-        title: "Вы успешно приняли сделку",
+        title: helperType(this.dataset.type),
         icon: "success",
       });
     })
@@ -24,4 +23,11 @@ export async function eventClick() {
         icon: "error",
       });
     });
+}
+
+function helperType(type) {
+  if (type == "fail") {
+    return "Вы успешно отклонили сделку"
+  }
+  return "Вы успешно приняли сделку"
 }

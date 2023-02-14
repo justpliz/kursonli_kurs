@@ -9,7 +9,7 @@
                <h1 class="title_without_margin text-left">Действительно удалить ордер?</h1>
              <div class="px-1">
                    <div class="text-left my-4"> Это действие необратимо. Вы действительно хотите удалить ваш ордер?</div>
-                   <a href="/worker/delete_order?id=${id}" class="btn_save my-2" type="submit">Удалить</a>
+                   <a href="/worker/delete_order?id=${id}" class="btn_save my-2 pos w-fit" type="submit">Удалить</a>
              </div>
           `,
        })

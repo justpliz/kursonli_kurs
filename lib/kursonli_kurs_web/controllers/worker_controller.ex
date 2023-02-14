@@ -149,7 +149,10 @@ defmodule KursonliKursWeb.WorkerController do
 
     address = worker.fililal_address
 
-    my_trades = Orders.all(worker_id: worker.id) |> PwHelper.Normalize.repo()
+    my_trades =
+      Orders.all(worker_id: worker.id)
+      |> PwHelper.Normalize.repo()
+      |> Enum.sort(:desc)
 
     conn
     |> render("worker_orders.html",
