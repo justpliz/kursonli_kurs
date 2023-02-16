@@ -46,6 +46,9 @@ $(function () {
     Toast.fire({
       title: payload.message,
       icon: "success",
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
     });
   });
   let channel = socket.channel(`rooms:${worker.city.id}`, { worker: worker });
@@ -88,7 +91,7 @@ $(function () {
 
     chatWrapper.insertAdjacentHTML("beforeend", html);
   };
- 
+
   const templateTagsInsert = (name, worker_id) => {
 
     const html = `<div
@@ -99,8 +102,8 @@ $(function () {
     ${name}
  </div>`;
     setTimeout(() => {
-      document.querySelector(`[data-id="${worker_id}"]`).addEventListener("click",  async (e) => (
-     await   handleClickWorker(e, socket)
+      document.querySelector(`[data-id="${worker_id}"]`).addEventListener("click", async (e) => (
+        await handleClickWorker(e, socket)
       ))
 
     }, 100)
@@ -136,7 +139,7 @@ $(function () {
   channel.on("user:entered", (payload) => {
     userConnectEl.innerHTML = "";
     payload.online_users.forEach((element) => {
-      if (worker.id != element.id){
+      if (worker.id != element.id) {
         templateTagsInsert(element.first_name, element.id);
       }
     });

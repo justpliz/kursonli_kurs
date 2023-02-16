@@ -46,7 +46,8 @@ defmodule KursonliKurs.Context.Trades do
       trade in Trade,
       where: trade.worker_id == ^worker_id,
       join: order in Order,
-      on: trade.order_id == order.id
+      on: trade.order_id == order.id,
+      order_by: [desc: trade.inserted_at]
     )
     |> Repo.all()
     |> PwHelper.Normalize.repo()
