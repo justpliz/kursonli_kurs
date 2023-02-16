@@ -12,25 +12,25 @@
       <table class="table-fixed w-full text-left text-gray-500">
         <thead class="text-gray-700 uppercase bg-white">
           <tr>
-            <th scope="col" class="py-2 px-6 border-b-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200">
               Организация
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Время
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Валюта
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Курс
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Объём
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Условия
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Передача
             </th>
           </tr>
@@ -38,25 +38,25 @@
         <tbody id="sale_table">
           <%= for item <- @order_list_sale do %>
             <tr class="bg-white order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>'>
-              <td class="px-6 py-2">
+              <td class="px-6 2xl:px-2 py-2">
                 <%= item.filial_name %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= item.date %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= item.currency_short_name %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= item.course_sale %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= item.volume %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= item.terms %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= case item.transfer do %>
                   <% "green" -> %>
                     <div name="order_tranfer" id="<%= item.transfer %>" class="green_circle"></div>
@@ -77,25 +77,25 @@
       <table class="table-fixed w-full text-left text-gray-500">
         <thead class="text-gray-700 uppercase bg-white">
           <tr>
-            <th scope="col" class="py-2 px-6 border-b-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200">
               Организация
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Время
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Валюта
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Курс
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Объём
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Условия
             </th>
-            <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Передача
             </th>
           </tr>
@@ -103,25 +103,25 @@
         <tbody id="purchase_table">
           <%= for item <- @order_list_purchase do %>
             <tr class="bg-white order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "purchase")) %>'>
-              <td class="px-6 py-2">
+              <td class="px-6 2xl:px-2 py-2">
                 <%= item.filial_name %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= item.date %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= item.currency_short_name %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= item.course_sale %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= item.volume %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= item.terms %>
               </td>
-              <td class="px-6 py-2 border-x-2 border-gray-200">
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
                 <%= case item.transfer do %>
                   <% "green" -> %>
                     <div name="order_tranfer" id="<%= item.transfer %>" class="green_circle"></div>
@@ -155,31 +155,31 @@
         <table class="table-fixed w-full text-left text-gray-500">
           <thead class="text-gray-700 uppercase bg-white">
             <tr>
-              <th scope="col" class="py-2 px-6 border-b-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200">
                 Тип
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Время
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Валюта
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Курс
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Объём
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Условия
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Передача
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Организация
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Статус сделки
               </th>
             </tr>
@@ -187,28 +187,28 @@
           <tbody>
             <%= for item <- @trades do %>
               <tr class="bg-white" data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>'>
-                <td class="px-6 py-2">
+                <td class="px-6 2xl:px-2 py-2">
                   <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item.item_order["type"], :single) %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= item.item_order["date"] %>
                     <div class="hidden">
                       <%= item.inserted_at %>
                     </div>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= item.item_order["currency_short_name"] %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= item.item_order["course_sale"] %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= item.item_order["volume"] %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= item.terms %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= case item.item_order["transfer"] do %>
                     <% "green" -> %>
                       <div id='item.item_order["transfer"]' class="green_circle"></div>
@@ -218,10 +218,10 @@
                           <div id='item.item_order["transfer"]' class="transition-all colors"></div>
                           <% end %>
                 </td>
-                <td class="px-6 py-2">
+                <td class="px-6 2xl:px-2 py-2">
                   <%= item.item_order["filial_name"] %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= KursonliKursWeb.GeneralHelper.normalize_status_trade(item.status) %>
                 </td>
               </tr>
@@ -236,31 +236,31 @@
         <table class="table-fixed w-full text-left text-gray-500">
           <thead class="text-gray-700 uppercase bg-white">
             <tr>
-              <th scope="col" class="py-2 px-6 border-b-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200">
                 Тип
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Время
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Валюта
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Курс
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Объём
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Условия
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Передача
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Организация
               </th>
-              <th scope="col" class="py-2 px-6 border-b-2 border-x-2 border-gray-200">
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
                 Управление
               </th>
             </tr>
@@ -268,25 +268,25 @@
           <tbody>
             <%= for item <- @my_trades do %>
               <tr class="bg-white" data-item='<%= item |> Jason.encode!() %>'>
-                <td class="px-6 py-2">
+                <td class="px-6 2xl:px-2 py-2">
                   <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item[:type], :single) %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= item.date %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= item.currency.short_name %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= item.course %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= item.volume %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= item.terms %>
                 </td>
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <%= case item.transfer do %>
                     <% "green" -> %>
                       <div id='item.item_order["transfer"]' class="green_circle"></div>
@@ -296,11 +296,11 @@
                           <div id='item.item_order["transfer"]' class="transition-all colors"></div>
                           <% end %>
                 </td>
-                <td class="px-6 py-2">
+                <td class="px-6 2xl:px-2 py-2">
                   <%= item.filial.name %>
                 </td>
 
-                <td class="px-6 py-2 border-x-2 border-gray-200 break-words">
+                <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                   <button class="accept_update_trade styles_none"
                     data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
                     <span class="material-symbols-outlined" style="color:#3689ce; font-weight: 900;">edit</span>
