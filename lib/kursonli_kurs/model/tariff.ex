@@ -8,13 +8,14 @@ defmodule KursonliKurs.Model.Tariff do
   @type t :: %__MODULE__{}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(name price description)a
+  @required_fields ~w(name price description is_active)a
   @optional_fields ~w()a
 
   schema "tariffs" do
     field :name, :string
     field :price, :string
     field :description, :string
+    field :is_active, :boolean, default: false
 
     has_one :filial, Filial
   end

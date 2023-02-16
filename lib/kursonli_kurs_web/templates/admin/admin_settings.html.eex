@@ -51,15 +51,18 @@
       <div class="tab-content" id="tab2-content">
          <div class="text-lg font-semibold">Текст уведомлений</div>
          <div class="bg-gray-200 w-full p-8 rounded-xl">
+            <%= form_for @conn, Routes.admin_path(@conn, :update_notification), fn f -> %>
             <h1 class="subtitle_black pl-2">Доступ к сервису</h1>
             <div class="bg-white rounded-lg p-4 mb-4">
                <div class="flex justify-between pb-2">
+                  <%= hidden_input f, :name, value: @service_access.name %>
                   <label class="label_input p-2 basis-1/6">Заголовок</label>
-                  <input type="text" class="input_full" placeholder="Заголовок">
+                  <%= text_input f, :title, placeholder: "Заголовок" , class: "input_full" , value: @service_access.title, required: "true" %>
                </div>
                <div class="flex justify-between pb-2">
                   <label class="label_input p-2 basis-1/6">Текст</label>
-                  <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
+                  <%= textarea f, :description, placeholder: "", value: @service_access.description, class: "min-h-300 input_full",
+                  required: "true" %>
                </div>
                <div class="flex justify-between">
                   <label class="label_input p-2 basis-1/6">Изображение</label>
@@ -67,25 +70,24 @@
                </div>
                <div class="border-t-2 my-4 border-gray-200"></div>
                <div class="flex gap-4">
-                  <button class="currency_edit btn_save"
-                     data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
+                     <%= submit "Сохранить изменения", class: "currency_edit btn_save" %>
                </div>
             </div>
+            <% end %>
          </div>
          <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
+            <%= form_for @conn, Routes.admin_path(@conn, :update_notification), fn f -> %>
             <h1 class="subtitle_black pl-2">Истечение срока</h1>
             <div class="bg-white rounded-lg p-4 mb-4">
                <div class="flex justify-between pb-2">
-                  <label class="label_input p-2 basis-1/6">Заголовок 1</label>
-                  <input type="text" class="input_full" placeholder="Заголовок 1">
-               </div>
-               <div class="flex justify-between pb-2">
-                  <label class="label_input p-2 basis-1/6">Заголовок 2</label>
-                  <input type="text" class="input_full" placeholder="Заголовок 2">
+                  <%= hidden_input f, :name, value: @expiration.name %>
+                  <label class="label_input p-2 basis-1/6">Заголовок</label>
+                  <%= text_input f, :title, placeholder: "Заголовок" , class: "input_full" , value: @expiration.title, required: "true" %>
                </div>
                <div class="flex justify-between pb-2">
                   <label class="label_input p-2 basis-1/6">Текст</label>
-                  <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
+                  <%= textarea f, :description, placeholder: "", value: @expiration.description, class: "min-h-300 input_full",
+                  required: "true" %>
                </div>
                <div class="flex justify-between">
                   <label class="label_input p-2 basis-1/6">Изображение</label>
@@ -93,21 +95,24 @@
                </div>
                <div class="border-t-2 my-4 border-gray-200"></div>
                <div class="flex gap-4">
-                  <button class="currency_edit btn_save"
-                     data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
+                  <%= submit "Сохранить изменения", class: "currency_edit btn_save" %>
                </div>
             </div>
+            <% end %>
          </div>
          <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
+            <%= form_for @conn, Routes.admin_path(@conn, :update_notification), fn f -> %>
             <h1 class="subtitle_black pl-2">Инструкция к оплате</h1>
             <div class="bg-white rounded-lg p-4 mb-4">
                <div class="flex justify-between pb-2">
+                  <%= hidden_input f, :name, value: @instructions.name %>
                   <label class="label_input p-2 basis-1/6">Заголовок</label>
-                  <input type="text" class="input_full" placeholder="Заголовок">
+                  <%= text_input f, :title, placeholder: "Заголовок" , class: "input_full" , value: @instructions.title, required: "true" %>
                </div>
                <div class="flex justify-between pb-2">
                   <label class="label_input p-2 basis-1/6">Текст</label>
-                  <textarea id="message" rows="4" class="input_full h-10 min-h-60" placeholder="Сообщение"></textarea>
+                  <%= textarea f, :description, placeholder: "", value: @instructions.description, class: "min-h-300 input_full",
+                  required: "true" %>
                </div>
                <div class="flex justify-between">
                   <label class="label_input p-2 basis-1/6">Изображение</label>
@@ -115,10 +120,10 @@
                </div>
                <div class="border-t-2 my-4 border-gray-200"></div>
                <div class="flex gap-4">
-                  <button class="currency_edit btn_save"
-                     data-map="<%#= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Сохранить изменения</button>
+                  <%= submit "Сохранить изменения", class: "currency_edit btn_save" %>
                </div>
             </div>
+            <% end %>
          </div>
       </div>
 

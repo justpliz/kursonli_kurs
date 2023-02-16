@@ -99,6 +99,10 @@ defmodule KursonliKursWeb.Router do
       get "/update", TariffController, :update_tariff
       get "/delete", TariffController, :delete_tariff
     end
+
+    scope "/notifications" do
+      post "/update", AdminController, :update_notification
+    end
   end
 
   scope "/worker", KursonliKursWeb do

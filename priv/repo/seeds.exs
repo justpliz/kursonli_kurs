@@ -9,15 +9,69 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
 # mix ecto.rollback --step 20 && mix ecto.migrate && mix run priv/repo/seeds.exs
 
+# Create admin
 {:ok, admin} = KursonliKurs.Context.Admins.create(%{login: "admin", password: "admin"})
-{:ok, city_krg} = KursonliKurs.Context.Cities.create(%{name: "Караганда", short_name: "KRG", eng_name: "karaganda"})
-{:ok, city_smsk} = KursonliKurs.Context.Cities.create(%{name: "Семей", short_name: "SMSK", eng_name: "semey"})
-{:ok, city_ala} = KursonliKurs.Context.Cities.create(%{name: "Алматы", short_name: "ALA", eng_name: "almaty"})
-{:ok, usd} = KursonliKurs.Context.Currencies.create(%{name: "Американский доллар", short_name: "USD", color: "#ffffff"})
-{:ok, eur} = KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR", color: "#ffffff"})
-{:ok, rub} = KursonliKurs.Context.Currencies.create(%{name: "Российский рубль", short_name: "RUB", color: "#ffffff"})
+
+# Create cities
+{:ok, city_krg} =
+  KursonliKurs.Context.Cities.create(%{
+    name: "Караганда",
+    short_name: "KRG",
+    eng_name: "karaganda"
+  })
+
+{:ok, city_smsk} =
+  KursonliKurs.Context.Cities.create(%{name: "Семей", short_name: "SMSK", eng_name: "semey"})
+
+{:ok, city_ala} =
+  KursonliKurs.Context.Cities.create(%{name: "Алматы", short_name: "ALA", eng_name: "almaty"})
+
+# Create currencies
+{:ok, usd} =
+  KursonliKurs.Context.Currencies.create(%{
+    name: "Американский доллар",
+    short_name: "USD",
+    color: "#ffffff"
+  })
+
+{:ok, eur} =
+  KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR", color: "#ffffff"})
+
+{:ok, rub} =
+  KursonliKurs.Context.Currencies.create(%{
+    name: "Российский рубль",
+    short_name: "RUB",
+    color: "#ffffff"
+  })
+
+# Create notifications
+{:ok, _service_access} =
+  KursonliKurs.Context.Notifications.create(%{
+    name: "service_access",
+    title: "Внимание",
+    description:
+      "<p>Для начала работы нужно оплатить доступ к сервису KURS-ONLINE.KZ. С Вами скоро свяжется менеджер!</p>
+  <p>――――――――――――――――――――――――――――――――――――――――――――――――</p>
+  <p>Как оплатить? Вы можете посмотреть в разделе Оплата, в левом меню.</p>"
+  })
+
+{:ok, _expiration} =
+  KursonliKurs.Context.Notifications.create(%{
+    name: "expiration",
+    title: "Срок вашей подписки истекает! Осталось # дней",
+    description: "<p>После окончания срока подписки, не будут доступны все разделы.</p>"
+  })
+
+{:ok, _instructions} =
+  KursonliKurs.Context.Notifications.create(%{
+    name: "instructions",
+    title: "Как оплатить тариф",
+    description:
+      "<p>Чтобы оплатить тариф на сервисе KURS-ONLINE.KZ вам необходимо будет отсканировать QR код представленный ниже через приложение kaspi.kz и после связаться с нашим менеджером по телефону + 7 (705) 555-08-11 и сообщить об оплате.</p>"
+  })
 
 # Create Org1
 {:ok, org1} =

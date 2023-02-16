@@ -12,6 +12,7 @@ defmodule KursonliKursWeb.AdminController do
     Tariffs,
     Courses,
     Settings,
+    Notifications,
     Workers
   }
 
@@ -152,15 +153,22 @@ defmodule KursonliKursWeb.AdminController do
   GET /admin/settings
   """
   def settings(conn, _params) do
+    tariff_list = Tariffs.all()
     currency_list = Currencies.all()
     cities_list = Cities.all()
-    tariff_list = Tariffs.all()
+
+    {:ok, service_access}= Notifications.do_get(name: "service_access")
+    {:ok, expiration}= Notifications.do_get(name: "expiration")
+    {:ok, instructions}= Notifications.do_get(name: "instructions")
 
     conn
     |> render("admin_settings.html",
+      tariff_list: tariff_list,
       currency_list: currency_list,
       cities_list: cities_list,
-      tariff_list: tariff_list
+      service_access: service_access,
+      expiration: expiration,
+      instructions: instructions
     )
   end
 
@@ -370,6 +378,16 @@ defmodule KursonliKursWeb.AdminController do
       conn
       |> put_flash(:info, "статус #{filial.name} успешно обновлен")
       |> redirect(to: "/admin/filials")
+    end
+  end
+
+  def update_notification(conn, %{"name" => name} = params) do
+    IO.inspect(params, label: "params")
+    with {:ok, notification} <- Notifications.do_get(name: name),
+         {:ok, notification} <- Notifications.update(notification, params) do
+      conn
+      |> put_flash(:info, "Объявление #{notification.name} успешно обновлено")
+      |> redirect(to: "/admin/settings")
     end
   end
 end

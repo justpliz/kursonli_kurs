@@ -164,7 +164,7 @@
               </td>
               <div class="hidden">
                 <% sale=item.filial.course |> hd |> Map.get(:value_for_sale) %>
-              </div>
+              </div> 
               <div class="hidden">
                 <% purchase=item.filial.course |> hd |> Map.get(:value_for_purchase) %>
               </div>
