@@ -133,6 +133,8 @@ defmodule KursonliKursWeb.Router do
       get "/", WorkerController, :settings
       post "/update", WorkerController, :update_setting
     end
+
+    get "/payment", WorkerController, :payment
   end
 
   # Other scopes may use custom stacks.

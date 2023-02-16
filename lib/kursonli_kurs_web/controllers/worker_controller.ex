@@ -411,4 +411,9 @@ defmodule KursonliKursWeb.WorkerController do
       |> redirect(to: "/worker/settings")
     end
   end
+
+  def payment(conn, _params) do
+    conn
+    |> render("payment.html")
+  end
 end
