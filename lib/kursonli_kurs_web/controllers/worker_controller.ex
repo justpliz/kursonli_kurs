@@ -1,7 +1,6 @@
 defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
-  alias KursonliKurs.Model.Currency
   alias KursonliKursWeb.{OnlineChannel, RoomChannel}
   alias KursonliKurs.EtsStorage.{Chat, SessionWorker}
 
@@ -13,7 +12,8 @@ defmodule KursonliKursWeb.WorkerController do
     Filials,
     Cities,
     Trades,
-    Settings
+    Settings,
+    Notifications
   }
 
   @doc """
@@ -154,6 +154,9 @@ defmodule KursonliKursWeb.WorkerController do
       |> PwHelper.Normalize.repo()
       |> Enum.sort(:desc)
 
+    {:ok, instructions} = Notifications.do_get(name: "instructions")
+    |> PwHelper.Normalize.repo()
+
     conn
     |> render("worker_orders.html",
       order_list_purchase: order_list_purchase,
@@ -162,7 +165,8 @@ defmodule KursonliKursWeb.WorkerController do
       message: message,
       trades: Trades.get_by_id_worker(worker.id),
       my_trades: my_trades,
-      address: address
+      address: address,
+      instructions: instructions
     )
   end
 
@@ -199,7 +203,7 @@ defmodule KursonliKursWeb.WorkerController do
       currency_id: params["currency_id"]
     }
 
-    with {:ok, order} <- Orders.create(opts)do
+    with {:ok, order} <- Orders.create(opts) do
       new_order = Orders.order_one(order.id, session.city.id)
 
       RoomChannel.order(new_order, session.city.id)
@@ -413,7 +417,9 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   def payment(conn, _params) do
+    service_access = Notifications.get(name: "service_access")
+
     conn
-    |> render("payment.html")
+    |> render("payment.html", service_access: service_access)
   end
 end

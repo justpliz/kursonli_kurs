@@ -137,7 +137,7 @@
       </table>
     </div>
 
-    <div class="flex justify-between py-4">
+    <div class="flex justify-between py-4 2xl:flex-col 2xl:gap-4">
       <div class="">
         <button class="modal-button btn_save" id="accept" data-item="">Принять</button>
         <button class="btn_save ml-2" id="createOrder" data-item="">Разместить</button>
@@ -321,13 +321,9 @@
   <% else %>
     <div class="py-10 px-16 w-3/5 mx-auto mt-6 bg-neutral-100 rounded-xl text-center d_flex flex-col items-center justify-center">
       <img src="/images/warning.png" alt="">
-      <h2 class="title relative pt-2">Внимание</h2>
+      <h2 class="title relative pt-2"><%= @instructions.title %></h2>
       <div class="w-12 h-1 bg-blub rounded-xl "></div>
-      <div class="text-neutral-600 py-2">Далеко-далеко за, словесными горами в стране гласных и согласных живут
-        рыбные
-        тексты.</div>
-        <div class="">----------------------------------------------</div>
-      <div class="text-neutral-600 py-2">Как оплатить? Вы можете посмотреть в разделе "Оплата", в левом меню.</div>
+      <div class="text-neutral-600 py-2 whitespace-pre-line"><%= @instructions.description %></div>
     </div>
     <% end %>
 
