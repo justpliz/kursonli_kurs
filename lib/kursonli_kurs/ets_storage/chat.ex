@@ -69,7 +69,6 @@ defmodule KursonliKurs.EtsStorage.Chat do
   id = GeneralHelper.compare_workers_id(user_id, worker_id)
 
   :logger.info("CHANNEL INSERT -> #{ID}")
-  IO.inspect(id, label: "insert")
   table = {Ecto.UUID.generate(), id, Timex.now("Asia/Almaty"), user_id, message_map}
 
       :dets.insert_new(
@@ -90,8 +89,6 @@ defmodule KursonliKurs.EtsStorage.Chat do
       end
     )
     |> Enum.sort_by(fn {_, _, d, _, _} -> d end, Time)
-
-    # |> IO.inspect(label: "-----")
   end
 
   def get_by_id(id) do

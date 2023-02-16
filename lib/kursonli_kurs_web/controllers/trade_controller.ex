@@ -9,7 +9,7 @@ defmodule KursonliKursWeb.TradeController do
   alias KursonliKurs.EtsStorage.Chat
 
   def create_trade(conn, params) do
-    item_map = params["item_order"] |> Jason.decode!() |> IO.inspect()
+    item_map = params["item_order"] |> Jason.decode!()
 
     params = params |> Map.delete("item_order") |> Map.put("item_order", item_map)
 

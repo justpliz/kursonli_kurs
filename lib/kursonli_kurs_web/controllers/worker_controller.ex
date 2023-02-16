@@ -199,8 +199,8 @@ defmodule KursonliKursWeb.WorkerController do
       currency_id: params["currency_id"]
     }
 
-    with {:ok, order} <- Orders.create(opts) |> IO.inspect() do
-      new_order = Orders.order_one(order.id, session.city.id) |> IO.inspect()
+    with {:ok, order} <- Orders.create(opts)do
+      new_order = Orders.order_one(order.id, session.city.id)
 
       RoomChannel.order(new_order, session.city.id)
 
