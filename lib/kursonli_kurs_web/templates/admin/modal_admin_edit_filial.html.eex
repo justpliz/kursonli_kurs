@@ -1,7 +1,7 @@
 <script>
   
     $(".filial_edit").click(function () {
-      const { id, filial_name, coordinates, popup_text, address_2gis, firm_id, paid_up_to, tariff_name, city_name } = JSON.parse(this.dataset.map)
+      const { id, filial_name, coordinates, address_2gis, firm_id, tariff_name, city_name } = JSON.parse(this.dataset.map)
       Modalka.fire({
         showConfirmButton: false,
         showCloseButton: true,

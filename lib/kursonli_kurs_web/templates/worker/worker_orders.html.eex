@@ -1,4 +1,5 @@
-<%= if 2+2==4 do %>
+<% worker=Plug.Conn.get_session(@conn,:worker) %>
+<%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
   <div class="margin_content content-worker-order">
     <div class="title_small mb-2 flex justify-between" id="org_title">
       Ордера на продажу
@@ -319,12 +320,7 @@
     <%= render(KursonliKursWeb.WorkerView, "chat_page.html" , conn: @conn, message: @message) %>
   </div>
   <% else %>
-    <div class="py-10 px-16 w-3/5 mx-auto mt-6 bg-neutral-100 rounded-xl text-center d_flex flex-col items-center justify-center">
-      <img src="/images/warning.png" alt="">
-      <h2 class="title relative pt-2"><%= @instructions.title %></h2>
-      <div class="w-12 h-1 bg-blub rounded-xl "></div>
-      <div class="text-neutral-600 py-2 whitespace-pre-line"><%= @instructions.description %></div>
-    </div>
+    <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html", conn: @conn, instructions: @instructions) %>
     <% end %>
 
       <%= render(KursonliKursWeb.WorkerView, "modal_worker_orders_add.html" , conn: @conn, message: @message,

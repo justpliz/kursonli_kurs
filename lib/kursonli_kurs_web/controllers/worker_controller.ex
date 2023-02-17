@@ -73,6 +73,7 @@ defmodule KursonliKursWeb.WorkerController do
               email: worker.email,
               filial_name: filial.name,
               fililal_address: filial.fililal_address,
+              paid_up_to: filial.paid_up_to,
               city: %{
                 id: filial.city_id,
                 name: filial.city.name
@@ -275,8 +276,16 @@ defmodule KursonliKursWeb.WorkerController do
       Filials.get_last_date_for_course(filial_id)
       |> date_to_string_all()
 
+    {:ok, instructions} =
+      Notifications.do_get(name: "instructions")
+      |> PwHelper.Normalize.repo()
+
     conn
-    |> render("worker_courses.html", courses_list: courses_list, last_date: last_date)
+    |> render("worker_courses.html",
+      courses_list: courses_list,
+      last_date: last_date,
+      instructions: instructions
+    )
   end
 
   @doc """
@@ -350,11 +359,17 @@ defmodule KursonliKursWeb.WorkerController do
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
 
+
+    {:ok, instructions} =
+      Notifications.do_get(name: "instructions")
+      |> PwHelper.Normalize.repo()
+
       conn
       |> render("worker_settings.html",
         setting: setting,
         photo_path: photo_path,
-        logo_path: logo_path
+        logo_path: logo_path,
+        instructions: instructions
       )
     end
   end

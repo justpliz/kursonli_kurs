@@ -87,7 +87,10 @@
                 онлайн 2, за сегодня 1
                 <div class="menu_break"></div>
                 Подписка: <br>
-                <span class="text-red-400">не активна</span>
+                <%= if Timex.before?(Timex.now("Asia/Almaty"), worker[:paid_up_to]) do  %>
+                 <span class="text-green-400">активна, до <%= worker[:paid_up_to] %> </span>
+                <%= else %> <span class="text-red-400">подписка не активна</span>
+                <% end %>
               </div>
               <div class="menu_break"></div>
               <a class="">

@@ -55,7 +55,7 @@
                     <%= item.tariff_name %>
                   </td>
                   <td class="px-6 border-2 border-b-0 border-gray-300">
-                    <%= if Timex.before?(Timex.now(), item.paid_up_to), do: item.paid_up_to, else: "-" %>
+                    <%= if Timex.before?(Timex.now("Asia/Almaty"), item.paid_up_to), do: item.paid_up_to, else: "-" %>
                   </td>
                   <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
                     <%= item.city_name %>

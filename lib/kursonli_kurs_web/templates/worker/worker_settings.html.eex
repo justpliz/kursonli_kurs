@@ -1,3 +1,5 @@
+<% worker=Plug.Conn.get_session(@conn,:worker) %>
+<%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
 <div class="margin_content">
    <h1 class="title">Настройки</h1>
    <div class="w-full">
@@ -154,6 +156,9 @@
 </div>
 </div>
 </div>
+<% else %>
+<%= render(KursonliKursWeb.WorkerView, "notification_service_access.html", conn: @conn, instructions: @instructions) %>
+<% end %>
 
 <script>
    $('.input-file input[type=file]').on('change', function () {

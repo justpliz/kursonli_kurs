@@ -381,9 +381,8 @@ defmodule KursonliKursWeb.AdminController do
 
   def update_filial_tariff(
         conn,
-        %{"id" => id, "tariff_id" => tariff_id, "quantity" => quantity} = params
+        %{"id" => id, "tariff_id" => tariff_id, "quantity" => quantity}
       ) do
-    IO.inspect(params)
     paid_up_to = calculate_tariff(tariff_id, quantity)
 
     opts = %{
@@ -411,6 +410,6 @@ defmodule KursonliKursWeb.AdminController do
   defp calculate_tariff(tariff_id, quantity) do
     quantity = if quantity != "", do: String.to_integer(quantity), else: 0
     {:ok, tariff} = Tariffs.do_get(id: tariff_id)
-    Timex.shift(Timex.now(), days: tariff.days * quantity)
+    Timex.shift(Timex.now("Asia/Almaty"), days: tariff.days * quantity)
   end
 end
