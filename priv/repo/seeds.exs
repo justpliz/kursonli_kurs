@@ -15,6 +15,9 @@
 # Create admin
 {:ok, admin} = KursonliKurs.Context.Admins.create(%{login: "admin", password: "admin"})
 
+# Create tariff
+{:ok, _tariff} = KursonliKurs.Context.Tariffs.create(%{name: "Пробный 1день", price: "0", days: 1, is_active: true})
+
 # Create cities
 {:ok, city_krg} =
   KursonliKurs.Context.Cities.create(%{

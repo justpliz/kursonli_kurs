@@ -91,6 +91,7 @@ defmodule KursonliKursWeb.Router do
       post "/", AdminController, :create_filial_submit
       post "/update", AdminController, :update_filial
       get "/update_filial_status", AdminController, :update_filial_status
+      post "/update_filial_tariff", AdminController, :update_filial_tariff
       get "/reset_password", AdminController, :reset_password
     end
 

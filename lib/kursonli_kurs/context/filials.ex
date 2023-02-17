@@ -15,7 +15,7 @@ defmodule KursonliKurs.Context.Filials do
     Worker
   }
 
-  alias KursonliKurs.Context.{Filials, Workers, Settings}
+  alias KursonliKurs.Context.{Filials, Workers, Settings, Cities}
 
   require Logger
 
@@ -25,6 +25,7 @@ defmodule KursonliKurs.Context.Filials do
   def get(opts \\ []) do
     Filial
     |> filter_by(opts)
+    |> Cities.get_city_name
     |> Repo.one()
   end
 

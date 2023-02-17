@@ -54,31 +54,38 @@ defmodule KursonliKursWeb.WorkerController do
 
     case Workers.do_get(opts) do
       {:ok, worker} ->
-        # TODO переделать получение города
         {:ok, filial} = Filials.do_get(id: worker.filial_id)
-        {:ok, city} = Cities.do_get(id: filial.city_id)
-        SessionWorker.insert(worker.id)
 
-        if SessionWorker.check_user(worker.id) do
-          OnlineChannel.leave(worker.id)
+        case filial.filial_active_status do
+          :active ->
+            SessionWorker.insert(worker.id)
+
+            if SessionWorker.check_user(worker.id) do
+              OnlineChannel.leave(worker.id)
+            end
+
+            conn
+            |> put_session(:worker, %{
+              id: worker.id,
+              first_name: first_name,
+              filial_id: filial.id,
+              phone: params["phone"],
+              email: worker.email,
+              filial_name: filial.name,
+              fililal_address: filial.fililal_address,
+              city: %{
+                id: filial.city_id,
+                name: filial.city.name
+              }
+            })
+            |> put_flash(:info, "Добро пожаловать #{first_name}")
+            |> redirect(to: "/worker/orders")
+
+          :archive ->
+            conn
+            |> put_flash(:error, "Ваш филиал находится в архиве. Обратитесь к менеджеру.")
+            |> redirect(to: "/worker/login")
         end
-
-        conn
-        |> put_session(:worker, %{
-          id: worker.id,
-          first_name: first_name,
-          filial_id: filial.id,
-          phone: params["phone"],
-          email: worker.email,
-          filial_name: filial.name,
-          fililal_address: filial.fililal_address,
-          city: %{
-            id: city.id,
-            name: city.name
-          }
-        })
-        |> put_flash(:info, "Добро пожаловать #{first_name}")
-        |> redirect(to: "/worker/orders")
 
       {:error, :not_found} ->
         user = %{
@@ -154,8 +161,9 @@ defmodule KursonliKursWeb.WorkerController do
       |> PwHelper.Normalize.repo()
       |> Enum.sort(:desc)
 
-    {:ok, instructions} = Notifications.do_get(name: "instructions")
-    |> PwHelper.Normalize.repo()
+    {:ok, instructions} =
+      Notifications.do_get(name: "instructions")
+      |> PwHelper.Normalize.repo()
 
     conn
     |> render("worker_orders.html",

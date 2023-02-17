@@ -16,8 +16,8 @@
                   <label class="label_input pos">Цена</label>
                   <%= text_input f, :price, class: "input_full bit_input", required: "true" %>
 
-                  <label class="label_input pos">Описание</label>
-                  <%= text_input f, :description, class: "input_full", required: "true" %>
+                  <label class="label_input pos">Срок действия(дней)</label>
+                  <%= number_input f, :days, class: "input_full", required: "true", min: "0" %>
 
                   <%= submit "Добавить", class: "btn_save pos mt-2" %>
                <% end %>
