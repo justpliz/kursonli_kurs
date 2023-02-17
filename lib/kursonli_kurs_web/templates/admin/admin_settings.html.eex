@@ -29,7 +29,7 @@
                   <div class="flex justify-between">
                      <label class="label_input basis-1/6 p-2">Описание</label>
                      <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
-                        <%= item.description %>
+                        <%= item.days %>
                      </div>
                   </div>
                   <div class="border-t-2 my-4 border-gray-200"></div>

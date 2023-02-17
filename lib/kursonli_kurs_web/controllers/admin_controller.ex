@@ -157,9 +157,9 @@ defmodule KursonliKursWeb.AdminController do
     currency_list = Currencies.all()
     cities_list = Cities.all()
 
-    {:ok, service_access}= Notifications.do_get(name: "service_access")
-    {:ok, expiration}= Notifications.do_get(name: "expiration")
-    {:ok, instructions}= Notifications.do_get(name: "instructions")
+    {:ok, service_access} = Notifications.do_get(name: "service_access")
+    {:ok, expiration} = Notifications.do_get(name: "expiration")
+    {:ok, instructions} = Notifications.do_get(name: "instructions")
 
     conn
     |> render("admin_settings.html",
@@ -265,8 +265,8 @@ defmodule KursonliKursWeb.AdminController do
     org_list = Organizations.all()
     cities_list = Cities.all()
     currencies_list = Currencies.all()
-    filials_list = Filials.filial_list()
     tariff_list = Tariffs.all()
+    filials_list = Filials.filial_list()
 
     conn
     |> render("admin_filials.html",
@@ -345,8 +345,6 @@ defmodule KursonliKursWeb.AdminController do
   def update_filial(conn, %{"id" => id} = params) do
     filial_opts = %{
       name: params["filial_name"],
-      paid_up_to: params["paid_up_to"],
-      tariff_id: params["tariff"],
       city_id: params["city_id"]
     }
 
@@ -381,13 +379,37 @@ defmodule KursonliKursWeb.AdminController do
     end
   end
 
+  def update_filial_tariff(
+        conn,
+        %{"id" => id, "tariff_id" => tariff_id, "quantity" => quantity}
+      ) do
+    paid_up_to = calculate_tariff(tariff_id, quantity)
+
+    opts = %{
+      paid_up_to: paid_up_to,
+      tariff_id: tariff_id
+    }
+
+    with {:ok, filial} <- Filials.do_get(id: id),
+         {:ok, filial} <- Filials.update(filial, opts) do
+      conn
+      |> put_flash(:info, "Тариф #{filial.name} успешно обновлен")
+      |> redirect(to: "/admin/filials")
+    end
+  end
+
   def update_notification(conn, %{"name" => name} = params) do
-    IO.inspect(params, label: "params")
     with {:ok, notification} <- Notifications.do_get(name: name),
          {:ok, notification} <- Notifications.update(notification, params) do
       conn
       |> put_flash(:info, "Объявление #{notification.name} успешно обновлено")
       |> redirect(to: "/admin/settings")
     end
+  end
+
+  defp calculate_tariff(tariff_id, quantity) do
+    quantity = if quantity != "", do: String.to_integer(quantity), else: 0
+    {:ok, tariff} = Tariffs.do_get(id: tariff_id)
+    Timex.shift(Timex.now("Asia/Almaty"), days: tariff.days * quantity)
   end
 end

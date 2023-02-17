@@ -1,3 +1,5 @@
+<% worker=Plug.Conn.get_session(@conn,:worker) %>
+<%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
 <div class="margin_content">
   <div class="d_flex justify-between items-center pb-4">
     <div class="text-base flex-1-1">Последнее обновление курса: <%= @last_date %>
@@ -70,3 +72,6 @@
     </table>
   </div>
 </div>
+<% else %>
+<%= render(KursonliKursWeb.WorkerView, "notification_service_access.html", conn: @conn, instructions: @instructions) %>
+<% end %>

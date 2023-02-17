@@ -15,6 +15,9 @@
 # Create admin
 {:ok, admin} = KursonliKurs.Context.Admins.create(%{login: "admin", password: "admin"})
 
+# Create tariff
+{:ok, _tariff} = KursonliKurs.Context.Tariffs.create(%{name: "Пробный 1день", price: "0", days: 1, is_active: true})
+
 # Create cities
 {:ok, city_krg} =
   KursonliKurs.Context.Cities.create(%{
@@ -53,16 +56,15 @@
     name: "service_access",
     title: "Внимание",
     description:
-      "<p>Для начала работы нужно оплатить доступ к сервису KURS-ONLINE.KZ. С Вами скоро свяжется менеджер!</p>
-  <p>――――――――――――――――――――――――――――――――――――――――――――――――</p>
-  <p>Как оплатить? Вы можете посмотреть в разделе Оплата, в левом меню.</p>"
+      "Для начала работы нужно оплатить доступ к сервису KURS-ONLINE.KZ. С Вами скоро свяжется менеджер!
+  Как оплатить? Вы можете посмотреть в разделе Оплата, в левом меню."
   })
 
 {:ok, _expiration} =
   KursonliKurs.Context.Notifications.create(%{
     name: "expiration",
     title: "Срок вашей подписки истекает! Осталось # дней",
-    description: "<p>После окончания срока подписки, не будут доступны все разделы.</p>"
+    description: "После окончания срока подписки, не будут доступны все разделы."
   })
 
 {:ok, _instructions} =
@@ -70,7 +72,7 @@
     name: "instructions",
     title: "Как оплатить тариф",
     description:
-      "<p>Чтобы оплатить тариф на сервисе KURS-ONLINE.KZ вам необходимо будет отсканировать QR код представленный ниже через приложение kaspi.kz и после связаться с нашим менеджером по телефону + 7 (705) 555-08-11 и сообщить об оплате.</p>"
+      "Чтобы оплатить тариф на сервисе KURS-ONLINE.KZ вам необходимо будет отсканировать QR код представленный ниже через приложение kaspi.kz и после связаться с нашим менеджером по телефону + 7 (705) 555-08-11 и сообщить об оплате."
   })
 
 # Create Org1

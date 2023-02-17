@@ -46,4 +46,13 @@ defmodule KursonliKurs.Context.Cities do
     |> filter_by(opts)
     |> Repo.aggregate(:count)
   end
+
+  @doc """
+  get city info from city_id
+  """
+  def get_city_name(query) do
+    c = from(c in City, select: %{name: c.name})
+    from(query, preload: [city: ^c])
+  end
+
 end

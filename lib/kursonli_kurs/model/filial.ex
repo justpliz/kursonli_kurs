@@ -27,7 +27,7 @@ defmodule KursonliKurs.Model.Filial do
 
   schema "filials" do
     field :name, :string
-    field :paid_up_to, :date
+    field :paid_up_to, :date, default: Timex.today()
     field :fililal_address, :string
 
     field :filial_active_status, ActiveStatus, default: "archive"

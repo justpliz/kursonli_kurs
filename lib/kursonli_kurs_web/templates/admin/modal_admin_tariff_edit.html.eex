@@ -1,6 +1,6 @@
 <script>
    $(".tariff_edit").click(function () {
-      const { id, name, price, description } = JSON.parse(this.dataset.map)
+      const { id, name, price, days } = JSON.parse(this.dataset.map)
       Modalka.fire({
          showConfirmButton: false,
          showCloseButton: true,
@@ -18,8 +18,8 @@
               <label class="label_input pos" for="price">Цена</label>
               <input class="input_full number_input_only" id="price" value="${price}" name="price" required="true" type="text">
 
-              <label class="label_input pos" for="description">Описание</label>
-              <input class="input_full" id="description" value="${description}" name="description" required="true" type="text">
+              <label class="label_input pos" for="days">Срок действия(дней)</label>
+              <input class="input_full" id="days" value="${days}" name="days" required="true" type="number" min="0">
 
               <button class="btn_save my-2 pos" type="submit">Сохранить</button>
             </form>

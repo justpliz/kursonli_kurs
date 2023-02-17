@@ -1,14 +1,11 @@
 <script>
    $(".accept_update_trade").click(function () {
          const { id, type, currency, course, limit, volume, terms, transfer } = JSON.parse(this.dataset.map)
-         console.log(this.dataset.map)
          Modalka.fire({
          showConfirmButton: false,
          showCancelButton: false,
          showCloseButton: true,
          willOpen: (toast) => {
-
-            
             document.querySelector(`#${type}`).setAttribute("checked", true);
             document.querySelector(`#transfer${transfer}`).setAttribute("checked", true);
          },

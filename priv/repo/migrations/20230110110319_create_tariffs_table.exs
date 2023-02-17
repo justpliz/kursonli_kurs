@@ -5,7 +5,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateTariffsTable do
     create table(:tariffs) do
       add :name, :string
       add :price, :string
-      add :description, :text
+      add :days, :integer
       add :is_active, :boolean
     end
 

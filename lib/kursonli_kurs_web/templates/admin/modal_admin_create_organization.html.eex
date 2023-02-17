@@ -19,7 +19,12 @@
 
             <div class="mb-2">
               <label class="label_input pos">Город</label>
-              <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", required: "true" %>
+                <select name="city_id" class="input_full" >
+                <option value="" disabled selected>--выбрать город--</option>
+                <%= Enum.map(@cities_list, fn x -> %>
+                <option value="<%= x.id %>"><%= x.name %></option>
+                <% end) %>
+                </select>
             </div>
 
             <div class="mb-2">
