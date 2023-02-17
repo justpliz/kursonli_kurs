@@ -19,7 +19,7 @@
               <input class="input_full number_input_only" id="price" value="${price}" name="price" required="true" type="text">
 
               <label class="label_input pos" for="days">Срок действия(дней)</label>
-              <input class="input_full" id="days" value="${days}" name="days" required="true" type="text">
+              <input class="input_full" id="days" value="${days}" name="days" required="true" type="number" min="0">
 
               <button class="btn_save my-2 pos" type="submit">Сохранить</button>
             </form>

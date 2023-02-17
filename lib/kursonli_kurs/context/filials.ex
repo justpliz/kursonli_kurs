@@ -92,6 +92,7 @@ defmodule KursonliKurs.Context.Filials do
         paid_up_to: filial.paid_up_to,
         org_name: org.name,
         city_name: city.name,
+        city_id: city.id,
         tariff_name: tariff.name,
         tariff_price: tariff.price,
         coordinates: setting.coordinates,
