@@ -62,6 +62,7 @@
 
    .btn_save {
       @apply text-white transition-all bg-blub font-medium rounded-lg text-base px-5 py-2.5 text-center;
+      @apply 2xl:px-3 2xl:py-2 text-sm;
       @apply hover:bg-blue-700;
    }
 
@@ -88,6 +89,7 @@
 
    .btn_cancel {
       @apply transition-all border-2 border-gray-500 font-medium rounded-lg text-drab text-base px-5 py-2.5 text-center;
+      @apply 2xl:px-3 2xl:py-2 text-sm;
       @apply hover:bg-gray-700 hover:text-white hover:no-underline;
    }
 
@@ -115,14 +117,17 @@
 
    .other_text{
       @apply text-neutral-400 font-semibold text-sm;
+      @apply 2xl:text-xs
    }
 
    .worker_app_li{
       @apply flex items-center py-4 px-2 transition-all rounded-xl;
+      @apply 2xl:text-sm 2xl:py-3;
    }
    
    .menu_break {
       @apply h-2p w-full bg-neutral-200 rounded-xl my-4;
+      @apply 2xl:my-3;
    }
 
    .menu_break_li {
@@ -131,6 +136,7 @@
 
    .app_user_container {
       @apply fixed top-0 left-0 h-full bg-white w-64 flex flex-col pt-4 px-6;
+      @apply 2xl:px-4 2xl:w-56;
    }
 
    .app_user_li_absolute {

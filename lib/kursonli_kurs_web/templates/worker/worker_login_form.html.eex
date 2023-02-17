@@ -11,9 +11,8 @@
 
       <div class="form-group">
         <img src="/images/icons/user.png" alt="">
-        <%#= text_input f, :phone, placeholder: "Телефон сотрудника" , class: "input-login" , required: "true" %>
-          <%= telephone_input f, :phone, placeholder: "Телефон сотрудника" , class: "input-login" , value: @user.phone,
-            data: [tel: "" ], maxlength: 18, required: "true" %>
+        <%= telephone_input f, :phone, placeholder: "Телефон сотрудника" , class: "input-login" , value: @user.phone,
+          data: [tel: "" ], maxlength: 18, required: "true" %>
       </div>
 
       <div class="form-group">
@@ -32,14 +31,13 @@
       <% end %>
   </div>
 </div>
+
 <script>
   localStorage.removeItem("worker")
 </script>
+
 <style>
   .login-container {
-    left: 0;
-    top: 0;
-    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,6 +53,8 @@
     align-items: center;
     background-color: #fff;
     border-radius: 100%;
+    height: 700px;
+    width: 700px;
     min-width: 700px;
     min-height: 700px;
     z-index: 1 !important;
@@ -106,5 +106,49 @@
     background-color: #3689ce;
     padding: 8px 25px;
     border-radius: 10px;
+  }
+
+  @media (max-width: 1540px) {
+    .login-container {
+      overflow-y: hidden;
+    }
+
+    .round {
+      width: 500px;
+      height: 500px;
+      min-width: 500px;
+      min-height: 500px;
+      padding: 20px;
+    }
+
+    .form-group {
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .logo-login {
+      width: 150px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .login-title {
+      font-size: 14px;
+      padding: 10px 0;
+    }
+
+    .form-group img{
+      height: 40px;
+    }
+
+    .input-login{
+      font-size: 14px;
+      height: 40px;
+    }
+
+    .btn-login{
+      padding: 6px 25px;
+      font-size: 14px;
+    }
   }
 </style>
