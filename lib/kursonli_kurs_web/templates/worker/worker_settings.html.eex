@@ -21,13 +21,13 @@
             <img src="<%= @logo_path %>" class="w-60 h-auto">
 
             <label class="label_input pt-2">3 Качества вашего филиала</label>
-            <div class="flex gap-4">
+            <div class="flex sm:block sm:w-full gap-4">
                <%= text_input f, :quality1, placeholder: "", value: @setting.qualities["quality1"],
-                  class: "input_short", required: "true", maxlength: 40 %>
-                  <%= text_input f, :quality2, placeholder: "", value: @setting.qualities["quality2"],
-                     class: "input_short", required: "true", maxlength: 40 %>
-                     <%= text_input f, :quality3, placeholder: "", value: @setting.qualities["quality3"],
-                        class: "input_short", required: "true", maxlength: 40 %>
+                  class: "input_short sm:mt-2 sm:input_full", required: "true", maxlength: 40 %>
+               <%= text_input f, :quality2, placeholder: "", value: @setting.qualities["quality2"],
+                  class: "input_short sm:mt-2 sm:input_full", required: "true", maxlength: 40 %>
+               <%= text_input f, :quality3, placeholder: "", value: @setting.qualities["quality3"],
+                  class: "input_short sm:mt-2 sm:input_full", required: "true", maxlength: 40 %>
             </div>
 
             <label class="label_input">Адрес для карты</label>
@@ -43,13 +43,13 @@
                      required: "true" %>
 
                      <label class="label_input pt-2">Допольнительные телефоны</label>
-                     <div class="flex gap-4">
+                     <div class="flex sm:block sm:w-full gap-4">
                         <%= telephone_input f, :phone1, placeholder: "", value: @setting.phones["phone1"],
-                           class: "input_short", data: [tel: "" ], maxlength: 18, required: "true" %>
-                           <%= telephone_input f, :phone2, placeholder: "", value: @setting.phones["phone2"],
-                              class: "input_short", data: [tel: "" ], maxlength: 18 %>
-                              <%= telephone_input f, :phone3, placeholder: "", value: @setting.phones["phone3"],
-                                 class: "input_short", data: [tel: "" ], maxlength: 18 %>
+                           class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18, required: "true" %>
+                        <%= telephone_input f, :phone2, placeholder: "", value: @setting.phones["phone2"],
+                           class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18 %>
+                        <%= telephone_input f, :phone3, placeholder: "", value: @setting.phones["phone3"],
+                           class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18 %>
                      </div>
 
                      <div class="hidden">
@@ -84,8 +84,8 @@
          <label class="label_input">Нынешнее фото филиала</label>
          <img src="<%= @photo_path %>" class="w-60 h-auto">
 
-         <div class="flex gap-20 items-start justify-start">
-            <div class="flex gap-4">
+         <div class="flex sm:flex-col sm:justify-end sm:gap-0 gap-20 items-start justify-start">
+            <div class="flex sm:block sm:w-full gap-4">
                <div class="flex-col">
                   <label class="label_input pt-2">Будни</label>
                   <%= text_input f, :schedule_weekdays, placeholder: "", value: @setting.schedule["schedule_weekdays"],
@@ -107,7 +107,7 @@
                </div>
             </div>
 
-            <div class="flex-col">
+            <div class="flex-col sm:block sm:w-full">
                <label class="label_input pt-2">Первый рекламный текст <span class="text-small">(лимит 30
                      символов)</span></label>
                <%= text_input f, :promo1, placeholder: "", value: @setting.promo["promo1"], class: "input_full",

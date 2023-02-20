@@ -71,6 +71,11 @@ body {
     padding: 0 260px 0 0;
   }
 }
+@media (max-width: 640px) {
+  .content-worker-order {
+    padding: 0;
+  }
+}
 
 .clean {
   padding: 0;

@@ -1,7 +1,7 @@
 <% worker=Plug.Conn.get_session(@conn,:worker) %>
 <%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
 <div class="margin_content">
-  <div class="flex justify-between items-center pb-4">
+  <div class="flex sm:flex-col sm:gap-4 justify-between items-center pb-4">
     <div class="text-base flex-1-1">Последнее обновление курса: <%= @last_date %>
     </div>
     <%= form_for @conn, Routes.worker_path(@conn, :update_course), fn f -> %>
@@ -51,11 +51,11 @@
               <%= item.currency_short_name %>
             </td>
             <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
-              <%= text_input f, :"#{item.course_id}|value_for_sale", class: "input_full number_input_only" , value:
+              <%= text_input f, :"#{item.course_id}|value_for_sale", class: "input_full sm:input_full number_input_only" , value:
                 item.value_for_sale %>
             </td>
             <td class="px-6 py-4 border-x-2 border-t-2">
-              <%= text_input f, :"#{item.course_id}|value_for_purchase", class: "input_full number_input_only" , value:
+              <%= text_input f, :"#{item.course_id}|value_for_purchase", class: "input_full sm:input_full number_input_only" , value:
                 item.value_for_purchase %>
             </td>
             <td class="px-6 py-4 border-t-2">

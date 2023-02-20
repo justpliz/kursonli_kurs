@@ -137,7 +137,7 @@
    }
 
    .menu_break_li {
-      @apply h-2p w-full bg-neutral-200 rounded-xl;
+      @apply h-2p w-full bg-neutral-200 rounded-xl sm:w-11/12 sm:mx-auto;
    }
 
    .app_user_container {
