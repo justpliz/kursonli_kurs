@@ -24,12 +24,13 @@
 </style>
 <div class="font">
     <div class="w-full bg-white shadow-xl">
-        <div class="w-1440 mb:w-auto mb:flex-col mb:h-auto mb:py-2 flex justify-between items-center mx-auto h-20 text-black">
-            <ul class="d_flex gap-10 text-lg mb:gap-4">
-                <a href="#adress" class="link_to">
+        <div
+            class="w-1440 mb:w-auto mb:flex-col mb:h-auto mb:py-2 flex justify-between items-center mx-auto h-20 text-black">
+            <ul class="flex gap-10 text-lg mb:gap-4">
+                <a href="#adress" class="link_to scroll-to">
                     <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
                 </a>
-                <a href="#descripton" class="link_to">
+                <a href="#descripton" class="link_to scroll-to">
                     <li class="hover:underline cursor-pointer hover:text-gray-500">О компании</li>
                 </a>
             </ul>
@@ -37,7 +38,7 @@
                 <img src="<%= @logo_path %>" alt="" class="w-40 h-14">
                 <!-- <img src="/images/logo-line.svg" alt=""> -->
             </a>
-            <a class="d_flex gap-2 hover:text-gray-500" href='tel:<%= @setting.phones["phone_for_header"] %>'>
+            <a class="flex gap-2 hover:text-gray-500" href='tel:<%= @setting.phones["phone_for_header"] %>'>
                 <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">schedule</span>
                 <%= @setting.phones["phone_for_header"] %>
             </a>
@@ -103,10 +104,10 @@
                                 <input type="text" class="input_full number_input_only" />
                                 <select id="cur1" class="input_full">
                                     <%= for item <- @courses_list do %>
-                                    <option value="<%= item.currency_short_name %>">
-                                        <%= item.currency_short_name %>
-                                    </option>
-                                    <% end %>
+                                        <option value="<%= item.currency_short_name %>">
+                                            <%= item.currency_short_name %>
+                                        </option>
+                                        <% end %>
                                 </select>
                             </div>
                         </div>
@@ -118,10 +119,10 @@
                                 <input type="number" class="input_full number_input_only" />
                                 <select id="cur1" class="input_full">
                                     <%= for item <- @courses_list do %>
-                                    <option value="<%= item.currency_short_name %>">
-                                        <%= item.currency_short_name %>
-                                    </option>
-                                    <% end %>
+                                        <option value="<%= item.currency_short_name %>">
+                                            <%= item.currency_short_name %>
+                                        </option>
+                                        <% end %>
                                 </select>
                             </div>
                         </div>
@@ -185,7 +186,7 @@
             <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30 mb:w-full mb:px-4">
                 <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменника</h2>
                 <div class="relative pt-10 flex flex-col">
-                    <div class="d_flex pb-4 items-center">
+                    <div class="flex pb-4 items-center">
                         <span class="material-symbols-outlined pr-4"
                             style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
                         <div class="mb:text-xs">
@@ -193,7 +194,7 @@
                         </div>
                     </div>
 
-                    <div class="d_flex pb-4">
+                    <div class="flex pb-4">
                         <span class="material-symbols-outlined pr-4"
                             style="color: #3689ce; font-size: 32px; font-weight: 900;">schedule</span>
                         <div class="flex-none">
@@ -209,10 +210,10 @@
                         </div>
                     </div>
 
-                    <div class="d_flex pb-4">
+                    <div class="flex pb-4">
                         <span class="material-symbols-outlined pr-4"
                             style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
-                        <div class="d_flex flex-col mb:text-xs">
+                        <div class="flex flex-col mb:text-xs">
                             <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline">
                                 <%= @setting.phones["phone1"] %>
                             </a>
@@ -225,7 +226,7 @@
                         </div>
                     </div>
 
-                    <div class="d_flex items-center">
+                    <div class="flex items-center">
                         <span class="material-symbols-outlined pr-4"
                             style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
                         <a href="mailto:<%= @setting.email %>" class="mb:text-xs">
@@ -239,7 +240,8 @@
         <div class="flex mt-10 gap-10 mb:flex-col-reverse mb:mt-6 mb:px-2" id="descripton">
             <img src="<%= @photo_path %>" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl mb:w-full">
             <div class="flex50 mb:w-full mb:px-2">
-                <h3 class="uppercase font-bold text-lg mb:text-sm relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city_name %>
+                <h3 class="uppercase font-bold text-lg mb:text-sm relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city_name
+                        %>
                         <%= @filial.name %>
                 </h3>
                 <div class="pt-10 mb:pt-6 mb:-mb-8 mb:text-xs">
@@ -264,6 +266,7 @@
         max-width: 100%;
         display: block;
     }
+
     #kursinfo5 {
         width: 80%;
         font-size: 14px;
@@ -398,16 +401,11 @@
 </style>
 
 <script>
-    const volume_model = document.querySelector("#volume_model");
-    const itemeSale = document.querySelector("#itemSale");
-    const itemCourse = document.querySelector("#itemCourse");
-
-    itemCourse.innerHTML = course_sale;
-    const itemResult = document.querySelector("#itemResult");
-    volume_model.addEventListener("input", (e) => {
-        const volume = parseInt(e.currentTarget.value);
-        const course_sale_float = parseFloat(course_sale);
-        itemeSale.innerHTML = e.currentTarget.value;
-        itemResult.innerHTML = volume * course_sale_float;
+    $("a.scroll-to").on("click", function (e) {
+        e.preventDefault();
+        var anchor = $(this).attr('href');
+        $('html, body').stop().animate({
+            scrollTop: $(anchor).offset().top - 20
+        }, 800);
     });
 </script>

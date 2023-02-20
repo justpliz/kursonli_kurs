@@ -56,6 +56,12 @@ body {
   }
 }
 
+@media (max-width: 640px) {
+  .content-worker {
+    padding: 0 20px;
+  }
+}
+
 .content-worker-order {
   padding: 0 400px 0 0;
 }
@@ -82,7 +88,7 @@ body {
   flex: 1 0 auto;
 }
 
-.flex {
+.flex-1-1-a {
   flex: 1 1 auto;
 }
 
@@ -186,10 +192,6 @@ body.swal2-shown {
   margin: 0 auto;
 }
 
-.d_flex {
-  display: flex;
-}
-
 .map {
   border-radius: 12px;
   overflow: hidden;
@@ -289,4 +291,106 @@ body.swal2-shown {
 .disabled {
   background-color: #a1a1a194;
   color: #000;
+}
+
+@media (max-width: 640px) {
+  body.lock {
+    overflow: hidden;
+  }
+
+  .header {
+    background-color: white;
+    @apply sm:shadow-md;
+  }
+
+  .header__body {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+    z-index: 20;
+  }
+
+  .header__logo {
+    flex: 0 0 150px;
+    z-index: 10;
+  }
+
+  .header__burger {
+    display: block;
+    position: relative;
+    width: 30px;
+    height: 20px;
+    z-index: 4;
+  }
+
+  .header__burger span {
+    position: absolute;
+    background-color: #000;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    top: 9px;
+    -webkit-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+  }
+
+  .header__burger:before,
+  .header__burger:after {
+    content: "";
+    background-color: #000;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0;
+    transition: all 0.3s ease 0s;
+  }
+
+  .header__burger:before {
+    top: 0;
+  }
+
+  .header__burger:after {
+    bottom: 0;
+  }
+
+  .header__burger.active span {
+    transform: scale(0);
+    background-color: #000;
+  }
+
+  .header__burger.active:before {
+    transform: rotate(45deg);
+    top: 9px;
+    background-color: #000;
+  }
+
+  .header__burger.active:after {
+    transform: rotate(-45deg);
+    bottom: 9px;
+    background-color: #000;
+  }
+
+  .header__menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: white;
+    margin-top: 80px;
+    padding: 20px 10px;
+    transition: all 0.3s ease 0s;
+    text-align: left;
+    overflow: auto;
+  }
+
+  .header__menu.active {
+    right: 0;
+  }
 }

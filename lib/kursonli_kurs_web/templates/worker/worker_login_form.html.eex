@@ -137,18 +137,26 @@
       padding: 10px 0;
     }
 
-    .form-group img{
+    .form-group img {
       height: 40px;
     }
 
-    .input-login{
+    .input-login {
       font-size: 14px;
       height: 40px;
     }
 
-    .btn-login{
+    .btn-login {
       padding: 6px 25px;
       font-size: 14px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .round {
+      width: 100%;
+      border-radius: 0;
+
     }
   }
 </style>

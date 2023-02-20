@@ -1,9 +1,9 @@
 <div class="margin_content">
-  <div class="py-10 px-16 w-3/5 mx-auto bg-neutral-100 rounded-xl text-center d_flex flex-col items-center justify-center">
+  <div class="py-10 px-16 w-3/5 sm:w-full sm:py-4 mx-auto bg-neutral-100 rounded-xl text-center flex flex-col items-center justify-center">
     <img src="/images/message.png" alt="">
     <h2 class="title relative pt-2"><%= @service_access.title %></h2>
-    <div class="w-12 h-1 bg-blub rounded-xl "></div>
-    <div class="text-neutral-600 py-4 whitespace-pre-line 2xl:text-sm"><%= @service_access.description %></div>
+    <div class="w-12 h-1 bg-blub rounded-xl"></div>
+    <div class="text-neutral-600 py-4 whitespace-pre-line sm:w-full 2xl:text-sm"><%= @service_access.description %></div>
     <img src="/images/kaspi_qr.png" alt="" class="w-60">
   </div>
 </div>

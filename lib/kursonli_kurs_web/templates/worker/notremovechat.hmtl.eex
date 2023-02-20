@@ -17,7 +17,7 @@
                            Ваши условия: <#%#= courses.yslovie %>
                               <#%#= y.terms %>
                         </div>
-                        <div class="d_flex gap-2 buttons-event">
+                        <div class="flex gap-2 buttons-event">
                            <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event"
                               data-type="success"
                               data-item="<#%#= Map.put(y,:ets_id, id) |> Jason.encode!() %>">Принять</button>

@@ -1,12 +1,12 @@
 <% worker=Plug.Conn.get_session(@conn,:worker) %>
 <%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
 <div class="margin_content">
-  <div class="d_flex justify-between items-center pb-4">
+  <div class="flex justify-between items-center pb-4">
     <div class="text-base flex-1-1">Последнее обновление курса: <%= @last_date %>
     </div>
     <%= form_for @conn, Routes.worker_path(@conn, :update_course), fn f -> %>
-      <div class="d_flex gap-4">
-        <button class="btn_save d_flex items-center justify-center" type="submit">
+      <div class="flex gap-4">
+        <button class="btn_save flex items-center justify-center" type="submit">
           <span class="material-symbols-outlined" style="color: #fff; font-weight: 500; font-size: 20px;">
             save
           </span>

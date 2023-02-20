@@ -56,13 +56,13 @@
                         <%= [gold, wholesale_rate]=@setting.tags %>
                      </div>
                      <div class="flex justify-start items-center gap-2 pt-2">
-                        <div class="d_flex items-center justify-center gap-2">
+                        <div class="flex items-center justify-center gap-2">
                            <label class="label_input" for="gold">Продажа золота</label>
                            <%= checkbox f, :gold, checked: String.to_atom(gold), class: "type_select rounded" %>
                         </div>
 
 
-                        <div class="d_flex items-center justify-center gap-2"></div>
+                        <div class="flex items-center justify-center gap-2"></div>
                         <label class="label_input" for="wholesale_rate">Оптовый курс</label>
 
                         <%= checkbox f, :wholesale_rate, checked: String.to_atom(wholesale_rate),
@@ -84,8 +84,8 @@
          <label class="label_input">Нынешнее фото филиала</label>
          <img src="<%= @photo_path %>" class="w-60 h-auto">
 
-         <div class="d_flex gap-20 items-start justify-start">
-            <div class="d_flex gap-4">
+         <div class="flex gap-20 items-start justify-start">
+            <div class="flex gap-4">
                <div class="flex-col">
                   <label class="label_input pt-2">Будни</label>
                   <%= text_input f, :schedule_weekdays, placeholder: "", value: @setting.schedule["schedule_weekdays"],
@@ -119,7 +119,7 @@
                      maxlength: 30 %>
             </div>
 
-            <div class="d_flex gap-4">
+            <div class="flex gap-4">
                <div class="flex-col">
                   <label class="label_input pt-2">Цвет валют</label>
                   <%= color_input f, :color_currency, placeholder: "", value: @setting.colors["color_currency"],

@@ -1,7 +1,7 @@
 <div class="font">
   <div class="mx-auto w-full bg-dblue">
     <div class="max-w-1440 flex justify-between items-center mb:flex-col mb:h-auto mb:py-4 mb:px-8 mx-auto h-20 ">
-      <div class="d_flex mb:items-center">
+      <div class="flex mb:items-center">
         <a href="/"><img src="/images/white-line-logo.svg" class="mb:w-4/5" alt=""></a>
         <a href="/worker/login" class="href_index hidden mb:block">Войти</a>
       </div>
@@ -169,7 +169,7 @@
                 <% purchase=item.filial.course |> hd |> Map.get(:value_for_purchase) %>
               </div>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 dataget" data-select="1">
-                <div class="d_flex justify-between items-center">
+                <div class="flex justify-between items-center">
                   <span class="sale font-bold text-base mb:text-sm">
                     <%= sale %>
                   </span>
@@ -180,7 +180,7 @@
                 </div>
               </td>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="2">
-                <div class="d_flex justify-between items-center">
+                <div class="flex justify-between items-center">
                   <span class="sale font-bold text-base">
                       <%= sale %>
                   </span>
@@ -191,7 +191,7 @@
                 </div>
               </td>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="3">
-                <div class="d_flex justify-between items-center">
+                <div class="flex justify-between items-center">
                   <span class="sale font-bold text-base">
                     <%= sale %>
                   </span>

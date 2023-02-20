@@ -125,7 +125,7 @@ $("#accept").click(function () {
           <label class="label_modal pos">Ваши условия:</label>
           <input class="input_full" value="${terms}" name="terms" type="text" maxlength="30">
         </div>
-        <div class="d_flex justify-between mt-4 gap-4">
+        <div class="flex justify-between mt-4 gap-4">
         <button type="submit" class="w-full btn_save">Подтвердить</button>
         <button class="w-full btn_cancel">Отменить</button>
         </div>

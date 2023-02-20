@@ -208,7 +208,7 @@
    }
 
    .container_select {
-      @apply d_flex items-center mb-4 2xl:mb-0;
+      @apply flex items-center mb-4 2xl:mb-0;
    }
 
    .icons_style {

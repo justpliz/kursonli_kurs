@@ -1,4 +1,4 @@
-<div class="py-10 px-16 w-3/5 mx-auto mt-6 bg-neutral-100 rounded-xl text-center d_flex flex-col items-center justify-center">
+<div class="py-10 px-16 w-3/5 mx-auto mt-6 bg-neutral-100 rounded-xl text-center flex flex-col items-center justify-center">
     <img src="/images/warning.png" alt="">
     <h2 class="title relative pt-2"><%= @instructions.title %></h2>
     <div class="w-12 h-1 bg-blub rounded-xl "></div>

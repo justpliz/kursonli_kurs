@@ -25,7 +25,7 @@
     <input id="crf_token" class="hidden" value={Phoenix.Controller.get_csrf_token()}>
     <% worker=Plug.Conn.get_session(@conn,:worker) %>
       <div class="app">
-        <div class="app_user_container">
+        <div class="app_user_container sm:hidden">
           <a href="/worker/orders">
             <img class="mx-auto" src={Routes.static_path(@conn, "/images/logo-line.svg" ) } alt="">
           </a>
@@ -38,7 +38,7 @@
                 <div class="menu_break"></div>
                 <%= worker[:fililal_address] %>
           </div>
-          <div class="flex flex-col justify-between pt-2">
+          <div class="flex flex-1-1-a flex-col justify-between pt-2">
             <ul class="text-neutral-400">
               <a href="/worker/courses" class="active-link">
                 <li class="worker_app_li">
@@ -87,10 +87,10 @@
                 онлайн 2, за сегодня 1
                 <div class="menu_break"></div>
                 Подписка: <br>
-                <%= if Timex.before?(Timex.now("Asia/Almaty"), worker[:paid_up_to]) do  %>
-                 <span class="text-green-400">Активна, до <%= worker[:paid_up_to] %> </span>
-                <%= else %> <span class="text-red-400">Подписка не активна</span>
-                <% end %>
+                <%= if Timex.before?(Timex.now("Asia/Almaty"), worker[:paid_up_to]) do %>
+                  <span class="text-green-400">Активна, до <%= worker[:paid_up_to] %> </span>
+                  <% else %> <span class="text-red-400">Подписка не активна</span>
+                    <% end %>
               </div>
               <div class="menu_break"></div>
               <a class="">
@@ -113,6 +113,100 @@
             </ul>
           </div>
         </div>
+
+        <div class="header hidden sm:block">
+          <div class="header__body">
+            <a href="/worker/orders" class="header__logo">
+              <img class="mx-auto" src={Routes.static_path(@conn, "/images/logo-line.svg" ) } alt="">
+            </a>
+            <div class="header__burger">
+              <span></span>
+            </div>
+            <div class="header__menu">
+              <div class="other_text">
+                Пользователь: <br>
+                <%= worker[:filial_name] %>(<%= worker[:first_name] %>)
+                    <div class="menu_break"></div>
+                    <%= worker[:fililal_address] %>
+                      <div class="menu_break"></div>
+              </div>
+              <div class="flex flex-col pt-2">
+                <ul class="text-neutral-400">
+                  <a href="/worker/courses" class="active-link">
+                    <li class="worker_app_li">
+                      <span class="icons_style material-symbols-outlined"
+                        style="font-weight: 700; font-size: 28px;">trending_up</span>
+                      Изменить курсы
+                    </li>
+                  </a>
+                  <div class="menu_break_li"></div>
+                  <a href="/worker/orders" class="active-link">
+                    <li class="worker_app_li">
+                      <span class="icons_style material-symbols-outlined"
+                        style="font-weight: 700; font-size: 28px;">edit_square</span>
+                      Ордера
+                    </li>
+                  </a>
+                  <div class="menu_break_li"></div>
+                  <a href="/worker/settings" class="active-link">
+                    <li class="worker_app_li">
+                      <span class="icons_style material-symbols-outlined"
+                        style="font-weight: 700; font-size: 28px;">settings</span>
+                      Настройки
+                    </li>
+                  </a>
+                  <div class="menu_break_li"></div>
+                  <a href="/worker/update_pass" class="active-link">
+                    <li class="worker_app_li">
+                      <span class="icons_style material-symbols-outlined"
+                        style="font-weight: 700; font-size: 28px;">lock_open</span>
+                      Смена пароля
+                    </li>
+                  </a>
+                  <div class="menu_break_li"></div>
+                  <a href="/worker/payment" class="active-link">
+                    <li class="worker_app_li">
+                      <span class="icons_style material-symbols-outlined"
+                        style="font-weight: 700; font-size: 28px;">payments</span>
+                      Оплата
+                    </li>
+                  </a>
+                </ul>
+
+                <ul class="text-neutral-400">
+                  <div class="other_text">
+                    Пользователей: <br>
+                    онлайн 2, за сегодня 1
+                    <div class="menu_break"></div>
+                    Подписка: <br>
+                    <%= if Timex.before?(Timex.now("Asia/Almaty"), worker[:paid_up_to]) do %>
+                      <span class="text-green-400">Активна, до <%= worker[:paid_up_to] %> </span>
+                      <% else %> <span class="text-red-400">Подписка не активна</span>
+                        <% end %>
+                  </div>
+                  <div class="menu_break"></div>
+                  <a class="">
+                    <li class="flex items-center py-4 2xl:py-0 transition-all rounded-xl">
+                      <span class="icons_style material-symbols-outlined"
+                        style="font-weight: 700; font-size: 28px;">language</span>
+                      <select class="border-none outline-none p-0 pr-8 m-0">
+                        <option class="" selected>Русский</option>
+                        <option class="">Казахский</option>
+                      </select>
+                    </li>
+                  </a>
+                  <a class="">
+                    <li class="flex items-center py-4 2xl:pt-2 transition-all rounded-xl logout cursor-pointer">
+                      <span class="icons_style material-symbols-outlined"
+                        style="font-weight: 700; font-size: 28px;">logout</span>
+                      Выйти
+                    </li>
+                  </a>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="content-worker">
           <%= @inner_content %>
         </div>
@@ -123,6 +217,14 @@
       localStorage.removeItem("worker")
       window.location.href = "/worker/logout"
     })
+
+    $(document).ready(function () {
+      $('.header__burger').click(function (event) {
+        $('.header__burger,.header__menu').toggleClass('active');
+        $('body').toggleClass('lock');
+      });
+    });
   </script>
 </body>
+
 </html>
