@@ -380,7 +380,7 @@ body.swal2-shown {
   }
 
   .header__menu {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: -100%;
     width: 100%;
