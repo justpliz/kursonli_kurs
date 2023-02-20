@@ -4,17 +4,17 @@
     <%= form_for @conn, Routes.worker_path(@conn, :update_pass_submit), fn f -> %>
       <div class="mt-2">
         <label class="label_input">Старый пароль</label>
-        <%= text_input f, :old_pass, class: "input_short", required: "true" %>
+        <%= text_input f, :old_pass, class: "input_short sm:input_full", required: "true" %>
       </div>
 
       <div class="mt-2">
         <label class="label_input">Новый пароль</label>
-        <%= text_input f, :new_pass, class: "input_short", required: "true" %>
+        <%= text_input f, :new_pass, class: "input_short sm:input_full", required: "true" %>
       </div>
 
       <div class="mt-2">
         <label class="label_input">Повторите новый пароль</label>
-        <%= text_input f, :re_new_pass, class: "input_short", required: "true" %>
+        <%= text_input f, :re_new_pass, class: "input_short sm:input_full", required: "true" %>
       </div>
 
       <div id="error">

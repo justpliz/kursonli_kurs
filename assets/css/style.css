@@ -288,8 +288,12 @@ body.swal2-shown {
   border-radius: 12px;
 }
 
+:disabled {
+  opacity: 0.5;
+}
+
 .disabled {
-  background-color: #a1a1a194;
+  background-color: #c9c9c994;
   color: #000;
 }
 
@@ -304,7 +308,7 @@ body.swal2-shown {
   }
 
   .header__body {
-    height: 80px;
+    height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -376,15 +380,14 @@ body.swal2-shown {
   }
 
   .header__menu {
-    position: fixed;
+    position: absolute;
     top: 0;
     right: -100%;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     z-index: 1;
     background-color: white;
-    margin-top: 80px;
-    padding: 20px 10px;
+    padding: 80px 10px 20px;
     transition: all 0.3s ease 0s;
     text-align: left;
     overflow: auto;

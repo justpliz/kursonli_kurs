@@ -26,6 +26,9 @@ $("#accept").click(function () {
     Toast.fire({
       title: "Вы не выбрали ордер",
       icon: "error",
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
     });
     return "";
   }
