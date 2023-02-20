@@ -21,6 +21,7 @@
 
    .title_without_margin {
       @apply font-bold text-2xl;
+      @apply 2xl:text-xl;
    }
 
    .title_small {
@@ -29,6 +30,7 @@
 
    .label_input {
       @apply block my-2 text-base font-medium text-gray-900;
+      @apply 2xl:my-1 2xl:text-sm;
    }
 
    .label_modal {
@@ -41,6 +43,7 @@
 
    .input_full {
       @apply shadow-sm bg-gray-100 border border-gray-300 text-drab text-base rounded-lg block w-full p-2.5;
+      @apply 2xl:p-2;
       @apply focus:ring-blue-500 focus:border-blue-500;
    }
 
@@ -57,6 +60,7 @@
 
    .input_short {
       @apply shadow-sm bg-gray-100 border border-gray-300 text-drab text-base rounded-lg block w-1/3 p-2.5;
+      @apply 2xl:p-2;
       @apply focus:ring-blue-500 focus:border-blue-500;
    }
 
@@ -70,10 +74,12 @@
       @apply text-tableGray transition-all border-2 border-blub font-medium rounded-lg text-base px-5 py-2.5 text-center;
       @apply focus:ring-0 focus:outline-none focus:ring-blue-300;
       @apply hover:bg-blub hover:text-white;
+      @apply 2xl:text-sm 2xl:px-3 2xl:py-1;
    }
 
    .btn_border.active {
       @apply text-white transition-all bg-blub border-2 border-blub font-medium rounded-lg text-base px-5 py-2.5 text-center;
+      @apply 2xl:text-sm 2xl:px-3 2xl:py-1;
    }
 
    .btn_save_with_icon {
@@ -198,11 +204,11 @@
    }
 
    .label_select {
-      @apply ml-2 text-sm font-medium text-gray-900 select-none;
+      @apply ml-2 text-sm font-medium text-gray-900 select-none 2xl:text-sm;
    }
 
    .container_select {
-      @apply flex items-center mb-4;
+      @apply d_flex items-center mb-4 2xl:mb-0;
    }
 
    .icons_style {

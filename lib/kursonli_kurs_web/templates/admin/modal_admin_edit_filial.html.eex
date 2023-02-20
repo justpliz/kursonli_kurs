@@ -44,7 +44,7 @@
 
               <label class="label_input pos" for="tariff_id">Тариф</label>
                 <%= select f, :tariff_id, Enum.map(@tariff_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${tariff_name}" %>
-                <%= number_input f, :quantity, class: "input_full", placeholder: "Количество купленных тарифов", min: "0" %>
+                <%= number_input f, :quantity, class: "input_full mt-2", placeholder: "Количество купленных тарифов", min: "0" %>
                 
                 <button class="btn_save my-2 pos" type="submit">Сохранить</button>
               <% end %>

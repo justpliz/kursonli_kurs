@@ -27,14 +27,16 @@
   <div class="px-2">
     <%= form_for @conn, Routes.worker_path(@conn, :create_order_submit), fn f -> %>
       <label class="label_input pos">Тип</label>
-      <%= for item <- check_config("order_type") do %>
-        <div class="container_select">
-          <input required name="type" id="<%= item %>" value="<%= item %>" type="radio" class="type_select", required>
-          <label class="label_select" for="<%= item %>">
-            <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item, :single) %>
-          </label>
-        </div>
-      <% end %>
+      <div class="2xl:flex 2xl:gap-4">
+        <%= for item <- check_config("order_type") do %>
+          <div class="container_select">
+            <input required name="type" id="<%= item %>" value="<%= item %>" type="radio" class="type_select", required>
+            <label class="label_select" for="<%= item %>">
+              <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item, :single) %>
+            </label>
+          </div>
+        <% end %>
+      </div>
 
       <label class="label_input pos">Объем</label>
       <%= text_input f, :volume, class: "input_full bit_input", required: "true" %>
@@ -46,7 +48,7 @@
       <%= text_input f, :limit, class: "input_full bit_input" %>
 
       <label class="label_input pos">Валюта</label>
-      <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), class: "input_full", required: "true" %>
+      <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), class: "input_full opt", required: "true" %>
 
       <label class="label_input pos">Передача</label>
       <div class="container_select gap-4">
@@ -63,7 +65,7 @@
       </div>
 
       <label class="label_input pos">Адрес</label>
-      <%= text_input f, :fililal_address, class: "input_full", value: @address, disabled: "true", required: "true" %>
+      <%= text_input f, :fililal_address, class: "input_full disabled", value: @address, disabled: "true", required: "true" %>
 
       <label class="label_input pos">Условия</label>
       <%= text_input f, :terms, class: "input_full", maxlength: 30 %>

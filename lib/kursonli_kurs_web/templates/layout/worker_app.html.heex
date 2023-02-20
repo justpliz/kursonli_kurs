@@ -88,8 +88,8 @@
                 <div class="menu_break"></div>
                 Подписка: <br>
                 <%= if Timex.before?(Timex.now("Asia/Almaty"), worker[:paid_up_to]) do  %>
-                 <span class="text-green-400">активна, до <%= worker[:paid_up_to] %> </span>
-                <%= else %> <span class="text-red-400">подписка не активна</span>
+                 <span class="text-green-400">Активна, до <%= worker[:paid_up_to] %> </span>
+                <%= else %> <span class="text-red-400">Подписка не активна</span>
                 <% end %>
               </div>
               <div class="menu_break"></div>

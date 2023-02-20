@@ -14,8 +14,9 @@
 }
 
 .font {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
+
 
 html,
 body {
@@ -29,7 +30,15 @@ body {
   background-color: #fff;
 }
 
+::selection {
+  background-color: #3690fd;
+  color: #fff;
+}
 
+::-moz-selection {
+  background-color: #3690fd;
+  color: #fff;
+}
 
 .content_admin {
   width: 90%;
@@ -39,6 +48,12 @@ body {
 
 .content-worker {
   padding: 0px 20px 0 300px;
+}
+
+@media (max-width: 1541px) {
+  .content-worker {
+    padding: 0px 20px 0 250px;
+  }
 }
 
 .content-worker-order {
@@ -114,6 +129,7 @@ body {
 }
 
 .styles_none,
+.styles_none:hover,
 .styles_none:focus {
   outline: none;
   border: none;
@@ -157,7 +173,7 @@ body.swal2-shown {
 }
 
 .sale_bue {
-  background-color: rgb(255, 255, 255, .3);
+  background-color: rgb(255, 255, 255, 0.3);
 }
 
 .wrapper {
@@ -207,7 +223,7 @@ body.swal2-shown {
   @apply bg-blub rounded-lg;
 }
 
-.input-file input[type=file] {
+.input-file input[type="file"] {
   position: absolute;
   z-index: -1;
   opacity: 0;
@@ -216,10 +232,8 @@ body.swal2-shown {
   height: 0;
 }
 
-
 .colors {
-  background:
-    linear-gradient(-90deg, #f87171 50%, transparent 50%),
+  background: linear-gradient(-90deg, #f87171 50%, transparent 50%),
     linear-gradient(90deg, #4ade80 50%, transparent 50%);
   border-radius: 50%;
   width: 24px;
@@ -240,13 +254,20 @@ body.swal2-shown {
 }
 
 .bg_table {
-  background-color: #A7FFB5;
+  background-color: #a7ffb5;
   padding: 3px 5px;
 }
 
 .tab-content {
   display: none;
   padding: 20px 0 0 0;
+}
+
+@media (max-width: 1541px) {
+  .tab-content {
+    display: none;
+    padding: 0px 0 0 0;
+  }
 }
 
 .tab-content.active {
@@ -263,4 +284,9 @@ body.swal2-shown {
   width: 40px;
   height: 6px;
   border-radius: 12px;
+}
+
+.disabled {
+  background-color: #a1a1a194;
+  color: #000;
 }

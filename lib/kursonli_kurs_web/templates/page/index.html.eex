@@ -48,7 +48,7 @@
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200">
               <div class="flex justify-between">
-                <img class="img_sortt cursor-pointer mb:hidden" src="/images/icons/down.svg" alt="">
+                <img class="img_sort cursor-pointer mb:hidden" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="1">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="USD" do %>
@@ -62,12 +62,12 @@
                         <% end %>
                           <% end %>
                 </select>
-                <img class="img_sortt cursor-pointer" src="/images/icons/down.svg" alt="">
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200 mb:hidden">
               <div class="flex justify-between">
-                <img class="img_sortt cursor-pointer" src="/images/icons/down.svg" alt="">
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="2">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="EUR" do %>
@@ -81,12 +81,12 @@
                         <% end %>
                           <% end %>
                 </select>
-                <img class="img_sortt cursor-pointer" src="/images/icons/down.svg" alt="">
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200 mb:hidden">
               <div class="flex justify-between">
-                <img class="img_sortt cursor-pointer" src="/images/icons/down.svg" alt="">
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="3">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="RUB" do %>
@@ -100,7 +100,7 @@
                         <% end %>
                           <% end %>
                 </select>
-                <img class="img_sortt cursor-pointer" src="/images/icons/down.svg" alt="">
+                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-r-0 border-gray-200 mb:hidden">
@@ -278,53 +278,6 @@
         }
       })
     }));
-
-    $("#index-table").click(function (e) {
-      if ($(e.target).is(".img_sortt")) {
-        function sortTable(header) {
-          var table = document.getElementById("index-table");
-          var rows = table.getElementsByTagName("tbody")[0].rows;
-          var sortDirection = header.getAttribute("data-sort-direction") === "asc" ? "desc" : "asc";
-          header.setAttribute("data-sort-direction", sortDirection);
-          var colIndex = header.cellIndex;
-
-          rows = Array.from(rows).sort((a, b) => {
-            var aValue = a.cells[colIndex].textContent;
-            var bValue = b.cells[colIndex].textContent;
-            if (colIndex === 1) {
-              aValue = new Date(aValue);
-              bValue = new Date(bValue);
-            } else {
-              aValue = parseFloat(aValue.match(/\d+(?:\.\d+)?/));
-              bValue = parseFloat(bValue.match(/\d+(?:\.\d+)?/));
-            }
-
-            return sortDirection === "asc"
-              ? aValue > bValue
-                ? 1
-                : aValue < bValue
-                  ? -1
-                  : 0
-              : bValue > aValue
-                ? 1
-                : bValue < aValue
-                  ? -1
-                  : 0;
-          });
-
-          for (var i = 0; i < rows.length; i++) {
-            table.getElementsByTagName("tbody")[0].appendChild(rows[i]);
-          }
-        }
-
-        var headers = document.getElementById("index-table").getElementsByTagName("th");
-        for (var i = 0; i < headers.length; i++) {
-          headers[i].addEventListener("click", function () {
-            sortTable(this);
-          });
-        }
-      }
-    });
   });
 
   function timeSince(time) {
