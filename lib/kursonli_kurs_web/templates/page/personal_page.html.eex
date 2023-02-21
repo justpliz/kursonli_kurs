@@ -55,7 +55,7 @@
     </div>
 
     <div class="max-w-1440 mx-auto mt-4 pb-8">
-        <div class="flex gap-8 mb:flex-col mb:items-center px-2">
+        <div class="flex gap-8 sm:gap-2 mb:flex-col mb:items-center px-2">
             <div class="scoreboard bg-blub p-6 text-white rounded-xl w-2/3 mb:w-full">
                 <div class="text-center">
                     <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
@@ -93,43 +93,8 @@
                 </div>
             </div>
 
-            <div class="flex flex-col gap-4 mb:w-full">
-                <div class="bg-gray-200 rounded-xl p-6 hidden">
-                    <h2 class="uppercase font-bold">калькулятор курса</h2>
-                    <div class="flex gap-2 items-end">
-                        <div class="flex flex-col">
-                            <h3>У меня есть</h3>
-                            <div class="flex">
-
-                                <input type="text" class="input_full number_input_only" />
-                                <select id="cur1" class="input_full">
-                                    <%= for item <- @courses_list do %>
-                                        <option value="<%= item.currency_short_name %>">
-                                            <%= item.currency_short_name %>
-                                        </option>
-                                        <% end %>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="material-symbols-outlined pb-3" style="color: #3689ce; font-weight: 700;">sync_alt
-                        </div>
-                        <div class="flex flex-col">
-                            <h3>Я получу</h3>
-                            <div class="flex">
-                                <input type="number" class="input_full number_input_only" />
-                                <select id="cur1" class="input_full">
-                                    <%= for item <- @courses_list do %>
-                                        <option value="<%= item.currency_short_name %>">
-                                            <%= item.currency_short_name %>
-                                        </option>
-                                        <% end %>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gray-200 rounded-xl p-6">
+            <div class="flex flex-col gap-4 w-1/3 sm:w-full h-auto">
+                <div class="bg-gray-200 rounded-xl p-6 sm:p-4">
                     <h2 class="font-bold text-center">Национальный банк</h2>
                     <div id="kyrs"></div>
                     <script>(function ($) { $("#kyrs").load("https://kurs-tenge.kz/informers/kursinfo.php?kursinfo=5"); })(jQuery);</script>
