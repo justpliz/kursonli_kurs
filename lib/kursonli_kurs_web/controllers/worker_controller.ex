@@ -312,6 +312,7 @@ defmodule KursonliKursWeb.WorkerController do
     {:ok, _filial} = Filials.update(filial, %{visible_status: visible_status})
 
     conn
+    |> put_flash(:info, "Курсы успешно обновлены")
     |> redirect(to: "/worker/courses")
   end
 

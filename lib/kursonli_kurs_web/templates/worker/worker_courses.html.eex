@@ -23,15 +23,13 @@
   <div>
     <td class="px-6 py-4 border-t-2">
       <div class="flex items-center justify-center">
-        <label class="label_input p-2 basis-1/6">Изменить все тарифы</label>
+        <label class="label_input p-2 basis-1/6">Изменить все курсы</label>
         <input name="change_all_filials" type="hidden" value="false">
         <input id="green" name="change_all_filials" type="checkbox" value="true"
         class="type_select rounded">
 
         <label class="label_input p-2 basis-1/6">Сделать видимым</label>
-        <input name="visible_status" type="hidden" value="false">
-        <input id="green" name="visible_status" type="checkbox" value="true" checked="<%= @visible_status %>"
-        class="type_select rounded">
+        <%= checkbox f, :visible_status, checked: @visible_status, class: "type_select rounded" %>
 
       </div>
     </td>
