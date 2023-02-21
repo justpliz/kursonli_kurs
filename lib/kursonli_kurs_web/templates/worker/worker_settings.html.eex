@@ -39,7 +39,7 @@
 
                   <label class="label_input">Телефон отображаемый в шапке сайта</label>
                   <%= telephone_input f, :phone_for_header, placeholder: "", value:
-                     @setting.phones["phone_for_header"], class: "input_short", data: [tel: "" ], maxlength: 18,
+                     @setting.phones["phone_for_header"], class: "input_short sm:input_full", data: [tel: "" ], maxlength: 18,
                      required: "true" %>
 
                      <label class="label_input pt-2">Допольнительные телефоны</label>

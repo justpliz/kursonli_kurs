@@ -27,7 +27,7 @@ export async function eventClick() {
 
 function helperType(type) {
   if (type == "fail") {
-    return "Вы успешно отклонили сделку"
+    return "Вы отклонили сделку"
   }
-  return "Вы успешно приняли сделку"
+  return "Вы приняли сделку"
 }
