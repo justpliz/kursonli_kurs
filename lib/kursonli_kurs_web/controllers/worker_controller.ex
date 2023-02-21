@@ -10,7 +10,6 @@ defmodule KursonliKursWeb.WorkerController do
     Currencies,
     Orders,
     Filials,
-    Cities,
     Trades,
     Settings,
     Notifications
@@ -276,6 +275,8 @@ defmodule KursonliKursWeb.WorkerController do
       Filials.get_last_date_for_course(filial_id)
       |> date_to_string_all()
 
+    visible_status = Filials.get(id: filial_id).visible_status
+
     {:ok, instructions} =
       Notifications.do_get(name: "instructions")
       |> PwHelper.Normalize.repo()
@@ -284,7 +285,8 @@ defmodule KursonliKursWeb.WorkerController do
     |> render("worker_courses.html",
       courses_list: courses_list,
       last_date: last_date,
-      instructions: instructions
+      instructions: instructions,
+      visible_status: visible_status
     )
   end
 
@@ -293,14 +295,21 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def update_course(conn, params) do
     filial_id = get_session(conn, :worker).filial_id
+    change_all_filials = String.to_atom(params["change_all_filials"])
+    visible_status = String.to_atom(params["visible_status"])
 
     params
-    |> Map.delete("_csrf_token")
+    |> Map.drop(["_csrf_token", "change_all_filials", "visible_status"])
     |> Enum.map(fn {k, v} -> {String.split(k, "|"), v} end)
     |> Enum.reduce(%{}, fn {[id, key], value}, acc ->
       Map.put(acc, id, Map.merge(Map.get(acc, id, %{}), %{key => value}))
     end)
-    |> Enum.map(fn {id, course} -> update_one_course(id, course, filial_id) end)
+    |> Enum.map(fn {id, course} ->
+      update_one_course(id, course, filial_id, change_all_filials)
+    end)
+
+    {:ok, filial} = Filials.do_get(id: filial_id)
+    {:ok, _filial} = Filials.update(filial, %{visible_status: visible_status})
 
     conn
     |> redirect(to: "/worker/courses")
@@ -309,14 +318,14 @@ defmodule KursonliKursWeb.WorkerController do
   @doc """
   check "change_all_filials
   """
-  def update_one_course(course_id, course, filial_id) do
+  def update_one_course(course_id, course, filial_id, change_all_filials) do
     opts = %{
       value_for_sale: course["value_for_sale"],
       value_for_purchase: course["value_for_purchase"],
       date: Timex.now("Asia/Almaty")
     }
 
-    case String.to_atom(course["change_all_filials"]) do
+    case change_all_filials do
       true ->
         {:ok, filial} = Filials.do_get(id: filial_id)
 
@@ -332,25 +341,6 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
-  POST /worker/create_course
-  """
-  # TODO ненужная функция
-  def create_course_submit(conn, params) do
-    opts = %{
-      currency_id: params["currency_id"],
-      filial_id: get_session(conn, :worker).filial_id,
-      value_for_sale: params["value_for_sale"],
-      value_for_purchase: params["value_for_purchase"]
-    }
-
-    with {:ok, _course} <- Courses.create(opts) do
-      conn
-      |> put_flash(:info, "Новый курс успешно создан")
-      |> redirect(to: "/worker/courses")
-    end
-  end
-
-  @doc """
   GET /worker/settings
   """
   def settings(conn, _params) do
@@ -359,10 +349,9 @@ defmodule KursonliKursWeb.WorkerController do
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
 
-
-    {:ok, instructions} =
-      Notifications.do_get(name: "instructions")
-      |> PwHelper.Normalize.repo()
+      {:ok, instructions} =
+        Notifications.do_get(name: "instructions")
+        |> PwHelper.Normalize.repo()
 
       conn
       |> render("worker_settings.html",

@@ -46,4 +46,32 @@ defmodule KursonliKurs.Context.Organizations do
     |> Organization.changeset(params)
     |> Repo.update()
   end
+
+  def create_org_filial_worker(org_opts, filial_opts) do
+    #TODO with -> transaction
+    Repo.transaction(fn ->
+      KursonliKurs.Context.Organizations.create(org_opts)
+      KursonliKurs.Context.Filials.create(filial_opts)
+    end)
+  end
+
+  # with {:ok, org} <- Organizations.create(org_opts),
+  # filial_opts <- Map.put(filial_opts, :organization_id, org.id),
+  # {:ok, filial} <-
+  #   Filials.create_filial_worker_seting(
+  #     filial_opts,
+  #     worker_opts
+  #   ),
+  # params["currency"]
+  # |> Enum.map(fn currency ->
+  #   currency = String.to_integer(currency)
+
+  #   Courses.create(%{
+  #     date: Timex.now("Asia/Almaty"),
+  #     currency_id: currency,
+  #     filial_id: filial.id
+  #   })
+
+  #   FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
+  # end) do
 end

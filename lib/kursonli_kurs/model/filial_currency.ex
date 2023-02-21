@@ -9,9 +9,11 @@ defmodule KursonliKurs.Model.FilialCurrency do
 
   @timestamps_opts [type: :utc_datetime]
   @required_fields ~w(filial_id currency_id)a
-  @optional_fields ~w()a
+  @optional_fields ~w(count)a
 
   schema "filials_currencies" do
+    field :count, :integer
+
     belongs_to :currency, Currency
     belongs_to :filial, Filial, type: :binary_id
   end
