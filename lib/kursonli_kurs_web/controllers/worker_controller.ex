@@ -161,9 +161,8 @@ defmodule KursonliKursWeb.WorkerController do
       |> PwHelper.Normalize.repo()
       |> Enum.sort(:desc)
 
-    {:ok, instructions} =
-      Notifications.do_get(name: "instructions")
-      |> PwHelper.Normalize.repo()
+    {:ok, instructions} = Notifications.do_get(name: "instructions")
+    {:ok, expiration} = Notifications.do_get(name: "expiration")
 
     conn
     |> render("worker_orders.html",
@@ -174,7 +173,8 @@ defmodule KursonliKursWeb.WorkerController do
       trades: Trades.get_by_id_worker(worker.id),
       my_trades: my_trades,
       address: address,
-      instructions: instructions
+      instructions: instructions,
+      expiration: expiration
     )
   end
 
@@ -277,9 +277,7 @@ defmodule KursonliKursWeb.WorkerController do
 
     visible_status = Filials.get(id: filial_id).visible_status
 
-    {:ok, instructions} =
-      Notifications.do_get(name: "instructions")
-      |> PwHelper.Normalize.repo()
+    {:ok, instructions} = Notifications.do_get(name: "instructions")
 
     conn
     |> render("worker_courses.html",
@@ -350,9 +348,7 @@ defmodule KursonliKursWeb.WorkerController do
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
 
-      {:ok, instructions} =
-        Notifications.do_get(name: "instructions")
-        |> PwHelper.Normalize.repo()
+      {:ok, instructions} = Notifications.do_get(name: "instructions")
 
       conn
       |> render("worker_settings.html",

@@ -7,8 +7,8 @@ defmodule KursonliKurs.Model.City do
   @type t :: %__MODULE__{}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(name short_name)a
-  @optional_fields ~w(eng_name index)a
+  @required_fields ~w(name)a
+  @optional_fields ~w(short_name eng_name index)a
 
   schema "cities" do
     field :name, :string

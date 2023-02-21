@@ -1,6 +1,6 @@
 <script>
   $(".city_edit").click(function () {
-    const { id, name, short_name } = JSON.parse(this.dataset.map)
+    const { id, name, short_name, eng_name } = JSON.parse(this.dataset.map)
     Modalka.fire({
       showConfirmButton: false,
       showCloseButton: true,
@@ -14,7 +14,9 @@
             <label class="label_input pos" for="name">Название</label>
             <input class="input_full" id="name" value="${name}" name="name" required="true" type="text">
             <label class="label_input pos" for="short_name">Короткое название</label>
-            <input class="input_full" id="short_name" value="${short_name}" name="short_name" required="true" type="text">
+            <input class="input_full input_text_uppercase" id="short_name" value="${short_name}" name="short_name" type="text">
+            <label class="label_input pos" for="short_name">Название города на ангийском</label>
+            <input class="input_full" id="eng_name" value="${eng_name}" name="eng_name" type="text">
             <button class="btn_save my-2 pos" type="submit">Сохранить</button>
           </form>
         </div>
