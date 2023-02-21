@@ -16,7 +16,7 @@
 {:ok, admin} = KursonliKurs.Context.Admins.create(%{login: "admin", password: "admin"})
 
 # Create tariff
-{:ok, _tariff} = KursonliKurs.Context.Tariffs.create(%{name: "Пробный 1день", price: "0", days: 1, is_active: true})
+{:ok, tariff} = KursonliKurs.Context.Tariffs.create(%{name: "Пробный 1день", price: "0", days: 1, is_active: true})
 
 # Create cities
 {:ok, city_krg} =
@@ -90,7 +90,9 @@
     city_id: city_krg.id,
     fililal_address: "Жамбыла 4",
     filial_active_status: "active",
-    organization_id: org1.id
+    organization_id: org1.id,
+    tariff_id: tariff.id,
+    paid_up_to: Timex.shift(Timex.now("Asia/Almaty"), days: tariff.days * 2)
   })
 
 KursonliKurs.Context.Workers.create(%{
@@ -133,7 +135,9 @@ KursonliKurs.Context.Courses.create(%{
     city_id: city_krg.id,
     fililal_address: "Бейкер стрит",
     filial_active_status: "active",
-    organization_id: org2.id
+    organization_id: org2.id,
+    tariff_id: tariff.id,
+    paid_up_to: Timex.shift(Timex.now("Asia/Almaty"), days: tariff.days * 2)
   })
 
 KursonliKurs.Context.Workers.create(%{

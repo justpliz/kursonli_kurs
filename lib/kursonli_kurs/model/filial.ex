@@ -22,15 +22,16 @@ defmodule KursonliKurs.Model.Filial do
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(name city_id organization_id fililal_address)a
-  @optional_fields ~w(paid_up_to tariff_id filial_active_status)a
+  @required_fields ~w(name city_id organization_id fililal_address filial_active_status visible_status)a
+  @optional_fields ~w(paid_up_to tariff_id)a
 
   schema "filials" do
     field :name, :string
     field :paid_up_to, :date, default: Timex.today()
     field :fililal_address, :string
 
-    field :filial_active_status, ActiveStatus, default: "archive"
+    field :filial_active_status, ActiveStatus, default: "active"
+    field :visible_status, :boolean, default: :false
 
     belongs_to :city, City
     belongs_to :organization, Organization, type: :binary_id

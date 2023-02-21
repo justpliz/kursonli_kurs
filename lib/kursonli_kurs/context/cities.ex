@@ -54,5 +54,4 @@ defmodule KursonliKurs.Context.Cities do
     c = from(c in City, select: %{name: c.name})
     from(query, preload: [city: ^c])
   end
-
 end

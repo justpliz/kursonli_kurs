@@ -1,7 +1,7 @@
 <% worker=Plug.Conn.get_session(@conn,:worker) %>
 <%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
 <div class="margin_content">
-  <div class="flex sm:flex-col sm:items-start sm:gap-4 justify-between items-center pb-4">
+  <div class="flex justify-between items-center pb-4">
     <div class="text-base flex-1-1">Последнее обновление курса: <%= @last_date %>
     </div>
     <%= form_for @conn, Routes.worker_path(@conn, :update_course), fn f -> %>
@@ -20,24 +20,35 @@
         </a>
       </div>
   </div>
+  <div>
+    <td class="px-6 py-4 border-t-2">
+      <div class="flex items-center justify-center">
+        <label class="label_input p-2 basis-1/6">Изменить все курсы</label>
+        <input name="change_all_filials" type="hidden" value="false">
+        <input id="green" name="change_all_filials" type="checkbox" value="true"
+        class="type_select rounded">
+
+        <label class="label_input p-2 basis-1/6">Сделать видимым</label>
+        <%= checkbox f, :visible_status, checked: @visible_status, class: "type_select rounded" %>
+
+      </div>
+    </td>
+  </div>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm 2xl:text-xs text-left text-gray-500">
+    <table class="w-full text-sm 2xl:text-xs text-left text-gray-500 table_sort">
       <thead class="text-xs text-gray-700 uppercase bg-white">
         <tr>
-          <th scope="col" class="p-6 2xl:p-4 sm:p-8 border-b-2 border-gray-200">
+          <th scope="col" class="p-6 2xl:p-4 border-b-2 border-gray-200">
             Валюта
           </th>
-          <th scope="col" class="p-6 2xl:p-4 sm:p-8 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
             Короткое название
           </th>
-          <th scope="col" class="p-6 2xl:p-4 sm:p-8 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
             Цена продажи
           </th>
-          <th scope="col" class="p-6 2xl:p-4 sm:p-8 border-b-2 border-x-2 border-gray-200">
+          <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
             Цена покупки
-          </th>
-          <th scope="col" class="p-6 2xl:p-4 sm:p-8 border-b-2 border-gray-200">
-            Изменить для всех филиалов
           </th>
         </tr>
       </thead>
@@ -50,20 +61,13 @@
             <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
               <%= item.currency_short_name %>
             </td>
-            <td class="px-6 py-4 sm:px-2 border-t-2 border-x-2 border-gray-200">
+            <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
               <%= text_input f, :"#{item.course_id}|value_for_sale", class: "input_full number_input_only" , value:
                 item.value_for_sale %>
             </td>
-            <td class="px-6 py-4 sm:px-2 border-x-2 border-t-2">
+            <td class="px-6 py-4 border-x-2 border-t-2">
               <%= text_input f, :"#{item.course_id}|value_for_purchase", class: "input_full number_input_only" , value:
                 item.value_for_purchase %>
-            </td>
-            <td class="px-6 py-4 sm:px-16 border-t-2">
-              <div class="flex items-center justify-center">
-                <input name='<%= "#{item.course_id}|change_all_filials" %>' type="hidden" value="false">
-                <input id="green" name='<%= "#{item.course_id}|change_all_filials" %>' type="checkbox" value="true"
-                  class="type_select rounded">
-              </div>
             </td>
           </tr>
           <% end %>
