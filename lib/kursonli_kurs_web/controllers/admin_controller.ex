@@ -222,12 +222,7 @@ defmodule KursonliKursWeb.AdminController do
   POST /admin/cities
   """
   def create_city_submit(conn, params) do
-    opts = %{
-      name: params["name"],
-      short_name: String.upcase(params["short_name"])
-    }
-
-    with {:ok, city} <- Cities.create(opts) do
+    with {:ok, city} <- Cities.create(params) do
       conn
       |> put_flash(:info, "#{city.name} создан")
       |> redirect(to: "/admin/settings")

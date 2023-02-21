@@ -15,7 +15,7 @@
               <label class="label_input pos" for="name">Название</label>
               <input class="input_full" id="name" value="${name}" name="name" required="true" type="text">
 
-              <label class="label_input pos" for="price">Цена</label>
+              <label class="label_input pos" for="price">Сумма оплаты</label>
               <input class="input_full number_input_only" id="price" value="${price}" name="price" required="true" type="text">
 
               <label class="label_input pos" for="days">Срок действия(дней)</label>
