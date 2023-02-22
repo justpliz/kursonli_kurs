@@ -63,6 +63,8 @@ defmodule KursonliKursWeb.WorkerController do
               OnlineChannel.leave(worker.id)
             end
 
+            expiration = Notifications.check_remaining_days(filial.paid_up_to)
+
             conn
             |> put_session(:worker, %{
               id: worker.id,
@@ -73,6 +75,7 @@ defmodule KursonliKursWeb.WorkerController do
               filial_name: filial.name,
               fililal_address: filial.fililal_address,
               paid_up_to: filial.paid_up_to,
+              expiration: expiration,
               city: %{
                 id: filial.city_id,
                 name: filial.city.name
@@ -162,7 +165,6 @@ defmodule KursonliKursWeb.WorkerController do
       |> Enum.sort(:desc)
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
-    {:ok, expiration} = Notifications.do_get(name: "expiration")
 
     conn
     |> render("worker_orders.html",
@@ -173,8 +175,7 @@ defmodule KursonliKursWeb.WorkerController do
       trades: Trades.get_by_id_worker(worker.id),
       my_trades: my_trades,
       address: address,
-      instructions: instructions,
-      expiration: expiration
+      instructions: instructions
     )
   end
 

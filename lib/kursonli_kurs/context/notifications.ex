@@ -5,6 +5,7 @@ defmodule KursonliKurs.Context.Notifications do
   use KursonliKurs.Context
 
   alias KursonliKurs.Model.Notification
+  alias KursonliKurs.Context.Notifications
 
   require Logger
 
@@ -39,5 +40,19 @@ defmodule KursonliKurs.Context.Notifications do
     notification
     |> Notification.changeset(params)
     |> Repo.update()
+  end
+
+  def check_remaining_days(paid_up_to) do
+    diff_days = Timex.diff(paid_up_to, Timex.today(), :day)
+    {:ok, expiration} = Notifications.do_get(name: "expiration")
+
+    new_title =
+      if diff_days >= 0 do
+        String.replace(expiration.title, "#", "#{diff_days}")
+      else
+        "Ваша подписка истекла"
+      end
+
+    Map.put(expiration, :title, new_title)
   end
 end
