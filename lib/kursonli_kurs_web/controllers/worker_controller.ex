@@ -63,8 +63,6 @@ defmodule KursonliKursWeb.WorkerController do
               OnlineChannel.leave(worker.id)
             end
 
-            expiration = Notifications.check_remaining_days(filial.paid_up_to)
-
             conn
             |> put_session(:worker, %{
               id: worker.id,
@@ -75,14 +73,13 @@ defmodule KursonliKursWeb.WorkerController do
               filial_name: filial.name,
               fililal_address: filial.fililal_address,
               paid_up_to: filial.paid_up_to,
-              expiration: expiration,
               city: %{
                 id: filial.city_id,
                 name: filial.city.name
               }
             })
             |> put_flash(:info, "Добро пожаловать #{first_name}")
-            |> redirect(to: "/worker/orders")
+            |> redirect(to: "/worker/orders?login=true")
 
           :archive ->
             conn
@@ -149,7 +146,7 @@ defmodule KursonliKursWeb.WorkerController do
   @doc """
   GET /worker/orders
   """
-  def orders(conn, _params) do
+  def orders(conn, params) do
     city_id = get_session(conn, :worker).city.id
     order_list_purchase = Orders.order_list(:purchase, city_id)
     order_list_sale = Orders.order_list(:sale, city_id)
@@ -165,6 +162,7 @@ defmodule KursonliKursWeb.WorkerController do
       |> Enum.sort(:desc)
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
+    expiration = if params["login"] == "true", do: Notifications.check_remaining_days(worker.paid_up_to)
 
     conn
     |> render("worker_orders.html",
@@ -175,7 +173,8 @@ defmodule KursonliKursWeb.WorkerController do
       trades: Trades.get_by_id_worker(worker.id),
       my_trades: my_trades,
       address: address,
-      instructions: instructions
+      instructions: instructions,
+      expiration: expiration
     )
   end
 
