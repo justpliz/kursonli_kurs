@@ -1,6 +1,27 @@
-<div class="py-10 px-16 w-3/5 sm:w-full sm:px-4 sm:py-4 mx-auto mt-6 bg-neutral-100 rounded-xl text-center flex flex-col items-center justify-center">
-    <img src="/images/warning.png" alt="">
-    <h2 class="title relative pt-2"><%= @expiration.title %></h2>
-    <div class="w-12 h-1 bg-blub rounded-xl "></div>
-    <div class="text-neutral-600 py-2 whitespace-pre-line"><%= @expiration.description %></div>
-  </div>
+<script>
+  if (!localStorage.getItem("modalShown")) {
+    setTimeout(function () {
+
+      Swal.fire({
+        showCancelButton: false,
+        showCloseButton: true,
+        showConfirmButton: false,
+        html: `
+        <div class="sm:px-4 sm:py-4 mx-auto mt-6  rounded-xl text-center flex flex-col items-center justify-center">
+          <img src="/images/warning.png" alt="">
+          <h2 class="title relative pt-2">
+            <%= @expiration.title %>
+          </h2>
+          <div class="w-12 h-1 bg-blub rounded-xl"></div>
+            <div class="text-neutral-600 py-1 whitespace-pre-line">
+              <%= @expiration.description %>
+            </div>
+          </div>
+        </div>
+        `
+      });
+    }, 3500);
+
+    localStorage.setItem("modalShown", "true");
+  }
+</script>

@@ -47,7 +47,7 @@ $(function () {
       title: payload.message,
       icon: "success",
       showConfirmButton: false,
-      timer: 5000,
+      timer: 3000,
       timerProgressBar: true,
     });
   });

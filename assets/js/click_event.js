@@ -11,7 +11,7 @@ export async function eventClick() {
       element.dataset.type = this.dataset.type;
       Toast.fire({
         showConfirmButton: false,
-        timer: 5000,
+        timer: 3000,
         timerProgressBar: true,
         title: helperType(this.dataset.type),
         icon: "success",
