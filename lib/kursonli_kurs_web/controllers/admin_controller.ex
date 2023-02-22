@@ -97,34 +97,36 @@ defmodule KursonliKursWeb.AdminController do
       fililal_address: params["fililal_address"]
     }
 
-    with {:ok, org} <- Organizations.create(org_opts),
-         filial_opts <- Map.put(filial_opts, :organization_id, org.id),
-         {:ok, filial} <-
-           Filials.create_filial_worker_seting(
-             filial_opts,
-             worker_opts
-           ),
-         params["currency"]
-         |> Enum.map(fn currency ->
-           currency = String.to_integer(currency)
+    KursonliKurs.Repo.transaction(fn ->
+      with {:ok, org} <- Organizations.create(org_opts),
+           filial_opts <- Map.put(filial_opts, :organization_id, org.id),
+           {:ok, filial} <-
+             Filials.create_filial_worker_seting(
+               filial_opts,
+               worker_opts
+             ),
+           params["currency"]
+           |> Enum.map(fn currency ->
+             currency = String.to_integer(currency)
 
-           Courses.create(%{
-             date: Timex.now("Asia/Almaty"),
-             currency_id: currency,
-             filial_id: filial.id
-           })
+             Courses.create(%{
+               date: Timex.now("Asia/Almaty"),
+               currency_id: currency,
+               filial_id: filial.id
+             })
 
-           FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
-         end) do
-      conn
-      |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
-      |> redirect(to: "/admin")
-    else
-      {:error, _reason} ->
+             FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
+           end) do
         conn
-        |> put_flash(:error, "Проверьте вводимые данные")
+        |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
         |> redirect(to: "/admin")
-    end
+      else
+        {:error, _reason} ->
+          conn
+          |> put_flash(:error, "Проверьте вводимые данные")
+          |> redirect(to: "/admin")
+      end
+    end)
   end
 
   @doc """
@@ -295,29 +297,31 @@ defmodule KursonliKursWeb.AdminController do
       organization_id: params["org_id"]
     }
 
-    with {:ok, filial} <-
-           Filials.create_filial_worker_seting(
-             filial_opts,
-             worker_opts
-           ),
-         Enum.map(currencies_list, fn currency ->
-           Courses.create(%{
-             date: Timex.now("Asia/Almaty"),
-             currency_id: currency,
-             filial_id: filial.id
-           })
+    KursonliKurs.Repo.transaction(fn ->
+      with {:ok, filial} <-
+             Filials.create_filial_worker_seting(
+               filial_opts,
+               worker_opts
+             ),
+           Enum.map(currencies_list, fn currency ->
+             Courses.create(%{
+               date: Timex.now("Asia/Almaty"),
+               currency_id: currency,
+               filial_id: filial.id
+             })
 
-           FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
-         end) do
-      conn
-      |> put_flash(:info, "Филиал успешно добавлен, пароль: #{password}")
-      |> redirect(to: "/admin/filials")
-    else
-      {:error, _reason} ->
+             FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
+           end) do
         conn
-        |> put_flash(:error, "Проверьте вводимые данные")
+        |> put_flash(:info, "Филиал успешно добавлен, пароль: #{password}")
         |> redirect(to: "/admin/filials")
-    end
+      else
+        {:error, _reason} ->
+          conn
+          |> put_flash(:error, "Проверьте вводимые данные")
+          |> redirect(to: "/admin/filials")
+      end
+    end)
   end
 
   @doc """
