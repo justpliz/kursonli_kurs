@@ -48,7 +48,7 @@
           </thead>
           <tbody>
             <%= for item <- @trades do %>
-              <tr class="bg-white" data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>'>
+              <tr class="bg-white" data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>' style="background: <%= item.item_order["color"] %>;">
                 <td class="px-6 2xl:px-2 py-2">
                   <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item.item_order["type"], :single) %>
                 </td>
@@ -132,7 +132,7 @@
           </thead>
           <tbody>
             <%= for item <- @my_trades do %>
-              <tr class="bg-white" data-item='<%= item |> Jason.encode!() %>'>
+              <tr class="bg-white" data-item='<%= item |> Jason.encode!() %>' style="background: <%= item.currency.color %>;">
                 <td class="px-6 2xl:px-2 py-2">
                   <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item[:type], :single) %>
                 </td>

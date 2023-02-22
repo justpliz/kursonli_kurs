@@ -41,7 +41,8 @@
               </thead>
               <tbody id="sale_table">
                 <%= for item <- @order_list_sale do %>
-                  <tr class="bg-white order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>'>
+                  <tr class="order-click"
+                    data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>' style="background: <%= item.color %>;">
                     <td class="px-6 2xl:px-2 py-2">
                       <%= item.filial_name %>
                     </td>
@@ -109,8 +110,8 @@
                     </thead>
                     <tbody id="purchase_table">
                       <%= for item <- @order_list_purchase do %>
-                        <tr class="bg-white order-click"
-                          data-item='<%= Jason.encode!(Map.put(item, :type, "purchase")) %>'>
+                        <tr class="order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "purchase")) %>'
+                          style="background: <%= item.color %>;">
                           <td class="px-6 2xl:px-2 py-2">
                             <%= item.filial_name %>
                           </td>
@@ -165,20 +166,20 @@
             <%= render(KursonliKursWeb.WorkerView, "modal_delete_trade.html" , conn: @conn, id: @trades) %>
               <%= render(KursonliKursWeb.WorkerView, "modal_update_trade.html" , conn: @conn, id: @trades,
                 currencies_list: @currencies_list) %>
-                <%= if not is_nil(@expiration), do: render(KursonliKursWeb.WorkerView, "notification_expiration.html" , conn: @conn, expiration:
-                @expiration) %>
+                <%= if not is_nil(@expiration), do: render(KursonliKursWeb.WorkerView, "notification_expiration.html" ,
+                  conn: @conn, expiration: @expiration) %>
 
-                <script>
-                  const showChatButton = document.getElementById('show-chat');
-                  const chatBlock = document.querySelector('.chat');
+                  <script>
+                    const showChatButton = document.getElementById('show-chat');
+                    const chatBlock = document.querySelector('.chat');
 
-                  showChatButton.addEventListener('click', () => {
-                    if (chatBlock.style.display === 'none') {
-                      chatBlock.style.display = 'block';
-                    } else {
-                      chatBlock.style.display = 'none';
-                    }
-                  });
+                    showChatButton.addEventListener('click', () => {
+                      if (chatBlock.style.display === 'none') {
+                        chatBlock.style.display = 'block';
+                      } else {
+                        chatBlock.style.display = 'none';
+                      }
+                    });
 
 
                   // jQuery(function ($) {
@@ -190,4 +191,4 @@
                   //     }
                   //   });
                   // });
-                </script>
+                  </script>

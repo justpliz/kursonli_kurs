@@ -16,7 +16,13 @@
 {:ok, admin} = KursonliKurs.Context.Admins.create(%{login: "admin", password: "admin"})
 
 # Create tariff
-{:ok, tariff} = KursonliKurs.Context.Tariffs.create(%{name: "Пробный 1день", price: "0", days: 1, is_active: true})
+{:ok, tariff} =
+  KursonliKurs.Context.Tariffs.create(%{
+    name: "Пробный 1день",
+    price: "0",
+    days: 1,
+    is_active: true
+  })
 
 # Create cities
 {:ok, city_krg} =
@@ -37,17 +43,21 @@
   KursonliKurs.Context.Currencies.create(%{
     name: "Американский доллар",
     short_name: "USD",
-    color: "#ffffff"
+    color: "#c3efc9"
   })
 
 {:ok, eur} =
-  KursonliKurs.Context.Currencies.create(%{name: "Евро", short_name: "EUR", color: "#ffffff"})
+  KursonliKurs.Context.Currencies.create(%{
+    name: "Евро",
+    short_name: "EUR",
+    color: "#e7caf2"
+  })
 
 {:ok, rub} =
   KursonliKurs.Context.Currencies.create(%{
     name: "Российский рубль",
     short_name: "RUB",
-    color: "#ffffff"
+    color: "#f5f0a8"
   })
 
 # Create notifications
@@ -63,7 +73,7 @@
 {:ok, _expiration} =
   KursonliKurs.Context.Notifications.create(%{
     name: "expiration",
-    title: "Срок вашей подписки истекает! Осталось # дней",
+    title: "Срок вашей подписки истекает! Осталось # дн.",
     description: "После окончания срока подписки, не будут доступны все разделы."
   })
 

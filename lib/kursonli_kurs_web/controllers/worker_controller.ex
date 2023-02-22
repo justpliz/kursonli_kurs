@@ -78,7 +78,7 @@ defmodule KursonliKursWeb.WorkerController do
                 name: filial.city.name
               }
             })
-            |> put_flash(:info, "Добро пожаловать #{first_name}")
+            # |> put_flash(:info, "Добро пожаловать #{first_name}")
             |> redirect(to: "/worker/orders?login=true")
 
           :archive ->

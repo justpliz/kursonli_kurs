@@ -220,7 +220,8 @@
    }
 
    .order-click.selected {
-      @apply bg-lightBlub text-white;
+      background: #5699d1 !important;
+      @apply text-white;
    }
 
    .red_circle {

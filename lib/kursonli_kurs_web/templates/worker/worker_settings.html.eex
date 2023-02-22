@@ -45,7 +45,7 @@
                      <label class="label_input pt-2">Допольнительные телефоны</label>
                      <div class="flex sm:block sm:w-full gap-4">
                         <%= telephone_input f, :phone1, placeholder: "", value: @setting.phones["phone1"],
-                           class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18, required: "true" %>
+                           class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18 %>
                         <%= telephone_input f, :phone2, placeholder: "", value: @setting.phones["phone2"],
                            class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18 %>
                         <%= telephone_input f, :phone3, placeholder: "", value: @setting.phones["phone3"],

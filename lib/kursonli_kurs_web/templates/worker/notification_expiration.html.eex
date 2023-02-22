@@ -1,12 +1,10 @@
 <script>
   if (!localStorage.getItem("modalShown")) {
-    setTimeout(function () {
-
-      Swal.fire({
-        showCancelButton: false,
-        showCloseButton: true,
-        showConfirmButton: false,
-        html: `
+    Swal.fire({
+      showCancelButton: false,
+      showCloseButton: true,
+      showConfirmButton: false,
+      html: `
         <div class="sm:px-4 sm:py-4 mx-auto mt-6  rounded-xl text-center flex flex-col items-center justify-center">
           <img src="/images/warning.png" alt="">
           <h2 class="title relative pt-2">
@@ -19,8 +17,7 @@
           </div>
         </div>
         `
-      });
-    }, 3500);
+    });
 
     localStorage.setItem("modalShown", "true");
   }
