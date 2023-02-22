@@ -215,6 +215,7 @@
   <script>
     $(".logout").click(() => {
       localStorage.removeItem("worker")
+      localStorage.removeItem("modalShown");
       window.location.href = "/worker/logout"
     })
 
