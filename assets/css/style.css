@@ -17,7 +17,6 @@
   font-family: "Montserrat", sans-serif;
 }
 
-
 html,
 body {
   margin: 0;
@@ -63,14 +62,9 @@ body {
 }
 
 .content-worker-order {
-  padding: 0 400px 0 0;
+  padding: 0% 25% 0% 0%;
 }
 
-@media (max-width: 1540px) {
-  .content-worker-order {
-    padding: 0 260px 0 0;
-  }
-}
 @media (max-width: 640px) {
   .content-worker-order {
     padding: 0;
@@ -309,7 +303,7 @@ body.swal2-shown {
 
   .header {
     background-color: white;
-    @apply sm:shadow-md;
+    @apply sm: shadow-md;
   }
 
   .header__body {

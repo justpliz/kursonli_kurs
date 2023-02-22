@@ -2,7 +2,8 @@
   <%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
     <div class="margin_content">
       <div class="flex justify-between items-center">
-        <div class="text-base flex-1-1">Последнее обновление курса: <%= @last_date %>
+        <div class="text-base flex-1-1">Последнее обновление курса:
+          <%= @last_date %>
         </div>
         <%= form_for @conn, Routes.worker_path(@conn, :update_course), fn f -> %>
           <div class="flex gap-4">
@@ -24,12 +25,12 @@
         <div class="flex items-center justify-start gap-4 pb-2">
           <input name="change_all_filials" type="hidden" value="false">
           <div class="flex items-center justify-center">
-            <label for="all" class="label_input p-2">Изменить все курсы</label>
+            <label for="all" class="label_input pr-2">Изменить все курсы</label>
             <input id="all" name="change_all_filials" type="checkbox" value="true" class="type_select rounded">
           </div>
 
           <div class="flex items-center justify-center">
-            <label for="visible_status" class="label_input p-2">Сделать видимым</label>
+            <label for="visible_status" class="label_input pr-2">Сделать видимым</label>
             <%= checkbox f, :visible_status, checked: @visible_status, class: "type_select rounded" %>
           </div>
         </div>

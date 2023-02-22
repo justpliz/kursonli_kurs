@@ -1,166 +1,137 @@
 <% worker=Plug.Conn.get_session(@conn,:worker) %>
 <%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
-<div class="margin_content">
-   <h1 class="title">Настройки</h1>
-   <div class="w-full">
+  <div class="margin_content">
+    <h1 class="title">Настройки</h1>
+    <div class="w-full">
       <div class="relative">
-         <button class="btn_border tab-btn" id="tab1-btn">Основная страница</button>
-         <button class="btn_border tab-btn" id="tab2-btn">Личная страница</button>
+        <button class="btn_border tab-btn" id="tab1-btn">Основная страница</button>
+        <button class="btn_border tab-btn" id="tab2-btn">Личная страница</button>
       </div>
-
       <div class="tab-content" id="tab1-content">
-         <%= form_for @conn, Routes.worker_path(@conn, :update_setting), [multipart: true], fn f -> %>
-
-            <label class="label_input pt-2">Загрузка логотипа (160x56)</label>
-            <label class="input-file">
-               <%= file_input f, :logo, value: @setting.logo, accept: ".png, .jpg" %>
-                  <span>Выберите файл</span>
-            </label>
-
-            <label class="label_input">Нынешнее фото логотипа</label>
-            <img src="<%= @logo_path %>" class="w-60 h-auto">
-
-            <label class="label_input pt-2">3 Качества вашего филиала</label>
-            <div class="flex sm:block sm:w-full gap-4">
-               <%= text_input f, :quality1, placeholder: "", value: @setting.qualities["quality1"],
+        <%= form_for @conn, Routes.worker_path(@conn, :update_setting), [multipart: true], fn f -> %>
+        <label class="label_input pt-2">Загрузка логотипа (160x56)</label>
+        <label class="input-file">
+          <%= file_input f, :logo, value: @setting.logo, accept: ".png, .jpg" %>
+          <span>Выберите файл</span>
+        </label>
+        <label class="label_input">Нынешнее фото логотипа</label>
+        <img src="<%= @logo_path %>" class="w-60 h-auto">
+        <label class="label_input pt-2">3 Качества вашего филиала</label>
+        <div class="flex sm:block sm:w-full gap-4">
+          <%= text_input f, :quality1, placeholder: "", value: @setting.qualities["quality1"],
                   class: "input_short sm:mt-2 sm:input_full", required: "true", maxlength: 40 %>
-               <%= text_input f, :quality2, placeholder: "", value: @setting.qualities["quality2"],
+          <%= text_input f, :quality2, placeholder: "", value: @setting.qualities["quality2"],
                   class: "input_short sm:mt-2 sm:input_full", required: "true", maxlength: 40 %>
-               <%= text_input f, :quality3, placeholder: "", value: @setting.qualities["quality3"],
+          <%= text_input f, :quality3, placeholder: "", value: @setting.qualities["quality3"],
                   class: "input_short sm:mt-2 sm:input_full", required: "true", maxlength: 40 %>
-            </div>
-
-            <label class="label_input">Адрес для карты</label>
-            <%= text_input f, :address_2gis, placeholder: "", value: @setting.address_2gis, class: "input_full",
+        </div>
+        <label class="label_input">Адрес для карты</label>
+        <%= text_input f, :address_2gis, placeholder: "", value: @setting.address_2gis, class: "input_full",
                required: "true" %>
-
-               <label class="label_input">Лицензия ОП</label>
-               <%= text_input f, :license, placeholder: "", value: @setting.license, class: "input_full" %>
-
-                  <label class="label_input">Телефон отображаемый в шапке сайта</label>
-                  <%= telephone_input f, :phone_for_header, placeholder: "", value:
+        <label class="label_input">Лицензия ОП</label>
+        <%= text_input f, :license, placeholder: "", value: @setting.license, class: "input_full" %>
+        <label class="label_input">Телефон отображаемый в шапке сайта</label>
+        <%= telephone_input f, :phone_for_header, placeholder: "", value:
                      @setting.phones["phone_for_header"], class: "input_short sm:input_full", data: [tel: "" ], maxlength: 18,
                      required: "true" %>
-
-                     <label class="label_input pt-2">Допольнительные телефоны</label>
-                     <div class="flex sm:block sm:w-full gap-4">
-                        <%= telephone_input f, :phone1, placeholder: "", value: @setting.phones["phone1"],
+        <label class="label_input pt-2">Допольнительные телефоны</label>
+        <div class="flex sm:block sm:w-full gap-4">
+          <%= telephone_input f, :phone1, placeholder: "", value: @setting.phones["phone1"],
                            class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18 %>
-                        <%= telephone_input f, :phone2, placeholder: "", value: @setting.phones["phone2"],
+          <%= telephone_input f, :phone2, placeholder: "", value: @setting.phones["phone2"],
                            class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18 %>
-                        <%= telephone_input f, :phone3, placeholder: "", value: @setting.phones["phone3"],
+          <%= telephone_input f, :phone3, placeholder: "", value: @setting.phones["phone3"],
                            class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18 %>
-                     </div>
-
-                     <div class="hidden">
-                        <%= [wholesale_rate, gold]=@setting.tags %>
-                     </div>
-                     <div class="flex justify-start items-center gap-2 pt-2">
-                        <div class="flex items-center justify-center gap-2">
-                           <label class="label_input" for="wholesale_rate">Оптовый курс</label>
-                           <%= checkbox f, :wholesale_rate, checked: String.to_atom(wholesale_rate), class: "type_select rounded" %>
-                        </div>
-
-                        <div class="flex items-center justify-center gap-2">
-                           <label class="label_input" for="gold">Продажа золота</label>
-                           <%= checkbox f, :gold, checked: String.to_atom(gold), class: "type_select rounded" %>
-                        </div>
-                     </div>
-
-                     <label class="label_input pt-2">Email</label>
-                     <%= text_input f, :email, placeholder: "", value: @setting.email, class: "input_full",
+        </div>
+        <div class="hidden">
+          <%= [wholesale_rate, gold]=@setting.tags %>
+        </div>
+        <div class="flex justify-start items-center gap-2 pt-2">
+          <div class="flex items-center justify-center gap-2">
+            <label class="label_input" for="wholesale_rate">Оптовый курс</label>
+            <%= checkbox f, :wholesale_rate, checked: String.to_atom(wholesale_rate), class: "type_select rounded" %>
+          </div>
+          <div class="flex items-center justify-center gap-2">
+            <label class="label_input" for="gold">Продажа золота</label>
+            <%= checkbox f, :gold, checked: String.to_atom(gold), class: "type_select rounded" %>
+          </div>
+        </div>
+        <label class="label_input pt-2">Email</label>
+        <%= text_input f, :email, placeholder: "", value: @setting.email, class: "input_full",
                         required: "true" %>
       </div>
-
       <div class="tab-content" id="tab2-content">
-         <label class="label_input pt-2">Загрузка фото ОП</label>
-         <label class="input-file">
-            <%= file_input f, :photo, value: @setting.photo, accept: ".png, .jpg" %>
-               <span>Выберите файл</span>
-         </label>
-
-         <label class="label_input">Нынешнее фото филиала</label>
-         <img src="<%= @photo_path %>" class="w-60 h-auto">
-
-         <div class="flex sm:flex-col sm:justify-end sm:gap-0 gap-20 items-start justify-start">
-            <div class="flex sm:block sm:w-full gap-4">
-               <div class="flex-col">
-                  <label class="label_input pt-2">Будни</label>
-                  <%= text_input f, :schedule_weekdays, placeholder: "", value: @setting.schedule["schedule_weekdays"],
+        <label class="label_input pt-2">Загрузка фото ОП</label>
+        <label class="input-file">
+          <%= file_input f, :photo, value: @setting.photo, accept: ".png, .jpg" %>
+          <span>Выберите файл</span>
+        </label>
+        <label class="label_input">Нынешнее фото филиала</label>
+        <img src="<%= @photo_path %>" class="w-60 h-auto">
+        <div class="flex sm:flex-col sm:justify-end sm:gap-0 gap-20 items-start justify-start">
+          <div class="flex sm:block sm:w-full gap-4">
+            <div class="flex-col">
+              <label class="label_input pt-2">Будни</label>
+              <%= text_input f, :schedule_weekdays, placeholder: "", value: @setting.schedule["schedule_weekdays"],
                      class: "input_full", required: "true" %>
-   
-                     <label class="label_input pt-2">Суббота</label>
-                     <%= text_input f, :schedule_saturday, placeholder: "", value: @setting.schedule["schedule_saturday"],
+              <label class="label_input pt-2">Суббота</label>
+              <%= text_input f, :schedule_saturday, placeholder: "", value: @setting.schedule["schedule_saturday"],
                         class: "input_full", required: "true" %>
-               </div>
-   
-               <div class="flex-col">
-                  <label class="label_input pt-2">Воскресенье</label>
-                  <%= text_input f, :schedule_sunday, placeholder: "", value: @setting.schedule["schedule_sunday"],
+            </div>
+            <div class="flex-col">
+              <label class="label_input pt-2">Воскресенье</label>
+              <%= text_input f, :schedule_sunday, placeholder: "", value: @setting.schedule["schedule_sunday"],
                      class: "input_full", required: "true" %>
-   
-                     <label class="label_input pt-2">Дополнителная информация</label>
-                     <%= text_input f, :schedule_other, placeholder: "", value: @setting.schedule["schedule_other"],
+              <label class="label_input pt-2">Дополнителная информация</label>
+              <%= text_input f, :schedule_other, placeholder: "", value: @setting.schedule["schedule_other"],
                         class: "input_full" %>
-               </div>
             </div>
-
-            <div class="flex-col sm:block sm:w-full">
-               <label class="label_input pt-2">Первый рекламный текст <span class="text-small">(лимит 30
-                     символов)</span></label>
-               <%= text_input f, :promo1, placeholder: "", value: @setting.promo["promo1"], class: "input_full",
+          </div>
+          <div class="flex-col sm:block sm:w-full">
+            <label class="label_input pt-2">Первый рекламный текст <span class="text-small">(лимит 30
+                символов)</span></label>
+            <%= text_input f, :promo1, placeholder: "", value: @setting.promo["promo1"], class: "input_full",
                   maxlength: 30 %>
-
-                  <label class="label_input pt-2">Второй рекламный текст <span class="text-small">(лимит 30
-                        символов)</span></label>
-                  <%= text_input f, :promo2, placeholder: "", value: @setting.promo["promo2"], class: "input_full",
+            <label class="label_input pt-2">Второй рекламный текст <span class="text-small">(лимит 30
+                символов)</span></label>
+            <%= text_input f, :promo2, placeholder: "", value: @setting.promo["promo2"], class: "input_full",
                      maxlength: 30 %>
-            </div>
-
-            <div class="flex gap-4">
-               <div class="flex-col">
-                  <label class="label_input pt-2">Цвет валют</label>
-                  <%= color_input f, :color_currency, placeholder: "", value: @setting.colors["color_currency"],
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-col">
+              <label class="label_input pt-2">Цвет валют</label>
+              <%= color_input f, :color_currency, placeholder: "", value: @setting.colors["color_currency"],
                      class: "w-20 h-10", required: "true" %>
-   
-                     <label class="label_input pt-2">Цвет фона табло</label>
-                     <%= color_input f, :color_scoreboard, placeholder: "", value: @setting.colors["color_scoreboard"],
+              <label class="label_input pt-2">Цвет фона табло</label>
+              <%= color_input f, :color_scoreboard, placeholder: "", value: @setting.colors["color_scoreboard"],
                         class: "w-20 h-10", required: "true" %>
-               </div>
-   
-               <div class="flex-col">
-                  <label class="label_input pt-2">Цвет качеств</label>
-                  <%= color_input f, :color_qualities, placeholder: "", value: @setting.colors["color_qualities"],
-                     class: "w-20 h-10", required: "true" %>
-   
-                     <label class="label_input pt-2">Цвет текста качества</label>
-                     <%= color_input f, :color_qualities_text, placeholder: "", value:
-                        @setting.colors["color_qualities_text"], class: "w-20 h-10", required: "true" %>
-               </div>
             </div>
-         </div>
-
-         <label class="label_input pt-2">Субдомен</label>
-         <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full" %>
-
-         <label class="label_input pt-2">Описание ОП</label>
-         <%= textarea f, :description, placeholder: "", value: @setting.description, class: "min-h-300 input_full",
+            <div class="flex-col">
+              <label class="label_input pt-2">Цвет качеств</label>
+              <%= color_input f, :color_qualities, placeholder: "", value: @setting.colors["color_qualities"],
+                     class: "w-20 h-10", required: "true" %>
+              <label class="label_input pt-2">Цвет текста качества</label>
+              <%= color_input f, :color_qualities_text, placeholder: "", value:
+                        @setting.colors["color_qualities_text"], class: "w-20 h-10", required: "true" %>
+            </div>
+          </div>
+        </div>
+        <label class="label_input pt-2">Субдомен</label>
+        <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full" %>
+        <label class="label_input pt-2">Описание ОП</label>
+        <%= textarea f, :description, placeholder: "", value: @setting.description, class: "min-h-300 input_full",
             required: "true" %>
       </div>
-   </div>
-
-   <%= submit "Сохранить", class: "btn_save my-4" %>
-      <% end %>
-</div>
-</div>
+    </div>
+    <%= submit "Сохранить", class: "btn_save my-4" %>
+  <% end %>
 </div>
 <% else %>
-<%= render(KursonliKursWeb.WorkerView, "notification_service_access.html", conn: @conn, instructions: @instructions) %>
+  <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html", conn: @conn, instructions: @instructions) %>
 <% end %>
-
 <script>
-   $('.input-file input[type=file]').on('change', function () {
-      let file = this.files[0];
-      $(this).next().html(file.name);
-   });
+  $('.input-file input[type=file]').on('change', function () {
+     let file = this.files[0];
+     $(this).next().html(file.name);
+  });
 </script>
