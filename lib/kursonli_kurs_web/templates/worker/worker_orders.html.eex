@@ -165,7 +165,7 @@
             <%= render(KursonliKursWeb.WorkerView, "modal_delete_trade.html" , conn: @conn, id: @trades) %>
               <%= render(KursonliKursWeb.WorkerView, "modal_update_trade.html" , conn: @conn, id: @trades,
                 currencies_list: @currencies_list) %>
-                <%#= render(KursonliKursWeb.WorkerView, "notification_expiration.html.html" , conn: @conn, expiration:
+                <%= render(KursonliKursWeb.WorkerView, "notification_expiration.html" , conn: @conn, expiration:
                 @expiration) %>
 
                 <script>
