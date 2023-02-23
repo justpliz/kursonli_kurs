@@ -25,27 +25,26 @@ defmodule KursonliKursWeb.RoomChannel do
     end
   end
 
-  def online_event(socket) do
-    city_id = socket.assigns[:user]["city"]["id"]
+  # def online_event(socket) do
+  #   city_id = socket.assigns[:user]["city"]["id"] |> String.to_integer
+  #   IO.inspect(city_id)
+  #   users = KursonliKurs.EtsStorage.Chat.get_chats_user(socket.assigns[:user]["id"],city_id )
 
-    users =
-      UserOnline.get_online_users(city_id)
-      |> Enum.map(fn {_id, _, _, user_map} = item -> user_map end)
-
-    broadcast!(socket, "user:entered", %{
-      online_users: users
-    })
-  end
+  #   broadcast!(socket, "user:entered", %{
+  #     online_users: users
+  #   })
+  # end
 
   def handle_info({:after_join, _msg}, socket) do
-    online_event(socket)
+    # online_event(socket)
+
     push(socket, "join", %{status: "connected"})
     {:noreply, socket}
   end
 
   def terminate(_reason, socket) do
     UserOnline.delete_online_user(socket.assigns[:user]["id"])
-    online_event(socket)
+    # online_event(socket)
 
     :ok
   end

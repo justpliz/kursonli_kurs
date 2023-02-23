@@ -9,12 +9,16 @@ defmodule KursonliKursWeb.OnlineChannel do
   end
 
   def join("online:" <> private_subtopic, message, socket) do
-    if check_user(private_subtopic) do
+    # IO.inspect(private_subtopic)
+    # if check_user(private_subtopic) do
+      IO.inspect(socket)
+
       send(self, {:after_join, message})
       {:ok, socket}
-    else
-      {:error, %{reason: "city_not_found"}}
-    end
+    # else
+    #   {:error, %{reason: "user_not_found"}}
+    # end
+
   end
 
   @doc """
@@ -24,6 +28,10 @@ defmodule KursonliKursWeb.OnlineChannel do
     Endpoint.broadcast!("online:#{user_id}", "leave", %{})
   end
 
+  def handle_info({:after_join, _msg}, socket) do
+    my_companions(socket.assigns[:user]["id"], socket.assigns[:user]["city"]["id"])
+    {:noreply, socket}
+  end
   @doc """
   # Отправляет по айди воркера сообщение
   """
@@ -36,7 +44,10 @@ defmodule KursonliKursWeb.OnlineChannel do
   def order(user_id, data) do
     Endpoint.broadcast!("online:#{user_id}", "new:order", %{data: data})
   end
-
+  def my_companions(user_id,city_id) do
+    users = KursonliKurs.EtsStorage.Chat.get_chats_user(user_id, city_id)
+    Endpoint.broadcast!("online:#{user_id}", "user:entered", %{data: users})
+  end
   defp check_user(worker_id) do
     KursonliKurs.Context.Workers.all()
     |> Enum.any?(fn x -> x.id == worker_id end)

@@ -4,7 +4,7 @@ defmodule KursonliKurs.Context.Cities do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.City
+  alias KursonliKurs.Model.{City, Worker, Filial}
 
   require Logger
 
@@ -53,5 +53,19 @@ defmodule KursonliKurs.Context.Cities do
   def get_city_name(query) do
     c = from(c in City, select: %{name: c.name})
     from(query, preload: [city: ^c])
+  end
+
+  def get_all_users_by_city(city_id) do
+    from(
+      f in Filial,
+      where: f.city_id == ^city_id,
+      join: w in Worker,
+      on: w.filial_id == f.id,
+      select: %{
+        worker_id: w.id,
+        worker_name: w.name
+      }
+    )
+    |> Repo.all
   end
 end

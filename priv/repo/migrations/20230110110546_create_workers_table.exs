@@ -5,6 +5,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateWorkersTable do
     create table(:workers, primary_key: false) do
       add :id, :binary_id, primary_key: true
 
+      add :name, :string
       add :password, :string
       add :email, :string
 

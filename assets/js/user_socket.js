@@ -136,11 +136,12 @@ $(function () {
       templateChatNewMe(payload.body, payload.user.first_name);
     }
   });
-  channel.on("user:entered", (payload) => {
+  channelOnline.on("user:entered", (payload) => {
     userConnectEl.innerHTML = "";
-    payload.online_users.forEach((element) => {
-      if (worker.id != element.id) {
-        templateTagsInsert(element.first_name, element.id);
+    console.log(payload)
+    payload.data.forEach((element) => {
+      if (worker.id != element.channel_id) {
+        templateTagsInsert(element.worker_name, element.channel_id);
       }
     });
   });
