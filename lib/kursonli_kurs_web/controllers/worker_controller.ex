@@ -135,11 +135,11 @@ defmodule KursonliKursWeb.WorkerController do
         |> put_flash(:error, "Несовпадают пароли")
         |> redirect(to: "/worker/update_pass")
 
-    with {:ok, worker} <- Workers.do_get(id: id, password: old_pass) |> IO.inspect(),
+    with {:ok, worker} <- Workers.do_get(id: id, password: old_pass),
          {:ok, _worker} <- Workers.update(worker, %{password: new_pass}) do
       conn
       |> put_flash(:info, "Пароль успешно изменен")
-      |> redirect(to: "/worker/orders")
+      |> redirect(to: "/worker/update_pass")
     end
   end
 

@@ -4,8 +4,8 @@
     <button class="btn_save ml-2" id="createOrder" data-item="">Разместить</button>
   </div>
   <div class="relative">
-    <button class="btn_border tab-btn" id="tab1-btn">Я учавствую</button>
-    <button class="btn_border tab-btn" id="tab2-btn">Я сделал</button>
+    <button class="btn_border tab-btn" id="tab1-btn">Принятые</button>
+    <button class="btn_border tab-btn" id="tab2-btn">Созданные</button>
   </div>
 </div>
 <h1 class="title_small">Мои сделки</h1>
@@ -48,7 +48,7 @@
         </thead>
         <tbody>
           <%= for item <- @trades do %>
-            <tr class="bg-white" data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>'
+            <tr class="bg-white text-black" data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>'
                 style="background: <%= item.item_order[" color"] %>;">
               <td class="px-6 2xl:px-2 py-2">
                 <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item.item_order["type"], :single) %>
@@ -133,7 +133,7 @@
         </thead>
         <tbody>
           <%= for item <- @my_trades do %>
-            <tr class="bg-white" data-item='<%= item |> Jason.encode!() %>'
+            <tr class="bg-white text-black" data-item='<%= item |> Jason.encode!() %>'
                 style="background: <%= item.currency.color %>;">
               <td class="px-6 2xl:px-2 py-2">
                 <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item[:type], :single) %>
