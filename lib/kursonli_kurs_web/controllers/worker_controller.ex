@@ -1,6 +1,6 @@
 defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
-  action_fallback(KursonliKursWeb.FallbackController)
+  action_fallback KursonliKursWeb.FallbackController
   alias KursonliKursWeb.{OnlineChannel, RoomChannel}
   alias KursonliKurs.EtsStorage.{Chat, SessionWorker}
 
@@ -139,7 +139,7 @@ defmodule KursonliKursWeb.WorkerController do
          {:ok, _worker} <- Workers.update(worker, %{password: new_pass}) do
       conn
       |> put_flash(:info, "Пароль успешно изменен")
-      |> redirect(to: "/worker/orders")
+      |> redirect(to: "/worker/update_pass")
     end
   end
 
@@ -162,7 +162,9 @@ defmodule KursonliKursWeb.WorkerController do
       |> Enum.sort(:desc)
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
-    expiration = if params["login"] == "true", do: Notifications.check_remaining_days(worker.paid_up_to)
+
+    expiration =
+      if params["login"] == "true", do: Notifications.check_remaining_days(worker.paid_up_to)
 
     conn
     |> render("worker_orders.html",

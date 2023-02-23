@@ -41,7 +41,7 @@
           </thead>
           <tbody id="sale_table">
             <%= for item <- @order_list_sale do %>
-              <tr class="order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>'
+              <tr class="order-click text-black" data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>'
                     style="background: <%= item.color %>;">
                 <td class="px-6 2xl:px-2 py-2">
                   <%= item.filial_name %>
@@ -110,7 +110,7 @@
           </thead>
           <tbody id="purchase_table">
             <%= for item <- @order_list_purchase do %>
-              <tr class="order-click" data-item='<%= Jason.encode!(Map.put(item, :type, "purchase")) %>'
+              <tr class="order-click text-black" data-item='<%= Jason.encode!(Map.put(item, :type, "purchase")) %>'
                           style="background: <%= item.color %>;">
                 <td class="px-6 2xl:px-2 py-2">
                   <%= item.filial_name %>
