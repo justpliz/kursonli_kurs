@@ -95,15 +95,16 @@ $(function () {
   const templateTagsInsert = (name, worker_id) => {
 
     const html = `<div
-    class="text-xs flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center worker_click" data-id="${worker_id}"
+    class="text-xs flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center worker_click" data-tagsid="${worker_id}"
     "}">
 
 
     ${name}
  </div>`;
     setTimeout(() => {
-      document.querySelector(`[data-id="${worker_id}"]`).addEventListener("click", async (e) => (
-        await handleClickWorker(e, socket)
+      const etsElement =  document.querySelector(`[data-tagsid="${worker_id}"]`)
+      etsElement.addEventListener("click", async (e) => (
+        await handleClickWorker(e, socket, etsElement)
       ))
 
     }, 100)

@@ -2,7 +2,6 @@ defmodule KursonliKurs.EtsStorage.Chat do
   require Logger
   import Ex2ms
   alias KursonliKursWeb.GeneralHelper
-  alias KursonliKurs.Context.Cities
 
   @moduledoc """
   # База чата на DETS
@@ -86,15 +85,14 @@ defmodule KursonliKurs.EtsStorage.Chat do
   def get_chats_user(user_id, city_id) do
     KursonliKurs.Context.Cities.get_all_users_by_city(city_id)
     |> Enum.map(fn item ->
-      # IO.inspect(user_id)
       id = GeneralHelper.compare_workers_id(user_id, item.worker_id)
-     message = KursonliKurs.EtsStorage.Chat.get_all_by_city(id)
+      message = KursonliKurs.EtsStorage.Chat.get_all_by_city(id)
+
       if message != [] do
-        Map.put(item, :channel_id, id)
+        Map.put(item, :channel_id, item.worker_id)
       end
     end)
     |> Enum.filter(fn item -> item != nil end)
-
   end
 
   def get_all_by_city(worker_id) do

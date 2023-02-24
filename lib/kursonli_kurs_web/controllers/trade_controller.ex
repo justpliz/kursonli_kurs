@@ -15,7 +15,8 @@ defmodule KursonliKursWeb.TradeController do
 
     with {:ok, item} <- Trades.create(params) do
       item = item |> PwHelper.Normalize.repo()
-      IO.inspect(item_map["worker"]["city"]["id"],label: "12333333")
+      IO.inspect(item_map["worker"]["city"]["id"], label: "12333333")
+
       KursonliKursWeb.OnlineChannel.notification(
         item_map["worker_id"],
         "Вам пришло предложение от #{item_map["worker_name"]}"
@@ -26,8 +27,17 @@ defmodule KursonliKursWeb.TradeController do
         item_map,
         Map.merge(item, %{type: "event", type_event: "active"})
       )
-      KursonliKursWeb.OnlineChannel.my_companions(  item_map["worker_id"] ,item_map["worker"]["city"]["id"])
-      KursonliKursWeb.OnlineChannel.my_companions( item_map["worker"]["id"],item_map["worker"]["city"]["id"])
+
+      KursonliKursWeb.OnlineChannel.my_companions(
+        item_map["worker_id"],
+        item_map["worker"]["city"]["id"]
+      )
+
+      KursonliKursWeb.OnlineChannel.my_companions(
+        item_map["worker"]["id"],
+        item_map["worker"]["city"]["id"]
+      )
+
       conn
       |> put_flash(:info, "Сделка успешно создана")
       |> redirect(to: "/worker/orders")
