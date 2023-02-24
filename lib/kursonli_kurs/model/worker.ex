@@ -10,11 +10,12 @@ defmodule KursonliKurs.Model.Worker do
 
   @timestamps_opts [type: :utc_datetime]
   @required_fields ~w(email password filial_id)a
-  @optional_fields ~w()a
+  @optional_fields ~w(name)a
 
   schema "workers" do
     field :password, :string
     field :email, :string
+    field :name, :string
 
     has_one :order, Order
     has_one :trade, Trade

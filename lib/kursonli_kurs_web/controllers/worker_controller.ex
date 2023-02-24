@@ -50,11 +50,10 @@ defmodule KursonliKursWeb.WorkerController do
       email: params["email"],
       password: hash_str(params["password"])
     ]
-
     case Workers.do_get(opts) do
       {:ok, worker} ->
         {:ok, filial} = Filials.do_get(id: worker.filial_id)
-
+        Workers.update(worker, %{name: first_name})
         case filial.filial_active_status do
           :active ->
             SessionWorker.insert(worker.id)

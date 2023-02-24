@@ -11,8 +11,12 @@ const loader = document.querySelector("#loader")
 const chatWrapper = document.querySelector("#chatWrapper")
 
 export const handleClickWorker = async (event, socket) => {
-  const id = event.currentTarget.dataset.id
-
+  const id = event.currentTarget.dataset.tagsid
+  const elements =   [...document.querySelectorAll(`[data-tagsid]`)]
+  elements.forEach((el) => {
+    el.classList.remove("active")
+  })
+  event.currentTarget.classList.add("active")
   const worker = getWorker()
   let channelId = ""
   if (id > worker.id) {
@@ -55,14 +59,13 @@ export const handleClickWorker = async (event, socket) => {
     });
 
   result.data.chat_messages.forEach((el) => {
-
+   
     if (worker.id == el.worker.id && el.type == "text") {
       templateChatYour(el.body, el.worker.first_name);
     } else if (worker.id != el.worker.id && el.type == "text") {
       templateChatNewMe(el.body, el.worker.first_name);
     }
    else if (worker.id != el.worker_id && el.type == "event"){
-   
       templateEvent(el);
     }
 
