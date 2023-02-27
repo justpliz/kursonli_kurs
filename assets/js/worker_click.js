@@ -202,11 +202,13 @@ const templateEvent1 = (map) => {
     <div class="text-gray-200">предложено ${map.volume} ${map.item_order.currency_short_name
     } по курсу ${map.item_order.course_sale}
     </div>
-    <div class="w-full bg-white text-black text-center py-2 my-2 rounded waiting-for-confirmation">
-    Ожидает подтверждения...
-  </div>
+
   </div>
     `;
+
+  //  <div class="w-full bg-white text-black text-center py-2 my-2 rounded waiting-for-confirmation">
+  //   Ожидает подтверждения
+  // </div>
 
   chatWrapper.insertAdjacentHTML("beforeend", html);
   setTimeout(() => {

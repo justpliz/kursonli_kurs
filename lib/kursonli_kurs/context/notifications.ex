@@ -47,7 +47,7 @@ defmodule KursonliKurs.Context.Notifications do
     {:ok, expiration} = Notifications.do_get(name: "expiration")
 
     new_title =
-      if diff_days >= 0 do
+      if diff_days >= 0 and diff_days <= 7 do
         String.replace(expiration.title, "#", "#{diff_days}")
       else
         "Ваша подписка истекла"

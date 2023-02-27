@@ -44,7 +44,7 @@ defmodule KursonliKursWeb.OnlineChannel do
     Endpoint.broadcast!("online:#{user_id}", "new:order", %{data: data})
   end
   @doc """
-  # Отправляет order
+  # Меняет цвет ивента
   """
   def change_color(user_id, data) do
     Endpoint.broadcast!("online:#{user_id}", "new:change_color", %{data: data})
