@@ -57,19 +57,21 @@ defmodule KursonliKurs.EtsStorage.Chat do
   # end
 
   def insert_message(user_id, worker_id, message_map, type \\ "user") do
- if type == "city" do
-  table = {Ecto.UUID.generate(), user_id, Timex.now("Asia/Almaty"), user_id, message_map}
-  :logger.info("CHANNEL INSERT -> #{user_id}")
-  :dets.insert_new(
-    :chat,
-    table
-  )
-  table
- else
-  id = GeneralHelper.compare_workers_id(user_id, worker_id)
+    if type == "city" do
+      table = {Ecto.UUID.generate(), user_id, Timex.now("Asia/Almaty"), user_id, message_map}
+      :logger.info("CHANNEL INSERT -> #{user_id}")
 
-  :logger.info("CHANNEL INSERT -> #{ID}")
-  table = {Ecto.UUID.generate(), id, Timex.now("Asia/Almaty"), user_id, message_map}
+      :dets.insert_new(
+        :chat,
+        table
+      )
+
+      table
+    else
+      id = GeneralHelper.compare_workers_id(user_id, worker_id)
+
+      :logger.info("CHANNEL INSERT -> #{ID}")
+      table = {Ecto.UUID.generate(), id, Timex.now("Asia/Almaty"), user_id, message_map}
 
       :dets.insert_new(
         :chat,

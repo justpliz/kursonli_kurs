@@ -36,6 +36,10 @@ $(function () {
     .receive("error", (resp) => {
       console.log("Unable to join", resp);
     });
+    channelOnline.on("new:change_color", (payload) => {
+      console.log("payload", payload)
+      document.querySelector(`[data-etsid='${payload.data.ets_id}']`).dataset.type = payload.data.type_event
+    });
   channelOnline.on("leave", () => {
     console.log("LEAVE -------");
     localStorage.removeItem("worker");
@@ -91,13 +95,12 @@ $(function () {
 
     chatWrapper.insertAdjacentHTML("beforeend", html);
   };
-
+  console.log("USER SOCKET 123")
   const templateTagsInsert = (name, worker_id) => {
 
     const html = `<div
     class="text-xs flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center worker_click" data-id="${worker_id}"
     "}">
-
 
     ${name}
  </div>`;
@@ -124,6 +127,7 @@ $(function () {
   });
 
   channel.on("new:msg", (payload) => {
+    console.log("NEW MSG USER")
     const worker = getWorker();
 
     setTimeout(() => {
@@ -144,13 +148,11 @@ $(function () {
       }
     });
   });
-  channel.on("new:event", (payload) => {
-    meowMix.play();
-    templateEvent(payload);
-  });
+
   channel.on("new:order", (payload) => {
     templateNewOrder(payload.data)
   });
+ 
   channel.on("notify", (payload) => {
     audioObj.play();
     Toast.fire({
@@ -159,37 +161,4 @@ $(function () {
     });
   });
 });
-const templateEvent = (map) => {
-  const html = `
-  <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="${map.ets_id
-    }" data-type='${map.type_event}'>
-  <div class="text-gray-200">Ваш ордер на: ${map.item_order.volume}  ${map.item_order.currency_short_name
-    }    по курсу ${map.item_order.course_sale}  </div>
-  <div class="font-bold">Поступило предложение от ${map.item_order.worker_name
-    }: ${map.item_order.organization}</div>
-  <div class="text-gray-200">предложено ${map.volume} ${map.item_order.currency_short_name
-    } по курсу ${map.item_order.course_sale}
-  </div>
-  <div class="w-full bg-white text-black text-center py-2 my-2 rounded" >
-     Ваши условия: ${map.terms}
-  </div>
-  <div class="flex gap-2 buttons-event">
-     <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event" data-type="success"  data-item='${JSON.stringify(
-      map
-    )}'>Принять</button>
-     <button class="bg-red-600 rounded w-full py-2 items-center justify-center flex click-event" data-type="fail" data-item='${JSON.stringify(
-      map
-    )}'>Отклонить</button>
-  </div>
-</div>
-  `;
 
-  chatWrapper.insertAdjacentHTML("beforeend", html);
-  setTimeout(() => {
-    [
-      ...document
-        .querySelector(`[data-etsid="${map.ets_id}"]`)
-        .querySelectorAll(".click-event"),
-    ].forEach((e) => e.addEventListener("click", eventClick));
-  }, 100);
-};

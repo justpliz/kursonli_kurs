@@ -36,6 +36,12 @@ defmodule KursonliKursWeb.OnlineChannel do
   def order(user_id, data) do
     Endpoint.broadcast!("online:#{user_id}", "new:order", %{data: data})
   end
+  @doc """
+  # Отправляет order
+  """
+  def change_color(user_id, data) do
+    Endpoint.broadcast!("online:#{user_id}", "new:change_color", %{data: data})
+  end
 
   defp check_user(worker_id) do
     KursonliKurs.Context.Workers.all()

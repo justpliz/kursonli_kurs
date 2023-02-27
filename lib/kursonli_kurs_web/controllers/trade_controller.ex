@@ -44,7 +44,10 @@ defmodule KursonliKursWeb.TradeController do
         params["worker_id"],
         "Вам ответили на сделку!"
       )
-
+      KursonliKursWeb.OnlineChannel.change_color(
+        params["worker_id"],
+       %{type_event: params["type_event"], ets_id: params["ets_id"]}
+      )
       json(conn, %{item: item})
     else
       {:error, _reason} ->

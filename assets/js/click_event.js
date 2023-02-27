@@ -31,3 +31,4 @@ function helperType(type) {
   }
   return "Вы приняли сделку"
 }
+

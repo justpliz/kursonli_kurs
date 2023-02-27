@@ -21,7 +21,7 @@ export const handleClickWorker = async (event, socket) => {
   else {
     channelId = id + worker.id
   }
-  console.log(channelId)
+  console.log("channelId", channelId)
   if (id == getWorker().id) {
 
     toast.fire({
@@ -36,7 +36,6 @@ export const handleClickWorker = async (event, socket) => {
   let channel = socket.channel(`worker:${channelId}`, {
     worker_id: id
   });
-
 
   const result = await axios.get("/worker/chat", {
     params: {
@@ -55,17 +54,17 @@ export const handleClickWorker = async (event, socket) => {
     });
 
   result.data.chat_messages.forEach((el) => {
-
     if (worker.id == el.worker.id && el.type == "text") {
       templateChatYour(el.body, el.worker.first_name);
     } else if (worker.id != el.worker.id && el.type == "text") {
       templateChatNewMe(el.body, el.worker.first_name);
     }
-   else if (worker.id != el.worker_id && el.type == "event"){
-   
+    else if (worker.id != el.worker_id && el.type == "event") {
       templateEvent(el);
     }
-
+    else if (worker.id == el.worker_id && el.type == "event") {
+      templateEvent1(el);
+    }
   })
   const handleChat = (e) => {
     var key = e.which;
@@ -113,9 +112,11 @@ export const handleClickWorker = async (event, socket) => {
 
     chatWrapper.insertAdjacentHTML("beforeend", html);
   };
+
   chat.addEventListener("keydown", handleChat)
 
   channel.on("new:msg", (payload) => {
+    console.log("NEW MSG WORKER")
     const worker = getWorker();
     console.log(payload)
     setTimeout(() => {
@@ -129,33 +130,76 @@ export const handleClickWorker = async (event, socket) => {
   });
 
   channel.on("new:event", (payload) => {
-    console.log(payload)
+    console.log("NEW EVENT WORKER")
     meowMix.play();
     templateEvent(payload);
   });
+
+  channel.on("new:event", (payload) => {
+    console.log("NEW EVENT WORKER")
+    meowMix.play();
+    templateEvent1(payload);
+  });
 }
+
 const templateEvent = (map) => {
+  if (map.item_order.type == "sale") {
+    item_order_type = "Продажу"
+  } else {
+    item_order_type = "Покупку"
+  }
   const html = `
     <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="${map.ets_id
     }" data-type='${map.type_event}'>
-    <div class="text-gray-200">Ваш ордер на: ${map.item_order.volume}  ${map.item_order.currency_short_name
+    <div class="text-gray-200">На ваш ордер на ${item_order_type}: ${map.item_order.volume}  ${map.item_order.currency_short_name
     }    по курсу ${map.item_order.course_sale}  </div>
-    <div class="font-bold">Поступило предложение от ${map.item_order.worker_name
-    }: ${map.item_order.organization}</div>
+    <div class="font-bold">Поступило предложение от ${map.item_order.worker.first_name
+    }: ${map.item_order.worker.filial_name}</div>
     <div class="text-gray-200">предложено ${map.volume} ${map.item_order.currency_short_name
     } по курсу ${map.item_order.course_sale}
     </div>
     <div class="w-full bg-white text-black text-center py-2 my-2 rounded" >
-       Ваши условия: ${map.terms}
+       Ваши условия: ${map.item_order.terms}
+    </div>
+    <div class="w-full bg-white text-black text-center py-2 my-2 rounded" >
+       Условия от ${map.item_order.worker.filial_name}: ${map.terms}
     </div>
     <div class="flex gap-2 buttons-event">
-       <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event" data-type="success"  data-item='${JSON.stringify(
-      map
-    )}'>Принять</button>
-       <button class="bg-red-600 rounded w-full py-2 items-center justify-center flex click-event" data-type="fail" data-item='${JSON.stringify(
-      map
-    )}'>Отклонить</button>
+    <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event" data-type="success"  data-item='${JSON.stringify(map)}'>Принять</button>
+    <button class="bg-red-600 rounded w-full py-2 items-center justify-center flex click-event" data-type="fail" data-item='${JSON.stringify(map)}'>Отклонить</button>
+  </div>
+  </div>
+    `;
+
+  chatWrapper.insertAdjacentHTML("beforeend", html);
+  setTimeout(() => {
+    [
+      ...document
+        .querySelector(`[data-etsid="${map.ets_id}"]`)
+        .querySelectorAll(".click-event"),
+    ].forEach((e) => e.addEventListener("click", eventClick));
+  }, 100);
+};
+
+const templateEvent1 = (map) => {
+  if (map.item_order.type == "sale") {
+    item_order_type = "Продажу"
+  } else {
+    item_order_type = "Покупку"
+  }
+  const html = `
+    <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="${map.ets_id
+    }" data-type='${map.type_event}'>
+    <div class="text-gray-200">Вы приняли ордер на: ${map.item_order.volume}  ${map.item_order.currency_short_name
+    }    по курсу ${map.item_order.course_sale}  </div>
+    <div class="font-bold">ордер от ${map.item_order.worker_name
+    }: ${map.item_order.organization}</div>
+    <div class="text-gray-200">предложено ${map.volume} ${map.item_order.currency_short_name
+    } по курсу ${map.item_order.course_sale}
     </div>
+    <div class="w-full bg-white text-black text-center py-2 my-2 rounded waiting-for-confirmation">
+    Ожидает подтверждения...
+  </div>
   </div>
     `;
 
