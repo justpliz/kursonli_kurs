@@ -193,7 +193,7 @@ const templateEvent1 = (map) => {
     item_order_type = "Покупку"
   }
   const html = `
-    <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="${map.ets_id
+    <div class="w-full mt-2 bg-blub p-4 text-white rounded  event" data-loading="${map.type_event}" data-etsid="${map.ets_id
     }" data-type='${map.type_event}'>
     <div class="text-gray-200">Вы приняли ордер на: ${map.item_order.volume}  ${map.item_order.currency_short_name
     }    по курсу ${map.item_order.course_sale}  </div>
@@ -202,13 +202,17 @@ const templateEvent1 = (map) => {
     <div class="text-gray-200">предложено ${map.volume} ${map.item_order.currency_short_name
     } по курсу ${map.item_order.course_sale}
     </div>
-
+    <div class="w-full bg-white text-black text-center py-2 my-2 rounded loading-event d_none">
+      Ожидает подтверждения
+    </div>
+    <div class="w-full bg-white text-black text-center py-2 my-2 rounded active-event d_none">
+      Сделка успешно завершена
+    </div>
+    <div class="w-full bg-white text-black text-center py-2 my-2 rounded fail-event d_none">
+     Отказано
+    </div>
   </div>
     `;
-
-  //  <div class="w-full bg-white text-black text-center py-2 my-2 rounded waiting-for-confirmation">
-  //   Ожидает подтверждения
-  // </div>
 
   chatWrapper.insertAdjacentHTML("beforeend", html);
   setTimeout(() => {

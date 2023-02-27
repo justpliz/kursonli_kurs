@@ -39,11 +39,9 @@ $(function () {
     channelOnline.on("new:change_color", (payload) => {
       console.log("payload", payload)
       document.querySelector(`[data-etsid='${payload.data.ets_id}']`).dataset.type = payload.data.type_event
-      // if (data.type_event == "success"){
-      //   innerHTML("#change_wait_text") = "Успешно"
-      // } else {
-      //   innerHTML("#change_wait_text") = "Не Успешно"
-      // }
+      
+      document.querySelector(`[data-etsid='${payload.data.ets_id}']`).dataset.loading = payload.data.type_event
+     
     });
   channelOnline.on("leave", () => {
     console.log("LEAVE -------");

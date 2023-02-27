@@ -172,3 +172,17 @@
 [data-type="fail"] {
   @apply bg-red-500;
 }
+
+
+[data-type="active"] .loading-event{
+  display: block;
+}
+[data-type="success"] .active-event{
+  display: block;
+}
+[data-type="fail"] .fail-event{
+  display: block;
+}
+.d_none {
+  display: none;
+}
