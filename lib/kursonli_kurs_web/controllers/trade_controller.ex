@@ -9,9 +9,16 @@ defmodule KursonliKursWeb.TradeController do
   alias KursonliKurs.EtsStorage.Chat
 
   def create_trade(conn, params) do
+    IO.inspect(params, label: "PARMAS")
     item_map = params["item_order"] |> Jason.decode!()
-    session = get_session(conn, :worker)
-    params = params |> Map.delete("item_order") |> Map.put("item_order", item_map)
+
+    params =
+      params
+      |> Map.delete("item_order")
+      |> Map.put(
+        "item_order",
+        Map.put(item_map, "date", date_to_string_time(Timex.now("Asia/Almaty")))
+      )
 
     with {:ok, item} <- Trades.create(params) do
       item = item |> PwHelper.Normalize.repo()
@@ -55,10 +62,12 @@ defmodule KursonliKursWeb.TradeController do
         params["worker_id"],
         "Вам ответили на сделку!"
       )
+
       KursonliKursWeb.OnlineChannel.change_color(
         params["worker_id"],
-       %{type_event: params["type_event"], ets_id: params["ets_id"]}
+        %{type_event: params["type_event"], ets_id: params["ets_id"]}
       )
+
       json(conn, %{item: item})
     else
       {:error, _reason} ->
