@@ -10,11 +10,12 @@ defmodule KursonliKursWeb.TradeController do
 
   def create_trade(conn, params) do
     item_map = params["item_order"] |> Jason.decode!()
-
+    session = get_session(conn, :worker)
     params = params |> Map.delete("item_order") |> Map.put("item_order", item_map)
 
     with {:ok, item} <- Trades.create(params) do
       item = item |> PwHelper.Normalize.repo()
+      IO.inspect(item_map["worker"]["city"]["id"], label: "12333333")
 
       KursonliKursWeb.OnlineChannel.notification(
         item_map["worker_id"],
@@ -25,6 +26,16 @@ defmodule KursonliKursWeb.TradeController do
         "new:event",
         item_map,
         Map.merge(item, %{type: "event", type_event: "active"})
+      )
+
+      KursonliKursWeb.OnlineChannel.my_companions(
+        item_map["worker_id"],
+        item_map["worker"]["city"]["id"]
+      )
+
+      KursonliKursWeb.OnlineChannel.my_companions(
+        item_map["worker"]["id"],
+        item_map["worker"]["city"]["id"]
       )
 
       conn

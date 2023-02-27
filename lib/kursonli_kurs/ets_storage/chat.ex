@@ -57,20 +57,22 @@ defmodule KursonliKurs.EtsStorage.Chat do
   # end
 
   def insert_message(user_id, worker_id, message_map, type \\ "user") do
-    if type == "city" do
-      table = {Ecto.UUID.generate(), user_id, Timex.now("Asia/Almaty"), user_id, message_map}
-      :logger.info("CHANNEL INSERT -> #{user_id}")
+       if type == "city" do
+          table = {Ecto.UUID.generate(), user_id, Timex.now("Asia/Almaty"), user_id, message_map}
+          :logger.info("CHANNEL INSERT -> #{user_id}")
+
 
       :dets.insert_new(
-        :chat,
-        table
-      )
+            :chat,
+            table
+          )
+
 
       table
-    else
-      id = GeneralHelper.compare_workers_id(user_id, worker_id)
+       else
+          id = GeneralHelper.compare_workers_id(user_id, worker_id)
 
-      :logger.info("CHANNEL INSERT -> #{ID}")
+      :logger.info("CHANNEL INSERT -> #{id}")
       table = {Ecto.UUID.generate(), id, Timex.now("Asia/Almaty"), user_id, message_map}
 
       :dets.insert_new(
@@ -80,6 +82,19 @@ defmodule KursonliKurs.EtsStorage.Chat do
 
       table
     end
+  end
+
+  def get_chats_user(user_id, city_id) do
+    KursonliKurs.Context.Cities.get_all_users_by_city(city_id)
+    |> Enum.map(fn item ->
+      id = GeneralHelper.compare_workers_id(user_id, item.worker_id)
+      message = KursonliKurs.EtsStorage.Chat.get_all_by_city(id)
+
+      if message != [] do
+        Map.put(item, :channel_id, item.worker_id)
+      end
+    end)
+    |> Enum.filter(fn item -> item != nil end)
   end
 
   def get_all_by_city(worker_id) do

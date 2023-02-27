@@ -27,7 +27,7 @@ $("#accept").click(function () {
       title: "Вы не выбрали ордер",
       icon: "error",
       showConfirmButton: false,
-      timer: 3000,
+      timer: 5000,
       timerProgressBar: true,
     });
     return "";
@@ -170,7 +170,7 @@ $("#accept").click(function () {
       title: "Это ваш ордер!",
       icon: "error",
       showConfirmButton: false,
-      timer: 3000,
+      timer: 5000,
       timerProgressBar: true,
       didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)

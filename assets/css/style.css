@@ -396,3 +396,6 @@ body.swal2-shown {
     right: 0;
   }
 }
+#userConnect .active {
+  border: 2px solid blue;
+}

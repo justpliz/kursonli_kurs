@@ -15,19 +15,22 @@ defmodule KursonliKursWeb.ChatWorkerChannel do
   end
 
   def join("worker:" <> _private_subtopic, message, socket) do
-      {:ok, assign(socket, :receiver, message["worker_id"])}
+    IO.inspect(message)
+    {:ok, assign(socket, :receiver, message["worker_id"])}
   end
 
   def handle_in("new:msg", msg, socket) do
     broadcast!(socket, "new:msg", %{user: msg["worker"], body: msg["body"], type: "text"})
-
+    IO.inspect(msg)
     Chat.insert_message(msg["worker"]["id"], socket.assigns.receiver, msg)
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
 
   def new_event("new:event", item, map_msg) do
     compared_id = GeneralHelper.compare_workers_id(item["worker_id"], item["worker"]["id"])
-    {id, _, _, _user_id, message} = Chat.insert_message(item["worker_id"], item["worker"]["id"], map_msg)
+
+    {id, _, _, _user_id, message} =
+      Chat.insert_message(item["worker_id"], item["worker"]["id"], map_msg)
 
     Endpoint.broadcast!("worker:#{compared_id}", "new:event", Map.put(message, "ets_id", id))
   end
