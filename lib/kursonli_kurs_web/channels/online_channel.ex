@@ -9,15 +9,13 @@ defmodule KursonliKursWeb.OnlineChannel do
   end
 
   def join("online:" <> private_subtopic, message, socket) do
-    # IO.inspect(private_subtopic)
-    # if check_user(private_subtopic) do
-    IO.inspect(socket)
+    if check_user(private_subtopic) do
 
     send(self, {:after_join, message})
     {:ok, socket}
-    # else
-    #   {:error, %{reason: "user_not_found"}}
-    # end
+    else
+      {:error, %{reason: "user_not_found"}}
+    end
   end
 
   @doc """
