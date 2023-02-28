@@ -54,7 +54,10 @@ defmodule KursonliKursWeb.OnlineChannel do
     users = KursonliKurs.EtsStorage.Chat.get_chats_user(user_id, city_id) |> IO.inspect()
     Endpoint.broadcast!("online:#{user_id}", "user:entered", %{data: users})
   end
+  def click_channel(user_id, map) when is_map(map) do
 
+    Endpoint.broadcast!("online:#{user_id}", "new:click", map)
+  end
   defp check_user(worker_id) do
     KursonliKurs.Context.Workers.all()
     |> Enum.any?(fn x -> x.id == worker_id end)

@@ -52,7 +52,8 @@ defmodule KursonliKursWeb.RoomChannel do
   def handle_in("new:msg", msg, socket) do
     broadcast!(socket, "new:msg", %{user: msg["worker"], body: msg["body"], type: "text"})
 
-    Chat.insert_message(msg["worker"]["city"]["id"], msg["worker"]["id"], msg)
+    {id, _, _, _,_} = Chat.insert_message(msg["worker"]["city"]["id"], msg["worker"]["id"], msg)
+   
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
 

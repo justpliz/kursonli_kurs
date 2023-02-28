@@ -9,6 +9,7 @@ const meowMix = new Audio("/images/sound/notice.mp3");
 const audioObj = new Audio(
   "/images/sound/notice.mp3"
 );
+import { trigger } from "./helper/trigger";
 // audioObj.play()
 export const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"));
@@ -57,6 +58,12 @@ $(function () {
       timer: 5000,
       timerProgressBar: true,
     });
+  });
+  channelOnline.on("new:click", (payload) => {
+    const etsElement =  document.querySelector(`[data-tagsid="${payload.worker_id}"]`)
+    console.log("new:click")
+    setTimeout( _ => 
+      trigger( etsElement, `click` ), 1000 )
   });
   let channel = socket.channel(`rooms:${worker.city.id}`, { worker: worker });
   channel
@@ -110,7 +117,7 @@ $(function () {
     setTimeout(() => {
       const etsElement =  document.querySelector(`[data-tagsid="${worker_id}"]`)
       etsElement.addEventListener("click", async (e) => (
-        await handleClickWorker(e, socket, etsElement)
+        await handleClickWorker(e, socket)
       ))
 
     }, 100)

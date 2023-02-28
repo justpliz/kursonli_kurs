@@ -21,6 +21,7 @@ defmodule KursonliKursWeb.ChatWorkerChannel do
   def handle_in("new:msg", msg, socket) do
     broadcast!(socket, "new:msg", %{user: msg["worker"], body: msg["body"], type: "text"})
     Chat.insert_message(msg["worker"]["id"], socket.assigns.receiver, msg)
+    KursonliKursWeb.OnlineChannel.click_channel( socket.assigns.receiver, %{worker_id: msg["worker"]["id"]})
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
 
@@ -29,7 +30,7 @@ defmodule KursonliKursWeb.ChatWorkerChannel do
 
     {id, _, _, _user_id, message} =
       Chat.insert_message(item["worker_id"], item["worker"]["id"], map_msg)
-
+      KursonliKursWeb.OnlineChannel.click_channel( item["worker_id"], %{worker_id: item["worker"]["id"]})
     Endpoint.broadcast!("worker:#{compared_id}", "new:event", Map.put(message, "ets_id", id))
   end
 end
