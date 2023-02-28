@@ -276,7 +276,7 @@ defmodule KursonliKursWeb.WorkerController do
       Filials.get_last_date_for_course(filial_id)
       |> date_to_string_all()
 
-    visible_status = Filials.get(id: filial_id).visible_status
+      visible_course_status = Filials.get(id: filial_id).visible_course_status
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
 
@@ -285,7 +285,7 @@ defmodule KursonliKursWeb.WorkerController do
       courses_list: courses_list,
       last_date: last_date,
       instructions: instructions,
-      visible_status: visible_status
+      visible_course_status: visible_course_status
     )
   end
 
@@ -295,10 +295,10 @@ defmodule KursonliKursWeb.WorkerController do
   def update_course(conn, params) do
     filial_id = get_session(conn, :worker).filial_id
     change_all_filials = String.to_atom(params["change_all_filials"])
-    visible_status = String.to_atom(params["visible_status"])
+    visible_course_status = String.to_atom(params["visible_course_status"])
 
     params
-    |> Map.drop(["_csrf_token", "change_all_filials", "visible_status"])
+    |> Map.drop(["_csrf_token", "change_all_filials", "visible_course_status"])
     |> Enum.map(fn {k, v} -> {String.split(k, "|"), v} end)
     |> Enum.reduce(%{}, fn {[id, key], value}, acc ->
       Map.put(acc, id, Map.merge(Map.get(acc, id, %{}), %{key => value}))
@@ -308,7 +308,7 @@ defmodule KursonliKursWeb.WorkerController do
     end)
 
     {:ok, filial} = Filials.do_get(id: filial_id)
-    {:ok, _filial} = Filials.update(filial, %{visible_status: visible_status})
+    {:ok, _filial} = Filials.update(filial, %{visible_course_status: visible_course_status})
 
     conn
     |> put_flash(:info, "Курсы успешно обновлены")
@@ -403,6 +403,8 @@ defmodule KursonliKursWeb.WorkerController do
 
     tags = [params["wholesale_rate"], params["gold"]]
 
+    visible_website_status = params["visible_website_status"]
+
     opts = %{
       colors: colors,
       qualities: qualities,
@@ -415,7 +417,8 @@ defmodule KursonliKursWeb.WorkerController do
       subdomen: params["subdomen"],
       description: params["description"],
       tags: tags,
-      promo: promo
+      promo: promo,
+      visible_website_status: visible_website_status
     }
 
     with {:ok, setting} <- Settings.do_get(filial_id: filial_id),

@@ -17,7 +17,6 @@
     </div>
   </div>
 
-
   <div class="max-w-1440 mx-auto mb:px-2">
     <div class="flex py-8 mb:py-4 text-dblue">
       <%= for item <- @city_list do %>
@@ -116,9 +115,13 @@
                 <span class="font-bold text-sm mb:text-xs block">
                   <%= item.organization.name %>
                 </span>
-                <a href="personal?filial=<%= item.filial.id %>" class="font-bold text-xs mb:text-small underline">
+                <%= if item.setting.visible_website_status == true do %>
+                  <a href="personal?filial=<%= item.filial.id %>" class="font-bold text-xs mb:text-small underline">
+                    <%= item.filial.name %>
+                  </a>
+                <% else %>
                   <%= item.filial.name %>
-                </a>
+                <% end %>
                 <span class="block text-xs mb:text-small">
                   <%= item.filial.fililal_address %>
                 </span>

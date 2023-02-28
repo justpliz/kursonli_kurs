@@ -154,7 +154,7 @@ defmodule KursonliKurs.Context.Filials do
   def get_filial_by_city(city_id) do
     Repo.all(
       from f in Filial,
-        where: f.city_id == ^city_id and f.filial_active_status == :active and f.visible_status == :true,
+        where: f.city_id == ^city_id and f.filial_active_status == :active and f.visible_course_status == :true,
         left_join: s in Setting,
         on: s.filial_id == f.id,
         join: org in Organization,

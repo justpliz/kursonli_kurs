@@ -30,8 +30,8 @@
           </div>
 
           <div class="flex items-center justify-center">
-            <label for="visible_status" class="label_input pr-2">Сделать видимым</label>
-            <%= checkbox f, :visible_status, checked: @visible_status, class: "type_select rounded" %>
+            <label for="visible_course_status" class="label_input pr-2">Сделать видимым</label>
+            <%= checkbox f, :visible_course_status, checked: @visible_course_status, class: "type_select rounded" %>
           </div>
         </div>
       </div>

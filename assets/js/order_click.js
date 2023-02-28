@@ -79,6 +79,8 @@ $("#accept").click(function () {
     limitText = limit
   }
 
+  let limit1 = parseInt(limit.replace(/\s+/g, ''), 10);
+
   if (transfer == "red") {
     transferBlock = "red_circle"
   } else if (transfer == "green") {
@@ -90,7 +92,6 @@ $("#accept").click(function () {
   const element = document.createElement("trs");
   element.classList.add(transferBlock);
   document.body.appendChild(element);
-
 
   item.worker = getWorker();
   if (getWorker().id != worker_id) {
@@ -106,7 +107,7 @@ $("#accept").click(function () {
           <h1 class="title_modal_center">${modalTitle}<h1>
           <div class="pt-2">
             <label class="label_modal text-neutral-400 pos">${itemSaleH1}</label>
-            <input class="input_full number_input_only" id="volume_model" name="volume" required="true" type="text" maxlength="30">
+            <input class="input_full" id="volume_model" name="volume" required="true" type="number" oninput="maxLengthCheck(this)" maxlength="30" min="0" max="${limit1}">
           </div>
           <h3 class="pos gap-1"> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span></h3>
           <div class="pos py-4 text-2xl font-bold text-blub gap-1">
@@ -132,6 +133,15 @@ $("#accept").click(function () {
         <button type="submit" class="w-full btn_save">Подтвердить</button>
         <button class="w-full btn_cancel">Отменить</button>
         </div>
+        <script>
+  // This is an old version, for a more recent version look at
+  // https://jsfiddle.net/DRSDavidSoft/zb4ft1qq/2/
+  function maxLengthCheck(object)
+  {
+    if (object.value.length > object.maxLength)
+      object.value = object.value.slice(0, object.maxLength)
+  }
+</script>
       </form>
         `,
       willOpen: () => {

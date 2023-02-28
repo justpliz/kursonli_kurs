@@ -15,13 +15,11 @@ defmodule KursonliKursWeb.ChatWorkerChannel do
   end
 
   def join("worker:" <> _private_subtopic, message, socket) do
-    IO.inspect(message)
     {:ok, assign(socket, :receiver, message["worker_id"])}
   end
 
   def handle_in("new:msg", msg, socket) do
     broadcast!(socket, "new:msg", %{user: msg["worker"], body: msg["body"], type: "text"})
-    IO.inspect(msg)
     Chat.insert_message(msg["worker"]["id"], socket.assigns.receiver, msg)
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end

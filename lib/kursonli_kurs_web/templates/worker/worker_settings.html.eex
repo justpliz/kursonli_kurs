@@ -9,6 +9,12 @@
       </div>
       <div class="tab-content" id="tab1-content">
         <%= form_for @conn, Routes.worker_path(@conn, :update_setting), [multipart: true], fn f -> %>
+        <label class="label_input pt-2">
+          <div class="flex items-center justify-start">
+            <label for="visible_website_status" class="label_input pr-2">Сделать видимым вашу личную страницу</label>
+            <%= checkbox f, :visible_website_status, checked: @setting.visible_website_status, class: "type_select rounded" %>
+          </div>
+        </label>
         <label class="label_input pt-2">Загрузка логотипа (160x56)</label>
         <label class="input-file">
           <%= file_input f, :logo, value: @setting.logo, accept: ".png, .jpg" %>

@@ -132,19 +132,21 @@ export const handleClickWorker = async (event, socket) => {
     } else {
       templateChatNewMe(payload.body, payload.user.first_name);
     }
+    meowMix.play();
   });
 
   channel.on("new:event", (payload) => {
     console.log("NEW EVENT WORKER")
+     if (payload.worker_id != worker.id ) {
+      templateEvent(payload);
+     }
+     else {
+      templateEvent1(payload);
+     }
     meowMix.play();
-    templateEvent(payload);
+  
   });
 
-  channel.on("new:event", (payload) => {
-    console.log("NEW EVENT WORKER")
-    meowMix.play();
-    templateEvent1(payload);
-  });
 }
 
 const templateEvent = (map) => {

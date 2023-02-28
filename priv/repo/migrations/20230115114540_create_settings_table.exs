@@ -18,6 +18,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateSettingsTable do
       add :qualities, :jsonb
       add :colors, :jsonb
       add :promo, :jsonb
+      add :visible_website_status, :boolean, default: :false, null: false
 
       add :filial_id, references(:filials, type: :uuid, on_delete: :nothing)
     end
