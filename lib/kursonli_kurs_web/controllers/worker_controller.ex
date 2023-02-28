@@ -257,6 +257,7 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def delete_order(conn, %{"id" => id}) do
     with {:ok, order} <- Orders.do_get(id: id),
+          {_count, _trades} <- Trades.delete_all(order.id),
          {:ok, _order} <- Orders.delete(order) do
       conn
       |> put_flash(:info, "Ордер удалён")

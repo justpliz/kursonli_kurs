@@ -44,6 +44,9 @@
             <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
               Статус сделки
             </th>
+            <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
+              Управление
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -86,6 +89,12 @@
               </td>
               <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
                 <%= KursonliKursWeb.GeneralHelper.normalize_status_trade(item.status) %>
+              </td>
+              <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
+                <button class="accept_delete_adopted_trade styles_none"
+                  data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                 <span class="material-symbols-outlined" style="color:red; font-weight: 900;">delete</span>
+                </button>
               </td>
             </tr>
           <% end %>

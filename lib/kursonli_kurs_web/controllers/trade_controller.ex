@@ -79,4 +79,13 @@ defmodule KursonliKursWeb.TradeController do
         })
     end
   end
+
+  def delete_trade(conn, %{"id" => id}) do
+    with {:ok, trade} <- Trades.do_get(id: id),
+         {:ok, _trade} <- Trades.delete(trade) do
+      conn
+      |> put_flash(:info, "Сделка успешно удалена")
+      |> redirect(to: "/worker/orders")
+    end
+  end
 end

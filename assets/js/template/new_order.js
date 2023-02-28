@@ -3,7 +3,6 @@ import { order_click } from "../order_click"
 export const templateNewOrder = (item) => {
     const templateTransfer = () => {
 
-
         if (item.transfer == "green") {
             return `  <div name="order_tranfer" id=" item.transfer " class="green_circle"></div>`
         }

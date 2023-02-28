@@ -134,8 +134,6 @@ $("#accept").click(function () {
         <button class="w-full btn_cancel">Отменить</button>
         </div>
         <script>
-  // This is an old version, for a more recent version look at
-  // https://jsfiddle.net/DRSDavidSoft/zb4ft1qq/2/
   function maxLengthCheck(object)
   {
     if (object.value.length > object.maxLength)

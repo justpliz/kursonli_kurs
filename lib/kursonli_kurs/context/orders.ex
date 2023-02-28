@@ -5,7 +5,7 @@ defmodule KursonliKurs.Context.Orders do
   use KursonliKurs.Context
 
   alias KursonliKurs.Model.{Order, Currency, Filial, Organization}
-  alias KursonliKurs.Context.{Courses, Filials}
+  alias KursonliKurs.Context.{Courses, Filials, Trades}
 
   require Logger
 
@@ -86,9 +86,10 @@ defmodule KursonliKurs.Context.Orders do
     )
     |> Repo.all()
     |> PwHelper.Normalize.repo()
+    |> check_order_view
   end
 
-  def order_one(id,city_id) do
+  def order_one(id, city_id) do
     from(
       order in Order,
       where: order.id == ^id,
@@ -120,5 +121,12 @@ defmodule KursonliKurs.Context.Orders do
       }
     )
     |> Repo.one()
+  end
+
+  def check_order_view(order_list) do
+    Enum.reduce(order_list, [], fn order, acc ->
+      trades = Trades.all(order_id: order.id, status: :success)
+      if trades == [], do: [order | acc], else: acc
+    end)
   end
 end

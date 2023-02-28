@@ -61,6 +61,7 @@ defmodule KursonliKursWeb.Router do
   scope "/trades", KursonliKursWeb do
     pipe_through [:browser]
     post "/", TradeController, :create_trade
+    get "/delete", TradeController, :delete_trade
   end
 
   scope "/admin", KursonliKursWeb do

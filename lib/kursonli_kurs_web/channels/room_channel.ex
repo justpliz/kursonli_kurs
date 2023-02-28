@@ -52,8 +52,8 @@ defmodule KursonliKursWeb.RoomChannel do
   def handle_in("new:msg", msg, socket) do
     broadcast!(socket, "new:msg", %{user: msg["worker"], body: msg["body"], type: "text"})
 
-    {id, _, _, _,_} = Chat.insert_message(msg["worker"]["city"]["id"], msg["worker"]["id"], msg)
-   
+    {_id, _, _, _, _} = Chat.insert_message(msg["worker"]["city"]["id"], msg["worker"]["id"], msg)
+
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
 
@@ -62,8 +62,11 @@ defmodule KursonliKursWeb.RoomChannel do
   end
 
   def order(order, city_id) do
-    Endpoint.broadcast!("rooms:#{city_id}", "new:order", %{data: order |>  PwHelper.Normalize.repo()})
+    Endpoint.broadcast!("rooms:#{city_id}", "new:order", %{
+      data: order |> PwHelper.Normalize.repo()
+    })
   end
+
   def new_event("new:event", city_id, map_msg) do
     {id, _, _, _user_id, message} = Chat.insert_message(map_msg[:worker_id], city_id, map_msg)
 

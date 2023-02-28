@@ -33,6 +33,10 @@ defmodule KursonliKurs.Context.Trades do
     Repo.delete(trade)
   end
 
+  def delete_all(order_id) do
+    from(t in Trade, where: t.order_id == ^order_id) |> Repo.delete_all
+  end
+
   @doc false
 
   def update(trade, params) do
