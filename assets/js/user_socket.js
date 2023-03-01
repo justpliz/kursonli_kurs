@@ -176,14 +176,18 @@ $(function () {
     item.innerHTML = template.inner
   });
   channel.on("delete:order", (payload) => {
-    const item = document.querySelector(`[identifier="${payload.data.id}"]`);
-    item.remove()
+    deleteOrder(payload.data.id)
   });
   channel.on("update:trade", (payload) => {
     console.log("update:trade", payload)
     const item = document.querySelector(`[identifier="${payload.data.id}"]`);
     const template = templateUpdateTrade(payload.data)
     item.innerHTML = template.inner
+    console.log("payload", payload)
+    if (payload.data.status == "success") {
+      deleteOrder(payload.data.item_order.id)
+    }
+    // TODO При успехе отказ для других
   });
   channel.on("notify", (payload) => {
     audioObj.play();
@@ -194,3 +198,8 @@ $(function () {
   });
 });
 
+function deleteOrder(id) {
+  console.log("id", id)
+  const item = document.querySelector(`[identifier="${id}"]`);
+  item.remove()
+}

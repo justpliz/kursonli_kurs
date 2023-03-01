@@ -22,7 +22,7 @@ export const templateUpdateTrade = (item) => {
   const templateType = () => {
     if (item.item_order.type == "sale") {
       return `Продажa`
-    } else if (item.item_order.status == "purchase") {
+    } else if (item.item_order.type == "purchase") {
       return `Продажa`
     }
   }
