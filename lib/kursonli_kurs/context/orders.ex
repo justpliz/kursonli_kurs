@@ -103,22 +103,18 @@ defmodule KursonliKurs.Context.Orders do
       select: %{
         id: order.id,
         organization: org.name,
-        filial_name: filial.name,
         type: order.type,
         filial: filial,
-        filial_id: order.filial_id,
-        fililal_address: filial.fililal_address,
+        currency: c,
         date: order.date,
         volume: order.volume,
         limit: order.limit,
         terms: order.terms,
         transfer: order.transfer,
         worker_id: order.worker_id,
-        currency_short_name: c.short_name,
         worker_name: order.worker_name,
         worker_phone: order.worker_phone,
-        course_sale: order.course,
-        color: c.color
+        course: order.course,
       }
     )
     |> Repo.one()

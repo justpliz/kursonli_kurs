@@ -44,7 +44,7 @@ defmodule KursonliKursWeb.OnlineChannel do
   end
 
   def my_companions(user_id, city_id) do
-    users = KursonliKurs.EtsStorage.Chat.get_chats_user(user_id, city_id) |> IO.inspect()
+    users = KursonliKurs.EtsStorage.Chat.get_chats_user(user_id, city_id)
     Endpoint.broadcast!("online:#{user_id}", "user:entered", %{data: users})
   end
   def click_channel(user_id, map) when is_map(map) do

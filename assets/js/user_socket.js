@@ -163,7 +163,7 @@ $(function () {
   });
 
   channel.on("new:order", (payload) => {
-    console.log(payload)
+    console.log("new:order", payload)
     const template = templateNewOrder(payload.data)
     document.querySelector(`#${template.type}_table`).insertAdjacentHTML("beforeend", template.template);
     setTimeout(() => {
@@ -171,23 +171,20 @@ $(function () {
     }, 100)
   });
   channel.on("update:order", (payload) => {
-    console.log(payload)
+    console.log("update:order", payload)
     const item = document.querySelector(`[identifier="${payload.data.id}"]`);
     const template = templateNewOrder(payload.data)
     item.innerHTML = template.inner
-    table.querySelector(`[data-id='${payload.id}'] .status`).textContent = "Успешно";
   });
   channel.on("delete:order", (payload) => {
     const item = document.querySelector(`[identifier="${payload.data.id}"]`);
     item.remove()
   });
   channel.on("update:trade", (payload) => {
-    console.log("na meste")
     console.log("update:trade", payload)
     const item = document.querySelector(`[identifier="${payload.data.id}"]`);
     const template = templateUpdateTrade(payload.data)
     item.innerHTML = template.inner
-    // table.querySelector(`[data-id='${payload.id}'] .status`).textContent = "Успешно";
   });
   channel.on("notify", (payload) => {
     audioObj.play();

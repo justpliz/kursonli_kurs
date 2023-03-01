@@ -25,19 +25,8 @@ defmodule KursonliKursWeb.RoomChannel do
     end
   end
 
-  # def online_event(socket) do
-  #   city_id = socket.assigns[:user]["city"]["id"] |> String.to_integer
-  #   IO.inspect(city_id)
-  #   users = KursonliKurs.EtsStorage.Chat.get_chats_user(socket.assigns[:user]["id"],city_id )
-
-  #   broadcast!(socket, "user:entered", %{
-  #     online_users: users
-  #   })
-  # end
 
   def handle_info({:after_join, _msg}, socket) do
-    # online_event(socket)
-
     push(socket, "join", %{status: "connected"})
     {:noreply, socket}
   end
@@ -86,7 +75,6 @@ defmodule KursonliKursWeb.RoomChannel do
   def update_trade(trade, city_id) do
     Endpoint.broadcast!("rooms:#{city_id}", "update:trade", %{
       data: trade |> PwHelper.Normalize.repo()
-      |> IO.inspect(label: "room_channel")
     })
   end
 

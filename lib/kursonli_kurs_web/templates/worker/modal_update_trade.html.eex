@@ -1,12 +1,12 @@
 <script>
    $(".accept_update_trade").click(function () {
          const { id, type, currency, course, limit, volume, terms, transfer } = JSON.parse(this.dataset.map)
+         console.log(this.dataset.map)
          Modalka.fire({
          showConfirmButton: false,
          showCancelButton: false,
          showCloseButton: true,
          willOpen: (toast) => {
-            document.querySelector(`#${type}`).setAttribute("checked", true);
             document.querySelector(`#transfer${transfer}`).setAttribute("checked", true);
          },
          html: `
@@ -15,16 +15,7 @@
          <%= form_for @conn, Routes.worker_path(@conn, :update_order), fn f -> %>
            
             <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
-
-            <label class="label_input pos">Тип</label>
-               <%= for item <- check_config("order_type") do %>
-                 <div class="container_select">
-                   <input required name="order_type" id="<%= item %>" value="<%= item %>" type="radio" class="type_select" required>
-                   <label class="label_select" for="<%= item %>">
-                     <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item, :single) %>
-                   </label>
-                 </div>
-               <% end %>
+            <input class="hidden" id="order_type" value="${type}" name="order_type" required="true" type="text">
 
             <label class="label_input pos" for="price">Валюта</label>
             <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), value: "${currency}", class: "input_full", required: "true" %>

@@ -12,16 +12,16 @@ export const templateNewOrder = (item) => {
 
   const inner = `
   <td class="px-6 2xl:px-2 py-2">
-     ${item.filial_name} 
+     ${item.filial.name} 
   </td>
   <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
     ${item.date}
   </td>
   <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
-     ${item.currency_short_name} 
+     ${item.currency.short_name} 
   </td>
   <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
-     ${item.course_sale}
+     ${item.course}
   </td>
   <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
      ${item.volume}
@@ -34,7 +34,7 @@ export const templateNewOrder = (item) => {
   </td>`
 
   const template = `
-  <tr class="order-click text-black" data-item='${JSON.stringify(item)}' identifier='${item.id}' style="background-color: ${item.color}">
+  <tr class="order-click text-black" data-item='${JSON.stringify(item)}' identifier='${item.id}' style="background-color: ${item.currency.color}">
   ${inner}
   </tr>
     `
