@@ -108,12 +108,11 @@ $(function () {
   };
   console.log("USER SOCKET 123")
   const templateTagsInsert = (name, worker_id) => {
-
     const html = `<div
     class="text-xs flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center worker_click" data-tagsid="${worker_id}"
     "}">
 
-    ${name}
+    ${worker.filial_name}
  </div>`;
     setTimeout(() => {
       const etsElement = document.querySelector(`[data-tagsid="${worker_id}"]`)

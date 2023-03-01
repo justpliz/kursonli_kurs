@@ -45,6 +45,7 @@ $("#accept").click(function () {
     organization,
     terms,
     volume,
+    filial_name,
     transfer,
     limit,
     type,
@@ -107,7 +108,7 @@ $("#accept").click(function () {
           <h1 class="title_modal_center">${modalTitle}<h1>
           <div class="pt-2">
             <label class="label_modal text-neutral-400 pos">${itemSaleH1}</label>
-            <input class="input_full" id="volume_model" name="volume" required="true" type="number" maxlength="30" min="0" max="${limit1}">
+            <input class="input_full" id="volume_model" name="volume" required="true" type="number" oninput="maxLengthCheck(this)" maxlength="30" min="0" max="${limit1}">
           </div>
           <h3 class="pos gap-1"> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span></h3>
           <div class="pos py-4 text-2xl font-bold text-blub gap-1">
