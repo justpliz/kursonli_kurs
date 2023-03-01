@@ -61,9 +61,32 @@ defmodule KursonliKursWeb.RoomChannel do
     Endpoint.broadcast!("rooms:#{city_id}", "notify", %{notify: notify})
   end
 
+  # Добавление нового ордера
   def order(order, city_id) do
     Endpoint.broadcast!("rooms:#{city_id}", "new:order", %{
       data: order |> PwHelper.Normalize.repo()
+    })
+  end
+
+  # Обновление ордера
+  def update_order(order, city_id) do
+    Endpoint.broadcast!("rooms:#{city_id}", "update:order", %{
+      data: order |> PwHelper.Normalize.repo()
+    })
+  end
+
+  # Изменение ордера
+  def delete_order(order, city_id) do
+    Endpoint.broadcast!("rooms:#{city_id}", "delete:order", %{
+      data: order |> PwHelper.Normalize.repo()
+    })
+  end
+
+  # Обновление статуса сделки
+  def update_trade(trade, city_id) do
+    Endpoint.broadcast!("rooms:#{city_id}", "update:trade", %{
+      data: trade |> PwHelper.Normalize.repo()
+      |> IO.inspect(label: "room_channel")
     })
   end
 

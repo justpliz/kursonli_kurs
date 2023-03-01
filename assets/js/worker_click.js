@@ -144,7 +144,6 @@ export const handleClickWorker = async (event, socket) => {
       templateEvent1(payload);
      }
     meowMix.play();
-  
   });
 
 }
@@ -156,7 +155,7 @@ const templateEvent = (map) => {
     item_order_type = "Покупку"
   }
   const html = `
-    <div class="w-full mt-2 bg-blub p-4 text-white rounded  event"  data-etsid="${map.ets_id
+    <div class="w-full mt-2 bg-blub p-4 text-white rounded event" data-etsid="${map.ets_id
     }" data-type='${map.type_event}'>
     <div class="text-gray-200">На ваш ордер на ${item_order_type}: ${map.item_order.volume}  ${map.item_order.currency_short_name
     }    по курсу ${map.item_order.course_sale}  </div>
@@ -195,7 +194,7 @@ const templateEvent1 = (map) => {
     item_order_type = "Покупку"
   }
   const html = `
-    <div class="w-full mt-2 bg-blub p-4 text-white rounded  event" data-loading="${map.type_event}" data-etsid="${map.ets_id
+    <div class="w-full mt-2 bg-blub p-4 text-white rounded event" data-loading="${map.type_event}" data-etsid="${map.ets_id
     }" data-type='${map.type_event}'>
     <div class="text-gray-200">Вы приняли ордер на: ${map.item_order.volume}  ${map.item_order.currency_short_name
     }    по курсу ${map.item_order.course_sale}  </div>

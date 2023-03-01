@@ -121,7 +121,8 @@ defmodule KursonliKurs.EtsStorage.Chat do
   def update_by_id_message(id, message_params) do
     with {:ok, {x, y, z, j, object_message_map} = _item} <- get_by_id(id) do
       new_map = object_message_map |> Map.merge(message_params)
-      {:ok, :dets.insert(:chat, {x, y, z, j, new_map})}
+      :dets.insert(:chat, {x, y, z, j, new_map})
+      {:ok, new_map}
     end
   end
 

@@ -185,7 +185,6 @@ defmodule KursonliKursWeb.WorkerController do
   def create_order(conn, _params) do
     currencies_list = Currencies.all()
 
-    # OnlineChannel.order()
     conn
     |> render("worker_orders.html", currencies_list: currencies_list)
   end
@@ -246,6 +245,8 @@ defmodule KursonliKursWeb.WorkerController do
 
     with {:ok, order} <- Orders.do_get(id: params["id"]),
          {:ok, order} <- Orders.update(order, opts) do
+
+          RoomChannel.update_order(order, session.city.id)
       conn
       |> put_flash(:info, "Ордер #{order.number} обновлен")
       |> redirect(to: "/worker/orders")
@@ -256,9 +257,12 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/delete_order
   """
   def delete_order(conn, %{"id" => id}) do
+    session = get_session(conn, :worker)
+
     with {:ok, order} <- Orders.do_get(id: id),
           {_count, _trades} <- Trades.delete_all(order.id),
          {:ok, _order} <- Orders.delete(order) do
+          RoomChannel.delete_order(order, session.city.id)
       conn
       |> put_flash(:info, "Ордер удалён")
       |> redirect(to: "/worker/orders")

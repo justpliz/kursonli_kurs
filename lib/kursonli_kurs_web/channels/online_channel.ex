@@ -36,13 +36,6 @@ defmodule KursonliKursWeb.OnlineChannel do
   def notification(user_id, message) do
     Endpoint.broadcast!("online:#{user_id}", "notification", %{message: message})
   end
-
-  @doc """
-  # Отправляет order
-  """
-  def order(user_id, data) do
-    Endpoint.broadcast!("online:#{user_id}", "new:order", %{data: data})
-  end
   @doc """
   # Меняет цвет ивента
   """

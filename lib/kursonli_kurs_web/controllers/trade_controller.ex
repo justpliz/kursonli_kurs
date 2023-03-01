@@ -5,11 +5,10 @@ defmodule KursonliKursWeb.TradeController do
   alias KursonliKurs.Context.{
     Trades
   }
-
+  alias KursonliKursWeb.RoomChannel
   alias KursonliKurs.EtsStorage.Chat
 
   def create_trade(conn, params) do
-    IO.inspect(params, label: "PARMAS")
     item_map = params["item_order"] |> Jason.decode!()
 
     params =
@@ -22,7 +21,6 @@ defmodule KursonliKursWeb.TradeController do
 
     with {:ok, item} <- Trades.create(params) do
       item = item |> PwHelper.Normalize.repo()
-      IO.inspect(item_map["worker"]["city"]["id"], label: "12333333")
 
       KursonliKursWeb.OnlineChannel.notification(
         item_map["worker_id"],
@@ -53,21 +51,22 @@ defmodule KursonliKursWeb.TradeController do
 
   def ajax_update_message_map(conn, params) do
     with item_trade <- Trades.get(id: params["id"]),
-         _item_trad_up <-
+         {:ok, item_trad_up} <-
            Trades.update(item_trade, %{
              status: params["type_event"]
            }),
          {:ok, item} <- Chat.update_by_id_message(params["ets_id"], params) do
+
       KursonliKursWeb.OnlineChannel.notification(
         params["worker_id"],
         "Вам ответили на сделку!"
       )
+      RoomChannel.update_trade(item_trad_up, item_trade.item_order["filial"]["city_id"])
 
       KursonliKursWeb.OnlineChannel.change_color(
         params["worker_id"],
         %{type_event: params["type_event"], ets_id: params["ets_id"]}
       )
-
       json(conn, %{item: item})
     else
       {:error, _reason} ->

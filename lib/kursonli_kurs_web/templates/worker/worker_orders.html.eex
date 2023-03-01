@@ -9,9 +9,7 @@
         <span class="pl-4 text-neutral-400 address"></span>
       </div>
     </div>
-    <%= if Enum.count(@order_list_sale)==0 do %>
-      <div class="font-medium text-red-400">Нет доступных ордеров на продажу!</div>
-    <% else %>
+
       <div class="relative max-h-58 2xl:max-h-48 overflow-x-auto text-xs shadow-md rounded-xl">
         <table class="table-fixed sm:table-auto w-full text-left text-gray-500 relative">
           <thead class="text-gray-700 uppercase bg-white w-full sticky left-0 right-0 top-0">
@@ -41,8 +39,8 @@
           </thead>
           <tbody id="sale_table">
             <%= for item <- @order_list_sale do %>
-              <tr class="order-click text-black" data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>'
-                    style="background: <%= item.color %>;">
+              <tr class="order-click text-black" identifier='<%= item.id %>' data-item='<%= Jason.encode!(Map.put(item, :type, "sale")) %>'
+                    style="background-color: <%= item.color %>">
                 <td class="px-6 2xl:px-2 py-2">
                   <%= item.filial_name %>
                 </td>
@@ -76,11 +74,8 @@
           </tbody>
         </table>
       </div>
-    <% end %>
     <h1 class="title_small mb-2 mt-4">Ордера на покупку</h1>
-    <%= if Enum.count(@order_list_purchase)==0 do %>
-      <div class="font-medium text-red-400">Нет доступных ордеров на покупку!</div>
-    <% else %>
+
       <div class="relative max-h-58 2xl:max-h-48 overflow-x-auto text-xs shadow-md rounded-xl">
         <table class="table-fixed sm:table-auto w-full text-left text-gray-500">
           <thead class="text-gray-700 uppercase bg-white w-full sticky left-0 right-0 top-0">
@@ -110,8 +105,8 @@
           </thead>
           <tbody id="purchase_table">
             <%= for item <- @order_list_purchase do %>
-              <tr class="order-click text-black" data-item='<%= Jason.encode!(Map.put(item, :type, "purchase")) %>'
-                          style="background: <%= item.color %>;">
+              <tr class="order-click text-black" identifier='<%= item.id %>' data-item='<%= Jason.encode!(Map.put(item, :type, "purchase")) %>'
+                    style="background-color: <%= item.color %>">
                 <td class="px-6 2xl:px-2 py-2">
                   <%= item.filial_name %>
                 </td>
@@ -146,7 +141,6 @@
           </tbody>
         </table>
       </div>
-    <% end %>
     <%= render(KursonliKursWeb.WorkerView, "worker_orders_two.html" , conn: @conn, trades: @trades,
                     my_trades: @my_trades) %>
     <div class="chat sm:hidden">

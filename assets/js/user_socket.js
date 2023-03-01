@@ -2,8 +2,9 @@
 // you uncomment its entry in "assets/js/app.js".
 import { Socket } from "phoenix";
 // Bring in Phoenix channels client library:
-import { eventClick } from "./click_event";
+import { order_click } from "./order_click";
 import { templateNewOrder } from "./template/new_order";
+import { templateUpdateTrade } from "./template/trade";
 import { handleClickWorker } from "./worker_click";
 const meowMix = new Audio("/images/sound/notice.mp3");
 const audioObj = new Audio(
@@ -37,13 +38,13 @@ $(function () {
     .receive("error", (resp) => {
       console.log("Unable to join", resp);
     });
-    channelOnline.on("new:change_color", (payload) => {
-      console.log("payload", payload)
-      document.querySelector(`[data-etsid='${payload.data.ets_id}']`).dataset.type = payload.data.type_event
-      
-      document.querySelector(`[data-etsid='${payload.data.ets_id}']`).dataset.loading = payload.data.type_event
-     
-    });
+  channelOnline.on("new:change_color", (payload) => {
+    console.log("new:change_color", payload)
+    document.querySelector(`[data-etsid='${payload.data.ets_id}']`).dataset.type = payload.data.type_event
+
+    document.querySelector(`[data-etsid='${payload.data.ets_id}']`).dataset.loading = payload.data.type_event
+
+  });
   channelOnline.on("leave", () => {
     console.log("LEAVE -------");
     localStorage.removeItem("worker");
@@ -60,10 +61,10 @@ $(function () {
     });
   });
   channelOnline.on("new:click", (payload) => {
-    const etsElement =  document.querySelector(`[data-tagsid="${payload.worker_id}"]`)
+    const etsElement = document.querySelector(`[data-tagsid="${payload.worker_id}"]`)
     console.log("new:click")
-    setTimeout( _ => 
-      trigger( etsElement, `click` ), 1000 )
+    setTimeout(_ =>
+      trigger(etsElement, `click`), 1000)
   });
   let channel = socket.channel(`rooms:${worker.city.id}`, { worker: worker });
   channel
@@ -115,7 +116,7 @@ $(function () {
     ${name}
  </div>`;
     setTimeout(() => {
-      const etsElement =  document.querySelector(`[data-tagsid="${worker_id}"]`)
+      const etsElement = document.querySelector(`[data-tagsid="${worker_id}"]`)
       etsElement.addEventListener("click", async (e) => (
         await handleClickWorker(e, socket)
       ))
@@ -162,9 +163,32 @@ $(function () {
   });
 
   channel.on("new:order", (payload) => {
-    templateNewOrder(payload.data)
+    console.log(payload)
+    const template = templateNewOrder(payload.data)
+    document.querySelector(`#${template.type}_table`).insertAdjacentHTML("beforeend", template.template);
+    setTimeout(() => {
+      document.querySelector(`[identifier="${payload.data.id}"]`).addEventListener("click", order_click)
+    }, 100)
   });
- 
+  channel.on("update:order", (payload) => {
+    console.log(payload)
+    const item = document.querySelector(`[identifier="${payload.data.id}"]`);
+    const template = templateNewOrder(payload.data)
+    item.innerHTML = template.inner
+    table.querySelector(`[data-id='${payload.id}'] .status`).textContent = "Успешно";
+  });
+  channel.on("delete:order", (payload) => {
+    const item = document.querySelector(`[identifier="${payload.data.id}"]`);
+    item.remove()
+  });
+  channel.on("update:trade", (payload) => {
+    console.log("na meste")
+    console.log("update:trade", payload)
+    const item = document.querySelector(`[identifier="${payload.data.id}"]`);
+    const template = templateUpdateTrade(payload.data)
+    item.innerHTML = template.inner
+    // table.querySelector(`[data-id='${payload.id}'] .status`).textContent = "Успешно";
+  });
   channel.on("notify", (payload) => {
     audioObj.play();
     Toast.fire({

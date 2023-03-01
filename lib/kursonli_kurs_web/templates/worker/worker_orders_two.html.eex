@@ -49,9 +49,9 @@
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="adopted_table">
           <%= for item <- @trades do %>
-            <tr class="bg-white text-black" data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>'
+            <tr class="bg-white text-black" identifier='<%= item.id %>' data-item='<%= Jason.encode!(Map.put(item, :type, "purshare")) %>'
                 style="background: <%= item.item_order[" color"] %>;">
               <td class="px-6 2xl:px-2 py-2">
                 <%= KursonliKursWeb.GeneralHelper.normalize_order_type(item.item_order["type"], :single) %>
@@ -140,7 +140,7 @@
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="made_table">
           <%= for item <- @my_trades do %>
             <tr class="bg-white text-black" data-item='<%= item |> Jason.encode!() %>'
                 style="background: <%= item.currency.color %>;">
