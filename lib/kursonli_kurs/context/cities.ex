@@ -63,7 +63,8 @@ defmodule KursonliKurs.Context.Cities do
       on: w.filial_id == f.id,
       select: %{
         worker_id: w.id,
-        worker_name: w.name
+        worker_name: w.name,
+        filial_name: f.name
       }
     )
     |> Repo.all
