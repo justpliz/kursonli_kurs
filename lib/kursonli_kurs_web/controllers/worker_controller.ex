@@ -246,12 +246,15 @@ defmodule KursonliKursWeb.WorkerController do
     }
 
     with {:ok, order} <- Orders.do_get(id: params["id"]),
-         {:ok, order} <- Orders.update(order, opts) do
-      # TODO надо для того чтобы вытоматически отображать при обновлении
+         {:ok, order} <- Orders.update(order, opts),
+         {:ok, order} <- Orders.do_get(id: order.id) do
+          IO.inspect(order)
+      # TODO надо для того чтобы автоматически отображать при обновлении
       order =
         order
         |> Map.put(:course_sale, order.course)
         |> Map.put(:currency_short_name, order.currency.short_name)
+        |> Map.put(:color, order.currency.color)
 
       RoomChannel.update_order(order, session.city.id)
 

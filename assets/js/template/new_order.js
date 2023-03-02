@@ -9,7 +9,7 @@ export const templateNewOrder = (item) => {
   }
     return `<div name="order_tranfer" id="item.transfer" class="transition-all colors"></div>`
   }
-
+  console.log("item", item)
   const inner = `
   <td class="px-6 2xl:px-2 py-2">
      ${item.filial.name} 
@@ -38,5 +38,5 @@ export const templateNewOrder = (item) => {
   ${inner}
   </tr>
     `
-    return {template: template, inner: inner, type: item.type};
+    return {template: template, inner: inner, type: item.type, color: item.color};
 }

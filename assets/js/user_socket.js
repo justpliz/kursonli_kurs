@@ -171,6 +171,7 @@ $(function () {
     console.log("update:order", payload)
     const item = document.querySelector(`[identifier="${payload.data.id}"]`);
     const template = templateNewOrder(payload.data)
+    item.style.backgroundColor = template.color
     item.innerHTML = template.inner
   });
   channel.on("delete:order", (payload) => {
@@ -180,6 +181,7 @@ $(function () {
     console.log("update:trade", payload)
     const item = document.querySelector(`[identifier="${payload.data.id}"]`);
     const template = templateUpdateTrade(payload.data)
+    item.style.backgroundColor = template.color
     item.innerHTML = template.inner
     console.log("payload", payload)
     if (payload.data.status == "success") {
