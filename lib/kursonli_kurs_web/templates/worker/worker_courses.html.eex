@@ -46,10 +46,10 @@
                 Короткое название
               </th>
               <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
-                Цена продажи
+                Цена покупки
               </th>
               <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
-                Цена покупки
+                Цена продажи
               </th>
             </tr>
           </thead>
@@ -63,12 +63,12 @@
                   <%= item.currency_short_name %>
                 </td>
                 <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
-                  <%= text_input f, :"#{item.course_id}|value_for_sale", class: "input_full number_input_only" , value:
-                    item.value_for_sale %>
+                  <%= text_input f, :"#{item.course_id}|value_for_purchase", class: "input_full number_input_only value_for_purchase" ,
+                    value: item.value_for_purchase %>
                 </td>
                 <td class="px-6 py-4 border-x-2 border-t-2">
-                  <%= text_input f, :"#{item.course_id}|value_for_purchase", class: "input_full number_input_only" ,
-                    value: item.value_for_purchase %>
+                  <%= text_input f, :"#{item.course_id}|value_for_sale", class: "input_full number_input_only value_for_sale" , value:
+                    item.value_for_sale %>
                 </td>
               </tr>
               <% end %>
@@ -81,3 +81,17 @@
       <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html" , conn: @conn, instructions:
         @instructions) %>
         <% end %>
+        
+<!-- <script>
+const form = document.querySelector('#my-form');
+form.addEventListener('submit', (event) => {
+  const saleInput = form.querySelector('.value_for_sale');
+  const purchaseInput = form.querySelector('.value_for_purchase');
+  const saleValue = Number(saleInput.value);
+  const purchaseValue = Number(purchaseInput.value);
+  if (saleValue < purchaseValue) {
+    event.preventDefault();
+    alert('Значение продажи не может быть меньше значения покупки');
+  }
+});
+</script> -->

@@ -165,5 +165,6 @@ defmodule KursonliKurs.Context.Filials do
         select: [%{filial: f, setting: s, organization: org}]
     )
     |> Enum.map(fn x -> x |> hd() end)
+    |> Enum.sort_by((fn x -> hd(x.filial.course) end), :desc)
   end
 end
