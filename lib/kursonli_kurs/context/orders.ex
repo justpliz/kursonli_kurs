@@ -70,7 +70,7 @@ defmodule KursonliKurs.Context.Orders do
         type: order.type,
         filial: filial,
         filial_id: order.filial_id,
-        fililal_address: filial.fililal_address,
+        filial_address: filial.filial_address,
         date: order.date,
         volume: order.volume,
         limit: order.limit,
@@ -103,22 +103,44 @@ defmodule KursonliKurs.Context.Orders do
       select: %{
         id: order.id,
         organization: org.name,
+        filial_name: filial.name,
         type: order.type,
         filial: filial,
-        currency: c,
+        filial_id: order.filial_id,
+        filial_id: filial.filial_address,
         date: order.date,
         volume: order.volume,
         limit: order.limit,
         terms: order.terms,
         transfer: order.transfer,
         worker_id: order.worker_id,
+        currency_short_name: c.short_name,
         worker_name: order.worker_name,
         worker_phone: order.worker_phone,
-        course: order.course,
+        course_sale: order.course,
+        color: c.color
       }
     )
     |> Repo.one()
   end
+  # id: order.id,
+  # organization: org.name,
+  # filial_name: filial.name,
+  # type: order.type,
+  # filial: filial,
+  # filial_id: order.filial_id,
+  # filial_id: filial.filial_address,
+  # date: order.date,
+  # volume: order.volume,
+  # limit: order.limit,
+  # terms: order.terms,
+  # transfer: order.transfer,
+  # worker_id: order.worker_id,
+  # currency_short_name: c.short_name,
+  # worker_name: order.worker_name,
+  # worker_phone: order.worker_phone,
+  # course_sale: order.course,
+  # color: c.color
 
   def check_order_view(order_list) do
     Enum.reduce(order_list, [], fn order, acc ->

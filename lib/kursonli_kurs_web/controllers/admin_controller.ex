@@ -94,7 +94,7 @@ defmodule KursonliKursWeb.AdminController do
     filial_opts = %{
       name: params["filial_name"],
       city_id: params["city_id"],
-      fililal_address: params["fililal_address"]
+      filial_address: params["filial_address"]
     }
 
     KursonliKurs.Repo.transaction(fn ->
@@ -293,7 +293,7 @@ defmodule KursonliKursWeb.AdminController do
     filial_opts = %{
       name: params["filial_name"],
       city_id: params["city_id"],
-      fililal_address: params["fililal_address"],
+      filial_address: params["filial_address"],
       organization_id: params["org_id"]
     }
 

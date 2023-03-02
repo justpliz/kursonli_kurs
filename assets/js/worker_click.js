@@ -149,6 +149,7 @@ export const handleClickWorker = async (event, socket) => {
 }
 
 const templateEvent = (map) => {
+  console.log("map", map)
   if (map.item_order.type == "sale") {
     item_order_type = "Продажу"
   } else {
@@ -176,7 +177,6 @@ const templateEvent = (map) => {
   </div>
   </div>
     `;
-
   chatWrapper.insertAdjacentHTML("beforeend", html);
   setTimeout(() => {
     [

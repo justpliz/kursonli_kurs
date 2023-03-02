@@ -12,9 +12,10 @@ export function order_click(e) {
   $(this).addClass("selected");
 
   const item = JSON.parse(this.dataset.item);
+  console.log("item", item)
 
   $("#org_title .name").text(item.worker_name);
-  $("#org_title .address").text(item.fililal_address);
+  $("#org_title .address").text(item.filial_address);
   $("#org_title .phone").text(item.worker_phone);
   $("#org_title .phone").attr("href", `tel:${item.worker_phone}`);
   document.querySelector("#accept").dataset.item = this.dataset.item;
@@ -148,6 +149,7 @@ $("#accept").click(function () {
         const itemeSale = document.querySelector("#itemSale");
         const itemCourse = document.querySelector("#itemCourse");
 
+        console.log(itemCourse)
         itemCourse.innerHTML = course_sale;
         const itemResult = document.querySelector("#itemResult");
         volume_model.addEventListener("input", (e) => {

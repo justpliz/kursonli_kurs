@@ -18,10 +18,10 @@ export const templateNewOrder = (item) => {
     ${item.date}
   </td>
   <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
-     ${item.currency.short_name} 
+     ${item.currency_short_name} 
   </td>
   <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
-     ${item.course}
+     ${item.course_sale}
   </td>
   <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
      ${item.volume}
@@ -34,7 +34,7 @@ export const templateNewOrder = (item) => {
   </td>`
 
   const template = `
-  <tr class="order-click text-black" data-item='${JSON.stringify(item)}' identifier='${item.id}' style="background-color: ${item.currency.color}">
+  <tr class="order-click text-black" data-item='${JSON.stringify(item)}' identifier='${item.id}' style="background-color: ${item.color}">
   ${inner}
   </tr>
     `

@@ -123,7 +123,7 @@
                   <%= item.filial.name %>
                 <% end %>
                 <span class="block text-xs mb:text-small">
-                  <%= item.filial.fililal_address %>
+                  <%= item.filial.filial_address %>
                 </span>
                 <div class="hidden">
                   <%= [wholesale_rate, gold]=item.setting.tags %>

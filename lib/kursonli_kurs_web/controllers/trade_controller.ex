@@ -2,9 +2,7 @@ defmodule KursonliKursWeb.TradeController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{
-    Trades
-  }
+  alias KursonliKurs.Context.{Trades}
   alias KursonliKursWeb.RoomChannel
   alias KursonliKurs.EtsStorage.Chat
 

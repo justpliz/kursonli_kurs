@@ -6,7 +6,7 @@ defmodule KursonliKurs.Repo.Migrations.CreateFilialsTable do
       add :id, :binary_id, primary_key: true
 
       add :name, :string
-      add :fililal_address, :string
+      add :filial_address, :string
       add :paid_up_to, :date
       add :filial_active_status, :active_status
       add :visible_course_status, :boolean, default: :false, null: false

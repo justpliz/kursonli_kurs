@@ -65,7 +65,7 @@
       </div>
 
       <label class="label_input pos">Адрес</label>
-      <%= text_input f, :fililal_address, class: "input_full disabled", value: @address, disabled: "true", required: "true" %>
+      <%= text_input f, :filial_address, class: "input_full disabled", value: @address, disabled: "true", required: "true" %>
 
       <label class="label_input pos">Условия</label>
       <%= text_input f, :terms, class: "input_full", maxlength: 30 %>

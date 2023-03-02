@@ -50,10 +50,12 @@ defmodule KursonliKursWeb.WorkerController do
       email: params["email"],
       password: hash_str(params["password"])
     ]
+
     case Workers.do_get(opts) do
       {:ok, worker} ->
         {:ok, filial} = Filials.do_get(id: worker.filial_id)
         Workers.update(worker, %{name: first_name})
+
         case filial.filial_active_status do
           :active ->
             SessionWorker.insert(worker.id)
@@ -70,7 +72,7 @@ defmodule KursonliKursWeb.WorkerController do
               phone: params["phone"],
               email: worker.email,
               filial_name: filial.name,
-              fililal_address: filial.fililal_address,
+              filial_address: filial.filial_address,
               paid_up_to: filial.paid_up_to,
               city: %{
                 id: filial.city_id,
@@ -153,7 +155,7 @@ defmodule KursonliKursWeb.WorkerController do
     currencies_list = Currencies.all()
     message = Chat.get_all_by_city(city_id)
 
-    address = worker.fililal_address
+    address = worker.filial_address
 
     my_trades =
       Orders.all(worker_id: worker.id)
@@ -245,8 +247,14 @@ defmodule KursonliKursWeb.WorkerController do
 
     with {:ok, order} <- Orders.do_get(id: params["id"]),
          {:ok, order} <- Orders.update(order, opts) do
+      # TODO надо для того чтобы вытоматически отображать при обновлении
+      order =
+        order
+        |> Map.put(:course_sale, order.course)
+        |> Map.put(:currency_short_name, order.currency.short_name)
 
-          RoomChannel.update_order(order, session.city.id)
+      RoomChannel.update_order(order, session.city.id)
+
       conn
       |> put_flash(:info, "Ордер #{order.number} обновлен")
       |> redirect(to: "/worker/orders")
@@ -260,9 +268,10 @@ defmodule KursonliKursWeb.WorkerController do
     session = get_session(conn, :worker)
 
     with {:ok, order} <- Orders.do_get(id: id),
-          {_count, _trades} <- Trades.delete_all(order.id),
+         {_count, _trades} <- Trades.delete_all(order.id),
          {:ok, _order} <- Orders.delete(order) do
-          RoomChannel.delete_order(order, session.city.id)
+      RoomChannel.delete_order(order, session.city.id)
+
       conn
       |> put_flash(:info, "Ордер удалён")
       |> redirect(to: "/worker/orders")
@@ -281,7 +290,7 @@ defmodule KursonliKursWeb.WorkerController do
       Filials.get_last_date_for_course(filial_id)
       |> date_to_string_all()
 
-      visible_course_status = Filials.get(id: filial_id).visible_course_status
+    visible_course_status = Filials.get(id: filial_id).visible_course_status
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
 
@@ -321,7 +330,7 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   @doc """
-  check "change_all_filials
+  check "change_all_filials"
   """
   def update_one_course(course_id, course, filial_id, change_all_filials) do
     opts = %{
