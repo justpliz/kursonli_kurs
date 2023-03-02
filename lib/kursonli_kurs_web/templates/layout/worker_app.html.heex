@@ -84,7 +84,8 @@
             <ul class="text-neutral-400">
               <div class="other_text">
                 Пользователей: <br>
-                онлайн 2, за сегодня 1
+                    онлайн <span class="online_users"><%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %></span>, за сегодня <%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %>
+
                 <div class="menu_break"></div>
                 Подписка: <br>
                 <%= if Timex.before?(Timex.now("Asia/Almaty"), worker[:paid_up_to]) do %>
@@ -175,8 +176,11 @@
 
                 <ul class="text-neutral-400 bottom-0 left-0 px-3 absolute w-full pt-8">
                   <div class="other_text">
+
                     Пользователей: <br>
-                    онлайн 2, за сегодня 1
+                    // онлайн <span class="online_users"><%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %></span>, за сегодня <%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %>
+
+
                     <div class="menu_break"></div>
                     Подписка: <br>
                     <%= if Timex.before?(Timex.now("Asia/Almaty"), worker[:paid_up_to]) do %>

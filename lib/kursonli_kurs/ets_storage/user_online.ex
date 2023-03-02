@@ -1,4 +1,6 @@
 defmodule KursonliKurs.EtsStorage.UserOnline do
+  import Ex2ms
+
   def init(_) do
     {:ok, []}
   end
@@ -24,5 +26,20 @@ defmodule KursonliKurs.EtsStorage.UserOnline do
 
   def delete_online_user(user_id) do
     :ets.delete(:online_users, user_id)
+  end
+
+  def get_online_users_current(city_id \\ nil) do
+    if is_nil(city_id) do
+      get_all()
+      |> Enum.count()
+    end
+  end
+
+  def get_all() do
+    :ets.match_object(
+      :online_users,
+      {:"$1", :_, :_, :_}
+    )
+    |> Enum.map(fn {user_id, _, _, _} -> user_id end)
   end
 end

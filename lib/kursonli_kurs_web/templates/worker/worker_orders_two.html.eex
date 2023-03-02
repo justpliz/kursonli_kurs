@@ -158,11 +158,11 @@
             </td>
             <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
               <%= case item.transfer do %>
-                <% "green" -> %>
+                <% :green -> %>
                   <div id='item.item_order["transfer"]' class="green_circle"></div>
-                  <% "red" -> %>
+                  <% :red -> %>
                     <div id='item.item_order["transfer"]' class="red_circle"></div>
-                    <% "red_green" -> %>
+                    <% :red_green -> %>
                       <div id='item.item_order["transfer"]' class="transition-all colors"></div>
                       <% end %>
             </td>
