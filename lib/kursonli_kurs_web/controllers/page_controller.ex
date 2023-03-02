@@ -21,7 +21,6 @@ defmodule KursonliKursWeb.PageController do
           count = Filials.count(city_id: city.id, filial_active_status: :active, visible_course_status: :true)
           Map.put(city, :count, count)
         end)
-
       courses_list = Filials.get_filial_by_city(city.id)
       currency_list = Currencies.all()
 

@@ -165,12 +165,12 @@
                       %>
                   </span>
               </td>
-              <div class="hidden">
-                <% sale=item.filial.course |> hd |> Map.get(:value_for_sale) %>
-              </div> 
-              <div class="hidden">
-                <% purchase=item.filial.course |> hd |> Map.get(:value_for_purchase) %>
-              </div>
+     
+                <% sale= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_sale, "USD")  %>
+      
+            
+                <% purchase= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_purchase, "USD") %>
+        
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 dataget" data-select="1">
                 <div class="flex justify-between items-center">
                   <span class="sale font-bold text-base mb:text-sm">
@@ -182,6 +182,10 @@
                   </span>
                 </div>
               </td>
+              <% sale= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_sale, "EUR")  %>
+      
+            
+              <% purchase= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_purchase, "EUR") %>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="2">
                 <div class="flex justify-between items-center">
                   <span class="sale font-bold text-base">
@@ -193,6 +197,10 @@
                   </span>
                 </div>
               </td>
+              <% sale= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_sale, "RUB")  %>
+      
+            
+              <% purchase= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_purchase, "RUB") %>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="3">
                 <div class="flex justify-between items-center">
                   <span class="sale font-bold text-base">
@@ -251,12 +259,10 @@
     const imgSortElements = [...table.getElementsByClassName("img_sort")];
     imgSortElements.forEach((imgSortElement) => imgSortElement.addEventListener("click", imgSortClickHandler));
 
-
-
     const elements = [...document.querySelectorAll("[data-id]")]
     let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
     const selectTable = [...document.querySelectorAll(".select_table")]
-
+console.log(courses)
     selectTable.forEach((el) => el.addEventListener('change', (e) => {
       const currentSelect = e.currentTarget.dataset.select
       const valueEl = e.currentTarget.value

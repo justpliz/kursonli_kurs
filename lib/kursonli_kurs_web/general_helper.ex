@@ -94,4 +94,15 @@ defmodule KursonliKursWeb.GeneralHelper do
   def compare_workers_id(worker1, worker2) do
     if worker1 > worker2, do: worker2 <> worker1, else: worker1 <> worker2
   end
+  def get_value(price, key_order \\ :value_for_purchase, short_name \\ "EUR") do
+
+    price|> Enum.filter(fn x -> x.currency.short_name == short_name end) |> Enum.map(fn x ->
+      price = Map.get(x, key_order)
+      if price != nil and x.currency.short_name == short_name do
+        price
+      else
+        "-"
+      end
+    end)
+  end
 end

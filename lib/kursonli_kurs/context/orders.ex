@@ -123,24 +123,6 @@ defmodule KursonliKurs.Context.Orders do
     )
     |> Repo.one()
   end
-  # id: order.id,
-  # organization: org.name,
-  # filial_name: filial.name,
-  # type: order.type,
-  # filial: filial,
-  # filial_id: order.filial_id,
-  # filial_id: filial.filial_address,
-  # date: order.date,
-  # volume: order.volume,
-  # limit: order.limit,
-  # terms: order.terms,
-  # transfer: order.transfer,
-  # worker_id: order.worker_id,
-  # currency_short_name: c.short_name,
-  # worker_name: order.worker_name,
-  # worker_phone: order.worker_phone,
-  # course_sale: order.course,
-  # color: c.color
 
   def check_order_view(order_list) do
     Enum.reduce(order_list, [], fn order, acc ->

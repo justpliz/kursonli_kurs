@@ -38,7 +38,6 @@ defmodule KursonliKurs.Context.Trades do
   end
 
   @doc false
-
   def update(trade, params) do
     trade
     |> Trade.changeset(params)

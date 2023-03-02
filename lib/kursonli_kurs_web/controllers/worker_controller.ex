@@ -248,7 +248,6 @@ defmodule KursonliKursWeb.WorkerController do
     with {:ok, order} <- Orders.do_get(id: params["id"]),
          {:ok, order} <- Orders.update(order, opts),
          {:ok, order} <- Orders.do_get(id: order.id) do
-          IO.inspect(order)
       # TODO надо для того чтобы автоматически отображать при обновлении
       order =
         order
