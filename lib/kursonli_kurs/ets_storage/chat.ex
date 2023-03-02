@@ -57,20 +57,18 @@ defmodule KursonliKurs.EtsStorage.Chat do
   # end
 
   def insert_message(user_id, worker_id, message_map, type \\ "user") do
-       if type == "city" do
-          table = {Ecto.UUID.generate(), user_id, Timex.now("Asia/Almaty"), user_id, message_map}
-          :logger.info("CHANNEL INSERT -> #{user_id}")
-
+    if type == "city" do
+      table = {Ecto.UUID.generate(), user_id, Timex.now("Asia/Almaty"), user_id, message_map}
+      :logger.info("CHANNEL INSERT -> #{user_id}")
 
       :dets.insert_new(
-            :chat,
-            table
-          )
-
+        :chat,
+        table
+      )
 
       table
-       else
-          id = GeneralHelper.compare_workers_id(user_id, worker_id)
+    else
+      id = GeneralHelper.compare_workers_id(user_id, worker_id)
 
       :logger.info("CHANNEL INSERT -> #{id}")
       table = {Ecto.UUID.generate(), id, Timex.now("Asia/Almaty"), user_id, message_map}
@@ -128,5 +126,20 @@ defmodule KursonliKurs.EtsStorage.Chat do
 
   def delete_all() do
     :dets.delete_all_objects(:chat)
+  end
+
+  @doc """
+  Удаляет по id_Channel все сообщения
+  """
+  def delete_by_id_channel(channel_id) do
+    channel_id |> IO.inspect(label: "channel_id")
+
+    :dets.select_delete(
+      :chat,
+      fun do
+        {x, y, z, j, l} ->
+          y == ^channel_id
+      end
+    )
   end
 end

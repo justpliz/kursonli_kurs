@@ -7,10 +7,9 @@ import { templateNewOrder } from "./template/new_order";
 import { templateUpdateTrade } from "./template/trade";
 import { handleClickWorker } from "./worker_click";
 const meowMix = new Audio("/images/sound/notice.mp3");
-const audioObj = new Audio(
-  "/images/sound/notice.mp3"
-);
+const audioObj = new Audio("/images/sound/notice.mp3");
 import { trigger } from "./helper/trigger";
+import { handleDeleteChat } from "./delete_chat_click";
 // audioObj.play()
 export const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"));
@@ -39,11 +38,14 @@ $(function () {
       console.log("Unable to join", resp);
     });
   channelOnline.on("new:change_color", (payload) => {
-    console.log("new:change_color", payload)
-    document.querySelector(`[data-etsid='${payload.data.ets_id}']`).dataset.type = payload.data.type_event
+    console.log("new:change_color", payload);
+    document.querySelector(
+      `[data-etsid='${payload.data.ets_id}']`
+    ).dataset.type = payload.data.type_event;
 
-    document.querySelector(`[data-etsid='${payload.data.ets_id}']`).dataset.loading = payload.data.type_event
-
+    document.querySelector(
+      `[data-etsid='${payload.data.ets_id}']`
+    ).dataset.loading = payload.data.type_event;
   });
   channelOnline.on("leave", () => {
     console.log("LEAVE -------");
@@ -61,10 +63,11 @@ $(function () {
     });
   });
   channelOnline.on("new:click", (payload) => {
-    const etsElement = document.querySelector(`[data-tagsid="${payload.worker_id}"]`)
-    console.log("new:click")
-    setTimeout(_ =>
-      trigger(etsElement, `click`), 1000)
+    const etsElement = document.querySelector(
+      `[data-tagsid="${payload.worker_id}"]`
+    );
+    console.log("new:click");
+    setTimeout((_) => trigger(etsElement, `click`), 1000);
   });
   let channel = socket.channel(`rooms:${worker.city.id}`, { worker: worker });
   channel
@@ -106,25 +109,34 @@ $(function () {
 
     chatWrapper.insertAdjacentHTML("beforeend", html);
   };
-  console.log("USER SOCKET 123")
   const templateTagsInsert = (filial_name, worker_id) => {
-    const html = `<div
-    class="text-xs flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center worker_click" data-tagsid="${worker_id}"
+    const html = `
+    <span  class="tag-element" > 
+    <div
+    class="tag-element text-xs flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center worker_click" data-tagsid="${worker_id}"
     "}">
     ${filial_name}
- </div>`;
+    </div>
+    <span  class="material-symbols-outlined"  data-channelid="${worker_id}">
+close
+</span>
+    
+ </span>`;
     setTimeout(() => {
-      const etsElement = document.querySelector(`[data-tagsid="${worker_id}"]`)
-      etsElement.addEventListener("click", async (e) => (
-        await handleClickWorker(e, socket)
-      ))
-
-    }, 100)
+      const etsElement = document.querySelector(`[data-tagsid="${worker_id}"]`);
+      const deleteChat = document.querySelector(
+        `[data-channelid="${worker_id}"]`
+      );
+      etsElement.addEventListener(
+        "click",
+        async (e) => await handleClickWorker(e, socket)
+      );
+      deleteChat.addEventListener("click", handleDeleteChat);
+    }, 100);
     userConnectEl.insertAdjacentHTML("beforeend", html);
   };
   $("#chat").keypress(function (e) {
     // var key = e.which;
-
     // if (key == 13 && this.value != "") {
     //   // the enter key code
     //   channel.push("new:msg", {
@@ -137,7 +149,7 @@ $(function () {
   });
 
   channel.on("new:msg", (payload) => {
-    console.log("NEW MSG USER")
+    console.log("NEW MSG USER");
     const worker = getWorker();
 
     setTimeout(() => {
@@ -160,32 +172,36 @@ $(function () {
   });
 
   channel.on("new:order", (payload) => {
-    console.log("new:order", payload)
-    const template = templateNewOrder(payload.data)
-    document.querySelector(`#${template.type}_table`).insertAdjacentHTML("beforeend", template.template);
+    console.log("new:order", payload);
+    const template = templateNewOrder(payload.data);
+    document
+      .querySelector(`#${template.type}_table`)
+      .insertAdjacentHTML("beforeend", template.template);
     setTimeout(() => {
-      document.querySelector(`[identifier="${payload.data.id}"]`).addEventListener("click", order_click)
-    }, 100)
+      document
+        .querySelector(`[identifier="${payload.data.id}"]`)
+        .addEventListener("click", order_click);
+    }, 100);
   });
   channel.on("update:order", (payload) => {
-    console.log("update:order", payload)
+    console.log("update:order", payload);
     const item = document.querySelector(`[identifier="${payload.data.id}"]`);
-    const template = templateNewOrder(payload.data)
-    item.style.backgroundColor = template.color
-    item.innerHTML = template.inner
+    const template = templateNewOrder(payload.data);
+    item.style.backgroundColor = template.color;
+    item.innerHTML = template.inner;
   });
   channel.on("delete:order", (payload) => {
-    deleteOrder(payload.data.id)
+    deleteOrder(payload.data.id);
   });
   channel.on("update:trade", (payload) => {
-    console.log("update:trade", payload)
+    console.log("update:trade", payload);
     const item = document.querySelector(`[identifier="${payload.data.id}"]`);
-    const template = templateUpdateTrade(payload.data)
-    item.style.backgroundColor = template.color
-    item.innerHTML = template.inner
-    console.log("payload", payload)
+    const template = templateUpdateTrade(payload.data);
+    item.style.backgroundColor = template.color;
+    item.innerHTML = template.inner;
+    console.log("payload", payload);
     if (payload.data.status == "success") {
-      deleteOrder(payload.data.item_order.id)
+      deleteOrder(payload.data.item_order.id);
     }
     // TODO При успехе отказ для других
   });
@@ -199,7 +215,7 @@ $(function () {
 });
 
 function deleteOrder(id) {
-  console.log("id", id)
+  console.log("id", id);
   const item = document.querySelector(`[identifier="${id}"]`);
-  item.remove()
+  item.remove();
 }
