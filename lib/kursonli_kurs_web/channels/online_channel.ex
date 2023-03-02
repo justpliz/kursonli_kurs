@@ -10,9 +10,15 @@ defmodule KursonliKursWeb.OnlineChannel do
 
   def join("online:" <> private_subtopic, message, socket) do
     if check_user(private_subtopic) do
+      send(self, {:after_join, message})
 
-    send(self, {:after_join, message})
-    {:ok, socket}
+      # KursonliKurs.EtsStorage.UserOnline.insert(
+      #   socket.assigns[:user]["id"],
+      #   socket.assigns[:user]["city"]["id"],
+      #   socket.assigns[:user]
+      # )
+
+      {:ok, socket}
     else
       {:error, %{reason: "user_not_found"}}
     end
@@ -22,11 +28,14 @@ defmodule KursonliKursWeb.OnlineChannel do
   # leave by user_id
   """
   def leave(user_id) do
+    # KursonliKurs.EtsStorage.UserOnline.delete_online_user(user_id)
+
     Endpoint.broadcast!("online:#{user_id}", "leave", %{})
   end
 
   def handle_info({:after_join, _msg}, socket) do
     my_companions(socket.assigns[:user]["id"], socket.assigns[:user]["city"]["id"])
+
     {:noreply, socket}
   end
 
@@ -36,6 +45,18 @@ defmodule KursonliKursWeb.OnlineChannel do
   def notification(user_id, message) do
     Endpoint.broadcast!("online:#{user_id}", "notification", %{message: message})
   end
+
+  def online() do
+    map = KursonliKurs.EtsStorage.UserOnline.get_all()
+    count = map |> Enum.count()
+
+    Enum.map(map, fn x ->
+      Endpoint.broadcast!("online:#{x}", "online:new", %{count: count})
+    end)
+
+    :ok
+  end
+
   @doc """
   # Меняет цвет ивента
   """
@@ -47,10 +68,11 @@ defmodule KursonliKursWeb.OnlineChannel do
     users = KursonliKurs.EtsStorage.Chat.get_chats_user(user_id, city_id)
     Endpoint.broadcast!("online:#{user_id}", "user:entered", %{data: users})
   end
-  def click_channel(user_id, map) when is_map(map) do
 
+  def click_channel(user_id, map) when is_map(map) do
     Endpoint.broadcast!("online:#{user_id}", "new:click", map)
   end
+
   defp check_user(worker_id) do
     KursonliKurs.Context.Workers.all()
     |> Enum.any?(fn x -> x.id == worker_id end)
