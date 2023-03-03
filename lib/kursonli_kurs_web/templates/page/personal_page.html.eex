@@ -35,7 +35,7 @@
                 </a>
             </ul>
             <a href="/" class="mb:py-2">
-                <img src="<%= @logo_path %>" alt="" class="w-40 h-14">
+                <img src="<%= @logo_path %>" alt="" class="h-16 w-full object-cover">
                 <!-- <img src="/images/logo-line.svg" alt=""> -->
             </a>
             <a class="flex gap-2 hover:text-gray-500" href='tel:<%= @setting.phones["phone_for_header"] %>'>
