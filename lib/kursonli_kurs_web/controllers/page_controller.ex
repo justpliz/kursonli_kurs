@@ -53,7 +53,7 @@ defmodule KursonliKursWeb.PageController do
     end
   end
 
-  defp get_count_city_with_active_filials() do
+  def get_count_city_with_active_filials() do
     Cities.all()
     |> Enum.map(fn city ->
       count =
@@ -62,8 +62,9 @@ defmodule KursonliKursWeb.PageController do
           filial_active_status: :active,
           visible_course_status: true
         )
-
       %{name: city.name, count: count}
     end)
+    |> Enum.sort_by(&(&1.count), :desc)
+    |> Enum.sort_by(&(&1.name == "Алматы"), :desc)
   end
 end
