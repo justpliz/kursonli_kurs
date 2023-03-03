@@ -19,7 +19,13 @@ defmodule KursonliKursWeb.TradeController do
 
     with {:ok, item} <- Trades.create(params) do
       IO.inspect(item, label: "create trade")
-      item = item |> PwHelper.Normalize.repo()
+
+      item =
+        item
+        |> PwHelper.Normalize.repo()
+        |> Map.put(:worker, %{
+          id: item_map["worker_id"]
+        })
 
       KursonliKursWeb.OnlineChannel.notification(
         item_map["worker_id"],
