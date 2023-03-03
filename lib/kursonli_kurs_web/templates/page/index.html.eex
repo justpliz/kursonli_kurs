@@ -106,39 +106,35 @@
           <%= for item <- @courses_list do %>
             <tr class="bg-white text-black" data-id="<%= item.filial_id %>"
               data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
-              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-l-0 border-tableGray">
-                <span class="font-bold text-sm mb:text-xs block">
+              <td class="py-1 border-2 border-b-0 border-l-0 border-tableGray">
+                <span class="font-bold text-base mb:text-xs bg-index py-2 text-indexYellow text-center -mt-1 block">
                   <%= item.setting.organization_name %>
                 </span>
                 <%= if item.setting.visible_website_status == true do %>
-                  <a href="personal?filial=<%= item.filial_id %>" class="font-bold text-xs mb:text-small underline">
+                  <a href="personal?filial=<%= item.filial_id %>" class="font-medium text-sm underline">
                     <%= item.filial_name %>
                   </a>
                 <% else %>
-                  <%= item.filial_name %>
+                  <span class="font-medium text-sm underline"><%= item.filial_name %></span>
                 <% end %>
-                <span class="block text-xs mb:text-small">
+                <span class="block font-bold text-lg">
                   <%= item.filial_address %>
                 </span>
                 <div class="hidden">
                   <%= [wholesale_rate, gold]=item.setting.tags %>
                 </div>
-                <div class="mt-2 mb:mt-1">
-                  <%= if String.to_atom(wholesale_rate) do %>
-                    <div class="mb:mt-2">
-                      <span class="bg-greatGreen text-xs mb:text-small uppercase text-white px-4 mb:px-2 py-1">Оптовый курс</span>
-                    </div>
+                <%= if String.to_atom(wholesale_rate) do %>
+                  <div class="">
+                    <span class="bg-greatGreen text-xs mb:text-small uppercase text-white px-4 mb:px-2 py-1">Оптовый курс</span>
                   <% end %>
                   <%= if String.to_atom(gold) do %>
-                    <div class="mt-2 mb:mt-2">
-                      <span class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1">Золото</span>
-                    </div>
-                  <% end %>
-                </div>
-                <div class="block mt-2 text-xs mb:text-small">
+                    <span class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1">Золото</span>
+                  </div>
+                <% end %>
+                <div class="block mt-1 text-sm mb:text-small">
                   <%= item.setting.promo["promo1"] %>
                 </div>
-                <div class="block text-xs mb:text-small">
+                <div class="block text-sm mb:text-small">
                   <%= item.setting.promo["promo2"] %>
                 </div>
                 <div class="hidden mb:block mb:mt-1">
