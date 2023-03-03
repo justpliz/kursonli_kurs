@@ -18,6 +18,7 @@ defmodule KursonliKursWeb.TradeController do
       )
 
     with {:ok, item} <- Trades.create(params) do
+      IO.inspect(item, label: "create trade")
       item = item |> PwHelper.Normalize.repo()
 
       KursonliKursWeb.OnlineChannel.notification(
@@ -54,17 +55,18 @@ defmodule KursonliKursWeb.TradeController do
              status: params["type_event"]
            }),
          {:ok, item} <- Chat.update_by_id_message(params["ets_id"], params) do
-
       KursonliKursWeb.OnlineChannel.notification(
         params["worker_id"],
         "Вам ответили на сделку!"
       )
+
       RoomChannel.update_trade(item_trad_up, item_trade.item_order["filial"]["city_id"])
 
       KursonliKursWeb.OnlineChannel.change_color(
         params["worker_id"],
         %{type_event: params["type_event"], ets_id: params["ets_id"]}
       )
+
       json(conn, %{item: item})
     else
       {:error, _reason} ->
