@@ -115,6 +115,7 @@ defmodule KursonliKursWeb.GeneralHelper do
     do: hum_date(Timex.diff(Timex.shift(Timex.now(), hours: 6), date, :second))
 
   def humanizated_date(_date), do: "-"
+
   defp hum_date(diff) when diff < 0, do: "-"
   defp hum_date(diff) when diff >= 0 and diff <= 60, do: "Только что"
   defp hum_date(diff) when diff > 60 and diff <= 2 * 60, do: "Минуту назад"

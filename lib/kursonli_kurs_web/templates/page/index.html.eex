@@ -18,14 +18,18 @@
     <div class="flex py-8 mb:py-4 text-dblue">
       <%= for item <- @city_list do %>
         <a class="font-bold pr-4 mb:text-sm" href="city?name=<%= item.name %>">
-          <div><%= item.name %> (<span class="font-bold text-red-500"><%= item.count %></span>)</div>
+          <div>
+            <%= item.name %> (<span class="font-bold text-red-500">
+                <%= item.count %>
+              </span>)
+          </div>
         </a>
-      <% end %>
+        <% end %>
     </div>
     <div class="font-bold text-black text-lg mb:text-sm">
       Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl mb:text-lg">
-        <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
-      </span>
+          <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
+        </span>
     </div>
     <div class="relative w-full pt-4">
       <table class="w-full text-sm mb:text-xs text-left text-gray-500 table-fixed table_search" id="index-table">
@@ -49,12 +53,12 @@
                       <option class="text-black" selected="selected" value="<%= item.short_name %>">
                         <%= item.short_name %>
                       </option>
-                    <% else %>
-                      <option class="text-black" value="<%= item.short_name %>">
-                        <%= item.short_name %>
-                      </option>
-                    <% end %>
-                  <% end %>
+                      <% else %>
+                        <option class="text-black" value="<%= item.short_name %>">
+                          <%= item.short_name %>
+                        </option>
+                        <% end %>
+                          <% end %>
                 </select>
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
@@ -68,12 +72,12 @@
                       <option class="text-black" selected="selected" value="<%= item.short_name %>">
                         <%= item.short_name %>
                       </option>
-                    <% else %>
-                      <option class="text-black" value="<%= item.short_name %>">
-                        <%= item.short_name %>
-                      </option>
-                    <% end %>
-                  <% end %>
+                      <% else %>
+                        <option class="text-black" value="<%= item.short_name %>">
+                          <%= item.short_name %>
+                        </option>
+                        <% end %>
+                          <% end %>
                 </select>
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
@@ -87,12 +91,12 @@
                       <option class="text-black" selected="selected" value="<%= item.short_name %>">
                         <%= item.short_name %>
                       </option>
-                    <% else %>
-                      <option class="text-black" value="<%= item.short_name %>">
-                        <%= item.short_name %>
-                      </option>
-                    <% end %>
-                  <% end %>
+                      <% else %>
+                        <option class="text-black" value="<%= item.short_name %>">
+                          <%= item.short_name %>
+                        </option>
+                        <% end %>
+                          <% end %>
                 </select>
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
@@ -110,101 +114,119 @@
                 <span class="font-bold text-base mb:text-xs bg-index py-2 text-indexYellow text-center -mt-1 block">
                   <%= item.setting.organization_name %>
                 </span>
-                <%= if item.setting.visible_website_status == true do %>
+                <%= if item.setting.visible_website_status==true do %>
                   <a href="personal?filial=<%= item.filial_id %>" class="font-medium text-sm underline">
                     <%= item.filial_name %>
                   </a>
-                <% else %>
-                  <span class="font-medium text-sm underline"><%= item.filial_name %></span>
-                <% end %>
-                <span class="block font-bold text-lg">
-                  <%= item.filial_address %>
-                </span>
-                <div class="hidden">
-                  <%= [wholesale_rate, gold]=item.setting.tags %>
-                </div>
-                <%= if String.to_atom(wholesale_rate) do %>
-                  <div class="">
-                    <span class="bg-greatGreen text-xs mb:text-small uppercase text-white px-4 mb:px-2 py-1">Оптовый курс</span>
-                  <% end %>
-                  <%= if String.to_atom(gold) do %>
-                    <span class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1">Золото</span>
-                  </div>
-                <% end %>
-                <div class="block mt-1 text-sm mb:text-small">
-                  <%= item.setting.promo["promo1"] %>
-                </div>
-                <div class="block text-sm mb:text-small">
-                  <%= item.setting.promo["promo2"] %>
-                </div>
-                <div class="hidden mb:block mb:mt-1">
-                  <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
-                    <%= item.setting.phones["phone1"] %>
-                  </a>
-                  <a class="block hover:underline" href='tel:<%= item.setting.phones["phone2"] %>'>
-                    <%= item.setting.phones["phone2"] %>
-                  </a>
-                  <a class="block hover:underline" href='tel:<%= item.setting.phones["phone3"] %>'>
-                    <%= item.setting.phones["phone3"] %>
-                  </a>
-                </div>
+                  <% else %>
+                    <span class="font-medium text-sm underline">
+                      <%= item.filial_name %>
+                    </span>
+                    <% end %>
+                      <span class="block font-bold text-lg">
+                        <%= item.filial_address %>
+                      </span>
+                      <div class="hidden">
+                        <%= [wholesale_rate, gold]=item.setting.tags %>
+                      </div>
+                      <%= if String.to_atom(wholesale_rate) do %>
+                        <div class="">
+                          <span
+                            class="bg-greatGreen text-xs mb:text-small uppercase text-white px-4 mb:px-2 py-1">Оптовый
+                            курс</span>
+                          <% end %>
+                            <%= if String.to_atom(gold) do %>
+                              <span
+                                class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1">Золото</span>
+                        </div>
+                        <% end %>
+                          <div class="block mt-1 text-sm mb:text-small">
+                            <%= item.setting.promo["promo1"] %>
+                          </div>
+                          <div class="block text-sm mb:text-small">
+                            <%= item.setting.promo["promo2"] %>
+                          </div>
+                          <div class="hidden mb:block mb:mt-1">
+                            <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
+                              <%= item.setting.phones["phone1"] %>
+                            </a>
+                            <a class="block hover:underline" href='tel:<%= item.setting.phones["phone2"] %>'>
+                              <%= item.setting.phones["phone2"] %>
+                            </a>
+                            <a class="block hover:underline" href='tel:<%= item.setting.phones["phone3"] %>'>
+                              <%= item.setting.phones["phone3"] %>
+                            </a>
+                          </div>
               </td>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray text-center">
-                <div class="text-base mb:text-sm font-bold"><%= item.date_h %>:<%= item.date_m %><span class="text-neutral-400">:<%= item.date_s %></span></div>
-                <div class="text-xs"><%= item.humanizated_date %></div>
-              </td>
-              <% purchase = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "USD") %>
-              <% sale = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "USD")  %>
-              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 dataget" data-select="1">
-                <div class="flex justify-between items-center">
-                  <span class="purchase font-bold text-base mb:text-sm">
-                    <%= purchase %>
-                  </span>
-                  <span class="font-bold border-b-0 text-base mb:text-small">—</span>
-                  <span class="sale font-bold text-base mb:text-sm">
-                    <%= sale %>
-                  </span>
+                <div class="text-base mb:text-sm font-bold">
+                  <%= item.date_h %>:<%= item.date_m %><span class="text-neutral-400">:<%= item.date_s %></span>
+                </div>
+                <div class="text-xs">
+                  <%= item.humanizated_date %>
                 </div>
               </td>
-              <% purchase = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "EUR") %>
-              <% sale = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "EUR")  %>
-              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="2">
-                <div class="flex justify-between items-center">
-                  <span class="purchase font-bold text-base">
-                    <%= purchase %>
-                  </span>
-                  <span class="font-bold text-base">—</span>
-                  <span class="sale font-bold text-base">
-                    <%= sale %>
-                  </span>
-                </div>
-              </td>
-              <% purchase = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "RUB") %>
-              <% sale = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "RUB")  %>
-              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="3">
-                <div class="flex justify-between items-center">
-                  <span class="purchase font-bold text-base">
-                    <%= purchase %>
-                  </span>
-                  <span class="font-bold text-base">—</span>
-                  <span class="sale font-bold text-base">
-                    <%= sale %>
-                  </span>
-                </div>
-              </td>
-              <td class="px-6 mb:px-2 text-xs mb:text-small py-1 border-2 border-b-0 border-r-0 border-tableGray text-center mb:hidden">
-                <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
-                  <%= item.setting.phones["phone1"] %>
-                </a>
-                <a class="block hover:underline" href='tel:<%= item.setting.phones["phone2"] %>'>
-                  <%= item.setting.phones["phone2"] %>
-                </a>
-                <a class="block hover:underline" href='tel:<%= item.setting.phones["phone3"] %>'>
-                  <%= item.setting.phones["phone3"] %>
-                </a>
-              </td>
+              <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase,
+                "USD") %>
+                <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "USD") %>
+                  <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 dataget"
+                    data-select="1">
+                    <div class="flex justify-between items-center">
+                      <span class="purchase font-bold text-base mb:text-sm">
+                        <%= purchase %>
+                      </span>
+                      <span class="font-bold border-b-0 text-base mb:text-small">—</span>
+                      <span class="sale font-bold text-base mb:text-sm">
+                        <%= sale %>
+                      </span>
+                    </div>
+                  </td>
+                  <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase,
+                    "EUR") %>
+                    <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
+                      "EUR") %>
+                      <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden"
+                        data-select="2">
+                        <div class="flex justify-between items-center">
+                          <span class="purchase font-bold text-base">
+                            <%= purchase %>
+                          </span>
+                          <span class="font-bold text-base">—</span>
+                          <span class="sale font-bold text-base">
+                            <%= sale %>
+                          </span>
+                        </div>
+                      </td>
+                      <% purchase=item.course |>
+                        KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "RUB") %>
+                        <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
+                          "RUB") %>
+                          <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden"
+                            data-select="3">
+                            <div class="flex justify-between items-center">
+                              <span class="purchase font-bold text-base">
+                                <%= purchase %>
+                              </span>
+                              <span class="font-bold text-base">—</span>
+                              <span class="sale font-bold text-base">
+                                <%= sale %>
+                              </span>
+                            </div>
+                          </td>
+                          <td
+                            class="px-6 mb:px-2 text-xs mb:text-small py-1 border-2 border-b-0 border-r-0 border-tableGray text-center mb:hidden">
+                            <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
+                              <%= item.setting.phones["phone1"] %>
+                            </a>
+                            <a class="block hover:underline" href='tel:<%= item.setting.phones["phone2"] %>'>
+                              <%= item.setting.phones["phone2"] %>
+                            </a>
+                            <a class="block hover:underline" href='tel:<%= item.setting.phones["phone3"] %>'>
+                              <%= item.setting.phones["phone3"] %>
+                            </a>
+                          </td>
             </tr>
-          <% end %>
+            <% end %>
         </tbody>
       </table>
     </div>
@@ -213,36 +235,11 @@
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const table = document.getElementById("index-table");
-    const rows = [...table.getElementsByClassName("data-table")[0].getElementsByTagName("tr")];
-
-    const imgSortClickHandler = (event) => {
-      const sortDirection = event.target.src.includes("down") ? 1 : -1;
-
-      rows.sort((a, b) => {
-        const timeA = a.getElementsByClassName("time")[0].innerText;
-        const timeB = b.getElementsByClassName("time")[0].innerText;
-
-        return sortDirection * (timeA < timeB ? -1 : (timeA > timeB ? 1 : 0));
-      });
-
-      rows.forEach((row) => table.getElementsByClassName("data-table")[0].appendChild(row));
-
-      if (event.target.src.includes("down")) {
-        event.target.src = "/images/icons/up.svg";
-      } else {
-        event.target.src = "/images/icons/down.svg";
-      }
-    };
-
-    const imgSortElements = [...table.getElementsByClassName("img_sort")];
-    imgSortElements.forEach((imgSortElement) => imgSortElement.addEventListener("click", imgSortClickHandler));
-
     const elements = [...document.querySelectorAll("[data-id]")]
     let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
-
     const selectTable = [...document.querySelectorAll(".select_table")]
     selectTable.forEach((el) => el.addEventListener('change', (e) => {
+
       const currentSelect = e.currentTarget.dataset.select
       const valueEl = e.currentTarget.value
 
@@ -251,9 +248,9 @@
         const elemFindSale = elemGiveData.querySelector(`.sale`)
         const elemFindPurchase = elemGiveData.querySelector(`.purchase`)
         const item = JSON.parse(value.dataset.item)
-
-        const find = item.filial.course.find((el) => {
-          return el.currency.short_name
+        console.log(item)
+        const find = item.course.find((el) => {
+          return el.short_name
             == valueEl
         })
         if (find != undefined) {
