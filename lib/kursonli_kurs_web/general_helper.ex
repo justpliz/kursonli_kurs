@@ -111,10 +111,9 @@ defmodule KursonliKursWeb.GeneralHelper do
   @doc """
   Modify UTC DateTime to display
   """
-  def humanizated_date(date) when is_map(date),
-    do: hum_date(Timex.diff(Timex.now(), date, :second))
-
+  def humanizated_date(date) when is_map(date), do: hum_date(Timex.diff(Timex.now("Asia/Almaty"), date, :second))
   def humanizated_date(_date), do: "-"
+
   defp hum_date(diff) when diff < 0, do: "-"
   defp hum_date(diff) when diff >= 0 and diff <= 60, do: "Только что"
   defp hum_date(diff) when diff > 60 and diff <= 2 * 60, do: "Минуту назад"

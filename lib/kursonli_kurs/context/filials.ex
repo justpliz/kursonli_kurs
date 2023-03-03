@@ -176,7 +176,6 @@ defmodule KursonliKurs.Context.Filials do
           }
         }
     )
-    |> IO.inspect(label: "Yo")
     |> Enum.map(
       &%{
         setting: &1.setting,
@@ -192,7 +191,6 @@ defmodule KursonliKurs.Context.Filials do
       }
     )
     |> Enum.sort_by(&(&1.date), :desc)
-    |> IO.inspect(label: "Asakura")
   end
 
   defp course_handler(course) do
