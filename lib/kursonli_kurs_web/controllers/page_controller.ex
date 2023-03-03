@@ -2,8 +2,7 @@ defmodule KursonliKursWeb.PageController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.Currencies
-  alias KursonliKurs.Context.{Filials, Settings, Cities}
+  alias KursonliKurs.Context.{Currencies, Filials, Settings, Cities}
 
   def redirect_almaty(conn, _params) do
     conn
@@ -15,14 +14,9 @@ defmodule KursonliKursWeb.PageController do
     name = if not is_nil(params["name"]), do: params["name"], else: "Алматы"
 
     with {:ok, city} <- Cities.do_get(name: name) do
-      city_list =
-        Cities.all()
-        |> Enum.map(fn city ->
-          count = Filials.count(city_id: city.id, filial_active_status: :active, visible_course_status: :true)
-          Map.put(city, :count, count)
-        end)
+      city_list = get_count_city_with_active_filials()
+      currency_list = Currencies.all() |> Enum.map(&(%{short_name: &1.short_name}))
       courses_list = Filials.get_filial_by_city(city.id)
-      currency_list = Currencies.all()
 
       conn
       |> render("index.html",
@@ -57,5 +51,19 @@ defmodule KursonliKursWeb.PageController do
         logo_path: logo_path
       )
     end
+  end
+
+  defp get_count_city_with_active_filials() do
+    Cities.all()
+    |> Enum.map(fn city ->
+      count =
+        Filials.count(
+          city_id: city.id,
+          filial_active_status: :active,
+          visible_course_status: true
+        )
+
+      %{name: city.name, count: count}
+    end)
   end
 end
