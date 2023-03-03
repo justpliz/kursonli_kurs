@@ -25,8 +25,9 @@ defmodule KursonliKursWeb.RoomChannel do
     end
   end
 
-
   def handle_info({:after_join, _msg}, socket) do
+    KursonliKursWeb.OnlineChannel.online()
+
     push(socket, "join", %{status: "connected"})
     {:noreply, socket}
   end
@@ -34,7 +35,7 @@ defmodule KursonliKursWeb.RoomChannel do
   def terminate(_reason, socket) do
     UserOnline.delete_online_user(socket.assigns[:user]["id"])
     # online_event(socket)
-
+    KursonliKursWeb.OnlineChannel.online()
     :ok
   end
 

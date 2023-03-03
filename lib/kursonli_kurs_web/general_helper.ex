@@ -52,6 +52,7 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   def get_image_path(nil, type, filial_id) do
     {:ok, setting} = KursonliKurs.Context.Settings.do_get(filial_id: filial_id)
+
     case type do
       :logo -> setting.logo
       :photo -> setting.photo
@@ -76,22 +77,36 @@ defmodule KursonliKursWeb.GeneralHelper do
   def normalize_order_type(type, opts) do
     case opts do
       :single ->
-        if type == "sale", do: "Продажa", else: "Покупкa"
+        if type == :sale, do: "Продажa", else: "Покупкa"
 
       :multi ->
-        if type == "sale", do: "Продажу", else: "Покупку"
+        if type == :sale, do: "Продажу", else: "Покупку"
     end
   end
 
   def normalize_status_trade(type) do
     case type do
-      "active" -> "Активная"
-      "fail" -> "Отклонено"
-      "success" -> "Принята"
+      :active -> "Активная"
+      :fail -> "Отклонено"
+      :success -> "Принята"
     end
   end
 
   def compare_workers_id(worker1, worker2) do
     if worker1 > worker2, do: worker2 <> worker1, else: worker1 <> worker2
+  end
+
+  def get_value(price, key_order \\ :value_for_purchase, short_name \\ "EUR") do
+    price
+    |> Enum.filter(fn x -> x.currency.short_name == short_name end)
+    |> Enum.map(fn x ->
+      price = Map.get(x, key_order)
+
+      if price != nil and x.currency.short_name == short_name do
+        price
+      else
+        "-"
+      end
+    end)
   end
 end

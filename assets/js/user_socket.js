@@ -27,7 +27,7 @@ $(function () {
   // Now that you are connected, you can join channels with a topic.
   // Let's assume you have a channel with a topic named `room` and the
   // subtopic is its id - in this case 42:
-
+  let elUser = [...document.querySelectorAll(".online_users")];
   let channelOnline = socket.channel(`online:${worker.id}`);
   channelOnline
     .join()
@@ -51,6 +51,12 @@ $(function () {
     console.log("LEAVE -------");
     localStorage.removeItem("worker");
     window.location.href = "/worker/logout";
+  });
+  channelOnline.on("online:new", (payload) => {
+    console.log(payload);
+    elUser.forEach((el) => {
+      el.innerHTML = payload.count;
+    });
   });
   channelOnline.on("notification", (payload) => {
     meowMix.play();
@@ -109,6 +115,7 @@ $(function () {
 
     chatWrapper.insertAdjacentHTML("beforeend", html);
   };
+  console.log("USER SOCKET 123");
   const templateTagsInsert = (filial_name, worker_id) => {
     const html = `
     <span  class="tag-element" > 
@@ -124,14 +131,10 @@ close
  </span>`;
     setTimeout(() => {
       const etsElement = document.querySelector(`[data-tagsid="${worker_id}"]`);
-      const deleteChat = document.querySelector(
-        `[data-channelid="${worker_id}"]`
-      );
       etsElement.addEventListener(
         "click",
         async (e) => await handleClickWorker(e, socket)
       );
-      deleteChat.addEventListener("click", handleDeleteChat);
     }, 100);
     userConnectEl.insertAdjacentHTML("beforeend", html);
   };
@@ -174,6 +177,7 @@ close
   channel.on("new:order", (payload) => {
     console.log("new:order", payload);
     const template = templateNewOrder(payload.data);
+
     document
       .querySelector(`#${template.type}_table`)
       .insertAdjacentHTML("beforeend", template.template);
