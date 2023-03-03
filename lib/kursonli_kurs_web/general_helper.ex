@@ -109,4 +109,21 @@ defmodule KursonliKursWeb.GeneralHelper do
       end
     end)
   end
+
+  @doc """
+  Modify UTC DateTime to display
+  """
+  def humanizated_date(date) when is_map(date), do: hum_date(Timex.diff(Timex.now, date, :second))
+  def humanizated_date(_date), do: "-"
+  defp hum_date(diff) when diff < 0, do: "-"
+  defp hum_date(diff) when diff >= 0 and diff <= 60, do: "Только что"
+  defp hum_date(diff) when diff > 60 and diff <= 2 * 60, do: "Минуту назад"
+  defp hum_date(diff) when diff > 2 * 60 and diff <= 4 * 60, do: "#{div(diff, 60)} минуты назад"
+  defp hum_date(diff) when diff > 4 * 60 and diff <= 60 * 60, do: "#{div(diff, 60)} минут назад"
+  defp hum_date(diff) when diff > 60 * 60 and diff <= 2 * 60 * 60, do: "1 час назад"
+  defp hum_date(diff) when diff > 2 * 60 * 60 and diff <= 4 * 60 * 60, do: "#{div(diff, 60 * 60)} часа назад"
+  defp hum_date(diff) when diff > 4 * 60 * 60 and diff <= 20 * 60 * 60, do: "#{div(diff, 60 * 60)} часов назад"
+  defp hum_date(diff) when diff > 20 * 60 * 60 and diff <= 21 * 60 * 60, do: "#{div(diff, 60 * 60)} час назад"
+  defp hum_date(diff) when diff > 21 * 60 * 60 and diff <= 24 * 60 * 60, do: "#{div(diff, 60 * 60)} часa назад"
+  defp hum_date(diff) when diff > 24 * 60 * 60, do: "Больше суток назад"
 end

@@ -16,6 +16,7 @@ defmodule KursonliKurs.Context.Filials do
   }
 
   alias KursonliKurs.Context.{Filials, Workers, Settings, Cities}
+  alias KursonliKursWeb.GeneralHelper
 
   require Logger
 
@@ -25,7 +26,7 @@ defmodule KursonliKurs.Context.Filials do
   def get(opts \\ []) do
     Filial
     |> filter_by(opts)
-    |> Cities.get_city_name
+    |> Cities.get_city_name()
     |> Repo.one()
   end
 
@@ -154,7 +155,9 @@ defmodule KursonliKurs.Context.Filials do
   def get_filial_by_city(city_id) do
     Repo.all(
       from f in Filial,
-        where: f.city_id == ^city_id and f.filial_active_status == :active and f.visible_course_status == :true,
+        where:
+          f.city_id == ^city_id and f.filial_active_status == :active and
+            f.visible_course_status == true,
         left_join: s in Setting,
         on: s.filial_id == f.id,
         join: org in Organization,
@@ -162,9 +165,30 @@ defmodule KursonliKurs.Context.Filials do
         left_join: c in assoc(f, :course),
         left_join: cr in assoc(c, :currency),
         preload: [course: {c, currency: cr}],
-        select: [%{filial: f, setting: s, organization: org}]
+        select: %{
+          filial: f,
+          setting: %{
+            tags: s.tags,
+            phones: s.phones,
+            promo: s.promo,
+            visible_website_status: s.visible_website_status,
+            organization_name: org.name
+          }
+        }
     )
-    |> Enum.map(fn x -> x |> hd() end)
-    |> Enum.sort_by((fn x -> hd(x.filial.course) end), :desc)
+    |> Enum.map(&%{setting: &1.setting, course: course_handler(&1.filial.course)})
+  end
+
+  defp course_handler(course) do
+    Enum.map(
+      course,
+      &%{
+        short_name: &1.currency.short_name,
+        value_for_sale: &1.value_for_sale,
+        value_for_purchase: &1.value_for_purchase,
+        date: &1.date,
+        humanizated_date: GeneralHelper.humanizated_date(&1.date)
+      }
+    )
   end
 end

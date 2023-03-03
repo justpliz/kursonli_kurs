@@ -252,8 +252,8 @@
 
     const elements = [...document.querySelectorAll("[data-id]")]
     let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
+    
     const selectTable = [...document.querySelectorAll(".select_table")]
-console.log(courses)
     selectTable.forEach((el) => el.addEventListener('change', (e) => {
       const currentSelect = e.currentTarget.dataset.select
       const valueEl = e.currentTarget.value
