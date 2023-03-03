@@ -59,7 +59,7 @@
             <div class="scoreboard bg-blub p-6 text-white rounded-xl w-2/3 mb:w-full">
                 <div class="text-center">
                     <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
-                    <div class="text-sm">на ЧИСЛО января ГОД ВРЕМЯ</div>
+                    <div class="text-sm">на <%= KursonliKursWeb.GeneralHelper.date_to_string_time_personal(hd(@courses_list).date) %></div>
                     <div class="grid_con">
                         <div class="wrapper pt-4 pb-2">
                             <div>

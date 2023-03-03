@@ -50,6 +50,8 @@ defmodule KursonliKursWeb.GeneralHelper do
   def date_to_string_time_m(date), do: Timex.format!(date, "{m}")
   def date_to_string_time_s(date), do: Timex.format!(date, "{s}")
 
+  def date_to_string_time_personal(date), do: Timex.format!(date, "{0D} #{month_translate_ru(date.month)} {YYYY} {h24}:{m}")
+
   def date_to_string_all(date),
     do: "#{date.year}-#{date.month}-#{date.day} #{date.hour}:#{date.minute}:#{date.second}"
 
@@ -122,18 +124,26 @@ defmodule KursonliKursWeb.GeneralHelper do
   defp hum_date(diff) when diff > 2 * 60 and diff <= 4 * 60, do: "#{div(diff, 60)} минуты назад"
   defp hum_date(diff) when diff > 4 * 60 and diff <= 60 * 60, do: "#{div(diff, 60)} минут назад"
   defp hum_date(diff) when diff > 60 * 60 and diff <= 2 * 60 * 60, do: "1 час назад"
-
-  defp hum_date(diff) when diff > 2 * 60 * 60 and diff <= 4 * 60 * 60,
-    do: "#{div(diff, 60 * 60)} часа назад"
-
-  defp hum_date(diff) when diff > 4 * 60 * 60 and diff <= 20 * 60 * 60,
-    do: "#{div(diff, 60 * 60)} часов назад"
-
-  defp hum_date(diff) when diff > 20 * 60 * 60 and diff <= 21 * 60 * 60,
-    do: "#{div(diff, 60 * 60)} час назад"
-
-  defp hum_date(diff) when diff > 21 * 60 * 60 and diff <= 24 * 60 * 60,
-    do: "#{div(diff, 60 * 60)} часa назад"
-
+  defp hum_date(diff) when diff > 2 * 60 * 60 and diff <= 4 * 60 * 60, do: "#{div(diff, 60 * 60)} часа назад"
+  defp hum_date(diff) when diff > 4 * 60 * 60 and diff <= 20 * 60 * 60, do: "#{div(diff, 60 * 60)} часов назад"
+  defp hum_date(diff) when diff > 20 * 60 * 60 and diff <= 21 * 60 * 60, do: "#{div(diff, 60 * 60)} час назад"
+  defp hum_date(diff) when diff > 21 * 60 * 60 and diff <= 24 * 60 * 60, do: "#{div(diff, 60 * 60)} часa назад"
   defp hum_date(diff) when diff > 24 * 60 * 60, do: "Больше суток назад"
+
+  defp month_translate_ru(month) do
+    case month do
+      01 -> "января"
+      02 -> "февраля"
+      03 -> "марта"
+      04 -> "апреля"
+      05 -> "мая"
+      06 -> "июня"
+      07 -> "июля"
+      08 -> "августа"
+      09 -> "сентября"
+      10 -> "октября"
+      11 -> "ноября"
+      12 -> "декабря"
+    end
+  end
 end
