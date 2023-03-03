@@ -9,6 +9,7 @@ import { handleClickWorker } from "./worker_click";
 const meowMix = new Audio("/images/sound/notice.mp3");
 const audioObj = new Audio("/images/sound/notice.mp3");
 import { trigger } from "./helper/trigger";
+import { handleDeleteChat } from "./delete_chat_click";
 // audioObj.play()
 export const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"));
@@ -114,15 +115,25 @@ $(function () {
 
     chatWrapper.insertAdjacentHTML("beforeend", html);
   };
-  console.log("USER SOCKET 123");
+
   const templateTagsInsert = (filial_name, worker_id) => {
-    const html = `<div
-    class="text-xs flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center worker_click" data-tagsid="${worker_id}"
+    const html = `
+    <span  class="tag-element" > 
+    <div
+    class="tag-element text-xs flex items-center text-center font-bold leading-sm uppercase p-2 bg-gray-300 border w-auto border-gray-400 text-black justify-center worker_click" data-tagsid="${worker_id}"
     "}">
     ${filial_name}
- </div>`;
+    </div>
+    <span  class="material-symbols-outlined"  data-channelid="${worker_id}">
+close
+</span>
+    
+ </span>`;
     setTimeout(() => {
       const etsElement = document.querySelector(`[data-tagsid="${worker_id}"]`);
+      document
+        .querySelector(`[data-channelid="${worker_id}"]`)
+        .addEventListener("click", handleDeleteChat);
       etsElement.addEventListener(
         "click",
         async (e) => await handleClickWorker(e, socket)
@@ -169,6 +180,7 @@ $(function () {
   channel.on("new:order", (payload) => {
     console.log("new:order", payload);
     const template = templateNewOrder(payload.data);
+
     document
       .querySelector(`#${template.type}_table`)
       .insertAdjacentHTML("beforeend", template.template);

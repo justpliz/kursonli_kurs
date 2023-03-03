@@ -93,4 +93,13 @@ defmodule KursonliKursWeb.TradeController do
       |> redirect(to: "/worker/orders")
     end
   end
+
+  def delete_chat(conn, %{"id" => id, "user_id" => user_id}) do
+    with _ <-
+           Chat.update_is_visible_users(id, user_id) do
+      json(conn, %{
+        status: "ok"
+      })
+    end
+  end
 end
