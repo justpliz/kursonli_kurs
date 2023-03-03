@@ -45,7 +45,10 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   def date_to_string_data(date), do: Timex.format!(date, "{0D}.{0M}.{YYYY}")
 
-  def date_to_string_time(date), do: "#{date.hour}:#{date.minute}:#{date.second}"
+  def date_to_string_time(date), do: Timex.format!(date, "{h24}:{m}:{s}")
+  def date_to_string_time_h(date), do: Timex.format!(date, "{h24}")
+  def date_to_string_time_m(date), do: Timex.format!(date, "{m}")
+  def date_to_string_time_s(date), do: Timex.format!(date, "{s}")
 
   def date_to_string_all(date),
     do: "#{date.year}-#{date.month}-#{date.day} #{date.hour}:#{date.minute}:#{date.second}"

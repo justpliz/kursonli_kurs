@@ -5,33 +5,28 @@
         <a href="/"><img src="/images/white-line-logo.svg" class="mb:w-4/5" alt=""></a>
         <a href="/worker/login" class="href_index hidden mb:block">Войти</a>
       </div>
-
       <div class="relative w-1/5 mb:w-full mb:py-2">
         <input class="input_search search-input" type="text" placeholder="">
         <div class="absolute inset-y-0 right-4 flex items-center pl-3 pointer-events-none">
           <img src="/images/icons/search.svg" alt="">
         </div>
       </div>
-
       <a href="/worker/login" class="href_index mb:hidden">Войти</a>
     </div>
   </div>
-
   <div class="max-w-1440 mx-auto mb:px-2">
     <div class="flex py-8 mb:py-4 text-dblue">
       <%= for item <- @city_list do %>
         <a class="font-bold pr-4 mb:text-sm" href="city?name=<%= item.name %>">
           <div><%= item.name %> (<span class="font-bold text-red-500"><%= item.count %></span>)</div>
         </a>
-        <% end %>
+      <% end %>
     </div>
-
     <div class="font-bold text-black text-lg mb:text-sm">
       Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl mb:text-lg">
-          <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
-        </span>
+        <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
+      </span>
     </div>
-
     <div class="relative w-full pt-4">
       <table class="w-full text-sm mb:text-xs text-left text-gray-500 table-fixed table_search" id="index-table">
         <thead class="bg-tableGray text-white uppercase">
@@ -54,12 +49,12 @@
                       <option class="text-black" selected="selected" value="<%= item.short_name %>">
                         <%= item.short_name %>
                       </option>
-                      <% else %>
-                        <option class="text-black" value="<%= item.short_name %>">
-                          <%= item.short_name %>
-                        </option>
-                        <% end %>
-                          <% end %>
+                    <% else %>
+                      <option class="text-black" value="<%= item.short_name %>">
+                        <%= item.short_name %>
+                      </option>
+                    <% end %>
+                  <% end %>
                 </select>
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
@@ -73,12 +68,12 @@
                       <option class="text-black" selected="selected" value="<%= item.short_name %>">
                         <%= item.short_name %>
                       </option>
-                      <% else %>
-                        <option class="text-black" value="<%= item.short_name %>">
-                          <%= item.short_name %>
-                        </option>
-                        <% end %>
-                          <% end %>
+                    <% else %>
+                      <option class="text-black" value="<%= item.short_name %>">
+                        <%= item.short_name %>
+                      </option>
+                    <% end %>
+                  <% end %>
                 </select>
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
@@ -92,12 +87,12 @@
                       <option class="text-black" selected="selected" value="<%= item.short_name %>">
                         <%= item.short_name %>
                       </option>
-                      <% else %>
-                        <option class="text-black" value="<%= item.short_name %>">
-                          <%= item.short_name %>
-                        </option>
-                        <% end %>
-                          <% end %>
+                    <% else %>
+                      <option class="text-black" value="<%= item.short_name %>">
+                        <%= item.short_name %>
+                      </option>
+                    <% end %>
+                  <% end %>
                 </select>
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
@@ -109,36 +104,36 @@
         </thead>
         <tbody class="data-table">
           <%= for item <- @courses_list do %>
-            <tr class="bg-white text-black" data-id="<%= item.filial.id %>"
+            <tr class="bg-white text-black" data-id="<%= item.filial_id %>"
               data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-l-0 border-tableGray">
                 <span class="font-bold text-sm mb:text-xs block">
-                  <%= item.organization.name %>
+                  <%= item.setting.organization_name %>
                 </span>
                 <%= if item.setting.visible_website_status == true do %>
-                  <a href="personal?filial=<%= item.filial.id %>" class="font-bold text-xs mb:text-small underline">
-                    <%= item.filial.name %>
+                  <a href="personal?filial=<%= item.filial_id %>" class="font-bold text-xs mb:text-small underline">
+                    <%= item.filial_name %>
                   </a>
                 <% else %>
-                  <%= item.filial.name %>
+                  <%= item.filial_name %>
                 <% end %>
                 <span class="block text-xs mb:text-small">
-                  <%= item.filial.filial_address %>
+                  <%= item.filial_address %>
                 </span>
                 <div class="hidden">
                   <%= [wholesale_rate, gold]=item.setting.tags %>
                 </div>
                 <div class="mt-2 mb:mt-1">
                   <%= if String.to_atom(wholesale_rate) do %>
-                  <div class="mb:mt-2">
-                  <span class="bg-greatGreen text-xs mb:text-small uppercase text-white px-4 mb:px-2 py-1">Оптовый курс</span>
-                  </div>
+                    <div class="mb:mt-2">
+                      <span class="bg-greatGreen text-xs mb:text-small uppercase text-white px-4 mb:px-2 py-1">Оптовый курс</span>
+                    </div>
                   <% end %>
                   <%= if String.to_atom(gold) do %>
-                  <div class="mt-2 mb:mt-2">
-                    <span class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1">Золото</span>
-                  </div>
-                    <% end %>
+                    <div class="mt-2 mb:mt-2">
+                      <span class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1">Золото</span>
+                    </div>
+                  <% end %>
                 </div>
                 <div class="block mt-2 text-xs mb:text-small">
                   <%= item.setting.promo["promo1"] %>
@@ -159,47 +154,45 @@
                 </div>
               </td>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray text-center">
-                <div class="time-container">
-                  <span class="text-base mb:text-sm font-bold flex flex-col time">
-                    <%= KursonliKursWeb.GeneralHelper.date_to_string_all(item.filial.course |> hd() |> Map.get(:date)) %>
-                  </span>
+                <div class="text-base mb:text-sm font-bold"><%= item.date_h %>:<%= item.date_m %><span class="text-neutral-400">:<%= item.date_s %></span></div>
+                <div class="text-xs"><%= item.humanizated_date %></div>
               </td>
-                <% purchase= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_purchase, "USD") %>
-                <% sale= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_sale, "USD")  %>
+              <%# KursonliKursWeb.GeneralHelper.get_value(:item.course.value_for_purchase, "USD") %>
+              <%# KursonliKursWeb.GeneralHelper.get_value(:item.course.value_for_sale, "USD")  %>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 dataget" data-select="1">
                 <div class="flex justify-between items-center">
                   <span class="purchase font-bold text-base mb:text-sm">
-                    <%= purchase %>
+                    <%#= purchase %>
                   </span>
                   <span class="font-bold border-b-0 text-base mb:text-small">—</span>
                   <span class="sale font-bold text-base mb:text-sm">
-                    <%= sale %>
+                    <%#= sale %>
                   </span>
                 </div>
               </td>
-                <% purchase= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_purchase, "EUR") %>
-                <% sale= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_sale, "EUR")  %>
+              <%# purchase= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_purchase, "EUR") %>
+              <%# sale= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_sale, "EUR")  %>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="2">
                 <div class="flex justify-between items-center">
                   <span class="purchase font-bold text-base">
-                    <%= purchase %>
+                    <%#= purchase %>
                   </span>
                   <span class="font-bold text-base">—</span>
                   <span class="sale font-bold text-base">
-                    <%= sale %>
+                    <%#= sale %>
                   </span>
                 </div>
               </td>
-                <% purchase= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_purchase, "RUB") %>
-                <% sale= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_sale, "RUB")  %>
+              <%# purchase= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_purchase, "RUB") %>
+              <%# sale= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_sale, "RUB")  %>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="3">
                 <div class="flex justify-between items-center">
                   <span class="purchase font-bold text-base">
-                    <%= purchase %>
+                    <%#= purchase %>
                   </span>
                   <span class="font-bold text-base">—</span>
                   <span class="sale font-bold text-base">
-                    <%= sale %>
+                    <%#= sale %>
                   </span>
                 </div>
               </td>
@@ -215,14 +208,13 @@
                 </a>
               </td>
             </tr>
-            <% end %>
+          <% end %>
         </tbody>
       </table>
     </div>
     <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!()  %>"></div>
   </div>
 </div>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const table = document.getElementById("index-table");
@@ -252,7 +244,7 @@
 
     const elements = [...document.querySelectorAll("[data-id]")]
     let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
-    
+
     const selectTable = [...document.querySelectorAll(".select_table")]
     selectTable.forEach((el) => el.addEventListener('change', (e) => {
       const currentSelect = e.currentTarget.dataset.select
@@ -278,48 +270,5 @@
         }
       })
     }));
-  });
-
-  function timeSince(time) {
-    const minute = 60;
-    const hour = minute * 60;
-    const day = hour * 24;
-
-    const currentDate = new Date();
-    const elapsedSeconds = (currentDate - time) / 1000;
-
-    if (elapsedSeconds < 0) {
-      return `Больше суток назад`;
-    }
-    else {
-      if (elapsedSeconds < minute) {
-        return `Несколько секунд назад`;
-      }
-      else if (elapsedSeconds < hour) {
-        return `${Math.floor(elapsedSeconds / minute)} мин. назад`;
-      } else if ((Math.floor(elapsedSeconds / day) === 0)) {
-        if (Math.floor(elapsedSeconds / hour) <= 1) {
-          return `${Math.floor(elapsedSeconds / hour)} час назад`;
-        } else if (Math.floor(elapsedSeconds / hour) < 5) {
-          return `${Math.floor(elapsedSeconds / hour)} часа назад`;
-        } else {
-          return `${Math.floor(elapsedSeconds / hour)} часов назад`;
-        }
-      }
-    }
-  }
-
-  const timeContainers = document.querySelectorAll('.time-container');
-  timeContainers.forEach(container => {
-    const timeElements = container.querySelectorAll('.time');
-    timeElements.forEach(timeElement => {
-      const timeString = timeElement.textContent.split(" ")[1];
-      const currentYear = new Date().getFullYear();
-      const currentMonth = new Date().getMonth() + 1;
-      const currentDay = new Date().getDate();
-      const time = new Date(`${currentYear}-${currentMonth}-${currentDay} ${timeString}`);
-
-      timeElement.innerHTML = `${timeString}<span class="text-small font-medium italic">${timeSince(time)}</span>`;
-    });
   });
 </script>

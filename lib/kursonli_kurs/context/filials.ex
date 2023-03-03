@@ -176,7 +176,21 @@ defmodule KursonliKurs.Context.Filials do
           }
         }
     )
-    |> Enum.map(&%{setting: &1.setting, course: course_handler(&1.filial.course)})
+    |> IO.inspect(label: "Yo")
+    |> Enum.map(
+      &%{
+        setting: &1.setting,
+        course: course_handler(&1.filial.course),
+        filial_id: &1.filial.id,
+        filial_address: &1.filial.filial_address,
+        filial_name: &1.filial.name,
+        date_h: GeneralHelper.date_to_string_time_h(hd(&1.filial.course).date),
+        date_m: GeneralHelper.date_to_string_time_m(hd(&1.filial.course).date),
+        date_s: GeneralHelper.date_to_string_time_s(hd(&1.filial.course).date),
+        humanizated_date: GeneralHelper.humanizated_date(hd(&1.filial.course).date)
+      }
+    )
+    |> IO.inspect(label: "Asakura")
   end
 
   defp course_handler(course) do
@@ -185,9 +199,7 @@ defmodule KursonliKurs.Context.Filials do
       &%{
         short_name: &1.currency.short_name,
         value_for_sale: &1.value_for_sale,
-        value_for_purchase: &1.value_for_purchase,
-        date: &1.date,
-        humanizated_date: GeneralHelper.humanizated_date(&1.date)
+        value_for_purchase: &1.value_for_purchase
       }
     )
   end
