@@ -13,7 +13,7 @@ module.exports = {
     extend: {
       colors: {
         drab: '#363740',
-        tableGray: '#515151',
+        tableGray: '#e3dbdb ',
         dblue: '#000045',
         blub: '#3689ce',
         lightBlub: '#5699d1',
@@ -21,7 +21,7 @@ module.exports = {
         greatYellow: '#FFC69D',
         grey: '#f3f3f3',
         accept: '#009640',
-        index: '#0071b8',
+        index: '#ada3b6',
         indexYellow: '#f7ac3b',
       },
       minHeight: {

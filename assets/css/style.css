@@ -396,6 +396,11 @@ body.swal2-shown {
     right: 0;
   }
 }
+
 #userConnect .active {
   border: 2px solid blue;
+}
+
+.shadow{
+  box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%)
 }

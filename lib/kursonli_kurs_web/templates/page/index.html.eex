@@ -33,7 +33,7 @@
     </div>
     <div class="relative w-full pt-4">
       <table class="w-full text-sm mb:text-xs text-left text-gray-500 table-fixed table_search" id="index-table">
-        <thead class="bg-tableGray text-white uppercase">
+        <thead class="bg-dblue text-white uppercase">
           <tr class="uppercase">
             <th scope="col" class="w-1/4 px-6 mb:px-2 py-1 mb:text-small border-l-0 border-2 border-gray-200">
               ОБМЕННЫЙ ПУНКТ
@@ -110,19 +110,20 @@
           <%= for item <- @courses_list do %>
             <tr class="bg-white text-black" data-id="<%= item.filial_id %>"
               data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
-              <td class="py-1 border-2 border-b-0 border-l-0 border-tableGray">
+              <td class="py-1 border-2 border-b-0 border-l-0 border-tableGray shadow">
                 <%= if item.setting.visible_website_status==true do %>
-                <a href="personal?filial=<%= item.filial_id %>" class="underline font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
-                  <%= item.filial_name %>
-                </a>
-                <% else %>
-                <span class="font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
-                  <%= item.filial_name %>
-                </span>
-                <% end %>
-                <div>
-                  <%= item.setting.organization_name %>
-                </div>
+                  <a href="personal?filial=<%= item.filial_id %>"
+                    class="underline font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
+                    <%= item.filial_name %>
+                  </a>
+                  <% else %>
+                    <span class="font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
+                      <%= item.filial_name %>
+                    </span>
+                    <% end %>
+                      <div>
+                        <%= item.setting.organization_name %>
+                      </div>
                       <span class="block font-bold text-base">
                         <%= item.filial_address %>
                       </span>
@@ -158,7 +159,7 @@
                             </a>
                           </div>
               </td>
-              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray text-center">
+              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray text-center shadow">
                 <div class="hidden time">
                   <%= item.date %>
                 </div>
@@ -172,7 +173,7 @@
               <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase,
                 "USD") %>
                 <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "USD") %>
-                  <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 dataget"
+                  <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 shadow dataget"
                     data-select="1">
                     <div class="flex justify-between items-center">
                       <span class="purchase font-bold text-base mb:text-sm">
@@ -188,7 +189,7 @@
                     "EUR") %>
                     <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
                       "EUR") %>
-                      <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden"
+                      <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget shadow mb:hidden"
                         data-select="2">
                         <div class="flex justify-between items-center">
                           <span class="purchase font-bold text-base">
@@ -204,7 +205,7 @@
                         KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "RUB") %>
                         <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
                           "RUB") %>
-                          <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden"
+                          <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray shadow dataget mb:hidden"
                             data-select="3">
                             <div class="flex justify-between items-center">
                               <span class="purchase font-bold text-base">
@@ -217,7 +218,7 @@
                             </div>
                           </td>
                           <td
-                            class="px-6 mb:px-2 text-xs mb:text-small py-1 border-2 border-b-0 border-r-0 border-tableGray text-center mb:hidden">
+                            class="px-6 mb:px-2 text-xs mb:text-small py-1 border-2 border-b-0 border-r-0 border-tableGray shadow text-center mb:hidden">
                             <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
                               <%= item.setting.phones["phone1"] %>
                             </a>
