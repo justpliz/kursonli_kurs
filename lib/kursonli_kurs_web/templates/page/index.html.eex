@@ -111,19 +111,19 @@
             <tr class="bg-white text-black" data-id="<%= item.filial_id %>"
               data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
               <td class="py-1 border-2 border-b-0 border-l-0 border-tableGray">
-                <span class="font-bold text-base mb:text-xs bg-index py-2 text-indexYellow text-center -mt-1 block">
-                  <%= item.setting.organization_name %>
-                </span>
                 <%= if item.setting.visible_website_status==true do %>
-                  <a href="personal?filial=<%= item.filial_id %>" class="font-medium text-sm underline">
-                    <%= item.filial_name %>
-                  </a>
-                  <% else %>
-                    <span class="font-medium text-sm underline">
-                      <%= item.filial_name %>
-                    </span>
-                    <% end %>
-                      <span class="block font-bold text-lg">
+                <a href="personal?filial=<%= item.filial_id %>" class="underline font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
+                  <%= item.filial_name %>
+                </a>
+                <% else %>
+                <span class="font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
+                  <%= item.filial_name %>
+                </span>
+                <% end %>
+                <div>
+                  <%= item.setting.organization_name %>
+                </div>
+                      <span class="block font-bold text-base">
                         <%= item.filial_address %>
                       </span>
                       <div class="hidden">
@@ -140,10 +140,10 @@
                                 class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1">Золото</span>
                         </div>
                         <% end %>
-                          <div class="block mt-1 text-sm mb:text-small">
+                          <div class="block mt-1 text-xs mb:text-small">
                             <%= item.setting.promo["promo1"] %>
                           </div>
-                          <div class="block text-sm mb:text-small">
+                          <div class="block text-xs mb:text-small">
                             <%= item.setting.promo["promo2"] %>
                           </div>
                           <div class="hidden mb:block mb:mt-1">
