@@ -137,7 +137,7 @@
                           <% end %>
                             <%= if String.to_atom(gold) do %>
                               <span
-                                class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1">Золото</span>
+                                class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1 mob:relative mob:top-1">Золото</span>
                         </div>
                         <% end %>
                           <div class="block mt-1 text-xs mb:text-small">

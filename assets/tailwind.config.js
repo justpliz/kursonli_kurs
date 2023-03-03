@@ -65,6 +65,7 @@ module.exports = {
         'md': { 'max': '769px' },
         'sm': { 'max': '640px' },
         'mb': { 'max': '768px' },
+        'mob': { 'max': '409px' },
       }
     }
   },
