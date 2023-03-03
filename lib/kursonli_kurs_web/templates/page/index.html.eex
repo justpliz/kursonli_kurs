@@ -159,7 +159,7 @@
                           </div>
               </td>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray text-center">
-                <div class="text-base mb:text-sm font-bold">
+                <div class="text-base mb:text-sm font-bold time">
                   <%= item.date_h %>:<%= item.date_m %><span class="text-neutral-400">:<%= item.date_s %></span>
                 </div>
                 <div class="text-xs">
@@ -264,4 +264,23 @@
       })
     }));
   });
+
+  const table = document.getElementById("index-table");
+  const rows = [...table.getElementsByClassName("data-table")[0].getElementsByTagName("tr")];
+  const imgSortClickHandler = (event) => {
+    const sortDirection = event.target.src.includes("down") ? 1 : -1;
+    rows.sort((a, b) => {
+      const timeA = a.getElementsByClassName("time")[0].innerText;
+      const timeB = b.getElementsByClassName("time")[0].innerText;
+      return sortDirection * (timeA < timeB ? -1 : (timeA > timeB ? 1 : 0));
+    });
+    rows.forEach((row) => table.getElementsByClassName("data-table")[0].appendChild(row));
+    if (event.target.src.includes("down")) {
+      event.target.src = "/images/icons/up.svg";
+    } else {
+      event.target.src = "/images/icons/down.svg";
+    }
+  };
+  const imgSortElements = [...table.getElementsByClassName("img_sort")];
+  imgSortElements.forEach((imgSortElement) => imgSortElement.addEventListener("click", imgSortClickHandler));
 </script>
