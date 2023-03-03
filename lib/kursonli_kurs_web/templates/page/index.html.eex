@@ -157,42 +157,42 @@
                 <div class="text-base mb:text-sm font-bold"><%= item.date_h %>:<%= item.date_m %><span class="text-neutral-400">:<%= item.date_s %></span></div>
                 <div class="text-xs"><%= item.humanizated_date %></div>
               </td>
-              <%# KursonliKursWeb.GeneralHelper.get_value(:item.course.value_for_purchase, "USD") %>
-              <%# KursonliKursWeb.GeneralHelper.get_value(:item.course.value_for_sale, "USD")  %>
+              <% purchase = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "USD") %>
+              <% sale = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "USD")  %>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 dataget" data-select="1">
                 <div class="flex justify-between items-center">
                   <span class="purchase font-bold text-base mb:text-sm">
-                    <%#= purchase %>
+                    <%= purchase %>
                   </span>
                   <span class="font-bold border-b-0 text-base mb:text-small">—</span>
                   <span class="sale font-bold text-base mb:text-sm">
-                    <%#= sale %>
+                    <%= sale %>
                   </span>
                 </div>
               </td>
-              <%# purchase= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_purchase, "EUR") %>
-              <%# sale= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_sale, "EUR")  %>
+              <% purchase = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "EUR") %>
+              <% sale = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "EUR")  %>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="2">
                 <div class="flex justify-between items-center">
                   <span class="purchase font-bold text-base">
-                    <%#= purchase %>
+                    <%= purchase %>
                   </span>
                   <span class="font-bold text-base">—</span>
                   <span class="sale font-bold text-base">
-                    <%#= sale %>
+                    <%= sale %>
                   </span>
                 </div>
               </td>
-              <%# purchase= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_purchase, "RUB") %>
-              <%# sale= item.filial.course  |> KursonliKursWeb.GeneralHelper.get_value(:value_for_sale, "RUB")  %>
+              <% purchase = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "RUB") %>
+              <% sale = item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "RUB")  %>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden" data-select="3">
                 <div class="flex justify-between items-center">
                   <span class="purchase font-bold text-base">
-                    <%#= purchase %>
+                    <%= purchase %>
                   </span>
                   <span class="font-bold text-base">—</span>
                   <span class="sale font-bold text-base">
-                    <%#= sale %>
+                    <%= sale %>
                   </span>
                 </div>
               </td>

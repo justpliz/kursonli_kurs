@@ -105,7 +105,7 @@ defmodule KursonliKurs.EtsStorage.Chat do
           item
       end
     )
-    |> Enum.sort_by(fn {_, _, d, _, _} -> d end, DateTime)
+    |> Enum.sort_by(fn {_, _, d, _, _} -> d end, :desc)
   end
 
   def get_by_id(id) do

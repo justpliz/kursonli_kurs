@@ -99,24 +99,21 @@ defmodule KursonliKursWeb.GeneralHelper do
     if worker1 > worker2, do: worker2 <> worker1, else: worker1 <> worker2
   end
 
-  def get_value(price, key_order \\ :value_for_purchase, short_name \\ "EUR") do
-    price
-    |> Enum.filter(fn x -> x.currency.short_name == short_name end)
+  def find_value_by_short_name(course, key_order \\ :value_for_purchase, short_name \\ "EUR") do
+    course
+    |> Enum.filter(fn x -> x.short_name == short_name end)
     |> Enum.map(fn x ->
-      price = Map.get(x, key_order)
-
-      if price != nil and x.currency.short_name == short_name do
-        price
-      else
-        "-"
-      end
+      value = Map.get(x, key_order)
+      if value != nil and x.short_name == short_name, do: value, else: "-"
     end)
   end
 
   @doc """
   Modify UTC DateTime to display
   """
-  def humanizated_date(date) when is_map(date), do: hum_date(Timex.diff(Timex.now, date, :second))
+  def humanizated_date(date) when is_map(date),
+    do: hum_date(Timex.diff(Timex.now(), date, :second))
+
   def humanizated_date(_date), do: "-"
   defp hum_date(diff) when diff < 0, do: "-"
   defp hum_date(diff) when diff >= 0 and diff <= 60, do: "Только что"
@@ -124,9 +121,18 @@ defmodule KursonliKursWeb.GeneralHelper do
   defp hum_date(diff) when diff > 2 * 60 and diff <= 4 * 60, do: "#{div(diff, 60)} минуты назад"
   defp hum_date(diff) when diff > 4 * 60 and diff <= 60 * 60, do: "#{div(diff, 60)} минут назад"
   defp hum_date(diff) when diff > 60 * 60 and diff <= 2 * 60 * 60, do: "1 час назад"
-  defp hum_date(diff) when diff > 2 * 60 * 60 and diff <= 4 * 60 * 60, do: "#{div(diff, 60 * 60)} часа назад"
-  defp hum_date(diff) when diff > 4 * 60 * 60 and diff <= 20 * 60 * 60, do: "#{div(diff, 60 * 60)} часов назад"
-  defp hum_date(diff) when diff > 20 * 60 * 60 and diff <= 21 * 60 * 60, do: "#{div(diff, 60 * 60)} час назад"
-  defp hum_date(diff) when diff > 21 * 60 * 60 and diff <= 24 * 60 * 60, do: "#{div(diff, 60 * 60)} часa назад"
+
+  defp hum_date(diff) when diff > 2 * 60 * 60 and diff <= 4 * 60 * 60,
+    do: "#{div(diff, 60 * 60)} часа назад"
+
+  defp hum_date(diff) when diff > 4 * 60 * 60 and diff <= 20 * 60 * 60,
+    do: "#{div(diff, 60 * 60)} часов назад"
+
+  defp hum_date(diff) when diff > 20 * 60 * 60 and diff <= 21 * 60 * 60,
+    do: "#{div(diff, 60 * 60)} час назад"
+
+  defp hum_date(diff) when diff > 21 * 60 * 60 and diff <= 24 * 60 * 60,
+    do: "#{div(diff, 60 * 60)} часa назад"
+
   defp hum_date(diff) when diff > 24 * 60 * 60, do: "Больше суток назад"
 end

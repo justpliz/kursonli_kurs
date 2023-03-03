@@ -184,12 +184,14 @@ defmodule KursonliKurs.Context.Filials do
         filial_id: &1.filial.id,
         filial_address: &1.filial.filial_address,
         filial_name: &1.filial.name,
+        date: hd(&1.filial.course).date,
         date_h: GeneralHelper.date_to_string_time_h(hd(&1.filial.course).date),
         date_m: GeneralHelper.date_to_string_time_m(hd(&1.filial.course).date),
         date_s: GeneralHelper.date_to_string_time_s(hd(&1.filial.course).date),
         humanizated_date: GeneralHelper.humanizated_date(hd(&1.filial.course).date)
       }
     )
+    |> Enum.sort_by(&(&1.date), :desc)
     |> IO.inspect(label: "Asakura")
   end
 
