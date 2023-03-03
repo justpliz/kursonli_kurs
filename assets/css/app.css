@@ -201,6 +201,7 @@
   position: absolute;
   background: #fff;
   border-radius: 10px;
+  font-size: 20px;
   top: -10px;
   cursor: pointer;
   z-index: 1000;
