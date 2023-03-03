@@ -115,7 +115,7 @@ $(function () {
 
     chatWrapper.insertAdjacentHTML("beforeend", html);
   };
-  console.log("USER SOCKET 123");
+
   const templateTagsInsert = (filial_name, worker_id) => {
     const html = `
     <span  class="tag-element" > 
@@ -131,6 +131,9 @@ close
  </span>`;
     setTimeout(() => {
       const etsElement = document.querySelector(`[data-tagsid="${worker_id}"]`);
+      document
+        .querySelector(`[data-channelid="${worker_id}"]`)
+        .addEventListener("click", handleDeleteChat);
       etsElement.addEventListener(
         "click",
         async (e) => await handleClickWorker(e, socket)

@@ -48,7 +48,7 @@ defmodule KursonliKursWeb.Router do
   scope "/api/v1", KursonliKursWeb do
     pipe_through [:api]
     post "/trade", TradeController, :ajax_update_message_map
-    delete "/chat/:id", TradeController, :delete_chat
+    delete "/chat", TradeController, :delete_chat
   end
 
   scope "/admin", KursonliKursWeb do

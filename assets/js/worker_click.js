@@ -54,13 +54,26 @@ export const handleClickWorker = async (event, socket) => {
     });
 
   result.data.chat_messages.forEach((el) => {
-    if (worker.id == el.worker.id && el.type == "text") {
+    const isVisibleMessage = el["is_visible"][worker.id];
+    if (worker.id == el.worker.id && el.type == "text" && isVisibleMessage) {
       templateChatYour(el.body, el.worker.first_name);
-    } else if (worker.id != el.worker.id && el.type == "text") {
+    } else if (
+      worker.id != el.worker.id &&
+      el.type == "text" &&
+      isVisibleMessage
+    ) {
       templateChatNewMe(el.body, el.worker.first_name);
-    } else if (worker.id != el.worker_id && el.type == "event") {
+    } else if (
+      worker.id != el.worker_id &&
+      el.type == "event" &&
+      isVisibleMessage
+    ) {
       templateEvent(el);
-    } else if (worker.id == el.worker_id && el.type == "event") {
+    } else if (
+      worker.id == el.worker_id &&
+      el.type == "event" &&
+      isVisibleMessage
+    ) {
       templateEvent1(el);
     }
   });

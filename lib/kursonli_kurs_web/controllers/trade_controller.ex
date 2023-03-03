@@ -94,11 +94,11 @@ defmodule KursonliKursWeb.TradeController do
     end
   end
 
-  def delete_chat(conn, %{"id" => id}) do
-    with count_delete <- Chat.delete_by_id_channel(id) do
+  def delete_chat(conn, %{"id" => id, "user_id" => user_id}) do
+    with _ <-
+           Chat.update_is_visible_users(id, user_id) do
       json(conn, %{
-        status: :ok,
-        count_delete: count_delete
+        status: "ok"
       })
     end
   end
