@@ -57,23 +57,27 @@ defmodule KursonliKurs.EtsStorage.Chat do
   # end
 
   def insert_message(user_id, worker_id, message_map, type \\ "user") do
-       if type == "city" do
-          table = {Ecto.UUID.generate(), user_id, Timex.now("Asia/Almaty"), user_id, message_map}
-          :logger.info("CHANNEL INSERT -> #{user_id}")
-
+    if type == "city" do
+      table = {Ecto.UUID.generate(), user_id, Timex.now("Asia/Almaty"), user_id, message_map}
+      :logger.info("CHANNEL INSERT -> #{user_id}")
 
       :dets.insert_new(
-            :chat,
-            table
-          )
-
+        :chat,
+        table
+      )
 
       table
-       else
-          id = GeneralHelper.compare_workers_id(user_id, worker_id)
+    else
+      id = GeneralHelper.compare_workers_id(user_id, worker_id)
 
       :logger.info("CHANNEL INSERT -> #{id}")
-      table = {Ecto.UUID.generate(), id, Timex.now("Asia/Almaty"), user_id, message_map}
+
+      table =
+        {Ecto.UUID.generate(), id, Timex.now("Asia/Almaty"), user_id,
+         default_message_map(message_map, %{
+           "user_one" => user_id,
+           "user_two" => worker_id
+         })}
 
       :dets.insert_new(
         :chat,
@@ -89,6 +93,12 @@ defmodule KursonliKurs.EtsStorage.Chat do
     |> Enum.map(fn item ->
       id = GeneralHelper.compare_workers_id(user_id, item.worker_id)
       message = KursonliKurs.EtsStorage.Chat.get_all_by_city(id)
+
+      message =
+        message
+        |> Enum.filter(fn {_, _, _, _, message} ->
+          get_in(message, ["is_visible", user_id])
+        end)
 
       if message != [] do
         Map.put(item, :channel_id, item.worker_id)
@@ -126,7 +136,40 @@ defmodule KursonliKurs.EtsStorage.Chat do
     end
   end
 
+  def update_is_visible_users(worker_id_or_channel_id, user_id) do
+    get_all_by_city(worker_id_or_channel_id)
+    |> Enum.map(fn {id, _, _, _, object_message_map} ->
+      IO.inspect(object_message_map)
+      update_by_id_message(id, put_in(object_message_map, ["is_visible", user_id], false))
+    end)
+  end
+
   def delete_all() do
     :dets.delete_all_objects(:chat)
+  end
+
+  # Дефолтная мапа что должно быть в каждом сообщении
+  defp default_message_map(map, params \\ %{}) when is_map(map) do
+    Map.merge(map, %{
+      "is_visible" => %{
+        "#{params["user_one"]}" => true,
+        "#{params["user_two"]}" => true
+      }
+    })
+  end
+
+  @doc """
+  Удаляет по id_Channel все сообщения
+  """
+  def delete_by_id_channel(channel_id) do
+    channel_id |> IO.inspect(label: "channel_id")
+
+    :dets.select_delete(
+      :chat,
+      fun do
+        {x, y, z, j, l} ->
+          y == ^channel_id
+      end
+    )
   end
 end

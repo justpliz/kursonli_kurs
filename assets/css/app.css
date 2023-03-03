@@ -160,29 +160,51 @@
     opacity: 0;
   }
 }
+
 [data-type="success"] .buttons-event {
   display: none;
 }
+
 [data-type="success"] {
   background: green;
 }
+
 [data-type="fail"] .buttons-event {
   display: none;
 }
+
 [data-type="fail"] {
   @apply bg-red-500;
 }
 
+[data-type="active"] .loading-event {
+  display: block;
+}
 
-[data-type="active"] .loading-event{
+[data-type="success"] .active-event {
   display: block;
 }
-[data-type="success"] .active-event{
+
+[data-type="fail"] .fail-event {
   display: block;
 }
-[data-type="fail"] .fail-event{
-  display: block;
-}
+
 .d_none {
   display: none;
+}
+
+.tag-element {
+  position: relative;
+}
+
+.tag-element span {
+  position: absolute;
+  background: #fff;
+  border-radius: 10px;
+  font-size: 20px;
+  top: -10px;
+  cursor: pointer;
+  z-index: 1000;
+  color: red;
+  right: -10px;
 }

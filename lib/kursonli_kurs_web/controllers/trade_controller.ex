@@ -18,7 +18,14 @@ defmodule KursonliKursWeb.TradeController do
       )
 
     with {:ok, item} <- Trades.create(params) do
-      item = item |> PwHelper.Normalize.repo()
+      IO.inspect(item, label: "create trade")
+
+      item =
+        item
+        |> PwHelper.Normalize.repo()
+        |> Map.put(:worker, %{
+          id: item_map["worker_id"]
+        })
 
       KursonliKursWeb.OnlineChannel.notification(
         item_map["worker_id"],
@@ -54,17 +61,18 @@ defmodule KursonliKursWeb.TradeController do
              status: params["type_event"]
            }),
          {:ok, item} <- Chat.update_by_id_message(params["ets_id"], params) do
-
       KursonliKursWeb.OnlineChannel.notification(
         params["worker_id"],
         "Вам ответили на сделку!"
       )
+
       RoomChannel.update_trade(item_trad_up, item_trade.item_order["filial"]["city_id"])
 
       KursonliKursWeb.OnlineChannel.change_color(
         params["worker_id"],
         %{type_event: params["type_event"], ets_id: params["ets_id"]}
       )
+
       json(conn, %{item: item})
     else
       {:error, _reason} ->
@@ -83,6 +91,15 @@ defmodule KursonliKursWeb.TradeController do
       conn
       |> put_flash(:info, "Сделка успешно удалена")
       |> redirect(to: "/worker/orders")
+    end
+  end
+
+  def delete_chat(conn, %{"id" => id, "user_id" => user_id}) do
+    with _ <-
+           Chat.update_is_visible_users(id, user_id) do
+      json(conn, %{
+        status: "ok"
+      })
     end
   end
 end

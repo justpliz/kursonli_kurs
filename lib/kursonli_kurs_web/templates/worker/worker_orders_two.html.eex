@@ -1,6 +1,6 @@
 <div class="flex justify-between py-4 2xl:flex-col 2xl:gap-4">
   <div class="">
-    <button class="modal-button btn_save" id="accept" data-item="">Принять</button>
+    <button class="modal-button btn_save bg-accept" id="accept" data-item="">Принять</button>
     <button class="btn_save ml-2" id="createOrder" data-item="">Разместить</button>
   </div>
   <div class="relative">

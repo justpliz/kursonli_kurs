@@ -20,6 +20,7 @@ module.exports = {
         greatGreen: '#67d368',
         greatYellow: '#FFC69D',
         grey: '#f3f3f3',
+        accept: '#009640',
         index: '#0071b8',
         indexYellow: '#f7ac3b',
       },

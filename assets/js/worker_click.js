@@ -1,53 +1,49 @@
 const meowMix = new Audio("/images/sound/notice.mp3");
-const audioObj = new Audio(
-  "/images/sound/notice.mp3"
-);
+const audioObj = new Audio("/images/sound/notice.mp3");
 import { getWorker } from "./user_socket";
 import axios from "axios";
 import toast from "./helper/toast";
 import { eventClick } from "./click_event";
-let chat = document.querySelector("#chat")
-const loader = document.querySelector("#loader")
-const chatWrapper = document.querySelector("#chatWrapper")
+let chat = document.querySelector("#chat");
+const loader = document.querySelector("#loader");
+const chatWrapper = document.querySelector("#chatWrapper");
 
 export const handleClickWorker = async (event, socket) => {
-  const id = event.currentTarget.dataset.tagsid
-  const elements =   [...document.querySelectorAll(`[data-tagsid]`)]
+  const id = event.currentTarget.dataset.tagsid;
+  const elements = [...document.querySelectorAll(`[data-tagsid]`)];
   elements.forEach((el) => {
-    el.classList.remove("active")
-  })
-  event.currentTarget.classList.add("active")
-  const worker = getWorker()
-  let channelId = ""
+    el.classList.remove("active");
+  });
+  event.currentTarget.classList.add("active");
+  const worker = getWorker();
+  let channelId = "";
   if (id > worker.id) {
-    channelId = worker.id + id
+    channelId = worker.id + id;
+  } else {
+    channelId = id + worker.id;
   }
-  else {
-    channelId = id + worker.id
-  }
-  console.log("channelId", channelId)
+  console.log("channelId", channelId);
   if (id == getWorker().id) {
-
     toast.fire({
-      title: "Абай крутой тмлид"
-    })
-    throw "На самом деле абай не крутой тимлид"
+      title: "Абай крутой тмлид",
+    });
+    throw "На самом деле абай не крутой тимлид";
   }
-  chat.replaceWith(chat.cloneNode(true))
-  chat = document.querySelector("#chat")
-  chatWrapper.innerHTML = ""
-  loader.classList.toggle("hidden")
+  chat.replaceWith(chat.cloneNode(true));
+  chat = document.querySelector("#chat");
+  chatWrapper.innerHTML = "";
+  loader.classList.toggle("hidden");
   let channel = socket.channel(`worker:${channelId}`, {
-    worker_id: id
+    worker_id: id,
   });
 
   const result = await axios.get("/worker/chat", {
     params: {
       user_id: worker.id,
-      worker_id: id
-    }
-  })
-  loader.classList.toggle("hidden")
+      worker_id: id,
+    },
+  });
+  loader.classList.toggle("hidden");
   channel
     .join()
     .receive("ok", (resp) => {
@@ -58,22 +54,32 @@ export const handleClickWorker = async (event, socket) => {
     });
 
   result.data.chat_messages.forEach((el) => {
-   
-    if (worker.id == el.worker.id && el.type == "text") {
+    const isVisibleMessage = el["is_visible"][worker.id];
+    if (worker.id == el.worker.id && el.type == "text" && isVisibleMessage) {
       templateChatYour(el.body, el.worker.first_name);
-    } else if (worker.id != el.worker.id && el.type == "text") {
+    } else if (
+      worker.id != el.worker.id &&
+      el.type == "text" &&
+      isVisibleMessage
+    ) {
       templateChatNewMe(el.body, el.worker.first_name);
-    }
-    else if (worker.id != el.worker_id && el.type == "event") {
+    } else if (
+      worker.id != el.worker_id &&
+      el.type == "event" &&
+      isVisibleMessage
+    ) {
       templateEvent(el);
-    }
-    else if (worker.id == el.worker_id && el.type == "event") {
+    } else if (
+      worker.id == el.worker_id &&
+      el.type == "event" &&
+      isVisibleMessage
+    ) {
       templateEvent1(el);
     }
-  })
+  });
   const handleChat = (e) => {
     var key = e.which;
-    const element = e.currentTarget
+    const element = e.currentTarget;
     if (key == 13 && element.value != "") {
       // the enter key code
       channel.push("new:msg", {
@@ -83,8 +89,8 @@ export const handleClickWorker = async (event, socket) => {
       });
       element.value = "";
     }
-  }
-  chat.addEventListener("keydown", handleChat)
+  };
+  chat.addEventListener("keydown", handleChat);
 
   chatWrapper.scrollTop = chatWrapper.scrollHeight;
 
@@ -101,7 +107,7 @@ export const handleClickWorker = async (event, socket) => {
       </div>`;
 
     chatWrapper.insertAdjacentHTML("beforeend", html);
-  };
+  }
 
   function templateChatYour(body, name) {
     const html = `
@@ -116,14 +122,14 @@ export const handleClickWorker = async (event, socket) => {
     </div>`;
 
     chatWrapper.insertAdjacentHTML("beforeend", html);
-  };
+  }
 
-  chat.addEventListener("keydown", handleChat)
+  chat.addEventListener("keydown", handleChat);
 
   channel.on("new:msg", (payload) => {
-    console.log("NEW MSG WORKER")
+    console.log("NEW MSG WORKER");
     const worker = getWorker();
-    console.log(payload)
+    console.log(payload);
     setTimeout(() => {
       chatWrapper.scrollTop = chatWrapper.scrollHeight;
     }, 10);
@@ -136,34 +142,38 @@ export const handleClickWorker = async (event, socket) => {
   });
 
   channel.on("new:event", (payload) => {
-    console.log("NEW EVENT WORKER")
-     if (payload.worker_id != worker.id ) {
+    console.log("NEW EVENT WORKER");
+    if (payload.worker_id != worker.id) {
       templateEvent(payload);
-     }
-     else {
+    } else {
       templateEvent1(payload);
-     }
+    }
     meowMix.play();
   });
-
-}
+};
 
 const templateEvent = (map) => {
-  console.log("map", map)
+  console.log("map", map);
   if (map.item_order.type == "sale") {
-    item_order_type = "Продажу"
+    item_order_type = "Продажу";
   } else {
-    item_order_type = "Покупку"
+    item_order_type = "Покупку";
   }
   const html = `
-    <div class="w-full mt-2 bg-blub p-4 text-white rounded event" data-etsid="${map.ets_id
+    <div class="w-full mt-2 bg-blub p-4 text-white rounded event" data-etsid="${
+      map.ets_id
     }" data-type='${map.type_event}'>
-    <div class="text-gray-200">На ваш ордер на ${item_order_type}: ${map.item_order.volume}  ${map.item_order.currency_short_name
-    }    по курсу ${map.item_order.course_sale}  </div>
-    <div class="font-bold">Поступило предложение от ${map.item_order.worker.first_name
+    <div class="text-gray-200">На ваш ордер на ${item_order_type}: ${
+    map.item_order.volume
+  }  ${map.item_order.currency_short_name}    по курсу ${
+    map.item_order.course_sale
+  }  </div>
+    <div class="font-bold">Поступило предложение от ${
+      map.item_order.worker.first_name
     }: ${map.item_order.worker.filial_name}</div>
-    <div class="text-gray-200">предложено ${map.volume} ${map.item_order.currency_short_name
-    } по курсу ${map.item_order.course_sale}
+    <div class="text-gray-200">предложено ${map.volume} ${
+    map.item_order.currency_short_name
+  } по курсу ${map.item_order.course_sale}
     </div>
     <div class="w-full bg-white text-black text-center py-2 my-2 rounded" >
        Ваши условия: ${map.item_order.terms}
@@ -172,8 +182,12 @@ const templateEvent = (map) => {
        Условия от ${map.item_order.worker.filial_name}: ${map.terms}
     </div>
     <div class="flex gap-2 buttons-event">
-    <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event" data-type="success"  data-item='${JSON.stringify(map)}'>Принять</button>
-    <button class="bg-red-600 rounded w-full py-2 items-center justify-center flex click-event" data-type="fail" data-item='${JSON.stringify(map)}'>Отклонить</button>
+    <button class="bg-green-700 rounded w-full py-2 items-center justify-center flex click-event" data-type="success"  data-item='${JSON.stringify(
+      map
+    )}'>Принять</button>
+    <button class="bg-red-600 rounded w-full py-2 items-center justify-center flex click-event" data-type="fail" data-item='${JSON.stringify(
+      map
+    )}'>Отклонить</button>
   </div>
   </div>
     `;
@@ -189,19 +203,15 @@ const templateEvent = (map) => {
 
 const templateEvent1 = (map) => {
   if (map.item_order.type == "sale") {
-    item_order_type = "Продажу"
+    item_order_type = "Продажу";
   } else {
-    item_order_type = "Покупку"
+    item_order_type = "Покупку";
   }
   const html = `
-    <div class="w-full mt-2 bg-blub p-4 text-white rounded event" data-loading="${map.type_event}" data-etsid="${map.ets_id
-    }" data-type='${map.type_event}'>
-    <div class="text-gray-200">Вы приняли ордер на: ${map.item_order.volume}  ${map.item_order.currency_short_name
-    }    по курсу ${map.item_order.course_sale}  </div>
-    <div class="font-bold">ордер от ${map.item_order.worker_name
-    }: ${map.item_order.organization}</div>
-    <div class="text-gray-200">предложено ${map.volume} ${map.item_order.currency_short_name
-    } по курсу ${map.item_order.course_sale}
+    <div class="w-full mt-2 bg-blub p-4 text-white rounded event" data-loading="${map.type_event}" data-etsid="${map.ets_id}" data-type='${map.type_event}'>
+    <div class="text-gray-200">Вы приняли ордер на: ${map.item_order.volume}  ${map.item_order.currency_short_name}    по курсу ${map.item_order.course_sale}  </div>
+    <div class="font-bold">ордер от ${map.item_order.worker_name}: ${map.item_order.organization}</div>
+    <div class="text-gray-200">предложено ${map.volume} ${map.item_order.currency_short_name} по курсу ${map.item_order.course_sale}
     </div>
     <div class="w-full bg-white text-black text-center py-2 my-2 rounded loading-event d_none">
       Ожидает подтверждения
