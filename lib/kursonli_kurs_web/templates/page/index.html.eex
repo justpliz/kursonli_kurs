@@ -1,6 +1,6 @@
 <div class="font">
   <div class="mx-auto w-full bg-dblue">
-    <div class="max-w-1440 flex justify-between items-center mb:flex-col mb:h-auto mb:py-4 mb:px-8 mx-auto h-20 ">
+    <div class="max-w-1440 note:mx-4 mobL:mx-1 flex justify-between items-center mb:flex-col mb:h-auto mb:py-4 mx-auto h-20 ">
       <div class="flex mb:items-center">
         <a href="/"><img src="/images/white-line-logo.svg" class="mb:w-4/5" alt=""></a>
         <a href="/worker/login" class="href_index hidden mb:block" >Войти</a>
@@ -14,17 +14,13 @@
       <a href="/worker/login" class="href_index mb:hidden" target="_blank">Войти</a>
     </div>
   </div>
-  <div class="max-w-1440 mx-auto mb:px-2">
+  <div class="max-w-1440 note:mx-4 mobL:mx-1 mx-auto mb:px-2">
     <div class="flex py-8 mb:py-4 text-dblue">
       <%= for item <- @city_list do %>
         <a class="font-bold pr-4 mb:text-sm" href="city?name=<%= item.name %>">
-          <div>
-            <%= item.name %> (<span class="font-bold text-red-500">
-                <%= item.count %>
-              </span>)
-          </div>
+          <span><%= item.name %>(<span class="font-bold text-red-500"><%= item.count %></span>)</span>
         </a>
-        <% end %>
+      <% end %>
     </div>
     <div class="font-bold text-black text-lg mb:text-sm">
       Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl mb:text-lg">
@@ -33,13 +29,13 @@
     </div>
     <div class="relative w-full pt-4">
       <table class="w-full text-sm mb:text-xs text-left text-gray-500 table-fixed table_search" id="index-table">
-        <thead class="bg-tableGray text-white uppercase">
+        <thead class="bg-dblue text-white uppercase">
           <tr class="uppercase">
             <th scope="col" class="w-1/4 px-6 mb:px-2 py-1 mb:text-small border-l-0 border-2 border-gray-200">
               ОБМЕННЫЙ ПУНКТ
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 py-1 mb:text-small border-2 border-gray-200">
-              <div class="flex justify-between">
+              <div class="flex justify-between items-center">
                 Время
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
@@ -110,7 +106,7 @@
           <%= for item <- @courses_list do %>
             <tr class="bg-white text-black" data-id="<%= item.filial_id %>"
               data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
-              <td class="py-1 border-2 border-b-0 border-l-0 border-tableGray">
+              <td class="py-1 border-2 border-b-0 border-l-0 border-tableGray shadow">
                 <%= if item.setting.visible_website_status==true do %>
                   <a href="personal?filial=<%= item.filial_id %>"
                     class="underline font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
@@ -124,7 +120,7 @@
                       <div>
                         <%= item.setting.organization_name %>
                       </div>
-                      <span class="block font-bold text-base">
+                      <span class="block font-bold text-base md:text-xs">
                         <%= item.filial_address %>
                       </span>
                       <div class="hidden">
@@ -141,13 +137,13 @@
                                 class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1 mob:relative mob:top-1">Золото</span>
                         </div>
                         <% end %>
-                          <div class="block mt-1 text-xs mb:text-small">
+                          <div class="block mt-1 text-xs md:text-small">
                             <%= item.setting.promo["promo1"] %>
                           </div>
-                          <div class="block text-xs mb:text-small">
+                          <div class="block text-xs md:text-small">
                             <%= item.setting.promo["promo2"] %>
                           </div>
-                          <div class="hidden mb:block mb:mt-1">
+                          <div class="hidden mb:block mb:mt-1 md:text-xs">
                             <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
                               <%= item.setting.phones["phone1"] %>
                             </a>
@@ -159,21 +155,21 @@
                             </a>
                           </div>
               </td>
-              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray text-center">
+              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray text-center shadow">
                 <div class="hidden time">
                   <%= item.date %>
                 </div>
-                <div class="text-base mb:text-sm font-bold">
+                <div class="text-base mb:text-sm mobS:text-xs font-bold">
                   <%= item.date_h %>:<%= item.date_m %><span class="text-neutral-400">:<%= item.date_s %></span>
                 </div>
-                <div class="text-xs">
+                <div class="text-xs mobS:text-small">
                   <%= item.humanizated_date %>
                 </div>
               </td>
               <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase,
                 "USD") %>
                 <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "USD") %>
-                  <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 dataget"
+                  <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 shadow dataget"
                     data-select="1">
                     <div class="flex justify-between items-center">
                       <span class="purchase font-bold text-base mb:text-sm">
@@ -189,7 +185,7 @@
                     "EUR") %>
                     <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
                       "EUR") %>
-                      <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden"
+                      <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget shadow mb:hidden"
                         data-select="2">
                         <div class="flex justify-between items-center">
                           <span class="purchase font-bold text-base">
@@ -205,7 +201,7 @@
                         KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "RUB") %>
                         <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
                           "RUB") %>
-                          <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget mb:hidden"
+                          <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray shadow dataget mb:hidden"
                             data-select="3">
                             <div class="flex justify-between items-center">
                               <span class="purchase font-bold text-base">
@@ -218,7 +214,7 @@
                             </div>
                           </td>
                           <td
-                            class="px-6 mb:px-2 text-xs mb:text-small py-1 border-2 border-b-0 border-r-0 border-tableGray text-center mb:hidden">
+                            class="px-6 mb:px-2 text-xs mb:text-small py-1 border-2 border-b-0 border-r-0 border-tableGray shadow text-center mb:hidden">
                             <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
                               <%= item.setting.phones["phone1"] %>
                             </a>

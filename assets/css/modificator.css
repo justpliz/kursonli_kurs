@@ -49,7 +49,7 @@
 
    .select_table {
       @apply shadow-sm bg-transparent border relative border-gray-300 text-black bg-white text-base block w-full px-2 py-1;
-      @apply mb:text-small;
+      @apply note:text-small;
       @apply focus:border-transparent;
       @apply active:border-transparent;
    }
