@@ -38,7 +38,7 @@ export const templateUpdateTrade = (item) => {
      ${item.item_order.currency_short_name} 
   </td>
   <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
-     ${item.item_order.course_sale}
+     ${item.item_order.exhange}
   </td>
   <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200 break-words">
      ${item.volume}

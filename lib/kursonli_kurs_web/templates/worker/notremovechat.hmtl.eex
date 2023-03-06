@@ -5,13 +5,13 @@
                         data-type='<#%#= y["type_event"] %>'>
                         <div class="text-gray-200">На Ваш ордер на <#%#= order_type %>: <#%#= y.item_order["volume"] %>
                                  <#%#= y[:item_order]["currency_short_name"] %>
-                                    <#%#= y["currency_short_name"] %> по курсу <#%#= y.item_order["course_sale"] %>
+                                    <#%#= y["currency_short_name"] %> по курсу <#%#= y.item_order["exhange"] %>
                         </div>
                         <div class="font-bold">Поступило предложение от <#%#= y.item_order["worker"]["first_name"] %>: <#%#=
                                  y.item_order["organization"] %>
                         </div>
                         <div class="text-gray-200">предложено <#%#= y.volume %>
-                              <#%#= y[:item_order]["currency_short_name"] %> по курсу <#%#= y.item_order["course_sale"] %>
+                              <#%#= y[:item_order]["currency_short_name"] %> по курсу <#%#= y.item_order["exhange"] %>
                         </div>
                         <div class="w-full bg-white text-black text-center py-2 my-2 rounded">
                            Ваши условия: <#%#= courses.yslovie %>

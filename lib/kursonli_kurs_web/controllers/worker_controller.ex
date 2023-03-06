@@ -215,7 +215,7 @@ defmodule KursonliKursWeb.WorkerController do
       RoomChannel.order(new_order, session.city.id)
 
       conn
-      |> put_flash(:info, "Ордер #{order.number} зарегистрирован ")
+      |> put_flash(:info, "Ордер зарегистрирован")
       |> redirect(to: "/worker/orders")
     end
   end
@@ -244,10 +244,10 @@ defmodule KursonliKursWeb.WorkerController do
     with {:ok, order} <- Orders.do_get(id: params["id"]),
          {:ok, order} <- Orders.update(order, opts),
          {:ok, order} <- Orders.do_get(id: order.id) do
-      # TODO надо для того чтобы автоматически отображать при обновлении
+      # надо для того чтобы автоматически отображать при обновлении
       order =
         order
-        |> Map.put(:course_sale, order.course)
+        |> Map.put(:exhange, order.course)
         |> Map.put(:currency_short_name, order.currency.short_name)
         |> Map.put(:color, order.currency.color)
 

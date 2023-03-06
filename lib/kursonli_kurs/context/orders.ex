@@ -80,7 +80,7 @@ defmodule KursonliKurs.Context.Orders do
         currency_short_name: c.short_name,
         worker_name: order.worker_name,
         worker_phone: order.worker_phone,
-        course_sale: order.course,
+        exhange: order.course,
         color: c.color
       }
     )
@@ -117,7 +117,7 @@ defmodule KursonliKurs.Context.Orders do
         currency_short_name: c.short_name,
         worker_name: order.worker_name,
         worker_phone: order.worker_phone,
-        course_sale: order.course,
+        exhange: order.course,
         color: c.color
       }
     )
