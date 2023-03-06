@@ -147,7 +147,7 @@ defmodule KursonliKursWeb.WorkerController do
   @doc """
   GET /worker/orders
   """
-  def orders(conn, params) do
+  def orders(conn, _params) do
     city_id = get_session(conn, :worker).city.id
     order_list_purchase = Orders.order_list(:purchase, city_id)
     order_list_sale = Orders.order_list(:sale, city_id)
@@ -164,9 +164,6 @@ defmodule KursonliKursWeb.WorkerController do
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
 
-    expiration =
-      if params["login"] == "true", do: Notifications.check_remaining_days(worker.paid_up_to)
-
     conn
     |> render("worker_orders.html",
       order_list_purchase: order_list_purchase,
@@ -176,8 +173,7 @@ defmodule KursonliKursWeb.WorkerController do
       trades: Trades.get_by_id_worker(worker.id),
       my_trades: my_trades,
       address: address,
-      instructions: instructions,
-      expiration: expiration
+      instructions: instructions
     )
   end
 
@@ -283,25 +279,29 @@ defmodule KursonliKursWeb.WorkerController do
   @doc """
   GET /worker/courses
   """
-  def courses(conn, _params) do
+  def courses(conn, params) do
     # TODO переделать запрос
-    filial_id = get_session(conn, :worker).filial_id
-    courses_list = Filials.get_courses_list(filial_id)
+    worker = get_session(conn, :worker)
+    courses_list = Filials.get_courses_list(worker.filial_id)
 
     last_date =
-      Filials.get_last_date_for_course(filial_id)
+      Filials.get_last_date_for_course(worker.filial_id)
       |> date_to_string_all()
 
-    visible_course_status = Filials.get(id: filial_id).visible_course_status
+    visible_course_status = Filials.get(id: worker.filial_id).visible_course_status
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
+
+    expiration =
+      if params["login"] == "true", do: Notifications.check_remaining_days(worker.paid_up_to)
 
     conn
     |> render("worker_courses.html",
       courses_list: courses_list,
       last_date: last_date,
       instructions: instructions,
-      visible_course_status: visible_course_status
+      visible_course_status: visible_course_status,
+      expiration: expiration
     )
   end
 

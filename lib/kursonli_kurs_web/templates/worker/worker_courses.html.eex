@@ -79,9 +79,11 @@
       </div>
     </div>
     <% else %>
-      <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html" , conn: @conn, instructions:
-        @instructions) %>
-        <% end %>
+<%= render(KursonliKursWeb.WorkerView, "notification_service_access.html" , conn: @conn, instructions: @instructions) %> 
+<% end %>
+        
+<%= if not is_nil(@expiration), do: render(KursonliKursWeb.WorkerView, "notification_expiration.html" ,
+conn: @conn, expiration: @expiration) %>
 
 <script>
   // Получаем все элементы input с классом "number"

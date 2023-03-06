@@ -115,21 +115,23 @@ defmodule KursonliKursWeb.GeneralHelper do
   Modify UTC DateTime to display
   """
   def humanizated_date(date) when is_map(date),
-    do: hum_date(Timex.diff(Timex.shift(Timex.now(), hours: 6), date, :minute))
+    do: hum_date(Timex.diff(Timex.shift(Timex.now(), hours: 6), date, :second))
 
   def humanizated_date(_date), do: "-"
 
   defp hum_date(d) when d < 0, do: "-"
-  defp hum_date(d) when d >= 0 and d <= 1, do: "Только что"
-  defp hum_date(d) when d > 1 and d <= 2, do: "Минуту назад"
-  defp hum_date(d) when d > 2 and d <= 4, do: "#{d} минуты назад"
-  defp hum_date(d) when d > 4 and d <= 60, do: "#{d} минут назад"
-  defp hum_date(d) when d > 60 and d <= 2 * 60, do: "1 час назад"
-  defp hum_date(d) when d > 2 * 60 and d <= 4 * 60, do: "#{div(d, 60)} часа назад"
-  defp hum_date(d) when d > 4 * 60 and d <= 20 * 60, do: "#{div(d, 60)} часов назад"
-  defp hum_date(d) when d > 20 * 60 and d <= 21 * 60, do: "#{div(d, 60)} час назад"
-  defp hum_date(d) when d > 21 * 60 and d <= 24 * 60, do: "#{div(d, 60)} часa назад"
-  defp hum_date(d) when d > 24 * 60, do: "Больше суток назад"
+  defp hum_date(d) when d >= 0 and d <= 1, do: "1 секунду назад"
+  defp hum_date(d) when d > 1 and d <= 4, do: "#{d} секунды назад"
+  defp hum_date(d) when d > 4 and d <= 60, do: "#{d} секунд назад"
+  defp hum_date(d) when d > 1 * 60 and d <= 2 * 60, do: "Минуту назад"
+  defp hum_date(d) when d > 2 * 60 and d <= 4 * 60, do: "#{div(d, 60)} минуты назад"
+  defp hum_date(d) when d > 4 * 60 and d <= 60 * 60, do: "#{div(d, 60)} минут назад"
+  defp hum_date(d) when d > 60 * 60 and d <= 2 * 60 * 60, do: "1 час назад"
+  defp hum_date(d) when d > 2 * 60 * 60 and d <= 4 * 60 * 60, do: "#{div(d, 60 * 60)} часа назад"
+  defp hum_date(d) when d > 4 * 60 * 60 and d <= 20 * 60 * 60, do: "#{div(d, 60 * 60)} часов назад"
+  defp hum_date(d) when d > 20 * 60 * 60 and d <= 21 * 60 * 60, do: "#{div(d, 60 * 60)} час назад"
+  defp hum_date(d) when d > 21 * 60 * 60 and d <= 24 * 60 * 60, do: "#{div(d, 60 * 60)} часa назад"
+  defp hum_date(d) when d > 24 * 60 * 60, do: "Больше суток назад"
 
   defp month_translate_ru(month) do
     case month do

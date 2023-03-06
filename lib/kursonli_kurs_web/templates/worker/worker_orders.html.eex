@@ -161,8 +161,7 @@
 <%= render(KursonliKursWeb.WorkerView, "modal_update_trade.html" , conn: @conn, id: @my_trades,
                 currencies_list: @currencies_list) %>
 <%= render(KursonliKursWeb.WorkerView, "modal_delete_adopted_trade.html" , conn: @conn, id: @trades) %>
-<%= if not is_nil(@expiration), do: render(KursonliKursWeb.WorkerView, "notification_expiration.html" ,
-                  conn: @conn, expiration: @expiration) %>
+
 <script>
   const showChatButton = document.getElementById('show-chat');
   const chatBlock = document.querySelector('.chat');
