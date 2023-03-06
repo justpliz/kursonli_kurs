@@ -83,10 +83,10 @@ defmodule KursonliKursWeb.GeneralHelper do
   def normalize_order_type(type, opts) do
     case opts do
       :single ->
-        if type == :sale, do: "Продажa", else: "Покупкa"
+        if type == "sale", do: "Продажa", else: "Покупкa"
 
       :multi ->
-        if type == :sale, do: "Продажу", else: "Покупку"
+        if type == "sale", do: "Продажу", else: "Покупку"
     end
   end
 
