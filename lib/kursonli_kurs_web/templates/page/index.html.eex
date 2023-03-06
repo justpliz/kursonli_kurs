@@ -3,7 +3,7 @@
     <div class="max-w-1440 flex justify-between items-center mb:flex-col mb:h-auto mb:py-4 mb:px-8 mx-auto h-20 ">
       <div class="flex mb:items-center">
         <a href="/"><img src="/images/white-line-logo.svg" class="mb:w-4/5" alt=""></a>
-        <a href="/worker/login" class="href_index hidden mb:block">Войти</a>
+        <a href="/worker/login" class="href_index hidden mb:block" >Войти</a>
       </div>
       <div class="relative w-1/5 mb:w-full mb:py-2">
         <input class="input_search search-input" type="text" placeholder="">
@@ -11,7 +11,7 @@
           <img src="/images/icons/search.svg" alt="">
         </div>
       </div>
-      <a href="/worker/login" class="href_index mb:hidden">Войти</a>
+      <a href="/worker/login" class="href_index mb:hidden" target="_blank">Войти</a>
     </div>
   </div>
   <div class="max-w-1440 mx-auto mb:px-2">
@@ -112,17 +112,18 @@
               data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
               <td class="py-1 border-2 border-b-0 border-l-0 border-tableGray">
                 <%= if item.setting.visible_website_status==true do %>
-                <a href="personal?filial=<%= item.filial_id %>" class="underline font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
-                  <%= item.filial_name %>
-                </a>
-                <% else %>
-                <span class="font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
-                  <%= item.filial_name %>
-                </span>
-                <% end %>
-                <div>
-                  <%= item.setting.organization_name %>
-                </div>
+                  <a href="personal?filial=<%= item.filial_id %>"
+                    class="underline font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
+                    <%= item.filial_name %>
+                  </a>
+                  <% else %>
+                    <span class="font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
+                      <%= item.filial_name %>
+                    </span>
+                    <% end %>
+                      <div>
+                        <%= item.setting.organization_name %>
+                      </div>
                       <span class="block font-bold text-base">
                         <%= item.filial_address %>
                       </span>
@@ -237,36 +238,37 @@
   </div>
 </div>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const elements = [...document.querySelectorAll("[data-id]")]
-    let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
-    const selectTable = [...document.querySelectorAll(".select_table")]
-    selectTable.forEach((el) => el.addEventListener('change', (e) => {
+  // document.addEventListener('DOMContentLoaded', () => {
+  //   const elements = [...document.querySelectorAll("[data-id]")]
+  //   let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
+  //   const selectTable = [...document.querySelectorAll(".select_table")]
+    // selectTable.forEach((el) => el.addEventListener('change', (e) => {
 
-      const currentSelect = e.currentTarget.dataset.select
-      const valueEl = e.currentTarget.value
+    //   const currentSelect = e.currentTarget.dataset.select
+    //   const valueEl = e.currentTarget.value
+    //   console.log("1", valueEl)
 
-      elements.forEach((value, index) => {
-        const elemGiveData = value.querySelector(`.dataget[data-select="${currentSelect}"]`)
-        const elemFindSale = elemGiveData.querySelector(`.sale`)
-        const elemFindPurchase = elemGiveData.querySelector(`.purchase`)
-        const item = JSON.parse(value.dataset.item)
-        console.log(item)
-        const find = item.course.find((el) => {
-          return el.short_name
-            == valueEl
-        })
-        if (find != undefined) {
-          elemFindSale.innerHTML = find.value_for_sale
-          elemFindPurchase.innerHTML = find.value_for_purchase
-        }
-        else {
-          elemFindSale.innerHTML = "-"
-          elemFindPurchase.innerHTML = "-"
-        }
-      })
-    }));
-  });
+      // elements.forEach((value, index) => {
+      //   const elemGiveData = value.querySelector(`.dataget[data-select="${currentSelect}"]`)
+      //   const elemFindSale = elemGiveData.querySelector(`.sale`)
+      //   console.log("log", elemFindSale)
+      //   const elemFindPurchase = elemGiveData.querySelector(`.purchase`)
+      //   const item = JSON.parse(value.dataset.item)
+      //   const find = item.course.find((el) => {
+      //     return el.short_name
+      //       == valueEl
+      //   })
+      //   if (find != undefined) {
+      //     elemFindSale.innerHTML = find.value_for_sale
+      //     elemFindPurchase.innerHTML = find.value_for_purchase
+      //   }
+      //   else {
+      //     elemFindSale.innerHTML = "-"
+      //     elemFindPurchase.innerHTML = "-"
+      //   }
+      // })
+    // }));
+  // });
 
   const table = document.getElementById("index-table");
   const rows = [...table.getElementsByClassName("data-table")[0].getElementsByTagName("tr")];
