@@ -109,7 +109,8 @@
               <td class="py-1 border-2 border-b-0 border-l-0 border-tableGray shadow">
                 <%= if item.setting.visible_website_status==true do %>
                   <a href="personal?filial=<%= item.filial_id %>"
-                    class="underline font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block">
+                    class="underline font-bold text-sm mb:text-xs bg-index py-2 text-white text-center -mt-1 block"
+                    target="_blank">
                     <%= item.filial_name %>
                   </a>
                   <% else %>
