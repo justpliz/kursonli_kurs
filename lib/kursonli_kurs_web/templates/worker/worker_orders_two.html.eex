@@ -135,7 +135,7 @@
         </tr>
       </thead>
       <tbody id="made_table">
-        <%= for item <- Enum.reverse(@my_trades) do %>
+        <%= for item <- @my_trades do %>
           <tr class="bg-white text-black" data-item='<%= item |> Jason.encode!() %>'
             style="background: <%= item.currency.color %>;">
             <td class="px-6 2xl:px-2 py-2">
