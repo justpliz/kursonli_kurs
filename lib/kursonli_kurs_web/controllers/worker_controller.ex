@@ -80,7 +80,7 @@ defmodule KursonliKursWeb.WorkerController do
               }
             })
             # |> put_flash(:info, "Добро пожаловать #{first_name}")
-            |> redirect(to: "/worker/orders?login=true")
+            |> redirect(to: "/worker/courses?login=true")
 
           :archive ->
             conn

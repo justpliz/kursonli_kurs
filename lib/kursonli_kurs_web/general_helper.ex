@@ -50,7 +50,8 @@ defmodule KursonliKursWeb.GeneralHelper do
   def date_to_string_time_m(date), do: Timex.format!(date, "{m}")
   def date_to_string_time_s(date), do: Timex.format!(date, "{s}")
 
-  def date_to_string_time_personal(date), do: Timex.format!(date, "{0D} #{month_translate_ru(date.month)} {YYYY} {h24}:{m}")
+  def date_to_string_time_personal(date),
+    do: Timex.format!(date, "{0D} #{month_translate_ru(date.month)} {YYYY} {h24}:{m}")
 
   def date_to_string_all(date),
     do: "#{date.year}-#{date.month}-#{date.day} #{date.hour}:#{date.minute}:#{date.second}"
@@ -114,21 +115,21 @@ defmodule KursonliKursWeb.GeneralHelper do
   Modify UTC DateTime to display
   """
   def humanizated_date(date) when is_map(date),
-    do: hum_date(Timex.diff(Timex.shift(Timex.now(), hours: 6), date, :second))
+    do: hum_date(Timex.diff(Timex.shift(Timex.now(), hours: 6), date, :minute))
 
   def humanizated_date(_date), do: "-"
 
-  defp hum_date(diff) when diff < 0, do: "-"
-  defp hum_date(diff) when diff >= 0 and diff <= 60, do: "Только что"
-  defp hum_date(diff) when diff > 60 and diff <= 2 * 60, do: "Минуту назад"
-  defp hum_date(diff) when diff > 2 * 60 and diff <= 4 * 60, do: "#{div(diff, 60)} минуты назад"
-  defp hum_date(diff) when diff > 4 * 60 and diff <= 60 * 60, do: "#{div(diff, 60)} минут назад"
-  defp hum_date(diff) when diff > 60 * 60 and diff <= 2 * 60 * 60, do: "1 час назад"
-  defp hum_date(diff) when diff > 2 * 60 * 60 and diff <= 4 * 60 * 60, do: "#{div(diff, 60 * 60)} часа назад"
-  defp hum_date(diff) when diff > 4 * 60 * 60 and diff <= 20 * 60 * 60, do: "#{div(diff, 60 * 60)} часов назад"
-  defp hum_date(diff) when diff > 20 * 60 * 60 and diff <= 21 * 60 * 60, do: "#{div(diff, 60 * 60)} час назад"
-  defp hum_date(diff) when diff > 21 * 60 * 60 and diff <= 24 * 60 * 60, do: "#{div(diff, 60 * 60)} часa назад"
-  defp hum_date(diff) when diff > 24 * 60 * 60, do: "Больше суток назад"
+  defp hum_date(d) when d < 0, do: "-"
+  defp hum_date(d) when d >= 0 and d <= 1, do: "Только что"
+  defp hum_date(d) when d > 1 and d <= 2, do: "Минуту назад"
+  defp hum_date(d) when d > 2 and d <= 4, do: "#{d} минуты назад"
+  defp hum_date(d) when d > 4 and d <= 60, do: "#{d} минут назад"
+  defp hum_date(d) when d > 60 and d <= 2 * 60, do: "1 час назад"
+  defp hum_date(d) when d > 2 * 60 and d <= 4 * 60, do: "#{div(d, 60)} часа назад"
+  defp hum_date(d) when d > 4 * 60 and d <= 20 * 60, do: "#{div(d, 60)} часов назад"
+  defp hum_date(d) when d > 20 * 60 and d <= 21 * 60, do: "#{div(d, 60)} час назад"
+  defp hum_date(d) when d > 21 * 60 and d <= 24 * 60, do: "#{div(d, 60)} часa назад"
+  defp hum_date(d) when d > 24 * 60, do: "Больше суток назад"
 
   defp month_translate_ru(month) do
     case month do
