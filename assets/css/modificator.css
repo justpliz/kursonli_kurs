@@ -71,7 +71,7 @@
    }
 
    .btn_border {
-      @apply text-tableGray transition-all border-2 border-blub font-medium rounded-lg text-base px-5 py-2.5 text-center;
+      @apply text-black transition-all border-2 border-blub font-medium rounded-lg text-base px-5 py-2.5 text-center;
       @apply focus:ring-0 focus:outline-none focus:ring-blue-300;
       @apply hover:bg-blub hover:text-white;
       @apply 2xl:text-sm 2xl:px-3 2xl:py-1;
@@ -220,7 +220,7 @@
    }
 
    .order-click.selected {
-      background: #5699d1 !important;
+      background:#5699d1 !important;
       @apply text-white;
    }
 

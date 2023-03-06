@@ -13,7 +13,7 @@ module.exports = {
     extend: {
       colors: {
         drab: '#363740',
-        tableGray: '#e3dbdb ',
+        tableGray: '#e3dbdb',
         dblue: '#000045',
         blub: '#3689ce',
         lightBlub: '#5699d1',
