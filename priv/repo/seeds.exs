@@ -72,7 +72,7 @@
 {:ok, _expiration} =
   KursonliKurs.Context.Notifications.create(%{
     name: "expiration",
-    title: "Срок вашей подписки истекает! Осталось # дн.",
+    title: "Осталось # дн.",
     description: "После окончания срока подписки, не будут доступны все разделы."
   })
 

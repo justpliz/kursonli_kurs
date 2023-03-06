@@ -23,6 +23,7 @@ module.exports = {
         accept: '#009640',
         index: '#ada3b6',
         indexYellow: '#f7ac3b',
+        grayText: '#444444',
       },
       minHeight: {
         '600': '600px',
