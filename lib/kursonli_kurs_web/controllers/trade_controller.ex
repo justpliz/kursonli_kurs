@@ -7,43 +7,29 @@ defmodule KursonliKursWeb.TradeController do
   alias KursonliKurs.EtsStorage.Chat
 
   def create_trade(conn, params) do
-    opts = %{
-      color: params["color"],
-      course: params["exhange"],
-      currency_short_name: params["currency_short_name"],
-      date: date_to_string_time(Timex.now("Asia/Almaty")),
-      filial_id: params["filial_id"],
-      filial_name: params["filial_name"],
-      oranization_name: params["organization"],
-      limit: params["limit"],
-      terms: params["terms"],
-      type: params["type"],
-      volume: params["volume"],
-      worker_id: params["worker_id"]
-    }
-    # item_map = params["item_order"] |> Jason.decode!()
+    item_map = params["item_order"] |> Jason.decode!()
 
-    # params =
-    #   params
-    #   |> Map.delete("item_order")
-    #   |> Map.put(
-    #     "item_order",
-    #     Map.put(item_map, "date", date_to_string_time(Timex.now("Asia/Almaty")))
-    #   )
+    params =
+      params
+      |> Map.delete("item_order")
+      |> Map.put(
+        "item_order",
+        Map.put(item_map, "date", date_to_string_time(Timex.now("Asia/Almaty")))
+      )
 
-    with {:ok, item} <- Trades.create(opts) do
+    with {:ok, item} <- Trades.create(params) do
       IO.inspect(item, label: "create trade")
 
       item =
         item
         |> PwHelper.Normalize.repo()
         |> Map.put(:worker, %{
-          id: opts["worker_id"]
+          id: item_map["worker_id"]
         })
 
       KursonliKursWeb.OnlineChannel.notification(
-        opts["worker_id"],
-        "Вам пришло предложение от #{opts["worker_name"]}"
+        item_map["worker_id"],
+        "Вам пришло предложение от #{item_map["worker_name"]}"
       )
 
       KursonliKursWeb.ChatWorkerChannel.new_event(

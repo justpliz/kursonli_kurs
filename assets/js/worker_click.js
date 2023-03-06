@@ -166,14 +166,14 @@ const templateEvent = (map) => {
     <div class="text-gray-200">На ваш ордер на ${item_order_type}: ${
     map.item_order.volume
   }  ${map.item_order.currency_short_name}    по курсу ${
-    map.item_order.exhange
+    map.item_order.course_sale
   }  </div>
     <div class="font-bold">Поступило предложение от ${
       map.item_order.worker.first_name
     }: ${map.item_order.worker.filial_name}</div>
     <div class="text-gray-200">предложено ${map.volume} ${
     map.item_order.currency_short_name
-  } по курсу ${map.item_order.exhange}
+  } по курсу ${map.item_order.course_sale}
     </div>
     <div class="w-full bg-white text-black text-center py-2 my-2 rounded" >
        Ваши условия: ${map.item_order.terms}
@@ -209,9 +209,9 @@ const templateEvent1 = (map) => {
   }
   const html = `
     <div class="w-full mt-2 bg-blub p-4 text-white rounded event" data-loading="${map.type_event}" data-etsid="${map.ets_id}" data-type='${map.type_event}'>
-    <div class="text-gray-200">Вы приняли ордер на: ${map.item_order.volume}  ${map.item_order.currency_short_name}    по курсу ${map.item_order.exhange}  </div>
+    <div class="text-gray-200">Вы приняли ордер на: ${map.item_order.volume}  ${map.item_order.currency_short_name}    по курсу ${map.item_order.course_sale}  </div>
     <div class="font-bold">ордер от ${map.item_order.worker_name}: ${map.item_order.organization}</div>
-    <div class="text-gray-200">предложено ${map.volume} ${map.item_order.currency_short_name} по курсу ${map.item_order.exhange}
+    <div class="text-gray-200">предложено ${map.volume} ${map.item_order.currency_short_name} по курсу ${map.item_order.course_sale}
     </div>
     <div class="w-full bg-white text-black text-center py-2 my-2 rounded loading-event d_none">
       Ожидает подтверждения

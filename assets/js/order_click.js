@@ -38,7 +38,7 @@ $("#accept").click(function () {
   const item = JSON.parse(this.dataset.item);
   const {
     course_purchase,
-    exhange,
+    course_sale,
     currency_short_name,
     date,
     filial_id,
@@ -150,11 +150,11 @@ $("#accept").click(function () {
         const itemCourse = document.querySelector("#itemCourse");
 
         console.log(itemCourse)
-        itemCourse.innerHTML = exhange;
+        itemCourse.innerHTML = course_sale;
         const itemResult = document.querySelector("#itemResult");
         volume_model.addEventListener("input", (e) => {
           const volume = parseInt(e.currentTarget.value);
-          const course_sale_float = parseFloat(exhange);
+          const course_sale_float = parseFloat(course_sale);
           itemeSale.innerHTML = e.currentTarget.value;
           itemResult.innerHTML = volume * course_sale_float;
         });

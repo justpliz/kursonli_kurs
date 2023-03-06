@@ -21,7 +21,7 @@ export const templateNewOrder = (item) => {
      ${item.currency_short_name} 
   </td>
   <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
-     ${item.exhange}
+     ${item.course_sale}
   </td>
   <td class="px-6 2xl:px-2 py-2 border-x-2 border-gray-200">
      ${item.volume}
