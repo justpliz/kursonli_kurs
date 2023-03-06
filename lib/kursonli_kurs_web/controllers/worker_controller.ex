@@ -160,7 +160,6 @@ defmodule KursonliKursWeb.WorkerController do
     my_trades =
       Orders.all(worker_id: worker.id)
       |> PwHelper.Normalize.repo()
-      |> Enum.sort(:desc)
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
 

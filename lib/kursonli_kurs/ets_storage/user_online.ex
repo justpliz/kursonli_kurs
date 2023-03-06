@@ -1,5 +1,4 @@
 defmodule KursonliKurs.EtsStorage.UserOnline do
-  import Ex2ms
 
   def init(_) do
     {:ok, []}
