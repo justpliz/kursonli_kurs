@@ -1,6 +1,6 @@
 <div class="font">
   <div class="mx-auto w-full bg-dblue">
-    <div class="max-w-1440 flex justify-between items-center mb:flex-col mb:h-auto mb:py-4 mb:px-8 mx-auto h-20 ">
+    <div class="max-w-1440 note:mx-4 mobL:mx-1 flex justify-between items-center mb:flex-col mb:h-auto mb:py-4 mx-auto h-20 ">
       <div class="flex mb:items-center">
         <a href="/"><img src="/images/white-line-logo.svg" class="mb:w-4/5" alt=""></a>
         <a href="/worker/login" class="href_index hidden mb:block">Войти</a>
@@ -14,17 +14,13 @@
       <a href="/worker/login" class="href_index mb:hidden">Войти</a>
     </div>
   </div>
-  <div class="max-w-1440 mx-auto mb:px-2">
+  <div class="max-w-1440 note:mx-4 mobL:mx-1 mx-auto mb:px-2">
     <div class="flex py-8 mb:py-4 text-dblue">
       <%= for item <- @city_list do %>
         <a class="font-bold pr-4 mb:text-sm" href="city?name=<%= item.name %>">
-          <div>
-            <%= item.name %> (<span class="font-bold text-red-500">
-                <%= item.count %>
-              </span>)
-          </div>
+          <span><%= item.name %>(<span class="font-bold text-red-500"><%= item.count %></span>)</span>
         </a>
-        <% end %>
+      <% end %>
     </div>
     <div class="font-bold text-black text-lg mb:text-sm">
       Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl mb:text-lg">
@@ -39,7 +35,7 @@
               ОБМЕННЫЙ ПУНКТ
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 py-1 mb:text-small border-2 border-gray-200">
-              <div class="flex justify-between">
+              <div class="flex justify-between items-center">
                 Время
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
@@ -124,7 +120,7 @@
                       <div>
                         <%= item.setting.organization_name %>
                       </div>
-                      <span class="block font-bold text-base">
+                      <span class="block font-bold text-base md:text-xs">
                         <%= item.filial_address %>
                       </span>
                       <div class="hidden">
@@ -141,13 +137,13 @@
                                 class="bg-greatYellow text-xs mt-4 mb:text-small uppercase text-white px-4 mb:px-2 py-1 mob:relative mob:top-1">Золото</span>
                         </div>
                         <% end %>
-                          <div class="block mt-1 text-xs mb:text-small">
+                          <div class="block mt-1 text-xs md:text-small">
                             <%= item.setting.promo["promo1"] %>
                           </div>
-                          <div class="block text-xs mb:text-small">
+                          <div class="block text-xs md:text-small">
                             <%= item.setting.promo["promo2"] %>
                           </div>
-                          <div class="hidden mb:block mb:mt-1">
+                          <div class="hidden mb:block mb:mt-1 md:text-xs">
                             <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
                               <%= item.setting.phones["phone1"] %>
                             </a>
@@ -163,10 +159,10 @@
                 <div class="hidden time">
                   <%= item.date %>
                 </div>
-                <div class="text-base mb:text-sm font-bold">
+                <div class="text-base mb:text-sm mobS:text-xs font-bold">
                   <%= item.date_h %>:<%= item.date_m %><span class="text-neutral-400">:<%= item.date_s %></span>
                 </div>
-                <div class="text-xs">
+                <div class="text-xs mobS:text-small">
                   <%= item.humanizated_date %>
                 </div>
               </td>

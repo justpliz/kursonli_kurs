@@ -248,9 +248,24 @@ body.swal2-shown {
   background-size: contain;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 1350px) {
   .select_table {
     margin: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .select_table {
+    background: #fff;
+    background-size: inherit;
+    color: #000;
+    appearance: auto;
+  }
+}
+
+@media (max-width: 375px) {
+  .select_table {
+    appearance: none;
   }
 }
 
@@ -401,6 +416,6 @@ body.swal2-shown {
   border: 2px solid blue;
 }
 
-.shadow{
+.shadow {
   box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%)
 }
