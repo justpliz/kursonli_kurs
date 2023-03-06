@@ -53,7 +53,6 @@ $(function () {
     window.location.href = "/worker/logout";
   });
   channelOnline.on("online:new", (payload) => {
-    console.log(payload);
     elUser.forEach((el) => {
       el.innerHTML = payload.count;
     });
@@ -69,11 +68,13 @@ $(function () {
     });
   });
   channelOnline.on("new:click", (payload) => {
-    const etsElement = document.querySelector(
-      `[data-tagsid="${payload.worker_id}"]`
-    );
     console.log("new:click");
-    setTimeout((_) => trigger(etsElement, `click`), 1000);
+    setTimeout(() => {
+      const etsElement = document.querySelector(
+        `[data-tagsid="${payload.worker_id}"]`
+      );
+      trigger(etsElement, `click`);
+    }, 1200);
   });
   let channel = socket.channel(`rooms:${worker.city.id}`, { worker: worker });
   channel
