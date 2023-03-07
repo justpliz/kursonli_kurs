@@ -123,7 +123,7 @@ defmodule KursonliKursWeb.Router do
     get "/chat", WorkerController, :get_all_message_chat_worker_id
 
     get "/orders", WorkerController, :orders
-    get "/create_order", WorkerController, :create_order
+    # get "/create_order", WorkerController, :create_order
     post "/create_order", WorkerController, :create_order_submit
     post "/update_order", WorkerController, :update_order
     get "/delete_order", WorkerController, :delete_order

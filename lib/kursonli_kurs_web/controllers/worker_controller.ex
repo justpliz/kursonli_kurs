@@ -12,7 +12,8 @@ defmodule KursonliKursWeb.WorkerController do
     Filials,
     Trades,
     Settings,
-    Notifications
+    Notifications,
+    FilialsCurrencies
   }
 
   @doc """
@@ -148,19 +149,23 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/orders
   """
   def orders(conn, _params) do
-    city_id = get_session(conn, :worker).city.id
+    session = get_session(conn, :worker)
+    city_id = session.city.id
+    address = session.filial_address
+
     order_list_purchase = Orders.order_list(:purchase, city_id)
     order_list_sale = Orders.order_list(:sale, city_id)
-    worker = get_session(conn, :worker)
-    currencies_list = Currencies.all()
+
+    currencies_list =
+      FilialsCurrencies.all(filial_id: session.filial_id)
+      |> Enum.map(fn x -> Currencies.get(id: x.currency_id) end)
+
     message = Chat.get_all_by_city(city_id)
 
-    address = worker.filial_address
-
     my_trades =
-      Orders.all(worker_id: worker.id)
+      Orders.all(worker_id: session.id)
       |> PwHelper.Normalize.repo()
-      |> Enum.sort_by(&(&1.inserted_at), :desc)
+      |> Enum.sort_by(& &1.inserted_at, :desc)
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
 
@@ -170,22 +175,23 @@ defmodule KursonliKursWeb.WorkerController do
       order_list_sale: order_list_sale,
       currencies_list: currencies_list,
       message: message,
-      trades: Trades.get_by_id_worker(worker.id),
+      trades: Trades.get_by_id_worker(session.id),
       my_trades: my_trades,
       address: address,
       instructions: instructions
     )
   end
 
-  @doc """
-  GET /worker/create_order
-  """
-  def create_order(conn, _params) do
-    currencies_list = Currencies.all()
+  # @doc """
+  # GET /worker/create_order
+  # """
+  # def create_order(conn, _params) do
+  #   session = get_session(conn, :worker)
+  #   currencies_list = Currencies.all()
 
-    conn
-    |> render("worker_orders.html", currencies_list: currencies_list)
-  end
+  #   conn
+  #   |> render("worker_orders.html", currencies_list: currencies_list)
+  # end
 
   @doc """
   POST /worker/create_order
@@ -215,7 +221,7 @@ defmodule KursonliKursWeb.WorkerController do
       RoomChannel.order(new_order, session.city.id)
 
       conn
-      |> put_flash(:info, "Ордер #{order.number} зарегистрирован ")
+      |> put_flash(:info, "Ордер успешно зарегистрирован")
       |> redirect(to: "/worker/orders")
     end
   end
