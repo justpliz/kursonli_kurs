@@ -57,7 +57,7 @@ $("#accept").click(function () {
     type,
     worker_id,
   } = item;
-
+  console.log("item", item)
   let itemSale = "";
   let itemSaleH1 = "";
   let modalTitle = "";
@@ -86,7 +86,10 @@ $("#accept").click(function () {
     limitText = limit
   }
 
-  let limit1 = parseInt(limit.replace(/\s+/g, ''), 10);
+  let limit_min = parseInt(limit.replace(/\s+/g, ''), 10);
+  console.log(limit_min)
+  let limit_max = parseInt(volume.replace(/\s+/g, ''), 10);
+  console.log(limit_max)
 
   if (transfer == "red") {
     transferBlock = "red_circle"
@@ -114,7 +117,7 @@ $("#accept").click(function () {
           <h1 class="title_modal_center">${modalTitle}<h1>
           <div class="pt-2">
             <label class="label_modal text-neutral-400 pos">${itemSaleH1}</label>
-            <input class="input_full" id="volume_model" name="volume" required="true" type="number" oninput="maxLengthCheck(this)" maxlength="30" min="0" max="${limit1}">
+            <input class="input_full" id="volume_model" name="volume" required="true" type="number" min="${limit_min}" max="${limit_max}">
           </div>
           <h3 class="pos gap-1"> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span></h3>
           <div class="pos py-4 text-2xl font-bold text-blub gap-1">
@@ -154,7 +157,6 @@ $("#accept").click(function () {
         const itemeSale = document.querySelector("#itemSale");
         const itemCourse = document.querySelector("#itemCourse");
 
-        console.log(itemCourse)
         itemCourse.innerHTML = course_sale;
         const itemResult = document.querySelector("#itemResult");
         volume_model.addEventListener("input", (e) => {

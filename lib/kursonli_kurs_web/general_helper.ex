@@ -133,6 +133,33 @@ defmodule KursonliKursWeb.GeneralHelper do
   defp hum_date(d) when d > 20 * 60 * 60 and d <= 21 * 60 * 60, do: "#{div(d, 60 * 60)} #{gettext("час назад")}"
   defp hum_date(d) when d > 21 * 60 * 60 and d <= 24 * 60 * 60, do: "#{div(d, 60 * 60)} #{gettext("часa назад")}"
   defp hum_date(d) when d > 24 * 60 * 60, do: gettext("Больше суток назад")
+  def hum_date(d) when d > 0 and d < 60 do
+    case d do
+      d when rem(d, 10) == 1 and d != 11 -> "#{d} секунду назад"
+      d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} секунды назад"
+      _ -> "#{d} секунд назад"
+    end
+  end
+
+  def hum_date(d) when d >= 60 and d < 60 * 60 do
+    d = div(d, 60)
+    case d do
+      d when rem(d, 10) == 1 and d != 11 -> "#{d} минуту назад"
+      d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} минуты назад"
+      _ -> "#{d} минут назад"
+    end
+  end
+
+  def hum_date(d) when d >= 60 * 60 and d < 24 * 60 * 60  do
+    d = div(d, 60 * 60)
+    case d do
+      d when rem(d, 10) == 1 and d != 11 -> "#{d} час назад"
+      d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} часа назад"
+      _ -> "#{d} часов назад"
+    end
+  end
+
+  def hum_date(d) when d > 24 * 60 * 60, do: "Больше суток назад"
 
   defp month_translate_ru(month) do
     case month do
