@@ -32,8 +32,7 @@
 
           <div class="menu_break"></div>
 
-          <div class="other_text">
-            Пользователь: <br>
+          <div class="other_text"><%= gettext("Пользователь:") %><br>
             <%= worker[:filial_name] %>(<%= worker[:first_name] %>)
                 <div class="menu_break"></div>
                 <%= worker[:filial_address] %>
@@ -43,70 +42,55 @@
               <a href="/worker/courses" class="active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
-                    style="font-weight: 700; font-size: 28px;">trending_up</span>
-                  Изменить курсы
-                </li>
+                    style="font-weight: 700; font-size: 28px;">trending_up</span><%= gettext("Изменить курсы") %></li>
               </a>
               <div class="menu_break_li"></div>
               <a href="/worker/orders" class="active-link" target="_blank">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
-                    style="font-weight: 700; font-size: 28px;">edit_square</span>
-                  Ордера
-                </li>
+                    style="font-weight: 700; font-size: 28px;">edit_square</span><%= gettext("Ордера") %></li>
               </a>
               <div class="menu_break_li"></div>
               <a href="/worker/settings" class="active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
-                    style="font-weight: 700; font-size: 28px;">settings</span>
-                  Настройки
-                </li>
+                    style="font-weight: 700; font-size: 28px;">settings</span><%= gettext("Настройки") %></li>
               </a>
               <div class="menu_break_li"></div>
               <a href="/worker/update_pass" class="active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
-                    style="font-weight: 700; font-size: 28px;">lock_open</span>
-                  Смена пароля
-                </li>
+                    style="font-weight: 700; font-size: 28px;">lock_open</span><%= gettext("Смена пароля") %></li>
               </a>
               <div class="menu_break_li"></div>
               <a href="/worker/payment" class="active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
-                    style="font-weight: 700; font-size: 28px;">payments</span>
-                  Оплата
-                </li>
+                    style="font-weight: 700; font-size: 28px;">payments</span><%= gettext("Оплата") %></li>
               </a>
             </ul>
 
             <ul class="text-neutral-400">
-              <div class="other_text">
-                Пользователей: <br>
-                    онлайн <span class="online_users"><%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %></span>, за сегодня <%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %>
+              <div class="other_text"><%= gettext("Пользователей:") %><br><%= gettext("онлайн") %><span class="online_users"><%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %></span>, <%= gettext("за сегодня") %> <%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %>
 
-                <div class="menu_break"></div>
-                Подписка: <br>
+                <div class="menu_break"></div><%= gettext("Подписка:") %><br>
                 <%= if Timex.before?(Timex.now("Asia/Almaty"), worker[:paid_up_to]) do %>
-                  <span class="text-green-400">Активна, до <%= worker[:paid_up_to] %> </span>
-                  <% else %> <span class="text-red-400">Подписка не активна</span>
+                  <span class="text-green-400"><%= gettext("Активна, до") %> <%= worker[:paid_up_to] %> </span>
+                  <% else %> <span class="text-red-400"><%= gettext("Подписка не активна") %></span>
                     <% end %>
               </div>
               <div class="menu_break"></div>
               <li class="flex items-center justify-start py-4 2xl:py-0 transition-all rounded-xl">
                 <span class="icons_style material-symbols-outlined" style="font-weight: 700; font-size: 28px;">language</span>
-                  <div class="langs__block">
-                    <a class="lang_redirect" data-lang="rus" href="/worker/lang/rus">Рус</a>
-                    <a class="lang_redirect" data-lang="kaz" href="/worker/lang/kaz">Қаз</a>
-                  </div>
-                </li>
+                <div class="langs__block">
+                  <a class="lang_redirect" data-lang="rus" href="/worker/lang/rus">Рус</a>
+                  <a class="lang_redirect" data-lang="kaz" href="/worker/lang/kaz">Қаз</a>
+                </div>
+              </li>
               <a class="">
                 <li class="flex items-center py-4 2xl:pt-2 transition-all rounded-xl logout cursor-pointer">
                   <span class="icons_style material-symbols-outlined"
-                    style="font-weight: 700; font-size: 28px;">logout</span>
-                  Выйти
-                </li>
+                    style="font-weight: 700; font-size: 28px;">logout</span><%= gettext("Выйти") %></li>
               </a>
             </ul>
           </div>
@@ -121,8 +105,7 @@
               <span></span>
             </div>
             <div class="header__menu">
-              <div class="other_text">
-                Пользователь: <br>
+              <div class="other_text"><%= gettext("Пользователь:") %><br>
                 <%= worker[:filial_name] %>(<%= worker[:first_name] %>)
                     <div class="menu_break"></div>
                     <%= worker[:filial_address] %>
@@ -133,75 +116,57 @@
                   <a href="/worker/courses" class="active-link">
                     <li class="worker_app_li">
                       <span class="icons_style material-symbols-outlined"
-                        style="font-weight: 700; font-size: 28px;">trending_up</span>
-                      Изменить курсы
-                    </li>
+                        style="font-weight: 700; font-size: 28px;">trending_up</span><%= gettext("Изменить курсы") %></li>
                   </a>
                   <div class="menu_break_li"></div>
                   <a href="/worker/orders" class="active-link">
                     <li class="worker_app_li">
                       <span class="icons_style material-symbols-outlined"
-                        style="font-weight: 700; font-size: 28px;">edit_square</span>
-                      Ордера
-                    </li>
+                        style="font-weight: 700; font-size: 28px;">edit_square</span><%= gettext("Ордера") %></li>
                   </a>
                   <div class="menu_break_li"></div>
                   <a href="/worker/settings" class="active-link">
                     <li class="worker_app_li">
                       <span class="icons_style material-symbols-outlined"
-                        style="font-weight: 700; font-size: 28px;">settings</span>
-                      Настройки
-                    </li>
+                        style="font-weight: 700; font-size: 28px;">settings</span><%= gettext("Настройки") %></li>
                   </a>
                   <div class="menu_break_li"></div>
                   <a href="/worker/update_pass" class="active-link">
                     <li class="worker_app_li">
                       <span class="icons_style material-symbols-outlined"
-                        style="font-weight: 700; font-size: 28px;">lock_open</span>
-                      Смена пароля
-                    </li>
+                        style="font-weight: 700; font-size: 28px;">lock_open</span><%= gettext("Смена пароля") %></li>
                   </a>
                   <div class="menu_break_li"></div>
                   <a href="/worker/payment" class="active-link">
                     <li class="worker_app_li">
                       <span class="icons_style material-symbols-outlined"
-                        style="font-weight: 700; font-size: 28px;">payments</span>
-                      Оплата
-                    </li>
+                        style="font-weight: 700; font-size: 28px;">payments</span><%= gettext("Оплата") %></li>
                   </a>
                 </ul>
 
                 <ul class="text-neutral-400 bottom-0 left-0 px-3 absolute w-full pt-8">
-                  <div class="other_text">
-
-                    Пользователей: <br>
-                    // онлайн <span class="online_users"><%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %></span>, за сегодня <%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %>
+                  <div class="other_text"><%= gettext("Пользователей:") %><br>
+                    <%= gettext("Онлайн") %> <span class="online_users"><%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %></span>, <%= gettext("за сегодня") %> <%= KursonliKurs.EtsStorage.UserOnline.get_online_users_current() %>
 
 
-                    <div class="menu_break"></div>
-                    Подписка: <br>
+                    <div class="menu_break"></div><%= gettext("Подписка:") %><br>
                     <%= if Timex.before?(Timex.now("Asia/Almaty"), worker[:paid_up_to]) do %>
-                      <span class="text-green-400">Активна, до <%= worker[:paid_up_to] %> </span>
+                      <span class="text-green-400"><%= gettext("Активна, до") %> <%= worker[:paid_up_to] %> </span>
                       <% else %> <span class="text-red-400">Подписка не активна</span>
                         <% end %>
                   </div>
                   <div class="menu_break"></div>
-                  <a class="">
-                    <li class="flex items-center py-4 2xl:py-0 transition-all rounded-xl">
-                      <span class="icons_style material-symbols-outlined"
-                        style="font-weight: 700; font-size: 28px;">language</span>
-                      <select class="border-none outline-none p-0 pr-8 m-0">
-                        <option class="" selected>Русский</option>
-                        <option class="">Казахский</option>
-                      </select>
-                    </li>
-                  </a>
+                  <li class="flex items-center justify-start py-4 2xl:py-0 transition-all rounded-xl">
+                    <span class="icons_style material-symbols-outlined" style="font-weight: 700; font-size: 28px;">language</span>
+                    <div class="langs__block">
+                      <a class="lang_redirect" data-lang="rus" href="/worker/lang/rus">Рус</a>
+                      <a class="lang_redirect" data-lang="kaz" href="/worker/lang/kaz">Қаз</a>
+                    </div>
+                  </li>
                   <a class="">
                     <li class="flex items-center py-4 2xl:pt-2 transition-all rounded-xl logout cursor-pointer">
                       <span class="icons_style material-symbols-outlined"
-                        style="font-weight: 700; font-size: 28px;">logout</span>
-                      Выйти
-                    </li>
+                        style="font-weight: 700; font-size: 28px;">logout</span><%= gettext("Выйти") %></li>
                   </a>
                 </ul>
               </div>

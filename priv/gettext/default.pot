@@ -1,461 +1,422 @@
-## This file is a PO Template file.
-##
-## "msgid"s here are often extracted from source code.
-## Add new translations manually only if they're dynamic
-## translations that can't be statically extracted.
-##
-## Run "mix gettext.extract" to bring this file up to
-## date. Leave "msgstr"s empty as changing them here has no
-## effect: edit them in PO (.po) files instead.
-msgid ""
-msgstr ""
-
-#: lib/kursonli_kurs_web/templates/worker/worker_login_form.html.eex:4
-#, elixir-autogen, elixir-format
 msgid "Авторизация в системе"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_worker_orders_add.html.eex:67
-#, elixir-autogen, elixir-format
 msgid "Адрес"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:80
-#, elixir-autogen, elixir-format
 msgid "Будни"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_update_trade.html.eex:20
-#: lib/kursonli_kurs_web/templates/worker/modal_worker_orders_add.html.eex:50
-#: lib/kursonli_kurs_web/templates/worker/worker_courses.html.eex:38
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:19
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:71
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:20
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:90
-#, elixir-autogen, elixir-format
 msgid "Валюта"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:88
-#, elixir-autogen, elixir-format
 msgid "Воскресенье"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:18
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:70
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:19
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:89
-#, elixir-autogen, elixir-format
 msgid "Время"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:21
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:73
-#, elixir-autogen, elixir-format
 msgid "Выберите файл"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/chat_page.html.eex:22
-#, elixir-autogen, elixir-format
 msgid "Выберите чат для общения"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:91
-#, elixir-autogen, elixir-format
 msgid "Дополнителная информация"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:43
-#, elixir-autogen, elixir-format
 msgid "Допольнительные телефоны"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_courses.html.eex:24
-#, elixir-autogen, elixir-format
 msgid "Изменить все курсы"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_courses.html.eex:39
-#, elixir-autogen, elixir-format
 msgid "Короткое название"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_update_trade.html.eex:23
-#: lib/kursonli_kurs_web/templates/worker/modal_worker_orders_add.html.eex:44
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:20
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:72
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:21
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:91
-#, elixir-autogen, elixir-format
 msgid "Курс"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_update_trade.html.eex:26
-#: lib/kursonli_kurs_web/templates/worker/modal_worker_orders_add.html.eex:47
-#, elixir-autogen, elixir-format
 msgid "Лимит"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:37
-#, elixir-autogen, elixir-format
 msgid "Лицензия ОП"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:8
-#, elixir-autogen, elixir-format
 msgid "Личная страница"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:11
-#, elixir-autogen, elixir-format
 msgid "Мои сделки"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:4
-#, elixir-autogen, elixir-format
 msgid "Настройки"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_update_pass.html.eex:11
-#, elixir-autogen, elixir-format
 msgid "Новый пароль"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_update_trade.html.eex:29
-#: lib/kursonli_kurs_web/templates/worker/modal_worker_orders_add.html.eex:41
-#, elixir-autogen, elixir-format
 msgid "Объем"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:21
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:73
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:22
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:92
-#, elixir-autogen, elixir-format
 msgid "Объём"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:125
-#, elixir-autogen, elixir-format
 msgid "Описание ОП"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:57
-#, elixir-autogen, elixir-format
 msgid "Оптовый курс"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:17
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:69
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:25
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:95
-#, elixir-autogen, elixir-format
 msgid "Организация"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:63
-#, elixir-autogen, elixir-format
 msgid "Ордера на покупку"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:5
-#, elixir-autogen, elixir-format
 msgid "Ордера на продажу"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:7
-#, elixir-autogen, elixir-format
 msgid "Основная страница"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_courses.html.eex:17
-#, elixir-autogen, elixir-format
 msgid "Отменить изменения"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_update_pass.html.eex:38
-#, elixir-autogen, elixir-format
 msgid "Пароли совпадают"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_update_pass.html.eex:41
-#, elixir-autogen, elixir-format
 msgid "Пароль не верный"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_update_trade.html.eex:35
-#: lib/kursonli_kurs_web/templates/worker/modal_worker_orders_add.html.eex:53
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:23
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:75
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:24
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:94
-#, elixir-autogen, elixir-format
 msgid "Передача"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_update_pass.html.eex:16
-#, elixir-autogen, elixir-format
 msgid "Повторите новый пароль"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_courses.html.eex:5
-#, elixir-autogen, elixir-format
 msgid "Последнее обновление курса"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:7
-#, elixir-autogen, elixir-format
 msgid "Принятые"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:3
-#, elixir-autogen, elixir-format
 msgid "Принять"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:61
-#, elixir-autogen, elixir-format
 msgid "Продажа золота"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:4
-#, elixir-autogen, elixir-format
 msgid "Разместить"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_courses.html.eex:29
-#, elixir-autogen, elixir-format
 msgid "Сделать видимым"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_worker_orders_add.html.eex:25
-#, elixir-autogen, elixir-format
 msgid "Создание ордера"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:8
-#, elixir-autogen, elixir-format
 msgid "Созданные"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_courses.html.eex:13
-#, elixir-autogen, elixir-format
 msgid "Сохранить изменения"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_update_pass.html.eex:6
-#, elixir-autogen, elixir-format
 msgid "Старый пароль"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:26
-#, elixir-autogen, elixir-format
 msgid "Статус сделки"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:83
-#, elixir-autogen, elixir-format
 msgid "Суббота"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:123
-#, elixir-autogen, elixir-format
 msgid "Субдомен"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_worker_orders_add.html.eex:29
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:18
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:88
-#, elixir-autogen, elixir-format
 msgid "Тип"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_delete_adopted_trade.html.eex:13
-#: lib/kursonli_kurs_web/templates/worker/modal_delete_trade.html.eex:12
-#, elixir-autogen, elixir-format
 msgid "Удалить"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:27
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:96
-#, elixir-autogen, elixir-format
 msgid "Управление"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_update_trade.html.eex:32
-#: lib/kursonli_kurs_web/templates/worker/modal_worker_orders_add.html.eex:70
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:22
-#: lib/kursonli_kurs_web/templates/worker/worker_orders.html.eex:74
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:23
-#: lib/kursonli_kurs_web/templates/worker/worker_orders_two.html.eex:93
-#, elixir-autogen, elixir-format
 msgid "Условия"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:106
-#, elixir-autogen, elixir-format
 msgid "Цвет валют"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:114
-#, elixir-autogen, elixir-format
 msgid "Цвет качеств"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_courses.html.eex:40
-#, elixir-autogen, elixir-format
 msgid "Цена покупки"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_courses.html.eex:41
-#, elixir-autogen, elixir-format
 msgid "Цена продажи"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_orders_chat.html.eex:6
-#, elixir-autogen, elixir-format
 msgid "ордер"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:25
-#, elixir-autogen, elixir-format
 msgid "3 Качества вашего филиала"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:34
-#, elixir-autogen, elixir-format
 msgid "Адрес для карты"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_login_form.html.eex:29
-#, elixir-autogen, elixir-format
 msgid "Войти в систему"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:100
-#, elixir-autogen, elixir-format
 msgid "Второй рекламный текст"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:18
-#, elixir-autogen, elixir-format
 msgid "Загрузка логотипа"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:70
-#, elixir-autogen, elixir-format
 msgid "Загрузка фото ОП"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_login_form.html.eex:8
-#, elixir-autogen, elixir-format
 msgid "Имя сотрудника"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:23
-#, elixir-autogen, elixir-format
 msgid "Нынешнее фото логотипа"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:75
-#, elixir-autogen, elixir-format
 msgid "Нынешнее фото филиала"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_login_form.html.eex:25
-#, elixir-autogen, elixir-format
 msgid "Пароль"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:97
-#, elixir-autogen, elixir-format
 msgid "Первый рекламный текст"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:14
-#, elixir-autogen, elixir-format
 msgid "Сделать видимым вашу личную страницу"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_update_pass.html.eex:2
-#, elixir-autogen, elixir-format
 msgid "Смена пароля сотрудника"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:130
-#: lib/kursonli_kurs_web/templates/worker/worker_update_pass.html.eex:24
-#, elixir-autogen, elixir-format
 msgid "Сохранить"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:39
-#, elixir-autogen, elixir-format
 msgid "Телефон отображаемый в шапке сайта"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_login_form.html.eex:14
-#, elixir-autogen, elixir-format
 msgid "Телефон сотрудника"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:117
-#, elixir-autogen, elixir-format
 msgid "Цвет текста качества"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:109
-#, elixir-autogen, elixir-format
 msgid "Цвет фона табло"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:97
-#: lib/kursonli_kurs_web/templates/worker/worker_settings.html.eex:100
-#, elixir-autogen, elixir-format
 msgid "лимит 30 символов"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_delete_adopted_trade.html.eex:10
-#, elixir-autogen, elixir-format
 msgid "Действительно удалить сделку?"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_update_trade.html.eex:13
-#, elixir-autogen, elixir-format
 msgid "Редактирование вашего ордера"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_delete_adopted_trade.html.eex:12
-#: lib/kursonli_kurs_web/templates/worker/modal_delete_trade.html.eex:11
-#, elixir-autogen, elixir-format
 msgid "Это действие необратимо. Вы действительно хотите удалить ваш ордер?"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_delete_trade.html.eex:9
-#, elixir-autogen, elixir-format
 msgid "Действительно удалить ордер?"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_update_trade.html.eex:49
-#, elixir-autogen, elixir-format
 msgid "Изменить ордер"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/notification_expiration.html.eex:23
-#, elixir-autogen, elixir-format
 msgid "Перейти в раздел оплаты"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/modal_worker_orders_add.html.eex:72
-#, elixir-autogen, elixir-format
 msgid "Разместить ордер"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/notification_expiration.html.eex:14
-#, elixir-autogen, elixir-format
 msgid "Срок вашей подписки истекает!"
 msgstr ""
 
-#: lib/kursonli_kurs_web/templates/worker/chat_page.html.eex:30
-#, elixir-autogen, elixir-format
 msgid "Введите сообщение..."
+msgstr ""
+
+msgid "Ваш филиал находится в архиве. Обратитесь к менеджеру."
+msgstr ""
+
+msgid "Ввведены некорректные данные"
+msgstr ""
+
+msgid "Курсы успешно обновлены"
+msgstr ""
+
+msgid "Настройки обновлены"
+msgstr ""
+
+msgid "Несовпадают пароли"
+msgstr ""
+
+msgid "Ордер удалён"
+msgstr ""
+
+msgid "Пароль успешно изменен"
+msgstr ""
+
+msgid "Сделка успешно создана"
+msgstr ""
+
+msgid "Сделка успешно удалена"
+msgstr ""
+
+msgid "Ордер"
+msgstr ""
+
+msgid "зарегистрирован"
+msgstr ""
+
+msgid "Покупкa"
+msgstr ""
+
+msgid "Покупку"
+msgstr ""
+
+msgid "Продажa"
+msgstr ""
+
+msgid "Продажу"
+msgstr ""
+
+msgid "1 секунду назад"
+msgstr ""
+
+msgid "1 час назад"
+msgstr ""
+
+msgid "Активная"
+msgstr ""
+
+msgid "Больше суток назад"
+msgstr ""
+
+msgid "Минуту назад"
+msgstr ""
+
+msgid "Отклонено"
+msgstr ""
+
+msgid "Принята"
+msgstr ""
+
+msgid "августа"
+msgstr ""
+
+msgid "апреля"
+msgstr ""
+
+msgid "декабря"
+msgstr ""
+
+msgid "июля"
+msgstr ""
+
+msgid "июня"
+msgstr ""
+
+msgid "марта"
+msgstr ""
+
+msgid "мая"
+msgstr ""
+
+msgid "минут назад"
+msgstr ""
+
+msgid "минуты назад"
+msgstr ""
+
+msgid "ноября"
+msgstr ""
+
+msgid "октября"
+msgstr ""
+
+msgid "секунд назад"
+msgstr ""
+
+msgid "секунды назад"
+msgstr ""
+
+msgid "сентября"
+msgstr ""
+
+msgid "февраля"
+msgstr ""
+
+msgid "час назад"
+msgstr ""
+
+msgid "часa назад"
+msgstr ""
+
+msgid "часа назад"
+msgstr ""
+
+msgid "часов назад"
+msgstr ""
+
+msgid "января"
+msgstr ""
+
+msgid "Новый тариф успешно создан"
+msgstr ""
+
+msgid "Тариф"
+msgstr ""
+
+msgid "изменен"
+msgstr ""
+
+msgid "используется некоторыми филиалами"
+msgstr ""
+
+msgid "удалён"
+msgstr ""
+
+msgid "Выйти"
+msgstr ""
+
+msgid "Изменить курсы"
+msgstr ""
+
+msgid "Онлайн"
+msgstr ""
+
+msgid "Оплата"
+msgstr ""
+
+msgid "Ордера"
+msgstr ""
+
+msgid "Подписка не активна"
+msgstr ""
+
+msgid "Подписка:"
+msgstr ""
+
+msgid "Пользователей:"
+msgstr ""
+
+msgid "Пользователь:"
+msgstr ""
+
+msgid "Смена пароля"
+msgstr ""
+
+msgid "за сегодня"
+msgstr ""
+
+msgid "онлайн"
 msgstr ""

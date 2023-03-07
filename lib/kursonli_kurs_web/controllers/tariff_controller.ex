@@ -10,7 +10,7 @@ defmodule KursonliKursWeb.TariffController do
   def create_tariff(conn, params) do
     with {:ok, _tariff} <- Tariffs.create(params) do
       conn
-      |> put_flash(:info, "Новый тариф успешно создан")
+      |> put_flash(:info, gettext("Новый тариф успешно создан"))
       |> redirect(to: "/admin/settings")
     end
   end
@@ -22,7 +22,7 @@ defmodule KursonliKursWeb.TariffController do
     with {:ok, tariff} <- Tariffs.do_get(id: String.to_integer(id)),
          {:ok, _city} <- Tariffs.update(tariff, params) do
       conn
-      |> put_flash(:info, " #{tariff.name} изменен")
+      |> put_flash(:info, " #{tariff.name} #{gettext("изменен")}")
       |> redirect(to: "/admin/settings")
     end
   end
@@ -38,11 +38,11 @@ defmodule KursonliKursWeb.TariffController do
         {:ok, tariff} = Tariffs.delete(tariff)
 
         conn
-        |> put_flash(:info, "Тариф #{tariff.name} удалён")
+        |> put_flash(:info, "#{gettext("Тариф")} #{tariff.name} #{gettext("удалён")}")
         |> redirect(to: "/admin/settings")
       else
         conn
-        |> put_flash(:error, "#{tariff.name} используется некоторыми филиалами")
+        |> put_flash(:error, "#{tariff.name} #{gettext("используется некоторыми филиалами")}")
         |> redirect(to: "/admin/settings")
       end
     end

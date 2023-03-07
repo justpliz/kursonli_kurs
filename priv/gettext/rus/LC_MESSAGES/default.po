@@ -249,3 +249,222 @@ msgstr ""
 
 msgid "Это ваш ордер!"
 msgstr ""
+
+msgid "Отменить"
+msgstr ""
+
+msgid "Вы не выбрали ордер"
+msgstr ""
+
+msgid "Вы продаете"
+msgstr ""
+
+msgid "Вы покупаете"
+msgstr ""
+
+msgid "Ордер на продажу"
+msgstr ""
+
+msgid "Ордер на покупку"
+msgstr ""
+
+msgid "Укажите сумму продажи:"
+msgstr ""
+
+msgid "Укажите сумму покупки:"
+msgstr ""
+
+msgid "без лимита"
+msgstr ""
+
+msgid "Самовыз"
+msgstr ""
+
+msgid "Итого"
+msgstr ""
+
+msgid "Ваши условия"
+msgstr ""
+
+msgid "Подтвердить"
+msgstr ""
+
+msgid "Сделка успешно удалена"
+msgstr ""
+
+msgid "Ваш филиал находится в архиве. Обратитесь к менеджеру."
+msgstr ""
+
+msgid "Ввведены некорректные данные"
+msgstr ""
+
+msgid "Курсы успешно обновлены"
+msgstr ""
+
+msgid "Настройки обновлены"
+msgstr ""
+
+msgid "Несовпадают пароли"
+msgstr ""
+
+msgid "Ордер удалён"
+msgstr ""
+
+msgid "Пароль успешно изменен"
+msgstr ""
+
+msgid "Сделка успешно создана"
+msgstr ""
+
+msgid "Ордер"
+msgstr ""
+
+msgid "зарегистрирован"
+msgstr ""
+
+msgid "Покупкa"
+msgstr ""
+
+msgid "Покупку"
+msgstr ""
+
+msgid "Продажa"
+msgstr ""
+
+msgid "Продажу"
+msgstr ""
+
+msgid "1 секунду назад"
+msgstr ""
+
+msgid "1 час назад"
+msgstr ""
+
+msgid "Активная"
+msgstr ""
+
+msgid "Больше суток назад"
+msgstr ""
+
+msgid "Минуту назад"
+msgstr ""
+
+msgid "Отклонено"
+msgstr ""
+
+msgid "Принята"
+msgstr ""
+
+msgid "августа"
+msgstr ""
+
+msgid "апреля"
+msgstr ""
+
+msgid "декабря"
+msgstr ""
+
+msgid "июля"
+msgstr ""
+
+msgid "июня"
+msgstr ""
+
+msgid "марта"
+msgstr ""
+
+msgid "мая"
+msgstr ""
+
+msgid "минут назад"
+msgstr ""
+
+msgid "минуты назад"
+msgstr ""
+
+msgid "ноября"
+msgstr ""
+
+msgid "октября"
+msgstr ""
+
+msgid "секунд назад"
+msgstr ""
+
+msgid "секунды назад"
+msgstr ""
+
+msgid "сентября"
+msgstr ""
+
+msgid "февраля"
+msgstr ""
+
+msgid "час назад"
+msgstr ""
+
+msgid "часa назад"
+msgstr ""
+
+msgid "часа назад"
+msgstr ""
+
+msgid "часов назад"
+msgstr ""
+
+msgid "января"
+msgstr ""
+
+msgid "Новый тариф успешно создан"
+msgstr ""
+
+msgid "Тариф"
+msgstr ""
+
+msgid "изменен"
+msgstr ""
+
+msgid "используется некоторыми филиалами"
+msgstr ""
+
+msgid "удалён"
+msgstr ""
+
+msgid "Выйти"
+msgstr ""
+
+msgid "Изменить курсы"
+msgstr ""
+
+msgid "Онлайн"
+msgstr ""
+
+msgid "Оплата"
+msgstr ""
+
+msgid "Ордера"
+msgstr ""
+
+msgid "Подписка не активна"
+msgstr ""
+
+msgid "Подписка:"
+msgstr ""
+
+msgid "Пользователей:"
+msgstr ""
+
+msgid "Пользователь:"
+msgstr ""
+
+msgid "Смена пароля"
+msgstr ""
+
+msgid "за сегодня"
+msgstr ""
+
+msgid "онлайн"
+msgstr ""
+
+msgid "Активна, до"
+msgstr ""

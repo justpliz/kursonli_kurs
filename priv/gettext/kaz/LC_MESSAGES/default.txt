@@ -1,254 +1,470 @@
 msgid "Авторизация в системе"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Адрес"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Будни"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Валюта"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Воскресенье"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Время"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Выберите файл"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Выберите чат для общения"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Дополнителная информация"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Допольнительные телефоны"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Изменить все курсы"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Короткое название"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Курс"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Лимит"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Лицензия ОП"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Личная страница"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Мои сделки"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Настройки"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Новый пароль"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Объем"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Объём"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Описание ОП"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Оптовый курс"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Организация"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Ордера на покупку"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Ордера на продажу"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Основная страница"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Отменить изменения"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Пароли совпадают"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Пароль не верный"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Передача"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Повторите новый пароль"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Последнее обновление курса"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Принятые"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Принять"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Продажа золота"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Разместить"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Сделать видимым"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Создание ордера"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Созданные"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Сохранить изменения"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Старый пароль"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Статус сделки"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Суббота"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Субдомен"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Тип"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Удалить"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Управление"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Условия"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Цвет валют"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Цвет качеств"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Цена покупки"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Цена продажи"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "ордер"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "3 Качества вашего филиала"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Адрес для карты"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Войти в систему"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Второй рекламный текст"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Загрузка логотипа"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Загрузка фото ОП"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Имя сотрудника"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Нынешнее фото логотипа"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Нынешнее фото филиала"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Пароль"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Первый рекламный текст"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Сделать видимым вашу личную страницу"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Смена пароля сотрудника"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Сохранить"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Телефон отображаемый в шапке сайта"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Телефон сотрудника"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Цвет текста качества"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Цвет фона табло"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "лимит 30 символов"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Действительно удалить сделку?"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Редактирование вашего ордера"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Это действие необратимо. Вы действительно хотите удалить ваш ордер?"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Действительно удалить ордер?"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Изменить ордер"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Перейти в раздел оплаты"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Разместить ордер"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Срок вашей подписки истекает!"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Введите сообщение..."
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Вы покупаете:"
-msgstr "АААААА"
-
-msgid "Отменить"
-msgstr "АААААА"
+msgstr "AAAAA"
 
 msgid "Это ваш ордер!"
-msgstr "BBBBBB"
+msgstr "AAAAA"
+
+msgid "Отменить"
+msgstr "AAAAA"
+
+msgid "Вы не выбрали ордер"
+msgstr "AAAAA"
+
+msgid "Вы продаете"
+msgstr "AAAAA"
+
+msgid "Вы покупаете"
+msgstr "AAAAA"
+
+msgid "Ордер на продажу"
+msgstr "AAAAA"
+
+msgid "Ордер на покупку"
+msgstr "AAAAA"
+
+msgid "Укажите сумму продажи:"
+msgstr "AAAAA"
+
+msgid "Укажите сумму покупки:"
+msgstr "AAAAA"
+
+msgid "без лимита"
+msgstr "AAAAA"
+
+msgid "Самовыз"
+msgstr "AAAAA"
+
+msgid "Итого"
+msgstr "AAAAA"
+
+msgid "Ваши условия"
+msgstr "AAAAA"
+
+msgid "Подтвердить"
+msgstr "AAAAA"
+
+msgid "Сделка успешно удалена"
+msgstr "AAAAA"
+
+msgid "Ваш филиал находится в архиве. Обратитесь к менеджеру."
+msgstr "AAAAA"
+
+msgid "Ввведены некорректные данные"
+msgstr "AAAAA"
+
+msgid "Курсы успешно обновлены"
+msgstr "AAAAA"
+
+msgid "Настройки обновлены"
+msgstr "AAAAA"
+
+msgid "Несовпадают пароли"
+msgstr "AAAAA"
+
+msgid "Ордер удалён"
+msgstr "AAAAA"
+
+msgid "Пароль успешно изменен"
+msgstr "AAAAA"
+
+msgid "Сделка успешно создана"
+msgstr "AAAAA"
+
+msgid "Ордер"
+msgstr "AAAAA"
+
+msgid "зарегистрирован"
+msgstr "AAAAA"
+
+msgid "Покупкa"
+msgstr "AAAAA"
+
+msgid "Покупку"
+msgstr "AAAAA"
+
+msgid "Продажa"
+msgstr "AAAAA"
+
+msgid "Продажу"
+msgstr "AAAAA"
+
+msgid "1 секунду назад"
+msgstr "AAAAA"
+
+msgid "1 час назад"
+msgstr "AAAAA"
+
+msgid "Активная"
+msgstr "AAAAA"
+
+msgid "Больше суток назад"
+msgstr "AAAAA"
+
+msgid "Минуту назад"
+msgstr "AAAAA"
+
+msgid "Отклонено"
+msgstr "AAAAA"
+
+msgid "Принята"
+msgstr "AAAAA"
+
+msgid "августа"
+msgstr "AAAAA"
+
+msgid "апреля"
+msgstr "AAAAA"
+
+msgid "декабря"
+msgstr "AAAAA"
+
+msgid "июля"
+msgstr "AAAAA"
+
+msgid "июня"
+msgstr "AAAAA"
+
+msgid "марта"
+msgstr "AAAAA"
+
+msgid "мая"
+msgstr "AAAAA"
+
+msgid "минут назад"
+msgstr "AAAAA"
+
+msgid "минуты назад"
+msgstr "AAAAA"
+
+msgid "ноября"
+msgstr "AAAAA"
+
+msgid "октября"
+msgstr "AAAAA"
+
+msgid "секунд назад"
+msgstr "AAAAA"
+
+msgid "секунды назад"
+msgstr "AAAAA"
+
+msgid "сентября"
+msgstr "AAAAA"
+
+msgid "февраля"
+msgstr "AAAAA"
+
+msgid "час назад"
+msgstr "AAAAA"
+
+msgid "часa назад"
+msgstr "AAAAA"
+
+msgid "часа назад"
+msgstr "AAAAA"
+
+msgid "часов назад"
+msgstr "AAAAA"
+
+msgid "января"
+msgstr "AAAAA"
+
+msgid "Новый тариф успешно создан"
+msgstr "AAAAA"
+
+msgid "Тариф"
+msgstr "AAAAA"
+
+msgid "изменен"
+msgstr "AAAAA"
+
+msgid "используется некоторыми филиалами"
+msgstr "AAAAA"
+
+msgid "удалён"
+msgstr "AAAAA"
+
+msgid "Выйти"
+msgstr "AAAAA"
+
+msgid "Изменить курсы"
+msgstr "AAAAA"
+
+msgid "Онлайн"
+msgstr "AAAAA"
+
+msgid "Оплата"
+msgstr "AAAAA"
+
+msgid "Ордера"
+msgstr "AAAAA"
+
+msgid "Подписка не активна"
+msgstr "AAAAA"
+
+msgid "Подписка:"
+msgstr "AAAAA"
+
+msgid "Пользователей:"
+msgstr "AAAAA"
+
+msgid "Пользователь:"
+msgstr "AAAAA"
+
+msgid "Смена пароля"
+msgstr "AAAAA"
+
+msgid "за сегодня"
+msgstr "AAAAA"
+
+msgid "онлайн"
+msgstr "AAAAA"
+
+msgid "Активна, до"
+msgstr "AAAAA"

@@ -160,8 +160,311 @@ msgstr ""
 msgid "ордер"
 msgstr ""
 
-msgid "Отменить"
+msgid "3 Качества вашего филиала"
+msgstr ""
+
+msgid "Адрес для карты"
+msgstr ""
+
+msgid "Войти в систему"
+msgstr ""
+
+msgid "Второй рекламный текст"
+msgstr ""
+
+msgid "Загрузка логотипа"
+msgstr ""
+
+msgid "Загрузка фото ОП"
+msgstr ""
+
+msgid "Имя сотрудника"
+msgstr ""
+
+msgid "Нынешнее фото логотипа"
+msgstr ""
+
+msgid "Нынешнее фото филиала"
+msgstr ""
+
+msgid "Пароль"
+msgstr ""
+
+msgid "Первый рекламный текст"
+msgstr ""
+
+msgid "Сделать видимым вашу личную страницу"
+msgstr ""
+
+msgid "Смена пароля сотрудника"
+msgstr ""
+
+msgid "Сохранить"
+msgstr ""
+
+msgid "Телефон отображаемый в шапке сайта"
+msgstr ""
+
+msgid "Телефон сотрудника"
+msgstr ""
+
+msgid "Цвет текста качества"
+msgstr ""
+
+msgid "Цвет фона табло"
+msgstr ""
+
+msgid "лимит 30 символов"
+msgstr ""
+
+msgid "Действительно удалить сделку?"
+msgstr ""
+
+msgid "Редактирование вашего ордера"
+msgstr ""
+
+msgid "Это действие необратимо. Вы действительно хотите удалить ваш ордер?"
+msgstr ""
+
+msgid "Действительно удалить ордер?"
+msgstr ""
+
+msgid "Изменить ордер"
+msgstr ""
+
+msgid "Перейти в раздел оплаты"
+msgstr ""
+
+msgid "Разместить ордер"
+msgstr ""
+
+msgid "Срок вашей подписки истекает!"
+msgstr ""
+
+msgid "Введите сообщение..."
+msgstr ""
+
+msgid "Вы покупаете:"
 msgstr ""
 
 msgid "Это ваш ордер!"
+msgstr ""
+
+msgid "Отменить"
+msgstr ""
+
+msgid "Вы не выбрали ордер"
+msgstr ""
+
+msgid "Вы продаете"
+msgstr ""
+
+msgid "Вы покупаете"
+msgstr ""
+
+msgid "Ордер на продажу"
+msgstr ""
+
+msgid "Ордер на покупку"
+msgstr ""
+
+msgid "Укажите сумму продажи:"
+msgstr ""
+
+msgid "Укажите сумму покупки:"
+msgstr ""
+
+msgid "без лимита"
+msgstr ""
+
+msgid "Самовыз"
+msgstr ""
+
+msgid "Итого"
+msgstr ""
+
+msgid "Ваши условия"
+msgstr ""
+
+msgid "Подтвердить"
+msgstr ""
+
+msgid "Сделка успешно удалена"
+msgstr ""
+
+msgid "Ваш филиал находится в архиве. Обратитесь к менеджеру."
+msgstr ""
+
+msgid "Ввведены некорректные данные"
+msgstr ""
+
+msgid "Курсы успешно обновлены"
+msgstr ""
+
+msgid "Настройки обновлены"
+msgstr ""
+
+msgid "Несовпадают пароли"
+msgstr ""
+
+msgid "Ордер удалён"
+msgstr ""
+
+msgid "Пароль успешно изменен"
+msgstr ""
+
+msgid "Сделка успешно создана"
+msgstr ""
+
+msgid "Ордер"
+msgstr ""
+
+msgid "зарегистрирован"
+msgstr ""
+
+msgid "Покупкa"
+msgstr ""
+
+msgid "Покупку"
+msgstr ""
+
+msgid "Продажa"
+msgstr ""
+
+msgid "Продажу"
+msgstr ""
+
+msgid "1 секунду назад"
+msgstr ""
+
+msgid "1 час назад"
+msgstr ""
+
+msgid "Активная"
+msgstr ""
+
+msgid "Больше суток назад"
+msgstr ""
+
+msgid "Минуту назад"
+msgstr ""
+
+msgid "Отклонено"
+msgstr ""
+
+msgid "Принята"
+msgstr ""
+
+msgid "августа"
+msgstr ""
+
+msgid "апреля"
+msgstr ""
+
+msgid "декабря"
+msgstr ""
+
+msgid "июля"
+msgstr ""
+
+msgid "июня"
+msgstr ""
+
+msgid "марта"
+msgstr ""
+
+msgid "мая"
+msgstr ""
+
+msgid "минут назад"
+msgstr ""
+
+msgid "минуты назад"
+msgstr ""
+
+msgid "ноября"
+msgstr ""
+
+msgid "октября"
+msgstr ""
+
+msgid "секунд назад"
+msgstr ""
+
+msgid "секунды назад"
+msgstr ""
+
+msgid "сентября"
+msgstr ""
+
+msgid "февраля"
+msgstr ""
+
+msgid "час назад"
+msgstr ""
+
+msgid "часa назад"
+msgstr ""
+
+msgid "часа назад"
+msgstr ""
+
+msgid "часов назад"
+msgstr ""
+
+msgid "января"
+msgstr ""
+
+msgid "Новый тариф успешно создан"
+msgstr ""
+
+msgid "Тариф"
+msgstr ""
+
+msgid "изменен"
+msgstr ""
+
+msgid "используется некоторыми филиалами"
+msgstr ""
+
+msgid "удалён"
+msgstr ""
+
+msgid "Выйти"
+msgstr ""
+
+msgid "Изменить курсы"
+msgstr ""
+
+msgid "Онлайн"
+msgstr ""
+
+msgid "Оплата"
+msgstr ""
+
+msgid "Ордера"
+msgstr ""
+
+msgid "Подписка не активна"
+msgstr ""
+
+msgid "Подписка:"
+msgstr ""
+
+msgid "Пользователей:"
+msgstr ""
+
+msgid "Пользователь:"
+msgstr ""
+
+msgid "Смена пароля"
+msgstr ""
+
+msgid "за сегодня"
+msgstr ""
+
+msgid "онлайн"
+msgstr ""
+
+msgid "Активна, до"
 msgstr ""
