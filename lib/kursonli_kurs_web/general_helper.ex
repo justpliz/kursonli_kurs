@@ -129,17 +129,17 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   defp hum_date(d) when d >= 60 and d < 60 * 60 do
     case d do
-      d when rem(d, 10 * 60) == 1 and d != 11 -> "#{d} минуту назад"
-      d when rem(d, 10 * 60) in 2..4 and d not in 12..14 -> "#{d} минуты назад"
+      d when rem(d, 10 * 60) == 1 and d != 11 -> "#{div(d, 60)} минуту назад"
+      d when rem(d, 10 * 60) in 2..4 and d not in 12..14 -> "#{div(d, 60)} минуты назад"
       _ -> "#{d} минут назад"
     end
   end
 
   defp hum_date(d) when d >= 60 * 60 and d < 24 * 60 * 60  do
     case d do
-      d when rem(d, 10 * 60 * 60) == 1 and d != 11 -> "#{d} час назад"
-      d when rem(d, 10 * 60 * 60) in 2..4 and d not in 12..14 -> "#{d} часа назад"
-      _ -> "#{d} часов назад"
+      d when rem(d, 10 * 60 * 60) == 1 and d != 11 -> "#{div(d, 60 * 60)} час назад"
+      d when rem(d, 10 * 60 * 60) in 2..4 and d not in 12..14 -> "#{div(d, 60 * 60)} часа назад"
+      _ -> "#{div(d, 60 * 60)} часов назад"
     end
   end
 
