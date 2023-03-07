@@ -160,7 +160,7 @@ defmodule KursonliKursWeb.WorkerController do
     my_trades =
       Orders.all(worker_id: worker.id)
       |> PwHelper.Normalize.repo()
-      |> Enum.sort_by(&(&1.inserted_at), :desc)
+      |> Enum.sort_by(& &1.inserted_at, :desc)
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
 
@@ -450,5 +450,17 @@ defmodule KursonliKursWeb.WorkerController do
 
     conn
     |> render("payment.html", service_access: service_access)
+  end
+
+  def select_rus(conn, params) do
+    conn
+    |> put_session(:lang, "rus")
+    |> redirect(to: params["redirect_path"])
+  end
+
+  def select_kaz(conn, params) do
+    conn
+    |> put_session(:lang, "kaz")
+    |> redirect(to: params["redirect_path"])
   end
 end

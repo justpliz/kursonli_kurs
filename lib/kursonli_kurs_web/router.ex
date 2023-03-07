@@ -8,6 +8,7 @@ defmodule KursonliKursWeb.Router do
     plug :put_root_layout, {KursonliKursWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug(KursonliKursWeb.PlugLocal)
   end
 
   pipeline(:admin_check) do
@@ -116,6 +117,11 @@ defmodule KursonliKursWeb.Router do
 
   scope "/worker", KursonliKursWeb do
     pipe_through [:browser, :worker_check, :worker_app]
+
+    scope "/lang" do
+      get("/rus", WorkerController, :select_rus)
+      get("/kaz", WorkerController, :select_kaz)
+    end
 
     get "/update_pass", WorkerController, :update_pass
     post "/update_pass", WorkerController, :update_pass_submit
