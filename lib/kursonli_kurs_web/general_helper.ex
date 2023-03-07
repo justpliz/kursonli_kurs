@@ -119,18 +119,30 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   def humanizated_date(_date), do: "-"
 
-  defp hum_date(d) when d < 0, do: "-"
-  defp hum_date(d) when d >= 0 and d <= 1, do: "1 секунду назад"
-  defp hum_date(d) when d > 1 and d <= 4, do: "#{d} секунды назад"
-  defp hum_date(d) when d > 4 and d <= 60, do: "#{d} секунд назад"
-  defp hum_date(d) when d > 1 * 60 and d <= 2 * 60, do: "Минуту назад"
-  defp hum_date(d) when d > 2 * 60 and d <= 4 * 60, do: "#{div(d, 60)} минуты назад"
-  defp hum_date(d) when d > 4 * 60 and d <= 60 * 60, do: "#{div(d, 60)} минут назад"
-  defp hum_date(d) when d > 60 * 60 and d <= 2 * 60 * 60, do: "1 час назад"
-  defp hum_date(d) when d > 2 * 60 * 60 and d <= 4 * 60 * 60, do: "#{div(d, 60 * 60)} часа назад"
-  defp hum_date(d) when d > 4 * 60 * 60 and d <= 20 * 60 * 60, do: "#{div(d, 60 * 60)} часов назад"
-  defp hum_date(d) when d > 20 * 60 * 60 and d <= 21 * 60 * 60, do: "#{div(d, 60 * 60)} час назад"
-  defp hum_date(d) when d > 21 * 60 * 60 and d <= 24 * 60 * 60, do: "#{div(d, 60 * 60)} часa назад"
+  defp hum_date(d) when d > 0 and d < 60 do
+    case d do
+      d when rem(d, 10) == 1 and d != 11 -> "#{d} секунду назад"
+      d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} секунды назад"
+      _ -> "#{d} секунд назад"
+    end
+  end
+
+  defp hum_date(d) when d >= 60 and d < 60 * 60 do
+    case d do
+      d when rem(d, 10 * 60) == 1 and d != 11 -> "#{d} минуту назад"
+      d when rem(d, 10 * 60) in 2..4 and d not in 12..14 -> "#{d} минуты назад"
+      _ -> "#{d} минут назад"
+    end
+  end
+
+  defp hum_date(d) when d >= 60 * 60 and d < 24 * 60 * 60  do
+    case d do
+      d when rem(d, 10 * 60 * 60) == 1 and d != 11 -> "#{d} час назад"
+      d when rem(d, 10 * 60 * 60) in 2..4 and d not in 12..14 -> "#{d} часа назад"
+      _ -> "#{d} часов назад"
+    end
+  end
+
   defp hum_date(d) when d > 24 * 60 * 60, do: "Больше суток назад"
 
   defp month_translate_ru(month) do
