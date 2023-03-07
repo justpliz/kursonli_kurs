@@ -316,10 +316,7 @@ msgstr ""
 msgid "Сделка успешно создана"
 msgstr ""
 
-msgid "Ордер"
-msgstr ""
-
-msgid "зарегистрирован"
+msgid "Ордер успешно зарегистрирован"
 msgstr ""
 
 msgid "Покупкa"
