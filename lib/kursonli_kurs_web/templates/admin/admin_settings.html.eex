@@ -57,7 +57,7 @@
                <div class="flex justify-between pb-2">
                   <%= hidden_input f, :name, value: @service_access.name %>
                   <label class="label_input p-2 basis-1/6">Заголовок</label>
-                  <%= text_input f, :title, placeholder: "Заголовок" , class: "input_full" , value: @service_access.title, required: "true" %>
+                  <%= text_input f, :title, placeholder: "Заголовок", class: "input_full", value: @service_access.title, required: "true" %>
                </div>
                <div class="flex justify-between pb-2">
                   <label class="label_input p-2 basis-1/6">Текст</label>
@@ -82,7 +82,7 @@
                <div class="flex justify-between pb-2">
                   <%= hidden_input f, :name, value: @expiration.name %>
                   <label class="label_input p-2 basis-1/6">Заголовок</label>
-                  <%= text_input f, :title, placeholder: "Заголовок" , class: "input_full" , value: @expiration.title, required: "true" %>
+                  <%= text_input f, :title, placeholder: "Заголовок", class: "input_full", value: @expiration.title, required: "true" %>
                </div>
                <div class="flex justify-between pb-2">
                   <label class="label_input p-2 basis-1/6">Текст</label>
@@ -107,7 +107,7 @@
                <div class="flex justify-between pb-2">
                   <%= hidden_input f, :name, value: @instructions.name %>
                   <label class="label_input p-2 basis-1/6">Заголовок</label>
-                  <%= text_input f, :title, placeholder: "Заголовок" , class: "input_full" , value: @instructions.title, required: "true" %>
+                  <%= text_input f, :title, placeholder: "Заголовок", class: "input_full", value: @instructions.title, required: "true" %>
                </div>
                <div class="flex justify-between pb-2">
                   <label class="label_input p-2 basis-1/6">Текст</label>
@@ -207,11 +207,11 @@
    </div>
 </div>
 
-<%= render(KursonliKursWeb.AdminView, "modal_admin_edit_currency.html" , conn: @conn) %>
-   <%= render(KursonliKursWeb.AdminView, "modal_admin_currency_create.html" , conn: @conn) %>
+<%= render(KursonliKursWeb.AdminView, "modal_admin_edit_currency.html", conn: @conn) %>
+   <%= render(KursonliKursWeb.AdminView, "modal_admin_currency_create.html", conn: @conn) %>
 
-      <%= render(KursonliKursWeb.AdminView, "modal_admin_edit_cities.html" , conn: @conn) %>
-         <%= render(KursonliKursWeb.AdminView, "modal_admin_cities_create.html" , conn: @conn) %>
+      <%= render(KursonliKursWeb.AdminView, "modal_admin_edit_cities.html", conn: @conn) %>
+         <%= render(KursonliKursWeb.AdminView, "modal_admin_cities_create.html", conn: @conn) %>
 
-            <%= render(KursonliKursWeb.AdminView, "modal_admin_create_tariff.html" , conn: @conn) %>
-               <%= render(KursonliKursWeb.AdminView, "modal_admin_tariff_edit.html" , conn: @conn) %>
+            <%= render(KursonliKursWeb.AdminView, "modal_admin_create_tariff.html", conn: @conn) %>
+               <%= render(KursonliKursWeb.AdminView, "modal_admin_tariff_edit.html", conn: @conn) %>

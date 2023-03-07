@@ -62,9 +62,6 @@ $(function () {
     Toast.fire({
       title: payload.message,
       icon: "success",
-      showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true,
     });
   });
   channelOnline.on("new:click", (payload) => {

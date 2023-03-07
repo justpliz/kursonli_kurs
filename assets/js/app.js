@@ -29,6 +29,7 @@ import "./helper/number_only";
 import "./helper/modal_script";
 import "./helper/active_link";
 import "./helper/tabs";
+import "./helper/lang";
 // And connect to the path in "lib/kursonli_kurs_web/endpoint.ex". We pass the
 // token for authentication. Read below how it should be used.
 
@@ -46,7 +47,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
 });
 
 // Show progress bar on live navigation and form submits
-topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" })
+// topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" })
 window.addEventListener("phx:page-loading-start", info => topbar.show())
 window.addEventListener("phx:page-loading-stop", info => topbar.hide())
 

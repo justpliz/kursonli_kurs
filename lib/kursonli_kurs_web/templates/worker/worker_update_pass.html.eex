@@ -1,19 +1,19 @@
 <div class="margin_content">
-  <h1 class="title">Смена пароля сотрудника</h1>
+  <h1 class="title"><%= gettext("Смена пароля сотрудника") %></h1>
   <div class="login_page">
     <%= form_for @conn, Routes.worker_path(@conn, :update_pass_submit), fn f -> %>
       <div class="mt-2">
-        <label class="label_input">Старый пароль</label>
+        <label class="label_input"><%= gettext("Старый пароль") %></label>
         <%= text_input f, :old_pass, class: "input_short sm:input_full", required: "true" %>
       </div>
 
       <div class="mt-2">
-        <label class="label_input">Новый пароль</label>
+        <label class="label_input"><%= gettext("Новый пароль") %></label>
         <%= text_input f, :new_pass, class: "input_short sm:input_full", required: "true" %>
       </div>
 
       <div class="mt-2">
-        <label class="label_input">Повторите новый пароль</label>
+        <label class="label_input"><%= gettext("Повторите новый пароль") %></label>
         <%= text_input f, :re_new_pass, class: "input_short sm:input_full", required: "true" %>
       </div>
 
@@ -21,7 +21,7 @@
       </div>
 
       <div class="mt-2">
-        <%= submit "Сохранить", class: "btn_save mt-2", id: "reg_submit" %>
+        <%= submit gettext("Сохранить"), class: "btn_save mt-2", id: "reg_submit" %>
       </div>
       <% end %>
   </div>
@@ -35,10 +35,10 @@
     const handleChange = (e) => {
       if (inputOnePass.value == inputTwoPass.value) {
         errosHtml.innerHTML =
-          "<span class='text-green-600'>Пароли совпадают</span>";
+          `<span class='text-green-600'><%= gettext("Пароли совпадают") %></span>`;
         regSubmit.removeAttribute("disabled");
       } else {
-        errosHtml.innerHTML = "<span class='text-red-600'>Пароль не верный</span>";
+        errosHtml.innerHTML = `<span class='text-red-600'><%= gettext("Пароль не верный") %></span>`;
         regSubmit.setAttribute("disabled", "true");
       }
     };

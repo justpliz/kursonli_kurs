@@ -10,29 +10,29 @@
             document.querySelector(`#transfer${transfer}`).setAttribute("checked", true);
          },
          html: `
-      <h1 class="title_without_margin text-left">Редактирование вашего ордера</h1>
+      <h1 class="title_without_margin text-left"><%= gettext("Редактирование вашего ордера") %></h1>
       <div class="px-1">  
          <%= form_for @conn, Routes.worker_path(@conn, :update_order), fn f -> %>
            
             <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
             <input class="hidden" id="order_type" value="${type}" name="order_type" required="true" type="text">
 
-            <label class="label_input pos" for="price">Валюта</label>
+            <label class="label_input pos" for="price"><%= gettext("Валюта") %></label>
             <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), value: "${currency}", class: "input_full", required: "true" %>
            
-            <label class="label_input pos">Курс</label>
+            <label class="label_input pos"><%= gettext("Курс") %></label>
             <%= text_input f, :course, class: "input_full number_input_only", value: "${course}", required: "true" %>
 
-            <label class="label_input pos">Лимит</label>
+            <label class="label_input pos"><%= gettext("Лимит") %></label>
             <%= text_input f, :limit, class: "input_full number_input_only", value: "${limit}", required: "true" %>
             
-            <label class="label_input pos">Объем</label>
+            <label class="label_input pos"><%= gettext("Объем") %></label>
             <%= text_input f, :volume, class: "input_full bit_input", value: "${volume}", required: "true" %>
             
-            <label class="label_input pos">Условия</label>
+            <label class="label_input pos"><%= gettext("Условия") %></label>
             <%= text_input f, :terms, class: "input_full", value: "${terms}", maxlength: 30 %>
 
-            <label class="label_input pos">Передача</label>
+            <label class="label_input pos"><%= gettext("Передача") %></label>
             <div class="container_select gap-4">
               <%= for item <- Application.get_env(:kursonli_kurs, :order_transfer) do %>
                 <%= case item do %>
@@ -46,7 +46,7 @@
               <% end %>
             </div>
 
-             <%= submit "Изменить ордер", class: "btn_save pos mt-4" %>
+             <%= submit gettext("Изменить ордер"), class: "btn_save pos mt-4" %>
          <% end %>
       </div>
           `,

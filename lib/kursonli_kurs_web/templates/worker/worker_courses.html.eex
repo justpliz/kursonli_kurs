@@ -2,7 +2,7 @@
   <%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
     <div class="margin_content">
       <div class="flex justify-between items-center">
-        <div class="text-base flex-1-1">Последнее обновление курса:
+        <div class="text-base flex-1-1"><%= gettext("Последнее обновление курса") %>:
           <%= @last_date %>
         </div>
         <%= form_for @conn, Routes.worker_path(@conn, :update_course), fn f -> %>
@@ -10,27 +10,23 @@
             <button class="btn_save flex items-center justify-center" type="submit">
               <span class="material-symbols-outlined" style="color: #fff; font-weight: 500; font-size: 20px;">
                 save
-              </span>
-              Сохранить изменения
-            </button>
+              </span><%= gettext("Сохранить изменения") %></button>
             <a href="/worker/courses" class="btn_cancel flex items-center justify-center" type="submit">
               <span class="material-symbols-outlined" style="color: #111111; font-weight: 500; font-size: 20px;">
                 cancel
-              </span>
-              Отменить изменения
-            </a>
+              </span><%= gettext("Отменить изменения") %></a>
           </div>
       </div>
       <div>
         <div class="flex items-center justify-start gap-4 pb-2">
           <input name="change_all_filials" type="hidden" value="false">
           <div class="flex items-center justify-center">
-            <label for="all" class="label_input pr-2">Изменить все курсы</label>
+            <label for="all" class="label_input pr-2"><%= gettext("Изменить все курсы") %></label>
             <input id="all" name="change_all_filials" type="checkbox" value="true" class="type_select rounded">
           </div>
 
           <div class="flex items-center justify-center">
-            <label for="visible_course_status" class="label_input pr-2">Сделать видимым</label>
+            <label for="visible_course_status" class="label_input pr-2"><%= gettext("Сделать видимым") %></label>
             <%= checkbox f, :visible_course_status, checked: @visible_course_status, class: "type_select rounded" %>
           </div>
         </div>
@@ -39,18 +35,10 @@
         <table class="w-full text-sm 2xl:text-xs text-left text-gray-500 table_sort">
           <thead class="text-xs text-gray-700 uppercase bg-white">
             <tr>
-              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-gray-200">
-                Валюта
-              </th>
-              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
-                Короткое название
-              </th>
-              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
-                Цена покупки
-              </th>
-              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
-                Цена продажи
-              </th>
+              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-gray-200"><%= gettext("Валюта") %></th>
+              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200"><%= gettext("Короткое название") %></th>
+              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200"><%= gettext("Цена покупки") %></th>
+              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200"><%= gettext("Цена продажи") %></th>
             </tr>
           </thead>
           <tbody>
@@ -64,12 +52,12 @@
                 </td>
                 <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
                   <%= text_input f, :"#{item.course_id}|value_for_purchase",
-                    class: "input_full number value_for_purchase" , value: item.value_for_purchase%>
+                    class: "input_full number value_for_purchase", value: item.value_for_purchase%>
 
                 </td>
                 <td class="px-6 py-4 border-x-2 border-t-2">
                   <%= text_input f, :"#{item.course_id}|value_for_sale",
-                    class: "input_full number value_for_sale" , value: item.value_for_sale %>
+                    class: "input_full number value_for_sale", value: item.value_for_sale %>
                 </td>
               </tr>
               <% end %>
@@ -79,10 +67,10 @@
       </div>
     </div>
     <% else %>
-<%= render(KursonliKursWeb.WorkerView, "notification_service_access.html" , conn: @conn, instructions: @instructions) %> 
+<%= render(KursonliKursWeb.WorkerView, "notification_service_access.html", conn: @conn, instructions: @instructions) %> 
 <% end %>
         
-<%= if not is_nil(@expiration), do: render(KursonliKursWeb.WorkerView, "notification_expiration.html" ,
+<%= if not is_nil(@expiration), do: render(KursonliKursWeb.WorkerView, "notification_expiration.html",
 conn: @conn, expiration: @expiration) %>
 
 <script>

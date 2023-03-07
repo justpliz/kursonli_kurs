@@ -1,9 +1,15 @@
 const Toast = Swal.mixin({
   toast: true,
   position: "top-right",
-  showConfirmButton: true,
+  showConfirmButton: false,
+  timer: 5000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
 });
-
+import { gettext } from "./gettext";
 const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"));
 };
@@ -27,9 +33,6 @@ $("#accept").click(function () {
     Toast.fire({
       title: "Вы не выбрали ордер",
       icon: "error",
-      showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true,
     });
     return "";
   }
@@ -133,7 +136,7 @@ $("#accept").click(function () {
         </div>
         <div class="flex justify-between mt-4 gap-4">
         <button type="submit" class="w-full btn_save">Подтвердить</button>
-        <button class="w-full btn_cancel">Отменить</button>
+        <button class="w-full btn_cancel">${gettext('Отменить')}</button>
         </div>
       </form>
         `,
@@ -171,15 +174,8 @@ $("#accept").click(function () {
     });
   } else {
     Toast.fire({
-      title: "Это ваш ордер!",
+      title: gettext("Это ваш ордер!"),
       icon: "error",
-      showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
     });
   }
 });

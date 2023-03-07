@@ -1,0 +1,176 @@
+msgid "Удалить"
+msgstr ""
+
+msgid "ордер"
+msgstr ""
+
+msgid "..."
+msgstr ""
+
+msgid "Валюта"
+msgstr ""
+
+msgid "Курс"
+msgstr ""
+
+msgid "Лимит"
+msgstr ""
+
+msgid "Объем"
+msgstr ""
+
+msgid "Условия"
+msgstr ""
+
+msgid "Передача"
+msgstr ""
+
+msgid "Создание ордера"
+msgstr ""
+
+msgid "Тип"
+msgstr ""
+
+msgid "Адрес"
+msgstr ""
+
+msgid "по курсу"
+msgstr ""
+
+msgid "предложено"
+msgstr ""
+
+msgid "Ваши условия:"
+msgstr ""
+
+msgid "Принять"
+msgstr ""
+
+msgid "Отклонить"
+msgstr ""
+
+msgid "Сохранить изменения"
+msgstr ""
+
+msgid "Отменить изменения"
+msgstr ""
+
+msgid "Сделать видимым"
+msgstr ""
+
+msgid "Короткое название"
+msgstr ""
+
+msgid "Цена покупки"
+msgstr ""
+
+msgid "Цена продажи"
+msgstr ""
+
+msgid "Организация"
+msgstr ""
+
+msgid "Время"
+msgstr ""
+
+msgid "Объём"
+msgstr ""
+
+msgid "Разместить"
+msgstr ""
+
+msgid "Принятые"
+msgstr ""
+
+msgid "Созданные"
+msgstr ""
+
+msgid "Мои сделки"
+msgstr ""
+
+msgid "Статус сделки"
+msgstr ""
+
+msgid "Управление"
+msgstr ""
+
+msgid "Настройки"
+msgstr ""
+
+msgid "Основная страница"
+msgstr ""
+
+msgid "Личная страница"
+msgstr ""
+
+msgid "Выберите файл"
+msgstr ""
+
+msgid "Лицензия ОП"
+msgstr ""
+
+msgid "Допольнительные телефоны"
+msgstr ""
+
+msgid "Оптовый курс"
+msgstr ""
+
+msgid "Продажа золота"
+msgstr ""
+
+msgid "Будни"
+msgstr ""
+
+msgid "Суббота"
+msgstr ""
+
+msgid "Воскресенье"
+msgstr ""
+
+msgid "Дополнителная информация"
+msgstr ""
+
+msgid "Цвет валют"
+msgstr ""
+
+msgid "Цвет качеств"
+msgstr ""
+
+msgid "Субдомен"
+msgstr ""
+
+msgid "Описание ОП"
+msgstr ""
+
+msgid "Старый пароль"
+msgstr ""
+
+msgid "Новый пароль"
+msgstr ""
+
+msgid "Пароли совпадают"
+msgstr ""
+
+msgid "Выберите чат для общения"
+msgstr ""
+
+msgid "Последнее обновление курса"
+msgstr ""
+
+msgid "Изменить все курсы"
+msgstr ""
+
+msgid "Авторизация в системе"
+msgstr ""
+
+msgid "Ордера на покупку"
+msgstr ""
+
+msgid "Ордера на покупку"
+msgstr ""
+
+msgid "Смена пароля сотрудника"
+msgstr ""
+
+msgid "Пароль не верный"
+msgstr ""

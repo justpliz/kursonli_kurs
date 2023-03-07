@@ -2,7 +2,7 @@
 <%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
   <div class="margin_content content-worker-order">
     <div class="title_small mb-2 flex justify-between" id="org_title">
-      Ордера на продажу
+      <%= gettext("Ордера на продажу") %>
       <div class="text-sm text-red-400">
         <span class="name"></span>
         <a href="tel:" class="phone underline"></a>
@@ -14,27 +14,13 @@
         <table class="table-fixed sm:table-auto w-full text-left text-gray-500 relative">
           <thead class="text-gray-700 uppercase bg-white w-full sticky left-0 right-0 top-0">
             <tr>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200">
-                Организация
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Время
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Валюта
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Курс
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Объём
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Условия
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Передача
-              </th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200"><%= gettext("Организация") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Время") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Валюта") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Курс") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Объём") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Условия") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Передача") %></th>
             </tr>
           </thead>
           <tbody id="sale_table">
@@ -74,33 +60,19 @@
           </tbody>
         </table>
       </div>
-    <h1 class="title_small mb-2 mt-4">Ордера на покупку</h1>
+    <h1 class="title_small mb-2 mt-4"><%= gettext("Ордера на покупку") %></h1>
 
       <div class="relative max-h-58 2xl:max-h-48 overflow-x-auto text-xs shadow-md rounded-xl">
         <table class="table-fixed sm:table-auto w-full text-left text-gray-500">
           <thead class="text-gray-700 uppercase bg-white w-full sticky left-0 right-0 top-0">
             <tr>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200">
-                Организация
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Время
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Валюта
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Курс
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Объём
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Условия
-              </th>
-              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-                Передача
-              </th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200"><%= gettext("Организация") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Время") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Валюта") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Курс") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Объём") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Условия") %></th>
+              <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Передача") %></th>
             </tr>
           </thead>
           <tbody id="purchase_table">
@@ -141,10 +113,10 @@
           </tbody>
         </table>
       </div>
-    <%= render(KursonliKursWeb.WorkerView, "worker_orders_two.html" , conn: @conn, trades: @trades,
+    <%= render(KursonliKursWeb.WorkerView, "worker_orders_two.html", conn: @conn, trades: @trades,
                     my_trades: @my_trades) %>
     <div class="chat sm:hidden">
-      <%= render(KursonliKursWeb.WorkerView, "chat_page.html" , conn: @conn, message: @message) %>
+      <%= render(KursonliKursWeb.WorkerView, "chat_page.html", conn: @conn, message: @message) %>
     </div>
   </div>
   <button class="hidden sm:block p-3 pb-1 styles_none rounded-full bg-blub text-white absolute right-2 bottom-2"
@@ -152,15 +124,15 @@
     <span class="material-symbols-outlined" style="color:#fff; font-weight: 900;">chat_bubble</span>
   </button>
 <% else %>
-  <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html" , conn: @conn, instructions:
+  <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html", conn: @conn, instructions:
         @instructions) %>
 <% end %>
-<%= render(KursonliKursWeb.WorkerView, "modal_worker_orders_add.html" , conn: @conn, message: @message,
+<%= render(KursonliKursWeb.WorkerView, "modal_worker_orders_add.html", conn: @conn, message: @message,
             currencies_list: @currencies_list, address: @address) %>
-<%= render(KursonliKursWeb.WorkerView, "modal_delete_trade.html" , conn: @conn, id: @my_trades) %>
-<%= render(KursonliKursWeb.WorkerView, "modal_update_trade.html" , conn: @conn, id: @my_trades,
+<%= render(KursonliKursWeb.WorkerView, "modal_delete_trade.html", conn: @conn, id: @my_trades) %>
+<%= render(KursonliKursWeb.WorkerView, "modal_update_trade.html", conn: @conn, id: @my_trades,
                 currencies_list: @currencies_list) %>
-<%= render(KursonliKursWeb.WorkerView, "modal_delete_adopted_trade.html" , conn: @conn, id: @trades) %>
+<%= render(KursonliKursWeb.WorkerView, "modal_delete_adopted_trade.html", conn: @conn, id: @trades) %>
 
 <script>
   const showChatButton = document.getElementById('show-chat');
