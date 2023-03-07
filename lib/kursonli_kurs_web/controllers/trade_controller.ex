@@ -2,6 +2,7 @@ defmodule KursonliKursWeb.TradeController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
+  import KursonliKursWeb.Gettext
   alias KursonliKurs.Context.{Trades}
   alias KursonliKursWeb.RoomChannel
   alias KursonliKurs.EtsStorage.Chat
@@ -49,7 +50,7 @@ defmodule KursonliKursWeb.TradeController do
       )
 
       conn
-      |> put_flash(:info, "Сделка успешно создана")
+      |> put_flash(:info, gettext("Сделка успешно создана"))
       |> redirect(to: "/worker/orders")
     end
   end
@@ -89,7 +90,7 @@ defmodule KursonliKursWeb.TradeController do
     with {:ok, trade} <- Trades.do_get(id: id),
          {:ok, _trade} <- Trades.delete(trade) do
       conn
-      |> put_flash(:info, "Сделка успешно удалена")
+      |> put_flash(:info, gettext("Сделка успешно удалена"))
       |> redirect(to: "/worker/orders")
     end
   end

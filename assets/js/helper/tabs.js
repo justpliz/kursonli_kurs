@@ -22,7 +22,10 @@ btns.forEach((btn) => {
 
 const activeTabId = localStorage.getItem("activeTabId");
 if (activeTabId) {
-   document.getElementById(activeTabId).click();
+   const activeTab = document.getElementById(activeTabId);
+   if (activeTab) {
+      activeTab.click();
+   }
 } else {
    btns[0].click();
 }

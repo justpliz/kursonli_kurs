@@ -11,7 +11,7 @@
         <div class="sm:px-4 sm:py-4 mx-auto mt-6 rounded-xl text-center flex flex-col items-center justify-center">
           <img src="/images/warning.png" alt="">
           <h2 class="text-grayText relative text-lg font-bold mb-4">
-            Срок вашей подписки истекает!
+            <%= gettext("Срок вашей подписки истекает!") %>
           </h2>
           <h3 class="text-dblue relative text-3xl font-bold">
             <%= @expiration.title %>
@@ -20,7 +20,7 @@
             <%= @expiration.description %>
           </div>
           </div>
-          <a href="/worker/payment" class="btn_save inline-block mt-6">Перейти в раздел оплаты</a>
+          <a href="/worker/payment" class="btn_save inline-block mt-6"><%= gettext("Перейти в раздел оплаты") %></a>
         </div>
         `
     });

@@ -1,50 +1,30 @@
 <div class="flex justify-between py-4 2xl:flex-col 2xl:gap-4">
   <div class="">
-    <button class="modal-button btn_save bg-accept" id="accept" data-item="">Принять</button>
-    <button class="btn_save ml-2" id="createOrder" data-item="">Разместить</button>
+    <button class="modal-button btn_save bg-accept" id="accept" data-item=""><%= gettext("Принять") %></button>
+    <button class="btn_save ml-2" id="createOrder" data-item=""><%= gettext("Разместить") %></button>
   </div>
   <div class="relative">
-    <button class="btn_border tab-btn" id="tab1-btn">Принятые</button>
-    <button class="btn_border tab-btn" id="tab2-btn">Созданные</button>
+    <button class="btn_border tab-btn" id="tab1-btn"><%= gettext("Принятые") %></button>
+    <button class="btn_border tab-btn" id="tab2-btn"><%= gettext("Созданные") %></button>
   </div>
 </div>
-<h1 class="title_small">Мои сделки</h1>
+<h1 class="title_small"><%= gettext("Мои сделки") %></h1>
 <div class="tab-content" id="tab1-content">
 
   <div class="relative max-h-58 2xl:max-h-48 overflow-x-auto text-xs shadow-md rounded-xl">
     <table class="table-fixed sm:table-auto w-full text-left text-gray-500">
       <thead class="text-gray-700 uppercase bg-white w-full sticky left-0 right-0 top-0">
         <tr>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200">
-            Тип
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Время
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Валюта
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Курс
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Объём
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Условия
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Передача
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Организация
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Статус сделки
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Управление
-          </th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200"><%= gettext("Тип") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Время") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Валюта") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Курс") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Объём") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Условия") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Передача") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Организация") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Статус сделки") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Управление") %></th>
         </tr>
       </thead>
       <tbody id="adopted_table">
@@ -105,33 +85,15 @@
     <table class="table-fixed sm:table-auto w-full text-left text-gray-500">
       <thead class="text-gray-700 uppercase bg-white w-full sticky left-0 right-0 top-0">
         <tr>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200">
-            Тип
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Время
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Валюта
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Курс
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Объём
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Условия
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Передача
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Организация
-          </th>
-          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200">
-            Управление
-          </th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-gray-200"><%= gettext("Тип") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Время") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Валюта") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Курс") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Объём") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Условия") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Передача") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Организация") %></th>
+          <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Управление") %></th>
         </tr>
       </thead>
       <tbody id="made_table">

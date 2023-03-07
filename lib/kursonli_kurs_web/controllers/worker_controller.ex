@@ -1,5 +1,7 @@
 defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
+
+  import KursonliKursWeb.Gettext
   action_fallback KursonliKursWeb.FallbackController
   alias KursonliKursWeb.{OnlineChannel, RoomChannel}
   alias KursonliKurs.EtsStorage.{Chat, SessionWorker}
@@ -80,12 +82,11 @@ defmodule KursonliKursWeb.WorkerController do
                 name: filial.city.name
               }
             })
-            # |> put_flash(:info, "Добро пожаловать #{first_name}")
             |> redirect(to: "/worker/courses?login=true")
 
           :archive ->
             conn
-            |> put_flash(:error, "Ваш филиал находится в архиве. Обратитесь к менеджеру.")
+            |> put_flash(:error, gettext("Ваш филиал находится в архиве. Обратитесь к менеджеру."))
             |> redirect(to: "/worker/login")
         end
 
@@ -97,7 +98,7 @@ defmodule KursonliKursWeb.WorkerController do
         }
 
         conn
-        |> put_flash(:error, "Ввведены некорректные данные")
+        |> put_flash(:error, gettext("Ввведены некорректные данные"))
         |> render("worker_login_form.html", user: user)
     end
   end
@@ -134,13 +135,13 @@ defmodule KursonliKursWeb.WorkerController do
     if new_pass != re_new_pass,
       do:
         conn
-        |> put_flash(:error, "Несовпадают пароли")
+        |> put_flash(:error, gettext("Несовпадают пароли"))
         |> redirect(to: "/worker/update_pass")
 
     with {:ok, worker} <- Workers.do_get(id: id, password: old_pass),
          {:ok, _worker} <- Workers.update(worker, %{password: new_pass}) do
       conn
-      |> put_flash(:info, "Пароль успешно изменен")
+      |> put_flash(:info, gettext("Пароль успешно изменен"))
       |> redirect(to: "/worker/update_pass")
     end
   end
@@ -165,6 +166,7 @@ defmodule KursonliKursWeb.WorkerController do
     my_trades =
       Orders.all(worker_id: session.id)
       |> PwHelper.Normalize.repo()
+      |> Enum.sort_by(& &1.inserted_at, :desc)
       |> Enum.sort_by(& &1.inserted_at, :desc)
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
@@ -221,7 +223,7 @@ defmodule KursonliKursWeb.WorkerController do
       RoomChannel.order(new_order, session.city.id)
 
       conn
-      |> put_flash(:info, "Ордер успешно зарегистрирован")
+      |> put_flash(:info, gettext("Ордер успешно зарегистрирован"))
       |> redirect(to: "/worker/orders")
     end
   end
@@ -277,7 +279,7 @@ defmodule KursonliKursWeb.WorkerController do
       RoomChannel.delete_order(order, session.city.id)
 
       conn
-      |> put_flash(:info, "Ордер удалён")
+      |> put_flash(:info, gettext("Ордер удалён"))
       |> redirect(to: "/worker/orders")
     end
   end
@@ -333,7 +335,7 @@ defmodule KursonliKursWeb.WorkerController do
     {:ok, _filial} = Filials.update(filial, %{visible_course_status: visible_course_status})
 
     conn
-    |> put_flash(:info, "Курсы успешно обновлены")
+    |> put_flash(:info, gettext("Курсы успешно обновлены"))
     |> redirect(to: "/worker/courses")
   end
 
@@ -446,7 +448,7 @@ defmodule KursonliKursWeb.WorkerController do
     with {:ok, setting} <- Settings.do_get(filial_id: filial_id),
          {:ok, _setting} <- Settings.update(setting, opts) do
       conn
-      |> put_flash(:info, "Настройки обновлены")
+      |> put_flash(:info, gettext("Настройки обновлены"))
       |> redirect(to: "/worker/settings")
     end
   end
@@ -456,5 +458,17 @@ defmodule KursonliKursWeb.WorkerController do
 
     conn
     |> render("payment.html", service_access: service_access)
+  end
+
+  def select_rus(conn, params) do
+    conn
+    |> put_session(:lang, "rus")
+    |> redirect(to: params["redirect_path"])
+  end
+
+  def select_kaz(conn, params) do
+    conn
+    |> put_session(:lang, "kaz")
+    |> redirect(to: params["redirect_path"])
   end
 end

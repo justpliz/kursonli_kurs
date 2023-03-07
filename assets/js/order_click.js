@@ -1,8 +1,16 @@
 const Toast = Swal.mixin({
   toast: true,
   position: "top-right",
-  showConfirmButton: true,
+  showConfirmButton: false,
+  timer: 5000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
 });
+
+import { gettext } from "./gettext";
 
 const getWorker = () => {
   return JSON.parse(localStorage.getItem("worker"));
@@ -25,11 +33,8 @@ $(".order-click").click(order_click);
 $("#accept").click(function () {
   if (this.dataset.item == "") {
     Toast.fire({
-      title: "Вы не выбрали ордер",
+      title: gettext("Вы не выбрали ордер"),
       icon: "error",
-      showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true,
     });
     return "";
   }
@@ -58,25 +63,25 @@ $("#accept").click(function () {
   let modalTitle = "";
 
   if (type == "sale") {
-    itemSale = "Вы продаете:";
+    itemSale = gettext("Вы продаете:");
   } else {
-    itemSale = "Вы покупаете:";
+    itemSale = gettext("Вы покупаете:");
   }
 
   if (type == "sale") {
-    modalTitle = "Ордер на продажу";
+    modalTitle = gettext("Ордер на продажу");
   } else {
-    modalTitle = "Ордер на покупку";
+    modalTitle = gettext("Ордер на покупку");
   }
 
   if (type == "sale") {
-    itemSaleH1 = "Укажите сумму продажи:";
+    itemSaleH1 = gettext("Укажите сумму продажи:");
   } else {
-    itemSaleH1 = "Укажите сумму покупки:";
+    itemSaleH1 = gettext("Укажите сумму покупки:");
   }
 
   if (limit == "" || limit == null) {
-    limitText = "без лимита"
+    limitText = gettext("без лимита");
   } else {
     limitText = limit
   }
@@ -116,7 +121,7 @@ $("#accept").click(function () {
           </div>
           <h3 class="pos gap-1"> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span></h3>
           <div class="pos py-4 text-2xl font-bold text-blub gap-1">
-            <div class="uppercase">Итого:</div>
+            <div class="uppercase">${gettext('Итого')}:</div>
             <span id="itemResult"></span>
             тг.
           </div>
@@ -126,17 +131,17 @@ $("#accept").click(function () {
           <input class="input_full hidden number_input_only" name="worker_id" value="${getWorker().id}" >
           <input class="input_full hidden item_order" name="item_order" value='${JSON.stringify(item)}' >
 
-          <div class="label_modal pos">Лимит: ${limitText}</div>
-          <div class="label_modal pos">Самовыз:
+          <div class="label_modal pos">${gettext('Лимит')}: ${limitText}</div>
+          <div class="label_modal pos">${gettext('Самовыз')}:
             <div class="ml-2 ${transferBlock}"></div>
           </div>
 
-          <label class="label_modal pos">Ваши условия:</label>
+          <label class="label_modal pos">${gettext('Ваши условия')}:</label>
           <input class="input_full" value="${terms}" name="terms" type="text" maxlength="30">
         </div>
         <div class="flex justify-between mt-4 gap-4">
-        <button type="submit" class="w-full btn_save">Подтвердить</button>
-        <button class="w-full btn_cancel">Отменить</button>
+        <button type="submit" class="w-full btn_save">${gettext('Подтвердить')}</button>
+        <button class="w-full btn_cancel">${gettext('Отменить')}</button>
         </div>
       </form>
         `,
@@ -173,15 +178,8 @@ $("#accept").click(function () {
     });
   } else {
     Toast.fire({
-      title: "Это ваш ордер!",
+      title: gettext("Это ваш ордер!"),
       icon: "error",
-      showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
     });
   }
 });

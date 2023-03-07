@@ -22,11 +22,11 @@
          },
          html: `
   <div class="flex items-center justify-between">
-    <h1 class="title_without_margin">Создание ордера</h1>
+    <h1 class="title_without_margin"><%= gettext("Создание ордера") %></h1>
   </div>
   <div class="px-2">
     <%= form_for @conn, Routes.worker_path(@conn, :create_order_submit), fn f -> %>
-      <label class="label_input pos">Тип</label>
+      <label class="label_input pos"><%= gettext("Тип") %></label>
       <div class="2xl:flex 2xl:gap-4">
         <%= for item <- check_config("order_type") do %>
           <div class="container_select">
@@ -38,19 +38,19 @@
         <% end %>
       </div>
 
-      <label class="label_input pos">Объем</label>
+      <label class="label_input pos"><%= gettext("Объем") %></label>
       <%= text_input f, :volume, class: "input_full bit_input", required: "true" %>
 
-      <label class="label_input pos">Курс</label>
+      <label class="label_input pos"><%= gettext("Курс") %></label>
       <%= text_input f, :course, class: "input_full number_input_only", required: "true" %>
 
-      <label class="label_input pos">Лимит</label>
+      <label class="label_input pos"><%= gettext("Лимит") %></label>
       <%= text_input f, :limit, class: "input_full bit_input" %>
 
-      <label class="label_input pos">Валюта</label>
+      <label class="label_input pos"><%= gettext("Валюта") %></label>
       <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), class: "input_full opt", required: "true" %>
 
-      <label class="label_input pos">Передача</label>
+      <label class="label_input pos"><%= gettext("Передача") %></label>
       <div class="container_select gap-4">
         <%= for item <- Application.get_env(:kursonli_kurs, :order_transfer) do %>
           <%= case item do %>
@@ -64,12 +64,12 @@
         <% end %>
       </div>
 
-      <label class="label_input pos">Адрес</label>
+      <label class="label_input pos"><%= gettext("Адрес") %></label>
       <%= text_input f, :filial_address, class: "input_full disabled", value: @address, disabled: "true", required: "true" %>
 
-      <label class="label_input pos">Условия</label>
+      <label class="label_input pos"><%= gettext("Условия") %></label>
       <%= text_input f, :terms, class: "input_full", maxlength: 30 %>
-      <%= submit "Разместить ордер", class: "btn_save pos mt-4" %>
+      <%= submit gettext("Разместить ордер"), class: "btn_save pos mt-4" %>
     <% end %>
   </div>
 `,

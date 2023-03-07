@@ -1,4 +1,5 @@
 defmodule KursonliKursWeb.GeneralHelper do
+  import KursonliKursWeb.Gettext
   @moduledoc false
 
   @doc """
@@ -83,18 +84,18 @@ defmodule KursonliKursWeb.GeneralHelper do
   def normalize_order_type(type, opts) do
     case opts do
       :single ->
-        if type == "sale", do: "Продажa", else: "Покупкa"
+        if type == "sale", do: gettext("Продажa"), else: gettext("Покупкa")
 
       :multi ->
-        if type == "sale", do: "Продажу", else: "Покупку"
+        if type == "sale", do: gettext("Продажу"), else: gettext("Покупку")
     end
   end
 
   def normalize_status_trade(type) do
     case type do
-      :active -> "Активная"
-      :fail -> "Отклонено"
-      :success -> "Принята"
+      :active -> gettext("Активная")
+      :fail -> gettext("Отклонено")
+      :success -> gettext("Принята")
     end
   end
 
@@ -121,46 +122,48 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   def hum_date(d) when d > 0 and d < 60 do
     case d do
-      d when rem(d, 10) == 1 and d != 11 -> "#{d} секунду назад"
-      d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} секунды назад"
-      _ -> "#{d} секунд назад"
+      d when rem(d, 10) == 1 and d != 11 -> "#{d} #{gettext("секунду назад")}"
+      d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} #{gettext("секунды назад")}"
+      _ -> "#{d} #{gettext("секунд назад")}"
     end
   end
 
   def hum_date(d) when d >= 60 and d < 60 * 60 do
     d = div(d, 60)
+
     case d do
-      d when rem(d, 10) == 1 and d != 11 -> "#{d} минуту назад"
-      d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} минуты назад"
-      _ -> "#{d} минут назад"
+      d when rem(d, 10) == 1 and d != 11 -> "#{d} #{gettext("минуту назад")}"
+      d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} #{gettext("минуты назад")}"
+      _ -> "#{d} #{gettext("минут назад")}"
     end
   end
 
-  def hum_date(d) when d >= 60 * 60 and d < 24 * 60 * 60  do
+  def hum_date(d) when d >= 60 * 60 and d < 24 * 60 * 60 do
     d = div(d, 60 * 60)
+
     case d do
-      d when rem(d, 10) == 1 and d != 11 -> "#{d} час назад"
-      d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} часа назад"
-      _ -> "#{d} часов назад"
+      d when rem(d, 10) == 1 and d != 11 -> "#{d} #{gettext("час назад")}"
+      d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} #{gettext("часа назад")}"
+      _ -> "#{d} #{gettext("часов назад")}"
     end
   end
 
-  def hum_date(d) when d > 24 * 60 * 60, do: "Больше суток назад"
+  def hum_date(d) when d > 24 * 60 * 60, do: gettext("Больше суток назад")
 
   defp month_translate_ru(month) do
     case month do
-      01 -> "января"
-      02 -> "февраля"
-      03 -> "марта"
-      04 -> "апреля"
-      05 -> "мая"
-      06 -> "июня"
-      07 -> "июля"
-      08 -> "августа"
-      09 -> "сентября"
-      10 -> "октября"
-      11 -> "ноября"
-      12 -> "декабря"
+      01 -> gettext("января")
+      02 -> gettext("февраля")
+      03 -> gettext("марта")
+      04 -> gettext("апреля")
+      05 -> gettext("мая")
+      06 -> gettext("июня")
+      07 -> gettext("июля")
+      08 -> gettext("августа")
+      09 -> gettext("сентября")
+      10 -> gettext("октября")
+      11 -> gettext("ноября")
+      12 -> gettext("декабря")
     end
   end
 end

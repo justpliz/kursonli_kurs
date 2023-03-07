@@ -427,3 +427,38 @@ body.swal2-shown {
 .notification-modal .swal2-close{
   color: #FF0000;
 }
+
+.langs {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 10%;
+}
+
+.langs__block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.langs span {
+  white-space: nowrap;
+}
+
+.langs-login {
+  display: flex;
+  margin-right: 20px;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex: 1 1 10%;
+}
+
+.active_redirect {
+  background-color: #3689ce;
+  color: #fff;
+  border-radius: 5px;
+  padding: 0px 5px;
+}
