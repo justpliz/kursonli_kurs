@@ -20,6 +20,6 @@ defmodule KursonliKursWeb.PlugLocal do
   end
 
   defp get_default_lang() do
-    Application.get_env(:pulsar, KursonliKursWeb.Gettext)[:default_locale]
+    Application.get_env(:pulsar, KursonliKursWeb.Gettext)[:default_locale] || "rus"
   end
 end
