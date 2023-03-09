@@ -462,3 +462,8 @@ body.swal2-shown {
   border-radius: 5px;
   padding: 0px 5px;
 }
+
+.best_course {
+  padding: 0 8px;
+  background-color: #a7ffb5;
+}
