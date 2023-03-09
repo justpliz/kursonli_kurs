@@ -2,7 +2,8 @@ defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
 
   import KursonliKursWeb.Gettext
-  action_fallback(KursonliKursWeb.FallbackController)
+  action_fallback KursonliKursWeb.FallbackController
+  alias KursonliKursWeb.GeneralHelper
   alias KursonliKursWeb.{OnlineChannel, RoomChannel}
   alias KursonliKurs.EtsStorage.{Chat, SessionWorker}
 
@@ -304,7 +305,7 @@ defmodule KursonliKursWeb.WorkerController do
     currencies_list = Currencies.all() -- my_currencies
 
     last_date = Filials.get_last_date_for_course(session.filial_id)
-    last_date = if not is_nil(last_date), do: date_to_string_all(last_date), else: ""
+    last_date = if not is_nil(last_date), do: date_to_string_data_all(last_date), else: ""
 
     visible_course_status = Filials.get(id: session.filial_id).visible_course_status
 

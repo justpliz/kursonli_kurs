@@ -47,7 +47,6 @@
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200">
               <div class="flex justify-between">
-                <img class="img_sort cursor-pointer mb:hidden" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="1">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="USD" do %>
@@ -66,7 +65,6 @@
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200 mb:hidden">
               <div class="flex justify-between">
-                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="2">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="EUR" do %>
@@ -85,7 +83,6 @@
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200 mb:hidden">
               <div class="flex justify-between">
-                <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
                 <select class="select_table" data-select="3">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="RUB" do %>
@@ -240,37 +237,35 @@
   </div>
 </div>
 <script>
-  // document.addEventListener('DOMContentLoaded', () => {
-  //   const elements = [...document.querySelectorAll("[data-id]")]
-  //   let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
-  //   const selectTable = [...document.querySelectorAll(".select_table")]
-  // selectTable.forEach((el) => el.addEventListener('change', (e) => {
+  document.addEventListener('DOMContentLoaded', () => {
+    const elements = [...document.querySelectorAll("[data-id]")]
+    let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
+    const selectTable = [...document.querySelectorAll(".select_table")]
+    selectTable.forEach((el) => el.addEventListener('change', (e) => {
+      const currentSelect = e.currentTarget.dataset.select
+      const valueEl = e.currentTarget.value
 
-  //   const currentSelect = e.currentTarget.dataset.select
-  //   const valueEl = e.currentTarget.value
-  //   console.log("1", valueEl)
-
-  // elements.forEach((value, index) => {
-  //   const elemGiveData = value.querySelector(`.dataget[data-select="${currentSelect}"]`)
-  //   const elemFindSale = elemGiveData.querySelector(`.sale`)
-  //   console.log("log", elemFindSale)
-  //   const elemFindPurchase = elemGiveData.querySelector(`.purchase`)
-  //   const item = JSON.parse(value.dataset.item)
-  //   const find = item.course.find((el) => {
-  //     return el.short_name
-  //       == valueEl
-  //   })
-  //   if (find != undefined) {
-  //     elemFindSale.innerHTML = find.value_for_sale
-  //     elemFindPurchase.innerHTML = find.value_for_purchase
-  //   }
-  //   else {
-  //     elemFindSale.innerHTML = "-"
-  //     elemFindPurchase.innerHTML = "-"
-  //   }
-  // })
-  // }));
-  // });
+      elements.forEach((value, index) => {
+        const elemGiveData = value.querySelector(`.dataget[data-select="${currentSelect}"]`)
+        const elemFindSale = elemGiveData.querySelector(`.sale`)
+        console.log("log", elemFindSale)
+        const elemFindPurchase = elemGiveData.querySelector(`.purchase`)
+        const item = JSON.parse(value.dataset.item)
+        const find = item.course.find((el) => {
+          return el.short_name
+            == valueEl
+        })
+        if (find != undefined) {
+          elemFindSale.innerHTML = find.value_for_sale
+          elemFindPurchase.innerHTML = find.value_for_purchase
+        }
+        else {
+          elemFindSale.innerHTML = "-"
+          elemFindPurchase.innerHTML = "-"
+        }
+      })
+    }));
+  });
 
   const table = document.getElementById("index-table");
   const rows = [...table.getElementsByClassName("data-table")[0].getElementsByTagName("tr")];
@@ -283,9 +278,9 @@
     });
     rows.forEach((row) => table.getElementsByClassName("data-table")[0].appendChild(row));
     if (event.target.src.includes("down")) {
-      event.target.src = "/images/icons/up.svg";
+      event.target.src = "/images/icons/color_arrow_up.svg";
     } else {
-      event.target.src = "/images/icons/down.svg";
+      event.target.src = "/images/icons/color_arrow_down.svg";
     }
   };
   const imgSortElements = [...table.getElementsByClassName("img_sort")];

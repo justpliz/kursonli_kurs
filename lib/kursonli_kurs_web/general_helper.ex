@@ -46,6 +46,8 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   def date_to_string_data(date), do: Timex.format!(date, "{0D}.{0M}.{YYYY}")
 
+  def date_to_string_data_all(date), do: Timex.format!(date, "{YYYY}-{0M}-{0D} {h24}:{m}:{s}")
+
   def date_to_string_time(date), do: Timex.format!(date, "{h24}:{m}:{s}")
   def date_to_string_time_h(date), do: Timex.format!(date, "{h24}")
   def date_to_string_time_m(date), do: Timex.format!(date, "{m}")
@@ -165,5 +167,27 @@ defmodule KursonliKursWeb.GeneralHelper do
       11 -> gettext("ноября")
       12 -> gettext("декабря")
     end
+  end
+
+  def if_phones_nil(phone) do
+    Enum.map(phone, fn {key, value} ->
+      cond do
+        key == "phone1" and value != "" ->
+          true
+
+        key == "phone2" and value != "" ->
+          true
+
+        key == "phone3" and value != "" ->
+          true
+
+        key == "phone_for_header" ->
+          false
+
+        true ->
+          false
+      end
+    end)
+    |> Enum.any?()
   end
 end
