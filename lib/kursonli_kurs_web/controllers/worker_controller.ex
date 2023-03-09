@@ -3,6 +3,7 @@ defmodule KursonliKursWeb.WorkerController do
 
   import KursonliKursWeb.Gettext
   action_fallback KursonliKursWeb.FallbackController
+
   alias KursonliKursWeb.{OnlineChannel, RoomChannel}
   alias KursonliKurs.EtsStorage.{Chat, SessionWorker}
 
@@ -294,7 +295,7 @@ defmodule KursonliKursWeb.WorkerController do
 
     last_date =
       Filials.get_last_date_for_course(worker.filial_id)
-      |> date_to_string_all()
+      |> GeneralHelper.date_to_string_data_all()
 
     visible_course_status = Filials.get(id: worker.filial_id).visible_course_status
 

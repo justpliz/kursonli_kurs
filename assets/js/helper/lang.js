@@ -7,5 +7,5 @@ Array.from(elHref).forEach((e) => {
   e.addEventListener("click", (event) => {
     localStorage.setItem("lang", event.target.dataset.lang)
   })
-  e.href = e.href + "/?redirect_path=" + window.location.pathname + "?" + window.location.search.substr(1)
+  e.href = e.href + "/?redirect_path=" + window.location.pathname + window.location.search.substr(1)
 })

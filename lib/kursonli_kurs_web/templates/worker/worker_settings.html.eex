@@ -9,46 +9,6 @@
       </div>
       <div class="tab-content" id="tab1-content">
         <%= form_for @conn, Routes.worker_path(@conn, :update_setting), [multipart: true], fn f -> %>
-        <label class="label_input pt-2">
-          <div class="flex items-center justify-start">
-            <label for="visible_website_status" class="label_input pr-2"><%= gettext("Сделать видимым вашу личную страницу") %></label>
-            <%= checkbox f, :visible_website_status, checked: @setting.visible_website_status, class: "type_select rounded" %>
-          </div>
-        </label>
-        <label class="label_input pt-2"><%= gettext("Загрузка логотипа") %> (160x56)</label>
-        <label class="input-file">
-          <%= file_input f, :logo, value: @setting.logo, accept: ".png, .jpg" %>
-          <span><%= gettext("Выберите файл") %></span>
-        </label>
-        <label class="label_input"><%= gettext("Нынешнее фото логотипа") %></label>
-        <img src="<%= @logo_path %>" class="w-60 h-auto">
-        <label class="label_input pt-2"><%= gettext("3 Качества вашего филиала") %></label>
-        <div class="flex sm:block sm:w-full gap-4">
-          <%= text_input f, :quality1, placeholder: "", value: @setting.qualities["quality1"],
-                  class: "input_short sm:mt-2 sm:input_full", required: "true", maxlength: 40 %>
-          <%= text_input f, :quality2, placeholder: "", value: @setting.qualities["quality2"],
-                  class: "input_short sm:mt-2 sm:input_full", required: "true", maxlength: 40 %>
-          <%= text_input f, :quality3, placeholder: "", value: @setting.qualities["quality3"],
-                  class: "input_short sm:mt-2 sm:input_full", required: "true", maxlength: 40 %>
-        </div>
-        <label class="label_input"><%= gettext("Адрес для карты") %></label>
-        <%= text_input f, :address_2gis, placeholder: "", value: @setting.address_2gis, class: "input_full",
-               required: "true" %>
-        <label class="label_input"><%= gettext("Лицензия ОП") %></label>
-        <%= text_input f, :license, placeholder: "", value: @setting.license, class: "input_full" %>
-        <label class="label_input"><%= gettext("Телефон отображаемый в шапке сайта") %></label>
-        <%= telephone_input f, :phone_for_header, placeholder: "", value:
-                     @setting.phones["phone_for_header"], class: "input_short sm:input_full", data: [tel: "" ], maxlength: 18,
-                     required: "true" %>
-        <label class="label_input pt-2"><%= gettext("Допольнительные телефоны") %></label>
-        <div class="flex sm:block sm:w-full gap-4">
-          <%= telephone_input f, :phone1, placeholder: "", value: @setting.phones["phone1"],
-                           class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18 %>
-          <%= telephone_input f, :phone2, placeholder: "", value: @setting.phones["phone2"],
-                           class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18 %>
-          <%= telephone_input f, :phone3, placeholder: "", value: @setting.phones["phone3"],
-                           class: "input_short sm:mt-2 sm:input_full", data: [tel: "" ], maxlength: 18 %>
-        </div>
         <div class="hidden">
           <%= [wholesale_rate, gold]=@setting.tags %>
         </div>
@@ -62,11 +22,38 @@
             <%= checkbox f, :gold, checked: String.to_atom(gold), class: "type_select rounded" %>
           </div>
         </div>
-        <label class="label_input pt-2">Email</label>
-        <%= text_input f, :email, placeholder: "", value: @setting.email, class: "input_full",
-                        required: "true" %>
+        <label class="label_input pt-2"><%= gettext("Дополнительные телефоны") %></label>
+        <div class="flex md:block md:w-full gap-4">
+          <%= telephone_input f, :phone1, placeholder: "", value: @setting.phones["phone1"],
+                           class: "input_short md:mt-2 md:input_full", data: [tel: "" ], maxlength: 18 %>
+          <%= telephone_input f, :phone2, placeholder: "", value: @setting.phones["phone2"],
+                           class: "input_short md:mt-2 md:input_full", data: [tel: "" ], maxlength: 18 %>
+          <%= telephone_input f, :phone3, placeholder: "", value: @setting.phones["phone3"],
+                           class: "input_short md:mt-2 md:input_full", data: [tel: "" ], maxlength: 18 %>
+        </div>
+        <div class="flex-col md:block md:w-full">
+          <label class="label_input pt-2"><%= gettext("Первый рекламный текст") %> <span class="text-mdall">(<%= gettext("лимит 30 символов") %>)</span></label>
+          <%= text_input f, :promo1, placeholder: "", value: @setting.promo["promo1"], class: "input_full",
+                maxlength: 30 %>
+          <label class="label_input pt-2"><%= gettext("Второй рекламный текст") %> <span class="text-mdall">(<%= gettext("лимит 30 символов") %>)</span></label>
+          <%= text_input f, :promo2, placeholder: "", value: @setting.promo["promo2"], class: "input_full",
+                   maxlength: 30 %>
+        </div>
       </div>
       <div class="tab-content" id="tab2-content">
+        <label class="label_input pt-2">
+          <div class="flex items-center justify-start">
+            <label for="visible_website_status" class="label_input pr-2"><%= gettext("Сделать видимым вашу личную страницу") %></label>
+            <%= checkbox f, :visible_website_status, checked: @setting.visible_website_status, class: "type_select rounded" %>
+          </div>
+        </label>
+        <label class="label_input pt-2"><%= gettext("Загрузка логотипа") %> (160x56)</label>
+        <label class="input-file">
+          <%= file_input f, :logo, value: @setting.logo, accept: ".png, .jpg" %>
+          <span><%= gettext("Выберите файл") %></span>
+        </label>
+        <label class="label_input"><%= gettext("Нынешнее фото логотипа") %></label>
+        <img src="<%= @logo_path %>" class="w-60 h-auto">
         <label class="label_input pt-2"><%= gettext("Загрузка фото ОП") %></label>
         <label class="input-file">
           <%= file_input f, :photo, value: @setting.photo, accept: ".png, .jpg" %>
@@ -74,8 +61,36 @@
         </label>
         <label class="label_input"><%= gettext("Нынешнее фото филиала") %></label>
         <img src="<%= @photo_path %>" class="w-60 h-auto">
-        <div class="flex sm:flex-col sm:justify-end sm:gap-0 gap-20 items-start justify-start">
-          <div class="flex sm:block sm:w-full gap-4">
+        <label class="label_input pt-2"><%= gettext("3 Качества вашего филиала") %></label>
+        <div class="flex md:block md:w-full gap-4">
+          <%= text_input f, :quality1, placeholder: "", value: @setting.qualities["quality1"],
+                  class: "input_short md:mt-2 md:input_full", required: "true", maxlength: 40 %>
+          <%= text_input f, :quality2, placeholder: "", value: @setting.qualities["quality2"],
+                  class: "input_short md:mt-2 md:input_full", required: "true", maxlength: 40 %>
+          <%= text_input f, :quality3, placeholder: "", value: @setting.qualities["quality3"],
+                  class: "input_short md:mt-2 md:input_full", required: "true", maxlength: 40 %>
+        </div>
+        <label class="label_input"><%= gettext("Адрес для карты") %></label>
+        <%= text_input f, :address_2gis, placeholder: "", value: @setting.address_2gis, class: "input_full",
+               required: "true" %>
+        <div class="flex items-center gap-4 md:flex-col md:gap-0">
+          <div class="flex flex-col w-full">
+            <label class="label_input"><%= gettext("Телефон отображаемый в шапке сайта") %></label>
+            <%= telephone_input f, :phone_for_header, placeholder: "", value:
+            @setting.phones["phone_for_header"], class: "input_full md:input_full", data: [tel: "" ], maxlength: 18 %>
+          </div>
+          <div class="flex flex-col w-full">
+            <label class="label_input"><%= gettext("Лицензия ОП") %></label>
+            <%= text_input f, :license, placeholder: "", value: @setting.license, class: "input_full" %>
+          </div>
+          <div class="flex flex-col w-full">
+            <label class="label_input">Email</label>
+            <%= text_input f, :email, placeholder: "", value: @setting.email, class: "input_full",
+            required: "true" %>
+          </div>
+        </div>
+        <div class="flex md:flex-col md:justify-end md:gap-0 gap-20 items-start justify-start">
+          <div class="flex md:block md:w-full gap-4">
             <div class="flex-col">
               <label class="label_input pt-2"><%= gettext("Будни") %></label>
               <%= text_input f, :schedule_weekdays, placeholder: "", value: @setting.schedule["schedule_weekdays"],
@@ -92,14 +107,6 @@
               <%= text_input f, :schedule_other, placeholder: "", value: @setting.schedule["schedule_other"],
                         class: "input_full" %>
             </div>
-          </div>
-          <div class="flex-col sm:block sm:w-full">
-            <label class="label_input pt-2"><%= gettext("Первый рекламный текст") %> <span class="text-small">(<%= gettext("лимит 30 символов") %>)</span></label>
-            <%= text_input f, :promo1, placeholder: "", value: @setting.promo["promo1"], class: "input_full",
-                  maxlength: 30 %>
-            <label class="label_input pt-2"><%= gettext("Второй рекламный текст") %> <span class="text-small">(<%= gettext("лимит 30 символов") %>)</span></label>
-            <%= text_input f, :promo2, placeholder: "", value: @setting.promo["promo2"], class: "input_full",
-                     maxlength: 30 %>
           </div>
           <div class="flex gap-4">
             <div class="flex-col">
@@ -123,7 +130,7 @@
         <label class="label_input pt-2"><%= gettext("Субдомен") %></label>
         <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full" %>
         <label class="label_input pt-2"><%= gettext("Описание ОП") %></label>
-        <%= textarea f, :description, placeholder: "", value: @setting.description, class: "min-h-300 input_full",
+        <%= textarea f, :description, placeholder: "", value: @setting.description, class: "min-h-200 input_full",
             required: "true" %>
       </div>
     </div>
