@@ -175,21 +175,24 @@
                         </div>
                     </div>
 
-                    <div class="flex pb-4">
-                        <span class="material-symbols-outlined pr-4"
-                            style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
-                        <div class="flex flex-col mb:text-xs">
-                            <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline">
-                                <%= @setting.phones["phone1"] %>
-                            </a>
-                            <a href='tel:<%= @setting.phones["phone2"] %>' class="hover:underline">
-                                <%= @setting.phones["phone2"] %>
-                            </a>
-                            <a href='tel:<%= @setting.phones["phone3"] %>' class="hover:underline">
-                                <%= @setting.phones["phone3"] %>
-                            </a>
-                        </div>
-                    </div>
+                    <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(@setting.phones) do %>
+                     <div class="flex pb-4">
+                         <span class="material-symbols-outlined pr-4"
+                             style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
+                         <div class="flex flex-col mb:text-xs">
+                             <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline">
+                                 <%= @setting.phones["phone1"] %>
+                             </a>
+                             <a href='tel:<%= @setting.phones["phone2"] %>' class="hover:underline">
+                                 <%= @setting.phones["phone2"] %>
+                             </a>
+                             <a href='tel:<%= @setting.phones["phone3"] %>' class="hover:underline">
+                                 <%= @setting.phones["phone3"] %>
+                             </a>
+                         </div>
+                     </div>
+                    <% end %>
+
 
                     <div class="flex items-center">
                         <span class="material-symbols-outlined pr-4"

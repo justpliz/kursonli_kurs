@@ -168,4 +168,26 @@ defmodule KursonliKursWeb.GeneralHelper do
       12 -> gettext("декабря")
     end
   end
+
+  def if_phones_nil(phone) do
+    Enum.map(phone, fn {key, value} ->
+      cond do
+        key == "phone1" and value != "" ->
+          true
+
+        key == "phone2" and value != "" ->
+          true
+
+        key == "phone3" and value != "" ->
+          true
+
+        key == "phone_for_header" ->
+          false
+
+        true ->
+          false
+      end
+    end)
+    |> Enum.any?()
+  end
 end
