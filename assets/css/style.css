@@ -462,3 +462,7 @@ body.swal2-shown {
   border-radius: 5px;
   padding: 0px 5px;
 }
+
+    .green-background {
+      background-color: green;
+    }

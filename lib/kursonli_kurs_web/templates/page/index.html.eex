@@ -236,8 +236,49 @@
     <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!()  %>"></div>
   </div>
 </div>
+
+
+
 <script>
+
   document.addEventListener('DOMContentLoaded', () => {
+    // var elementss = document.querySelectorAll('.sale, .purchase');
+    // elementss.forEach(function (element) {
+    //   console.log(element.innerText);
+    // });
+
+    var elementss = document.querySelectorAll('.sale');
+
+
+    var minValue = Number.MAX_VALUE;
+    var maxValue = Number.MIN_VALUE;
+    var minElement = null;
+    var maxElement = null;
+
+    elementss.forEach(function (element) {
+      var value = parseFloat(element.innerText);
+      console.log(value)
+      if (value < minValue) {
+        minValue = value;
+        minElement = element;
+      }
+
+      if (value > maxValue) {
+        maxValue = value;
+        maxElement = element;
+      }
+    });
+
+    if (minElement !== null) {
+      minElement.style.backgroundColor = 'green';
+    }
+
+    if (maxElement !== null) {
+      maxElement.style.backgroundColor = 'green';
+    }
+
+
+
     const elements = [...document.querySelectorAll("[data-id]")]
     let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
     const selectTable = [...document.querySelectorAll(".select_table")]
