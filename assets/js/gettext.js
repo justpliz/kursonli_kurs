@@ -6,7 +6,7 @@ class Gettext {
     this.locales = objectLoceles
   }
   gettext(str) {
-    const lang = localStorage.getItem("lang")
+    const lang = localStorage.getItem("lang") || "rus"
     const regex = new RegExp(`\msgid\\s"${str}"\nmsgstr\\s"\.+"`)
     const message = this.locales[lang].source.match(regex)
     console.log(message)
