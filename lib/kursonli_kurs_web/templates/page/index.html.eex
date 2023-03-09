@@ -20,9 +20,7 @@
       <%= for item <- @city_list do %>
         <a class="font-bold pr-4 mb:text-sm" href="city?name=<%= item.name %>">
           <span>
-            <%= item.name %>(<span class="font-bold text-red-500">
-              <%= item.count %>
-            </span>)
+            <%= item.name %>(<span class="font-bold text-red-500"><%= item.count %></span>)
           </span>
         </a>
       <% end %>
@@ -132,8 +130,9 @@
                 <%= if String.to_atom(wholesale_rate) do %>
                   <div class="">
                     <span
-                            class="bg-greatGreen text-xs mb:text-small uppercase text-white px-4 mb:px-2 py-1">Оптовый
-                      курс</span>
+                            class="bg-greatGreen text-xs mb:text-small uppercase text-white px-4 mb:px-2 py-1">
+                      Оптовый курс
+                    </span>
                   <% end %>
                   <%= if String.to_atom(gold) do %>
                     <span
@@ -172,7 +171,7 @@
               <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase,
                 "USD") %>
               <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "USD") %>
-              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 shadow dataget"
+              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray mb:border-r-0 shadow dataget item"
                     data-select="1">
                 <div class="flex justify-between items-center">
                   <span class="purchase font-bold text-base mb:text-sm">
@@ -188,7 +187,7 @@
                     "EUR") %>
               <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
                       "EUR") %>
-              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget shadow mb:hidden"
+              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray dataget shadow mb:hidden item"
                         data-select="2">
                 <div class="flex justify-between items-center">
                   <span class="purchase font-bold text-base">
@@ -204,7 +203,8 @@
                         KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "RUB") %>
               <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
                           "RUB") %>
-              <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray shadow dataget mb:hidden"
+              <td
+                            class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray shadow dataget mb:hidden item"
                             data-select="3">
                 <div class="flex justify-between items-center">
                   <span class="purchase font-bold text-base">
@@ -236,56 +236,62 @@
     <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!()  %>"></div>
   </div>
 </div>
-
-
-
 <script>
-
   document.addEventListener('DOMContentLoaded', () => {
-    // var elementss = document.querySelectorAll('.sale, .purchase');
-    // elementss.forEach(function (element) {
-    //   console.log(element.innerText);
-    // });
-
-    var elementss = document.querySelectorAll('.sale');
-
-
-    var minValue = Number.MAX_VALUE;
-    var maxValue = Number.MIN_VALUE;
-    var minElement = null;
-    var maxElement = null;
-
-    elementss.forEach(function (element) {
-      var value = parseFloat(element.innerText);
-      console.log(value)
-      if (value < minValue) {
-        minValue = value;
-        minElement = element;
-      }
-
-      if (value > maxValue) {
-        maxValue = value;
-        maxElement = element;
-      }
-    });
-
-    if (minElement !== null) {
-      minElement.style.backgroundColor = 'green';
-    }
-
-    if (maxElement !== null) {
-      maxElement.style.backgroundColor = 'green';
-    }
-
-
-
     const elements = [...document.querySelectorAll("[data-id]")]
+    function elementsMaxGreen() {
+      x([...document.querySelectorAll(".item[data-select='1']")].map(x => x.querySelector(".sale")))
+      x([...document.querySelectorAll(".item[data-select='2']")].map(x => x.querySelector(".sale")))
+      x([...document.querySelectorAll(".item[data-select='3']")].map(x => x.querySelector(".sale")))
+      function x(element) {
+        const maxElement = element.reduce(
+          (prev, current) => {
+            let prevNumber = parseFloat(prev.innerText)
+            let currentNumber = parseFloat(current.innerText)
+            if (prevNumber === NaN) {
+              console.log(prevNumber)
+              prevNumber = 0
+            }
+            if (currentNumber === NaN) {
+              currentNumber = 0
+            }
+            return prevNumber > currentNumber ? prev : current
+          }
+        );
+        maxElement.classList.add('best_course')
+      }
+    }
+    function elementsMinGreen() {
+      x([...document.querySelectorAll(".item[data-select='1']")].map(x => x.querySelector(".purchase")))
+      x([...document.querySelectorAll(".item[data-select='2']")].map(x => x.querySelector(".purchase")))
+      x([...document.querySelectorAll(".item[data-select='3']")].map(x => x.querySelector(".purchase")))
+      function x(element) {
+        const minElement = element.reduce(
+          (prev, current) => {
+            let prevNumber = parseFloat(prev.innerText)
+            let currentNumber = parseFloat(current.innerText)
+            if (prevNumber === NaN) {
+              console.log(prevNumber)
+              prevNumber = 0
+            }
+            if (currentNumber === NaN) {
+              currentNumber = 0
+            }
+            return prevNumber < currentNumber ? prev : current
+          }
+        );
+        minElement.classList.add('best_course')
+      }
+    }
+
+    elementsMaxGreen()
+    elementsMinGreen()
     let courses = JSON.parse(document.querySelector(".courses").dataset.item).map(el => el.short_name)
     const selectTable = [...document.querySelectorAll(".select_table")]
     selectTable.forEach((el) => el.addEventListener('change', (e) => {
       const currentSelect = e.currentTarget.dataset.select
       const valueEl = e.currentTarget.value
-
+      elementsMaxGreen()
       elements.forEach((value, index) => {
         const elemGiveData = value.querySelector(`.dataget[data-select="${currentSelect}"]`)
         const elemFindSale = elemGiveData.querySelector(`.sale`)

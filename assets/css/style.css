@@ -463,6 +463,7 @@ body.swal2-shown {
   padding: 0px 5px;
 }
 
-    .green-background {
-      background-color: green;
-    }
+.best_course {
+  padding: 0 8px;
+  background-color: #a7ffb5;
+}
