@@ -3,7 +3,7 @@ defmodule KursonliKursWeb.WorkerController do
 
   import KursonliKursWeb.Gettext
   action_fallback KursonliKursWeb.FallbackController
-
+  alias KursonliKursWeb.GeneralHelper
   alias KursonliKursWeb.{OnlineChannel, RoomChannel}
   alias KursonliKurs.EtsStorage.{Chat, SessionWorker}
 
