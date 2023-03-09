@@ -37,6 +37,10 @@ defmodule KursonliKurs.Context.FilialsCurrencies do
     |> Repo.update()
   end
 
+  def delete(fc) do
+    Repo.delete(fc)
+  end
+
   def count(opts \\ []) do
     FilialCurrency
     |> filter_by(opts)

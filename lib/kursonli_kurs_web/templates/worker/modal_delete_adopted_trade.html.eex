@@ -1,7 +1,6 @@
 <script>
     $(".accept_delete_adopted_trade").click(function () {
        const { id } = JSON.parse(this.dataset.map)
-       console.log(id)
        Modalka.fire({
           showConfirmButton: false,
           showCancelButton: false,

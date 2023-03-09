@@ -75,7 +75,7 @@ defmodule KursonliKursWeb.AdminController do
 
   @doc """
   GET /admin/register_org_submit
-  Создание связки "организаця-филиал-сотрудник-валюты"
+  Создание связки "организаця-филиал-сотрудник"
   """
   def register_org_submit(conn, params) do
     password = generate_random_str(8)
@@ -100,23 +100,11 @@ defmodule KursonliKursWeb.AdminController do
     KursonliKurs.Repo.transaction(fn ->
       with {:ok, org} <- Organizations.create(org_opts),
            filial_opts <- Map.put(filial_opts, :organization_id, org.id),
-           {:ok, filial} <-
-             Filials.create_filial_worker_seting(
+           {:ok, _filial} <-
+             Filials.create_filial_worker_setting(
                filial_opts,
                worker_opts
-             ),
-           params["currency"]
-           |> Enum.map(fn currency ->
-             currency = String.to_integer(currency)
-
-             Courses.create(%{
-               date: Timex.now("Asia/Almaty"),
-               currency_id: currency,
-               filial_id: filial.id
-             })
-
-             FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
-           end) do
+             ) do
         conn
         |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
         |> redirect(to: "/admin")
@@ -261,14 +249,12 @@ defmodule KursonliKursWeb.AdminController do
   def filials(conn, _params) do
     org_list = Organizations.all()
     cities_list = Cities.all()
-    currencies_list = Currencies.all()
     tariff_list = Tariffs.all()
     filials_list = Filials.filial_list()
 
     conn
     |> render("admin_filials.html",
       cities_list: cities_list,
-      currencies_list: currencies_list,
       org_list: org_list,
       filials_list: filials_list,
       tariff_list: tariff_list
@@ -280,10 +266,6 @@ defmodule KursonliKursWeb.AdminController do
   """
   def create_filial_submit(conn, params) do
     password = generate_random_str(8)
-
-    currencies_list =
-      params["currency"]
-      |> Enum.map(fn x -> String.to_integer(x) end)
 
     worker_opts = %{
       email: params["email"],
@@ -298,20 +280,11 @@ defmodule KursonliKursWeb.AdminController do
     }
 
     KursonliKurs.Repo.transaction(fn ->
-      with {:ok, filial} <-
-             Filials.create_filial_worker_seting(
+      with {:ok, _filial} <-
+             Filials.create_filial_worker_setting(
                filial_opts,
                worker_opts
-             ),
-           Enum.map(currencies_list, fn currency ->
-             Courses.create(%{
-               date: Timex.now("Asia/Almaty"),
-               currency_id: currency,
-               filial_id: filial.id
-             })
-
-             FilialsCurrencies.create(%{currency_id: currency, filial_id: filial.id})
-           end) do
+             ) do
         conn
         |> put_flash(:info, "Филиал успешно добавлен, пароль: #{password}")
         |> redirect(to: "/admin/filials")

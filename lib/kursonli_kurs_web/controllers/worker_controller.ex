@@ -2,7 +2,7 @@ defmodule KursonliKursWeb.WorkerController do
   use KursonliKursWeb, :controller
 
   import KursonliKursWeb.Gettext
-  action_fallback KursonliKursWeb.FallbackController
+  action_fallback(KursonliKursWeb.FallbackController)
   alias KursonliKursWeb.{OnlineChannel, RoomChannel}
   alias KursonliKurs.EtsStorage.{Chat, SessionWorker}
 
@@ -86,7 +86,10 @@ defmodule KursonliKursWeb.WorkerController do
 
           :archive ->
             conn
-            |> put_flash(:error, gettext("Ваш филиал находится в архиве. Обратитесь к менеджеру."))
+            |> put_flash(
+              :error,
+              gettext("Ваш филиал находится в архиве. Обратитесь к менеджеру.")
+            )
             |> redirect(to: "/worker/login")
         end
 
@@ -289,19 +292,26 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def courses(conn, params) do
     # TODO переделать запрос
-    worker = get_session(conn, :worker)
-    courses_list = Filials.get_courses_list(worker.filial_id)
+    session = get_session(conn, :worker)
+    courses_list = Filials.get_courses_list(session.filial_id)
 
-    last_date =
-      Filials.get_last_date_for_course(worker.filial_id)
-      |> date_to_string_all()
+    # TODO доделать запрос который вытащитнужные нам валюты
+    # KursonliKurs.Context.Currencies.get_not_mine_crrencies(filial_id)
+    my_currencies =
+      FilialsCurrencies.all(filial_id: session.filial_id)
+      |> Enum.map(&Currencies.get(id: &1.currency_id))
 
-    visible_course_status = Filials.get(id: worker.filial_id).visible_course_status
+    currencies_list = Currencies.all() -- my_currencies
+
+    last_date = Filials.get_last_date_for_course(session.filial_id)
+    last_date = if not is_nil(last_date), do: date_to_string_all(last_date), else: ""
+
+    visible_course_status = Filials.get(id: session.filial_id).visible_course_status
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
 
     expiration =
-      if params["login"] == "true", do: Notifications.check_remaining_days(worker.paid_up_to)
+      if params["login"] == "true", do: Notifications.check_remaining_days(session.paid_up_to)
 
     conn
     |> render("worker_courses.html",
@@ -309,7 +319,8 @@ defmodule KursonliKursWeb.WorkerController do
       last_date: last_date,
       instructions: instructions,
       visible_course_status: visible_course_status,
-      expiration: expiration
+      expiration: expiration,
+      currencies_list: currencies_list
     )
   end
 
@@ -337,6 +348,42 @@ defmodule KursonliKursWeb.WorkerController do
     conn
     |> put_flash(:info, gettext("Курсы успешно обновлены"))
     |> redirect(to: "/worker/courses")
+  end
+
+  # TODO добавть проверку на error
+  def new_courses(conn, params) do
+    IO.inspect(params)
+    session = get_session(conn, :worker)
+
+    params
+    |> Map.drop(["_csrf_token"])
+    |> Enum.map(fn {k, _v}  ->
+      currency_id = String.to_integer(k)
+      FilialsCurrencies.create(%{filial_id: session.filial_id, currency_id: currency_id})
+
+      Courses.create(%{
+        date: Timex.now("Asia/Almaty"),
+        currency_id: currency_id,
+        filial_id: session.filial_id
+      })
+    end)
+
+    conn
+    |> put_flash(:info, gettext("Курсы успешно обновлены"))
+    |> redirect(to: "/worker/courses")
+  end
+
+  def delete_course(conn, %{"id" => id} = params) do
+    IO.inspect(params, label: "qwe")
+    with {:ok, course} <- Courses.do_get(id: id),
+         {:ok, fc} <-
+           FilialsCurrencies.do_get(filial_id: course.filial_id, currency_id: course.currency_id),
+         {:ok, _course} <- Courses.delete(course),
+         {:ok, _fc} <- FilialsCurrencies.delete(fc) do
+      conn
+      |> put_flash(:info, gettext("Курс успешно удален"))
+      |> redirect(to: "/worker/courses")
+    end
   end
 
   @doc """

@@ -12,7 +12,9 @@ defmodule KursonliKurs.Context.Filials do
     Currency,
     Setting,
     Course,
-    Worker
+    Worker,
+    FilialCurrency,
+    Currency
   }
 
   alias KursonliKurs.Context.{Filials, Workers, Settings, Cities}
@@ -64,7 +66,7 @@ defmodule KursonliKurs.Context.Filials do
     from(query, preload: [filial: ^f])
   end
 
-  def create_filial_worker_seting(filial_opts, worker_opts) do
+  def create_filial_worker_setting(filial_opts, worker_opts) do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          {:ok, _worker} <- Workers.create(worker_opts),
@@ -107,12 +109,18 @@ defmodule KursonliKurs.Context.Filials do
 
   def get_courses_list(filial_id) do
     from(
-      filial in Filial,
-      where: filial.id == ^filial_id,
+      # filial in Filial,
+      # where: filial.id == ^filial_id,
+      # join: course in Course,
+      # on: course.filial_id == filial.id,
+      # join: c in Currency,
+      # on: c.id == course.currency_id,
+      fc in FilialCurrency,
+      where: fc.filial_id == ^filial_id,
       join: course in Course,
-      on: course.filial_id == filial.id,
+      on: course.currency_id == fc.currency_id and course.filial_id == fc.filial_id,
       join: c in Currency,
-      on: c.id == course.currency_id,
+      on: c.id == fc.currency_id,
       order_by: [c.id],
       select: %{
         currency_id: c.id,

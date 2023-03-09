@@ -136,6 +136,8 @@ defmodule KursonliKursWeb.Router do
 
     get "/courses", WorkerController, :courses
     post "/update_course", WorkerController, :update_course
+    post "/new_courses", WorkerController, :new_courses
+    get "/delete_course", WorkerController, :delete_course
 
     scope "/settings" do
       get "/", WorkerController, :settings

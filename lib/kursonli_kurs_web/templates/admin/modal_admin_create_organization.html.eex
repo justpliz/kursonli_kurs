@@ -27,10 +27,6 @@
                 </select>
             </div>
 
-            <div class="mb-2">
-              <label class="label_input pos">Тип используемых валют</label>
-              <%= multiple_select f, :currency, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), id: "choices-multiple", class: "input_full pos", required: "true" %>
-            </div>
 
             <div class="mb-2">
               <label class="label_input pos">Адрес организации</label>
