@@ -1,379 +1,371 @@
 <style>
-    :root {
-        --qual: <%=@setting.colors["color_qualities"] %>;
-        --qual_text: <%=@setting.colors["color_qualities_text"] %>;
-        --scoreboard: <%=@setting.colors["color_scoreboard"] %>;
-        --currency: <%=@setting.colors["color_currency"] %>;
-    }
+  :root {
+      --qual: <%=@setting.colors["color_qualities"] %>;
+      --qual_text: <%=@setting.colors["color_qualities_text"] %>;
+      --scoreboard: <%=@setting.colors["color_scoreboard"] %>;
+      --currency: <%=@setting.colors["color_currency"] %>;
+  }
 
-    .qual {
-        background-color: var(--qual) !important;
-    }
+  .qual {
+      background-color: var(--qual) !important;
+  }
 
-    .qual_text {
-        color: var(--qual_text) !important;
-    }
+  .qual_text {
+      color: var(--qual_text) !important;
+  }
 
-    .scoreboard {
-        background-color: var(--scoreboard) !important;
-    }
+  .scoreboard {
+      background-color: var(--scoreboard) !important;
+  }
 
-    .currency {
-        color: var(--currency) !important;
-    }
+  .currency {
+      color: var(--currency) !important;
+  }
 </style>
 <div class="font">
-    <div class="w-full bg-white shadow-xl">
-        <div
+  <div class="w-full bg-white shadow-xl">
+    <div
             class="w-1440 mb:w-auto mb:flex-col mb:h-auto mb:py-2 flex justify-between items-center mx-auto h-20 text-black">
-            <ul class="flex gap-10 text-lg mb:gap-4">
-                <a href="#adress" class="link_to scroll-to">
-                    <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
-                </a>
-                <a href="#descripton" class="link_to scroll-to">
-                    <li class="hover:underline cursor-pointer hover:text-gray-500">О компании</li>
-                </a>
-            </ul>
-            <a href="/" class="mb:py-2">
-                <img src="<%= @logo_path %>" alt="" class="h-16 w-full object-cover">
-                <!-- <img src="/images/logo-line.svg" alt=""> -->
-            </a>
-            <a class="flex gap-2 hover:text-gray-500" href='tel:<%= @setting.phones["phone_for_header"] %>'>
-                <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">schedule</span>
-                <%= @setting.phones["phone_for_header"] %>
-            </a>
-        </div>
+      <ul class="flex gap-10 text-lg mb:gap-4">
+        <a href="#adress" class="link_to scroll-to">
+          <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
+        </a>
+        <a href="#descripton" class="link_to scroll-to">
+          <li class="hover:underline cursor-pointer hover:text-gray-500">О компании</li>
+        </a>
+      </ul>
+      <a href="/" class="mb:py-2">
+        <img src="<%= @logo_path %>" alt="" class="h-16 w-full object-cover">
+        <!-- <img src="/images/logo-line.svg" alt=""> -->
+      </a>
+      <a class="flex gap-2 hover:text-gray-500" href='tel:<%= @setting.phones["phone_for_header"] %>'>
+        <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">schedule</span>
+        <%= @setting.phones["phone_for_header"] %>
+      </a>
     </div>
-
-
-    <div class="block">
-        <div class="block__header">
-            <div class="block__text">
-                <h1 class="block__title"></h1>
-            </div>
-        </div>
+  </div>
+  <div class="block">
+    <div class="block__header">
+      <div class="block__text">
+        <h1 class="block__title"></h1>
+      </div>
     </div>
-
-    <div class="max-w-1440 mx-auto mt-4 pb-8">
-        <div class="flex gap-8 sm:gap-2 mb:flex-col mb:items-center px-2">
-            <div class="scoreboard bg-blub p-6 text-white rounded-xl w-2/3 mb:w-full">
-                <div class="text-center">
-                    <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
-                    <div class="text-sm">на <%= KursonliKursWeb.GeneralHelper.date_to_string_time_personal(hd(@courses_list).date) %></div>
-                    <div class="grid_con">
-                        <div class="wrapper pt-4 pb-2">
-                            <div>
-                                <p
+  </div>
+  <div class="max-w-1440 mx-auto mt-4 pb-8">
+    <div class="flex gap-8 sm:gap-2 mb:flex-col mb:items-center px-2">
+      <div class="scoreboard bg-blub p-6 text-white rounded-xl w-2/3 mb:w-full">
+        <div class="text-center">
+          <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
+          <div class="text-sm">на <%= KursonliKursWeb.GeneralHelper.date_to_string_time_personal(hd(@courses_list).date) %></div>
+          <div class="grid_con">
+            <div class="wrapper pt-4 pb-2">
+              <div>
+                <p
                                     class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
-                                    Покупка
-                                </p>
-                            </div>
-                            <div class=""></div>
-                            <div>
-                                <p
+                  Покупка
+                </p>
+              </div>
+              <div class=""></div>
+              <div>
+                <p
                                     class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
-                                    Продажа
-                                </p>
-                            </div>
-                        </div>
-                        <div class="wrapper gap-y-2">
-                            <%= for item <- @courses_list do %>
-                                <div class="bg-white currency font-bold text-center rounded-md py-2">
-                                    <%= item.value_for_purchase %>
-                                </div>
-                                <div class="text-white uppercase font-bold text-center rounded-md py-2">
-                                    <%= item.currency_short_name %>
-                                </div>
-                                <div class="bg-white currency font-bold text-center rounded-md py-2">
-                                    <%= item.value_for_sale %>
-                                </div>
-                                <% end %>
-                        </div>
-                    </div>
-                </div>
+                  Продажа
+                </p>
+              </div>
             </div>
-
-            <div class="flex flex-col gap-4 w-1/3 sm:w-full h-auto">
-                <div class="bg-gray-200 rounded-xl p-6 sm:p-4">
-                    <h2 class="font-bold text-center">Национальный банк</h2>
-                    <div id="kyrs"></div>
-                    <script>(function ($) { $("#kyrs").load("https://kurs-tenge.kz/informers/kursinfo.php?kursinfo=5"); })(jQuery);</script>
-
+            <div class="wrapper gap-y-2">
+              <%= for item <- @courses_list do %>
+                <div class="bg-white currency font-bold text-center rounded-md py-2">
+                  <%= item.value_for_purchase %>
                 </div>
+                <div class="text-white uppercase font-bold text-center rounded-md py-2">
+                  <%= item.currency_short_name %>
+                </div>
+                <div class="bg-white currency font-bold text-center rounded-md py-2">
+                  <%= item.value_for_sale %>
+                </div>
+              <% end %>
             </div>
+          </div>
         </div>
-
-        <div class="flex gap-8 mt-10 mb:flex-col mb:gap-2 mb:mt-4 mb:px-2">
-            <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
-                <img src="/images/icons/qual1.svg" alt="" class="pr-4">
-                <div class="qual_text uppercase text-lg">
-                    <%= @setting.qualities["quality1"] %>
-                </div>
-            </div>
-            <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
-                <img src="/images/icons/qual2.svg" alt="" class="pr-4">
-                <div class="qual_text uppercase text-lg">
-                    <%= @setting.qualities["quality2"] %>
-                </div>
-            </div>
-            <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
-                <img src="/images/icons/qual3.svg" alt="" class="pr-4">
-                <div class="qual_text uppercase text-lg">
-                    <%= @setting.qualities["quality3"] %>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex mt-10 mb:mt-4 gap-6 mb:flex-col mb:px-2" id="adress">
-            <div class="hidden">
-                <%= [x_coord, y_coord]=@setting.coordinates %>
-            </div>
-            <div class="map mb:h-72 mb:w-full">
-                <div class="dg-widget-link">
-                    <a
-                        href="http://2gis.kz/<%= @city_eng_name %>/firm/<%= @setting.firm_id %>/photos/<%= @setting.firm_id %>/center/<%= x_coord %>,<%= y_coord %>/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
-                        компании
-                    </a>
-                </div>
-                <script charset="utf-8" src="https://widgets.2gis.com/js/DGWidgetLoader.js"></script>
-                <script charset="utf-8">
-                    new DGWidgetLoader({
-                        "width": 1200,
-                        "height": 600,
-                        "borderColor": "#fff",
-                        "pos": { "lon": "<%= x_coord %>", "lat": "<%= y_coord %>", "zoom": 16 },
-                        "opt": { "city": "<%= @city_eng_name %>" },
-                        "org": [{ "id": "<%= @setting.firm_id %>" }]
+      </div>
+      <div class="flex flex-col gap-4 w-1/3 sm:w-full h-auto">
+        <div class="bg-gray-200 rounded-xl p-6 sm:p-4">
+          <h2 class="font-bold text-center">Национальный банк</h2>
+          <div id="kyrs"></div>
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                (function ($) {
+                    $("#kyrs").load("https://kurs-tenge.kz/informers/kursinfo.php?kursinfo=5", function () {
                     });
-                </script>
-            </div>
-
-            <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30 mb:w-full mb:px-4">
-                <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменника</h2>
-                <div class="relative pt-10 flex flex-col">
-                    <div class="flex pb-4 items-center">
-                        <span class="material-symbols-outlined pr-4"
-                            style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
-                        <div class="mb:text-xs">
-                            <%= @setting.address_2gis %>
-                        </div>
-                    </div>
-
-                    <div class="flex pb-4">
-                        <span class="material-symbols-outlined pr-4"
-                            style="color: #3689ce; font-size: 32px; font-weight: 900;">schedule</span>
-                        <div class="flex-none">
-                            <div class="mb:text-xs">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %>
-                            </div>
-                            <div class="mb:text-xs">СБ <%= @setting.schedule["schedule_saturday"] %>
-                            </div>
-                            <div class="mb:text-xs">Вс <%= @setting.schedule["schedule_sunday"] %>
-                            </div>
-                            <div class="mb:text-xs">
-                                <%= @setting.schedule["schedule_other"] %>
-                            </div>
-                        </div>
-                    </div>
-
-                    <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(@setting.phones) do %>
-                     <div class="flex pb-4">
-                         <span class="material-symbols-outlined pr-4"
-                             style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
-                         <div class="flex flex-col mb:text-xs">
-                             <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline">
-                                 <%= @setting.phones["phone1"] %>
-                             </a>
-                             <a href='tel:<%= @setting.phones["phone2"] %>' class="hover:underline">
-                                 <%= @setting.phones["phone2"] %>
-                             </a>
-                             <a href='tel:<%= @setting.phones["phone3"] %>' class="hover:underline">
-                                 <%= @setting.phones["phone3"] %>
-                             </a>
-                         </div>
-                     </div>
-                    <% end %>
-
-
-                    <div class="flex items-center">
-                        <span class="material-symbols-outlined pr-4"
-                            style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
-                        <a href="mailto:<%= @setting.email %>" class="mb:text-xs">
-                            <%= @setting.email %>
-                        </a>
-                    </div>
-                </div>
-            </div>
+                  })
+                (jQuery);
+             });
+          </script>
         </div>
-
-        <div class="flex mt-10 gap-10 mb:flex-col-reverse mb:mt-6 mb:px-2" id="descripton">
-            <img src="<%= @photo_path %>" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl mb:w-full">
-            <div class="flex50 mb:w-full mb:px-2">
-                <h3 class="uppercase font-bold text-lg mb:text-sm relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city_name
-                        %>
-                        <%= @filial.name %>
-                </h3>
-                <div class="pt-10 mb:pt-6 mb:-mb-8 mb:text-xs">
-                    <p class="whitespace-pre-line">
-                        <%= @setting.description %>
-                    </p>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="flex gap-8 mt-10 mb:flex-col mb:gap-2 mb:mt-4 mb:px-2">
+      <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
+        <img src="/images/icons/qual1.svg" alt="" class="pr-4">
+        <div class="qual_text uppercase text-lg">
+          <%= @setting.qualities["quality1"] %>
+        </div>
+      </div>
+      <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
+        <img src="/images/icons/qual2.svg" alt="" class="pr-4">
+        <div class="qual_text uppercase text-lg">
+          <%= @setting.qualities["quality2"] %>
+        </div>
+      </div>
+      <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
+        <img src="/images/icons/qual3.svg" alt="" class="pr-4">
+        <div class="qual_text uppercase text-lg">
+          <%= @setting.qualities["quality3"] %>
+        </div>
+      </div>
+    </div>
+    <div class="flex mt-10 mb:mt-4 gap-6 mb:flex-col mb:px-2" id="adress">
+      <div class="hidden">
+        <%= [x_coord, y_coord]=@setting.coordinates %>
+      </div>
+      <div class="map mb:h-72 mb:w-full">
+        <div class="dg-widget-link">
+          <a
+                        href="http://2gis.kz/<%= @city_eng_name %>/firm/<%= @setting.firm_id %>/photos/<%= @setting.firm_id %>/center/<%= x_coord %>,<%= y_coord %>/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
+            компании
+          </a>
+        </div>
+        <script charset="utf-8" src="https://widgets.2gis.com/js/DGWidgetLoader.js"></script>
+        <script charset="utf-8">
+          new DGWidgetLoader({
+              "width": 1200,
+              "height": 600,
+              "borderColor": "#fff",
+              "pos": { "lon": "<%= x_coord %>", "lat": "<%= y_coord %>", "zoom": 16 },
+              "opt": { "city": "<%= @city_eng_name %>" },
+              "org": [{ "id": "<%= @setting.firm_id %>" }]
+          });
+        </script>
+      </div>
+      <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30 mb:w-full mb:px-4">
+        <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменника</h2>
+        <div class="relative pt-10 flex flex-col">
+          <div class="flex pb-4 items-center">
+            <span class="material-symbols-outlined pr-4"
+                            style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
+            <div class="mb:text-xs">
+              <%= @setting.address_2gis %>
+            </div>
+          </div>
+          <div class="flex pb-4">
+            <span class="material-symbols-outlined pr-4"
+                            style="color: #3689ce; font-size: 32px; font-weight: 900;">schedule</span>
+            <div class="flex-none">
+              <div class="mb:text-xs">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %>
+              </div>
+              <div class="mb:text-xs">СБ <%= @setting.schedule["schedule_saturday"] %>
+              </div>
+              <div class="mb:text-xs">Вс <%= @setting.schedule["schedule_sunday"] %>
+              </div>
+              <div class="mb:text-xs">
+                <%= @setting.schedule["schedule_other"] %>
+              </div>
+            </div>
+          </div>
+          <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(@setting.phones) do %>
+            <div class="flex pb-4">
+              <span class="material-symbols-outlined pr-4"
+                             style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
+              <div class="flex flex-col mb:text-xs">
+                <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline">
+                  <%= @setting.phones["phone1"] %>
+                </a>
+                <a href='tel:<%= @setting.phones["phone2"] %>' class="hover:underline">
+                  <%= @setting.phones["phone2"] %>
+                </a>
+                <a href='tel:<%= @setting.phones["phone3"] %>' class="hover:underline">
+                  <%= @setting.phones["phone3"] %>
+                </a>
+              </div>
+            </div>
+          <% end %>
+          <div class="flex items-center">
+            <span class="material-symbols-outlined pr-4"
+                            style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
+            <a href="mailto:<%= @setting.email %>" class="mb:text-xs">
+              <%= @setting.email %>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex mt-10 gap-10 mb:flex-col-reverse mb:mt-6 mb:px-2" id="descripton">
+      <img src="<%= @photo_path %>" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl mb:w-full">
+      <div class="flex50 mb:w-full mb:px-2">
+        <h3 class="uppercase font-bold text-lg mb:text-sm relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city_name
+                        %>
+          <%= @filial.name %>
+        </h3>
+        <div class="pt-10 mb:pt-6 mb:-mb-8 mb:text-xs">
+          <p class="whitespace-pre-line">
+            <%= @setting.description %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-
 <style>
-    #kursinfo5 {
-        width: 80%;
-        font-size: 14px;
-        font-family: arial;
-        border: 1px solid transparent;
-        line-height: 1.1;
-        margin: 0px auto;
-        max-width: 100%;
-        display: block;
-    }
+  #kursinfo5 {
+      width: 80%;
+      font-size: 14px;
+      font-family: arial;
+      border: 1px solid transparent;
+      line-height: 1.1;
+      margin: 0px auto;
+      max-width: 100%;
+      display: block;
+  }
 
-    #kursinfo5 {
-        width: 80%;
-        font-size: 14px;
-        font-family: arial;
-        border: 1px solid transparent;
-        line-height: 1.1;
-        margin: 0px auto;
-        max-width: 100%;
-        display: block;
-    }
+  #kursinfo5 {
+      width: 80%;
+      font-size: 14px;
+      font-family: arial;
+      border: 1px solid transparent;
+      line-height: 1.1;
+      margin: 0px auto;
+      max-width: 100%;
+      display: block;
+  }
 
-    #kursinfo5 p {
-        margin: 0;
-        display: none;
-    }
+  #kursinfo5 p {
+      margin: 0;
+      display: none;
+  }
 
-    #kursinfo5 .logo {
-        display: none;
-        background-image: URL(https://kurs-tenge.kz/informers/img/logo.png);
-        font-size: 1.4em;
-        padding: 5px 0 5px 40px;
-        background-size: 35px;
-        background-repeat: no-repeat;
-    }
+  #kursinfo5 .logo {
+      display: none;
+      background-image: URL(https://kurs-tenge.kz/informers/img/logo.png);
+      font-size: 1.4em;
+      padding: 5px 0 5px 40px;
+      background-size: 35px;
+      background-repeat: no-repeat;
+  }
 
-    #kursinfo5 .logo p {
-        font-size: 0.8em;
-        display: none;
-    }
+  #kursinfo5 .logo p {
+      font-size: 0.8em;
+      display: none;
+  }
 
-    #kursinfo5 .headtabl {
-        float: left;
-        font-weight: bold;
-        font-size: 12px;
-        display: none;
-    }
+  #kursinfo5 .headtabl {
+      float: left;
+      font-weight: bold;
+      font-size: 12px;
+      display: none;
+  }
 
-    #kursinfo5 table {
-        margin: 5px auto;
-        width: 100%;
-    }
+  #kursinfo5 table {
+      margin: 5px auto;
+      width: 100%;
+  }
 
-    #kursinfo5 table tr th {
-        text-align: left;
-    }
+  #kursinfo5 table tr th {
+      text-align: left;
+  }
 
-    #kursinfo5 .headerkurs {
-        display: none;
-        background: none;
-        padding: 0 3px;
-        text-shadow: 1px 1px 1px #fff;
-        height: 40px;
-        margin: 0 0 10px;
-    }
+  #kursinfo5 .headerkurs {
+      display: none;
+      background: none;
+      padding: 0 3px;
+      text-shadow: 1px 1px 1px #fff;
+      height: 40px;
+      margin: 0 0 10px;
+  }
 
-    #kursinfo5 .kontentinfo {
-        padding: 2px;
-    }
+  #kursinfo5 .kontentinfo {
+      padding: 2px;
+  }
 
-    #kursinfo5 .kontentinfo .dat {
-        text-align: center;
-        font-size: 14px;
-        font-weight: 600;
-        color: #5c5c5c;
-    }
+  #kursinfo5 .kontentinfo .dat {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #5c5c5c;
+  }
 
-    #kursinfo5 .kontentinfo p.green {
-        color: green;
-    }
+  #kursinfo5 .kontentinfo p.green {
+      color: green;
+  }
 
-    #kursinfo5 .kontentinfo .info {
-        font-size: 11px;
-    }
+  #kursinfo5 .kontentinfo .info {
+      font-size: 11px;
+  }
 
-    #kursinfo5 .kontentinfo .info i {
-        font-size: 13px;
-        margin: 0 5px;
-    }
+  #kursinfo5 .kontentinfo .info i {
+      font-size: 13px;
+      margin: 0 5px;
+  }
 
-    #kursinfo5 .kontentinfo .info:nth-child(4) i {
-        color: #349A9A;
-    }
+  #kursinfo5 .kontentinfo .info:nth-child(4) i {
+      color: #349A9A;
+  }
 
-    #kursinfo5 .kontentinfo .info:nth-child(5) i {
-        color: #2C61CA;
-    }
+  #kursinfo5 .kontentinfo .info:nth-child(5) i {
+      color: #2C61CA;
+  }
 
-    #kursinfo5 .kontentinfo a {
-        text-decoration: none;
-        text-align: center;
-        display: none;
-    }
+  #kursinfo5 .kontentinfo a {
+      text-decoration: none;
+      text-align: center;
+      display: none;
+  }
 
-    #kursinfo5 .kantry {
-        background-repeat: no-repeat;
-        padding: 5px 0;
-    }
+  #kursinfo5 .kantry {
+      background-repeat: no-repeat;
+      padding: 5px 0;
+  }
 
-    #kursinfo5 .kyrsvalyt .USD {
-        width: 40%;
-        background-image: none;
-    }
+  #kursinfo5 .kyrsvalyt .USD {
+      width: 40%;
+      background-image: none;
+  }
 
-    #kursinfo5 .kyrsvalyt .EUR {
-        width: 40%;
-        background-image: none;
-    }
+  #kursinfo5 .kyrsvalyt .EUR {
+      width: 40%;
+      background-image: none;
+  }
 
-    #kursinfo5 .kyrsvalyt .CNY {
-        width: 40%;
-        background-image: none;
-    }
+  #kursinfo5 .kyrsvalyt .CNY {
+      width: 40%;
+      background-image: none;
+  }
 
-    #kursinfo5 .kyrsvalyt .RUB {
-        width: 40%;
-        background-image: none;
-    }
+  #kursinfo5 .kyrsvalyt .RUB {
+      width: 40%;
+      background-image: none;
+  }
 
-    #kursinfo5 .kyrsvalyt td.level-up,
-    #kursinfo5 .kyrsvalyt td.level-down {
-        background-image: none;
-        background-repeat: no-repeat;
-        background-size: 0px;
-        background-position: left center;
-        padding: 0 0 0 0px;
-    }
+  #kursinfo5 .kyrsvalyt td.level-up,
+  #kursinfo5 .kyrsvalyt td.level-down {
+      background-image: none;
+      background-repeat: no-repeat;
+      background-size: 0px;
+      background-position: left center;
+      padding: 0 0 0 0px;
+  }
 
-    #kursinfo5 .kyrsvalyt td.level-down {
-        background-image: none;
-        color: red;
-    }
+  #kursinfo5 .kyrsvalyt td.level-down {
+      background-image: none;
+      color: red;
+  }
 </style>
-
 <script>
-    $("a.scroll-to").on("click", function (e) {
-        e.preventDefault();
-        var anchor = $(this).attr('href');
-        $('html, body').stop().animate({
-            scrollTop: $(anchor).offset().top - 20
-        }, 800);
-    });
+  $("a.scroll-to").on("click", function (e) {
+      e.preventDefault();
+      var anchor = $(this).attr('href');
+      $('html, body').stop().animate({
+          scrollTop: $(anchor).offset().top - 20
+      }, 800);
+  });
 </script>
