@@ -165,7 +165,7 @@ const templateEvent = (map) => {
     }" data-type='${map.type_event}'>
     <div class="text-gray-200">На ваш ордер на ${item_order_type}: ${
     map.item_order.volume
-  }  ${map.item_order.currency_short_name}    по курсу ${
+  }  ${map.item_order.currency_short_name} по курсу ${
     map.item_order.course_sale
   }  </div>
     <div class="font-bold">Поступило предложение от ${

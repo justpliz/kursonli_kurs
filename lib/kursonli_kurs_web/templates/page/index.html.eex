@@ -252,11 +252,9 @@
             return prevNumber > currentNumber ? prev : current
           }
         );
-        console.log(maxElement)
-        if (maxElement.innerText == 0){
-          console.log("хуйня")
+        if (maxElement.innerText != "-") {
+          maxElement.classList.add('best_course')
         }
-        maxElement.classList.add('best_course')
       }
     }
     function elementsMinGreen() {
@@ -273,7 +271,9 @@
             return prevNumber < currentNumber ? prev : current
           }
         );
-        minElement.classList.add('best_course')
+        if (minElement.innerText != "-") {
+          minElement.classList.add('best_course')
+        }
       }
     }
 
