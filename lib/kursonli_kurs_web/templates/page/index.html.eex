@@ -1,5 +1,5 @@
 <div class="font mb-6">
-  <div class="mx-auto w-full bg-dblue">
+  <header class="mx-auto w-full bg-dblue">
     <div
       class="max-w-1440 note:mx-4 mobL:mx-1 flex justify-between items-center mb:flex-col mb:h-auto mb:py-4 mx-auto h-20 ">
       <div class="flex mb:items-center">
@@ -7,15 +7,15 @@
         <a href="/worker/login" class="href_index hidden mb:block">Войти</a>
       </div>
       <div class="relative w-1/5 mb:w-full mb:py-2">
-        <input class="input_search search-input" type="text" placeholder="">
+        <input class="input_search search-input" type="text">
         <div class="absolute inset-y-0 right-4 flex items-center pl-3 pointer-events-none">
           <img src="/images/icons/search.svg" alt="">
         </div>
       </div>
       <a href="/worker/login" class="href_index mb:hidden" target="_blank">Войти</a>
     </div>
-  </div>
-  <div class="max-w-1440 note:mx-4 mobL:mx-1 mx-auto mb:px-2">
+  </header>
+  <section class="max-w-1440 note:mx-4 mobL:mx-1 mx-auto mb:px-2">
     <div class="flex py-8 mb:py-4 text-dblue">
       <%= for item <- @city_list do %>
         <a class="font-bold pr-4 mb:text-sm" href="city?name=<%= item.name %>">
@@ -26,11 +26,11 @@
       <% end %>
     </div>
     <div class="font-bold text-black text-lg mb:text-sm">
-      Курсы валют в обменных пунктах в городе <%= @name %> на <span class="text-dblue text-xl mb:text-lg">
+      <h1 class="inline-block">Курсы валют в обменных пунктах в городе</h1> <%= @name %> <h2 class="inline-block">на</h2> <span class="text-dblue text-xl mb:text-lg">
         <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
       </span>
     </div>
-    <div class="relative w-full pt-4">
+    <article class="relative w-full pt-4">
       <table class="w-full text-sm mb:text-xs text-left text-gray-500 table-fixed table_search" id="index-table">
         <thead class="bg-dblue text-white uppercase">
           <tr class="uppercase">
@@ -45,6 +45,7 @@
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200">
               <div class="flex justify-between">
+                <img class="img_sort cursor-pointer" src="/images/icons/up.svg" alt="">
                 <select class="select_table" data-select="1">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="USD" do %>
@@ -63,6 +64,7 @@
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200 mb:hidden">
               <div class="flex justify-between">
+                <img class="img_sort cursor-pointer" src="/images/icons/up.svg" alt="">
                 <select class="select_table" data-select="2">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="EUR" do %>
@@ -81,6 +83,7 @@
             </th>
             <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-gray-200 mb:hidden">
               <div class="flex justify-between">
+                <img class="img_sort cursor-pointer" src="/images/icons/up.svg" alt="">
                 <select class="select_table" data-select="3">
                   <%= for item <- @currency_list do %>
                     <%= if item.short_name=="RUB" do %>
@@ -231,9 +234,9 @@
           <% end %>
         </tbody>
       </table>
-    </div>
+    </article>
     <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!()  %>"></div>
-  </div>
+  </section>
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
