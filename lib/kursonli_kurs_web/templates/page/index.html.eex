@@ -248,20 +248,9 @@
           (prev, current) => {
             let prevNumber = parseFloat(prev.innerText) || 0.0
             let currentNumber = parseFloat(current.innerText) || 0.0
-            console.log(prevNumber)
-            console.log(currentNumber)
-            console.log(prevNumber > currentNumber)
-            if (prevNumber === NaN) {
-              console.log(prevNumber)
-              prevNumber = 0
-            }
-            if (currentNumber === NaN) {
-              currentNumber = 0
-            }
             return prevNumber > currentNumber ? prev : current
           }
         );
-        console.log(parseFloat(maxElement.innerText))
         maxElement.classList.add('best_course')
       }
     }
@@ -272,15 +261,8 @@
       function x(element) {
         const minElement = element.reduce(
           (prev, current) => {
-            let prevNumber = parseFloat(prev.innerText)
-            let currentNumber = parseFloat(current.innerText)
-            if (prevNumber === NaN) {
-              console.log(prevNumber)
-              prevNumber = 0
-            }
-            if (currentNumber === NaN) {
-              currentNumber = 0
-            }
+            let prevNumber = parseFloat(prev.innerText) || 0.0
+            let currentNumber = parseFloat(current.innerText) || 0.0
             return prevNumber < currentNumber ? prev : current
           }
         );
@@ -297,7 +279,8 @@
       const currentSelect = e.currentTarget.dataset.select
       const valueEl = e.currentTarget.value
       elementsMaxGreen()
-      elements.forEach((value, index) => {
+      elementsMinGreen()
+        elements.forEach((value, index) => {
         const elemGiveData = value.querySelector(`.dataget[data-select="${currentSelect}"]`)
         const elemFindSale = elemGiveData.querySelector(`.sale`)
         console.log("log", elemFindSale)
