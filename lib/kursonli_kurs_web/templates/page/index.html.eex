@@ -254,7 +254,9 @@
             return prevNumber > currentNumber ? prev : current
           }
         );
-        maxElement.classList.add('best_course')
+        if (maxElement.innerText != "-") {
+          maxElement.classList.add('best_course')
+        }
       }
     }
     function elementsMinGreen() {
@@ -271,7 +273,9 @@
             return prevNumber < currentNumber ? prev : current
           }
         );
-        minElement.classList.add('best_course')
+        if (minElement.innerText != "-") {
+          minElement.classList.add('best_course')
+        }
       }
     }
 
