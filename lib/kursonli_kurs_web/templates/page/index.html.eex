@@ -248,6 +248,8 @@
           (prev, current) => {
             let prevNumber = parseFloat(prev.innerText) || 0.0
             let currentNumber = parseFloat(current.innerText) || 0.0
+            prev.classList.remove('best_course')
+            current.classList.remove('best_course')
             return prevNumber > currentNumber ? prev : current
           }
         );
@@ -264,6 +266,8 @@
           (prev, current) => {
             let prevNumber = parseFloat(prev.innerText) || 0.0
             let currentNumber = parseFloat(current.innerText) || 9999999999
+            prev.classList.remove('best_course')
+            current.classList.remove('best_course')
             return prevNumber < currentNumber ? prev : current
           }
         );
@@ -282,7 +286,7 @@
       const valueEl = e.currentTarget.value
       elementsMaxGreen()
       elementsMinGreen()
-        elements.forEach((value, index) => {
+      elements.forEach((value, index) => {
         const elemGiveData = value.querySelector(`.dataget[data-select="${currentSelect}"]`)
         const elemFindSale = elemGiveData.querySelector(`.sale`)
         console.log("log", elemFindSale)
