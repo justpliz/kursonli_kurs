@@ -91,16 +91,14 @@
       </div>
 
       <div class="label_input pos text-lg">Неиспользуемые валюты</div>
-        <%#= multiple_select f, :currency, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), id:
-        "choices-multiple", class: "input_full pos", required: "true" %>
         <%= form_for @conn, Routes.worker_path(@conn, :new_courses), [multipart: true], fn f -> %>
           <%= for item <- @currencies_list do %>
-          <div class="flex gap-2 items-center justify-start">
-            <input type="checkbox" name="<%= item.id %>" class="type_select rounded">
-            <label class="label_input"><%= item.name %></label>
-          </div>
+            <div class="flex gap-2 items-center justify-start">
+              <input type="checkbox" name="<%= item.id %>" id="<%= item.id %>" class="type_select rounded">
+              <label class="label_input" for="<%= item.id %>"><%= item.name %></label>
+            </div>
           <% end %>
-        <%= submit "Добавить валюту", class: "btn_save pos mt-2" %>
+          <%= submit "Добавить валюту", class: "btn_save pos mt-2" %>
         <% end %>
     </div>
     <% else %>
