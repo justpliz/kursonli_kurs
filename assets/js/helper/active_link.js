@@ -1,7 +1,7 @@
 const activeLink = [...document.querySelectorAll(".active-link")];
-const path = window.location;
+const path = decodeURIComponent(window.location.href.replace(/\?.*$/, ""));
 activeLink.forEach((e) => {
-   if (e.href == path.href) {
+   if (decodeURIComponent(e.href) === path) {
       e.classList.add("active");
    }
 });

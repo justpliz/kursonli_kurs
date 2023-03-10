@@ -265,7 +265,7 @@ defmodule KursonliKursWeb.WorkerController do
       RoomChannel.update_order(order, session.city.id)
 
       conn
-      |> put_flash(:info, "Ордер #{order.number} обновлен")
+      |> put_flash(:info, gettext("Ордер успешно обновлен"))
       |> redirect(to: "/worker/orders")
     end
   end

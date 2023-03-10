@@ -105,7 +105,7 @@
         </div>
       </div>
     </div>
-    <div class="flex gap-8 mt-10 mb:flex-col mb:gap-2 mb:mt-4 mb:px-2">
+    <div class="flex gap-10 mt-10 mb:flex-col mb:gap-2 mb:mt-4 mb:px-2">
       <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
         <img src="/images/icons/qual1.svg" alt="" class="pr-4">
         <div class="qual_text uppercase text-lg">

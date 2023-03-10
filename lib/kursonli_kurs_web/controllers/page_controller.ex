@@ -39,6 +39,7 @@ defmodule KursonliKursWeb.PageController do
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
 
       conn
+      
       |> render("personal_page.html",
         setting: setting,
         filial: filial,
