@@ -248,6 +248,9 @@
           (prev, current) => {
             let prevNumber = parseFloat(prev.innerText)
             let currentNumber = parseFloat(current.innerText)
+            console.log(prevNumber)
+            console.log(currentNumber)
+            console.log(prevNumber > currentNumber)
             if (prevNumber === NaN) {
               console.log(prevNumber)
               prevNumber = 0
@@ -258,6 +261,7 @@
             return prevNumber > currentNumber ? prev : current
           }
         );
+        console.log(parseFloat(maxElement.innerText))
         maxElement.classList.add('best_course')
       }
     }
