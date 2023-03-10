@@ -253,6 +253,7 @@
             return prevNumber > currentNumber ? prev : current
           }
         );
+      console.log("WTF2")
         console.log(maxElement)
         maxElement.classList.add('best_course')
       }
@@ -271,6 +272,7 @@
             return prevNumber < currentNumber ? prev : current
           }
         );
+      console.log("WTF3")
         console.log(minElement)
         minElement.classList.add('best_course')
       }
@@ -284,6 +286,7 @@
     selectTable.forEach((el) => el.addEventListener('change', (e) => {
       const currentSelect = e.currentTarget.dataset.select
       const valueEl = e.currentTarget.value
+      console.log("WTF")
       elementsMaxGreen()
       elementsMinGreen()
       elements.forEach((value, index) => {
