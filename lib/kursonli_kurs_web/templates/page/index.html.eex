@@ -246,8 +246,8 @@
       function x(element) {
         const maxElement = element.reduce(
           (prev, current) => {
-            let prevNumber = parseFloat(prev.innerText)
-            let currentNumber = parseFloat(current.innerText)
+            let prevNumber = parseFloat(prev.innerText) || 0.0
+            let currentNumber = parseFloat(current.innerText) || 0.0
             console.log(prevNumber)
             console.log(currentNumber)
             console.log(prevNumber > currentNumber)
