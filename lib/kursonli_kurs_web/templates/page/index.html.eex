@@ -251,6 +251,7 @@
             return prevNumber > currentNumber ? prev : current
           }
         );
+        console.log(maxElement)
         maxElement.classList.add('best_course')
       }
     }
@@ -262,10 +263,11 @@
         const minElement = element.reduce(
           (prev, current) => {
             let prevNumber = parseFloat(prev.innerText) || 0.0
-            let currentNumber = parseFloat(current.innerText) || 0.0
+            let currentNumber = parseFloat(current.innerText) || 9999999999
             return prevNumber < currentNumber ? prev : current
           }
         );
+        console.log(minElement)
         minElement.classList.add('best_course')
       }
     }
