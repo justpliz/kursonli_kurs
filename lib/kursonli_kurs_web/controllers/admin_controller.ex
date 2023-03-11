@@ -311,13 +311,18 @@ defmodule KursonliKursWeb.AdminController do
     end
   end
 
+  @spec update_filial(any, map) :: {:error, :not_found | Ecto.Changeset.t()} | Plug.Conn.t()
   @doc """
   GET /admin/update_filial
   """
   def update_filial(conn, %{"id" => id} = params) do
+    paid_up_to = calculate_tariff(params["tariff_id"], params["quantity"])
+
     filial_opts = %{
       name: params["filial_name"],
-      city_id: params["city_id"]
+      city_id: params["city_id"],
+      paid_up_to: paid_up_to,
+      tariff_id: params["tariff_id"]
     }
 
     setting_opts = %{
@@ -347,25 +352,6 @@ defmodule KursonliKursWeb.AdminController do
          {:ok, filial} <- Filials.update(filial, %{filial_active_status: status}) do
       conn
       |> put_flash(:info, "статус #{filial.name} успешно обновлен")
-      |> redirect(to: "/admin/filials")
-    end
-  end
-
-  def update_filial_tariff(
-        conn,
-        %{"id" => id, "tariff_id" => tariff_id, "quantity" => quantity}
-      ) do
-    paid_up_to = calculate_tariff(tariff_id, quantity)
-
-    opts = %{
-      paid_up_to: paid_up_to,
-      tariff_id: tariff_id
-    }
-
-    with {:ok, filial} <- Filials.do_get(id: id),
-         {:ok, filial} <- Filials.update(filial, opts) do
-      conn
-      |> put_flash(:info, "Тариф #{filial.name} успешно обновлен")
       |> redirect(to: "/admin/filials")
     end
   end

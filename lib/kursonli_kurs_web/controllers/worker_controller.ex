@@ -304,7 +304,9 @@ defmodule KursonliKursWeb.WorkerController do
     currencies_list = Currencies.all() -- my_currencies
 
     last_date = Filials.get_last_date_for_course(session.filial_id)
-    last_date = if not is_nil(last_date), do: date_to_string_data_all(last_date), else: ""
+
+    last_date =
+      if not is_nil(last_date), do: GeneralHelper.date_to_string_data_all(last_date), else: ""
 
     visible_course_status = Filials.get(id: session.filial_id).visible_course_status
 
@@ -357,7 +359,7 @@ defmodule KursonliKursWeb.WorkerController do
 
     params
     |> Map.drop(["_csrf_token"])
-    |> Enum.map(fn {k, _v}  ->
+    |> Enum.map(fn {k, _v} ->
       currency_id = String.to_integer(k)
       FilialsCurrencies.create(%{filial_id: session.filial_id, currency_id: currency_id})
 
@@ -373,8 +375,7 @@ defmodule KursonliKursWeb.WorkerController do
     |> redirect(to: "/worker/courses")
   end
 
-  def delete_course(conn, %{"id" => id} = params) do
-    IO.inspect(params, label: "qwe")
+  def delete_course(conn, %{"id" => id} = _params) do
     with {:ok, course} <- Courses.do_get(id: id),
          {:ok, fc} <-
            FilialsCurrencies.do_get(filial_id: course.filial_id, currency_id: course.currency_id),

@@ -18,7 +18,7 @@ defmodule KursonliKursWeb.TariffController do
   @doc """
   GET /admin/tariffs/update
   """
-  def update_tariff(conn,  %{"id" => id} = params) do
+  def update_tariff(conn, %{"id" => id} = params) do
     with {:ok, tariff} <- Tariffs.do_get(id: String.to_integer(id)),
          {:ok, _city} <- Tariffs.update(tariff, params) do
       conn
