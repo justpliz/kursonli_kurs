@@ -19,7 +19,7 @@
 
             <div class="mb-2">
               <label class="label_input pos">Город</label>
-                <select name="city_id" class="input_full" >
+                <select name="city_id" class="input_full", required >
                 <option value="" disabled selected>--выбрать город--</option>
                 <%= Enum.map(@cities_list, fn x -> %>
                 <option value="<%= x.id %>"><%= x.name %></option>
@@ -35,7 +35,7 @@
 
             <div class="mb-2">
               <label class="label_input pos">ИИН/БИН</label>
-              <%= text_input f, :iin, class: "input_full number_input_only", required: "true", minlength: 12, maxlength: 12, placeholder: "ИИН/БИН" %>
+              <%= text_input f, :iin, class: "input_full number_input_only", minlength: 12, maxlength: 12, placeholder: "ИИН/БИН" %>
             </div>
 
             <div class="mb-2">
