@@ -425,6 +425,7 @@ defmodule KursonliKursWeb.WorkerController do
 
       conn
       |> render("worker_settings.html",
+        filial: filial,
         setting: setting,
         photo_path: photo_path,
         logo_path: logo_path,
@@ -477,6 +478,11 @@ defmodule KursonliKursWeb.WorkerController do
 
     visible_website_status = params["visible_website_status"]
 
+    filial_opts = %{
+      name: params["filial_name"],
+      iin: params["filial_iin"]
+    }
+
     opts = %{
       colors: colors,
       qualities: qualities,
@@ -490,10 +496,13 @@ defmodule KursonliKursWeb.WorkerController do
       description: params["description"],
       tags: tags,
       promo: promo,
-      visible_website_status: visible_website_status
+      visible_website_status: visible_website_status,
+      address_2gis: params["address_2gis"]
     }
 
-    with {:ok, setting} <- Settings.do_get(filial_id: filial_id),
+    with {:ok, filial} <- Filials.do_get(id: filial_id),
+         {:ok, setting} <- Settings.do_get(filial_id: filial_id),
+         {:ok, _fiiial} <- Filials.update(filial, filial_opts),
          {:ok, _setting} <- Settings.update(setting, opts) do
       conn
       |> put_flash(:info, gettext("Настройки обновлены"))
