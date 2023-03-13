@@ -77,6 +77,12 @@
       @apply 2xl:text-sm 2xl:px-3 2xl:py-1;
    }
 
+   .btn_border_b {
+      @apply text-black bg-transparent transition-colors border-b-2 border-b-blub font-medium text-base px-5 py-2.5 text-center;
+      @apply 2xl:text-sm 2xl:px-3 2xl:py-1;
+      @apply hover:bg-blub hover:text-white;
+   }
+
    .btn_border.active {
       @apply text-white transition-all bg-blub border-2 border-blub font-medium rounded-lg text-base px-5 py-2.5 text-center;
       @apply 2xl:text-sm 2xl:px-3 2xl:py-1;
