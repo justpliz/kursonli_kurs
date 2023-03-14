@@ -100,7 +100,7 @@
                 <img class="img_sort cursor-pointer" src="/images/icons/down.svg" alt="">
               </div>
             </th>
-            <th scope="col" class="w-1/6 px-6 mb:px-2 mb:text-small py-1 border-2 border-r-0 border-gray-200 mb:hidden">
+            <th scope="col" class="w-1/6 mb:text-small py-1 border-2 border-r-0 border-gray-200 mb:hidden text-center">
               контакты
             </th>
           </tr>
