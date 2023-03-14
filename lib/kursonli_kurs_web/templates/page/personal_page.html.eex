@@ -156,7 +156,7 @@
             <span class="material-symbols-outlined pr-4"
                             style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
             <div class="mb:text-xs">
-              <%= @setting.address_2gis %>
+              <%= @filial.filial_address %>
             </div>
           </div>
           <div class="flex pb-4">
