@@ -415,7 +415,8 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/settings
   """
   def settings(conn, _params) do
-    with {:ok, filial} <- Filials.do_get(id: get_session(conn, :worker).filial_id),
+    session = get_session(conn, :worker)
+    with {:ok, filial} <- Filials.do_get(id: session.filial_id),
          {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
@@ -479,7 +480,7 @@ defmodule KursonliKursWeb.WorkerController do
 
     filial_opts = %{
       name: params["filial_name"],
-      iin: params["filial_iin"]
+      filial_address: params["filial_address"]
     }
 
     opts = %{
@@ -495,8 +496,7 @@ defmodule KursonliKursWeb.WorkerController do
       description: params["description"],
       tags: tags,
       promo: promo,
-      visible_website_status: visible_website_status,
-      address_2gis: params["address_2gis"]
+      visible_website_status: visible_website_status
     }
 
     with {:ok, filial} <- Filials.do_get(id: filial_id),

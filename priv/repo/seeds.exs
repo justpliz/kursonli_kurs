@@ -117,7 +117,6 @@ KursonliKurs.Context.FilialsCurrencies.create(%{
 })
 
 KursonliKurs.Context.Settings.create(%{
-  address_2gis: "Address for 2 gis1",
   filial_id: filial1.id,
   tags: ["true", "true"]
 })
@@ -172,7 +171,6 @@ KursonliKurs.Context.FilialsCurrencies.create(%{
 })
 
 KursonliKurs.Context.Settings.create(%{
-  address_2gis: "Address for 2 gis1",
   filial_id: filial2.id
 })
 

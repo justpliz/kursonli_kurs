@@ -9,8 +9,8 @@ defmodule KursonliKurs.Model.Organization do
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(name iin org_active_status admin_id)a
-  @optional_fields ~w()a
+  @required_fields ~w(name org_active_status admin_id)a
+  @optional_fields ~w(iin)a
 
   schema "organizations" do
     field :name, :string

@@ -1,6 +1,6 @@
 <script>
   $(".filial_edit").click(function () {
-    const { id, filial_name, coordinates, address_2gis, firm_id, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
+    const { id, filial_name, coordinates, firm_id, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
     console.log(city_id)
     Modalka.fire({
       showConfirmButton: false,
@@ -26,22 +26,25 @@
               <label class="label_input pos" for="y_coordinate">Координата Y</label>
               <%= text_input f, :y_coordinate, class: "input_full", value: "${coordinates[1]}", required: "true" %>
 
-              <label class="label_input pos" for="address_2gis">Адрес для 2gis</label>
-              <%= text_input f, :address_2gis, class: "input_full", value: "${address_2gis}", required: "true" %>
-
               <label class="label_input pos" for="firm_id">ID фирмы</label>
               <%= text_input f, :firm_id, class: "input_full", value: "${firm_id}", required: "true" %>
               
               <label class="label_input pos" for="city_id">Город</label>
               <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${city_name}", required: "true" %>
 
-              <label class="label_input pos" for="tariff_id">Тариф</label>
-              <%= select f, :tariff_id, Enum.map(@tariff_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${tariff_name}" %>
-              
-              <%= number_input f, :quantity, class: "input_full mt-2", placeholder: "Количество купленных тарифов", min: "0" %>
-              
               <button class="btn_save my-2 pos" type="submit">Сохранить</button>
             <% end %>
+
+            <%= form_for @conn, Routes.admin_path(@conn, :update_filial_tariff), fn f -> %>
+              <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
+
+              <label class="label_input pos" for="tariff_id">Тариф</label>
+                <%= select f, :tariff_id, Enum.map(@tariff_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${tariff_name}" %>
+                <%= number_input f, :quantity, class: "input_full mt-2", placeholder: "Количество купленных тарифов", min: "0" %>
+                
+                <button class="btn_save my-2 pos" type="submit">Сохранить</button>
+              <% end %>
+            </form>
           </div>
         `,
     })
