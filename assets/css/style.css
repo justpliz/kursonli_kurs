@@ -318,7 +318,7 @@ body.swal2-shown {
 
   .header {
     background-color: white;
-    @apply sm: shadow-md;
+    @apply sm:shadow-md;
   }
 
   .header__body {
