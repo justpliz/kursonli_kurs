@@ -12,7 +12,8 @@ config :kursonli_kurs,
   order_transfer: [:green, :red, :red_green],
   order_type: [:purchase, :sale],
   map_api_key: "f3dea359-6182-45eb-aeb7-82f6dd099f76",
-  catalog_api_key: "rusvwm4868"
+  catalog_api_key: "rusvwm4868",
+  scrapped: "https://mig.kz/"
 
 # Configures the endpoint
 config :kursonli_kurs, KursonliKursWeb.Endpoint,

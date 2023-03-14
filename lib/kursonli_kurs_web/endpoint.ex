@@ -22,7 +22,7 @@ defmodule KursonliKursWeb.Endpoint do
     at: "/",
     from: :kursonli_kurs,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: ~w(assets fonts images favicon.ico robots.txt sitemap.xml)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
