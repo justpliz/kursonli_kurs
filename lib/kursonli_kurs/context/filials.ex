@@ -178,8 +178,7 @@ defmodule KursonliKurs.Context.Filials do
             tags: s.tags,
             phones: s.phones,
             promo: s.promo,
-            visible_website_status: s.visible_website_status,
-            organization_name: org.name
+            visible_website_status: s.visible_website_status
           }
         }
     )
