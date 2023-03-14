@@ -354,7 +354,6 @@ defmodule KursonliKursWeb.WorkerController do
 
   # TODO добавть проверку на error
   def new_courses(conn, params) do
-    IO.inspect(params)
     session = get_session(conn, :worker)
 
     params
