@@ -465,5 +465,16 @@ body.swal2-shown {
 
 .best_course {
   padding: 0 8px;
-  background-color: #a7ffb5;
+  border-radius: 4px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #49aea4;
+}
+
+.mig_table {
+  display: grid;
+  grid-template: auto / 1fr 1fr 1fr;
+  gap: 5px;
+  font-size: 12px;
+  margin-top: 12px;
 }
