@@ -10,6 +10,8 @@ defmodule KursonliKursWeb.PageController do
   end
 
   def index(conn, params) do
+    scrapped_list = scraping()
+
     # TODO переделать запрос
     name = if not is_nil(params["name"]), do: params["name"], else: "Алматы"
 
@@ -23,7 +25,8 @@ defmodule KursonliKursWeb.PageController do
         courses_list: courses_list,
         city_list: city_list,
         name: name,
-        currency_list: currency_list
+        currency_list: currency_list,
+        scrapped_list: scrapped_list
       )
     end
   end
@@ -67,5 +70,27 @@ defmodule KursonliKursWeb.PageController do
     end)
     |> Enum.sort_by(& &1.count, :desc)
     |> Enum.sort_by(&(&1.name == "Алматы"), :desc)
+  end
+
+  defp scraping() do
+    {:ok, response} = Application.get_env(:kursonli_kurs, :scrapped) |> HTTPoison.get()
+
+    [usd_buy, eur_buy, rub_buy, _, _, _, _] =
+      Regex.scan(~r/<td .+"buy .+">.+<\/td>/, response.body)
+      |> Enum.map(fn [x] ->
+        String.replace(x, ~r/(<td .+"buy .+">|<\/td>)/, "")
+      end)
+
+      [usd_sale, eur_sale, rub_sale, _, _, _, _] =
+      Regex.scan(~r/<td .+"sell .+">.+<\/td>/, response.body)
+      |> Enum.map(fn [x] ->
+        String.replace(x, ~r/(<td .+"sell .+">|<\/td>)/, "")
+      end)
+
+    [
+      %{currency: "USD", buy: usd_buy, sale: usd_sale},
+      %{currency: "EUR", buy: eur_buy, sale: eur_sale},
+      %{currency: "RUB", buy: rub_buy, sale: rub_sale}
+    ]
   end
 end
