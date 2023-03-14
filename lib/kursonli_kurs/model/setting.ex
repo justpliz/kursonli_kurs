@@ -7,14 +7,12 @@ defmodule KursonliKurs.Model.Setting do
   @type t :: %__MODULE__{}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(tags address_2gis coordinates description email photo logo filial_id visible_website_status)a
+  @required_fields ~w(tags coordinates description email photo logo filial_id visible_website_status)a
   @optional_fields ~w(schedule phones license qualities colors subdomen firm_id promo)a
 
   schema "settings" do
     field :tags, {:array, :string}, default: ["false", "false"]
     field :coordinates, {:array, :string}, default: ["76.944551", "43.239521"]
-    #TODO delete address_to_2gis
-    field :address_2gis, :string, default: "address_2gis"
     field :firm_id, :string
     field :logo, :string, default: "images/logo/default_logo.jpg"
     field :photo, :string, default: "images/photo/default_photo.jpg"

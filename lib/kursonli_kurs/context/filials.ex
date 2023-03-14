@@ -99,7 +99,6 @@ defmodule KursonliKurs.Context.Filials do
         tariff_name: tariff.name,
         tariff_price: tariff.price,
         coordinates: setting.coordinates,
-        address_2gis: setting.address_2gis,
         firm_id: setting.firm_id,
         email: worker.email
       }

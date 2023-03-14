@@ -1,16 +1,15 @@
 <script>
-  
-    $(".filial_edit").click(function () {
-      const { id, filial_name, coordinates, address_2gis, firm_id, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
-      console.log(city_id)
-      Modalka.fire({
-        showConfirmButton: false,
-        showCloseButton: true,
-        heightAuto: false,
-        willOpen: (toast) => {
-            document.querySelector(`option[value="${city_id}"]`).setAttribute("selected", true);
-         },
-        html: `
+  $(".filial_edit").click(function () {
+    const { id, filial_name, coordinates, firm_id, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
+    console.log(city_id)
+    Modalka.fire({
+      showConfirmButton: false,
+      showCloseButton: true,
+      heightAuto: false,
+      willOpen: (toast) => {
+        document.querySelector(`option[value="${city_id}"]`).setAttribute("selected", true);
+      },
+      html: `
           <div class="flex items-center justify-between">
             <h1 class="title_without_margin">Редактирование филиала</h1>
           </div>
@@ -27,15 +26,12 @@
               <label class="label_input pos" for="y_coordinate">Координата Y</label>
               <%= text_input f, :y_coordinate, class: "input_full", value: "${coordinates[1]}", required: "true" %>
 
-              <label class="label_input pos" for="address_2gis">Адрес для 2gis</label>
-              <%= text_input f, :address_2gis, class: "input_full", value: "${address_2gis}", required: "true" %>
-
               <label class="label_input pos" for="firm_id">ID фирмы</label>
               <%= text_input f, :firm_id, class: "input_full", value: "${firm_id}", required: "true" %>
               
               <label class="label_input pos" for="city_id">Город</label>
               <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${city_name}", required: "true" %>
-              
+
               <button class="btn_save my-2 pos" type="submit">Сохранить</button>
             <% end %>
 
@@ -51,7 +47,6 @@
             </form>
           </div>
         `,
-      })
     })
-  </script>
-  
+  })
+</script>

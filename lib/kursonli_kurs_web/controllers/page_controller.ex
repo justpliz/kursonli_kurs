@@ -15,7 +15,7 @@ defmodule KursonliKursWeb.PageController do
 
     with {:ok, city} <- Cities.do_get(name: name) do
       city_list = get_count_city_with_active_filials()
-      currency_list = Currencies.all() |> Enum.map(&(%{short_name: &1.short_name}))
+      currency_list = Currencies.all() |> Enum.map(&%{short_name: &1.short_name})
       courses_list = Filials.get_filial_by_city(city.id)
 
       conn
@@ -39,7 +39,6 @@ defmodule KursonliKursWeb.PageController do
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
 
       conn
-      
       |> render("personal_page.html",
         setting: setting,
         filial: filial,
@@ -63,9 +62,10 @@ defmodule KursonliKursWeb.PageController do
           filial_active_status: :active,
           visible_course_status: true
         )
+
       %{name: city.name, count: count}
     end)
-    |> Enum.sort_by(&(&1.count), :desc)
+    |> Enum.sort_by(& &1.count, :desc)
     |> Enum.sort_by(&(&1.name == "Алматы"), :desc)
   end
 end

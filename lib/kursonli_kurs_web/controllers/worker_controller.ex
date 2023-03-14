@@ -304,7 +304,9 @@ defmodule KursonliKursWeb.WorkerController do
     currencies_list = Currencies.all() -- my_currencies
 
     last_date = Filials.get_last_date_for_course(session.filial_id)
-    last_date = if not is_nil(last_date), do: date_to_string_data_all(last_date), else: ""
+
+    last_date =
+      if not is_nil(last_date), do: GeneralHelper.date_to_string_data_all(last_date), else: ""
 
     visible_course_status = Filials.get(id: session.filial_id).visible_course_status
 
@@ -352,12 +354,11 @@ defmodule KursonliKursWeb.WorkerController do
 
   # TODO добавть проверку на error
   def new_courses(conn, params) do
-    IO.inspect(params)
     session = get_session(conn, :worker)
 
     params
     |> Map.drop(["_csrf_token"])
-    |> Enum.map(fn {k, _v}  ->
+    |> Enum.map(fn {k, _v} ->
       currency_id = String.to_integer(k)
       FilialsCurrencies.create(%{filial_id: session.filial_id, currency_id: currency_id})
 
@@ -373,8 +374,7 @@ defmodule KursonliKursWeb.WorkerController do
     |> redirect(to: "/worker/courses")
   end
 
-  def delete_course(conn, %{"id" => id} = params) do
-    IO.inspect(params, label: "qwe")
+  def delete_course(conn, %{"id" => id} = _params) do
     with {:ok, course} <- Courses.do_get(id: id),
          {:ok, fc} <-
            FilialsCurrencies.do_get(filial_id: course.filial_id, currency_id: course.currency_id),
@@ -415,7 +415,8 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/settings
   """
   def settings(conn, _params) do
-    with {:ok, filial} <- Filials.do_get(id: get_session(conn, :worker).filial_id),
+    session = get_session(conn, :worker)
+    with {:ok, filial} <- Filials.do_get(id: session.filial_id),
          {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
@@ -424,6 +425,7 @@ defmodule KursonliKursWeb.WorkerController do
 
       conn
       |> render("worker_settings.html",
+        filial: filial,
         setting: setting,
         photo_path: photo_path,
         logo_path: logo_path,
@@ -476,6 +478,11 @@ defmodule KursonliKursWeb.WorkerController do
 
     visible_website_status = params["visible_website_status"]
 
+    filial_opts = %{
+      name: params["filial_name"],
+      filial_address: params["filial_address"]
+    }
+
     opts = %{
       colors: colors,
       qualities: qualities,
@@ -492,7 +499,9 @@ defmodule KursonliKursWeb.WorkerController do
       visible_website_status: visible_website_status
     }
 
-    with {:ok, setting} <- Settings.do_get(filial_id: filial_id),
+    with {:ok, filial} <- Filials.do_get(id: filial_id),
+         {:ok, setting} <- Settings.do_get(filial_id: filial_id),
+         {:ok, _fiiial} <- Filials.update(filial, filial_opts),
          {:ok, _setting} <- Settings.update(setting, opts) do
       conn
       |> put_flash(:info, gettext("Настройки обновлены"))
