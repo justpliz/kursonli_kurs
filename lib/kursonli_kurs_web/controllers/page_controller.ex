@@ -81,16 +81,30 @@ defmodule KursonliKursWeb.PageController do
         String.replace(x, ~r/(<td .+"buy .+">|<\/td>)/, "")
       end)
 
-      [usd_sale, eur_sale, rub_sale, _, _, _, _] =
+    [usd_sale, eur_sale, rub_sale, _, _, _, _] =
       Regex.scan(~r/<td .+"sell .+">.+<\/td>/, response.body)
       |> Enum.map(fn [x] ->
         String.replace(x, ~r/(<td .+"sell .+">|<\/td>)/, "")
       end)
 
+    Decimal.add(usd_buy, "0.5") |> Decimal.to_string()
+
     [
-      %{currency: "USD", buy: usd_buy, sale: usd_sale},
-      %{currency: "EUR", buy: eur_buy, sale: eur_sale},
-      %{currency: "RUB", buy: rub_buy, sale: rub_sale}
+      %{
+        currency: "USD",
+        buy: Decimal.add(usd_buy, "0.5") |> Decimal.to_string(),
+        sale: Decimal.add(usd_sale, "-0.5") |> Decimal.to_string()
+      },
+      %{
+        currency: "EUR",
+        buy: Decimal.add(eur_buy, "0.5") |> Decimal.to_string(),
+        sale: Decimal.add(eur_sale, "-0.5") |> Decimal.to_string()
+      },
+      %{
+        currency: "RUB",
+        buy: Decimal.add(rub_buy, "0.05") |> Decimal.to_string(),
+        sale: Decimal.add(rub_sale, "-0.05") |> Decimal.to_string()
+      }
     ]
   end
 end
