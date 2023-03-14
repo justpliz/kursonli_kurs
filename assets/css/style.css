@@ -470,3 +470,11 @@ body.swal2-shown {
   color: #fff;
   background-color: #49aea4;
 }
+
+.mig_table {
+  display: grid;
+  grid-template: auto / 1fr 1fr 1fr;
+  gap: 5px;
+  font-size: 12px;
+  margin-top: 12px;
+}

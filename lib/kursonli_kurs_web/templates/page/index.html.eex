@@ -16,7 +16,7 @@
     </div>
   </header>
   <section class="max-w-1440 note:mx-4 mobL:mx-1 mx-auto mb:px-2">
-    <div class="flex items-center justify-between">
+    <div class="flex items-start justify-between">
       <div class="flex flex-wrap w-1/2 py-8 mb:py-4 text-dblue">
         <%= for item <- @city_list do %>
           <a class="font-bold pr-4 mb:text-sm" href="city?name=<%= item.name %>">
@@ -26,7 +26,21 @@
           </a>
         <% end %>
       </div>
-      <div class="bg-black rounded-lg mx-auto hidden h-6 w-10"></div>
+      <div class="mx-auto h-6 w-10">
+        <div class="mig_table">
+          <%= for item <- @scrapped_list do %>
+            <div class="font-semibold">
+              <%= item.currency %>
+            </div>
+            <div>
+              <%= item.buy %>
+            </div>
+            <div>
+              <%= item.sale %>
+            </div>
+          <% end %>
+        </div>  
+      </div>
     </div>
     <div class="font-bold text-black text-lg mb:text-sm">
       <h1 class="inline-block">Курсы валют в обменных пунктах в городе</h1> <%= @name %> <h2 class="inline-block">на</h2> <span class="text-dblue text-xl mb:text-lg">
@@ -114,16 +128,11 @@
               data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
               <td class="py-1 border-2 border-b-0 border-l-0 border-tableGray shadow">
                 <div class="h-full">
-                <a href="personal?filial=<%= item.filial_id %>" class="block">
                   <%= if item.setting.visible_website_status==true do %>
+                <a href="personal?filial=<%= item.filial_id %>" class="block">
                     <div class="underline font-bold text-sm mb:text-xs bg-indexAqua py-2 text-white text-center -mt-1 block">
                       <%= item.filial_name %>
                     </div>
-                  <% else %>
-                    <span class="font-bold text-sm mb:text-xs bg-indexAqua py-2 text-white text-center -mt-1 block">
-                      <%= item.filial_name %>
-                    </span>
-                  <% end %>
                   <span class="block font-bold text-base md:text-xs">
                     <%= item.filial_address %>
                   </span>
@@ -159,6 +168,46 @@
                     </a>
                   </div>
                 </a>
+                <% else %>
+                  <span class="font-bold text-sm mb:text-xs bg-indexAqua py-2 text-white text-center -mt-1 block">
+                    <%= item.filial_name %>
+                  </span>
+                  <span class="block font-bold text-base md:text-xs">
+                    <%= item.filial_address %>
+                  </span>
+                  <div class="hidden">
+                    <%= [wholesale_rate, gold]=item.setting.tags %>
+                  </div>
+                  <%= if String.to_atom(wholesale_rate) do %>
+                    <div class="">
+                      <span class="bg-indexGreen text-xs mb:text-small uppercase text-white px-4 mb:px-2 py-1">
+                        Оптовый курс
+                      </span>
+                    <% end %>
+                    <%= if String.to_atom(gold) do %>
+                      <span
+                                  class="bg-indexYellow text-xs mt-4 ml-1 mb:text-small uppercase text-white px-4 mb:px-2 py-1 mob:relative mob:top-1">Золото</span>
+                    </div>
+                  <% end %>
+                  <div class="block mt-1 text-xs md:text-small">
+                    <%= item.setting.promo["promo1"] %>
+                  </div>
+                  <div class="block text-xs md:text-small">
+                    <%= item.setting.promo["promo2"] %>
+                  </div>
+                  <div class="hidden mb:block mb:mt-1 md:text-xs">
+                    <a class="block hover:underline" href='tel:<%= item.setting.phones["phone1"] %>'>
+                      <%= item.setting.phones["phone1"] %>
+                    </a>
+                    <a class="block hover:underline" href='tel:<%= item.setting.phones["phone2"] %>'>
+                      <%= item.setting.phones["phone2"] %>
+                    </a>
+                    <a class="block hover:underline" href='tel:<%= item.setting.phones["phone3"] %>'>
+                      <%= item.setting.phones["phone3"] %>
+                    </a>
+                  </div>
+                </a>
+                <% end %>
               </div>
               </td>
               <td class="px-6 mb:px-2 py-1 border-2 border-b-0 border-tableGray text-center shadow">
