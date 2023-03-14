@@ -347,17 +347,20 @@
       background-image: none;
   }
 
-  #kursinfo5 .kyrsvalyt td.level-up,
-  #kursinfo5 .kyrsvalyt td.level-down {
-      background-image: none;
+  #kursinfo5 .kyrsvalyt td.level-up {
+      background-image: url(https://kurs-tenge.kz/informers/img/icon/up.png);
       background-repeat: no-repeat;
-      background-size: 0px;
+      background-size: 10px;
       background-position: left center;
-      padding: 0 0 0 0px;
+      padding: 0 0 0 20px;
   }
 
   #kursinfo5 .kyrsvalyt td.level-down {
-      background-image: none;
+      background-image: URL(https://kurs-tenge.kz/informers/img/icon/down.png);
+      background-repeat: no-repeat;
+      background-size: 10px;
+      background-position: left center;
+      padding: 0 0 0 20px;
       color: red;
   }
 </style>

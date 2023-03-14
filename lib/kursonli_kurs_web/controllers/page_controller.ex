@@ -2,6 +2,7 @@ defmodule KursonliKursWeb.PageController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
+  alias Crawly.Fetchers.HTTPoisonFetcher
   alias KursonliKurs.Context.{Currencies, Filials, Settings, Cities}
 
   def redirect_almaty(conn, _params) do
@@ -10,6 +11,8 @@ defmodule KursonliKursWeb.PageController do
   end
 
   def index(conn, params) do
+    x = scraping()
+
     # TODO переделать запрос
     name = if not is_nil(params["name"]), do: params["name"], else: "Алматы"
 
@@ -67,5 +70,23 @@ defmodule KursonliKursWeb.PageController do
     end)
     |> Enum.sort_by(& &1.count, :desc)
     |> Enum.sort_by(&(&1.name == "Алматы"), :desc)
+  end
+
+  def scraping() do
+    {:ok, response} = Application.get_env(:kursonli_kurs, :scrapped) |> HTTPoison.get()
+
+    buy =
+      Regex.scan(~r/<td .+"buy .+">.+<\/td>/, response.body)
+      |> Enum.map(fn [x] ->
+        String.replace(x, ~r/(<td .+"buy .+">|<\/td>)/, "")
+      end)
+
+    sale =
+      Regex.scan(~r/<td .+"sell .+">.+<\/td>/, response.body)
+      |> Enum.map(fn [x] ->
+        String.replace(x, ~r/(<td .+"sell .+">|<\/td>)/, "")
+      end)
+
+
   end
 end
