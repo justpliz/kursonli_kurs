@@ -40,7 +40,7 @@ defmodule KursonliKurs.MixProject do
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
-      {:floki, ">= 0.30.0", only: :test},
+      {:floki, ">= 0.30.0"},
       {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
@@ -55,6 +55,7 @@ defmodule KursonliKurs.MixProject do
       # Dates Formatting
       {:timex, "~> 3.6"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
+      {:httpoison, "~> 2.0"},
       {:pw_helper, git: "https://github.com/kalachlegends/pw_helper", tag: "0.2.3"}
     ]
   end
