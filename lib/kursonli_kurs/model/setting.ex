@@ -3,6 +3,7 @@ defmodule KursonliKurs.Model.Setting do
 
   import Ecto.Changeset
   alias KursonliKurs.Model.Filial
+  alias KursonliKursWeb.GeneralHelper
 
   @type t :: %__MODULE__{}
 
@@ -20,12 +21,12 @@ defmodule KursonliKurs.Model.Setting do
     field :email, :string, default: "email@email.kz"
     field :subdomen, :string, default: ""
     field :description, :string, default: "Описание будет добавлено позже"
-    field :visible_website_status, :boolean, default: :false
+    field :visible_website_status, :boolean, default: false
 
     field :promo, :map,
       default: %{
         promo1: "",
-        promo2: "",
+        promo2: ""
       }
 
     field :schedule, :map,
@@ -52,7 +53,8 @@ defmodule KursonliKurs.Model.Setting do
         color_currency: "#000000",
         color_qualities: "#000000",
         color_scoreboard: "#000000",
-        color_qualities_text: "#ffffff"
+        color_qualities_text: "#ffffff",
+        color_logo: GeneralHelper.generate_random_color()
       }
 
     belongs_to :filial, Filial, type: :binary_id
@@ -61,7 +63,20 @@ defmodule KursonliKurs.Model.Setting do
   @doc false
   def changeset(setting, attrs) do
     setting
+    |> ensure_color_logo()
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
+  end
+
+  def ensure_color_logo(changeset) do
+    if is_nil(changeset.colors["color_logo"]) do
+      color_logo = GeneralHelper.generate_random_color()
+      colors = Map.put(changeset.colors, "color_logo", color_logo)
+
+      changeset
+      |> change(colors: colors)
+    else
+      changeset
+    end
   end
 end
