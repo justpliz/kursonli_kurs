@@ -25,7 +25,7 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   @doc """
   Generate random string in upper case
-  For example: ""PJ8JVMBLVI""
+  For example: "PJ8JVMBLVI"
   """
   def generate_random_str(count) do
     for _ <- 1..count,
@@ -33,6 +33,18 @@ defmodule KursonliKursWeb.GeneralHelper do
         do:
           <<Enum.random('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')>>
           |> String.upcase()
+  end
+
+  @doc """
+  Generate random HEX color color
+  For example: "#3c46cd"
+  """
+  def generate_random_color do
+    for _ <- 1..6,
+        into: "#",
+        do:
+          <<Enum.random('0123456789abcdef')>>
+          |> String.downcase()
   end
 
   @doc """

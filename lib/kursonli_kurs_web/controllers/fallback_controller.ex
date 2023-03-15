@@ -23,7 +23,7 @@ defmodule KursonliKursWeb.FallbackController do
     conn
     |> put_status(403)
     |> put_view(ErrorView)
-    |> render("403.html")
+    |> redirect(to: "/worker/login")
   end
 
   def call(conn, error) do

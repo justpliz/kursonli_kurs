@@ -73,24 +73,36 @@ defmodule KursonliKursWeb.PageController do
   end
 
   defp scraping() do
-    {:ok, response} = Application.get_env(:kursonli_kurs, :scrapped) |> HTTPoison.get()
-
-    [usd_buy, eur_buy, rub_buy, _, _, _, _] =
-      Regex.scan(~r/<td .+"buy .+">.+<\/td>/, response.body)
-      |> Enum.map(fn [x] ->
-        String.replace(x, ~r/(<td .+"buy .+">|<\/td>)/, "")
-      end)
+    with {:ok, response} = Application.get_env(:kursonli_kurs, :scrapped) |> HTTPoison.get() do
+      [usd_buy, eur_buy, rub_buy, _, _, _, _] =
+        Regex.scan(~r/<td .+"buy .+">.+<\/td>/, response.body)
+        |> Enum.map(fn [x] ->
+          String.replace(x, ~r/(<td .+"buy .+">|<\/td>)/, "")
+        end)
 
       [usd_sale, eur_sale, rub_sale, _, _, _, _] =
-      Regex.scan(~r/<td .+"sell .+">.+<\/td>/, response.body)
-      |> Enum.map(fn [x] ->
-        String.replace(x, ~r/(<td .+"sell .+">|<\/td>)/, "")
-      end)
+        Regex.scan(~r/<td .+"sell .+">.+<\/td>/, response.body)
+        |> Enum.map(fn [x] ->
+          String.replace(x, ~r/(<td .+"sell .+">|<\/td>)/, "")
+        end)
 
-    [
-      %{currency: "USD", buy: usd_buy, sale: usd_sale},
-      %{currency: "EUR", buy: eur_buy, sale: eur_sale},
-      %{currency: "RUB", buy: rub_buy, sale: rub_sale}
-    ]
+      [
+        %{
+          currency: "USD",
+          buy: Decimal.add(usd_buy, "0.5") |> Decimal.to_string(),
+          sale: Decimal.add(usd_sale, "-0.5") |> Decimal.to_string()
+        },
+        %{
+          currency: "EUR",
+          buy: Decimal.add(eur_buy, "0.5") |> Decimal.to_string(),
+          sale: Decimal.add(eur_sale, "-0.5") |> Decimal.to_string()
+        },
+        %{
+          currency: "RUB",
+          buy: Decimal.add(rub_buy, "0.05") |> Decimal.to_string(),
+          sale: Decimal.add(rub_sale, "-0.05") |> Decimal.to_string()
+        }
+      ]
+    end
   end
 end
