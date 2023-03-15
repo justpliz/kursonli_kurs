@@ -46,12 +46,33 @@ config :esbuild,
 
 # Configures Elixir's Logger
 config :logger,
-  backends: [:console, {LoggerFileBackend, :error_log}],
-  format: "[$level] $message\n"
+  backends: [
+    {LoggerFileBackend, :error_log},
+    {LoggerFileBackend, :info_log},
+    {LoggerFileBackend, :critical},
+    {LoggerFileBackend, :emergency},
+    {LoggerFileBackend, :alert}
+  ]
+
+config :logger, :info_log,
+  path: "log/info.log",
+  level: :info
 
 config :logger, :error_log,
-  path: "/tmp/info.log",
-  level: :debug
+  path: "log/error.log",
+  level: :error
+
+config :logger, :critical,
+  path: "log/critical.log",
+  level: :critical
+
+config :logger, :emergency,
+  path: "log/emergency.log",
+  level: :emergency
+
+config :logger, :alert,
+  path: "log/alert.log",
+  level: :alert
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
