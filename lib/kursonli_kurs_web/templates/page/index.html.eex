@@ -57,6 +57,7 @@
         <% end %>
       </div>
     </div>
+
     <div class="relative overflow-x-auto mt-6">
       <table class="w-full text-sm text-left text-black border-separate border-spacing-2">
         <thead class="text-base">
@@ -71,7 +72,7 @@
               </div>
             </th>
             <th scope="col" class="px-2 py-2 bg-white rounded-2xl">
-              <select class="select_table" data-select="1">
+              <select class="select_table appearance-none" data-select="1">
                 <%= for item <- @currency_list do %>
                   <%= if item.short_name=="USD" do %>
                     <option class="" selected="selected" value="<%= item.short_name %>">
@@ -86,7 +87,7 @@
               </select>
             </th>
             <th scope="col" class="px-2 py-2 bg-white rounded-2xl">
-              <select class="select_table" data-select="2">
+              <select class=" appearance-none select_table" data-select="2">
                 <%= for item <- @currency_list do %>
                   <%= if item.short_name=="EUR" do %>
                     <option class="" selected="selected" value="<%= item.short_name %>">
@@ -101,7 +102,7 @@
               </select>
             </th>
             <th scope="col" class="px-2 py-2 bg-white rounded-2xl">
-              <select class="select_table" data-select="3">
+              <select class="select_table appearance-none" data-select="3">
                 <%= for item <- @currency_list do %>
                   <%= if item.short_name=="RUB" do %>
                     <option class="" selected="selected" value="<%= item.short_name %>">
@@ -119,14 +120,20 @@
         </thead>
         <tbody class="text-center">
           <%= for item <- @courses_list do %>
-            <tr class="bg-white border-spacing-y-2 border-separate">
+            <tr class="bg-white border-spacing-y-2 border-separate" data-id="<%= item.filial_id %>" data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
               <th scope="row" class="px-4 py-4 bg-white rounded-2xl text-left min-w-400 w-400">
                 <div class="flex gap-4">
                   <div class="w-14 h-14">
                     <%= if item.setting.logo == nil do %>
-                      <div class="p-5 text-center text-gray-100 rounded-full" style="background-color: <%= item.setting.color_logo %>;">
-                        <%= item.first_letter %>
-                      </div> 
+                      <%= if item.setting.color_logo != "" do %>
+                        <div class="p-3 text-center text-2xl text-white rounded-full" style="background-color: <%= item.setting.color_logo %>;">
+                          <%= item.first_letter %>
+                        </div>
+                      <% else %>
+                        <div class="p-3 text-center text-2xl bg-black text-white rounded-full">
+                          <%= item.first_letter %>
+                        </div>
+                      <% end %>
                     <% else %>
                       <img src="<%= item.setting.logo %>" alt="" class="rounded-full object-cover">
                     <% end %>
@@ -143,9 +150,9 @@
                     <div class="flex items-start">
                       <img src="/images/icons/phone_icon.svg" class="bg-contain mt-1" alt="phone">
                       <div class="flex flex-wrap ml-1">
-                        <div class=""><%= item.setting.phones["phone1"] %></div>
-                        <div class="mr-1"><%= item.setting.phones["phone2"] %></div>
-                        <div class="mr-1"><%= item.setting.phones["phone3"] %></div>
+                        <a href='tel:<%= item.setting.phones["phone1"] %>' class=""><%= item.setting.phones["phone1"] %></a>
+                        <a href='tel:<%= item.setting.phones["phone2"] %>' class="mr-1"><%= item.setting.phones["phone2"] %></a>
+                        <a href='tel:<%= item.setting.phones["phone3"] %>' class="mr-1"><%= item.setting.phones["phone3"] %></a>
                       </div>
                     </div>
                     <% end %>
@@ -153,15 +160,17 @@
                       <%= [wholesale_rate, gold]=item.setting.tags %>
                     </div>
                     <%= if String.to_atom(wholesale_rate) do %>
-                    <div class="mt-2">
-                      <span class="bg-indexGreen rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
-                        Оптовый курс
-                      </span>
-                    </div>
+                      <div class="mt-2 inline-block">
+                        <span class="bg-indexGreen rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
+                          Оптовый курс
+                        </span>
+                      </div>
                     <% end %>
                     <%= if String.to_atom(gold) do %>
-                    <div class="mt-2">
-                        <span class="bg-indexYellow rounded-full font-normal text-xs mt-4 text-black px-4 py-1">Золото</span>
+                      <div class="mt-2 inline-block">
+                        <span class="bg-indexYellow rounded-full font-normal text-xs text-black px-4 py-1">
+                          Золото
+                        </span>
                       </div>
                     <% end %>
                   </div>
@@ -181,22 +190,39 @@
                   <%= item.humanizated_date %>
                 </div>
               </td>
-              <td class="px-2 py-4 bg-white relative after_table">
-                
+
+              <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "USD") %>
+              <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "USD") %>
+              <td class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item" data-select="1">
+                <span class="purchase"><%= purchase %></span>
+                <span class="mx-2">-</span>
+                <span class="sale"><%= sale %></span>
               </td>
-              <td class="px-2 py-4 bg-white relative after_table">
-                
+
+              <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "EUR") %>
+              <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "EUR") %>
+              <td class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item" data-select="2">
+                <span class="purchase"><%= purchase %></span>
+                <span class="mx-2">-</span>
+                <span class="sale"><%= sale %></span>
               </td>
-              <td class="px-4 py-4 bg-white rounded-r-2xl">
-                
+
+              <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "RUB") %>
+              <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "RUB") %>
+              <td class="px-4 py-4 font-bold text-base bg-white rounded-r-2xl dataget item" data-select="3">
+                <span class="purchase"><%= purchase %></span>
+                <span class="mx-2">-</span>
+                <span class="sale"><%= sale %></span>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
     </div>
+    <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!() %>"></div>
   </div>
 </div>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const elements = [...document.querySelectorAll("[data-id]")]
@@ -282,23 +308,4 @@
       elementsMinGreen()
     }));
   });
-
-  const table = document.getElementById("index-table");
-  const rows = [...table.getElementsByClassName("data-table")[0].getElementsByTagName("tr")];
-  const imgSortClickHandler = (event) => {
-    const sortDirection = event.target.src.includes("down") ? 1 : -1;
-    rows.sort((a, b) => {
-      const timeA = a.getElementsByClassName("time")[0].innerText;
-      const timeB = b.getElementsByClassName("time")[0].innerText;
-      return sortDirection * (timeA < timeB ? -1 : (timeA > timeB ? 1 : 0));
-    });
-    rows.forEach((row) => table.getElementsByClassName("data-table")[0].appendChild(row));
-    if (event.target.src.includes("down")) {
-      event.target.src = "/images/icons/color_arrow_up.svg";
-    } else {
-      event.target.src = "/images/icons/color_arrow_down.svg";
-    }
-  };
-  const imgSortElements = [...table.getElementsByClassName("img_sort")];
-  imgSortElements.forEach((imgSortElement) => imgSortElement.addEventListener("click", imgSortClickHandler));
 </script>
