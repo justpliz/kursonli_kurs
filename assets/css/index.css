@@ -1,0 +1,10 @@
+.after_table::after {
+  content: "";
+  position: absolute;
+  right: -20px;
+  top: 0;
+  background: #fff;
+  width: 20px;
+  height: 100%;
+
+}
