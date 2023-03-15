@@ -122,7 +122,15 @@
             <tr class="bg-white border-spacing-y-2 border-separate">
               <th scope="row" class="px-4 py-4 bg-white rounded-2xl text-left min-w-400 w-400">
                 <div class="flex gap-4">
-                  <div class="w-14 h-14">M</div>
+                  <div class="w-14 h-14">
+                    <%= if item.setting.logo == nil do %>
+                      <div class="p-5 text-center text-gray-100 rounded-full" style="background-color: <%= item.setting.color_logo %>;">
+                        <%= item.first_letter %>
+                      </div> 
+                    <% else %>
+                      <img src="<%= item.setting.logo %>" alt="" class="rounded-full object-cover">
+                    <% end %>
+                  </div>
                   <div>
                     <div>
                       <%= item.filial_name %>
@@ -144,16 +152,18 @@
                     <div class="hidden">
                       <%= [wholesale_rate, gold]=item.setting.tags %>
                     </div>
+                    <%= if String.to_atom(wholesale_rate) do %>
                     <div class="mt-2">
-                      <%= if String.to_atom(wholesale_rate) do %>
-                      <span class="bg-indexGreen rounded-full font-normal text-xs text-white px-4 py-1">
+                      <span class="bg-indexGreen rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
                         Оптовый курс
                       </span>
-                      <% end %>
-                      <%= if String.to_atom(gold) do %>
-                        <span class="bg-indexYellow rounded-full font-normal text-xs mt-4 ml-1 text-black px-4 py-1">Золото</span>
-                      <% end %>
                     </div>
+                    <% end %>
+                    <%= if String.to_atom(gold) do %>
+                    <div class="mt-2">
+                        <span class="bg-indexYellow rounded-full font-normal text-xs mt-4 text-black px-4 py-1">Золото</span>
+                      </div>
+                    <% end %>
                   </div>
                 </div>
               </th>

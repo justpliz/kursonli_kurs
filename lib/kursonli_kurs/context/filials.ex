@@ -186,7 +186,7 @@ defmodule KursonliKurs.Context.Filials do
     )
     |> Enum.map(
       &%{
-        setting: &1.setting,
+        setting: ensure_default_logo(&1.setting),
         course: course_handler(&1.filial.course),
         filial_id: &1.filial.id,
         filial_address: &1.filial.filial_address,
@@ -196,10 +196,10 @@ defmodule KursonliKurs.Context.Filials do
         date_m: GeneralHelper.date_to_string_time_m(hd(&1.filial.course).date),
         date_s: GeneralHelper.date_to_string_time_s(hd(&1.filial.course).date),
         humanizated_date: GeneralHelper.humanizated_date(hd(&1.filial.course).date),
-        first_letter: &1.filial.name |> String.trim() |> String.first |> String.upcase()
+        first_letter: &1.filial.name |> String.trim() |> String.first() |> String.upcase()
       }
     )
-    |> Enum.sort_by(&(&1.date), :desc)
+    |> Enum.sort_by(& &1.date, :desc)
   end
 
   defp course_handler(course) do
@@ -211,5 +211,11 @@ defmodule KursonliKurs.Context.Filials do
         value_for_purchase: &1.value_for_purchase
       }
     )
+  end
+
+  def ensure_default_logo(setting) do
+    if setting.logo != "images/logo/default_logo.jpg",
+      do: setting,
+      else: Map.put(setting, :logo, nil)
   end
 end
