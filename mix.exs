@@ -48,6 +48,7 @@ defmodule KursonliKurs.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
+      {:logger_file_backend, "~> 0.0.13"},
 
       # Enums for Ecto
       {:ecto_enum, "~> 1.4"},
