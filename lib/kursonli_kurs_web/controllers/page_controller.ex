@@ -2,7 +2,6 @@ defmodule KursonliKursWeb.PageController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias Crawly.Fetchers.HTTPoisonFetcher
   alias KursonliKurs.Context.{Currencies, Filials, Settings, Cities}
 
   def redirect_almaty(conn, _params) do
@@ -11,7 +10,7 @@ defmodule KursonliKursWeb.PageController do
   end
 
   def index(conn, params) do
-    x = scraping()
+    scrapped_list = scraping()
 
     # TODO переделать запрос
     name = if not is_nil(params["name"]), do: params["name"], else: "Алматы"
@@ -26,7 +25,8 @@ defmodule KursonliKursWeb.PageController do
         courses_list: courses_list,
         city_list: city_list,
         name: name,
-        currency_list: currency_list
+        currency_list: currency_list,
+        scrapped_list: scrapped_list
       )
     end
   end
@@ -72,21 +72,37 @@ defmodule KursonliKursWeb.PageController do
     |> Enum.sort_by(&(&1.name == "Алматы"), :desc)
   end
 
-  def scraping() do
-    {:ok, response} = Application.get_env(:kursonli_kurs, :scrapped) |> HTTPoison.get()
+  defp scraping() do
+    with {:ok, response} = Application.get_env(:kursonli_kurs, :scrapped) |> HTTPoison.get() do
+      [usd_buy, eur_buy, rub_buy, _, _, _, _] =
+        Regex.scan(~r/<td .+"buy .+">.+<\/td>/, response.body)
+        |> Enum.map(fn [x] ->
+          String.replace(x, ~r/(<td .+"buy .+">|<\/td>)/, "")
+        end)
 
-    buy =
-      Regex.scan(~r/<td .+"buy .+">.+<\/td>/, response.body)
-      |> Enum.map(fn [x] ->
-        String.replace(x, ~r/(<td .+"buy .+">|<\/td>)/, "")
-      end)
+      [usd_sale, eur_sale, rub_sale, _, _, _, _] =
+        Regex.scan(~r/<td .+"sell .+">.+<\/td>/, response.body)
+        |> Enum.map(fn [x] ->
+          String.replace(x, ~r/(<td .+"sell .+">|<\/td>)/, "")
+        end)
 
-    sale =
-      Regex.scan(~r/<td .+"sell .+">.+<\/td>/, response.body)
-      |> Enum.map(fn [x] ->
-        String.replace(x, ~r/(<td .+"sell .+">|<\/td>)/, "")
-      end)
-
-
+      [
+        %{
+          currency: "USD",
+          buy: Decimal.add(usd_buy, "0.5") |> Decimal.to_string(),
+          sale: Decimal.add(usd_sale, "-0.5") |> Decimal.to_string()
+        },
+        %{
+          currency: "EUR",
+          buy: Decimal.add(eur_buy, "0.5") |> Decimal.to_string(),
+          sale: Decimal.add(eur_sale, "-0.5") |> Decimal.to_string()
+        },
+        %{
+          currency: "RUB",
+          buy: Decimal.add(rub_buy, "0.05") |> Decimal.to_string(),
+          sale: Decimal.add(rub_sale, "-0.05") |> Decimal.to_string()
+        }
+      ]
+    end
   end
 end

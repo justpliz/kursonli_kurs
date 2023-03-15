@@ -179,7 +179,8 @@ defmodule KursonliKurs.Context.Filials do
             phones: s.phones,
             promo: s.promo,
             visible_website_status: s.visible_website_status,
-            organization_name: org.name
+            logo: s.logo,
+            color_logo: s.colors["color_logo"]
           }
         }
     )
@@ -194,7 +195,8 @@ defmodule KursonliKurs.Context.Filials do
         date_h: GeneralHelper.date_to_string_time_h(hd(&1.filial.course).date),
         date_m: GeneralHelper.date_to_string_time_m(hd(&1.filial.course).date),
         date_s: GeneralHelper.date_to_string_time_s(hd(&1.filial.course).date),
-        humanizated_date: GeneralHelper.humanizated_date(hd(&1.filial.course).date)
+        humanizated_date: GeneralHelper.humanizated_date(hd(&1.filial.course).date),
+        first_letter: &1.filial.name |> String.trim() |> String.first |> String.upcase()
       }
     )
     |> Enum.sort_by(&(&1.date), :desc)
