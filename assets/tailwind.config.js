@@ -17,14 +17,15 @@ module.exports = {
         dblue: '#000045',
         blub: '#3689ce',
         lightBlub: '#5699d1',
-        indexGreen: '#0079fd',
+        indexGreen: '#1BD2A4',
         indexYellow: '#f28d06',
         indexAqua: '#49aea4',
         grey: '#f3f3f3',
         accept: '#009640',
         index: '#ada3b6',
-        indexYellow: '#f7ac3b',
+        indexYellow: '#FFDE54',
         grayText: '#444444',
+        indexGray: '#E4E4E4',
       },
       minHeight: {
         '600': '600px',
@@ -37,9 +38,11 @@ module.exports = {
       },
       maxWidth: {
         '1440': '1440px',
+        '1200': '1200px',
       },
       minWidth: {
         '600': '600px',
+        '400': '400px',
       },
       height: {
         '600': '600px',
@@ -54,6 +57,7 @@ module.exports = {
         '10p': '10%',
         '14p': '14%',
         '92': '92%',
+        '400': '400px',
       },
       margin: {
         '2p': '0px'
