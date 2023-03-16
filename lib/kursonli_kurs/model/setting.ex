@@ -62,21 +62,23 @@ defmodule KursonliKurs.Model.Setting do
 
   @doc false
   def changeset(setting, attrs) do
+    attrs = if is_nil(attrs[:color]), do: ensure_color_logo(attrs), else: attrs
+
     setting
-    |> ensure_color_logo()
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
   end
 
-  def ensure_color_logo(changeset) do
-    if is_nil(changeset.colors["color_logo"]) do
+  defp ensure_color_logo(attrs) do
+    IO.inspect(attrs, label: "attrsr")
+    # TODO Заменить 2 put'a на 1
+    if is_nil(attrs.colors["color_logo"]) do
       color_logo = GeneralHelper.generate_random_color()
-      colors = Map.put(changeset.colors, "color_logo", color_logo)
-
-      changeset
-      |> change(colors: colors)
+      |> IO.inspect(label: "URAA")
+      colors = Map.put(attrs.colors, "color_logo", color_logo)
+      Map.put(attrs, :colors, colors)
     else
-      changeset
+      attrs
     end
   end
 end
