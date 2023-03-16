@@ -6,5 +6,29 @@
   background: #fff;
   width: 20px;
   height: 100%;
+}
 
+@media (max-width: 768px) {
+  .after_table:nth-child(3):after {
+    background: transparent;
+  }
+}
+
+.select_table {
+  padding: 5px 0px 10px 0px;
+  text-align: center;
+  border: none;
+  outline: none;
+  appearance: none;
+  background: url("/images/icons/bottom_arrow.svg") no-repeat bottom center;
+  background-size: 30% 30%;
+}
+
+.select_table:focus {
+  border: 0px solid transparent;
+  outline: none;
+}
+
+.rotated {
+  transform: rotate(180deg);
 }

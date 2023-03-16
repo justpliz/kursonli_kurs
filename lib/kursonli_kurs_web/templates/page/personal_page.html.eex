@@ -23,9 +23,9 @@
   }
 </style>
 <div class="font">
-  <div class="w-full bg-white shadow-xl">
+  <div class="w-full bg-white">
     <div
-            class="w-1440 mb:w-auto mb:flex-col mb:h-auto mb:py-2 flex justify-between items-center mx-auto h-20 text-black">
+            class="max-w-1440 mb:w-auto mb:flex-col mb:h-auto mb:py-2 flex justify-between items-center mx-auto h-20 text-black">
       <ul class="flex gap-10 text-lg mb:gap-4">
         <a href="#adress" class="link_to scroll-to">
           <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
@@ -91,7 +91,7 @@
           </div>
       </div>
       <div class="flex flex-col gap-4 w-1/3 sm:w-full h-auto">
-        <div class="bg-gray-200 rounded-xl p-6 sm:p-4">
+        <div class="bg-white rounded-xl p-6 sm:p-4">
           <h2 class="font-bold text-center">Национальный банк</h2>
           <div id="kyrs"></div>
           <script>
@@ -149,7 +149,7 @@
           });
         </script>
       </div>
-      <div class="bg-gray-200 shadow-xl rounded-xl py-10 px-8 width_30 mb:w-full mb:px-4">
+      <div class="bg-white shadow-xl rounded-xl py-10 px-8 width_30 mb:w-full mb:px-4">
         <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменника</h2>
         <div class="relative pt-10 flex flex-col">
           <div class="flex pb-4 items-center">
