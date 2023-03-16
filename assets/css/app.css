@@ -6,6 +6,7 @@
 
 @import "./style.css";
 @import "./modificator.css";
+@import "./index.css";
 
 :disabled {
     cursor: not-allowed;

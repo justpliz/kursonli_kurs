@@ -63,20 +63,7 @@ defmodule KursonliKurs.Model.Setting do
   @doc false
   def changeset(setting, attrs) do
     setting
-    |> ensure_color_logo()
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
-  end
-
-  def ensure_color_logo(changeset) do
-    if is_nil(changeset.colors["color_logo"]) do
-      color_logo = GeneralHelper.generate_random_color()
-      colors = Map.put(changeset.colors, "color_logo", color_logo)
-
-      changeset
-      |> change(colors: colors)
-    else
-      changeset
-    end
   end
 end
