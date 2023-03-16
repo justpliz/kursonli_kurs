@@ -138,15 +138,9 @@
                   <div class="flex gap-4">
                     <div class="">
                       <%= if item.setting.logo == nil do %>
-                        <%= if item.setting.color_logo != "" do %>
-                          <div class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14" style="background-color: <%= item.setting.color_logo %> !important;">
+                          <div class="p-3 text-center text-2xl bg-green-400 text-white rounded-full w-14 h-14" style="background-color: <%= item.setting.color_logo %> !important;">
                             <%= item.first_letter %>
                           </div>
-                        <% else %>
-                          <div class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14">
-                            <%= item.first_letter %>
-                          </div>
-                        <% end %>
                       <% else %>
                         <div class="w-14 h-14">
                           <img src="<%= item.setting.logo %>" alt="" class="rounded-full bg-cover h-full w-full">

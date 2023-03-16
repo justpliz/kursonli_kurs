@@ -105,7 +105,6 @@
           <div class="flex gap-4">
             <div class="flex-col">
               <label class="label_input pt-2"><%= gettext("Цвет валют") %></label>
-              <%= hidden_input f, :color_logo, placeholder: "", value: @setting.colors["color_logo"], class: "w-20 h-10" %>
               <%= color_input f, :color_currency, placeholder: "", value: @setting.colors["color_currency"], class: "w-20 h-10", required: "true" %>
               <label class="label_input pt-2"><%= gettext("Цвет фона табло") %></label>
               <%= color_input f, :color_scoreboard, placeholder: "", value: @setting.colors["color_scoreboard"], class: "w-20 h-10", required: "true" %>
