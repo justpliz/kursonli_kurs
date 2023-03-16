@@ -150,7 +150,7 @@
         </script>
       </div>
       <div class="bg-white shadow-xl rounded-xl py-10 px-8 width_30 mb:w-full mb:px-4">
-        <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменника</h2>
+        <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменного пункта</h2>
         <div class="relative pt-10 flex flex-col">
           <div class="flex pb-4 items-center">
             <span class="material-symbols-outlined pr-4"
