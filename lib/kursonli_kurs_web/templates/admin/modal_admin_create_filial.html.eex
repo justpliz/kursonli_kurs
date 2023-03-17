@@ -33,7 +33,7 @@
 
                   <div class="mb-2">
                     <label class="label_input pos">Email</label>
-                    <%= email_input f, :email, class: "input_full", required: "true", placeholder: "name-email@gmail.com" %>
+                    <%= email_input f, :email, class: "input_full input_text_lowercase", required: "true", placeholder: "name-email@gmail.com" %>
                   </div>
                   
                   <div class="mb-2">

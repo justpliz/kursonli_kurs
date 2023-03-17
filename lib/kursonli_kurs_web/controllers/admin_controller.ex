@@ -87,7 +87,7 @@ defmodule KursonliKursWeb.AdminController do
     }
 
     worker_opts = %{
-      email: params["email"],
+      email: String.downcase(params["email"]),
       password: hash_str(password)
     }
 
@@ -268,7 +268,7 @@ defmodule KursonliKursWeb.AdminController do
     password = generate_random_str(8)
 
     worker_opts = %{
-      email: params["email"],
+      email: String.downcase(params["email"]),
       password: hash_str(password)
     }
 
