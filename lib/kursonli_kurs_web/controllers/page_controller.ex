@@ -105,4 +105,13 @@ defmodule KursonliKursWeb.PageController do
       ]
     end
   end
+
+  def instruction(conn, _params) do
+    IO.inspect("lol")
+    path_kaz = "http://#{conn.host}:#{conn.port}/documents/instruction_kurs-online_kaz.pdf"
+    # path_rus = "http://#{conn.host}:#{conn.port}/documents/instruction_kurs-online_rus.pdf"
+
+    conn
+    |> render("instruction.html")
+  end
 end

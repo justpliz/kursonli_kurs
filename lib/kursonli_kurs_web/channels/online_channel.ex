@@ -57,6 +57,7 @@ defmodule KursonliKursWeb.OnlineChannel do
     :ok
   end
 
+  @spec change_color(any, any) :: :ok
   @doc """
   # Меняет цвет ивента
   """

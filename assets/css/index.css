@@ -24,6 +24,10 @@
   .after_table:nth-child(3):after {
     background: transparent;
   }
+
+  .after_table:nth-child(3):before {
+    background: transparent;
+  }
 }
 
 .select_table {
