@@ -25,7 +25,7 @@ defmodule KursonliKurs.Auth.WorkerCheck do
   end
 
   def not_auth(conn, message \\ "Вы не авторизованы") do
-    Logger.error("conn.state for not_auth: #{conn.state}")
+    Logger.error("conn.state for not_auth: #{conn}")
     conn
     |> put_status(:unauthorized)
     |> put_flash(:error, message)
