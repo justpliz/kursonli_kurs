@@ -416,6 +416,7 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def settings(conn, _params) do
     session = get_session(conn, :worker)
+
     with {:ok, filial} <- Filials.do_get(id: session.filial_id),
          {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
@@ -487,7 +488,7 @@ defmodule KursonliKursWeb.WorkerController do
       colors: colors,
       qualities: qualities,
       phones: phones,
-      email: params["email"],
+      email: String.downcase(params["email"]),
       schedule: schedule,
       logo: logo,
       photo: photo,

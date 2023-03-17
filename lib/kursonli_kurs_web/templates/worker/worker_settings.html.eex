@@ -83,7 +83,7 @@
           </div>
           <div class="flex flex-col w-full">
             <label class="label_input">Email</label>
-            <%= text_input f, :email, placeholder: "", value: @setting.email, class: "input_full",
+            <%= text_input f, :email, placeholder: "", value: @setting.email, class: "input_full input_text_lowercase",
             required: "true" %>
           </div>
         </div>
