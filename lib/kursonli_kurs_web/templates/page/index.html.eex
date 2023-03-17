@@ -134,67 +134,67 @@
             <tr class="bg-white border-spacing-y-2 border-separate" data-id="<%= item.filial_id %>" data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
               <th scope="row" class="px-4 py-4 bg-white rounded-2xl text-left">
                 <%= if item.setting.visible_website_status == true do %>
-                <a href="personal?filial=<%= item.filial_id %>" class="block">
-                  <div class="flex gap-4">
-                    <div class="">
-                      <%= if item.setting.logo == nil do %>
-                          <div class="p-3 text-center text-2xl bg-green-400 text-white rounded-full w-14 h-14" style="background-color: <%= item.setting.color_logo %> !important;">
-                            <%= item.first_letter %>
+                  <a href="personal?filial=<%= item.filial_id %>" class="block">
+                    <div class="flex gap-4 font-normal">
+                      <div class="">
+                        <%= if item.setting.logo == nil do %>
+                            <div class="p-3 text-center text-2xl bg-green-400 text-white rounded-full w-14 h-14" style="background-color: <%= item.setting.color_logo %> !important;">
+                              <%= item.first_letter %>
+                            </div>
+                        <% else %>
+                          <div class="w-14 h-14">
+                            <img src="<%= item.setting.logo %>" alt="" class="rounded-full bg-cover h-full w-full">
                           </div>
-                      <% else %>
-                        <div class="w-14 h-14">
-                          <img src="<%= item.setting.logo %>" alt="" class="rounded-full bg-cover h-full w-full">
-                        </div>
-                      <% end %>
-                    </div>
-                    <div>
-                      <div class="text-base">
-                        <%= item.filial_name %>
+                        <% end %>
                       </div>
-                      <div class="flex items-center gap-1">
-                        <img src="/images/icons/city_index.svg" class="bg-contain" alt="city">
-                        <div class="whitespace-normal w-auto">
-                          <%= item.filial_address %>
+                      <div>
+                        <div class="text-base font-bold">
+                          <%= item.filial_name %>
                         </div>
-                      </div>
-                      <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>
-                      <div class="flex items-start">
-                        <img src="/images/icons/phone_icon.svg" class="bg-contain mt-1" alt="phone">
-                        <div class="flex flex-wrap ml-1">
-                          <a href='tel:<%= item.setting.phones["phone1"] %>' class="mr-1"><%= item.setting.phones["phone1"] %></a>
-                          <a href='tel:<%= item.setting.phones["phone2"] %>' class=""><%= item.setting.phones["phone2"] %></a>
-                          <a href='tel:<%= item.setting.phones["phone3"] %>' class="mr-1"><%= item.setting.phones["phone3"] %></a>
+                        <div class="flex items-center gap-1">
+                          <img src="/images/icons/city_index.svg" class="bg-contain" alt="city">
+                          <div class="whitespace-normal w-auto">
+                            <%= item.filial_address %>
+                          </div>
                         </div>
-                      </div>
-                      <% end %>
-                      <div class="hidden">
-                        <%= [wholesale_rate, gold]=item.setting.tags %>
-                      </div>
-                      <%= if String.to_atom(wholesale_rate) do %>
-                        <div class="mt-2 inline-block mb:block">
-                          <span class="bg-indexGreen rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
-                            Оптовый курс
-                          </span>
+                        <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>
+                        <div class="flex items-start">
+                          <img src="/images/icons/phone_icon.svg" class="bg-contain mt-1" alt="phone">
+                          <div class="flex flex-wrap ml-1">
+                            <a href='tel:<%= item.setting.phones["phone1"] %>' class="mr-1"><%= item.setting.phones["phone1"] %></a>
+                            <a href='tel:<%= item.setting.phones["phone2"] %>' class=""><%= item.setting.phones["phone2"] %></a>
+                            <a href='tel:<%= item.setting.phones["phone3"] %>' class="mr-1"><%= item.setting.phones["phone3"] %></a>
+                          </div>
                         </div>
-                      <% end %>
-                      <%= if String.to_atom(gold) do %>
-                        <div class="mt-2 inline-block mb:block">
-                          <span class="bg-indexYellow rounded-full font-normal text-xs text-black px-4 py-1">
-                            Золото
-                          </span>
+                        <% end %>
+                        <div class="hidden">
+                          <%= [wholesale_rate, gold]=item.setting.tags %>
                         </div>
-                      <% end %>
-                      <div class="mt-1 text-xs">
-                        <%= item.setting.promo["promo1"] %>
-                      </div>
-                      <div class="text-xs">
-                        <%= item.setting.promo["promo2"] %>
+                        <%= if String.to_atom(wholesale_rate) do %>
+                          <div class="mt-2 inline-block mb:block">
+                            <span class="bg-indexGreen rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
+                              Оптовый курс
+                            </span>
+                          </div>
+                        <% end %>
+                        <%= if String.to_atom(gold) do %>
+                          <div class="mt-2 inline-block mb:block">
+                            <span class="bg-indexYellow rounded-full font-normal text-xs text-black px-4 py-1">
+                              Золото
+                            </span>
+                          </div>
+                        <% end %>
+                        <div class="mt-1 text-xs">
+                          <%= item.setting.promo["promo1"] %>
+                        </div>
+                        <div class="text-xs">
+                          <%= item.setting.promo["promo2"] %>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </a>
+                  </a>
                 <% else %>
-                  <div class="flex gap-4">
+                  <div class="flex gap-4 font-normal">
                     <div class="">
                       <%= if item.setting.logo == nil do %>
                         <%= if item.setting.color_logo != "" do %>
@@ -213,7 +213,7 @@
                       <% end %>
                     </div>
                     <div>
-                      <div class="text-base">
+                      <div class="text-base font-bold">
                         <%= item.filial_name %>
                       </div>
                       <div class="flex items-center gap-1">
