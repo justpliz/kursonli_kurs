@@ -75,13 +75,14 @@
             </div>
             <div class="wrapper gap-y-2">
               <%= for item <- @courses_list do %>
-                <div class="bg-white currency font-bold text-center rounded-md py-2">
+                <div class="bg-white currency font-bold text-center my-auto rounded-md py-2">
                   <%= item.value_for_purchase %>
                 </div>
-                <div class="text-white uppercase font-bold text-center rounded-md py-2">
-                  <%= item.currency_short_name %>
+                <div class="text-white font-bold text-xs text-center rounded-md py-2 flex flex-col items-center justify-center">
+                  <div><%= item.currency_short_name %></div>
+                  <div><%= item.currency_name %></div>
                 </div>
-                <div class="bg-white currency font-bold text-center rounded-md py-2">
+                <div class="bg-white currency font-bold text-center my-auto rounded-md py-2">
                   <%= item.value_for_sale %>
                 </div>
                 <% end %>
@@ -150,7 +151,7 @@
         </script>
       </div>
       <div class="bg-white shadow-xl rounded-xl py-10 px-8 width_30 mb:w-full mb:px-4">
-        <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменника</h2>
+        <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменного пункта</h2>
         <div class="relative pt-10 flex flex-col">
           <div class="flex pb-4 items-center">
             <span class="material-symbols-outlined pr-4"
