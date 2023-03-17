@@ -21,8 +21,13 @@ defmodule KursonliKursWeb.FallbackController do
 
   def call(conn, {:error, :unauthorized}) do
     conn
-    |> put_status(403)
-    |> put_view(ErrorView)
+    |> put_status(302)
+    |> redirect(to: "/worker/login")
+  end
+
+  def call(conn, {:error, :forbidden}) do
+    conn
+    |> put_status(302)
     |> redirect(to: "/worker/login")
   end
 
@@ -32,6 +37,6 @@ defmodule KursonliKursWeb.FallbackController do
     conn
     |> put_status(500)
     |> put_view(ErrorView)
-    |> render("500.json")
+    |> render("500.html")
   end
 end

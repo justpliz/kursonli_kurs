@@ -1,6 +1,7 @@
 defmodule KursonliKurs.Auth.WorkerCheck do
   import Plug.Conn
   import Phoenix.Controller
+  require Logger
 
   def init(opts), do: Enum.into(opts, %{})
 
@@ -24,6 +25,7 @@ defmodule KursonliKurs.Auth.WorkerCheck do
   end
 
   def not_auth(conn, message \\ "Вы не авторизованы") do
+    Logger.error("conn.state for not_auth: #{conn.state}")
     conn
     |> put_status(:unauthorized)
     |> put_flash(:error, message)
