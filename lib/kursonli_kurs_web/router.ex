@@ -44,6 +44,8 @@ defmodule KursonliKursWeb.Router do
     get "/", PageController, :redirect_almaty
     get "/city", PageController, :index
     get "/personal", PageController, :personal_page
+
+    get "/instruction", PageController, :instruction
   end
 
   scope "/api/v1", KursonliKursWeb do
