@@ -25,7 +25,7 @@
 <div class="font">
   <div class="w-full bg-white">
     <div
-            class="max-w-1440 mb:w-auto mb:flex-col mb:h-auto mb:py-2 flex justify-between items-center mx-auto h-20 text-black">
+            class="max-w-1440 mb:w-auto mb:flex-col mb:h-auto mb:py-2 flex justify-around items-center mx-auto h-20 text-black">
       <ul class="flex gap-10 text-lg mb:gap-4">
         <a href="#adress" class="link_to scroll-to">
           <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
@@ -39,8 +39,10 @@
         <!-- <img src="/images/logo-line.svg" alt=""> -->
       </a>
       <a class="flex gap-2 hover:text-gray-500" href='tel:<%= @setting.phones["phone_for_header"] %>'>
-        <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">schedule</span>
-        <%= @setting.phones["phone_for_header"] %>
+        <%= if @setting.phones["phone_for_header"] != "" do %>
+          <%= @setting.phones["phone_for_header"] %>
+          <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 700;">schedule</span>
+        <% end %>
       </a>
     </div>
   </div>
@@ -85,11 +87,11 @@
                 <div class="bg-white currency font-bold text-center my-auto rounded-md py-2">
                   <%= item.value_for_sale %>
                 </div>
-                <% end %>
-              </div>
+              <% end %>
             </div>
-            <div class="mt-4">Лицензия ОП № <%= @setting.license %></div>
           </div>
+          <div class="mt-4">Лицензия ОП № <%= @setting.license %></div>
+        </div>
       </div>
       <div class="flex flex-col gap-4 w-1/3 sm:w-full h-auto">
         <div class="bg-white rounded-xl p-6 sm:p-4">
@@ -154,22 +156,30 @@
         <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменного пункта</h2>
         <div class="relative pt-10 flex flex-col">
           <div class="flex pb-4 items-center">
-            <span class="material-symbols-outlined pr-4"
-                            style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
-            <div class="mb:text-xs">
-              <%= @filial.filial_address %>
-            </div>
+            <%= if @filial.filial_address != "" do %>
+              <span class="material-symbols-outlined pr-4"
+                style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
+              <div class="mb:text-xs">
+                <%= @filial.filial_address %>
+              </div>
+            <% end %>
           </div>
           <div class="flex pb-4">
             <span class="material-symbols-outlined pr-4"
                             style="color: #3689ce; font-size: 32px; font-weight: 900;">schedule</span>
             <div class="flex-none">
-              <div class="mb:text-xs">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %>
-              </div>
-              <div class="mb:text-xs">СБ <%= @setting.schedule["schedule_saturday"] %>
-              </div>
-              <div class="mb:text-xs">Вс <%= @setting.schedule["schedule_sunday"] %>
-              </div>
+              <%= if @setting.schedule["schedule_weekdays"] != "-" do %>
+                <div class="mb:text-xs">ПН-ПТ <%= @setting.schedule["schedule_weekdays"] %>
+                </div>
+              <% end %>
+              <%= if @setting.schedule["schedule_saturday"] != "-" do %>
+                <div class="mb:text-xs">СБ <%= @setting.schedule["schedule_saturday"] %>
+                </div>
+              <% end %>
+              <%= if @setting.schedule["schedule_sunday"] != "-" do %>
+                <div class="mb:text-xs">Вс <%= @setting.schedule["schedule_sunday"] %>
+                </div>
+              <% end %>
               <div class="mb:text-xs">
                 <%= @setting.schedule["schedule_other"] %>
               </div>

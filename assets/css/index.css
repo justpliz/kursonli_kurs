@@ -29,6 +29,7 @@
     background: none;
   }
 }
+
 @media (max-width: 768px) {
   .after_table:nth-child(3):after {
     background: transparent;
