@@ -69,7 +69,7 @@ module.exports = {
         '2xl': { 'max': '1540px' },
         'note': { 'max': '1440px' },
         'xl': { 'max': '1280px' },
-        'lg': { 'max': '1000px' },
+        'lg': { 'max': '1024px' },
         'md': { 'max': '769px' },
         'sm': { 'max': '640px' },
         'mb': { 'max': '768px' },

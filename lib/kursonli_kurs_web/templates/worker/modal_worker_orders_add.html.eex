@@ -1,26 +1,35 @@
 <script>
-   $("#createOrder").click(function () {
-      Modalka.fire({
-         showConfirmButton: false,
-         showCloseButton: true,
-         willOpen: () => {
-            var input = [...document.querySelectorAll('.number_input_only')];
-            input.forEach((el) => {
-               el.addEventListener("input", (e) => {
-                  e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '');
-               })
-            });
+  $("#createOrder").click(function () {
+    Modalka.fire({
+      showConfirmButton: false,
+      showCloseButton: true,
+      willOpen: () => {
+        var input = [...document.querySelectorAll('.number_input_only')];
+        input.forEach((el) => {
+          el.addEventListener("input", (e) => {
+            e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '');
+          })
+        });
 
-            let inputs = document.getElementsByClassName("bit_input");
-            for (let i = 0; i < inputs.length; i++) {
-               inputs[i].addEventListener("input", function () {
-                  let numString = this.value.replace(/\D/g, "");
-                  let parts = numString.split(/(?=(?:\d{3})+$)/);
-                  this.value = parts.join(" ");
-               });
+        comparisoInputs(document.querySelector("#volume"), document.querySelector("#limit"))
+        function comparisoInputs(oneInput, twoInput) {
+          oneInput.addEventListener("input", handleInput);
+          twoInput.addEventListener("input", handleInput);
+
+          function handleInput() {
+            this.value = this.value.replace(/[^0-9.]/g, '');
+            const valueOne = parseInt(oneInput.value.replace(/\s/, "") || 0);
+            const valueTwo = parseInt(twoInput.value.replace(/\s/, "") || 0);
+
+            if (valueOne <= valueTwo) {
+              twoInput.value = valueOne;
             }
-         },
-         html: `
+
+          }
+        }
+
+      },
+      html: `
   <div class="flex items-center justify-between">
     <h1 class="title_without_margin"><%= gettext("Создание ордера") %></h1>
   </div>
@@ -73,6 +82,9 @@
     <% end %>
   </div>
 `,
-      })
-   })
+    })
+  })
+
+
+
 </script>

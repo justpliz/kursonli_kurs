@@ -20,8 +20,22 @@
   border-radius: 100px;
 }
 
+@media (max-width: 1024px) {
+  .after_table:nth-child(4):after {
+    background: none;
+  }
+
+  .after_table:nth-child(4):before {
+    background: none;
+  }
+}
+
 @media (max-width: 768px) {
   .after_table:nth-child(3):after {
+    background: transparent;
+  }
+
+  .after_table:nth-child(3):before {
     background: transparent;
   }
 }
