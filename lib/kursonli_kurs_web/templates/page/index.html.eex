@@ -18,7 +18,7 @@
       <div class="">
         <div class="flex mb-6 flex-wrap gap-2 md:mb-2">
           <%= for item <- @city_list do %>
-            <a class="block bg-white rounded-full px-4 py-1 first:m-0" href="city?name=<%= item.name %>">
+            <a class="block bg-white rounded-full px-4 py-1 ml-2 first:m-0" href="city?name=<%= item.eng_name %>">
               <span>
                 <%= item.name %>
                 <span class="font-bold ml-2">
@@ -108,7 +108,7 @@
                 <img src="/images/icons/arrow_down.svg" class="sort_sale" alt="city">
               </div>
             </th>
-            <th scope="col" class="px-2 py-2 bg-white rounded-2xl md:hidden">
+            <th scope="col" class="px-2 py-2 bg-white rounded-2xl lg:hidden md:hidden">
               <div class="flex justify-between items-center">
                 <img src="/images/icons/arrow_down.svg" class="sort_purchase" alt="city">
                 <select class="select_table appearance-none" data-select="3">
@@ -195,25 +195,25 @@
                   </a>
                 <% else %>
                   <div class="flex gap-4 font-normal md:gap-0">
-                    <div class="">
+                    <div class="md:hidden">
                       <%= if item.setting.logo == nil do %>
                         <%= if item.setting.color_logo != "" do %>
                           <div class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14" style="background-color: <%= item.setting.color_logo %> !important;">
                             <%= item.first_letter %>
                           </div>
                         <% else %>
-                          <div class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14">
+                          <div class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14 md:hidden">
                             <%= item.first_letter %>
                           </div>
                         <% end %>
                       <% else %>
-                        <div class="w-14 h-14">
+                        <div class="w-14 h-14 md:hidden">
                           <img src="<%= item.setting.logo %>" alt="" class="rounded-full bg-cover h-full w-full">
                         </div>
                       <% end %>
                     </div>
                     <div>
-                      <div class="text-base font-bold">
+                      <div class="text-base font-bold ml-4">
                         <%= item.filial_name %>
                       </div>
                       <div class="flex items-center gap-1">
@@ -302,7 +302,7 @@
 
               <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "EUR") %>
               <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "EUR") %>
-              <td class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item md:hidden" data-select="2">
+              <td class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item lg:rounded-2xl md:hidden" data-select="2">
                 <span class="purchase"><%= purchase %></span>
                 <span class="mx-2">-</span>
                 <span class="sale"><%= sale %></span>
@@ -310,7 +310,7 @@
 
               <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "RUB") %>
               <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "RUB") %>
-              <td class="px-4 py-4 font-bold text-base bg-white rounded-r-2xl dataget item md:hidden" data-select="3">
+              <td class="px-4 py-4 font-bold text-base bg-white rounded-r-2xl dataget item lg:hidden md:hidden" data-select="3">
                 <span class="purchase"><%= purchase %></span>
                 <span class="mx-2">-</span>
                 <span class="sale"><%= sale %></span>
