@@ -6,16 +6,13 @@ defmodule KursonliKursWeb.PageController do
 
   def redirect_almaty(conn, _params) do
     conn
-    |> redirect(to: "/city?name=Алматы")
+    |> redirect(to: "/city?name=almaty")
   end
 
   def index(conn, params) do
     scrapped_list = scraping()
 
-    # TODO переделать запрос
-    name = if not is_nil(params["name"]), do: params["name"], else: "Алматы"
-
-    with {:ok, city} <- Cities.do_get(name: name) do
+    with {:ok, city} <- Cities.do_get(eng_name: params["name"]) do
       city_list = get_count_city_with_active_filials()
       currency_list = Currencies.all() |> Enum.map(&%{short_name: &1.short_name})
       courses_list = Filials.get_filial_by_city(city.id)
@@ -24,7 +21,7 @@ defmodule KursonliKursWeb.PageController do
       |> render("index.html",
         courses_list: courses_list,
         city_list: city_list,
-        name: name,
+        name: city.name,
         currency_list: currency_list,
         scrapped_list: scrapped_list
       )
@@ -66,7 +63,7 @@ defmodule KursonliKursWeb.PageController do
           visible_course_status: true
         )
 
-      %{name: city.name, count: count}
+      %{name: city.name, count: count, eng_name: city.eng_name}
     end)
     |> Enum.sort_by(& &1.count, :desc)
     |> Enum.sort_by(&(&1.name == "Алматы"), :desc)
@@ -107,8 +104,7 @@ defmodule KursonliKursWeb.PageController do
   end
 
   def instruction(conn, _params) do
-    IO.inspect("lol")
-    path_kaz = "http://#{conn.host}:#{conn.port}/documents/instruction_kurs-online_kaz.pdf"
+    # path_kaz = "http://#{conn.host}:#{conn.port}/documents/instruction_kurs-online_kaz.pdf"
     # path_rus = "http://#{conn.host}:#{conn.port}/documents/instruction_kurs-online_rus.pdf"
 
     conn

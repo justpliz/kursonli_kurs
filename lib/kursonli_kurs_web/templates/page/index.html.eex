@@ -19,7 +19,7 @@
       <div class="">
         <div class="flex mb-6 flex-wrap">
           <%= for item <- @city_list do %>
-            <a class="block bg-white rounded-full px-4 py-1 ml-2 first:m-0" href="city?name=<%= item.name %>">
+            <a class="block bg-white rounded-full px-4 py-1 ml-2 first:m-0" href="city?name=<%= item.eng_name %>">
               <span>
                 <%= item.name %><span class="font-bold ml-2">
                   <%= item.count %>
