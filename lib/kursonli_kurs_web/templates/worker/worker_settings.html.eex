@@ -51,6 +51,8 @@
             <%= checkbox f, :visible_website_status, checked: @setting.visible_website_status, class: "type_select rounded" %>
           </div>
         </label>
+        <label class="label_input pt-2"><%= gettext("Субдомен") %></label>
+        <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full" %>
         <label class="label_input pt-2"><%= gettext("Загрузка логотипа") %> (160x56)</label>
         <label class="input-file">
           <%= file_input f, :logo, value: @setting.logo, accept: ".png, .jpg" %>
@@ -117,8 +119,6 @@
             </div>
           </div>
         </div>
-        <label class="label_input pt-2"><%= gettext("Субдомен") %></label>
-        <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full" %>
         <label class="label_input pt-2"><%= gettext("Описание ОП") %></label>
         <%= textarea f, :description, placeholder: "", value: @setting.description, class: "min-h-200 input_full", required: "true" %>
       </div>
