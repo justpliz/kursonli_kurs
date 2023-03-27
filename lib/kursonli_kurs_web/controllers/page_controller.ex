@@ -103,11 +103,13 @@ defmodule KursonliKursWeb.PageController do
     end
   end
 
-  def instruction(conn, _params) do
-    # path_kaz = "http://#{conn.host}:#{conn.port}/documents/instruction_kurs-online_kaz.pdf"
-    # path_rus = "http://#{conn.host}:#{conn.port}/documents/instruction_kurs-online_rus.pdf"
-
+  def instruction_rus(conn, _params) do
     conn
-    |> render("instruction.html")
+    |> redirect(to: "/pdfs/instruction_kurs-online_rus.pdf")
+  end
+
+  def instruction_kaz(conn, _params) do
+    conn
+    |> redirect(to: "/pdfs/instruction_kurs-online_kaz.pdf")
   end
 end
