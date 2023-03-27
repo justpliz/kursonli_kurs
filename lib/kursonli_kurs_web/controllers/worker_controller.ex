@@ -142,11 +142,23 @@ defmodule KursonliKursWeb.WorkerController do
         |> put_flash(:error, gettext("Несовпадают пароли"))
         |> redirect(to: "/worker/update_pass")
 
-    with {:ok, worker} <- Workers.do_get(id: id, password: old_pass),
-         {:ok, _worker} <- Workers.update(worker, %{password: new_pass}) do
-      conn
-      |> put_flash(:info, gettext("Пароль успешно изменен"))
-      |> redirect(to: "/worker/update_pass")
+    case Workers.do_get(id: id, password: old_pass) |> IO.inspect() do
+      {:error, :not_found} ->
+        conn
+        |> put_flash(:error, gettext("Неверный пароль"))
+        |> redirect(to: "/worker/update_pass")
+
+      {:ok, worker} ->
+        Workers.update(worker, %{password: new_pass})
+
+        conn
+        |> put_flash(:info, gettext("Пароль успешно изменен"))
+        |> redirect(to: "/worker/update_pass")
+
+      _any ->
+        conn
+        |> put_flash(:error, gettext("Что то пошло не так. Попробуйте еще раз"))
+        |> redirect(to: "/worker/update_pass")
     end
   end
 
@@ -330,9 +342,17 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/update_course
   """
   def update_course(conn, params) do
-    filial_id = get_session(conn, :worker).filial_id
+    session = get_session(conn, :worker)
     change_all_filials = String.to_atom(params["change_all_filials"])
     visible_course_status = String.to_atom(params["visible_course_status"])
+
+    # check exist courses for view courses on index.html
+    visible_course_status =
+      if Courses.count(filial_id: session.filial_id) == 0 do
+        false
+      else
+        visible_course_status
+      end
 
     params
     |> Map.drop(["_csrf_token", "change_all_filials", "visible_course_status"])
@@ -341,10 +361,10 @@ defmodule KursonliKursWeb.WorkerController do
       Map.put(acc, id, Map.merge(Map.get(acc, id, %{}), %{key => value}))
     end)
     |> Enum.map(fn {id, course} ->
-      update_one_course(id, course, filial_id, change_all_filials)
+      update_one_course(id, course, session.filial_id, change_all_filials)
     end)
 
-    {:ok, filial} = Filials.do_get(id: filial_id)
+    {:ok, filial} = Filials.do_get(id: session.filial_id)
     {:ok, _filial} = Filials.update(filial, %{visible_course_status: visible_course_status})
 
     conn
@@ -375,14 +395,27 @@ defmodule KursonliKursWeb.WorkerController do
   end
 
   def delete_course(conn, %{"id" => id} = _params) do
-    with {:ok, course} <- Courses.do_get(id: id),
-         {:ok, fc} <-
-           FilialsCurrencies.do_get(filial_id: course.filial_id, currency_id: course.currency_id),
-         {:ok, _course} <- Courses.delete(course),
-         {:ok, _fc} <- FilialsCurrencies.delete(fc) do
-      conn
-      |> put_flash(:info, gettext("Курс успешно удален"))
-      |> redirect(to: "/worker/courses")
+    session = get_session(conn, :worker)
+
+    case Courses.count(filial_id: session.filial_id) do
+      1 ->
+        conn
+        |> put_flash(:error, gettext("Нельзя удалить все курсы"))
+        |> redirect(to: "/worker/courses")
+
+      _any ->
+        with {:ok, course} <- Courses.do_get(id: id),
+             {:ok, fc} <-
+               FilialsCurrencies.do_get(
+                 filial_id: course.filial_id,
+                 currency_id: course.currency_id
+               ),
+             {:ok, _course} <- Courses.delete(course),
+             {:ok, _fc} <- FilialsCurrencies.delete(fc) do
+          conn
+          |> put_flash(:info, gettext("Курс успешно удален"))
+          |> redirect(to: "/worker/courses")
+        end
     end
   end
 
@@ -416,6 +449,7 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def settings(conn, _params) do
     session = get_session(conn, :worker)
+
     with {:ok, filial} <- Filials.do_get(id: session.filial_id),
          {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
@@ -487,7 +521,7 @@ defmodule KursonliKursWeb.WorkerController do
       colors: colors,
       qualities: qualities,
       phones: phones,
-      email: params["email"],
+      email: String.downcase(params["email"]),
       schedule: schedule,
       logo: logo,
       photo: photo,

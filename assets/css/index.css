@@ -8,8 +8,34 @@
   height: 100%;
 }
 
+.after_table::before {
+  content: "";
+  position: absolute;
+  z-index: 1 !important;
+  right: -4px;
+  top: 2%;
+  background: #D8D8D8;
+  width: 2px;
+  height: 95%;
+  border-radius: 100px;
+}
+
+@media (max-width: 1024px) {
+  .after_table:nth-child(4):after {
+    background: none;
+  }
+
+  .after_table:nth-child(4):before {
+    background: none;
+  }
+}
+
 @media (max-width: 768px) {
   .after_table:nth-child(3):after {
+    background: transparent;
+  }
+
+  .after_table:nth-child(3):before {
     background: transparent;
   }
 }

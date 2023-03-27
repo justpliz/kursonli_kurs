@@ -17,7 +17,7 @@
 
       <div class="form-group">
         <img src="/images/icons/user.png" alt="">
-        <%= text_input f, :email, placeholder: "Email", class: "input-login", value: @user.email, required: "true" %>
+        <%= text_input f, :email, placeholder: "Email", class: "input-login input_text_lowercase", value: @user.email, required: "true" %>
       </div>
 
       <div class="form-group">

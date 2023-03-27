@@ -43,6 +43,12 @@ defmodule KursonliKurs.Context.Courses do
     |> Repo.update()
   end
 
+  def count(opts \\ []) do
+    Course
+    |> filter_by(opts)
+    |> Repo.aggregate(:count)
+  end
+
   @doc """
   get currency info from course.currency_id
   f15a0dae-37bf-4bb0-9099-f67bc76d20de -> %{name: "Американский доллар", short_name: "USD"}
