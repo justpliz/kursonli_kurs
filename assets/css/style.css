@@ -455,3 +455,21 @@ body.swal2-shown {
   gap: 5px;
   font-size: 12px;
 }
+
+.scroll::-webkit-scrollbar {
+  height: 10px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #000045;
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: #00007c;
+}
