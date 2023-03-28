@@ -208,12 +208,14 @@ defmodule KursonliKurs.Context.Filials do
       &%{
         short_name: &1.currency.short_name,
         value_for_sale: &1.value_for_sale,
-        value_for_purchase: &1.value_for_purchase
+        value_for_purchase: &1.value_for_purchase,
+        best_sale: false,
+        best_purchase: false
       }
     )
   end
 
-  def ensure_default_logo(setting) do
+  defp ensure_default_logo(setting) do
     if setting.logo != "images/logo/default_logo.jpg",
       do: setting,
       else: Map.put(setting, :logo, nil)
