@@ -89,17 +89,19 @@
       </tbody>
     </table>
   </div>
-  <div class="label_input pos text-lg"><%= gettext("Неиспользуемые валюты") %></div>
-  <%= form_for @conn, Routes.worker_path(@conn, :new_courses), [multipart: true], fn f -> %>
-  <div class="flex gap-8 flex-wrap">
-  <%= for item <- @currencies_list do %>
-      <div class="flex gap-2 items-center">
-        <input type="checkbox" name="<%= item.id %>" id="<%= item.id %>" class="type_select rounded">
-        <label class="label_input" for="<%= item.id %>"><%= item.name %></label>
-      </div>
+  <%= if !Enum.empty?(@currencies_list) do %>
+    <div class="label_input pos text-lg"><%= gettext("Неиспользуемые валюты") %></div>
+    <%= form_for @conn, Routes.worker_path(@conn, :new_courses), [multipart: true], fn f -> %>
+    <div class="flex gap-8 flex-wrap">
+      <%= for item <- @currencies_list do %>
+        <div class="flex gap-2 items-center">
+          <input type="checkbox" name="<%= item.id %>" id="<%= item.id %>" class="type_select rounded">
+          <label class="label_input" for="<%= item.id %>"><%= item.name %></label>
+        </div>
       <% end %>
     </div>
-  <%= submit gettext("Добавить валюту"), class: "btn_save pos mt-2" %>
+    <%= submit gettext("Добавить валюту"), class: "btn_save pos mt-2" %>
+  <% end %>
 <% end %>
 </div>
 <% else %>
@@ -147,16 +149,15 @@
   function comparisoInputs(oneInput, twoInput) {
     oneInput.addEventListener("input", handleInput);
     twoInput.addEventListener("input", handleInput);
-  
+
     function handleInput() {
       this.value = this.value.replace(/[^0-9.]/g, "");
       const valueOne = parseInt(oneInput.value.replace(/\s/, "") || 0);
       const valueTwo = parseInt(twoInput.value.replace(/\s/, "") || 0);
-  
+
       if (valueOne <= valueTwo) {
         twoInput.value = valueOne;
       }
     }
   }
-  
 </script>

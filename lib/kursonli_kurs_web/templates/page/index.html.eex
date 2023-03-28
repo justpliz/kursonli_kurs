@@ -13,21 +13,23 @@
       </div>
     </div>
   </header>
-  <div class="max-w-1200 mx-auto bg-indexGray pt-6 md:mx-1">
+  <div class="max-w-1200 mx-auto bg-indexGray pt-4 md:mx-1">
+    <div class="flex  gap-2 md:mb-2 max-w-1200 w-full overflow-x-auto py-4 scroll">
+      <%= for item <- @city_list do %>
+        <div class="whitespace-nowrap">
+          <a class="block bg-white rounded-full px-4 py-1 ml-2 first:m-0" href="city?name=<%= item.eng_name %>">
+            <span>
+              <%= item.name %>
+              <span class="font-bold ml-2">
+                <%= item.count %>
+              </span>
+            </span>
+          </a>
+        </div>
+      <% end %>
+    </div>
     <div class="flex justify-between items-end mx-2 md:flex-col md:items-start">
       <div class="">
-        <div class="flex mb-6 flex-wrap gap-2 md:mb-2">
-          <%= for item <- @city_list do %>
-            <a class="block bg-white rounded-full px-4 py-1 ml-2 first:m-0" href="city?name=<%= item.eng_name %>">
-              <span>
-                <%= item.name %>
-                <span class="font-bold ml-2">
-                  <%= item.count %>
-                </span>
-              </span>
-            </a>
-          <% end %>
-        </div>
         <div class="flex items-center gap-1">
           <img src="/images/icons/city_index.svg" alt="city">
           <div class="">
@@ -57,6 +59,7 @@
       </div>
     </div>
 
+    <%= if !Enum.empty?(@courses_list) do %> 
     <div class="relative overflow-x-auto mt-6 md:mt-2 md:overflow-x-hidden">
       <table class="w-full text-sm text-left text-black border-separate border-spacing-2">
         <thead class="text-base">
@@ -148,7 +151,7 @@
                         <% end %>
                       </div>
                       <div>
-                        <div class="text-base font-bold ml-4">
+                        <div class="text-base font-bold md:ml-4">
                           <%= item.filial_name %>
                         </div>
                         <div class="flex items-center gap-1">
@@ -213,7 +216,7 @@
                       <% end %>
                     </div>
                     <div>
-                      <div class="text-base font-bold ml-4">
+                      <div class="text-base font-bold md:ml-4">
                         <%= item.filial_name %>
                       </div>
                       <div class="flex items-center gap-1">
@@ -320,6 +323,9 @@
         </tbody>
       </table>
     </div>
+    <% else %>
+      <div class="m-6 text-lg">В выбранном вами городе пока отсутсвуют обменные пункты</div>
+    <% end %> 
     <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!() %>"></div>
   </div>
 </div>

@@ -200,7 +200,7 @@ body.swal2-shown {
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid transparent;
-  width: 95%;
+  width: 100%;
   height: 600px;
 }
 
@@ -454,4 +454,22 @@ body.swal2-shown {
   grid-template: auto / 1fr 1fr 1fr;
   gap: 5px;
   font-size: 12px;
+}
+
+.scroll::-webkit-scrollbar {
+  height: 10px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #000045;
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: #00007c;
 }
