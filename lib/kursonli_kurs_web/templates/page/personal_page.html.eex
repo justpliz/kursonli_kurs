@@ -21,9 +21,42 @@
   .currency {
       color: var(--currency) !important;
   }
+
+  .grid-template {
+      display: grid;
+      grid-template: auto / 2fr 1fr;
+      gap: 32px;
+  }
+
+  @media (max-width: 1024px) {
+    .grid-template {
+      grid-template: 1fr / 1fr;
+      gap: 12px;
+    }
+  }
+
+  .grid-template-invert {
+      display: grid;
+      grid-template: auto / 1fr 2fr;
+      gap: 32px;
+  }
+
+  @media (max-width: 425px) {
+    .grid-template-invert {
+      grid-template: 1fr / 1fr;
+    }
+
+    .logo{
+      order: 2;
+    }
+
+    .text{
+      order: 1;
+    }
+  }
 </style>
 <div class="font">
-  <div class="w-full bg-white">
+  <div class="w-full bg-white note:mx-0">
     <div
             class="max-w-1440 mb:w-auto mb:flex-col mb:h-auto mb:py-2 flex justify-around items-center mx-auto h-20 text-black">
       <ul class="flex gap-10 text-lg mb:gap-4">
@@ -54,8 +87,8 @@
     </div>
   </div>
   <div class="max-w-1440 mx-auto mt-4 pb-8">
-    <div class="flex gap-8 sm:gap-2 mb:flex-col mb:items-center px-2">
-      <div class="scoreboard bg-blub p-6 text-white rounded-xl w-2/3 md:w-full">
+    <div class="grid-template mb:px-2">
+      <div class="scoreboard bg-blub p-6 text-white rounded-xl">
         <div class="text-center">
           <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
           <div class="text-sm">на <%= KursonliKursWeb.GeneralHelper.date_to_string_time_personal(hd(@courses_list).date) %></div>
@@ -82,7 +115,7 @@
                 </div>
                 <div class="text-white font-bold text-xs text-center rounded-md py-2 flex flex-col items-center justify-center">
                   <div><%= item.currency_short_name %></div>
-                  <div><%= item.currency_name %></div>
+                  <div class="mobS:text-small"><%= item.currency_name %></div>
                 </div>
                 <div class="bg-white currency font-bold text-center my-auto rounded-md py-2">
                   <%= item.value_for_sale %>
@@ -93,8 +126,8 @@
           <div class="mt-4">Лицензия ОП № <%= @setting.license %></div>
         </div>
       </div>
-      <div class="flex flex-col gap-4 w-1/3 sm:w-full h-auto">
-        <div class="bg-white rounded-xl p-6 sm:p-4">
+      <div class="flex rounded-xl bg-white flex-col gap-4 h-full">
+        <div class="rounded-xl p-6 sm:p-4">
           <h2 class="font-bold text-center">Национальный банк</h2>
           <div id="kyrs"></div>
           <script>
@@ -109,7 +142,7 @@
         </div>
       </div>
     </div>
-    <div class="flex gap-10 mt-10 mb:flex-col mb:gap-2 mb:mt-4 mb:px-2">
+    <div class="flex gap-16 mt-10 mb:flex-col mb:gap-2 mb:mt-4 mb:px-2">
       <div class="qual bg-blub flex33 flex items-center rounded-xl p-6">
         <img src="/images/icons/qual1.svg" alt="" class="pr-4">
         <div class="qual_text uppercase text-lg">
@@ -129,11 +162,11 @@
         </div>
       </div>
     </div>
-    <div class="flex mt-10 mb:mt-4 gap-6 mb:flex-col mb:px-2" id="adress">
+    <div class="grid-template mt-10 mb:mt-4 gap-6 mb:px-2" id="adress">
       <div class="hidden">
         <%= [x_coord, y_coord]=@setting.coordinates %>
       </div>
-      <div class="map mb:h-72 mb:w-full">
+      <div class="map w-full mb:h-72">
         <div class="dg-widget-link">
           <a
                         href="http://2gis.kz/<%= @city_eng_name %>/firm/<%= @setting.firm_id %>/photos/<%= @setting.firm_id %>/center/<%= x_coord %>,<%= y_coord %>/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
@@ -152,7 +185,7 @@
           });
         </script>
       </div>
-      <div class="bg-white shadow-xl rounded-xl py-10 px-8 width_30 mb:w-full mb:px-4">
+      <div class="bg-white shadow-xl rounded-xl py-10 px-8 mb:px-4">
         <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменного пункта</h2>
         <div class="relative pt-10 flex flex-col">
           <div class="flex pb-4 items-center">
@@ -212,9 +245,11 @@
         </div>
       </div>
     </div>
-    <div class="flex mt-10 gap-10 mb:flex-col-reverse mb:mt-6 mb:px-2" id="descripton">
-      <img src="<%= @photo_path %>" alt="" class="flex50 max-w-3xl w-96 h-auto object-cover rounded-xl mb:w-full">
-      <div class="flex50 mb:w-full mb:px-2">
+    <div class="grid-template-invert mt-10 gap-10 mb:flex-col-reverse mb:mt-6 mb:px-2" id="descripton">
+      <div class="logo">
+        <img src="<%= @photo_path %>" alt="" class=" h-auto w-full rounded-xl">
+      </div>
+      <div class="text mb:px-2 mobL:mb-4">
         <h3 class="uppercase font-bold text-lg mb:text-sm relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city_name
                         %>
           <%= @filial.name %>
