@@ -200,7 +200,7 @@ body.swal2-shown {
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid transparent;
-  width: 95%;
+  width: 100%;
   height: 600px;
 }
 
