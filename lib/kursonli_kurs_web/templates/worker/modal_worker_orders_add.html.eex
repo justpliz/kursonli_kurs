@@ -18,8 +18,8 @@
 
           function handleInput() {
             this.value = this.value.replace(/[^0-9.]/g, '');
-            const valueOne = parseInt(oneInput.value.replace(/\s/, "") || 0);
-            const valueTwo = parseInt(twoInput.value.replace(/\s/, "") || 0);
+            const valueOne = parseFloat(oneInput.value.replace(/\s/, "") || 0);
+            const valueTwo = parseFloat(twoInput.value.replace(/\s/, "") || 0);
 
             if (valueOne <= valueTwo) {
               twoInput.value = valueOne;
