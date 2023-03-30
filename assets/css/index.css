@@ -58,3 +58,6 @@
 .rotated {
   transform: rotate(180deg);
 }
+[disable="true"] {
+  background: #000;
+}
