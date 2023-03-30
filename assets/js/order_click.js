@@ -5,9 +5,9 @@ const Toast = Swal.mixin({
   timer: 5000,
   timerProgressBar: true,
   didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
 });
 
 import { gettext } from "./gettext";
@@ -20,7 +20,7 @@ export function order_click(e) {
   $(this).addClass("selected");
 
   const item = JSON.parse(this.dataset.item);
-  console.log("item", item)
+  console.log("item", item);
 
   $("#org_title .name").text(item.worker_name);
   $("#org_title .address").text(item.filial_address);
@@ -57,7 +57,7 @@ $("#accept").click(function () {
     type,
     worker_id,
   } = item;
-  console.log("item", item)
+  console.log("item", item);
   let itemSale = "";
   let itemSaleH1 = "";
   let modalTitle = "";
@@ -83,20 +83,20 @@ $("#accept").click(function () {
   if (limit == "" || limit == null) {
     limitText = gettext("без лимита");
   } else {
-    limitText = limit
+    limitText = limit;
   }
 
-  let limit_min = parseInt(limit.replace(/\s+/g, ''), 10);
-  console.log(limit_min)
-  let limit_max = parseInt(volume.replace(/\s+/g, ''), 10);
-  console.log(limit_max)
+  let limit_min = parseFloat(limit.replace(/\s+/g, ""), 10);
+  console.log(limit_min);
+  let limit_max = parseFloat(volume.replace(/\s+/g, ""), 10);
+  console.log(limit_max);
 
   if (transfer == "red") {
-    transferBlock = "red_circle"
+    transferBlock = "red_circle";
   } else if (transfer == "green") {
-    transferBlock = "green_circle"
+    transferBlock = "green_circle";
   } else {
-    transferBlock = "colors"
+    transferBlock = "colors";
   }
 
   const element = document.createElement("trs");
@@ -121,27 +121,33 @@ $("#accept").click(function () {
           </div>
           <h3 class="pos gap-1"> ${itemSale} <span id="itemSale"> </span> по <span id="itemCourse"> </span></h3>
           <div class="pos py-4 text-2xl font-bold text-blub gap-1">
-            <div class="uppercase">${gettext('Итого')}:</div>
+            <div class="uppercase">${gettext("Итого")}:</div>
             <span id="itemResult"></span>
             тг.
           </div>
 
           <input class="input_full hidden number_input_only" name="order_id" value="${id}" required="true" type="text">
 
-          <input class="input_full hidden number_input_only" name="worker_id" value="${getWorker().id}" >
-          <input class="input_full hidden item_order" name="item_order" value='${JSON.stringify(item)}' >
+          <input class="input_full hidden number_input_only" name="worker_id" value="${
+            getWorker().id
+          }" >
+          <input class="input_full hidden item_order" name="item_order" value='${JSON.stringify(
+            item
+          )}' >
 
-          <div class="label_modal pos">${gettext('Лимит')}: ${limitText}</div>
-          <div class="label_modal pos">${gettext('Самовыз')}:
+          <div class="label_modal pos">${gettext("Лимит")}: ${limitText}</div>
+          <div class="label_modal pos">${gettext("Самовыз")}:
             <div class="ml-2 ${transferBlock}"></div>
           </div>
 
-          <label class="label_modal pos">${gettext('Ваши условия')}:</label>
+          <label class="label_modal pos">${gettext("Ваши условия")}:</label>
           <input class="input_full" value="${terms}" name="terms" type="text" maxlength="30">
         </div>
         <div class="flex justify-between mt-4 gap-4">
-        <button type="submit" class="w-full btn_save">${gettext('Подтвердить')}</button>
-        <button class="w-full btn_cancel">${gettext('Отменить')}</button>
+        <button type="submit" class="w-full btn_save">${gettext(
+          "Подтвердить"
+        )}</button>
+        <button class="w-full btn_cancel">${gettext("Отменить")}</button>
         </div>
       </form>
         `,
@@ -160,7 +166,7 @@ $("#accept").click(function () {
         itemCourse.innerHTML = course_sale;
         const itemResult = document.querySelector("#itemResult");
         volume_model.addEventListener("input", (e) => {
-          const volume = parseInt(e.currentTarget.value);
+          const volume = parseFloat(e.currentTarget.value);
           const course_sale_float = parseFloat(course_sale);
           itemeSale.innerHTML = e.currentTarget.value;
           itemResult.innerHTML = volume * course_sale_float;
@@ -192,4 +198,3 @@ function input() {
     });
   });
 }
-
