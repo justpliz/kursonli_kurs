@@ -9,7 +9,7 @@
           </div>
           <%= form_for @conn, Routes.worker_path(@conn, :update_course), fn f -> %>
             <div class="flex gap-4">
-              <button class="btn_save flex items-center justify-center" type="submit">
+              <button id="submit-btn" class="btn_save flex items-center justify-center" type="submit">
                 <span class="material-symbols-outlined" style="color: #fff; font-weight: 500; font-size: 20px;">
                   save
                 </span>
@@ -146,6 +146,7 @@
     el.querySelector(".value_for_sale")
     comparisoInputs(  el.querySelector(".value_for_sale"),el.querySelector(".value_for_purchase"),)
   })
+  const buttonSubmit = document.querySelector("#submit-btn")
   function comparisoInputs(oneInput, twoInput) {
     oneInput.addEventListener("input", handleInput);
     twoInput.addEventListener("input", handleInput);
@@ -155,9 +156,15 @@
       const valueOne = parseFloat(oneInput.value.replace(/\s/, "") || 0);
       const valueTwo = parseFloat(twoInput.value.replace(/\s/, "") || 0);
 
-      if (valueOne <= valueTwo) {
-        twoInput.value = valueOne;
-      }
+      if (valueOne < valueTwo) {
+        buttonSubmit.setAttribute("disabled", "true")
+
+        twoInput.style.border = "1px solid red";
+      }else {
+        buttonSubmit.setAttribute("disabled", "false")
+
+        twoInput.style.border = "";
+      };
     }
   }
 </script>
