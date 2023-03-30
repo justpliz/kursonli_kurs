@@ -15,9 +15,10 @@ defmodule KursonliKursWeb.PageController do
     with {:ok, city} <- Cities.do_get(eng_name: params["name"]) do
       city_list = get_count_city_with_active_filials()
       currency_list = Currencies.all() |> Enum.map(&%{short_name: &1.short_name})
-      courses_list = Filials.get_filial_by_city(city.id)
-      # |> IO.inspect()
-      # |> check_true_diapason(scrapped_list)
+
+      courses_list =
+        Filials.get_filial_by_city(city.id)
+        |> check_true_diapason(scrapped_list)
 
       conn
       |> render("index.html",
@@ -40,25 +41,18 @@ defmodule KursonliKursWeb.PageController do
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
 
-      case setting.subdomen do
-        "" ->
-          conn
-          |> render("personal_page.html",
-            setting: setting,
-            filial: filial,
-            city_name: city.name,
-            city_eng_name: city.eng_name,
-            courses_list: courses_list,
-            x_coord: x_coord,
-            y_coord: y_coord,
-            photo_path: photo_path,
-            logo_path: logo_path
-          )
-
-        _any ->
-          conn
-          |> redirect(to: "#{setting.sudomen}")
-      end
+      conn
+      |> render("personal_page.html",
+        setting: setting,
+        filial: filial,
+        city_name: city.name,
+        city_eng_name: city.eng_name,
+        courses_list: courses_list,
+        x_coord: x_coord,
+        y_coord: y_coord,
+        photo_path: photo_path,
+        logo_path: logo_path
+      )
     end
   end
 
@@ -164,8 +158,8 @@ defmodule KursonliKursWeb.PageController do
 
   def check_true_diapason(courses, scrapped) do
     usd_scrapped = Enum.find(scrapped, &(&1.currency == "USD"))
-    usd_purchase = usd_scrapped.buy |> IO.inspect() |> String.to_float()
-    usd_sale = usd_scrapped.sale |> String.to_float()
+    {usd_purchase, ""} = usd_scrapped.buy |> Float.parse()
+    {usd_sale, ""} = usd_scrapped.sale |> Float.parse()
 
     # eur_scrapped = Enum.find(scrapped, &(&1.currency == "EUR"))
     # eur_sale = eur_scrapped.value_for_sale |> String.to_float()
@@ -178,22 +172,26 @@ defmodule KursonliKursWeb.PageController do
     courses
     |> Enum.map(
       &Enum.filter(&1.course, fn x ->
-        IO.inspect(x)
         case x.short_name do
           "USD" ->
-            value_for_sale = x.value_for_sale |> String.to_float()
-            value_for_purchase = x.value_for_purchase |> String.to_float()
+            if x.value_for_sale != "-" and x.value_for_purchase != "" do
+              {value_for_sale, ""} = x.value_for_sale |> Float.parse()
+              {value_for_purchase, ""} = x.value_for_purchase |> Float.parse()
 
-            if value_for_sale > usd_sale and value_for_sale < usd_purchase and
-                 value_for_purchase > usd_sale and value_for_purchase < usd_purchase do
-              &1
+              if value_for_sale > usd_sale and value_for_sale < usd_purchase and
+                   value_for_purchase > usd_sale and value_for_purchase < usd_purchase do
+                x
+              else
+                Map.put(&1, :setting, Map.put(&1.setting, :visible_website_status, false))
+              end
             else
-              Map.put(&1.setting, :visible_website_status, false)
+              x
             end
-            _any -> x
+
+          _any ->
+            x
         end
       end)
     )
-    # |> IO.inspect()
   end
 end
