@@ -202,4 +202,6 @@ defmodule KursonliKursWeb.GeneralHelper do
     end)
     |> Enum.any?()
   end
+
+  def rounding_str(str), do: String.replace(str, ~r/\.0+$|(\.\d*[1-9])0+$/, "\\1")
 end

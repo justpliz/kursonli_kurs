@@ -424,8 +424,8 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def update_one_course(course_id, course, filial_id, change_all_filials) do
     opts = %{
-      value_for_sale: course["value_for_sale"],
-      value_for_purchase: course["value_for_purchase"],
+      value_for_sale: course["value_for_sale"] |> rounding_str,
+      value_for_purchase: course["value_for_purchase"] |> rounding_str,
       date: Timex.now("Asia/Almaty")
     }
 
