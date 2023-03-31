@@ -157,11 +157,15 @@
       const valueTwo = parseFloat(twoInput.value.replace(/\s/, "") || 0);
 
       if (valueOne < valueTwo) {
-        buttonSubmit.setAttribute("disabled", "true")
-
+        console.log("if")
+        // buttonSubmit.setAttribute("disabled", "true")
+        buttonSubmit.disabled = true;
+        
         twoInput.style.border = "1px solid red";
       }else {
-        buttonSubmit.setAttribute("disabled", "false")
+        console.log("else")
+        // buttonSubmit.setAttribute("disabled", "false")
+        buttonSubmit.disabled = false;
 
         twoInput.style.border = "";
       };
