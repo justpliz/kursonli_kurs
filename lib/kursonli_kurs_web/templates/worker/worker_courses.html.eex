@@ -80,32 +80,36 @@
                 <td class="px-6 py-4 border-x-2 border-t-2">
                   <button class="accept_delete_course styles_none"
                     data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
-                  <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-                </button>
-              </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-  <%= if !Enum.empty?(@currencies_list) do %>
-    <div class="label_input pos text-lg"><%= gettext("Неиспользуемые валюты") %></div>
-    <%= form_for @conn, Routes.worker_path(@conn, :new_courses), [multipart: true], fn f -> %>
-    <div class="flex gap-8 flex-wrap">
-      <%= for item <- @currencies_list do %>
-        <div class="flex gap-2 items-center">
-          <input type="checkbox" name="<%= item.id %>" id="<%= item.id %>" class="type_select rounded">
-          <label class="label_input" for="<%= item.id %>"><%= item.name %></label>
+                    <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                  </button>
+                </td>
+              </tr>
+              <% end %>
+                <% end %>
+          </tbody>
+        </table>
+      </div>
+      <%= if !Enum.empty?(@currencies_list) do %>
+        <div class="label_input pos text-lg">
+          <%= gettext("Неиспользуемые валюты") %>
         </div>
-      <% end %>
+        <%= form_for @conn, Routes.worker_path(@conn, :new_courses), [multipart: true], fn f -> %>
+          <div class="flex gap-8 flex-wrap">
+            <%= for item <- @currencies_list do %>
+              <div class="flex gap-2 items-center">
+                <input type="checkbox" name="<%= item.id %>" id="<%= item.id %>" class="type_select rounded">
+                <label class="label_input" for="<%= item.id %>">
+                  <%= item.name %>
+                </label>
+              </div>
+              <% end %>
+          </div>
+          <%= submit gettext("Добавить валюту"), class: "btn_save pos mt-2" %>
+            <% end %>
+              <% end %>
     </div>
-    <%= submit gettext("Добавить валюту"), class: "btn_save pos mt-2" %>
-  <% end %>
-<% end %>
-</div>
-<% else %>
-  <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html" , conn: @conn, instructions:
+    <% else %>
+      <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html" , conn: @conn, instructions:
         @instructions) %>
         <% end %>
           <%= if not is_nil(@expiration), do: render(KursonliKursWeb.WorkerView, "notification_expiration.html" , conn:
@@ -138,37 +142,40 @@
                </div>
              </div>
           `,
-    })
-  })
-  const elementTd = [...document.querySelectorAll(".td-item")]
-  elementTd.forEach((el) => {
-    el.querySelector(".value_for_purchase")
-    el.querySelector(".value_for_sale")
-    comparisoInputs(  el.querySelector(".value_for_sale"),el.querySelector(".value_for_purchase"),)
-  })
-  const buttonSubmit = document.querySelector("#submit-btn")
-  function comparisoInputs(oneInput, twoInput) {
-    oneInput.addEventListener("input", handleInput);
-    twoInput.addEventListener("input", handleInput);
+                })
+              })
+              const elementTd = [...document.querySelectorAll(".td-item")]
+              elementTd.forEach((el) => {
+                el.querySelector(".value_for_purchase")
+                el.querySelector(".value_for_sale")
+                comparisoInputs(el.querySelector(".value_for_sale"), el.querySelector(".value_for_purchase"),)
+              })
+              const buttonSubmit = document.querySelector("#submit-btn")
+              let inputsArray = Array.from(document.querySelectorAll('input'));
+              let borderColorsArray = inputsArray.map(input => input.style.borderTopColor === "" ? true : false);
+              let isValid = true
+              function comparisoInputs(oneInput, twoInput) {
+                oneInput.addEventListener("input", handleInput);
+                twoInput.addEventListener("input", handleInput);
 
-    function handleInput() {
-      this.value = this.value.replace(/[^0-9.]/g, "");
-      const valueOne = parseFloat(oneInput.value.replace(/\s/, "") || 0);
-      const valueTwo = parseFloat(twoInput.value.replace(/\s/, "") || 0);
+                function handleInput() {
+                  this.value = this.value.replace(/[^0-9.]/g, "");
+                  const valueOne = parseFloat(oneInput.value.replace(/\s/, "") || 0);
+                  const valueTwo = parseFloat(twoInput.value.replace(/\s/, "") || 0);
 
-      if (valueOne < valueTwo) {
-        console.log("if")
-        // buttonSubmit.setAttribute("disabled", "true")
-        buttonSubmit.disabled = true;
-        
-        twoInput.style.border = "1px solid red";
-      }else {
-        console.log("else")
-        // buttonSubmit.setAttribute("disabled", "false")
-        buttonSubmit.disabled = false;
+                  if (valueOne < valueTwo) {
+                    twoInput.style.border = "1px solid red";
+                  } else {
+                    twoInput.style.border = "";
+                  };
 
-        twoInput.style.border = "";
-      };
-    }
-  }
-</script>
+                  borderColorsArray = inputsArray.map(input => input.style.borderTopColor === "" ? true : false);
+                  isValid = borderColorsArray.every(value => value === true);
+                  if (isValid) {
+                    buttonSubmit.disabled = false;
+                  } else {
+                    buttonSubmit.disabled = true;
+                  }
+                }
+              }
+            </script>
