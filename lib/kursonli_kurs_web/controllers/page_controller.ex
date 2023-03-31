@@ -18,7 +18,7 @@ defmodule KursonliKursWeb.PageController do
 
       courses_list =
         Filials.get_filial_by_city(city.id)
-        |> check_true_diapason(scrapped_list)
+        # |> check_true_diapason(scrapped_list)
 
       conn
       |> render("index.html",
