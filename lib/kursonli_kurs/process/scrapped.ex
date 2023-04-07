@@ -9,13 +9,13 @@ defmodule KursonliKurs.Process.Scrapped do
     try do
       IO.inspect("try")
       scraping()
-      :timer.sleep(59 * 1000 * 10)
+      :timer.sleep(3 * 1000 * 10)
 
       process()
     rescue
       _ ->
         IO.inspect("rescue")
-        :timer.sleep(59 * 1000 * 10)
+        :timer.sleep(3 * 1000 * 10)
         process()
     end
   end

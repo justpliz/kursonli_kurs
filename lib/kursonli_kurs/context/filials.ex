@@ -201,9 +201,7 @@ defmodule KursonliKurs.Context.Filials do
       }
     )
     |> ensure_srapped_diapason()
-
-    # |> Enum.sort_by(& &1.date, :desc)
-    |> Enum.sort_by(& &1.date, {:desc, Date})
+    |> Enum.sort_by(& &1.date, {:asc, Date})
   end
 
   # Добавляет флаги для отображения лучшего курса
