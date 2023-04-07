@@ -199,7 +199,7 @@ defmodule KursonliKurs.Context.Filials do
         first_letter: &1.filial.name |> String.trim() |> String.first() |> String.upcase()
       }
     )
-    |> Enum.sort_by(& &1.date, :desc)
+    |> Enum.sort_by(& &1.date, {:desc, Date})
   end
 
   defp course_handler(course) do
