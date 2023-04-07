@@ -19,6 +19,7 @@ defmodule KursonliKurs.Context.Filials do
 
   alias KursonliKurs.Context.{Filials, Workers, Settings, Cities}
   alias KursonliKursWeb.GeneralHelper
+  alias KursonliKurs.EtsStorage.ScrappedData
 
   require Logger
 
@@ -199,9 +200,11 @@ defmodule KursonliKurs.Context.Filials do
         first_letter: &1.filial.name |> String.trim() |> String.first() |> String.upcase()
       }
     )
-    |> Enum.sort_by(& &1.date, {:desc, Date})
+    |> ensure_srapped_diapason()
+    |> Enum.sort_by(& &1.date, {:asc, Date})
   end
 
+  # Добавляет флаги для отображения лучшего курса
   defp course_handler(course) do
     Enum.map(
       course,
@@ -215,9 +218,59 @@ defmodule KursonliKurs.Context.Filials do
     )
   end
 
+  # Проверяет есть ли у филиала логотип, если нет заменяем на nil для отображения лого в виде цветной буквы
   defp ensure_default_logo(setting) do
     if setting.logo != "images/logo/default_logo.jpg",
       do: setting,
       else: Map.put(setting, :logo, nil)
+  end
+
+  # Проверяет находятся ли все валюты(usd, eur, rub) в дапазоне scrapped
+  # Если нет, то в reduce НЕ добавляем такие обменные пункты
+  def ensure_srapped_diapason(courses) do
+    [usd, eur, rub] =
+      ScrappedData.get_all()
+      |> Enum.map(fn [_currency, buy, sale] ->
+        {buy, ""} = buy |> Float.parse()
+        {sale, ""} = sale |> Float.parse()
+        [buy, sale]
+      end)
+
+    [usd_purchase, usd_sale] = usd
+    [eur_purchase, eur_sale] = eur
+    [rub_purchase, rub_sale] = rub
+
+    courses
+    |> Enum.reduce(
+      [],
+      fn map, acc ->
+        usd = Enum.find(map.course, &(&1.short_name == "USD"))
+        usd_range = if is_nil(usd), do: true, else: value_in_range?(usd.value_for_purchase, usd.value_for_sale, usd_purchase, usd_sale)
+
+        eur = Enum.find(map.course, &(&1.short_name == "EUR"))
+        eur_range = if is_nil(eur), do: true, else: value_in_range?(eur.value_for_purchase, eur.value_for_sale, eur_purchase, eur_sale)
+
+        rub = Enum.find(map.course, &(&1.short_name == "RUB"))
+        rub_range = if is_nil(rub), do: true, else: value_in_range?(rub.value_for_purchase, rub.value_for_sale, rub_purchase, rub_sale)
+
+        is_range = usd_range && eur_range && rub_range |> IO.inspect(label: "kek")
+        if is_range, do: acc ++ [map], else: acc
+      end
+    )
+  end
+
+  def value_in_range?("-", _purchase, _scrapped_purchase, _scrapped_sale), do: false
+  def value_in_range?(_sale, "-", _scrapped_purchase, _scrapped_sale), do: false
+
+  def value_in_range?(sale, purchase, scrapped_purchase, scrapped_sale) do
+    {sale, ""} = sale |> Float.parse()
+    {purchase, ""} = purchase |> Float.parse()
+
+    if sale > scrapped_purchase and sale < scrapped_sale and
+         purchase > scrapped_purchase and purchase < scrapped_sale do
+      true
+    else
+      false
+    end
   end
 end
