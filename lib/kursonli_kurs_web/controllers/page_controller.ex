@@ -80,10 +80,20 @@ defmodule KursonliKursWeb.PageController do
     |> redirect(to: "/pdfs/instruction_kurs-online_kaz.pdf")
   end
 
-  def find_best_courses(courses) do
+  def ajax_get_select_course(conn, _params) do
+    city_id = 3
+    short_name = "CNY"
+
+    list = [1, 2, 3]
+    json(conn, %{list: list})
+  end
+
+
+
+
+  defp find_best_courses(courses) do
     courses =
       courses
-      # |> delete_old_courses
       |> Enum.map(&[&1.course, &1.date, &1.filial_id])
 
     {to_delete, _} =

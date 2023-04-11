@@ -160,6 +160,9 @@ defmodule KursonliKurs.Context.Filials do
     )
   end
 
+  @doc """
+  Получение списка филиалов города по id со всеми курсами и
+  """
   def get_filial_by_city(city_id) do
     Repo.all(
       from f in Filial,
@@ -227,7 +230,7 @@ defmodule KursonliKurs.Context.Filials do
 
   # Проверяет находятся ли все валюты(usd, eur, rub) в дапазоне scrapped
   # Если нет, то в reduce НЕ добавляем такие обменные пункты
-  def ensure_srapped_diapason(courses) do
+  defp ensure_srapped_diapason(courses) do
     [usd, eur, rub] =
       ScrappedData.get_all()
       |> Enum.map(fn [_currency, buy, sale] ->
@@ -253,16 +256,16 @@ defmodule KursonliKurs.Context.Filials do
         rub = Enum.find(map.course, &(&1.short_name == "RUB"))
         rub_range = if is_nil(rub), do: true, else: value_in_range?(rub.value_for_purchase, rub.value_for_sale, rub_purchase, rub_sale)
 
-        is_range = usd_range && eur_range && rub_range |> IO.inspect(label: "kek")
+        is_range = usd_range && eur_range && rub_range
         if is_range, do: acc ++ [map], else: acc
       end
     )
   end
 
-  def value_in_range?("-", _purchase, _scrapped_purchase, _scrapped_sale), do: false
-  def value_in_range?(_sale, "-", _scrapped_purchase, _scrapped_sale), do: false
+  defp value_in_range?("-", _purchase, _scrapped_purchase, _scrapped_sale), do: false
+  defp value_in_range?(_sale, "-", _scrapped_purchase, _scrapped_sale), do: false
 
-  def value_in_range?(sale, purchase, scrapped_purchase, scrapped_sale) do
+  defp value_in_range?(sale, purchase, scrapped_purchase, scrapped_sale) do
     {sale, ""} = sale |> Float.parse()
     {purchase, ""} = purchase |> Float.parse()
 

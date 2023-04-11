@@ -70,4 +70,21 @@ defmodule KursonliKurs.Context.Courses do
     )
     |> Repo.all
   end
+
+  @doc """
+  Получает все курсы валют по short_name для города(city_id)
+  """
+  def get_all_courses_by_short_name(city_id, short_name) do
+    from(
+      f in Filial,
+      where: f.city_id == ^city_id,
+      join: cr in Currency,
+      on: cr.short_name == ^short_name,
+      join: c in Course,
+      on: c.currency_id == cr.id and c.filial_id == f.id,
+      select: c
+    )
+    |> Repo.all
+    
+  end
 end
