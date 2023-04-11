@@ -46,15 +46,14 @@
       </div>
       <div class="best_courses_table md:ml-4 md:mt-2">
         <%= for item <- @scrapped_list do %>
-        <div class="hidden"><%= [currency, buy, sale] = item %></div>
           <div class="font-semibold">
-            <%= currency %>
+            <%= item.currency %>
           </div>
           <div>
-            <%= buy %>
+            <%= item.buy %>
           </div>
           <div>
-            <%= sale %>
+            <%= item.sale %>
           </div>
         <% end %>
       </div>

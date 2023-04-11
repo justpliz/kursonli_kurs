@@ -29,10 +29,6 @@ defmodule KursonliKurs.Application do
       %{
         id: KursonliKurs.EtsStorage.SessionWorker,
         start: {KursonliKurs.EtsStorage.SessionWorker, :start_link, []}
-      },
-      %{
-        id: KursonliKurs.EtsStorage.ScrappedData,
-        start: {KursonliKurs.EtsStorage.ScrappedData, :start_link, []}
       }
     ]
 
@@ -40,7 +36,6 @@ defmodule KursonliKurs.Application do
     # for other strategies and supported options
     # KursonliKurs.EtsStorage.Chat.create()
     # KursonliKurs.EtsStorage.UserOnline.create()
-    spawn(KursonliKurs.Process.Scrapped, :process, [])
     opts = [strategy: :one_for_one, name: KursonliKurs.Supervisor]
     Supervisor.start_link(children, opts)
   end

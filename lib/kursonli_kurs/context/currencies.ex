@@ -5,7 +5,7 @@ defmodule KursonliKurs.Context.Currencies do
   use KursonliKurs.Context
 
   alias KursonliKurs.Model.FilialCurrency
-  alias KursonliKurs.Model.{Currency, FilialCurrency}
+  alias KursonliKurs.Model.{Currency, Filial, FilialCurrency}
 
   require Logger
 
