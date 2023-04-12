@@ -61,9 +61,9 @@ defmodule KursonliKursWeb.Router do
     get "/delete", TradeController, :delete_trade
   end
 
-     ###    ########  ##     ## #### ##    ##
-    ## ##   ##     ## ###   ###  ##  ###   ##
-   ##   ##  ##     ## #### ####  ##  ####  ##
+  ###    ########  ##     ## #### ##    ##
+  ## ##   ##     ## ###   ###  ##  ###   ##
+  ##   ##  ##     ## #### ####  ##  ####  ##
   ##     ## ##     ## ## ### ##  ##  ## ## ##
   ######### ##     ## ##     ##  ##  ##  ####
   ##     ## ##     ## ##     ##  ##  ##   ###
@@ -80,13 +80,14 @@ defmodule KursonliKursWeb.Router do
     pipe_through [:browser, :admin_check, :admin_app]
     get "/logout", AdminController, :admin_logout
 
+    scope "/organization" do
+      get "/", AdminOrgController, :index
 
-    get "/", AdminOrgController, :index
+      post "/register_org_submit", AdminOrgController, :register_org_submit
+      get "/update_org_status", AdminOrgController, :update_org_status
+    end
+
     get "/settings", AdminOrgController, :settings
-
-
-    post "/register_org_submit", AdminOrgController, :register_org_submit
-    get "/update_org_status", AdminOrgController, :update_org_status
 
     scope "/currencies" do
       post "/", AdminOrgController, :create_currency_submit

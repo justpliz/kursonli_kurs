@@ -1,3 +1,3 @@
-defmodule KursonliKursWeb.AdminOrgView do
+defmodule KursonliKursWeb.Admin.AdminOrgView do
   use KursonliKursWeb, :view
 end
