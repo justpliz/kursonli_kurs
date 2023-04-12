@@ -4,12 +4,11 @@ defmodule KursonliKurs.Process.Scrapped do
 
   def process() do
     :timer.sleep(1000)
-    IO.inspect("process")
 
     try do
       IO.inspect("try")
       scraping()
-      :timer.sleep(3 * 1000 * 10)
+      :timer.sleep(60 * 1000 * 10)
 
       process()
     rescue

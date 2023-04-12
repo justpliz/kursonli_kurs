@@ -1,61 +1,18 @@
-defmodule KursonliKursWeb.AdminController do
+defmodule KursonliKursWeb.AdminOrgController do
   use KursonliKursWeb, :controller
   action_fallback(FallbackController)
 
   alias KursonliKurs.Context.{
     Cities,
-    Admins,
     Filials,
     Organizations,
     Currencies,
     FilialsCurrencies,
     Tariffs,
-    Courses,
     Settings,
     Notifications,
     Workers
   }
-
-  @doc """
-  GET /admin/login
-  """
-  def login_form(conn, _params) do
-    conn
-    |> render("admin_login_form.html")
-    |> halt()
-  end
-
-  @doc """
-  POST /admin/login
-  """
-  def login_form_submit(conn, params) do
-    opts = [
-      login: params["login"],
-      password: hash_str(params["password"])
-    ]
-
-    case Admins.do_get(opts) do
-      {:ok, admin} ->
-        conn
-        |> put_session(:admin, %{id: admin.id, login: admin.login})
-        |> put_flash(:info, "Добро пожаловать #{admin.login}")
-        |> redirect(to: "/admin")
-
-      {:error, :not_found} ->
-        conn
-        |> put_flash(:error, "Невеный логин или пароль")
-        |> redirect(to: "/admin/login")
-    end
-  end
-
-  @doc """
-  GET /admin/logout
-  """
-  def admin_logout(conn, _params) do
-    conn
-    |> delete_session(:admin)
-    |> redirect(to: "/admin/login")
-  end
 
   @doc """
   GET /admin/
@@ -139,28 +96,7 @@ defmodule KursonliKursWeb.AdminController do
     end
   end
 
-  @doc """
-  GET /admin/settings
-  """
-  def settings(conn, _params) do
-    tariff_list = Tariffs.all()
-    currency_list = Currencies.all()
-    cities_list = Cities.all()
 
-    {:ok, service_access} = Notifications.do_get(name: "service_access")
-    {:ok, expiration} = Notifications.do_get(name: "expiration")
-    {:ok, instructions} = Notifications.do_get(name: "instructions")
-
-    conn
-    |> render("admin_settings.html",
-      tariff_list: tariff_list,
-      currency_list: currency_list,
-      cities_list: cities_list,
-      service_access: service_access,
-      expiration: expiration,
-      instructions: instructions
-    )
-  end
 
   def create_currency_submit(conn, params) do
     opts = %{
@@ -231,6 +167,7 @@ defmodule KursonliKursWeb.AdminController do
     end
   end
 
+  @spec update_city(any, map) :: {:error, :not_found | Ecto.Changeset.t()} | Plug.Conn.t()
   @doc """
   GET /admin/cities/update
   """

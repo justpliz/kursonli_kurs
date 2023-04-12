@@ -227,7 +227,7 @@ defmodule KursonliKurs.Context.Filials do
 
   # Проверяет находятся ли все валюты(usd, eur, rub) в дапазоне scrapped
   # Если нет, то в reduce НЕ добавляем такие обменные пункты
-  def ensure_srapped_diapason(courses) do
+  defp ensure_srapped_diapason(courses) do
     [usd, eur, rub] =
       ScrappedData.get_all()
       |> Enum.map(fn [_currency, buy, sale] ->
@@ -259,10 +259,10 @@ defmodule KursonliKurs.Context.Filials do
     )
   end
 
-  def value_in_range?("-", _purchase, _scrapped_purchase, _scrapped_sale), do: false
-  def value_in_range?(_sale, "-", _scrapped_purchase, _scrapped_sale), do: false
+  defp value_in_range?("-", _purchase, _scrapped_purchase, _scrapped_sale), do: false
+  defp value_in_range?(_sale, "-", _scrapped_purchase, _scrapped_sale), do: false
 
-  def value_in_range?(sale, purchase, scrapped_purchase, scrapped_sale) do
+  defp value_in_range?(sale, purchase, scrapped_purchase, scrapped_sale) do
     {sale, ""} = sale |> Float.parse()
     {purchase, ""} = purchase |> Float.parse()
 

@@ -51,7 +51,7 @@
       <div class="tab-content" id="tab2-content">
          <div class="text-lg font-semibold">Текст уведомлений</div>
          <div class="bg-gray-200 w-full p-8 rounded-xl">
-            <%= form_for @conn, Routes.admin_path(@conn, :update_notification), fn f -> %>
+            <%= form_for @conn, Routes.admin_org_path(@conn, :update_notification), fn f -> %>
             <h1 class="subtitle_black pl-2">Раздел "Оплата"</h1>
             <div class="bg-white rounded-lg p-4 mb-4">
                <div class="flex justify-between pb-2">
@@ -76,7 +76,7 @@
             <% end %>
          </div>
          <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
-            <%= form_for @conn, Routes.admin_path(@conn, :update_notification), fn f -> %>
+            <%= form_for @conn, Routes.admin_org_path(@conn, :update_notification), fn f -> %>
             <h1 class="subtitle_black pl-2">Истечение срока отображаемое в модальном окне при входе</h1>
             <div class="bg-white rounded-lg p-4 mb-4">
                <div class="flex justify-between pb-2">
@@ -101,7 +101,7 @@
             <% end %>
          </div>
          <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
-            <%= form_for @conn, Routes.admin_path(@conn, :update_notification), fn f -> %>
+            <%= form_for @conn, Routes.admin_org_path(@conn, :update_notification), fn f -> %>
             <h1 class="subtitle_black pl-2">Предупреждение о неоплате во всех разделах меню</h1>
             <div class="bg-white rounded-lg p-4 mb-4">
                <div class="flex justify-between pb-2">

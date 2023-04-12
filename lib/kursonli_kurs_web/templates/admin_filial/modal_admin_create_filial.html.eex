@@ -9,7 +9,7 @@
               <h1 class="title_without_margin">Создание филиала</h1>
             </div>
             <div class="px-1">
-              <%= form_for @conn, Routes.admin_path(@conn, :create_filial_submit), [multipart: true], fn f -> %>
+              <%= form_for @conn, Routes.admin_org_path(@conn, :create_filial_submit), [multipart: true], fn f -> %>
                   <div class="mb-2">
                     <label class="label_input pos">Организация</label>
                     <%= select f, :org_id, Enum.map(@org_list, fn x -> {x.name, x.id} end), class: "input_full", required: "true" %>

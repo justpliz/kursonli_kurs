@@ -9,7 +9,7 @@
              <h1 class="title_without_margin">Добавление города</h1>
            </div>
            <div class="px-1">
-               <%= form_for @conn, Routes.admin_path(@conn, :create_city_submit), fn f -> %>
+               <%= form_for @conn, Routes.admin_org_path(@conn, :create_city_submit), fn f -> %>
                   <label class="label_input pos">Полное название города</label>
                   <%= text_input f, :name, class: "input_full", required: "true" %>
 

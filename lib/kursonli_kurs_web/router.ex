@@ -55,6 +55,20 @@ defmodule KursonliKursWeb.Router do
     delete "/chat", TradeController, :delete_chat
   end
 
+  scope "/trades", KursonliKursWeb do
+    pipe_through [:browser]
+    post "/", TradeController, :create_trade
+    get "/delete", TradeController, :delete_trade
+  end
+
+     ###    ########  ##     ## #### ##    ##
+    ## ##   ##     ## ###   ###  ##  ###   ##
+   ##   ##  ##     ## #### ####  ##  ####  ##
+  ##     ## ##     ## ## ### ##  ##  ## ## ##
+  ######### ##     ## ##     ##  ##  ##  ####
+  ##     ## ##     ## ##     ##  ##  ##   ###
+  ##     ## ########  ##     ## #### ##    ##
+
   scope "/admin", KursonliKursWeb do
     pipe_through [:browser, :clean]
 
@@ -62,42 +76,37 @@ defmodule KursonliKursWeb.Router do
     post "/login", AdminController, :login_form_submit
   end
 
-  scope "/trades", KursonliKursWeb do
-    pipe_through [:browser]
-    post "/", TradeController, :create_trade
-    get "/delete", TradeController, :delete_trade
-  end
-
   scope "/admin", KursonliKursWeb do
     pipe_through [:browser, :admin_check, :admin_app]
-
-    get "/", AdminController, :index
-    get "/settings", AdminController, :settings
-
     get "/logout", AdminController, :admin_logout
 
-    post "/register_org_submit", AdminController, :register_org_submit
-    get "/update_org_status", AdminController, :update_org_status
+
+    get "/", AdminOrgController, :index
+    get "/settings", AdminOrgController, :settings
+
+
+    post "/register_org_submit", AdminOrgController, :register_org_submit
+    get "/update_org_status", AdminOrgController, :update_org_status
 
     scope "/currencies" do
-      post "/", AdminController, :create_currency_submit
-      get "/update", AdminController, :update_currency
-      get "/delete", AdminController, :delete_currency
+      post "/", AdminOrgController, :create_currency_submit
+      get "/update", AdminOrgController, :update_currency
+      get "/delete", AdminOrgController, :delete_currency
     end
 
     scope "/cities" do
-      post "/", AdminController, :create_city_submit
-      get "/update", AdminController, :update_city
-      get "/delete", AdminController, :delete_city
+      post "/", AdminOrgController, :create_city_submit
+      get "/update", AdminOrgController, :update_city
+      get "/delete", AdminOrgController, :delete_city
     end
 
     scope "/filials" do
-      get "/", AdminController, :filials
-      post "/", AdminController, :create_filial_submit
-      post "/update", AdminController, :update_filial
-      get "/update_filial_status", AdminController, :update_filial_status
-      post "/update_filial_tariff", AdminController, :update_filial_tariff
-      get "/reset_password", AdminController, :reset_password
+      get "/", AdminOrgController, :filials
+      post "/", AdminOrgController, :create_filial_submit
+      post "/update", AdminOrgController, :update_filial
+      get "/update_filial_status", AdminOrgController, :update_filial_status
+      post "/update_filial_tariff", AdminOrgController, :update_filial_tariff
+      get "/reset_password", AdminOrgController, :reset_password
     end
 
     scope "/tariffs" do
@@ -107,7 +116,7 @@ defmodule KursonliKursWeb.Router do
     end
 
     scope "/notifications" do
-      post "/update", AdminController, :update_notification
+      post "/update", AdminOrgController, :update_notification
     end
   end
 
