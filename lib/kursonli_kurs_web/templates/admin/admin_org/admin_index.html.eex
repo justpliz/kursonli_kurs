@@ -108,6 +108,6 @@
    </div>
 </div>
 
-<%= render(KursonliKursWeb.AdminView, "modal_admin_create_organization.html", conn: @conn, cities_list: @cities_list,
+<%= render(KursonliKursWeb.Admin.AdminOrgView, "modal_admin_create_organization.html", conn: @conn, cities_list: @cities_list,
    currencies_list: @currencies_list) %>
-   <%= render(KursonliKursWeb.AdminView, "admin_accept_update.html", conn: @conn) %>
+   <%= render(KursonliKursWeb.Admin.AdminOrgView, "admin_accept_update.html", conn: @conn) %>

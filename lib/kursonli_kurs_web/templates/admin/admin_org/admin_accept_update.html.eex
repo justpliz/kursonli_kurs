@@ -10,7 +10,7 @@
               <h1 class="title_without_margin">Действительно сделать активным?</h1>
             </div>
             <div class="px-1">
-               <form action="/admin/update_org_status" method="get">
+               <form action="/admin/organization/update_org_status" method="get">
                   <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
                   <input class="hidden" id="org_active_status" value="${org_active_status}" name="org_active_status" required="true" type="text">
                   <div class="text-left my-4">При добавлении организации в архив все филиалы зарегистрированные от данной организации будут так же архивированы.
@@ -35,7 +35,7 @@
               <h1 class="title_without_margin">Действительно архивировать?</h1>
             </div>
             <div class="px-1">
-               <form action="/admin/update_org_status" method="get">
+               <form action="/admin/organization/update_org_status" method="get">
                   <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
                   <input class="hidden" id="org_active_status" value="${org_active_status}" name="org_active_status" required="true" type="text">
                   <div class="text-left my-4">При активации организации все филиалы зарегестрированные от данной организации будут так же активны.

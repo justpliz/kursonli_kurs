@@ -9,7 +9,7 @@
               <h1 class="title_without_margin">Создание тарифа</h1>
             </div>
             <div class="px-1">
-              <%= form_for @conn, Routes.tariff_path(@conn, :create_tariff), fn f -> %>
+              <%= form_for @conn, Routes.admin_setting_path(@conn, :create_tariff), fn f -> %>
                   <label class="label_input pos">Название тарифа</label>
                   <%= text_input f, :name, class: "input_full", required: "true" %>
 

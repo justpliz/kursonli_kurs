@@ -1,4 +1,4 @@
-defmodule KursonliKursWeb.Admin.AdminSetting do
+defmodule KursonliKursWeb.Admin.AdminSettingController do
   use KursonliKursWeb, :controller
   action_fallback(FallbackController)
 
@@ -7,13 +7,14 @@ defmodule KursonliKursWeb.Admin.AdminSetting do
     Currencies,
     FilialsCurrencies,
     Tariffs,
-    Notifications
+    Notifications,
+    Filials
   }
 
   @doc """
-  GET /admin/settings
+  GET /admin/setting
   """
-  def settings(conn, _params) do
+  def setting(conn, _params) do
     tariff_list = Tariffs.all()
     currency_list = Currencies.all()
     cities_list = Cities.all()
@@ -43,7 +44,7 @@ defmodule KursonliKursWeb.Admin.AdminSetting do
     with {:ok, currencies} <- Currencies.create(opts) do
       conn
       |> put_flash(:info, "#{currencies.name} создан")
-      |> redirect(to: "/admin/settings")
+      |> redirect(to: "/admin/setting")
     end
   end
 
@@ -55,7 +56,7 @@ defmodule KursonliKursWeb.Admin.AdminSetting do
          {:ok, _currency} <- Currencies.update(currency, params) do
       conn
       |> put_flash(:info, "Курс #{currency.name} изменен")
-      |> redirect(to: "/admin/settings")
+      |> redirect(to: "/admin/setting")
     end
   end
 
@@ -70,11 +71,11 @@ defmodule KursonliKursWeb.Admin.AdminSetting do
 
         conn
         |> put_flash(:info, "#{currency.name} удалён")
-        |> redirect(to: "/admin/settings")
+        |> redirect(to: "/admin/setting")
       else
         conn
         |> put_flash(:error, "#{currency.name} используется некоторыми филиалами")
-        |> redirect(to: "/admin/settings")
+        |> redirect(to: "/admin/setting")
       end
     end
   end
@@ -86,7 +87,7 @@ defmodule KursonliKursWeb.Admin.AdminSetting do
     with {:ok, city} <- Cities.create(params) do
       conn
       |> put_flash(:info, "#{city.name} создан")
-      |> redirect(to: "/admin/settings")
+      |> redirect(to: "/admin/setting")
     end
   end
 
@@ -98,7 +99,7 @@ defmodule KursonliKursWeb.Admin.AdminSetting do
          {:ok, city} <- Cities.delete(city) do
       conn
       |> put_flash(:info, "#{city.name} удалён")
-      |> redirect(to: "/admin/settings")
+      |> redirect(to: "/admin/setting")
     end
   end
 
@@ -110,7 +111,7 @@ defmodule KursonliKursWeb.Admin.AdminSetting do
          {:ok, _city} <- Cities.update(city, params) do
       conn
       |> put_flash(:info, "Город #{city.name} изменен")
-      |> redirect(to: "/admin/settings")
+      |> redirect(to: "/admin/setting")
     end
   end
 
@@ -119,7 +120,51 @@ defmodule KursonliKursWeb.Admin.AdminSetting do
          {:ok, notification} <- Notifications.update(notification, params) do
       conn
       |> put_flash(:info, "Объявление #{notification.name} успешно обновлено")
-      |> redirect(to: "/admin/settings")
+      |> redirect(to: "/admin/setting")
+    end
+  end
+
+  @doc """
+  POST /admin/tariffs
+  """
+  def create_tariff(conn, params) do
+    with {:ok, _tariff} <- Tariffs.create(params) do
+      conn
+      |> put_flash(:info, gettext("Новый тариф успешно создан"))
+      |> redirect(to: "/admin/setting")
+    end
+  end
+
+  @doc """
+  GET /admin/tariffs/update
+  """
+  def update_tariff(conn, %{"id" => id} = params) do
+    with {:ok, tariff} <- Tariffs.do_get(id: String.to_integer(id)),
+         {:ok, _city} <- Tariffs.update(tariff, params) do
+      conn
+      |> put_flash(:info, " #{tariff.name} #{gettext("изменен")}")
+      |> redirect(to: "/admin/setting")
+    end
+  end
+
+  @doc """
+  GET /admin/tariffs/delete
+  """
+  def delete_tariff(conn, %{"id" => id}) do
+    # TODO count -> ensure
+    with {:ok, tariff} <- Tariffs.do_get(id: id),
+         count <- Filials.count(tariff_id: id) do
+      if count == 0 do
+        {:ok, tariff} = Tariffs.delete(tariff)
+
+        conn
+        |> put_flash(:info, "#{gettext("Тариф")} #{tariff.name} #{gettext("удалён")}")
+        |> redirect(to: "/admin/setting")
+      else
+        conn
+        |> put_flash(:error, "#{tariff.name} #{gettext("используется некоторыми филиалами")}")
+        |> redirect(to: "/admin/setting")
+      end
     end
   end
 end

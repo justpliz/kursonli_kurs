@@ -61,24 +61,25 @@ defmodule KursonliKursWeb.Router do
     get "/delete", TradeController, :delete_trade
   end
 
-  ###    ########  ##     ## #### ##    ##
-  ## ##   ##     ## ###   ###  ##  ###   ##
-  ##   ##  ##     ## #### ####  ##  ####  ##
-  ##     ## ##     ## ## ### ##  ##  ## ## ##
-  ######### ##     ## ##     ##  ##  ##  ####
-  ##     ## ##     ## ##     ##  ##  ##   ###
-  ##     ## ########  ##     ## #### ##    ##
+  #     ###    ########  ##     ## #### ##    ##
+  #    ## ##   ##     ## ###   ###  ##  ###   ##
+  #   ##   ##  ##     ## #### ####  ##  ####  ##
+  #  ##     ## ##     ## ## ### ##  ##  ## ## ##
+  #  ######### ##     ## ##     ##  ##  ##  ####
+  #  ##     ## ##     ## ##     ##  ##  ##   ###
+  #  ##     ## ########  ##     ## #### ##    ##
 
   scope "/admin", KursonliKursWeb do
     pipe_through [:browser, :clean]
 
     get "/login", AdminController, :login_form
     post "/login", AdminController, :login_form_submit
+
+    get "/logout", AdminController, :admin_logout
   end
 
-  scope "/admin", KursonliKursWeb do
+  scope "/admin", KursonliKursWeb.Admin do
     pipe_through [:browser, :admin_check, :admin_app]
-    get "/logout", AdminController, :admin_logout
 
     scope "/organization" do
       get "/", AdminOrgController, :index
@@ -87,37 +88,39 @@ defmodule KursonliKursWeb.Router do
       get "/update_org_status", AdminOrgController, :update_org_status
     end
 
-    get "/settings", AdminOrgController, :settings
+    scope "/setting" do
+      get "/", AdminSettingController, :setting
 
-    scope "/currencies" do
-      post "/", AdminOrgController, :create_currency_submit
-      get "/update", AdminOrgController, :update_currency
-      get "/delete", AdminOrgController, :delete_currency
+      scope "/currencies" do
+        post "/", AdminSettingController, :create_currency_submit
+        get "/update", AdminSettingController, :update_currency
+        get "/delete", AdminSettingController, :delete_currency
+      end
+
+      scope "/cities" do
+        post "/", AdminSettingController, :create_city_submit
+        get "/update", AdminSettingController, :update_city
+        get "/delete", AdminSettingController, :delete_city
+      end
+
+      scope "/tariffs" do
+        post "/", AdminSettingController, :create_tariff
+        get "/update", AdminSettingController, :update_tariff
+        get "/delete", AdminSettingController, :delete_tariff
+      end
+
+      scope "/notifications" do
+        post "/update", AdminSettingController, :update_notification
+      end
     end
 
-    scope "/cities" do
-      post "/", AdminOrgController, :create_city_submit
-      get "/update", AdminOrgController, :update_city
-      get "/delete", AdminOrgController, :delete_city
-    end
-
-    scope "/filials" do
-      get "/", AdminOrgController, :filials
-      post "/", AdminOrgController, :create_filial_submit
-      post "/update", AdminOrgController, :update_filial
-      get "/update_filial_status", AdminOrgController, :update_filial_status
-      post "/update_filial_tariff", AdminOrgController, :update_filial_tariff
-      get "/reset_password", AdminOrgController, :reset_password
-    end
-
-    scope "/tariffs" do
-      post "/", TariffController, :create_tariff
-      get "/update", TariffController, :update_tariff
-      get "/delete", TariffController, :delete_tariff
-    end
-
-    scope "/notifications" do
-      post "/update", AdminOrgController, :update_notification
+    scope "/filial" do
+      get "/", AdminFilialController, :filials
+      post "/", AdminFilialController, :create_filial_submit
+      post "/update", AdminFilialController, :update_filial
+      get "/update_filial_status", AdminFilialController, :update_filial_status
+      post "/update_filial_tariff", AdminFilialController, :update_filial_tariff
+      get "/reset_password", AdminFilialController, :reset_password
     end
   end
 

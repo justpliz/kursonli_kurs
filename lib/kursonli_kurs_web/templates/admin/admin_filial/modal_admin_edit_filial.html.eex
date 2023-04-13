@@ -14,7 +14,7 @@
             <h1 class="title_without_margin">Редактирование филиала</h1>
           </div>
           <div class="px-1">
-            <%= form_for @conn, Routes.admin_org_path(@conn, :update_filial), fn f -> %>
+            <%= form_for @conn, Routes.admin_filial_path(@conn, :update_filial), fn f -> %>
               <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
 
               <label class="label_input pos" for="filial_name">Название филиала</label>
@@ -35,7 +35,7 @@
               <button class="btn_save my-2 pos" type="submit">Сохранить</button>
             <% end %>
 
-            <%= form_for @conn, Routes.admin_org_path(@conn, :update_filial_tariff), fn f -> %>
+            <%= form_for @conn, Routes.admin_filial_path(@conn, :update_filial_tariff), fn f -> %>
               <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
 
               <label class="label_input pos" for="tariff_id">Тариф</label>

@@ -9,7 +9,7 @@
           <h1 class="title_without_margin">Редактирование города</h1>
         </div>
         <div class="px-1">
-          <form action="/admin/cities/update" method="get">
+          <form action="/admin/setting/cities/update" method="get">
             <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
             <label class="label_input pos" for="name">Название</label>
             <input class="input_full" id="name" value="${name}" name="name" required="true" type="text">

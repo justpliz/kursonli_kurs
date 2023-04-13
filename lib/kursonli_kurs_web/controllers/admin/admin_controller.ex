@@ -27,7 +27,7 @@ defmodule KursonliKursWeb.AdminController do
         conn
         |> put_session(:admin, %{id: admin.id, login: admin.login})
         |> put_flash(:info, "Добро пожаловать #{admin.login}")
-        |> redirect(to: "/admin")
+        |> redirect(to: "/admin/organization")
 
       {:error, :not_found} ->
         conn

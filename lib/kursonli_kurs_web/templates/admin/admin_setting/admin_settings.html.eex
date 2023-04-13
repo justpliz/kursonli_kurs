@@ -37,7 +37,7 @@
                      <button class="tariff_edit btn_save"
                         data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать
                         тариф</button>
-                     <a href="/admin/tariffs/delete?id=<%= item.id %>" class="btn_cancel">
+                     <a href="/admin/setting/tariffs/delete?id=<%= item.id %>" class="btn_cancel">
                         Удалить тариф
                      </a>
                   </div>
@@ -51,7 +51,7 @@
       <div class="tab-content" id="tab2-content">
          <div class="text-lg font-semibold">Текст уведомлений</div>
          <div class="bg-gray-200 w-full p-8 rounded-xl">
-            <%= form_for @conn, Routes.admin_org_path(@conn, :update_notification), fn f -> %>
+            <%= form_for @conn, Routes.admin_setting_path(@conn, :update_notification), fn f -> %>
             <h1 class="subtitle_black pl-2">Раздел "Оплата"</h1>
             <div class="bg-white rounded-lg p-4 mb-4">
                <div class="flex justify-between pb-2">
@@ -76,7 +76,7 @@
             <% end %>
          </div>
          <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
-            <%= form_for @conn, Routes.admin_org_path(@conn, :update_notification), fn f -> %>
+            <%= form_for @conn, Routes.admin_setting_path(@conn, :update_notification), fn f -> %>
             <h1 class="subtitle_black pl-2">Истечение срока отображаемое в модальном окне при входе</h1>
             <div class="bg-white rounded-lg p-4 mb-4">
                <div class="flex justify-between pb-2">
@@ -101,7 +101,7 @@
             <% end %>
          </div>
          <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
-            <%= form_for @conn, Routes.admin_org_path(@conn, :update_notification), fn f -> %>
+            <%= form_for @conn, Routes.admin_setting_path(@conn, :update_notification), fn f -> %>
             <h1 class="subtitle_black pl-2">Предупреждение о неоплате во всех разделах меню</h1>
             <div class="bg-white rounded-lg p-4 mb-4">
                <div class="flex justify-between pb-2">
@@ -155,7 +155,7 @@
                      <button class="currency_edit btn_save"
                         data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать
                         валюту</button>
-                     <a href="/admin/currencies/delete?id=<%= item.id %>" class="btn_cancel">
+                     <a href="/admin/setting/currencies/delete?id=<%= item.id %>" class="btn_cancel">
                         Удалить валюту
                      </a>
                   </div>
@@ -194,7 +194,7 @@
                      <button class="city_edit btn_save"
                         data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать
                         город</button>
-                     <a href="/admin/cities/delete?id=<%= item.id %>" class="btn_cancel">
+                     <a href="/admin/setting/cities/delete?id=<%= item.id %>" class="btn_cancel">
                         Удалить город
                      </a>
                   </div>
@@ -207,11 +207,11 @@
    </div>
 </div>
 
-<%= render(KursonliKursWeb.AdminView, "modal_admin_edit_currency.html", conn: @conn) %>
-   <%= render(KursonliKursWeb.AdminView, "modal_admin_currency_create.html", conn: @conn) %>
+<%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_edit_currency.html", conn: @conn) %>
+   <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_currency_create.html", conn: @conn) %>
 
-      <%= render(KursonliKursWeb.AdminView, "modal_admin_edit_cities.html", conn: @conn) %>
-         <%= render(KursonliKursWeb.AdminView, "modal_admin_cities_create.html", conn: @conn) %>
+      <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_edit_cities.html", conn: @conn) %>
+         <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_cities_create.html", conn: @conn) %>
 
-            <%= render(KursonliKursWeb.AdminView, "modal_admin_create_tariff.html", conn: @conn) %>
-               <%= render(KursonliKursWeb.AdminView, "modal_admin_tariff_edit.html", conn: @conn) %>
+            <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_create_tariff.html", conn: @conn) %>
+               <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_tariff_edit.html", conn: @conn) %>

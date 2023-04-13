@@ -4,14 +4,9 @@ defmodule KursonliKursWeb.Admin.AdminOrgController do
 
   alias KursonliKurs.Context.{
     Cities,
-    Filials,
     Organizations,
     Currencies,
-    FilialsCurrencies,
-    Tariffs,
-    Settings,
-    Notifications,
-    Workers
+    Filials
   }
 
   @doc """
@@ -64,12 +59,12 @@ defmodule KursonliKursWeb.Admin.AdminOrgController do
              ) do
         conn
         |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
-        |> redirect(to: "/admin")
+        |> redirect(to: "/admin/organization")
       else
         {:error, _reason} ->
           conn
           |> put_flash(:error, "Проверьте вводимые данные")
-          |> redirect(to: "/admin")
+          |> redirect(to: "/admin/organization")
       end
     end)
   end
@@ -92,7 +87,7 @@ defmodule KursonliKursWeb.Admin.AdminOrgController do
            Enum.map(filials, fn x -> Filials.update(x, %{filial_active_status: status}) end) do
       conn
       |> put_flash(:info, "статус #{organization.name} успешно обновлен")
-      |> redirect(to: "/admin")
+      |> redirect(to: "/admin/organization")
     end
   end
 end

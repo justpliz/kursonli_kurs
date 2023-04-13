@@ -6,11 +6,8 @@ defmodule KursonliKursWeb.Admin.AdminFilialController do
     Cities,
     Filials,
     Organizations,
-    Currencies,
-    FilialsCurrencies,
     Tariffs,
     Settings,
-    Notifications,
     Workers
   }
 
@@ -58,12 +55,12 @@ defmodule KursonliKursWeb.Admin.AdminFilialController do
              ) do
         conn
         |> put_flash(:info, "Филиал успешно добавлен, пароль: #{password}")
-        |> redirect(to: "/admin/filials")
+        |> redirect(to: "/admin/filial")
       else
         {:error, _reason} ->
           conn
           |> put_flash(:error, "Проверьте вводимые данные")
-          |> redirect(to: "/admin/filials")
+          |> redirect(to: "/admin/filial")
       end
     end)
   end
@@ -78,7 +75,7 @@ defmodule KursonliKursWeb.Admin.AdminFilialController do
          {:ok, _worker} <- Workers.update(worker, %{password: hash_str(password)}) do
       conn
       |> put_flash(:info, "Пароль успешно сброшен, новый пароль: #{password}")
-      |> redirect(to: "/admin/filials")
+      |> redirect(to: "/admin/filial")
     end
   end
 
@@ -103,7 +100,7 @@ defmodule KursonliKursWeb.Admin.AdminFilialController do
          {:ok, _setting} <- Settings.update(setting, setting_opts) do
       conn
       |> put_flash(:info, "Парамерты #{fiiial.name} успешно изменены")
-      |> redirect(to: "/admin/filials")
+      |> redirect(to: "/admin/filial")
     end
   end
 
@@ -118,7 +115,7 @@ defmodule KursonliKursWeb.Admin.AdminFilialController do
          {:ok, filial} <- Filials.update(filial, %{filial_active_status: status}) do
       conn
       |> put_flash(:info, "статус #{filial.name} успешно обновлен")
-      |> redirect(to: "/admin/filials")
+      |> redirect(to: "/admin/filial")
     end
   end
 
@@ -137,7 +134,7 @@ defmodule KursonliKursWeb.Admin.AdminFilialController do
          {:ok, filial} <- Filials.update(filial, opts) do
       conn
       |> put_flash(:info, "Тариф #{filial.name} успешно обновлен")
-      |> redirect(to: "/admin/filials")
+      |> redirect(to: "/admin/filial")
     end
   end
 
