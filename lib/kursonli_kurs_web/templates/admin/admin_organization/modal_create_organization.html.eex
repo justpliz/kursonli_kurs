@@ -6,7 +6,7 @@
       heightAuto: false,
       html: `
         <h1 class="title pos">Создание организации</h1>
-        <%= form_for @conn, Routes.admin_org_path(@conn, :register_org_submit), [multipart: true], fn f -> %>
+        <%= form_for @conn, Routes.admin_organization_path(@conn, :create_organization), [multipart: true], fn f -> %>
           <div class="mb-2">
             <label class="label_input pos">Название</label>
             <%= text_input f, :name, class: "input_full", required: "true", placeholder: "TОО “Taur1" %>

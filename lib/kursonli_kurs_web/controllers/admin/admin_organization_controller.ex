@@ -1,4 +1,4 @@
-defmodule KursonliKursWeb.Admin.AdminOrgController do
+defmodule KursonliKursWeb.Admin.AdminOrganizationController do
   use KursonliKursWeb, :controller
   action_fallback(FallbackController)
 
@@ -10,15 +10,16 @@ defmodule KursonliKursWeb.Admin.AdminOrgController do
   }
 
   @doc """
-  GET /admin/
+  GET /admin/organization
+  Отображение списка организаций
   """
-  def index(conn, _params) do
+  def organization_list(conn, _params) do
     organization_list = Organizations.all()
     cities_list = Cities.all()
     currencies_list = Currencies.all()
 
     conn
-    |> render("admin_index.html",
+    |> render("organizations_list.html",
       organization_list: organization_list,
       cities_list: cities_list,
       currencies_list: currencies_list
@@ -26,10 +27,10 @@ defmodule KursonliKursWeb.Admin.AdminOrgController do
   end
 
   @doc """
-  GET /admin/register_org_submit
+  POST /admin/organization/create
   Создание связки "организаця-филиал-сотрудник"
   """
-  def register_org_submit(conn, params) do
+  def create_organization(conn, params) do
     password = generate_random_str(8)
 
     org_opts = %{
@@ -70,9 +71,10 @@ defmodule KursonliKursWeb.Admin.AdminOrgController do
   end
 
   @doc """
-  GET /admin/update_org_status
+  GET /admin/organization/update
+  Изменение статуса организации(архивирование/активация)
   """
-  def update_org_status(conn, %{"id" => id, "org_active_status" => status}) do
+  def update_organization_status(conn, %{"id" => id, "org_active_status" => status}) do
     status =
       case status do
         "active" -> "archive"
@@ -86,7 +88,7 @@ defmodule KursonliKursWeb.Admin.AdminOrgController do
          _filials <-
            Enum.map(filials, fn x -> Filials.update(x, %{filial_active_status: status}) end) do
       conn
-      |> put_flash(:info, "статус #{organization.name} успешно обновлен")
+      |> put_flash(:info, "Статус #{organization.name} успешно обновлен")
       |> redirect(to: "/admin/organization")
     end
   end

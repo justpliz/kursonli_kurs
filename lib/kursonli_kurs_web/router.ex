@@ -82,10 +82,9 @@ defmodule KursonliKursWeb.Router do
     pipe_through [:browser, :admin_check, :admin_app]
 
     scope "/organization" do
-      get "/", AdminOrgController, :index
-
-      post "/register_org_submit", AdminOrgController, :register_org_submit
-      get "/update_org_status", AdminOrgController, :update_org_status
+      get "/", AdminOrganizationController, :organization_list
+      post "/create", AdminOrganizationController, :create_organization
+      get "/update", AdminOrganizationController, :update_organization_status
     end
 
     scope "/setting" do

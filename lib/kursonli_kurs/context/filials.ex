@@ -60,13 +60,16 @@ defmodule KursonliKurs.Context.Filials do
   end
 
   @doc """
-  get filial info from filail_id
+  get filial info from filial_id
   """
   def get_filail_name(query) do
     f = from(f in Filial, select: %{name: f.name})
     from(query, preload: [filial: ^f])
   end
 
+  @doc """
+  Создание связки филиал-сотрудник-настройки
+  """
   def create_filial_worker_setting(filial_opts, worker_opts) do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
