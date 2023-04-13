@@ -13,8 +13,9 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
 
   @doc """
   GET /admin/setting
+  Отображение списка настроек портала(тарифы, объявления, валюты, города)
   """
-  def setting(conn, _params) do
+  def settings_list(conn, _params) do
     tariff_list = Tariffs.all()
     currency_list = Currencies.all()
     cities_list = Cities.all()
@@ -24,7 +25,7 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
     {:ok, instructions} = Notifications.do_get(name: "instructions")
 
     conn
-    |> render("admin_settings.html",
+    |> render("settings_list.html",
       tariff_list: tariff_list,
       currency_list: currency_list,
       cities_list: cities_list,
@@ -34,7 +35,11 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
     )
   end
 
-  def create_currency_submit(conn, params) do
+  @doc """
+  POST /admin/setting/currencies
+  Создание новой валюты
+  """
+  def create_currency(conn, params) do
     opts = %{
       name: params["name"],
       short_name: String.upcase(params["short_name"]),
@@ -49,7 +54,8 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   end
 
   @doc """
-  GET /admin/update_currency
+  GET /admin/setting/currencies/update
+  Обновление данных(name, short_name, color) валюты
   """
   def update_currency(conn, %{"id" => id} = params) do
     with {:ok, currency} <- Currencies.do_get(id: String.to_integer(id)),
@@ -61,7 +67,8 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   end
 
   @doc """
-  GET /admin/delete_currency
+  GET /admin/setting/currencies/delete
+  Удаление валюты если она не используется филиалами
   """
   def delete_currency(conn, %{"id" => id}) do
     with {:ok, currency} <- Currencies.do_get(id: id),
@@ -81,9 +88,10 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   end
 
   @doc """
-  POST /admin/cities
+  POST /admin/setting/cities
+  Создание нового города
   """
-  def create_city_submit(conn, params) do
+  def create_city(conn, params) do
     with {:ok, city} <- Cities.create(params) do
       conn
       |> put_flash(:info, "#{city.name} создан")
@@ -92,7 +100,21 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   end
 
   @doc """
-  GET /admin/cities/delete
+  GET /admin/setting/cities/update
+  Обновление данных(name, short_name, eng_name) города
+  """
+  def update_city(conn, %{"id" => id} = params) do
+    with {:ok, city} <- Cities.do_get(id: String.to_integer(id)),
+         {:ok, _city} <- Cities.update(city, params) do
+      conn
+      |> put_flash(:info, "Город #{city.name} изменен")
+      |> redirect(to: "/admin/setting")
+    end
+  end
+
+  @doc """
+  GET /admin/setting/cities/delete
+  Удаление города если в нем не зарегестрированы филиалы
   """
   def delete_city(conn, %{"id" => id}) do
     with {:ok, city} <- Cities.do_get(id: id),
@@ -104,28 +126,8 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   end
 
   @doc """
-  GET /admin/cities/update
-  """
-  def update_city(conn, %{"id" => id} = params) do
-    with {:ok, city} <- Cities.do_get(id: String.to_integer(id)),
-         {:ok, _city} <- Cities.update(city, params) do
-      conn
-      |> put_flash(:info, "Город #{city.name} изменен")
-      |> redirect(to: "/admin/setting")
-    end
-  end
-
-  def update_notification(conn, %{"name" => name} = params) do
-    with {:ok, notification} <- Notifications.do_get(name: name),
-         {:ok, notification} <- Notifications.update(notification, params) do
-      conn
-      |> put_flash(:info, "Объявление #{notification.name} успешно обновлено")
-      |> redirect(to: "/admin/setting")
-    end
-  end
-
-  @doc """
-  POST /admin/tariffs
+  POST /admin/setting/tariffs
+  Создание нового тарифа
   """
   def create_tariff(conn, params) do
     with {:ok, _tariff} <- Tariffs.create(params) do
@@ -136,7 +138,8 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   end
 
   @doc """
-  GET /admin/tariffs/update
+  GET /admin/setting/tariffs/update
+  Обновление данных(name, price, days) тарифа
   """
   def update_tariff(conn, %{"id" => id} = params) do
     with {:ok, tariff} <- Tariffs.do_get(id: String.to_integer(id)),
@@ -148,7 +151,8 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   end
 
   @doc """
-  GET /admin/tariffs/delete
+  GET /admin/setting/tariffs/delete
+  Удаление тарифа
   """
   def delete_tariff(conn, %{"id" => id}) do
     # TODO count -> ensure
@@ -165,6 +169,19 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
         |> put_flash(:error, "#{tariff.name} #{gettext("используется некоторыми филиалами")}")
         |> redirect(to: "/admin/setting")
       end
+    end
+  end
+
+  @doc """
+  POST /admin/setting/notifications/update
+  Обновление данных(description, title) объявлений по name
+  """
+  def update_notification(conn, %{"name" => name} = params) do
+    with {:ok, notification} <- Notifications.do_get(name: name),
+         {:ok, notification} <- Notifications.update(notification, params) do
+      conn
+      |> put_flash(:info, "Объявление #{notification.name} успешно обновлено")
+      |> redirect(to: "/admin/setting")
     end
   end
 end

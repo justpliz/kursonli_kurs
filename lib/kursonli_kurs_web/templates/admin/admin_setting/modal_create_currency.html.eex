@@ -9,7 +9,7 @@
               <h1 class="title_without_margin">Создание валюты</h1>
             </div>
             <div class="px-1">
-              <%= form_for @conn, Routes.admin_setting_path(@conn, :create_currency_submit), fn f -> %>
+              <%= form_for @conn, Routes.admin_setting_path(@conn, :create_currency), fn f -> %>
                   <label class="label_input pos">Полное название валюты</label>
                   <%= text_input f, :name, class: "input_full", required: "true" %>
 

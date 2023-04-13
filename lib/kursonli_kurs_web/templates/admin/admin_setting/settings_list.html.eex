@@ -64,10 +64,6 @@
                   <%= textarea f, :description, placeholder: "", value: @service_access.description, class: "min-h-300 input_full",
                   required: "true" %>
                </div>
-               <div class="flex justify-between">
-                  <label class="label_input p-2 basis-1/6">Изображение</label>
-                  <input type="file" class="input_full">
-               </div>
                <div class="border-t-2 my-4 border-gray-200"></div>
                <div class="flex gap-4">
                      <%= submit "Сохранить изменения", class: "currency_edit btn_save" %>
@@ -89,10 +85,6 @@
                   <%= textarea f, :description, placeholder: "", value: @expiration.description, class: "min-h-300 input_full",
                   required: "true" %>
                </div>
-               <div class="flex justify-between">
-                  <label class="label_input p-2 basis-1/6">Изображение</label>
-                  <input type="file" class="input_full">
-               </div>
                <div class="border-t-2 my-4 border-gray-200"></div>
                <div class="flex gap-4">
                   <%= submit "Сохранить изменения", class: "currency_edit btn_save" %>
@@ -113,10 +105,6 @@
                   <label class="label_input p-2 basis-1/6">Текст</label>
                   <%= textarea f, :description, placeholder: "", value: @instructions.description, class: "min-h-300 input_full",
                   required: "true" %>
-               </div>
-               <div class="flex justify-between">
-                  <label class="label_input p-2 basis-1/6">Изображение</label>
-                  <input type="file" class="input_full">
                </div>
                <div class="border-t-2 my-4 border-gray-200"></div>
                <div class="flex gap-4">
@@ -207,11 +195,11 @@
    </div>
 </div>
 
-<%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_edit_currency.html", conn: @conn) %>
-   <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_currency_create.html", conn: @conn) %>
+<%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_update_currency.html", conn: @conn) %>
+   <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_create_currency.html", conn: @conn) %>
 
-      <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_edit_cities.html", conn: @conn) %>
-         <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_cities_create.html", conn: @conn) %>
+      <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_update_city.html", conn: @conn) %>
+         <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_create_cities.html", conn: @conn) %>
 
-            <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_create_tariff.html", conn: @conn) %>
-               <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_admin_tariff_edit.html", conn: @conn) %>
+            <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_create_tariff.html", conn: @conn) %>
+               <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_update_tariff.html", conn: @conn) %>

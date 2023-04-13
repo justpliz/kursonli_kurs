@@ -38,6 +38,13 @@ defmodule KursonliKursWeb.Router do
     plug :put_root_layout, {KursonliKursWeb.LayoutView, "index_app.html"}
   end
 
+  #       # #    # #####  ###### #    #
+  #       # ##   # #    # #       #  #
+  #       # # #  # #    # #####    ##
+  #       # #  # # #    # #        ##
+  #       # #   ## #    # #       #  #
+  #       # #    # #####  ###### #    #
+
   scope "/", KursonliKursWeb do
     pipe_through [:browser, :index]
 
@@ -61,13 +68,12 @@ defmodule KursonliKursWeb.Router do
     get "/delete", TradeController, :delete_trade
   end
 
-  #     ###    ########  ##     ## #### ##    ##
-  #    ## ##   ##     ## ###   ###  ##  ###   ##
-  #   ##   ##  ##     ## #### ####  ##  ####  ##
-  #  ##     ## ##     ## ## ### ##  ##  ## ## ##
-  #  ######### ##     ## ##     ##  ##  ##  ####
-  #  ##     ## ##     ## ##     ##  ##  ##   ###
-  #  ##     ## ########  ##     ## #### ##    ##
+  #        ##   #####  #    # # #    #
+  #       #  #  #    # ##  ## # ##   #
+  #      #    # #    # # ## # # # #  #
+  #      ###### #    # #    # # #  # #
+  #      #    # #    # #    # # #   ##
+  #      #    # #####  #    # # #    #
 
   scope "/admin", KursonliKursWeb do
     pipe_through [:browser, :clean]
@@ -97,16 +103,16 @@ defmodule KursonliKursWeb.Router do
     end
 
     scope "/setting" do
-      get "/", AdminSettingController, :setting
+      get "/", AdminSettingController, :settings_list
 
       scope "/currencies" do
-        post "/", AdminSettingController, :create_currency_submit
+        post "/", AdminSettingController, :create_currency
         get "/update", AdminSettingController, :update_currency
         get "/delete", AdminSettingController, :delete_currency
       end
 
       scope "/cities" do
-        post "/", AdminSettingController, :create_city_submit
+        post "/", AdminSettingController, :create_city
         get "/update", AdminSettingController, :update_city
         get "/delete", AdminSettingController, :delete_city
       end
@@ -122,6 +128,13 @@ defmodule KursonliKursWeb.Router do
       end
     end
   end
+
+  #       #    #  ####  #####  #    # ###### #####
+  #       #    # #    # #    # #   #  #      #    #
+  #       #    # #    # #    # ####   #####  #    #
+  #       # ## # #    # #####  #  #   #      #####
+  #       ##  ## #    # #   #  #   #  #      #   #
+  #       #    #  ####  #    # #    # ###### #    #
 
   scope "/worker", KursonliKursWeb do
     pipe_through [:browser, :clean]
