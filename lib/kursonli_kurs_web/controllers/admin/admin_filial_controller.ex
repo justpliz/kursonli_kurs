@@ -12,16 +12,17 @@ defmodule KursonliKursWeb.Admin.AdminFilialController do
   }
 
   @doc """
-  GET /admin/filials
+  GET /admin/filial
+  Отображение списка филиалов
   """
-  def filials(conn, _params) do
+  def filials_list(conn, _params) do
     org_list = Organizations.all()
     cities_list = Cities.all()
     tariff_list = Tariffs.all()
     filials_list = Filials.filial_list()
 
     conn
-    |> render("admin_filials.html",
+    |> render("filials_list.html",
       cities_list: cities_list,
       org_list: org_list,
       filials_list: filials_list,
@@ -31,8 +32,9 @@ defmodule KursonliKursWeb.Admin.AdminFilialController do
 
   @doc """
   POST /admin/filials
+  Создание связки "филиал-сотрудник"
   """
-  def create_filial_submit(conn, params) do
+  def create_filial(conn, params) do
     password = generate_random_str(8)
 
     worker_opts = %{
@@ -66,21 +68,27 @@ defmodule KursonliKursWeb.Admin.AdminFilialController do
   end
 
   @doc """
-  GET /admin/filials/reset_password
+  GET /admin/update_status
+  Изменение статуса филилала(архивирование/активация)
   """
-  def reset_password(conn, %{"filial_id" => id}) do
-    password = generate_random_str(8)
+  def update_filial_status(conn, %{"id" => id, "filial_active_status" => status}) do
+    status =
+      case status do
+        "active" -> "archive"
+        "archive" -> "active"
+      end
 
-    with {:ok, worker} <- Workers.do_get(filial_id: id),
-         {:ok, _worker} <- Workers.update(worker, %{password: hash_str(password)}) do
+    with {:ok, filial} <- Filials.do_get(id: id),
+         {:ok, filial} <- Filials.update(filial, %{filial_active_status: status}) do
       conn
-      |> put_flash(:info, "Пароль успешно сброшен, новый пароль: #{password}")
+      |> put_flash(:info, "Статус #{filial.name} успешно обновлен")
       |> redirect(to: "/admin/filial")
     end
   end
 
   @doc """
-  GET /admin/update_filial
+  POST /admin/update_filial
+  Обновление данных и настроек(2gis, город) филиала
   """
   def update_filial(conn, %{"id" => id} = params) do
     filial_opts = %{
@@ -104,21 +112,10 @@ defmodule KursonliKursWeb.Admin.AdminFilialController do
     end
   end
 
-  def update_filial_status(conn, %{"id" => id, "filial_active_status" => status}) do
-    status =
-      case status do
-        "active" -> "archive"
-        "archive" -> "active"
-      end
-
-    with {:ok, filial} <- Filials.do_get(id: id),
-         {:ok, filial} <- Filials.update(filial, %{filial_active_status: status}) do
-      conn
-      |> put_flash(:info, "статус #{filial.name} успешно обновлен")
-      |> redirect(to: "/admin/filial")
-    end
-  end
-
+  @doc """
+  POST /admin/update_filial_tariff
+  Обновление тарифного плана филиала
+  """
   def update_filial_tariff(
         conn,
         %{"id" => id, "tariff_id" => tariff_id, "quantity" => quantity}
@@ -138,6 +135,22 @@ defmodule KursonliKursWeb.Admin.AdminFilialController do
     end
   end
 
+  @doc """
+  GET /admin/filials/reset_password
+  Сброс пароля от лк сотрудника филиала
+  """
+  def reset_password(conn, %{"filial_id" => id}) do
+    password = generate_random_str(8)
+
+    with {:ok, worker} <- Workers.do_get(filial_id: id),
+         {:ok, _worker} <- Workers.update(worker, %{password: hash_str(password)}) do
+      conn
+      |> put_flash(:info, "Пароль успешно сброшен, новый пароль: #{password}")
+      |> redirect(to: "/admin/filial")
+    end
+  end
+
+  # Вычисление даты окончания тарифа
   defp calculate_tariff(tariff_id, quantity) do
     quantity = if quantity != "", do: String.to_integer(quantity), else: 0
     {:ok, tariff} = Tariffs.do_get(id: tariff_id)

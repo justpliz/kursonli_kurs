@@ -6,6 +6,7 @@ defmodule KursonliKursWeb.AdminController do
 
   @doc """
   GET /admin/login
+  Форма авторизации админа
   """
   def login_form(conn, _params) do
     conn
@@ -15,6 +16,7 @@ defmodule KursonliKursWeb.AdminController do
 
   @doc """
   POST /admin/login
+  Проверка вводимых данных
   """
   def login_form_submit(conn, params) do
     opts = [
@@ -38,6 +40,7 @@ defmodule KursonliKursWeb.AdminController do
 
   @doc """
   GET /admin/logout
+  Выход из личного кабинета админа
   """
   def admin_logout(conn, _params) do
     conn

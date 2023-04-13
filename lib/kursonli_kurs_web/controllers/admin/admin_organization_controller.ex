@@ -13,7 +13,7 @@ defmodule KursonliKursWeb.Admin.AdminOrganizationController do
   GET /admin/organization
   Отображение списка организаций
   """
-  def organization_list(conn, _params) do
+  def organizations_list(conn, _params) do
     organization_list = Organizations.all()
     cities_list = Cities.all()
     currencies_list = Currencies.all()
@@ -27,7 +27,7 @@ defmodule KursonliKursWeb.Admin.AdminOrganizationController do
   end
 
   @doc """
-  POST /admin/organization/create
+  POST /admin/organization
   Создание связки "организаця-филиал-сотрудник"
   """
   def create_organization(conn, params) do

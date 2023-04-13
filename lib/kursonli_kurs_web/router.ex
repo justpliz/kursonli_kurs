@@ -82,9 +82,18 @@ defmodule KursonliKursWeb.Router do
     pipe_through [:browser, :admin_check, :admin_app]
 
     scope "/organization" do
-      get "/", AdminOrganizationController, :organization_list
-      post "/create", AdminOrganizationController, :create_organization
+      get "/", AdminOrganizationController, :organizations_list
+      post "/", AdminOrganizationController, :create_organization
       get "/update", AdminOrganizationController, :update_organization_status
+    end
+
+    scope "/filial" do
+      get "/", AdminFilialController, :filials_list
+      post "/", AdminFilialController, :create_filial
+      get "/update_status", AdminFilialController, :update_filial_status
+      post "/update", AdminFilialController, :update_filial
+      post "/update_tariff", AdminFilialController, :update_filial_tariff
+      get "/reset_password", AdminFilialController, :reset_password
     end
 
     scope "/setting" do
@@ -111,15 +120,6 @@ defmodule KursonliKursWeb.Router do
       scope "/notifications" do
         post "/update", AdminSettingController, :update_notification
       end
-    end
-
-    scope "/filial" do
-      get "/", AdminFilialController, :filials
-      post "/", AdminFilialController, :create_filial_submit
-      post "/update", AdminFilialController, :update_filial
-      get "/update_filial_status", AdminFilialController, :update_filial_status
-      post "/update_filial_tariff", AdminFilialController, :update_filial_tariff
-      get "/reset_password", AdminFilialController, :reset_password
     end
   end
 
