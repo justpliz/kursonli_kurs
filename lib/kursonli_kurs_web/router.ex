@@ -107,19 +107,19 @@ defmodule KursonliKursWeb.Router do
 
       scope "/currencies" do
         post "/", AdminSettingController, :create_currency
-        get "/update", AdminSettingController, :update_currency
+        post "/update", AdminSettingController, :update_currency
         get "/delete", AdminSettingController, :delete_currency
       end
 
       scope "/cities" do
         post "/", AdminSettingController, :create_city
-        get "/update", AdminSettingController, :update_city
+        post "/update", AdminSettingController, :update_city
         get "/delete", AdminSettingController, :delete_city
       end
 
       scope "/tariffs" do
         post "/", AdminSettingController, :create_tariff
-        get "/update", AdminSettingController, :update_tariff
+        post "/update", AdminSettingController, :update_tariff
         get "/delete", AdminSettingController, :delete_tariff
       end
 

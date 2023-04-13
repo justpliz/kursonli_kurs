@@ -54,7 +54,7 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   end
 
   @doc """
-  GET /admin/setting/currencies/update
+  POST /admin/setting/currencies/update
   Обновление данных(name, short_name, color) валюты
   """
   def update_currency(conn, %{"id" => id} = params) do
@@ -100,10 +100,12 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   end
 
   @doc """
-  GET /admin/setting/cities/update
+  POST /admin/setting/cities/update
   Обновление данных(name, short_name, eng_name) города
   """
   def update_city(conn, %{"id" => id} = params) do
+    IO.inspect("lol")
+    IO.inspect(params)
     with {:ok, city} <- Cities.do_get(id: String.to_integer(id)),
          {:ok, _city} <- Cities.update(city, params) do
       conn
@@ -138,7 +140,7 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   end
 
   @doc """
-  GET /admin/setting/tariffs/update
+  POST /admin/setting/tariffs/update
   Обновление данных(name, price, days) тарифа
   """
   def update_tariff(conn, %{"id" => id} = params) do
