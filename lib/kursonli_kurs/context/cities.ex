@@ -5,6 +5,7 @@ defmodule KursonliKurs.Context.Cities do
   use KursonliKurs.Context
 
   alias KursonliKurs.Model.{City, Worker, Filial}
+  alias KursonliKurs.Context.Cities
 
   require Logger
 
@@ -29,8 +30,16 @@ defmodule KursonliKurs.Context.Cities do
     |> Repo.insert()
   end
 
-  def delete(city) do
-    Repo.delete(city)
+  @doc """
+  Удаление города по id. Если вызывается иключение возвращает :error
+  """
+  def delete(city_id) do
+    city = Cities.get(id: city_id)
+    try do
+      Repo.delete(city)
+    rescue
+      _ -> {:error, city}
+    end
   end
 
   @doc false

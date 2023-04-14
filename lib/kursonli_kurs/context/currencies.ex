@@ -4,8 +4,8 @@ defmodule KursonliKurs.Context.Currencies do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.FilialCurrency
   alias KursonliKurs.Model.{Currency, FilialCurrency}
+  alias KursonliKurs.Context.Currencies
 
   require Logger
 
@@ -30,8 +30,16 @@ defmodule KursonliKurs.Context.Currencies do
     |> Repo.insert()
   end
 
-  def delete(course) do
-    Repo.delete(course)
+  @doc """
+  Удаление валюты по id. Если вызывается иключение возвращает :error
+  """
+  def delete(currency_id) do
+    currency = Currencies.get(id: currency_id)
+    try do
+      Repo.delete(currency)
+    rescue
+      _ -> {:error, currency}
+    end
   end
 
   @spec update(currency, params) :: {:ok, currency} | {:error, Ecto.Changeset.t()}

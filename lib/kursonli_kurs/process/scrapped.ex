@@ -8,7 +8,7 @@ defmodule KursonliKurs.Process.Scrapped do
     try do
       IO.inspect("try")
       scraping()
-      :timer.sleep(60 * 1000 * 10)
+      :timer.sleep(3600 * 1000 * 10)
 
       process()
     rescue

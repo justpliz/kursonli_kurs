@@ -71,19 +71,16 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   Удаление валюты если она не используется филиалами
   """
   def delete_currency(conn, %{"id" => id}) do
-    with {:ok, currency} <- Currencies.do_get(id: id),
-         count <- FilialsCurrencies.count(currency_id: id) do
-      if count == 0 do
-        {:ok, currency} = Currencies.delete(currency)
-
+    case Currencies.delete(id) do
+      {:ok, currency} ->
         conn
         |> put_flash(:info, "#{currency.name} удалён")
         |> redirect(to: "/admin/setting")
-      else
+
+      {:error, currency} ->
         conn
         |> put_flash(:error, "#{currency.name} используется некоторыми филиалами")
         |> redirect(to: "/admin/setting")
-      end
     end
   end
 
@@ -104,8 +101,6 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   Обновление данных(name, short_name, eng_name) города
   """
   def update_city(conn, %{"id" => id} = params) do
-    IO.inspect("lol")
-    IO.inspect(params)
     with {:ok, city} <- Cities.do_get(id: String.to_integer(id)),
          {:ok, _city} <- Cities.update(city, params) do
       conn
@@ -119,11 +114,16 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   Удаление города если в нем не зарегестрированы филиалы
   """
   def delete_city(conn, %{"id" => id}) do
-    with {:ok, city} <- Cities.do_get(id: id),
-         {:ok, city} <- Cities.delete(city) do
-      conn
-      |> put_flash(:info, "#{city.name} удалён")
-      |> redirect(to: "/admin/setting")
+    case Cities.delete(id) do
+      {:ok, city} ->
+        conn
+        |> put_flash(:info, "#{city.name} удалён")
+        |> redirect(to: "/admin/setting")
+
+      {:error, city} ->
+        conn
+        |> put_flash(:error, "#{city.name} #{gettext("используется некоторыми филиалами")}")
+        |> redirect(to: "/admin/setting")
     end
   end
 
@@ -154,23 +154,19 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
 
   @doc """
   GET /admin/setting/tariffs/delete
-  Удаление тарифа
+  Удаление тарифа если он не используется филиалами
   """
   def delete_tariff(conn, %{"id" => id}) do
-    # TODO count -> ensure
-    with {:ok, tariff} <- Tariffs.do_get(id: id),
-         count <- Filials.count(tariff_id: id) do
-      if count == 0 do
-        {:ok, tariff} = Tariffs.delete(tariff)
-
+    case Tariffs.delete(id) do
+      {:ok, tariff} ->
         conn
         |> put_flash(:info, "#{gettext("Тариф")} #{tariff.name} #{gettext("удалён")}")
         |> redirect(to: "/admin/setting")
-      else
+
+      {:error, tariff} ->
         conn
         |> put_flash(:error, "#{tariff.name} #{gettext("используется некоторыми филиалами")}")
         |> redirect(to: "/admin/setting")
-      end
     end
   end
 
