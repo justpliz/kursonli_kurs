@@ -5,10 +5,8 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
   alias KursonliKurs.Context.{
     Cities,
     Currencies,
-    FilialsCurrencies,
     Tariffs,
-    Notifications,
-    Filials
+    Notifications
   }
 
   @doc """
@@ -81,6 +79,11 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
         conn
         |> put_flash(:error, "#{currency.name} используется некоторыми филиалами")
         |> redirect(to: "/admin/setting")
+
+      _any ->
+        conn
+        |> put_flash(:error, "Что то пошло не так. Попробуйте еще раз")
+        |> redirect(to: "/admin/setting")
     end
   end
 
@@ -124,6 +127,11 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
         conn
         |> put_flash(:error, "#{city.name} #{gettext("используется некоторыми филиалами")}")
         |> redirect(to: "/admin/setting")
+
+      _any ->
+        conn
+        |> put_flash(:error, "Что то пошло не так. Попробуйте еще раз")
+        |> redirect(to: "/admin/setting")
     end
   end
 
@@ -166,6 +174,11 @@ defmodule KursonliKursWeb.Admin.AdminSettingController do
       {:error, tariff} ->
         conn
         |> put_flash(:error, "#{tariff.name} #{gettext("используется некоторыми филиалами")}")
+        |> redirect(to: "/admin/setting")
+
+      _any ->
+        conn
+        |> put_flash(:error, "Что то пошло не так. Попробуйте еще раз")
         |> redirect(to: "/admin/setting")
     end
   end

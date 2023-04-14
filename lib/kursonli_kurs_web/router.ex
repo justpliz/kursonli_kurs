@@ -80,7 +80,6 @@ defmodule KursonliKursWeb.Router do
 
     get "/login", AdminController, :login_form
     post "/login", AdminController, :login_form_submit
-
     get "/logout", AdminController, :admin_logout
   end
 
@@ -141,37 +140,41 @@ defmodule KursonliKursWeb.Router do
 
     get "/login", WorkerController, :login_form
     post "/login", WorkerController, :login_form_submit
+    get "/logout", WorkerController, :worker_logout
   end
 
-  scope "/worker", KursonliKursWeb do
+  scope "/worker", KursonliKursWeb.Worker do
     pipe_through [:browser, :worker_check, :worker_app]
 
-    scope "/lang" do
-      get("/rus", WorkerController, :select_rus)
-      get("/kaz", WorkerController, :select_kaz)
+    scope "/course" do
+      get "/", WorkerCourseController, :courses_list
+      post "/update", WorkerCourseController, :update_courses
+      post "/add", WorkerCourseController, :add_course
+      get "/delete", WorkerCourseController, :delete_course
     end
 
-    get "/update_pass", WorkerController, :update_pass
-    post "/update_pass", WorkerController, :update_pass_submit
-    get "/logout", WorkerController, :worker_logout
+    scope "/setting" do
+      get "/", WorkerSettingController, :settings_list
+      post "/update", WorkerSettingController, :update_setting
+
+      get "/update_pass", WorkerSettingController, :update_pass
+      post "/update_pass", WorkerSettingController, :update_pass_submit
+      get "/payment", WorkerSettingController, :payment
+
+      scope "/lang" do
+        get("/rus", WorkerSettingController, :select_rus)
+        get("/kaz", WorkerSettingController, :select_kaz)
+      end
+    end
+
+    scope "/order" do
+      get "/orders", WorkerOrderController, :orders
+      post "/create_order", WorkerOrderController, :create_order_submit
+      post "/update_order", WorkerOrderController, :update_order
+      get "/delete_order", WorkerOrderController, :delete_order
+    end
+
     get "/chat", WorkerController, :get_all_message_chat_worker_id
-
-    get "/orders", WorkerController, :orders
-    post "/create_order", WorkerController, :create_order_submit
-    post "/update_order", WorkerController, :update_order
-    get "/delete_order", WorkerController, :delete_order
-
-    get "/courses", WorkerController, :courses
-    post "/update_course", WorkerController, :update_course
-    post "/new_courses", WorkerController, :new_courses
-    get "/delete_course", WorkerController, :delete_course
-
-    scope "/settings" do
-      get "/", WorkerController, :settings
-      post "/update", WorkerController, :update_setting
-    end
-
-    get "/payment", WorkerController, :payment
   end
 
   # Other scopes may use custom stacks.

@@ -16,7 +16,7 @@ defmodule KursonliKursWeb.AdminController do
 
   @doc """
   POST /admin/login
-  Проверка вводимых данных
+  Проверка вводимых данных при авторизации админа
   """
   def login_form_submit(conn, params) do
     opts = [
