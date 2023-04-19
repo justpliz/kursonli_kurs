@@ -4,7 +4,7 @@ defmodule KursonliKurs.Context.Currencies do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.{Currency, FilialCurrency}
+  alias KursonliKurs.Model.{Currency}
   alias KursonliKurs.Context.Currencies
 
   require Logger
@@ -47,15 +47,5 @@ defmodule KursonliKurs.Context.Currencies do
     currency
     |> Currency.changeset(params)
     |> Repo.update()
-  end
-
-  def get_not_mine_crrencies(filial_id) do
-    from(
-      c in Currency,
-      join: fc in FilialCurrency,
-      on: fc.filial_id == ^filial_id and c.id not in [fc.currency_id],
-      select: c
-    )
-    |> Repo.all
   end
 end

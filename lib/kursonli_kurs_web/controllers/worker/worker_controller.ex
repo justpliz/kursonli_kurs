@@ -69,7 +69,7 @@ defmodule KursonliKursWeb.WorkerController do
                 name: filial.city.name
               }
             })
-            |> redirect(to: "/worker/courses?login=true")
+            |> redirect(to: "/worker/course?login=true")
 
           :archive ->
             conn

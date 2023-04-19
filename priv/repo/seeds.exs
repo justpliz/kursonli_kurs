@@ -111,11 +111,6 @@ KursonliKurs.Context.Workers.create(%{
   filial_id: filial1.id
 })
 
-KursonliKurs.Context.FilialsCurrencies.create(%{
-  filial_id: filial1.id,
-  currency_id: usd.id
-})
-
 KursonliKurs.Context.Settings.create(%{
   filial_id: filial1.id,
   tags: ["true", "true"]
@@ -153,21 +148,6 @@ KursonliKurs.Context.Workers.create(%{
   password: KursonliKursWeb.GeneralHelper.hash_str("1234"),
   email: "dva@dva",
   filial_id: filial2.id
-})
-
-KursonliKurs.Context.FilialsCurrencies.create(%{
-  filial_id: filial2.id,
-  currency_id: eur.id
-})
-
-KursonliKurs.Context.FilialsCurrencies.create(%{
-  filial_id: filial2.id,
-  currency_id: usd.id
-})
-
-KursonliKurs.Context.FilialsCurrencies.create(%{
-  filial_id: filial2.id,
-  currency_id: rub.id
 })
 
 KursonliKurs.Context.Settings.create(%{
