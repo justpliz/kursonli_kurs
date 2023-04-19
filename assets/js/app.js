@@ -24,6 +24,7 @@ import "./user_socket";
 import "./phone_input";
 import "./order_click";
 import "./click_event";
+import "./index_courses";
 import "./helper/search_input";
 import "./helper/number_only";
 import "./helper/modal_script";
