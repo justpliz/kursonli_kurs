@@ -22,6 +22,7 @@ defmodule KursonliKursWeb.Worker.WorkerCourseController do
     courses_list = Filials.get_courses_list_by_filial_id(session.filial_id)
 
     # Список валют которых нет у филиала
+    # TODO: Сделать Ecto запросом
     not_mine_currencies_list =
       Currencies.all() -- Enum.map(courses_list, &Currencies.get(id: &1.currency_id))
 

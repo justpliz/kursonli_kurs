@@ -1,7 +1,7 @@
 <div class="margin_content">
   <h1 class="title"><%= gettext("Смена пароля сотрудника") %></h1>
   <div class="login_page">
-    <%= form_for @conn, Routes.worker_path(@conn, :update_pass_submit), fn f -> %>
+    <%= form_for @conn, Routes.worker_setting_path(@conn, :update_pass_submit), fn f -> %>
       <div class="mt-2">
         <label class="label_input"><%= gettext("Старый пароль") %></label>
         <%= text_input f, :old_pass, class: "input_short sm:input_full", required: "true" %>

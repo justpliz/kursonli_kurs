@@ -20,13 +20,14 @@ defmodule KursonliKursWeb.Worker.WorkerSettingController do
 
     with {:ok, filial} <- Filials.do_get(id: session.filial_id),
          {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
+      # TODO: Пересмотреть способ обращения к файлам
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
 
       {:ok, instructions} = Notifications.do_get(name: "instructions")
 
       conn
-      |> render("worker_settings.html",
+      |> render("settings_list.html",
         filial: filial,
         setting: setting,
         photo_path: photo_path,
@@ -108,17 +109,17 @@ defmodule KursonliKursWeb.Worker.WorkerSettingController do
          {:ok, _setting} <- Settings.update(setting, opts) do
       conn
       |> put_flash(:info, gettext("Настройки обновлены"))
-      |> redirect(to: "/worker/settings")
+      |> redirect(to: "/worker/setting")
     end
   end
 
   @doc """
   GET /worker/setting/update_pass
-  Форма обновления пароля
+  Форма обновления пароля от личного кабинета сотрудника
   """
   def update_pass(conn, _params) do
     conn
-    |> render("worker_update_pass.html")
+    |> render("update_pass_form.html")
   end
 
   @doc """
@@ -135,20 +136,20 @@ defmodule KursonliKursWeb.Worker.WorkerSettingController do
       do:
         conn
         |> put_flash(:error, gettext("Несовпадают пароли"))
-        |> redirect(to: "/worker/update_pass")
+        |> redirect(to: "/worker/setting/update_pass")
 
     case Workers.do_get(id: id, password: old_pass) do
       {:error, :not_found} ->
         conn
         |> put_flash(:error, gettext("Неверный пароль"))
-        |> redirect(to: "/worker/update_pass")
+        |> redirect(to: "/worker/setting/update_pass")
 
       {:ok, worker} ->
         Workers.update(worker, %{password: new_pass})
 
         conn
         |> put_flash(:info, gettext("Пароль успешно изменен"))
-        |> redirect(to: "/worker/update_pass")
+        |> redirect(to: "/worker/setting/update_pass")
     end
   end
 

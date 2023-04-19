@@ -24,7 +24,7 @@
       <% worker=Plug.Conn.get_session(@conn,:worker) %>
       <div class="app">
         <div class="app_user_container sm:hidden">
-          <a href="/worker/orders">
+          <a href="/worker/course">
             <img class="mx-auto" src={Routes.static_path(@conn, "/images/logo-line.svg" ) } alt="">
           </a>
           <div class="menu_break"></div>
@@ -36,7 +36,7 @@
           </div>
           <div class="flex flex-1-1-a flex-col justify-between pt-2">
             <ul class="text-neutral-400">
-              <a href="/worker/courses" class="active-link">
+              <a href="/worker/course" class="active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
                     style="font-weight: 700; font-size: 28px;">trending_up</span>
@@ -44,7 +44,7 @@
                 </li>
               </a>
               <div class="menu_break_li"></div>
-              <a href="/worker/orders" class="active-link" target="_blank">
+              <a href="/worker/order" class="active-link" target="_blank">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
                     style="font-weight: 700; font-size: 28px;">edit_square</span>
@@ -52,7 +52,7 @@
                 </li>
               </a>
               <div class="menu_break_li"></div>
-              <a href="/worker/settings" class="active-link">
+              <a href="/worker/setting" class="active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
                     style="font-weight: 700; font-size: 28px;">settings</span>
@@ -60,7 +60,7 @@
                 </li>
               </a>
               <div class="menu_break_li"></div>
-              <a href="/worker/update_pass" class=" hui active-link">
+              <a href="/worker/setting/update_pass" class=" hui active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
                     style="font-weight: 700; font-size: 28px;">lock_open</span>
@@ -68,7 +68,7 @@
                 </li>
               </a>
               <div class="menu_break_li"></div>
-              <a href="/worker/payment" class="active-link">
+              <a href="/worker/setting/payment" class="active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
                     style="font-weight: 700; font-size: 28px;">payments</span>
@@ -133,7 +133,7 @@
               </div>
               <div class="flex flex-1-1-a flex-col justify-between">
                 <ul class="text-neutral-400">
-                  <a href="/worker/courses" class="active-link">
+                  <a href="/worker/course" class="active-link">
                     <li class="worker_app_li">
                       <span class="icons_style material-symbols-outlined"
                         style="font-weight: 700; font-size: 28px;">trending_up</span>
@@ -141,7 +141,7 @@
                     </li>
                   </a>
                   <div class="menu_break_li"></div>
-                  <a href="/worker/orders" class="active-link">
+                  <a href="/worker/order" class="active-link">
                     <li class="worker_app_li">
                       <span class="icons_style material-symbols-outlined"
                         style="font-weight: 700; font-size: 28px;">edit_square</span>
@@ -149,7 +149,7 @@
                     </li>
                   </a>
                   <div class="menu_break_li"></div>
-                  <a href="/worker/settings" class="active-link">
+                  <a href="/worker/setting" class="active-link">
                     <li class="worker_app_li">
                       <span class="icons_style material-symbols-outlined"
                         style="font-weight: 700; font-size: 28px;">settings</span>
@@ -157,7 +157,7 @@
                     </li>
                   </a>
                   <div class="menu_break_li"></div>
-                  <a href="/worker/update_pass" class="active-link">
+                  <a href="/worker/setting/update_pass" class="active-link">
                     <li class="worker_app_li">
                       <span class="icons_style material-symbols-outlined"
                         style="font-weight: 700; font-size: 28px;">lock_open</span>

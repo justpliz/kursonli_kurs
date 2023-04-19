@@ -15,7 +15,7 @@
                 </span>
                 <%= gettext("Сохранить изменения") %>
               </button>
-              <a href="/worker/courses" class="btn_cancel flex items-center justify-center" type="submit">
+              <a href="/worker/course" class="btn_cancel flex items-center justify-center" type="submit">
                 <span class="material-symbols-outlined" style="color: #111111; font-weight: 500; font-size: 20px;">
                   cancel
                 </span>

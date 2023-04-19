@@ -159,6 +159,7 @@ defmodule KursonliKursWeb.Router do
 
       get "/update_pass", WorkerSettingController, :update_pass
       post "/update_pass", WorkerSettingController, :update_pass_submit
+      
       get "/payment", WorkerSettingController, :payment
 
       scope "/lang" do
