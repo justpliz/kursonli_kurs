@@ -52,6 +52,9 @@ defmodule KursonliKurs.Context.Orders do
     |> Repo.aggregate(:count)
   end
 
+  @doc """
+  Получение списка ордеров(purchase/sale) города(city_id)
+  """
   def order_list(type, city_id) do
     from(
       order in Order,
@@ -89,6 +92,9 @@ defmodule KursonliKurs.Context.Orders do
     |> check_order_view
   end
 
+  @doc """
+  Получение нового ордера для отображения на странице без перезагрузки
+  """
   def order_one(id, city_id) do
     from(
       order in Order,

@@ -113,10 +113,12 @@
           </tbody>
         </table>
       </div>
-    <%= render(KursonliKursWeb.WorkerView, "worker_orders_two.html", conn: @conn, trades: @trades,
+    <!-- Отображение сделок(нижняя таблица) -->
+    <%= render(KursonliKursWeb.Worker.WorkerTradeView, "trades_list.html", conn: @conn, trades: @trades,
                     my_trades: @my_trades) %>
     <div class="chat sm:hidden">
-      <%= render(KursonliKursWeb.WorkerView, "chat_page.html", conn: @conn, message: @message) %>
+      <!-- Отображение чата -->
+      <%= render(KursonliKursWeb.Worker.WorkerChatView, "chat_page.html", conn: @conn, message: @message) %>
     </div>
   </div>
   <button class="hidden sm:block p-3 pb-1 styles_none rounded-full bg-blub text-white absolute right-2 bottom-2"
@@ -124,15 +126,23 @@
     <span class="material-symbols-outlined" style="color:#fff; font-weight: 900;">chat_bubble</span>
   </button>
 <% else %>
-  <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html", conn: @conn, instructions:
+<!-- Показ объявления в случае неуплаты тарифа -->
+  <%= render(KursonliKursWeb.Worker.WorkerOrderView, "notification_service_access.html", conn: @conn, instructions:
         @instructions) %>
 <% end %>
-<%= render(KursonliKursWeb.WorkerView, "modal_worker_orders_add.html", conn: @conn, message: @message,
+
+
+<!-- Созадние нового ордера -->
+<%= render(KursonliKursWeb.Worker.WorkerOrderView, "modal_create_order.html", conn: @conn, message: @message,
             currencies_list: @currencies_list, address: @address) %>
-<%= render(KursonliKursWeb.WorkerView, "modal_delete_trade.html", conn: @conn, id: @my_trades) %>
-<%= render(KursonliKursWeb.WorkerView, "modal_update_trade.html", conn: @conn, id: @my_trades,
-                currencies_list: @currencies_list) %>
-<%= render(KursonliKursWeb.WorkerView, "modal_delete_adopted_trade.html", conn: @conn, id: @trades) %>
+<!-- Обновление ордера -->
+<%= render(KursonliKursWeb.Worker.WorkerOrderView, "modal_update_order.html", conn: @conn, id: @my_trades,
+                            currencies_list: @currencies_list) %>
+<!-- Удаление ордера(который создал) -->
+<%= render(KursonliKursWeb.Worker.WorkerOrderView, "modal_delete_order.html", conn: @conn, id: @my_trades) %>
+
+<!-- Удаление сделки(в которой учавствую) -->
+<%= render(KursonliKursWeb.Worker.WorkerTradeView, "modal_delete_trade.html", conn: @conn, id: @trades) %>
 
 <script>
   const showChatButton = document.getElementById('show-chat');

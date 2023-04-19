@@ -9,7 +9,7 @@
                <h1 class="title_without_margin text-left"><%= gettext("Действительно удалить ордер?") %></h1>
              <div class="px-1">
                    <div class="text-left my-4"><%= gettext("Это действие необратимо. Вы действительно хотите удалить ваш ордер?") %></div>
-                   <a href="/worker/delete_order?id=${id}" class="btn_save my-2 pos w-fit" type="submit"><%= gettext("Удалить") %></a>
+                   <a href="/worker/order/delete?id=${id}" class="btn_save my-2 pos w-fit" type="submit"><%= gettext("Удалить") %></a>
              </div>
           `,
        })

@@ -12,7 +12,7 @@
          html: `
       <h1 class="title_without_margin text-left"><%= gettext("Редактирование вашего ордера") %></h1>
       <div class="px-1">  
-         <%= form_for @conn, Routes.worker_path(@conn, :update_order), fn f -> %>
+         <%= form_for @conn, Routes.worker_order_path(@conn, :update_order), fn f -> %>
            
             <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
             <input class="hidden" id="order_type" value="${type}" name="order_type" required="true" type="text">

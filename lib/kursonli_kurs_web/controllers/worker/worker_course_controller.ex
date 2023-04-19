@@ -4,7 +4,6 @@ defmodule KursonliKursWeb.Worker.WorkerCourseController do
   import KursonliKursWeb.Gettext
   action_fallback KursonliKursWeb.FallbackController
   alias KursonliKursWeb.GeneralHelper
-  alias KursonliKurs.EtsStorage.{Chat}
 
   alias KursonliKurs.Context.{
     Courses,

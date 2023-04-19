@@ -56,18 +56,6 @@ defmodule KursonliKursWeb.Router do
     get "/instruction_kaz", PageController, :instruction_kaz
   end
 
-  scope "/api/v1", KursonliKursWeb do
-    pipe_through [:api]
-    post "/trade", TradeController, :ajax_update_message_map
-    delete "/chat", TradeController, :delete_chat
-  end
-
-  scope "/trades", KursonliKursWeb do
-    pipe_through [:browser]
-    post "/", TradeController, :create_trade
-    get "/delete", TradeController, :delete_trade
-  end
-
   #        ##   #####  #    # # #    #
   #       #  #  #    # ##  ## # ##   #
   #      #    # #    # # ## # # # #  #
@@ -159,7 +147,7 @@ defmodule KursonliKursWeb.Router do
 
       get "/update_pass", WorkerSettingController, :update_pass
       post "/update_pass", WorkerSettingController, :update_pass_submit
-      
+
       get "/payment", WorkerSettingController, :payment
 
       scope "/lang" do
@@ -169,13 +157,24 @@ defmodule KursonliKursWeb.Router do
     end
 
     scope "/order" do
-      get "/orders", WorkerOrderController, :orders
-      post "/create_order", WorkerOrderController, :create_order_submit
-      post "/update_order", WorkerOrderController, :update_order
-      get "/delete_order", WorkerOrderController, :delete_order
+      get "/", WorkerOrderController, :orders_list
+      post "/create", WorkerOrderController, :create_order
+      post "/update", WorkerOrderController, :update_order
+      get "/delete", WorkerOrderController, :delete_order
     end
 
-    get "/chat", WorkerController, :get_all_message_chat_worker_id
+    scope "/trade" do
+      post "/create", WorkerTradesController, :create_trade
+      post "/trade", WorkerTradesController, :ajax_update_message_map
+
+      get "/delete", WorkerTradesController, :delete_trade
+    end
+
+    scope "/chat" do
+      pipe_through [:api]
+      delete "/chat", TradeController, :delete_chat
+      get "/chat", WorkerController, :get_all_message_chat_worker_id
+    end
   end
 
   # Other scopes may use custom stacks.

@@ -34,7 +34,7 @@
     <h1 class="title_without_margin"><%= gettext("Создание ордера") %></h1>
   </div>
   <div class="px-2">
-    <%= form_for @conn, Routes.worker_path(@conn, :create_order_submit), fn f -> %>
+    <%= form_for @conn, Routes.worker_order_path(@conn, :create_order), fn f -> %>
       <label class="label_input pos"><%= gettext("Тип") %></label>
       <div class="2xl:flex 2xl:gap-4">
         <%= for item <- check_config("order_type") do %>
