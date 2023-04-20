@@ -200,7 +200,7 @@ defmodule KursonliKurs.Context.Filials do
         first_letter: &1.filial.name |> String.trim() |> String.first() |> String.upcase()
       }
     )
-    |> ensure_srapped_diapason()
+    # |> ensure_srapped_diapason()
     |> Enum.sort_by(& &1.date, {:asc, Date})
   end
 
