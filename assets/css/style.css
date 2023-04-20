@@ -450,10 +450,14 @@ body.swal2-shown {
 }
 
 .best_courses_table {
+  width: 100%;
+  margin: 0 auto;
   display: grid;
   grid-template: auto / 1fr 1fr 1fr;
-  gap: 5px;
+  gap: 0 15px;
   font-size: 12px;
+  font-weight: 700;
+  text-align: center;
 }
 
 .scroll::-webkit-scrollbar {
