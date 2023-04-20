@@ -1,6 +1,6 @@
 <script>
   $(".filial_edit").click(function () {
-    const { id, filial_name, coordinates, firm_id, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
+    const { id, filial_name, email, coordinates, firm_id, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
     console.log(city_id)
     Modalka.fire({
       showConfirmButton: false,
@@ -19,6 +19,9 @@
 
               <label class="label_input pos" for="filial_name">Название филиала</label>
               <%= text_input f, :filial_name, class: "input_full", value: "${filial_name}", required: "true" %>
+
+              <label class="label_input pos" for="filial_name">Email филиала</label>
+              <%= text_input f, :email, class: "input_full", value: "${email}", required: "true" %>
 
               <label class="label_input pos" for="x_coordinate">Координата X</label>
               <%= text_input f, :x_coordinate, class: "input_full", value: "${coordinates[0]}", required: "true" %>

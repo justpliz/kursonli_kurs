@@ -320,6 +320,8 @@ defmodule KursonliKursWeb.AdminController do
       city_id: params["city_id"]
     }
 
+    worker_opts = %{email: params["email"]}
+
     setting_opts = %{
       coordinates: [params["x_coordinate"], params["y_coordinate"]],
       address_2gis: params["address_2gis"],
@@ -328,11 +330,18 @@ defmodule KursonliKursWeb.AdminController do
 
     with {:ok, filial} <- Filials.do_get(id: id),
          {:ok, fiiial} <- Filials.update(filial, filial_opts),
+         {:ok, worker} <-  Workers.do_get(filial_id: id),
+         {:ok, _worker} <- Workers.update(worker, worker_opts),
          {:ok, setting} <- Settings.do_get(filial_id: id),
          {:ok, _setting} <- Settings.update(setting, setting_opts) do
       conn
       |> put_flash(:info, "Парамерты #{fiiial.name} успешно изменены")
       |> redirect(to: "/admin/filials")
+    else
+      {:error, _reason} ->
+        conn
+        |> put_flash(:error, "Проверьте вводимые данные")
+        |> redirect(to: "/admin/filials")
     end
   end
 
