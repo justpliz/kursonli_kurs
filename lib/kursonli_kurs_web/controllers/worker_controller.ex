@@ -24,9 +24,7 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def login_form(conn, _params) do
     user = %{
-      first_name: "",
-      email: "",
-      phone: ""
+      email: ""
     }
 
     conn
@@ -48,8 +46,6 @@ defmodule KursonliKursWeb.WorkerController do
   POST /worker/login
   """
   def login_form_submit(conn, params) do
-    first_name = params["first_name"]
-
     opts = [
       email: params["email"],
       password: hash_str(params["password"])
@@ -58,7 +54,6 @@ defmodule KursonliKursWeb.WorkerController do
     case Workers.do_get(opts) do
       {:ok, worker} ->
         {:ok, filial} = Filials.do_get(id: worker.filial_id)
-        Workers.update(worker, %{name: first_name})
 
         case filial.filial_active_status do
           :active ->
@@ -71,9 +66,7 @@ defmodule KursonliKursWeb.WorkerController do
             conn
             |> put_session(:worker, %{
               id: worker.id,
-              first_name: first_name,
               filial_id: filial.id,
-              phone: params["phone"],
               email: worker.email,
               filial_name: filial.name,
               filial_address: filial.filial_address,
@@ -96,9 +89,7 @@ defmodule KursonliKursWeb.WorkerController do
 
       {:error, :not_found} ->
         user = %{
-          first_name: params["first_name"],
-          email: params["email"],
-          phone: params["phone"]
+          email: params["email"]
         }
 
         conn

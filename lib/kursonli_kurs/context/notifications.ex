@@ -46,11 +46,11 @@ defmodule KursonliKurs.Context.Notifications do
     diff_days = Timex.diff(paid_up_to, Timex.today(), :day)
     {:ok, expiration} = Notifications.do_get(name: "expiration")
 
-    new_title =
       if diff_days >= 0 and diff_days <= 7 do
-        String.replace(expiration.title, "#", "#{diff_days}")
+        new_title = String.replace(expiration.title, "#", "#{diff_days}")
+        Map.put(expiration, :title, new_title)
+      else
+        nil
       end
-
-    Map.put(expiration, :title, new_title)
   end
 end
