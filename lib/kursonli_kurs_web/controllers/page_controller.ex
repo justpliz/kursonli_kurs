@@ -3,7 +3,6 @@ defmodule KursonliKursWeb.PageController do
   action_fallback(KursonliKursWeb.FallbackController)
 
   alias KursonliKurs.Context.{Currencies, Filials, Settings, Cities}
-  alias KursonliKurs.EtsStorage.ScrappedData
 
   def redirect_almaty(conn, _params) do
     conn
@@ -11,12 +10,15 @@ defmodule KursonliKursWeb.PageController do
   end
 
   def index(conn, params) do
+    scrapped_list = scraping()
+
     with {:ok, city} <- Cities.do_get(eng_name: params["name"]) do
-      scrapped_list = ScrappedData.get_all()
       city_list = get_count_city_with_active_filials()
       currency_list = Currencies.all() |> Enum.map(&%{short_name: &1.short_name})
 
-      courses_list = Filials.get_filial_by_city(city.id)
+      courses_list =
+        Filials.get_filial_by_city(city.id)
+        # |> check_true_diapason(scrapped_list)
 
       conn
       |> render("index.html",
@@ -70,6 +72,40 @@ defmodule KursonliKursWeb.PageController do
     |> Enum.sort_by(&(&1.name == "Алматы"), :desc)
   end
 
+  def scraping() do
+    with {:ok, response} = Application.get_env(:kursonli_kurs, :scrapped) |> HTTPoison.get() do
+      [usd_buy, eur_buy, rub_buy, _, _, _, _] =
+        Regex.scan(~r/<td .+"buy .+">.+<\/td>/, response.body)
+        |> Enum.map(fn [x] ->
+          String.replace(x, ~r/(<td .+"buy .+">|<\/td>)/, "")
+        end)
+
+      [usd_sale, eur_sale, rub_sale, _, _, _, _] =
+        Regex.scan(~r/<td .+"sell .+">.+<\/td>/, response.body)
+        |> Enum.map(fn [x] ->
+          String.replace(x, ~r/(<td .+"sell .+">|<\/td>)/, "")
+        end)
+
+      [
+        %{
+          currency: "USD",
+          buy: Decimal.add(usd_buy, "0.5") |> Decimal.to_string() |> rounding_str,
+          sale: Decimal.add(usd_sale, "-0.5") |> Decimal.to_string() |> rounding_str
+        },
+        %{
+          currency: "EUR",
+          buy: Decimal.add(eur_buy, "0.5") |> Decimal.to_string() |> rounding_str,
+          sale: Decimal.add(eur_sale, "-0.5") |> Decimal.to_string() |> rounding_str
+        },
+        %{
+          currency: "RUB",
+          buy: Decimal.add(rub_buy, "0.05") |> Decimal.to_string() |> rounding_str,
+          sale: Decimal.add(rub_sale, "-0.05") |> Decimal.to_string() |> rounding_str
+        }
+      ]
+    end
+  end
+
   def instruction_rus(conn, _params) do
     conn
     |> redirect(to: "/pdfs/instruction_kurs1_rus.pdf")
@@ -118,5 +154,44 @@ defmodule KursonliKursWeb.PageController do
         ]
       end)
       |> Enum.map(fn [course, date, id] -> course |> Enum.map(&Map.put(&1, :id, id)) end)
+  end
+
+  def check_true_diapason(courses, scrapped) do
+    usd_scrapped = Enum.find(scrapped, &(&1.currency == "USD"))
+    {usd_purchase, ""} = usd_scrapped.buy |> Float.parse()
+    {usd_sale, ""} = usd_scrapped.sale |> Float.parse()
+
+    # eur_scrapped = Enum.find(scrapped, &(&1.currency == "EUR"))
+    # eur_sale = eur_scrapped.value_for_sale |> String.to_float()
+    # eur_purchase = eur_scrapped.value_for_purchase |> String.to_float()
+
+    # rub_scrapped = Enum.find(scrapped, &(&1.currency == "RUB"))
+    # rub_sale = rub_scrapped.value_for_sale |> String.to_float()
+    # rub_purchase = rub_scrapped.value_for_purchase |> String.to_float()
+
+    courses
+    |> Enum.map(
+      &Enum.filter(&1.course, fn x ->
+        case x.short_name do
+          "USD" ->
+            if x.value_for_sale != "-" and x.value_for_purchase != "" do
+              {value_for_sale, ""} = x.value_for_sale |> Float.parse()
+              {value_for_purchase, ""} = x.value_for_purchase |> Float.parse()
+
+              if value_for_sale > usd_sale and value_for_sale < usd_purchase and
+                   value_for_purchase > usd_sale and value_for_purchase < usd_purchase do
+                x
+              else
+                Map.put(&1, :setting, Map.put(&1.setting, :visible_website_status, false))
+              end
+            else
+              x
+            end
+
+          _any ->
+            x
+        end
+      end)
+    )
   end
 end

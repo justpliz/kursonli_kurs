@@ -52,13 +52,13 @@
             <%= [currency, buy, sale]=item %>
           </div>
           <div class="font-semibold">
-            <%= currency %>
+            <%= item.currency %>
           </div>
           <div>
-            <%= buy %>
+            <%= item.buy %>
           </div>
           <div>
-            <%= sale %>
+            <%= item.sale %>
           </div>
           <% end %>
         </div>
