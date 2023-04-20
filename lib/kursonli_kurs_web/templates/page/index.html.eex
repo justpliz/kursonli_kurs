@@ -141,7 +141,7 @@
                 data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
                 <th scope="row" class="px-4 py-4 bg-white rounded-2xl text-left md:px-2 md:py-1">
                   <%= if item.setting.visible_website_status==true do %>
-                    <a href="personal?filial=<%= item.filial_id %>" class="block">
+                    <a href="personal?filial=<%= item.setting.subdomen %>" class="block">
                       <div class="flex gap-4 font-normal md:gap-0">
                         <div class="md:hidden">
                           <%= if item.setting.logo==nil do %>

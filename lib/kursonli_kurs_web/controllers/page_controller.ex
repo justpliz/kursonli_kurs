@@ -16,9 +16,8 @@ defmodule KursonliKursWeb.PageController do
       city_list = get_count_city_with_active_filials()
       currency_list = Currencies.all() |> Enum.map(&%{short_name: &1.short_name})
 
-      courses_list =
-        Filials.get_filial_by_city(city.id)
-        # |> check_true_diapason(scrapped_list)
+      courses_list = Filials.get_filial_by_city(city.id)
+      # |> check_true_diapason(scrapped_list)
 
       conn
       |> render("index.html",
@@ -31,9 +30,9 @@ defmodule KursonliKursWeb.PageController do
     end
   end
 
-  def personal_page(conn, %{"filial" => id}) do
-    with {:ok, filial} <- Filials.do_get(id: id),
-         {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
+  def personal_page(conn, %{"filial" => subdomen}) do
+    with {:ok, setting} <- Settings.do_get(subdomen: subdomen),
+         {:ok, filial} <- Filials.do_get(id: setting.filial_id) do
       setting = setting |> PwHelper.Normalize.repo()
       courses_list = Filials.get_courses_list(filial.id)
       [x_coord, y_coord] = setting.coordinates

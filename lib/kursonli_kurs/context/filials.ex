@@ -70,7 +70,7 @@ defmodule KursonliKurs.Context.Filials do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          {:ok, _worker} <- Workers.create(worker_opts),
-         {:ok, _setting} <- Settings.create(%{filial_id: filial.id}) do
+         {:ok, _setting} <- Settings.create(%{filial_id: filial.id, subdomen: filial.name}) do
       {:ok, filial}
     end
   end
@@ -180,6 +180,7 @@ defmodule KursonliKurs.Context.Filials do
             promo: s.promo,
             visible_website_status: s.visible_website_status,
             logo: s.logo,
+            subdomen: s.subdomen,
             color_logo: s.colors["color_logo"]
           }
         }
