@@ -1,6 +1,6 @@
 <div class="login-container">
   <div class="round">
-    <a href="/" class=" w-80"><img src="/images/logo-line.png" class="logo-login" alt=""></a>
+    <a href="/" class=" w-80 2xl:w-52"><img src="/images/logo-line.png" alt=""></a>
     <div class="login-title">
       <%= gettext("Авторизация в системе") %>
     </div>
@@ -118,11 +118,6 @@
       margin: 10px 0;
     }
 
-    .logo-login {
-      width: 150px;
-      height: auto;
-      object-fit: contain;
-    }
 
     .login-title {
       font-size: 14px;

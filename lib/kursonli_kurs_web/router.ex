@@ -131,10 +131,10 @@ defmodule KursonliKursWeb.Router do
     get "/logout", WorkerController, :worker_logout
     get "/chat", WorkerController, :get_all_message_chat_worker_id
 
-    get "/orders", WorkerController, :orders
-    post "/create_order", WorkerController, :create_order_submit
-    post "/update_order", WorkerController, :update_order
-    get "/delete_order", WorkerController, :delete_order
+    # get "/orders", WorkerController, :orders
+    # post "/create_order", WorkerController, :create_order_submit
+    # post "/update_order", WorkerController, :update_order
+    # get "/delete_order", WorkerController, :delete_order
 
     get "/courses", WorkerController, :courses
     post "/update_course", WorkerController, :update_course
@@ -146,7 +146,7 @@ defmodule KursonliKursWeb.Router do
       post "/update", WorkerController, :update_setting
     end
 
-    get "/payment", WorkerController, :payment
+    # get "/payment", WorkerController, :payment
   end
 
   # Other scopes may use custom stacks.
