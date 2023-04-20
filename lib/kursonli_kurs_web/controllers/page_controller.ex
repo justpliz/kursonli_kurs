@@ -108,12 +108,12 @@ defmodule KursonliKursWeb.PageController do
 
   def instruction_rus(conn, _params) do
     conn
-    |> redirect(to: "/pdfs/instruction_kurs-online_rus.pdf")
+    |> redirect(to: "/pdfs/instruction_kurs1_rus.pdf")
   end
 
   def instruction_kaz(conn, _params) do
     conn
-    |> redirect(to: "/pdfs/instruction_kurs-online_kaz.pdf")
+    |> redirect(to: "/pdfs/instruction_kurs1_kaz.pdf")
   end
 
   def find_best_courses(courses) do

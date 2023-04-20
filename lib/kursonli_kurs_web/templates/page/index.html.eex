@@ -2,8 +2,8 @@
   <header class="bg-dblue w-full md:px-2">
     <div class="max-w-1200 mx-auto py-4">
       <div class="flex justify-between items-center md:flex-col md:gap-2">
-        <a href="/" class="">
-          <img src="/images/white-line-logo.svg" alt="logo">
+        <a href="/" class="w-44">
+          <img src="/images/white-logo-line.png" alt="logo">
         </a>
         <div class="relative">
           <input class="input_search search-input" type="text">
@@ -20,13 +20,13 @@
           <a class="block bg-white rounded-full px-4 py-1 ml-2 first:m-0" href="city?name=<%= item.eng_name %>">
             <span>
               <%= item.name %>
-              <span class="font-bold ml-2">
-                <%= item.count %>
-              </span>
+                <span class="font-bold ml-2">
+                  <%= item.count %>
+                </span>
             </span>
           </a>
         </div>
-      <% end %>
+        <% end %>
     </div>
     <div class="flex justify-between items-end mx-2 md:flex-col md:items-start">
       <div class="">
@@ -44,8 +44,13 @@
           </div>
         </div>
       </div>
-      <div class="best_courses_table md:ml-4 md:mt-2">
-        <%= for item <- @scrapped_list do %>
+      <div>
+        <div class="mb-2">Лучшие курсы на сегодня</div>
+        <div class="best_courses_table md:ml-4 md:mt-2">
+          <%= for item <- @scrapped_list do %>
+          <div class="hidden">
+            <%= [currency, buy, sale]=item %>
+          </div>
           <div class="font-semibold">
             <%= item.currency %>
           </div>
@@ -55,278 +60,323 @@
           <div>
             <%= item.sale %>
           </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
 
-    <%= if !Enum.empty?(@courses_list) do %> 
-    <div class="relative overflow-x-auto mt-6 md:mt-2 md:overflow-x-hidden">
-      <table class="w-full text-sm text-left text-black border-separate border-spacing-2">
-        <thead class="text-base">
-          <tr class="text-center">
-            <th scope="col" class="px-2 py-2 md:px-1 bg-white rounded-2xl w-400 md:w-3/5">
-              Обменный пункт
-            </th>
-            <th scope="col" class="px-2 py-2 md:px-1 bg-white rounded-2xl md:hidden">
-              <div class="flex justify-center items-center gap-2">
-                <img src="/images/icons/clock_index.svg" alt="clock">
-                Время
-              </div>
-            </th>
-            <th scope="col" class="px-2 py-2 md:px-1 bg-white rounded-2xl">
-              <div class="flex justify-between items-center">
-                <img src="/images/icons/arrow_down.svg" class="sort_purchase" alt="city">
-                <select class="select_table appearance-none" data-select="1">
-                  <%= for item <- @currency_list do %>
-                    <%= if item.short_name=="USD" do %>
-                    <option class="" selected="selected" value="<%= item.short_name %>">
-                      <%= item.short_name %>
-                    </option>
-                    <% else %>
-                    <option class="" value="<%= item.short_name %>">
-                      <%= item.short_name %>
-                    </option>
-                    <% end %>
-                  <% end %>
-                </select>
-                <img src="/images/icons/arrow_down.svg" class="sort_sale" alt="city">
-              </div>
-            </th>
-            <th scope="col" class="px-2 py-2 bg-white rounded-2xl md:hidden">
-              <div class="flex justify-between items-center">
-                <img src="/images/icons/arrow_down.svg" class="sort_purchase" alt="city">
-                <select class=" appearance-none select_table" data-select="2">
-                  <%= for item <- @currency_list do %>
-                    <%= if item.short_name=="EUR" do %>
-                      <option class="" selected="selected" value="<%= item.short_name %>">
-                        <%= item.short_name %>
-                      </option>
-                    <% else %>
-                      <option class="" value="<%= item.short_name %>">
-                        <%= item.short_name %>
-                      </option>
-                    <% end %>
-                  <% end %>
-                </select>
-                <img src="/images/icons/arrow_down.svg" class="sort_sale" alt="city">
-              </div>
-            </th>
-            <th scope="col" class="px-2 py-2 bg-white rounded-2xl lg:hidden md:hidden">
-              <div class="flex justify-between items-center">
-                <img src="/images/icons/arrow_down.svg" class="sort_purchase" alt="city">
-                <select class="select_table appearance-none" data-select="3">
-                  <%= for item <- @currency_list do %>
-                    <%= if item.short_name=="RUB" do %>
-                      <option class="" selected="selected" value="<%= item.short_name %>">
-                        <%= item.short_name %>
-                      </option>
-                    <% else %>
-                      <option class="" value="<%= item.short_name %>">
-                        <%= item.short_name %>
-                      </option>
-                    <% end %>
-                  <% end %>
-                </select>
-                <img src="/images/icons/arrow_down.svg" class="sort_sale" alt="city">
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody class="text-center data-table">
-          <%= for item <- @courses_list do %>
-            <tr class="bg-white border-spacing-y-2 border-separate" data-id="<%= item.filial_id %>" data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
-              <th scope="row" class="px-4 py-4 bg-white rounded-2xl text-left md:px-2 md:py-1">
-                <%= if item.setting.visible_website_status == true do %>
-                  <a href="personal?filial=<%= item.filial_id %>" class="block">
-                    <div class="flex gap-4 font-normal md:gap-0">
-                      <div class="md:hidden">
-                        <%= if item.setting.logo == nil do %>
-                          <div class="p-3 text-center text-2xl bg-green-400 text-white rounded-full w-14 h-14" style="background-color: <%= item.setting.color_logo %> !important;">
-                            <%= item.first_letter %>
-                          </div>
-                        <% else %>
-                          <div class="w-14 h-14">
-                            <img src="<%= item.setting.logo %>" alt="" class="rounded-full bg-cover h-full w-full">
-                          </div>
-                        <% end %>
-                      </div>
-                      <div>
-                        <div class="text-base font-bold md:ml-4">
-                          <%= item.filial_name %>
-                        </div>
-                        <div class="flex items-center gap-1">
-                          <img src="/images/icons/city_index.svg" class="bg-contain" alt="city">
-                          <div class="whitespace-normal w-auto">
-                            <%= item.filial_address %>
-                          </div>
-                        </div>
-                        <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>
-                        <div class="flex items-start">
-                          <img src="/images/icons/phone_icon.svg" class="bg-contain" alt="phone">
-                          <div class="flex flex-wrap ml-1 md:flex-col md:text-xs">
-                            <a href='tel:<%= item.setting.phones["phone1"] %>' class="mr-1"><%= item.setting.phones["phone1"] %></a>
-                            <a href='tel:<%= item.setting.phones["phone2"] %>' class=""><%= item.setting.phones["phone2"] %></a>
-                            <a href='tel:<%= item.setting.phones["phone3"] %>' class="mr-1"><%= item.setting.phones["phone3"] %></a>
-                          </div>
-                        </div>
-                        <% end %>
-                        <div class="hidden">
-                          <%= [wholesale_rate, gold]=item.setting.tags %>
-                        </div>
-                        <%= if String.to_atom(wholesale_rate) do %>
-                          <div class="mt-2 inline-block mb:block md:ml-4 md:mt-1">
-                            <span class="bg-indexGreen whitespace-nowrap rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
-                              Оптовый курс
-                            </span>
-                          </div>
-                        <% end %>
-                        <%= if String.to_atom(gold) do %>
-                          <div class="mt-2 inline-block mb:block md:ml-4">
-                            <span class="bg-indexYellow rounded-full font-normal text-xs text-black px-4 py-1">
-                              Золото
-                            </span>
-                          </div>
-                        <% end %>
-                        <div class="mt-1 text-xs md:ml-4">
-                          <%= item.setting.promo["promo1"] %>
-                        </div>
-                        <div class="text-xs md:ml-4">
-                          <%= item.setting.promo["promo2"] %>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                <% else %>
-                  <div class="flex gap-4 font-normal md:gap-0">
-                    <div class="md:hidden">
-                      <%= if item.setting.logo == nil do %>
-                        <%= if item.setting.color_logo != "" do %>
-                          <div class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14" style="background-color: <%= item.setting.color_logo %> !important;">
-                            <%= item.first_letter %>
-                          </div>
-                        <% else %>
-                          <div class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14 md:hidden">
-                            <%= item.first_letter %>
-                          </div>
-                        <% end %>
-                      <% else %>
-                        <div class="w-14 h-14 md:hidden">
-                          <img src="<%= item.setting.logo %>" alt="" class="rounded-full bg-cover h-full w-full">
-                        </div>
-                      <% end %>
-                    </div>
-                    <div>
-                      <div class="text-base font-bold md:ml-4">
-                        <%= item.filial_name %>
-                      </div>
-                      <div class="flex items-center gap-1">
-                        <img src="/images/icons/city_index.svg" class="bg-contain" alt="city">
-                        <div class="whitespace-normal w-auto">
-                          <%= item.filial_address %>
-                        </div>
-                      </div>
-                      <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>
-                      <div class="flex items-start">
-                        <img src="/images/icons/phone_icon.svg" class="bg-contain mt-1" alt="phone">
-                        <div class="flex flex-wrap ml-1">
-                          <a href='tel:<%= item.setting.phones["phone1"] %>' class="mr-1"><%= item.setting.phones["phone1"] %></a>
-                          <a href='tel:<%= item.setting.phones["phone2"] %>' class=""><%= item.setting.phones["phone2"] %></a>
-                          <a href='tel:<%= item.setting.phones["phone3"] %>' class="mr-1"><%= item.setting.phones["phone3"] %></a>
-                        </div>
-                      </div>
-                      <% end %>
-                      <div class="hidden">
-                        <%= [wholesale_rate, gold]=item.setting.tags %>
-                      </div>
-                      <%= if String.to_atom(wholesale_rate) do %>
-                        <div class="mt-2 inline-block mb:block">
-                          <span class="bg-indexGreen rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
-                            Оптовый курс
-                          </span>
-                        </div>
-                      <% end %>
-                      <%= if String.to_atom(gold) do %>
-                        <div class="mt-2 inline-block mb:block">
-                          <span class="bg-indexYellow rounded-full font-normal text-xs text-black px-4 py-1">
-                            Золото
-                          </span>
-                        </div>
-                      <% end %>
-                      <div class="mt-1 text-xs">
-                        <%= item.setting.promo["promo1"] %>
-                      </div>
-                      <div class="text-xs">
-                        <%= item.setting.promo["promo2"] %>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
+    <%= if !Enum.empty?(@courses_list) do %>
+      <div class="relative overflow-x-auto mt-6 md:mt-2 md:overflow-x-hidden">
+        <table class="w-full text-sm text-left text-black border-separate border-spacing-2">
+          <thead class="text-base">
+            <tr class="text-center">
+              <th scope="col" class="px-2 py-2 md:px-1 bg-white rounded-2xl w-400 md:w-3/5">
+                Обменный пункт
               </th>
-              <td class="px-2 py-4 bg-white rounded-l-2xl relative after_table md:hidden">
-                <div class="hidden time">
-                  <%= item.date %>
-                </div>
-                <div class="text-base font-bold flex justify-center gap-1">
+              <th scope="col" class="px-2 py-2 md:px-1 bg-white rounded-2xl md:hidden">
+                <div class="flex justify-center items-center gap-2">
                   <img src="/images/icons/clock_index.svg" alt="clock">
-                  <div>
-                    <%= item.date_h %>:<%= item.date_m %><span class="font-normal">:<%= item.date_s %></span>
-                  </div>
+                  Время
                 </div>
-                <div class="text-xs">
-                  <%= item.humanizated_date %>
+              </th>
+              <th scope="col" class="px-2 py-2 md:px-1 bg-white rounded-2xl">
+                <div class="flex justify-between items-center">
+                  <img src="/images/icons/arrow_down.svg" class="sort_purchase" alt="city">
+                  <select class="select_table appearance-none" data-select="1">
+                    <%= for item <- @currency_list do %>
+                      <%= if item.short_name=="USD" do %>
+                        <option class="" selected="selected" value="<%= item.short_name %>">
+                          <%= item.short_name %>
+                        </option>
+                        <% else %>
+                          <option class="" value="<%= item.short_name %>">
+                            <%= item.short_name %>
+                          </option>
+                          <% end %>
+                            <% end %>
+                  </select>
+                  <img src="/images/icons/arrow_down.svg" class="sort_sale" alt="city">
                 </div>
-              </td>
-
-              <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "USD") %>
-              <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "USD") %>
-              <td class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item md:rounded-xl" data-select="1">
-                <div class="md:flex md:flex-col md:gap-6">
-                  <div class="md:text-sm">
-                    <span class="purchase"><%= purchase %></span>
-                    <span class="mx-2">-</span>
-                    <span class="sale"><%= sale %></span>
-                  </div>
-                  <div class="hidden md:block">
-                    <div class="hidden time">
-                      <%= item.date %>
-                    </div>
-                    <div class="text-xs font-bold flex justify-center gap-1">
-                      <img src="/images/icons/clock_index.svg" alt="clock">
-                      <div>
-                        <%= item.date_h %>:<%= item.date_m %><span class="font-normal">:<%= item.date_s %></span>
-                      </div>
-                    </div>
-                    <div class="text-small">
-                      <%= item.humanizated_date %>
-                    </div>
-                  </div>
+              </th>
+              <th scope="col" class="px-2 py-2 bg-white rounded-2xl md:hidden">
+                <div class="flex justify-between items-center">
+                  <img src="/images/icons/arrow_down.svg" class="sort_purchase" alt="city">
+                  <select class=" appearance-none select_table" data-select="2">
+                    <%= for item <- @currency_list do %>
+                      <%= if item.short_name=="EUR" do %>
+                        <option class="" selected="selected" value="<%= item.short_name %>">
+                          <%= item.short_name %>
+                        </option>
+                        <% else %>
+                          <option class="" value="<%= item.short_name %>">
+                            <%= item.short_name %>
+                          </option>
+                          <% end %>
+                            <% end %>
+                  </select>
+                  <img src="/images/icons/arrow_down.svg" class="sort_sale" alt="city">
                 </div>
-              </td>
-
-              <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "EUR") %>
-              <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "EUR") %>
-              <td class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item lg:rounded-2xl md:hidden" data-select="2">
-                <span class="purchase"><%= purchase %></span>
-                <span class="mx-2">-</span>
-                <span class="sale"><%= sale %></span>
-              </td>
-
-              <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "RUB") %>
-              <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "RUB") %>
-              <td class="px-4 py-4 font-bold text-base bg-white rounded-r-2xl dataget item lg:hidden md:hidden" data-select="3">
-                <span class="purchase"><%= purchase %></span>
-                <span class="mx-2">-</span>
-                <span class="sale"><%= sale %></span>
-              </td>
+              </th>
+              <th scope="col" class="px-2 py-2 bg-white rounded-2xl lg:hidden md:hidden">
+                <div class="flex justify-between items-center">
+                  <img src="/images/icons/arrow_down.svg" class="sort_purchase" alt="city">
+                  <select class="select_table appearance-none" data-select="3">
+                    <%= for item <- @currency_list do %>
+                      <%= if item.short_name=="RUB" do %>
+                        <option class="" selected="selected" value="<%= item.short_name %>">
+                          <%= item.short_name %>
+                        </option>
+                        <% else %>
+                          <option class="" value="<%= item.short_name %>">
+                            <%= item.short_name %>
+                          </option>
+                          <% end %>
+                            <% end %>
+                  </select>
+                  <img src="/images/icons/arrow_down.svg" class="sort_sale" alt="city">
+                </div>
+              </th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-    <% else %>
-      <div class="m-6 text-lg">В выбранном вами городе пока отсутсвуют обменные пункты</div>
-    <% end %> 
-    <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!() %>"></div>
+          </thead>
+          <tbody class="text-center data-table">
+            <%= for item <- @courses_list do %>
+              <tr class="bg-white border-spacing-y-2 border-separate" data-id="<%= item.filial_id %>"
+                data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
+                <th scope="row" class="px-4 py-4 bg-white rounded-2xl text-left md:px-2 md:py-1">
+                  <%= if item.setting.visible_website_status==true do %>
+                    <a href="personal?filial=<%= item.filial_id %>" class="block">
+                      <div class="flex gap-4 font-normal md:gap-0">
+                        <div class="md:hidden">
+                          <%= if item.setting.logo==nil do %>
+                            <div class="p-3 text-center text-2xl bg-green-400 text-white rounded-full w-14 h-14"
+                              style="background-color: <%= item.setting.color_logo %> !important;">
+                              <%= item.first_letter %>
+                            </div>
+                            <% else %>
+                              <div class="w-14 h-14">
+                                <img src="<%= item.setting.logo %>" alt="" class="rounded-full bg-cover h-full w-full">
+                              </div>
+                              <% end %>
+                        </div>
+                        <div>
+                          <div class="text-base font-bold md:ml-4">
+                            <%= item.filial_name %>
+                          </div>
+                          <div class="flex items-center gap-1">
+                            <img src="/images/icons/city_index.svg" class="bg-contain" alt="city">
+                            <div class="whitespace-normal w-auto">
+                              <%= item.filial_address %>
+                            </div>
+                          </div>
+                          <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>
+                            <div class="flex items-start">
+                              <img src="/images/icons/phone_icon.svg" class="bg-contain" alt="phone">
+                              <div class="flex flex-wrap ml-1 md:flex-col md:text-xs">
+                                <a href='tel:<%= item.setting.phones["phone1"] %>' class="mr-1">
+                                  <%= item.setting.phones["phone1"] %>
+                                </a>
+                                <a href='tel:<%= item.setting.phones["phone2"] %>' class="">
+                                  <%= item.setting.phones["phone2"] %>
+                                </a>
+                                <a href='tel:<%= item.setting.phones["phone3"] %>' class="mr-1">
+                                  <%= item.setting.phones["phone3"] %>
+                                </a>
+                              </div>
+                            </div>
+                            <% end %>
+                              <div class="hidden">
+                                <%= [wholesale_rate, gold]=item.setting.tags %>
+                              </div>
+                              <%= if String.to_atom(wholesale_rate) do %>
+                                <div class="mt-2 inline-block mb:block md:ml-4 md:mt-1">
+                                  <span
+                                    class="bg-indexGreen whitespace-nowrap rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
+                                    Оптовый курс
+                                  </span>
+                                </div>
+                                <% end %>
+                                  <%= if String.to_atom(gold) do %>
+                                    <div class="mt-2 inline-block mb:block md:ml-4">
+                                      <span
+                                        class="bg-indexYellow rounded-full font-normal text-xs text-black px-4 py-1">
+                                        Золото
+                                      </span>
+                                    </div>
+                                    <% end %>
+                                      <div class="mt-1 text-xs md:ml-4">
+                                        <%= item.setting.promo["promo1"] %>
+                                      </div>
+                                      <div class="text-xs md:ml-4">
+                                        <%= item.setting.promo["promo2"] %>
+                                      </div>
+                        </div>
+                      </div>
+                    </a>
+                    <% else %>
+                      <div class="flex gap-4 font-normal md:gap-0">
+                        <div class="md:hidden">
+                          <%= if item.setting.logo==nil do %>
+                            <%= if item.setting.color_logo !="" do %>
+                              <div class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14"
+                                style="background-color: <%= item.setting.color_logo %> !important;">
+                                <%= item.first_letter %>
+                              </div>
+                              <% else %>
+                                <div
+                                  class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14 md:hidden">
+                                  <%= item.first_letter %>
+                                </div>
+                                <% end %>
+                                  <% else %>
+                                    <div class="w-14 h-14 md:hidden">
+                                      <img src="<%= item.setting.logo %>" alt=""
+                                        class="rounded-full bg-cover h-full w-full">
+                                    </div>
+                                    <% end %>
+                        </div>
+                        <div>
+                          <div class="text-base font-bold md:ml-4">
+                            <%= item.filial_name %>
+                          </div>
+                          <div class="flex items-center gap-1">
+                            <img src="/images/icons/city_index.svg" class="bg-contain" alt="city">
+                            <div class="whitespace-normal w-auto">
+                              <%= item.filial_address %>
+                            </div>
+                          </div>
+                          <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>
+                            <div class="flex items-start">
+                              <img src="/images/icons/phone_icon.svg" class="bg-contain mt-1" alt="phone">
+                              <div class="flex flex-wrap ml-1">
+                                <a href='tel:<%= item.setting.phones["phone1"] %>' class="mr-1">
+                                  <%= item.setting.phones["phone1"] %>
+                                </a>
+                                <a href='tel:<%= item.setting.phones["phone2"] %>' class="">
+                                  <%= item.setting.phones["phone2"] %>
+                                </a>
+                                <a href='tel:<%= item.setting.phones["phone3"] %>' class="mr-1">
+                                  <%= item.setting.phones["phone3"] %>
+                                </a>
+                              </div>
+                            </div>
+                            <% end %>
+                              <div class="hidden">
+                                <%= [wholesale_rate, gold]=item.setting.tags %>
+                              </div>
+                              <%= if String.to_atom(wholesale_rate) do %>
+                                <div class="mt-2 inline-block mb:block">
+                                  <span
+                                    class="bg-indexGreen rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
+                                    Оптовый курс
+                                  </span>
+                                </div>
+                                <% end %>
+                                  <%= if String.to_atom(gold) do %>
+                                    <div class="mt-2 inline-block mb:block">
+                                      <span
+                                        class="bg-indexYellow rounded-full font-normal text-xs text-black px-4 py-1">
+                                        Золото
+                                      </span>
+                                    </div>
+                                    <% end %>
+                                      <div class="mt-1 text-xs">
+                                        <%= item.setting.promo["promo1"] %>
+                                      </div>
+                                      <div class="text-xs">
+                                        <%= item.setting.promo["promo2"] %>
+                                      </div>
+                        </div>
+                      </div>
+                      <% end %>
+                </th>
+                <td class="px-2 py-4 bg-white rounded-l-2xl relative after_table md:hidden">
+                  <div class="hidden time">
+                    <%= item.date %>
+                  </div>
+                  <div class="text-base font-bold flex justify-center gap-1">
+                    <img src="/images/icons/clock_index.svg" alt="clock">
+                    <div>
+                      <%= item.date_h %>:<%= item.date_m %><span class="font-normal">:<%= item.date_s %></span>
+                    </div>
+                  </div>
+                  <div class="text-xs">
+                    <%= item.humanizated_date %>
+                  </div>
+                </td>
+
+                <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase,
+                  "USD") %>
+                  <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "USD")
+                    %>
+                    <td class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item md:rounded-xl"
+                      data-select="1">
+                      <div class="md:flex md:flex-col md:gap-6">
+                        <div class="md:text-sm">
+                          <span class="purchase">
+                            <%= purchase %>
+                          </span>
+                          <span class="mx-2">-</span>
+                          <span class="sale">
+                            <%= sale %>
+                          </span>
+                        </div>
+                        <div class="hidden md:block">
+                          <div class="hidden time">
+                            <%= item.date %>
+                          </div>
+                          <div class="text-xs font-bold flex justify-center gap-1">
+                            <img src="/images/icons/clock_index.svg" alt="clock">
+                            <div>
+                              <%= item.date_h %>:<%= item.date_m %><span class="font-normal">:<%= item.date_s %></span>
+                            </div>
+                          </div>
+                          <div class="text-small">
+                            <%= item.humanizated_date %>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <% purchase=item.course |>
+                      KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "EUR") %>
+                      <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
+                        "EUR") %>
+                        <td
+                          class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item lg:rounded-2xl md:hidden"
+                          data-select="2">
+                          <span class="purchase">
+                            <%= purchase %>
+                          </span>
+                          <span class="mx-2">-</span>
+                          <span class="sale">
+                            <%= sale %>
+                          </span>
+                        </td>
+
+                        <% purchase=item.course |>
+                          KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "RUB") %>
+                          <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
+                            "RUB") %>
+                            <td
+                              class="px-4 py-4 font-bold text-base bg-white rounded-r-2xl dataget item lg:hidden md:hidden"
+                              data-select="3">
+                              <span class="purchase">
+                                <%= purchase %>
+                              </span>
+                              <span class="mx-2">-</span>
+                              <span class="sale">
+                                <%= sale %>
+                              </span>
+                            </td>
+              </tr>
+              <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% else %>
+        <div class="m-6 text-lg">В выбранном вами городе пока отсутсвуют обменные пункты</div>
+        <% end %>
+          <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!() %>"></div>
   </div>
 </div>
 
