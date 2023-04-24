@@ -96,7 +96,7 @@ defmodule KursonliKursWeb.AdminController do
       filial_address: params["filial_address"]
     }
 
-    subdomen = params["subdomen"]
+    subdomen = String.downcase(params["subdomen"])
 
     KursonliKurs.Repo.transaction(fn ->
       with {:ok, org} <- Organizations.create(org_opts),
@@ -281,7 +281,7 @@ defmodule KursonliKursWeb.AdminController do
       organization_id: params["org_id"]
     }
 
-    subdomen = params["subdomen"]
+    subdomen = String.downcase(params["subdomen"])
 
     KursonliKurs.Repo.transaction(fn ->
       with {:ok, _filial} <-
@@ -331,7 +331,7 @@ defmodule KursonliKursWeb.AdminController do
       coordinates: [params["x_coordinate"], params["y_coordinate"]],
       address_2gis: params["address_2gis"],
       firm_id: params["firm_id"],
-      subdomen: params["subdomen"]
+      subdomen: String.downcase(params["subdomen"])
     }
 
     with {:ok, filial} <- Filials.do_get(id: id),

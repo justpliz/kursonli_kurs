@@ -61,3 +61,7 @@
 [disable="true"] {
   background: #000;
 }
+
+.eng_text_only{
+  text-transform: lowercase;
+}

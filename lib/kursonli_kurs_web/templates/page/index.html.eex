@@ -14,19 +14,37 @@
     </div>
   </header>
   <div class="max-w-1200 mx-auto bg-indexGray pt-4 md:mx-1">
-    <div class="flex  gap-2 md:mb-2 max-w-1200 w-full overflow-x-auto py-4 scroll">
-      <%= for item <- @city_list do %>
-        <div class="whitespace-nowrap">
-          <a class="block bg-white rounded-full px-4 py-1 ml-2 first:m-0" href="city?name=<%= item.eng_name %>">
-            <span>
-              <%= item.name %>
-                <span class="font-bold ml-2">
-                  <%= item.count %>
-                </span>
-            </span>
-          </a>
+    <div class="flex justify-between items-center">
+      <div class="flex gap-2 md:mb-2">
+        <%= for item <- @city_list do %>
+          <div class="whitespace-nowrap">
+            <a class="block bg-white rounded-full px-4 py-1 ml-2 first:m-0" href="city?name=<%= item.eng_name %>">
+              <span>
+                <%= item.name %>
+                  <span class="font-bold ml-2">
+                    <%= item.count %>
+                  </span>
+              </span>
+            </a>
+          </div>
+          <% end %>
+      </div>
+      <div class="border-2 border-indexAqua py-1 px-4 rounded-xl">
+        <div class="mb-2 text-xs">Лучшие курсы валют</div>
+        <div class="best_courses_table md:ml-4 md:mt-2">
+        <%= for item <- @scrapped_list do %>
+          <span>
+            <%= item.buy %>
+          </span>
+          <span>
+            <%= item.currency %>
+          </span>
+          <span>
+            <%= item.sale %>
+          </span>
+          <% end %>
         </div>
-        <% end %>
+      </div>
     </div>
     <div class="flex justify-between items-end mx-2 md:flex-col md:items-start">
       <div class="">
@@ -44,26 +62,10 @@
           </div>
         </div>
       </div>
-      <div class="flex items-start flex-col border-2 border-indexAqua py-1 px-4 rounded-xl">
-        <div class="mb-2 text-xs">Лучшие курсы валют</div>
-        <div class="best_courses_table md:ml-4 md:mt-2">
-        <%= for item <- @scrapped_list do %>
-          <span>
-            <%= item.buy %>
-          </span>
-          <span>
-            <%= item.currency %>
-          </span>
-          <span>
-            <%= item.sale %>
-          </span>
-          <% end %>
-        </div>
-      </div>
     </div>
 
     <%= if !Enum.empty?(@courses_list) do %>
-      <div class="relative overflow-x-auto mt-6 md:mt-2 md:overflow-x-hidden">
+      <div class="relative overflow-x-auto md:overflow-x-hidden">
         <table class="w-full text-sm text-left text-black border-separate border-spacing-2">
           <thead class="text-base">
             <tr class="text-center">

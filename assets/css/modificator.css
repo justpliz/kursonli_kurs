@@ -153,7 +153,7 @@
    }
 
    .admin_app_container {
-      @apply fixed top-0 left-0 h-full w-64 flex items-center flex-col bg-drab;
+      @apply fixed top-0 left-0 h-full w-64 2xl:w-52 flex items-center flex-col bg-drab;
    }
 
    .admin_app_li {

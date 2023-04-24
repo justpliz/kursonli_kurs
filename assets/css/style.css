@@ -46,6 +46,14 @@ body {
   padding: 0px 20px 0 280px;
 }
 
+@media (max-width: 1540px) {
+  .content_admin {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0px 20px 0 220px;
+  }
+}
+
 .content-worker {
   padding: 0px 20px 0 300px;
 }
