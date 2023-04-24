@@ -60,3 +60,13 @@ liveSocket.connect();
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
 
+const validateInput = document.querySelector('.eng_text_only');
+
+if (validateInput !== null) {
+  validateInput.addEventListener('input', function (e) {
+    const input = e.target.value;
+    let validInput = input.replace(/([А-Яа-я])/g, '');
+    e.target.value = validInput;
+  });
+}
+

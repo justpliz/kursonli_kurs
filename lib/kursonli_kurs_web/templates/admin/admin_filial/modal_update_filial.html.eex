@@ -8,6 +8,16 @@
       heightAuto: false,
       willOpen: (toast) => {
         document.querySelector(`option[value="${city_id}"]`).setAttribute("selected", true);
+
+        const validateInput = document.querySelector('.eng_text_only');
+
+        if (validateInput !== null) {
+          validateInput.addEventListener('input', function (e) {
+            const input = e.target.value;
+            let validInput = input.replace(/([А-Яа-я])/g, '');
+            e.target.value = validInput;
+          });
+        }
       },
       html: `
           <div class="flex items-center justify-between">
@@ -33,7 +43,7 @@
               <%= text_input f, :firm_id, class: "input_full", value: "${firm_id}", required: "true" %>
 
               <label class="label_input pos">Субдомен(только на английском)</label>
-              <%= text_input f, :subdomen, class: "input_full", value: "${subdomen}", required: "true" %>
+              <%= text_input f, :subdomen, class: "input_full eng_text_only", value: "${subdomen}", required: "true" %>
 
               <label class="label_input pos" for="city_id">Город</label>
               <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${city_name}", required: "true" %>

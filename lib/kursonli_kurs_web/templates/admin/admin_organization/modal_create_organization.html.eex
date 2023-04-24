@@ -27,7 +27,6 @@
                 </select>
             </div>
 
-
             <div class="mb-2">
               <label class="label_input pos">Адрес организации</label>
               <%= text_input f, :filial_address, class: "input_full", required: "true", placeholder: "Жамбыла 4" %>

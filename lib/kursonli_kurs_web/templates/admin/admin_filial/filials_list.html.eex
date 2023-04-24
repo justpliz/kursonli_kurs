@@ -11,7 +11,7 @@
     <div class="tab-content" id="tab1-content">
       <h1 class="title">Активные филиалы</h1>
       <div class="relative overflow-x-auto rounded-xl">
-        <table class="w-full text-sm text-lefttext-gray-800">
+        <table class="w-full text-sm text-left text-gray-800">
           <thead class="text-xs uppercase bg-gray-100">
             <tr>
               <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
@@ -20,7 +20,7 @@
               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
                 Привязка к организации
               </th>
-              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+              <th scope="col" class="px-6 2xl:px-1 border-2 border-t-0 border-gray-300 py-3">
                 Email
               </th>
               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
@@ -32,7 +32,7 @@
               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3 border-r-0">
                 Город
               </th>
-              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3 border-r-0">
+              <th scope="col" class="px-6 2xl:px-1 border-2 border-t-0 border-gray-300 py-3 border-r-sky-50">
                 Управление
               </th>
             </tr>
@@ -48,7 +48,7 @@
                   <td class="px-6 border-2 border-b-0 border-gray-300">
                     <%= item.org_name %>
                   </td>
-                  <td class="px-6 border-2 border-b-0 border-gray-300">
+                  <td class="px-6 2xl:px-1 border-2 border-b-0 border-gray-300">
                     <%= item.email %>
                   </td>
                   <td class="px-6 border-2 border-b-0 border-gray-300">
