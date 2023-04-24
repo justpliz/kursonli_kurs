@@ -109,27 +109,19 @@ defmodule KursonliKurs.Context.Filials do
 
   def get_courses_list(filial_id) do
     from(
-      # filial in Filial,
-      # where: filial.id == ^filial_id,
-      # join: course in Course,
-      # on: course.filial_id == filial.id,
-      # join: c in Currency,
-      # on: c.id == course.currency_id,
-      fc in FilialCurrency,
-      where: fc.filial_id == ^filial_id,
-      join: course in Course,
-      on: course.currency_id == fc.currency_id and course.filial_id == fc.filial_id,
-      join: c in Currency,
-      on: c.id == fc.currency_id,
-      order_by: [c.id],
+      c in Course,
+      where: c.filial_id == ^filial_id,
+      join: cr in Currency,
+      on: cr.id == c.currency_id,
+      order_by: [cr.id],
       select: %{
-        currency_id: c.id,
-        course_id: course.id,
-        currency_name: c.name,
-        currency_short_name: c.short_name,
-        value_for_sale: course.value_for_sale,
-        value_for_purchase: course.value_for_purchase,
-        date: course.date
+        course_id: c.id,
+        currency_id: cr.id,
+        currency_name: cr.name,
+        currency_short_name: cr.short_name,
+        value_for_sale: c.value_for_sale,
+        value_for_purchase: c.value_for_purchase,
+        date: c.date
       }
     )
     |> Repo.all()

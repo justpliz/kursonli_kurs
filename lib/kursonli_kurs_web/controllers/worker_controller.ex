@@ -294,23 +294,18 @@ defmodule KursonliKursWeb.WorkerController do
   GET /worker/courses
   """
   def courses(conn, params) do
-    # TODO переделать запрос
     session = get_session(conn, :worker)
     courses_list = Filials.get_courses_list(session.filial_id)
 
-    # TODO доделать запрос который вытащитнужные нам валюты
-    # KursonliKurs.Context.Currencies.get_not_mine_crrencies(filial_id)
-    my_currencies =
-      FilialsCurrencies.all(filial_id: session.filial_id)
-      |> Enum.map(&Currencies.get(id: &1.currency_id))
+    # Список валют которых нет у филиала
+    # TODO: Сделать Ecto запросом
+    not_mine_currencies_list =
+      Currencies.all() -- Enum.map(courses_list, &Currencies.get(id: &1.currency_id))
 
-    currencies_list = Currencies.all() -- my_currencies
+    # Дата последнего обновления курса
+    last_update_date = find_last_date(Enum.map(courses_list, & &1.date))
 
-    last_date = Filials.get_last_date_for_course(session.filial_id)
-
-    last_date =
-      if not is_nil(last_date), do: GeneralHelper.date_to_string_data_all(last_date), else: ""
-
+    # Флаг отображения курсов филиала на основной странице
     visible_course_status = Filials.get(id: session.filial_id).visible_course_status
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
@@ -321,11 +316,11 @@ defmodule KursonliKursWeb.WorkerController do
     conn
     |> render("worker_courses.html",
       courses_list: courses_list,
-      last_date: last_date,
+      last_update_date: last_update_date,
       instructions: instructions,
       visible_course_status: visible_course_status,
       expiration: expiration,
-      currencies_list: currencies_list
+      not_mine_currencies_list: not_mine_currencies_list
     )
   end
 
@@ -551,5 +546,16 @@ defmodule KursonliKursWeb.WorkerController do
     conn
     |> put_session(:lang, "kaz")
     |> redirect(to: params["redirect_path"])
+  end
+
+  # Определение последнего обновление курса.
+  # Необязательная функция, т.к. все курсы обновляются одновременно.
+  defp find_last_date(date_list) do
+    last_date =
+      date_list
+      |> Enum.sort_by(& &1, {:asc, Date})
+      |> hd
+
+    if not is_nil(last_date), do: GeneralHelper.date_to_string_data_all(last_date), else: ""
   end
 end
