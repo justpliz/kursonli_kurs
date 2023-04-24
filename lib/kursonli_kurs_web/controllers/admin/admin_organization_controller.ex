@@ -50,13 +50,16 @@ defmodule KursonliKursWeb.Admin.AdminOrganizationController do
       filial_address: params["filial_address"]
     }
 
+    subdomen = params["subdomen"]
+
     KursonliKurs.Repo.transaction(fn ->
       with {:ok, org} <- Organizations.create(org_opts),
            filial_opts <- Map.put(filial_opts, :organization_id, org.id),
            {:ok, _filial} <-
              Filials.create_filial_worker_setting(
                filial_opts,
-               worker_opts
+               worker_opts,
+               subdomen
              ) do
         conn
         |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
