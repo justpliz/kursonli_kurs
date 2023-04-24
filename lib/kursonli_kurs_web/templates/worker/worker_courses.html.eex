@@ -1,181 +1,140 @@
 <% worker=Plug.Conn.get_session(@conn,:worker) %>
-  <%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
-    <div class="margin_content">
-      <div class="sm:flex sm:flex-col sm:gap-2">
-        <div class="flex justify-between items-center sm:flex-col sm:items-start sm:gap-2">
-          <div class="text-base flex-1-1">
-            <%= gettext("Последнее обновление курса") %>:
-              <%= @last_update_date %>
-          </div>
-          <%= form_for @conn, Routes.worker_path(@conn, :update_course), fn f -> %>
-            <div class="flex gap-4">
-              <button id="submit-btn" class="btn_save flex items-center justify-center" type="submit">
-                <span class="material-symbols-outlined" style="color: #fff; font-weight: 500; font-size: 20px;">
-                  save
-                </span>
-                <%= gettext("Сохранить изменения") %>
-              </button>
-              <a href="/worker/courses" class="btn_cancel flex items-center justify-center" type="submit">
-                <span class="material-symbols-outlined" style="color: #111111; font-weight: 500; font-size: 20px;">
-                  cancel
-                </span>
-                <%= gettext("Отменить изменения") %>
-              </a>
+<%= if Timex.before?(Timex.now("Asia/Almaty"), worker.paid_up_to) do %>
+  <div class="margin_content">
+    <div class="sm:flex sm:flex-col sm:gap-2">
+      <div class="flex justify-between items-center sm:flex-col sm:items-start sm:gap-2">
+        <div class="text-base flex-1-1">
+          <%= gettext("Последнее обновление курса") %>:
+          <%= @last_update_date %>
+        </div>
+        <%= form_for @conn, Routes.worker_path(@conn, :update_course), fn f -> %>
+        <div class="flex gap-4">
+          <button id="submit-btn" class="btn_save flex items-center justify-center" type="submit">
+            <span class="material-symbols-outlined" style="color: #fff; font-weight: 500; font-size: 20px;">
+              save
+            </span>
+            <%= gettext("Сохранить изменения") %>
+          </button>
+          <a href="/worker/courses" class="btn_cancel flex items-center justify-center" type="submit">
+            <span class="material-symbols-outlined" style="color: #111111; font-weight: 500; font-size: 20px;">
+              cancel
+            </span>
+            <%= gettext("Отменить изменения") %>
+          </a>
+        </div>
+      </div>
+      <div class="flex items-center justify-start gap-4 pb-2">
+        <input name="change_all_filials" type="hidden" value="false">
+        <div class="flex items-center justify-center">
+          <label for="all" class="label_input pr-2">
+            <%= gettext("Изменить все курсы") %>
+          </label>
+          <input id="all" name="change_all_filials" type="checkbox" value="true" class="type_select rounded">
+        </div>
+        <div class="flex items-center justify-center">
+          <label for="visible_course_status" class="label_input pr-2">
+            <%= gettext("Сделать видимым") %>
+          </label>
+          <%= checkbox f, :visible_course_status, checked: @visible_course_status, class: "type_select rounded" %>
+        </div>
+      </div>
+    </div>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm 2xl:text-xs text-left text-gray-500 table_sort">
+        <thead class="text-xs text-gray-700 uppercase bg-white">
+          <tr>
+            <th scope="col" class="p-6 2xl:p-4 border-b-2 border-gray-200">
+              <%= gettext("Валюта") %>
+            </th>
+            <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
+              <%= gettext("Короткое название") %>
+            </th>
+            <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
+              <%= gettext("Цена покупки") %>
+            </th>
+            <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
+              <%= gettext("Цена продажи") %>
+            </th>
+            <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
+              <%= gettext("Управление") %>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for item <- @courses_list do %>
+            <tr class="bg-white td-item">
+              <td class="px-6 py-4 border-t-2">
+                <%= item.currency_name %>
+              </td>
+              <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
+                <%= item.currency_short_name %>
+              </td>
+              <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
+                <%= text_input f, :"#{item.course_id}|value_for_purchase",
+                    class: "input_full number value_for_purchase" , value: item.value_for_purchase %>
+              </td>
+              <td class="px-6 py-4 border-x-2 border-t-2">
+                <%= text_input f, :"#{item.course_id}|value_for_sale", class: "input_full number value_for_sale" ,
+                    value: item.value_for_sale %>
+              </td>
+              <td class="px-6 py-4 border-x-2 border-t-2">
+                <button class="accept_delete_course styles_none"
+                    data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                  <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                </button>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= if !Enum.empty?(@not_mine_currencies_list) do %>
+    <div class="label_input pos text-lg">
+      <%= gettext("Неиспользуемые валюты") %>
+    </div>
+    <%= form_for @conn, Routes.worker_path(@conn, :new_courses), [multipart: true], fn f -> %>
+    <div class="flex gap-8 flex-wrap">
+      <%= for item <- @not_mine_currencies_list do %>
+        <div class="flex gap-2 items-center">
+          <input type="checkbox" name="<%= item.id %>" id="<%= item.id %>" class="type_select rounded">
+          <label class="label_input" for="<%= item.id %>">
+            <%= item.name %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+    <%= submit gettext("Добавить валюту"), class: "btn_save pos mt-2" %>
+  <% end %>
+<% end %>
+</div>
+<% else %>
+  <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html", conn: @conn, instructions: @instructions) %>
+<% end %>
+<%= if not is_nil(@expiration), do: render(KursonliKursWeb.WorkerView, "notification_expiration.html", conn: @conn, expiration: @expiration) %>
+<script>
+  $(".accept_delete_course").click(function (e) {
+    e.preventDefault()
+    const { course_id } = JSON.parse(this.dataset.map)
+    Modalka.fire({
+      showConfirmButton: false,
+      showCancelButton: false,
+      showCloseButton: true,
+      html: `
+        <h1 class="title_without_margin text-left">
+            <%= gettext("Действительно удалить валюту?") %>
+        </h1>
+        <div class="px-1">
+            <div class="px-1">
+                <div class="text-left my-4">
+                    <%= gettext("Это действие необратимо. Вы действительно хотите удалить этот курс?") %>
+                </div>
+                <a href="/worker/delete_course?id=${course_id}" class="btn_save my-2 pos w-fit" type="submit">
+                    <%= gettext("Удалить") %>
+                </a>
             </div>
         </div>
-        <div class="flex items-center justify-start gap-4 pb-2">
-          <input name="change_all_filials" type="hidden" value="false">
-          <div class="flex items-center justify-center">
-            <label for="all" class="label_input pr-2">
-              <%= gettext("Изменить все курсы") %>
-            </label>
-            <input id="all" name="change_all_filials" type="checkbox" value="true" class="type_select rounded">
-          </div>
-          <div class="flex items-center justify-center">
-            <label for="visible_course_status" class="label_input pr-2">
-              <%= gettext("Сделать видимым") %>
-            </label>
-            <%= checkbox f, :visible_course_status, checked: @visible_course_status, class: "type_select rounded" %>
-          </div>
-        </div>
-      </div>
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm 2xl:text-xs text-left text-gray-500 table_sort">
-          <thead class="text-xs text-gray-700 uppercase bg-white">
-            <tr>
-              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-gray-200">
-                <%= gettext("Валюта") %>
-              </th>
-              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
-                <%= gettext("Короткое название") %>
-              </th>
-              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
-                <%= gettext("Цена покупки") %>
-              </th>
-              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
-                <%= gettext("Цена продажи") %>
-              </th>
-              <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
-                <%= gettext("Управление") %>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <%= for item <- @courses_list do %>
-              <tr class="bg-white td-item">
-                <td class="px-6 py-4 border-t-2">
-                  <%= item.currency_name %>
-                </td>
-                <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
-                  <%= item.currency_short_name %>
-                </td>
-                <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
-                  <%= text_input f, :"#{item.course_id}|value_for_purchase",
-                    class: "input_full number value_for_purchase" , value: item.value_for_purchase %>
-                </td>
-                <td class="px-6 py-4 border-x-2 border-t-2">
-                  <%= text_input f, :"#{item.course_id}|value_for_sale", class: "input_full number value_for_sale" ,
-                    value: item.value_for_sale %>
-                </td>
-                <td class="px-6 py-4 border-x-2 border-t-2">
-                  <button class="accept_delete_course styles_none"
-                    data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
-                    <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
-                  </button>
-                </td>
-              </tr>
-              <% end %>
-                <% end %>
-          </tbody>
-        </table>
-      </div>
-      <%= if !Enum.empty?(@not_mine_currencies_list) do %>
-        <div class="label_input pos text-lg">
-          <%= gettext("Неиспользуемые валюты") %>
-        </div>
-        <%= form_for @conn, Routes.worker_path(@conn, :new_courses), [multipart: true], fn f -> %>
-          <div class="flex gap-8 flex-wrap">
-            <%= for item <- @not_mine_currencies_list do %>
-              <div class="flex gap-2 items-center">
-                <input type="checkbox" name="<%= item.id %>" id="<%= item.id %>" class="type_select rounded">
-                <label class="label_input" for="<%= item.id %>">
-                  <%= item.name %>
-                </label>
-              </div>
-              <% end %>
-          </div>
-          <%= submit gettext("Добавить валюту"), class: "btn_save pos mt-2" %>
-            <% end %>
-              <% end %>
-    </div>
-    <% else %>
-      <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html" , conn: @conn, instructions:
-        @instructions) %>
-        <% end %>
-          <%= if not is_nil(@expiration), do: render(KursonliKursWeb.WorkerView, "notification_expiration.html" , conn:
-            @conn, expiration: @expiration) %>
-            <script>
-              const numberInputs = document.querySelectorAll('.number');
-              numberInputs.forEach(function (input) {
-                input.addEventListener('input', function () {
-                  input.value = input.value.replace(/[^0-9\.]/g, '');
-                  const dotIndex = input.value.indexOf('.');
-                  if (dotIndex !== -1 && input.value.substring(dotIndex + 1).length > 2) {
-                    input.value = input.value.substring(0, dotIndex + 4);
-                  }
-                });
-              });
-
-              $(".accept_delete_course").click(function (e) {
-                e.preventDefault()
-                const { course_id } = JSON.parse(this.dataset.map)
-                Modalka.fire({
-                  showConfirmButton: false,
-                  showCancelButton: false,
-                  showCloseButton: true,
-                  html: `
-               <h1 class="title_without_margin text-left"><%= gettext("Действительно удалить валюту?") %></h1>
-             <div class="px-1">
-              <div class="px-1">
-       <div class="text-left my-4"><%= gettext("Это действие необратимо. Вы действительно хотите удалить этот курс?") %></div>
-       <a href="/worker/delete_course?id=${course_id}" class="btn_save my-2 pos w-fit" type="submit"><%= gettext("Удалить") %></a>
-               </div>
-             </div>
-          `,
-                })
-              })
-              const elementTd = [...document.querySelectorAll(".td-item")]
-              elementTd.forEach((el) => {
-                el.querySelector(".value_for_purchase")
-                el.querySelector(".value_for_sale")
-                comparisoInputs(el.querySelector(".value_for_sale"), el.querySelector(".value_for_purchase"),)
-              })
-              const buttonSubmit = document.querySelector("#submit-btn")
-              let inputsArray = Array.from(document.querySelectorAll('input'));
-              let borderColorsArray = inputsArray.map(input => input.style.borderTopColor === "" ? true : false);
-              let isValid = true
-              function comparisoInputs(oneInput, twoInput) {
-                oneInput.addEventListener("input", handleInput);
-                twoInput.addEventListener("input", handleInput);
-
-                function handleInput() {
-                  this.value = this.value.replace(/[^0-9.]/g, "");
-                  const valueOne = parseFloat(oneInput.value.replace(/\s/, "") || 0);
-                  const valueTwo = parseFloat(twoInput.value.replace(/\s/, "") || 0);
-
-                  if (valueOne < valueTwo) {
-                    twoInput.style.border = "1px solid red";
-                  } else {
-                    twoInput.style.border = "";
-                  };
-
-                  borderColorsArray = inputsArray.map(input => input.style.borderTopColor === "" ? true : false);
-                  isValid = borderColorsArray.every(value => value === true);
-                  if (isValid) {
-                    buttonSubmit.disabled = false;
-                  } else {
-                    buttonSubmit.disabled = true;
-                  }
-                }
-              }
-            </script>
+      `,
+    })
+  })
+</script>
