@@ -5,6 +5,7 @@ defmodule KursonliKurs.Context.Tariffs do
   use KursonliKurs.Context
 
   alias KursonliKurs.Model.Tariff
+  alias KursonliKurs.Context.Tariffs
 
   require Logger
 
@@ -29,8 +30,16 @@ defmodule KursonliKurs.Context.Tariffs do
     |> Repo.insert()
   end
 
-  def delete(tariff) do
-    Repo.delete(tariff)
+  @doc """
+  Удаление тарифа по id. Если вызывается иключение возвращает :error
+  """
+  def delete(tariff_id) do
+    tariff = Tariffs.get(id: tariff_id)
+    try do
+      Repo.delete(tariff)
+    rescue
+      _ -> {:error, tariff}
+    end
   end
 
   @doc false

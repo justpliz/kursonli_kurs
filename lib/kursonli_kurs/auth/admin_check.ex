@@ -22,6 +22,6 @@ defmodule KursonliKurs.Auth.AdminCheck do
 
   def index(conn, _params) do
     conn
-    |> redirect(to: "/admin")
+    |> redirect(to: "/admin/organization")
   end
 end

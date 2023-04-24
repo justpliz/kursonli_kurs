@@ -58,6 +58,9 @@ defmodule KursonliKurs.Context.Courses do
     from(query, preload: [currency: ^c])
   end
 
+  @doc """
+  Получает курсы всех филиалов данной организации(org_id) конкретной валюты(currency_id)
+  """
   def get_all_courses_by_filial(org_id, currency_id) do
     from(
       org in Organization,
@@ -68,6 +71,6 @@ defmodule KursonliKurs.Context.Courses do
       on: course.filial_id == filial.id and course.currency_id == ^currency_id,
       select: course
     )
-    |> Repo.all
+    |> Repo.all()
   end
 end

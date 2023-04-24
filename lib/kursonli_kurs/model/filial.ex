@@ -14,8 +14,7 @@ defmodule KursonliKurs.Model.Filial do
     Setting,
     CoursesHistory,
     Currency,
-    Worker,
-    FilialCurrency
+    Worker
   }
 
   @type t :: %__MODULE__{}
@@ -44,10 +43,6 @@ defmodule KursonliKurs.Model.Filial do
     # One-to-One
     has_one :worker, Worker
     has_one :setting, Setting
-
-    # Many-to-Many
-    many_to_many :currencies, Currency, join_through: "filials_currencies"
-    has_one :filials_currencies, FilialCurrency
 
     timestamps()
   end

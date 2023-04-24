@@ -1,0 +1,205 @@
+<div class="margin_content">
+   <h1 class="title">Настройки</h1>
+
+   <div class="w-full relative">
+      <div class="relative">
+         <button class="btn_border tab-btn" id="tab1-btn">Тарифы</button>
+         <button class="btn_border tab-btn" id="tab2-btn">Оплата</button>
+         <button class="btn_border tab-btn" id="tab3-btn">Валюты</button>
+         <button class="btn_border tab-btn" id="tab4-btn">Города</button>
+      </div>
+
+      <div class="tab-content" id="tab1-content">
+         <div class="text-lg font-semibold">Редактирование тарифов</div>
+         <div class="bg-gray-200 w-full p-8 rounded-xl">
+            <%= for item <- Enum.sort(@tariff_list, :asc) do %>
+               <div class="bg-white rounded-lg p-4 mb-4">
+                  <div class="flex justify-between">
+                     <label class="label_input basis-1/6 p-2">Название</label>
+                     <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                        <%= item.name %>
+                     </div>
+                  </div>
+                  <div class="flex justify-between">
+                     <label class="label_input basis-1/6 p-2">Сумма оплаты</label>
+                     <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                        <%= item.price %>
+                     </div>
+                  </div>
+                  <div class="flex justify-between">
+                     <label class="label_input basis-1/6 p-2">Срок действия(дней)</label>
+                     <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                        <%= item.days %>
+                     </div>
+                  </div>
+                  <div class="border-t-2 my-4 border-gray-200"></div>
+                  <div class="flex gap-4">
+                     <button class="tariff_edit btn_save"
+                        data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать
+                        тариф</button>
+                     <a href="/admin/setting/tariffs/delete?id=<%= item.id %>" class="btn_cancel">
+                        Удалить тариф
+                     </a>
+                  </div>
+               </div>
+               <% end %>
+                  <button class="tariff_create btn_save_with_icon"><span class="material-symbols-outlined"
+                        style="font-weight: 900;">add_circle</span> Добавить тариф</button>
+         </div>
+      </div>
+
+      <div class="tab-content" id="tab2-content">
+         <div class="text-lg font-semibold">Текст уведомлений</div>
+         <div class="bg-gray-200 w-full p-8 rounded-xl">
+            <%= form_for @conn, Routes.admin_setting_path(@conn, :update_notification), fn f -> %>
+            <h1 class="subtitle_black pl-2">Раздел "Оплата"</h1>
+            <div class="bg-white rounded-lg p-4 mb-4">
+               <div class="flex justify-between pb-2">
+                  <%= hidden_input f, :name, value: @service_access.name %>
+                  <label class="label_input p-2 basis-1/6">Заголовок</label>
+                  <%= text_input f, :title, placeholder: "Заголовок", class: "input_full", value: @service_access.title, required: "true" %>
+               </div>
+               <div class="flex justify-between pb-2">
+                  <label class="label_input p-2 basis-1/6">Текст</label>
+                  <%= textarea f, :description, placeholder: "", value: @service_access.description, class: "min-h-300 input_full",
+                  required: "true" %>
+               </div>
+               <div class="border-t-2 my-4 border-gray-200"></div>
+               <div class="flex gap-4">
+                     <%= submit "Сохранить изменения", class: "currency_edit btn_save" %>
+               </div>
+            </div>
+            <% end %>
+         </div>
+         <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
+            <%= form_for @conn, Routes.admin_setting_path(@conn, :update_notification), fn f -> %>
+            <h1 class="subtitle_black pl-2">Истечение срока отображаемое в модальном окне при входе</h1>
+            <div class="bg-white rounded-lg p-4 mb-4">
+               <div class="flex justify-between pb-2">
+                  <%= hidden_input f, :name, value: @expiration.name %>
+                  <label class="label_input p-2 basis-1/6">Заголовок</label>
+                  <%= text_input f, :title, placeholder: "Заголовок", class: "input_full", value: @expiration.title, required: "true" %>
+               </div>
+               <div class="flex justify-between pb-2">
+                  <label class="label_input p-2 basis-1/6">Текст</label>
+                  <%= textarea f, :description, placeholder: "", value: @expiration.description, class: "min-h-300 input_full",
+                  required: "true" %>
+               </div>
+               <div class="border-t-2 my-4 border-gray-200"></div>
+               <div class="flex gap-4">
+                  <%= submit "Сохранить изменения", class: "currency_edit btn_save" %>
+               </div>
+            </div>
+            <% end %>
+         </div>
+         <div class="bg-gray-200 w-full p-8 rounded-xl mt-4">
+            <%= form_for @conn, Routes.admin_setting_path(@conn, :update_notification), fn f -> %>
+            <h1 class="subtitle_black pl-2">Предупреждение о неоплате во всех разделах меню</h1>
+            <div class="bg-white rounded-lg p-4 mb-4">
+               <div class="flex justify-between pb-2">
+                  <%= hidden_input f, :name, value: @instructions.name %>
+                  <label class="label_input p-2 basis-1/6">Заголовок</label>
+                  <%= text_input f, :title, placeholder: "Заголовок", class: "input_full", value: @instructions.title, required: "true" %>
+               </div>
+               <div class="flex justify-between pb-2">
+                  <label class="label_input p-2 basis-1/6">Текст</label>
+                  <%= textarea f, :description, placeholder: "", value: @instructions.description, class: "min-h-300 input_full",
+                  required: "true" %>
+               </div>
+               <div class="border-t-2 my-4 border-gray-200"></div>
+               <div class="flex gap-4">
+                  <%= submit "Сохранить изменения", class: "currency_edit btn_save" %>
+               </div>
+            </div>
+            <% end %>
+         </div>
+      </div>
+
+      <div class="tab-content" id="tab3-content">
+         <div class="text-lg font-semibold">Редактирование валют</div>
+         <div class="bg-gray-200 w-full p-8 rounded-xl">
+            <%= for item <- Enum.sort(@currency_list, :asc) do %>
+               <div class="bg-white rounded-lg p-4 mb-4">
+                  <div class="flex justify-between">
+                     <label class="label_input basis-1/6 p-2">Название</label>
+                     <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                        <%= item.name %>
+                     </div>
+                  </div>
+                  <div class="flex justify-between">
+                     <label class="label_input basis-1/6 p-2">Короткое название</label>
+                     <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                        <%= item.short_name %>
+                     </div>
+                  </div>
+                  <div class="flex justify-between">
+                     <label class="label_input basis-1/6 p-2">Цвет валюты</label>
+                     <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                        <input type="color" disabled="disabled" id="color" value="<%= item.color %>" class="w-full">
+                     </div>
+                  </div>
+                  <div class="border-t-2 my-4 border-gray-200"></div>
+                  <div class="flex gap-4">
+                     <button class="currency_edit btn_save"
+                        data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать
+                        валюту</button>
+                     <a href="/admin/setting/currencies/delete?id=<%= item.id %>" class="btn_cancel">
+                        Удалить валюту
+                     </a>
+                  </div>
+               </div>
+               <% end %>
+                  <button class="currency_create btn_save_with_icon"><span class="material-symbols-outlined"
+                        style="font-weight: 900;">add_circle</span> Добавить валюту</button>
+         </div>
+      </div>
+
+      <div class="tab-content" id="tab4-content">
+         <div class="text-lg font-semibold">Редактирование городов</div>
+         <div class="bg-gray-200 w-full p-8 rounded-xl">
+            <%= for item <- Enum.sort(@cities_list, :asc) do %>
+               <div class="bg-white rounded-lg p-4 mb-4">
+                  <div class="flex justify-between">
+                     <label class="label_input basis-1/6 p-2">Название</label>
+                     <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                        <%= item.name %>
+                     </div>
+                  </div>
+                  <div class="flex justify-between">
+                     <label class="label_input basis-1/6 p-2">Короткое название города</label>
+                     <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                        <%= item.short_name %>
+                     </div>
+                  </div>
+                  <div class="flex justify-between">
+                     <label class="label_input basis-1/6 p-2">Название на английском</label>
+                     <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
+                        <%= item.eng_name %>
+                     </div>
+                  </div>
+                  <div class="border-t-2 my-4 border-gray-200"></div>
+                  <div class="flex gap-4">
+                     <button class="city_edit btn_save"
+                        data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">Редактировать
+                        город</button>
+                     <a href="/admin/setting/cities/delete?id=<%= item.id %>" class="btn_cancel">
+                        Удалить город
+                     </a>
+                  </div>
+               </div>
+               <% end %>
+                  <button class="cities_create btn_save_with_icon"><span class="material-symbols-outlined"
+                        style="font-weight: 900;">add_circle</span> Добавить город</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+<%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_update_currency.html", conn: @conn) %>
+   <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_create_currency.html", conn: @conn) %>
+
+      <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_update_city.html", conn: @conn) %>
+         <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_create_cities.html", conn: @conn) %>
+
+            <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_create_tariff.html", conn: @conn) %>
+               <%= render(KursonliKursWeb.Admin.AdminSettingView, "modal_update_tariff.html", conn: @conn) %>

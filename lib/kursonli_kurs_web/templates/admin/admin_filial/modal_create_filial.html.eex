@@ -1,0 +1,52 @@
+<script>
+   $(".filial_create").click(function () {
+      Modalka.fire({
+         showConfirmButton: false,
+         showCloseButton: true,
+         heightAuto: false,
+         html: `
+            <div class="flex items-center justify-between">
+              <h1 class="title_without_margin">Создание филиала</h1>
+            </div>
+            <div class="px-1">
+              <%= form_for @conn, Routes.admin_filial_path(@conn, :create_filial), [multipart: true], fn f -> %>
+                  <div class="mb-2">
+                    <label class="label_input pos">Организация</label>
+                    <%= select f, :org_id, Enum.map(@org_list, fn x -> {x.name, x.id} end), class: "input_full", required: "true" %>
+                  </div>
+
+                  <div class="mb-2">
+                    <label class="label_input pos">Название филиала</label>
+                    <%= text_input f, :filial_name, class: "input_full", required: "true", placeholder: "ИП Medium" %>
+                  </div>
+
+                  <div class="mb-2">
+                    <label class="label_input pos">Город</label>
+                    <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", required:
+                      "true" %>
+                  </div>
+
+                  <div class="mb-2">
+                    <label class="label_input pos">Адрес организации</label>
+                    <%= text_input f, :filial_address, class: "input_full", required: "true", placeholder: "Жамбыла 4" %>
+                  </div>
+
+                  <div class="mb-2">
+                    <label class="label_input pos">Субдомен(только на английском)</label>
+                    <%= text_input f, :subdomen, class: "input_full", required: "true", placeholder: "mer-nur" %>
+                  </div>
+
+                  <div class="mb-2">
+                    <label class="label_input pos">Email</label>
+                    <%= email_input f, :email, class: "input_full input_text_lowercase", required: "true", placeholder: "name-email@gmail.com" %>
+                  </div>
+
+                  <div class="mb-2">
+                    <%= submit "Сохранить", class: "btn_save pos" %>
+                  </div>
+               <% end %>
+            </div>
+         `,
+      })
+   })
+</script>

@@ -59,14 +59,17 @@ defmodule KursonliKurs.Context.Filials do
   end
 
   @doc """
-  get filial info from filail_id
+  get filial info from filial_id
   """
   def get_filail_name(query) do
     f = from(f in Filial, select: %{name: f.name})
     from(query, preload: [filial: ^f])
   end
 
-  def create_filial_worker_setting(filial_opts, worker_opts, subdomen) do
+  @doc """
+  Создание связки филиал-сотрудник-настройки
+  """
+  def create_filial_worker_setting(filial_opts, worker_opts) do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          {:ok, _worker} <- Workers.create(worker_opts),
@@ -107,7 +110,10 @@ defmodule KursonliKurs.Context.Filials do
     |> Repo.all()
   end
 
-  def get_courses_list(filial_id) do
+  @doc """
+  Получение списка курсов филиала по filial_id
+  """
+  def get_courses_list_by_filial_id(filial_id) do
     from(
       c in Course,
       where: c.filial_id == ^filial_id,
@@ -136,20 +142,6 @@ defmodule KursonliKurs.Context.Filials do
       select: %{name: city.name, eng_name: city.eng_name}
     )
     |> Repo.one()
-  end
-
-  def get_last_date_for_course(filial_id) do
-    Repo.one(
-      from(
-        filial in Filial,
-        where: filial.id == ^filial_id,
-        join: course in Course,
-        on: course.filial_id == filial.id,
-        order_by: [desc: course.date],
-        limit: 1,
-        select: course.date
-      )
-    )
   end
 
   def get_filial_by_city(city_id) do
@@ -213,5 +205,54 @@ defmodule KursonliKurs.Context.Filials do
     if setting.logo != "images/logo/default_logo.jpg",
       do: setting,
       else: Map.put(setting, :logo, nil)
+  end
+
+  # Проверяет находятся ли все валюты(usd, eur, rub) в дапазоне scrapped
+  # Если нет, то в reduce НЕ добавляем такие обменные пункты
+  defp ensure_srapped_diapason(courses) do
+    [usd, eur, rub] =
+      ScrappedData.get_all()
+      |> Enum.map(fn [_currency, buy, sale] ->
+        {buy, ""} = buy |> Float.parse()
+        {sale, ""} = sale |> Float.parse()
+        [buy, sale]
+      end)
+
+    [usd_purchase, usd_sale] = usd
+    [eur_purchase, eur_sale] = eur
+    [rub_purchase, rub_sale] = rub
+
+    courses
+    |> Enum.reduce(
+      [],
+      fn map, acc ->
+        usd = Enum.find(map.course, &(&1.short_name == "USD"))
+        usd_range = if is_nil(usd), do: true, else: value_in_range?(usd.value_for_purchase, usd.value_for_sale, usd_purchase, usd_sale)
+
+        eur = Enum.find(map.course, &(&1.short_name == "EUR"))
+        eur_range = if is_nil(eur), do: true, else: value_in_range?(eur.value_for_purchase, eur.value_for_sale, eur_purchase, eur_sale)
+
+        rub = Enum.find(map.course, &(&1.short_name == "RUB"))
+        rub_range = if is_nil(rub), do: true, else: value_in_range?(rub.value_for_purchase, rub.value_for_sale, rub_purchase, rub_sale)
+
+        is_range = usd_range && eur_range && rub_range |> IO.inspect(label: "kek")
+        if is_range, do: acc ++ [map], else: acc
+      end
+    )
+  end
+
+  defp value_in_range?("-", _purchase, _scrapped_purchase, _scrapped_sale), do: false
+  defp value_in_range?(_sale, "-", _scrapped_purchase, _scrapped_sale), do: false
+
+  defp value_in_range?(sale, purchase, scrapped_purchase, scrapped_sale) do
+    {sale, ""} = sale |> Float.parse()
+    {purchase, ""} = purchase |> Float.parse()
+
+    if sale > scrapped_purchase and sale < scrapped_sale and
+         purchase > scrapped_purchase and purchase < scrapped_sale do
+      true
+    else
+      false
+    end
   end
 end
