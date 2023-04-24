@@ -5,7 +5,7 @@
       showCloseButton: true,
       heightAuto: false,
       html: `
-        <h1 class="title pos">Создание организации</h1>
+        <h1 class="title pos">Создание организации1</h1>
         <%= form_for @conn, Routes.admin_path(@conn, :register_org_submit), [multipart: true], fn f -> %>
           <div class="mb-2">
             <label class="label_input pos">Название</label>
@@ -27,10 +27,14 @@
                 </select>
             </div>
 
-
             <div class="mb-2">
               <label class="label_input pos">Адрес организации</label>
               <%= text_input f, :filial_address, class: "input_full", required: "true", placeholder: "Жамбыла 4" %>
+            </div>
+
+            <div class="mb-2">
+              <label class="label_input pos">Субдомен(только на английском)</label>
+              <%= text_input f, :subdomen, class: "input_full", required: "true", placeholder: "mer-nur" %>
             </div>
 
             <div class="mb-2">

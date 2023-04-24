@@ -7,7 +7,7 @@
         <button class="btn_border tab-btn" id="tab1-btn"><%= gettext("Основная страница") %></button>
         <button class="btn_border tab-btn" id="tab2-btn"><%= gettext("Личная страница") %></button>
         <div class="inline-block ml-8">
-          <a href="/personal?filial=<%= worker.filial_id %>" target="_blank" class="btn_border_b"><%= gettext("Показать личную страницу") %></a>
+          <a href="/personal?filial=<%= @setting.subdomen %>" target="_blank" class="btn_border_b"><%= gettext("Показать личную страницу") %></a>
         </div>
       </div>
       <div class="tab-content" id="tab1-content">
@@ -52,7 +52,7 @@
           </div>
         </label>
         <label class="label_input pt-2"><%= gettext("Субдомен") %></label>
-        <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full" %>
+        <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full", readonly: "readonly"%>
         <label class="label_input pt-2"><%= gettext("Загрузка логотипа") %> (160x56)</label>
         <label class="input-file">
           <%= file_input f, :logo, value: @setting.logo, accept: ".png, .jpg" %>

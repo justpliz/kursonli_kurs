@@ -10,7 +10,6 @@ defmodule KursonliKursWeb.AdminController do
     Currencies,
     FilialsCurrencies,
     Tariffs,
-    Courses,
     Settings,
     Notifications,
     Workers
@@ -97,13 +96,16 @@ defmodule KursonliKursWeb.AdminController do
       filial_address: params["filial_address"]
     }
 
+    subdomen = params["subdomen"]
+
     KursonliKurs.Repo.transaction(fn ->
       with {:ok, org} <- Organizations.create(org_opts),
            filial_opts <- Map.put(filial_opts, :organization_id, org.id),
            {:ok, _filial} <-
              Filials.create_filial_worker_setting(
                filial_opts,
-               worker_opts
+               worker_opts,
+               subdomen
              ) do
         conn
         |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
@@ -279,11 +281,14 @@ defmodule KursonliKursWeb.AdminController do
       organization_id: params["org_id"]
     }
 
+    subdomen = params["subdomen"]
+
     KursonliKurs.Repo.transaction(fn ->
       with {:ok, _filial} <-
              Filials.create_filial_worker_setting(
                filial_opts,
-               worker_opts
+               worker_opts,
+               subdomen
              ) do
         conn
         |> put_flash(:info, "Филиал успешно добавлен, пароль: #{password}")
@@ -312,7 +317,7 @@ defmodule KursonliKursWeb.AdminController do
   end
 
   @doc """
-  GET /admin/update_filial
+  POST /admin/update_filial
   """
   def update_filial(conn, %{"id" => id} = params) do
     filial_opts = %{
@@ -325,7 +330,8 @@ defmodule KursonliKursWeb.AdminController do
     setting_opts = %{
       coordinates: [params["x_coordinate"], params["y_coordinate"]],
       address_2gis: params["address_2gis"],
-      firm_id: params["firm_id"]
+      firm_id: params["firm_id"],
+      subdomen: params["subdomen"]
     }
 
     with {:ok, filial} <- Filials.do_get(id: id),

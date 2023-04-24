@@ -66,11 +66,11 @@ defmodule KursonliKurs.Context.Filials do
     from(query, preload: [filial: ^f])
   end
 
-  def create_filial_worker_setting(filial_opts, worker_opts) do
+  def create_filial_worker_setting(filial_opts, worker_opts, subdomen) do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          {:ok, _worker} <- Workers.create(worker_opts),
-         {:ok, _setting} <- Settings.create(%{filial_id: filial.id, subdomen: filial.name}) do
+         {:ok, _setting} <- Settings.create(%{filial_id: filial.id, subdomen: subdomen}) do
       {:ok, filial}
     end
   end
@@ -100,6 +100,7 @@ defmodule KursonliKurs.Context.Filials do
         tariff_price: tariff.price,
         coordinates: setting.coordinates,
         firm_id: setting.firm_id,
+        subdomen: setting.subdomen,
         email: worker.email
       }
     )
