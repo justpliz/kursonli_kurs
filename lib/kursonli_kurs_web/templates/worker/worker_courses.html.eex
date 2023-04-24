@@ -5,7 +5,7 @@
         <div class="flex justify-between items-center sm:flex-col sm:items-start sm:gap-2">
           <div class="text-base flex-1-1">
             <%= gettext("Последнее обновление курса") %>:
-              <%= @last_date %>
+              <%= @last_update_date %>
           </div>
           <%= form_for @conn, Routes.worker_path(@conn, :update_course), fn f -> %>
             <div class="flex gap-4">
@@ -89,13 +89,13 @@
           </tbody>
         </table>
       </div>
-      <%= if !Enum.empty?(@currencies_list) do %>
+      <%= if !Enum.empty?(@not_mine_currencies_list) do %>
         <div class="label_input pos text-lg">
           <%= gettext("Неиспользуемые валюты") %>
         </div>
         <%= form_for @conn, Routes.worker_path(@conn, :new_courses), [multipart: true], fn f -> %>
           <div class="flex gap-8 flex-wrap">
-            <%= for item <- @currencies_list do %>
+            <%= for item <- @not_mine_currencies_list do %>
               <div class="flex gap-2 items-center">
                 <input type="checkbox" name="<%= item.id %>" id="<%= item.id %>" class="type_select rounded">
                 <label class="label_input" for="<%= item.id %>">
