@@ -68,6 +68,4 @@ defmodule KursonliKursWeb.Worker.WorkerTradesController do
       |> redirect(to: "/worker/orders")
     end
   end
-
-
 end

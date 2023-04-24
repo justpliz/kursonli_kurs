@@ -19,6 +19,7 @@ defmodule KursonliKurs.Context.Filials do
 
   alias KursonliKurs.Context.{Filials, Workers, Settings, Cities}
   alias KursonliKursWeb.GeneralHelper
+  alias KursonliKurs.EtsStorage.ScrappedData
 
   require Logger
 
@@ -69,7 +70,7 @@ defmodule KursonliKurs.Context.Filials do
   @doc """
   Создание связки филиал-сотрудник-настройки
   """
-  def create_filial_worker_setting(filial_opts, worker_opts) do
+  def create_filial_worker_setting(filial_opts, worker_opts, subdomen) do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          {:ok, _worker} <- Workers.create(worker_opts),
@@ -185,6 +186,7 @@ defmodule KursonliKurs.Context.Filials do
         first_letter: &1.filial.name |> String.trim() |> String.first() |> String.upcase()
       }
     )
+    |> ensure_srapped_diapason
     |> Enum.sort_by(& &1.date, {:desc, NaiveDateTime})
   end
 

@@ -8,8 +8,7 @@ defmodule KursonliKursWeb.WorkerController do
 
   alias KursonliKurs.Context.{
     Workers,
-    Filials,
-    Notifications
+    Filials
   }
 
   @doc """

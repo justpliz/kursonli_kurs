@@ -173,7 +173,7 @@ defmodule KursonliKursWeb.Router do
     scope "/chat" do
       pipe_through [:api]
       delete "/chat", TradeController, :delete_chat
-      get "/chat", WorkerController, :get_all_message_chat_worker_id
+      get "/chat", TradeController, :get_all_message_chat_worker_id
     end
   end
 
