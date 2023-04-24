@@ -366,7 +366,6 @@ defmodule KursonliKursWeb.WorkerController do
     |> Map.drop(["_csrf_token"])
     |> Enum.map(fn {k, _v} ->
       currency_id = String.to_integer(k)
-      FilialsCurrencies.create(%{filial_id: session.filial_id, currency_id: currency_id})
 
       Courses.create(%{
         date: Timex.now("Asia/Almaty"),
@@ -383,21 +382,17 @@ defmodule KursonliKursWeb.WorkerController do
   def delete_course(conn, %{"id" => id} = _params) do
     session = get_session(conn, :worker)
 
+    # Проверка на наличие хотя бы одного курса
+    # Чтобы было нормальное отображение на главной странице
     case Courses.count(filial_id: session.filial_id) do
       1 ->
         conn
         |> put_flash(:error, gettext("Нельзя удалить все курсы"))
-        |> redirect(to: "/worker/courses")
+        |> redirect(to: "/worker/course")
 
       _any ->
         with {:ok, course} <- Courses.do_get(id: id),
-             {:ok, fc} <-
-               FilialsCurrencies.do_get(
-                 filial_id: course.filial_id,
-                 currency_id: course.currency_id
-               ),
-             {:ok, _course} <- Courses.delete(course),
-             {:ok, _fc} <- FilialsCurrencies.delete(fc) do
+             {:ok, _course} <- Courses.delete(course)do
           conn
           |> put_flash(:info, gettext("Курс успешно удален"))
           |> redirect(to: "/worker/courses")
