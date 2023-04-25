@@ -139,8 +139,8 @@ defmodule KursonliKursWeb.Worker.CourseController do
   # Обновление курсов одного филиала.
   defp update_one_course(course_id, course, filial_id, change_all_filials) do
     opts = %{
-      sale: course["sale"] |> rounding_str,
-      buy: course["buy"] |> rounding_str,
+      sale: course["sale"] |> rounding_str |> String.replace(",", "."),
+      buy: course["buy"] |> rounding_str |> String.replace(",", "."),
       date: Timex.now("Asia/Almaty")
     }
 
