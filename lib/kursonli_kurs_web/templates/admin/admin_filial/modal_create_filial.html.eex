@@ -33,7 +33,7 @@
 
                   <div class="mb-2">
                     <label class="label_input pos">Субдомен(только на английском)</label>
-                    <%= text_input f, :subdomen, class: "input_full eng_text_only", required: "true", placeholder: "mer-nur" %>
+                    <%= text_input f, :slug, class: "input_full eng_text_only", required: "true", placeholder: "mer-nur" %>
                   </div>
 
                   <div class="mb-2">

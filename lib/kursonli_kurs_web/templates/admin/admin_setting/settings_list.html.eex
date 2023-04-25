@@ -166,12 +166,6 @@
                      </div>
                   </div>
                   <div class="flex justify-between">
-                     <label class="label_input basis-1/6 p-2">Короткое название города</label>
-                     <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
-                        <%= item.short_name %>
-                     </div>
-                  </div>
-                  <div class="flex justify-between">
                      <label class="label_input basis-1/6 p-2">Название на английском</label>
                      <div class="bg-gray-200 m-2 p-2 rounded-lg w-full">
                         <%= item.eng_name %>

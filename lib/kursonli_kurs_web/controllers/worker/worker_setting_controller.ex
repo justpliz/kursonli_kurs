@@ -66,13 +66,6 @@ defmodule KursonliKursWeb.Worker.WorkerSettingController do
       "phone3" => params["phone3"]
     }
 
-    schedule = %{
-      "schedule_weekdays" => params["schedule_weekdays"],
-      "schedule_saturday" => params["schedule_saturday"],
-      "schedule_sunday" => params["schedule_sunday"],
-      "schedule_other" => params["schedule_other"]
-    }
-
     promo = %{
       "promo1" => params["promo1"],
       "promo2" => params["promo2"]
@@ -92,11 +85,10 @@ defmodule KursonliKursWeb.Worker.WorkerSettingController do
       qualities: qualities,
       phones: phones,
       email: String.downcase(params["email"]),
-      schedule: schedule,
       logo: logo,
       photo: photo,
       license: params["license"],
-      subdomen: params["subdomen"],
+      slug: params["slug"],
       description: params["description"],
       tags: tags,
       promo: promo,

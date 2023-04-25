@@ -30,8 +30,8 @@ defmodule KursonliKursWeb.PageController do
     end
   end
 
-  def personal_page(conn, %{"filial" => subdomen}) do
-    with {:ok, setting} <- Settings.do_get(subdomen: subdomen),
+  def personal_page(conn, %{"filial" => slug}) do
+    with {:ok, setting} <- Settings.do_get(slug: slug),
          {:ok, filial} <- Filials.do_get(id: setting.filial_id) do
       setting = setting |> PwHelper.Normalize.repo()
       courses_list = Filials.get_courses_list_by_filial_id(filial.id)

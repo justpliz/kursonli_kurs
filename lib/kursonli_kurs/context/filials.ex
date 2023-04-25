@@ -69,11 +69,11 @@ defmodule KursonliKurs.Context.Filials do
   @doc """
   Создание связки филиал-сотрудник-настройки
   """
-  def create_filial_worker_setting(filial_opts, worker_opts, subdomen) do
+  def create_filial_worker_setting(filial_opts, worker_opts, slug) do
     with {:ok, filial} <- Filials.create(filial_opts),
          worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
          {:ok, _worker} <- Workers.create(worker_opts),
-         {:ok, _setting} <- Settings.create(%{filial_id: filial.id, subdomen: subdomen}) do
+         {:ok, _setting} <- Settings.create(%{filial_id: filial.id, slug: slug}) do
       {:ok, filial}
     end
   end
@@ -103,7 +103,7 @@ defmodule KursonliKurs.Context.Filials do
         tariff_price: tariff.price,
         coordinates: setting.coordinates,
         firm_id: setting.firm_id,
-        subdomen: setting.subdomen,
+        slug: setting.slug,
         email: worker.email
       }
     )
@@ -165,7 +165,7 @@ defmodule KursonliKurs.Context.Filials do
             promo: s.promo,
             visible_website_status: s.visible_website_status,
             logo: s.logo,
-            subdomen: s.subdomen,
+            slug: s.slug,
             color_logo: s.colors["color_logo"]
           }
         }

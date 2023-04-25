@@ -7,7 +7,7 @@
         <button class="btn_border tab-btn" id="tab1-btn"><%= gettext("Основная страница") %></button>
         <button class="btn_border tab-btn" id="tab2-btn"><%= gettext("Личная страница") %></button>
         <div class="inline-block ml-8">
-          <a href="/personal?filial=<%= @setting.subdomen %>" target="_blank" class="btn_border_b"><%= gettext("Показать личную страницу") %></a>
+          <a href="/personal?filial=<%= @setting.slug %>" target="_blank" class="btn_border_b"><%= gettext("Показать личную страницу") %></a>
         </div>
       </div>
       <div class="tab-content" id="tab1-content">
@@ -52,7 +52,7 @@
           </div>
         </label>
         <label class="label_input pt-2"><%= gettext("Субдомен") %></label>
-        <%= text_input f, :subdomen, placeholder: "", value: @setting.subdomen, class: "input_full", readonly: "readonly"%>
+        <%= text_input f, :slug, placeholder: "", value: @setting.slug, class: "input_full", readonly: "readonly"%>
         <label class="label_input pt-2"><%= gettext("Загрузка логотипа") %> (160x56)</label>
         <label class="input-file">
           <%= file_input f, :logo, value: @setting.logo, accept: ".png, .jpg" %>
@@ -89,21 +89,6 @@
             required: "true" %>
           </div>
         </div>
-        <div class="flex md:flex-col md:justify-end md:gap-0 gap-20 items-start justify-start">
-          <div class="flex md:block md:w-full gap-4">
-            <div class="flex-col">
-              <label class="label_input pt-2"><%= gettext("Будни") %></label>
-              <%= text_input f, :schedule_weekdays, placeholder: "", value: @setting.schedule["schedule_weekdays"], class: "input_full", required: "true" %>
-              <label class="label_input pt-2"><%= gettext("Суббота") %></label>
-              <%= text_input f, :schedule_saturday, placeholder: "", value: @setting.schedule["schedule_saturday"], class: "input_full", required: "true" %>
-            </div>
-            <div class="flex-col">
-              <label class="label_input pt-2"><%= gettext("Воскресенье") %></label>
-              <%= text_input f, :schedule_sunday, placeholder: "", value: @setting.schedule["schedule_sunday"], class: "input_full", required: "true" %>
-              <label class="label_input pt-2"><%= gettext("Дополнителная информация") %></label>
-              <%= text_input f, :schedule_other, placeholder: "", value: @setting.schedule["schedule_other"], class: "input_full" %>
-            </div>
-          </div>
           <div class="flex gap-4">
             <div class="flex-col">
               <label class="label_input pt-2"><%= gettext("Цвет валют") %></label>
