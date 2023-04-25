@@ -23,10 +23,14 @@ defmodule KursonliKurs.Model.Course do
     timestamps()
   end
 
-  @doc false
+  @doc """
+  Определение составного уникального ключа на полях `currency_id` и `filial_id`
+  """
+  @unique_constraint {:index_currency_filial, [:currency_id, :filial_id], name: :index_currency_filial, unique: true}
   def changeset(course, attrs) do
     course
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint([:currency_id, :filial_id], message: "already exists")
   end
 end

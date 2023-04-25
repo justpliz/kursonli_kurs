@@ -157,7 +157,7 @@ defmodule KursonliKursWeb.Worker.WorkerCourseController do
     end
   end
 
-  # Определение последнего обновление курса.
+  # Определение времени последнего обновления курса.
   # Необязательная функция, т.к. все курсы обновляются одновременно.
   defp find_last_date(date_list) do
     last_date =

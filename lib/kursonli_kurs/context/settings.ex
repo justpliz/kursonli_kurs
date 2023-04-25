@@ -40,5 +40,4 @@ defmodule KursonliKurs.Context.Settings do
     |> Setting.changeset(params)
     |> Repo.update()
   end
-
 end

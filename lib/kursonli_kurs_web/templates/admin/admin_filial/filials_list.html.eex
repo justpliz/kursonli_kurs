@@ -151,9 +151,8 @@
 </div>
 
 
-
-<%= render(KursonliKursWeb.AdminView, "modal_admin_edit_filial.html", conn: @conn, tariff_list: @tariff_list,
+<%= render(KursonliKursWeb.Admin.AdminFilialView, "modal_update_filial.html", conn: @conn, tariff_list: @tariff_list,
   cities_list: @cities_list) %>
-  <%= render(KursonliKursWeb.AdminView, "modal_admin_create_filial.html", conn: @conn, org_list: @org_list,
+  <%= render(KursonliKursWeb.Admin.AdminFilialView, "modal_create_filial.html", conn: @conn, org_list: @org_list,
     cities_list: @cities_list) %>
-    <%= render(KursonliKursWeb.AdminView, "admin_filial_update_status.html", conn: @conn) %>
+    <%= render(KursonliKursWeb.Admin.AdminFilialView, "modal_update_filial_status.html", conn: @conn) %>
