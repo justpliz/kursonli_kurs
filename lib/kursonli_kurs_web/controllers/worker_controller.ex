@@ -392,7 +392,7 @@ defmodule KursonliKursWeb.WorkerController do
 
       _any ->
         with {:ok, course} <- Courses.do_get(id: id),
-             {:ok, _course} <- Courses.delete(course)do
+             {:ok, _course} <- Courses.delete(course) do
           conn
           |> put_flash(:info, gettext("Курс успешно удален"))
           |> redirect(to: "/worker/courses")
@@ -405,8 +405,9 @@ defmodule KursonliKursWeb.WorkerController do
   """
   def update_one_course(course_id, course, filial_id, change_all_filials) do
     opts = %{
-      value_for_sale: course["value_for_sale"] |> rounding_str,
-      value_for_purchase: course["value_for_purchase"] |> rounding_str,
+      value_for_sale: course["value_for_sale"] |> rounding_str |> String.replace(",", "."),
+      value_for_purchase:
+        course["value_for_purchase"] |> rounding_str |> String.replace(",", "."),
       date: Timex.now("Asia/Almaty")
     }
 

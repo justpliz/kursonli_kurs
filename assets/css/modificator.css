@@ -234,4 +234,8 @@
    .green_circle {
       @apply transition-all rounded-full w-6 h-6 bg-green-400 border-none;
    }
+
+   .i {
+      
+   }
 }

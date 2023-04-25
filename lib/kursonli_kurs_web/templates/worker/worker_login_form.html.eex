@@ -139,11 +139,14 @@
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 500px) {
     .round {
-      width: 100%;
-      border-radius: 0;
-
+      width: 400px;
+      height: 400px;
+      min-width: 400px;
+      min-height: 400px;
+      padding: 20px;
     }
   }
+
 </style>

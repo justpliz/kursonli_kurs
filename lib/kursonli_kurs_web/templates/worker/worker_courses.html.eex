@@ -23,7 +23,7 @@
           </a>
         </div>
       </div>
-      <div class="flex items-center justify-start gap-4 pb-2">
+      <div class="flex items-center justify-start gap-4 pb-2 mob:py-4">
         <input name="change_all_filials" type="hidden" value="false">
         <div class="flex items-center justify-center">
           <label for="all" class="label_input pr-2">
@@ -43,7 +43,7 @@
       <table class="w-full text-sm 2xl:text-xs text-left text-gray-500 table_sort">
         <thead class="text-xs text-gray-700 uppercase bg-white">
           <tr>
-            <th scope="col" class="p-6 2xl:p-4 border-b-2 border-gray-200">
+            <th scope="col" class="p-6 2xl:p-4 border-b-2 border-gray-200 mob:hidden">
               <%= gettext("Валюта") %>
             </th>
             <th scope="col" class="p-6 2xl:p-4 border-b-2 border-x-2 border-gray-200">
@@ -63,7 +63,7 @@
         <tbody>
           <%= for item <- @courses_list do %>
             <tr class="bg-white td-item">
-              <td class="px-6 py-4 border-t-2">
+              <td class="px-6 py-4 border-t-2 mob:hidden">
                 <%= item.currency_name %>
               </td>
               <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
@@ -71,10 +71,10 @@
               </td>
               <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
                 <%= text_input f, :"#{item.course_id}|value_for_purchase",
-                    class: "input_full number value_for_purchase" , value: item.value_for_purchase %>
+                    class: "input_full md:!w-32 number value_for_purchase" , value: item.value_for_purchase %>
               </td>
               <td class="px-6 py-4 border-x-2 border-t-2">
-                <%= text_input f, :"#{item.course_id}|value_for_sale", class: "input_full number value_for_sale" ,
+                <%= text_input f, :"#{item.course_id}|value_for_sale", class: "input_full md:!w-32 number value_for_sale" ,
                     value: item.value_for_sale %>
               </td>
               <td class="px-6 py-4 border-x-2 border-t-2">

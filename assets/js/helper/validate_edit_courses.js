@@ -1,14 +1,12 @@
 const numberInputs = document.querySelectorAll('.number');
-numberInputs.forEach(function (input) {
+numberInputs.forEach(function (e) {
   let previousValue = '';
-  input.addEventListener('input', function () {
-    const currentValue = input.value;
-    if (currentValue === '' || currentValue === '.') {
-      previousValue = currentValue;
-    } else if (/^\d+(\.\d{0,3})?$/.test(currentValue)) {
+  e.addEventListener('input', () => {
+    const currentValue = e.value;
+    if (currentValue === '' || currentValue === '.' || currentValue === ',' || /^\d+(,\d{0,3})?(\.\d{0,3})?$/.test(currentValue)) {
       previousValue = currentValue;
     } else {
-      input.value = previousValue;
+      e.value = previousValue;
     }
   });
 });
@@ -20,32 +18,32 @@ elementTd.forEach((el) => {
   const valueForPurchaseInput = el.querySelector(".value_for_purchase");
   const valueForSaleInput = el.querySelector(".value_for_sale");
 
-  comparisoInputs(valueForSaleInput, valueForPurchaseInput);
+  differenceInputs(valueForSaleInput, valueForPurchaseInput);
 });
 
 const buttonSubmit = document.querySelector("#submit-btn");
 let inputsArray = Array.from(document.querySelectorAll('input'));
 let isValid = true;
 
-function comparisoInputs(oneInput, twoInput) {
+function differenceInputs(oneInput, twoInput) {
   oneInput.addEventListener("input", handleInput);
   twoInput.addEventListener("input", handleInput);
 
   function handleInput() {
-    let valueOne = parseFloat(oneInput.value.replace(/\s/, "") || 0);
-    let valueTwo = parseFloat(twoInput.value.replace(/\s/, "") || 0);
+    let valueOne = parseFloat(oneInput.value.replace(/\s/, "").replace(",", ".") || 0);
+    let valueTwo = parseFloat(twoInput.value.replace(/\s/, "").replace(",", ".") || 0);
 
     let isOneInputError = false;
     let isTwoInputError = false;
 
-    if (isNaN(valueOne) || !(/^\d+(\.\d{0,3})?$/.test(oneInput.value))) {
+    if (isNaN(valueOne) || !(/^\d+(,\d{0,3})?(\.\d{0,3})?$/.test(oneInput.value))) {
       oneInput.style.border = "1px solid red";
       isOneInputError = true;
     } else {
       oneInput.style.border = "";
     }
 
-    if (isNaN(valueTwo) || !(/^\d+(\.\d{0,3})?$/.test(twoInput.value))) {
+    if (isNaN(valueTwo) || !(/^\d+(,\d{0,3})?(\.\d{0,3})?$/.test(twoInput.value))) {
       twoInput.style.border = "1px solid red";
       isTwoInputError = true;
     } else {
@@ -58,7 +56,7 @@ function comparisoInputs(oneInput, twoInput) {
     }
 
     const lastCharIndexOne = oneInput.value.length - 1;
-    const isLastCharDotOne = oneInput.value[lastCharIndexOne] === ".";
+    const isLastCharDotOne = oneInput.value[lastCharIndexOne] === "." || oneInput.value[lastCharIndexOne] === ",";
 
     if (isLastCharDotOne && lastCharIndexOne > 0) {
       oneInput.style.border = "1px solid red";
@@ -67,7 +65,7 @@ function comparisoInputs(oneInput, twoInput) {
     }
 
     const lastCharIndexTwo = twoInput.value.length - 1;
-    const isLastCharDotTwo = twoInput.value[lastCharIndexTwo] === ".";
+    const isLastCharDotTwo = twoInput.value[lastCharIndexTwo] === "." || twoInput.value[lastCharIndexTwo] === ",";
 
     if (isLastCharDotTwo && lastCharIndexTwo > 0) {
       twoInput.style.border = "1px solid red";
