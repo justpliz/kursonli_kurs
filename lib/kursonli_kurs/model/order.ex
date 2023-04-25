@@ -21,7 +21,7 @@ defmodule KursonliKurs.Model.Order do
     field :course, :string
     field :worker_name, :string
     field :worker_phone, :string
-    field :type, OrderType, default: "purchase"
+    field :type, OrderType, default: "buy"
     field :transfer, OrderTransfer, default: "red"
 
     belongs_to :filial, Filial, type: :binary_id

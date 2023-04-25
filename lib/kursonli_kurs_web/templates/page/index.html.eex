@@ -83,7 +83,7 @@
               </th>
               <th scope="col" class="px-2 py-2 md:px-1 bg-white rounded-2xl">
                 <div class="flex justify-between items-center">
-                  <img src="/images/icons/arrow_down.svg" class="sort_purchase" alt="city">
+                  <img src="/images/icons/arrow_down.svg" class="sort_buy" alt="city">
                   <select class="select_table appearance-none" data-select="1">
                     <%= for item <- @currency_list do %>
                       <%= if item.short_name=="USD" do %>
@@ -102,7 +102,7 @@
               </th>
               <th scope="col" class="px-2 py-2 bg-white rounded-2xl md:hidden">
                 <div class="flex justify-between items-center">
-                  <img src="/images/icons/arrow_down.svg" class="sort_purchase" alt="city">
+                  <img src="/images/icons/arrow_down.svg" class="sort_buy" alt="city">
                   <select class=" appearance-none select_table" data-select="2">
                     <%= for item <- @currency_list do %>
                       <%= if item.short_name=="EUR" do %>
@@ -121,7 +121,7 @@
               </th>
               <th scope="col" class="px-2 py-2 bg-white rounded-2xl lg:hidden md:hidden">
                 <div class="flex justify-between items-center">
-                  <img src="/images/icons/arrow_down.svg" class="sort_purchase" alt="city">
+                  <img src="/images/icons/arrow_down.svg" class="sort_buy" alt="city">
                   <select class="select_table appearance-none" data-select="3">
                     <%= for item <- @currency_list do %>
                       <%= if item.short_name=="RUB" do %>
@@ -306,16 +306,16 @@
                   </div>
                 </td>
 
-                <% purchase=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase,
+                <% buy=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:buy,
                   "USD") %>
-                  <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale, "USD")
+                  <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:sale, "USD")
                     %>
                     <td class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item md:rounded-xl"
                       data-select="1">
                       <div class="md:flex md:flex-col md:gap-6">
                         <div class="md:text-sm">
-                          <span class="purchase">
-                            <%= purchase %>
+                          <span class="buy">
+                            <%= buy %>
                           </span>
                           <span class="mx-2">-</span>
                           <span class="sale">
@@ -339,15 +339,15 @@
                       </div>
                     </td>
 
-                    <% purchase=item.course |>
-                      KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "EUR") %>
-                      <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
+                    <% buy=item.course |>
+                      KursonliKursWeb.GeneralHelper.find_value_by_short_name(:buy, "EUR") %>
+                      <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:sale,
                         "EUR") %>
                         <td
                           class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item lg:rounded-2xl md:hidden"
                           data-select="2">
-                          <span class="purchase">
-                            <%= purchase %>
+                          <span class="buy">
+                            <%= buy %>
                           </span>
                           <span class="mx-2">-</span>
                           <span class="sale">
@@ -355,15 +355,15 @@
                           </span>
                         </td>
 
-                        <% purchase=item.course |>
-                          KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_purchase, "RUB") %>
-                          <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:value_for_sale,
+                        <% buy=item.course |>
+                          KursonliKursWeb.GeneralHelper.find_value_by_short_name(:buy, "RUB") %>
+                          <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:sale,
                             "RUB") %>
                             <td
                               class="px-4 py-4 font-bold text-base bg-white rounded-r-2xl dataget item lg:hidden md:hidden"
                               data-select="3">
-                              <span class="purchase">
-                                <%= purchase %>
+                              <span class="buy">
+                                <%= buy %>
                               </span>
                               <span class="mx-2">-</span>
                               <span class="sale">
@@ -386,9 +386,9 @@
   document.addEventListener('DOMContentLoaded', () => {
     const elements = [...document.querySelectorAll("[data-id]")]
     function elementsMaxGreen() {
-      x([...document.querySelectorAll(".item[data-select='1']")].map(x => x.querySelector(".purchase")))
-      x([...document.querySelectorAll(".item[data-select='2']")].map(x => x.querySelector(".purchase")))
-      x([...document.querySelectorAll(".item[data-select='3']")].map(x => x.querySelector(".purchase")))
+      x([...document.querySelectorAll(".item[data-select='1']")].map(x => x.querySelector(".buy")))
+      x([...document.querySelectorAll(".item[data-select='2']")].map(x => x.querySelector(".buy")))
+      x([...document.querySelectorAll(".item[data-select='3']")].map(x => x.querySelector(".buy")))
       function x(element) {
         const maxElement = element.reduce(
           (prev, current) => {
@@ -447,19 +447,19 @@
       elements.forEach((value, index) => {
         const elemGiveData = value.querySelector(`.dataget[data-select="${currentSelect}"]`)
         const elemFindSale = elemGiveData.querySelector(`.sale`)
-        const elemFindPurchase = elemGiveData.querySelector(`.purchase`)
+        const elemFindBuy = elemGiveData.querySelector(`.buy`)
         const item = JSON.parse(value.dataset.item)
         const find = item.course.find((el) => {
           return el.short_name
             == valueEl
         })
         if (find != undefined) {
-          elemFindSale.innerHTML = find.value_for_sale
-          elemFindPurchase.innerHTML = find.value_for_purchase
+          elemFindSale.innerHTML = find.sale
+          elemFindBuy.innerHTML = find.buy
         }
         else {
           elemFindSale.innerHTML = "-"
-          elemFindPurchase.innerHTML = "-"
+          elemFindBuy.innerHTML = "-"
         }
       })
 
@@ -512,7 +512,7 @@
     });
 
 
-    const sortButtonsPur = document.querySelectorAll('.sort_purchase');
+    const sortButtonsPur = document.querySelectorAll('.sort_buy');
 
     sortButtonsPur.forEach(button => {
       button.addEventListener('click', () => {
@@ -521,34 +521,34 @@
         const columnIndex = Array.from(button.parentNode.parentNode.parentNode.children).indexOf(button.parentNode.parentNode);
 
         tableRows.sort((row1, row2) => {
-          const purchase1Text = row1.children[columnIndex].querySelector('.purchase').textContent.replace(',', '.');
-          const purchase2Text = row2.children[columnIndex].querySelector('.purchase').textContent.replace(',', '.');
+          const buy1Text = row1.children[columnIndex].querySelector('.buy').textContent.replace(',', '.');
+          const buy2Text = row2.children[columnIndex].querySelector('.buy').textContent.replace(',', '.');
 
-          if (purchase1Text === '' && purchase2Text === '') {
+          if (buy1Text === '' && buy2Text === '') {
             return 0;
-          } else if (purchase1Text === '') {
+          } else if (buy1Text === '') {
             return button.classList.contains('sort-asc') ? 1 : -1;
-          } else if (purchase2Text === '') {
+          } else if (buy2Text === '') {
             return button.classList.contains('sort-asc') ? -1 : 1;
           }
 
-          const purchase1 = parseFloat(purchase1Text);
-          const purchase2 = parseFloat(purchase2Text);
+          const buy1 = parseFloat(buy1Text);
+          const buy2 = parseFloat(buy2Text);
 
-          return button.classList.contains('sort-asc') ? purchase1 - purchase2 : purchase2 - purchase1;
+          return button.classList.contains('sort-asc') ? buy1 - buy2 : buy2 - buy1;
         });
 
 
         tableRows.forEach(row => row.parentNode.removeChild(row));
 
         tableRows.forEach(row => {
-          const purchaseSpan = row.children[columnIndex].querySelector('.purchase');
+          const buySpan = row.children[columnIndex].querySelector('.buy');
           const arrowSpan = document.createElement('span');
           arrowSpan.classList.add('arrow');
           arrowSpan.innerHTML = button.classList.contains('sort-asc') ? '&#8595;' : '&#8593;';
-          const existingArrows = purchaseSpan.querySelectorAll('.arrow');
+          const existingArrows = buySpan.querySelectorAll('.arrow');
           existingArrows.forEach(existingArrow => existingArrow.parentNode.removeChild(existingArrow));
-          purchaseSpan.appendChild(arrowSpan);
+          buySpan.appendChild(arrowSpan);
           document.querySelector('.data-table').appendChild(row);
         });
 

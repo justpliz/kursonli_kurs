@@ -117,8 +117,8 @@ KursonliKurs.Context.Settings.create(%{
 })
 
 KursonliKurs.Context.Courses.create(%{
-  value_for_sale: "-",
-  value_for_purchase: "-",
+  sale: "-",
+  buy: "-",
   date: Timex.now("Asia/Almaty"),
   currency_id: usd.id,
   filial_id: filial1.id
@@ -155,24 +155,24 @@ KursonliKurs.Context.Settings.create(%{
 })
 
 KursonliKurs.Context.Courses.create(%{
-  value_for_sale: "-",
-  value_for_purchase: "-",
+  sale: "-",
+  buy: "-",
   date: Timex.now("Asia/Almaty"),
   currency_id: usd.id,
   filial_id: filial2.id
 })
 
 KursonliKurs.Context.Courses.create(%{
-  value_for_sale: "-",
-  value_for_purchase: "-",
+  sale: "-",
+  buy: "-",
   date: Timex.now("Asia/Almaty"),
   currency_id: eur.id,
   filial_id: filial2.id
 })
 
 KursonliKurs.Context.Courses.create(%{
-  value_for_sale: "-",
-  value_for_purchase: "-",
+  sale: "-",
+  buy: "-",
   date: Timex.now("Asia/Almaty"),
   currency_id: rub.id,
   filial_id: filial2.id

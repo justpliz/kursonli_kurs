@@ -75,9 +75,9 @@
               <th scope="col" class="py-2 px-6 2xl:px-2 border-b-2 border-x-2 border-gray-200"><%= gettext("Передача") %></th>
             </tr>
           </thead>
-          <tbody id="purchase_table">
-            <%= for item <- @order_list_purchase do %>
-              <tr class="order-click text-black" identifier='<%= item.id %>' data-item='<%= Jason.encode!(Map.put(item, :type, "purchase")) %>'
+          <tbody id="buy_table">
+            <%= for item <- @order_list_buy do %>
+              <tr class="order-click text-black" identifier='<%= item.id %>' data-item='<%= Jason.encode!(Map.put(item, :type, "buy")) %>'
                     style="background-color: <%= item.color %>">
                 <td class="px-6 2xl:px-2 py-2">
                   <%= item.filial_name %>

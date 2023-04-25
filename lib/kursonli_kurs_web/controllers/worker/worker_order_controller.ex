@@ -25,7 +25,7 @@ defmodule KursonliKursWeb.Worker.WorkerOrderController do
     address = session.filial_address
 
     # Списки ордеров филиала
-    order_list_purchase = Orders.order_list(:purchase, city_id)
+    order_list_buy = Orders.order_list(:buy, city_id)
     order_list_sale = Orders.order_list(:sale, city_id)
 
     # Список валют используемых филиалом
@@ -47,7 +47,7 @@ defmodule KursonliKursWeb.Worker.WorkerOrderController do
 
     conn
     |> render("orders_list.html",
-      order_list_purchase: order_list_purchase,
+      order_list_buy: order_list_buy,
       order_list_sale: order_list_sale,
       currencies_list: currencies_list,
       message: message,

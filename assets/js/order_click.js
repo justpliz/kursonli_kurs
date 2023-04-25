@@ -42,7 +42,7 @@ $("#accept").click(function () {
   const crftoken = document.querySelector("#crf_token").value;
   const item = JSON.parse(this.dataset.item);
   const {
-    course_purchase,
+    course_buy,
     course_sale,
     currency_short_name,
     date,

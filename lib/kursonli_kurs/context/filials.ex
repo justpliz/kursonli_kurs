@@ -125,8 +125,8 @@ defmodule KursonliKurs.Context.Filials do
         currency_id: cr.id,
         currency_name: cr.name,
         currency_short_name: cr.short_name,
-        value_for_sale: c.value_for_sale,
-        value_for_purchase: c.value_for_purchase,
+        sale: c.sale,
+        buy: c.buy,
         date: c.date
       }
     )
@@ -194,10 +194,10 @@ defmodule KursonliKurs.Context.Filials do
       course,
       &%{
         short_name: &1.currency.short_name,
-        value_for_sale: &1.value_for_sale,
-        value_for_purchase: &1.value_for_purchase,
+        sale: &1.sale,
+        buy: &1.buy,
         best_sale: false,
-        best_purchase: false
+        best_buy: false
       }
     )
   end
@@ -219,22 +219,22 @@ defmodule KursonliKurs.Context.Filials do
         [buy, sale]
       end)
 
-    [usd_purchase, usd_sale] = usd
-    [eur_purchase, eur_sale] = eur
-    [rub_purchase, rub_sale] = rub
+    [usd_buy, usd_sale] = usd
+    [eur_buy, eur_sale] = eur
+    [rub_buy, rub_sale] = rub
 
     courses
     |> Enum.reduce(
       [],
       fn map, acc ->
         usd = Enum.find(map.course, &(&1.short_name == "USD"))
-        usd_range = if is_nil(usd), do: true, else: value_in_range?(usd.value_for_purchase, usd.value_for_sale, usd_purchase, usd_sale)
+        usd_range = if is_nil(usd), do: true, else: value_in_range?(usd.buy, usd.sale, usd_buy, usd_sale)
 
         eur = Enum.find(map.course, &(&1.short_name == "EUR"))
-        eur_range = if is_nil(eur), do: true, else: value_in_range?(eur.value_for_purchase, eur.value_for_sale, eur_purchase, eur_sale)
+        eur_range = if is_nil(eur), do: true, else: value_in_range?(eur.buy, eur.sale, eur_buy, eur_sale)
 
         rub = Enum.find(map.course, &(&1.short_name == "RUB"))
-        rub_range = if is_nil(rub), do: true, else: value_in_range?(rub.value_for_purchase, rub.value_for_sale, rub_purchase, rub_sale)
+        rub_range = if is_nil(rub), do: true, else: value_in_range?(rub.buy, rub.sale, rub_buy, rub_sale)
 
         is_range = usd_range && eur_range && rub_range |> IO.inspect(label: "kek")
         if is_range, do: acc ++ [map], else: acc
@@ -242,15 +242,15 @@ defmodule KursonliKurs.Context.Filials do
     )
   end
 
-  defp value_in_range?("-", _purchase, _scrapped_purchase, _scrapped_sale), do: false
-  defp value_in_range?(_sale, "-", _scrapped_purchase, _scrapped_sale), do: false
+  defp value_in_range?("-", _buy, _scrapped_buy, _scrapped_sale), do: false
+  defp value_in_range?(_sale, "-", _scrapped_buy, _scrapped_sale), do: false
 
-  defp value_in_range?(sale, purchase, scrapped_purchase, scrapped_sale) do
+  defp value_in_range?(sale, buy, scrapped_buy, scrapped_sale) do
     {sale, ""} = sale |> Float.parse()
-    {purchase, ""} = purchase |> Float.parse()
+    {buy, ""} = buy |> Float.parse()
 
-    if sale > scrapped_purchase and sale < scrapped_sale and
-         purchase > scrapped_purchase and purchase < scrapped_sale do
+    if sale > scrapped_buy and sale < scrapped_sale and
+         buy > scrapped_buy and buy < scrapped_sale do
       true
     else
       false

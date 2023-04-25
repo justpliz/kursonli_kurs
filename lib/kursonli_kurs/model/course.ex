@@ -7,14 +7,17 @@ defmodule KursonliKurs.Model.Course do
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
+  # Определение составного уникального ключа на полях `currency_id` и `filial_id`
+  @unique_constraint {:index_currency_filial, [:currency_id, :filial_id], name: :index_currency_filial, unique: true}
+
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(currency_id filial_id date value_for_sale value_for_purchase)a
+  @required_fields ~w(currency_id filial_id date buy sale)a
   @optional_fields ~w()a
 
   schema "courses" do
-    field :value_for_sale, :string, default: "-"
-    field :value_for_purchase, :string, default: "-"
+    field :buy, :string, default: "-"
+    field :sale, :string, default: "-"
     field :date, :naive_datetime
 
     belongs_to :currency, Currency
@@ -23,10 +26,6 @@ defmodule KursonliKurs.Model.Course do
     timestamps()
   end
 
-  @doc """
-  Определение составного уникального ключа на полях `currency_id` и `filial_id`
-  """
-  @unique_constraint {:index_currency_filial, [:currency_id, :filial_id], name: :index_currency_filial, unique: true}
   def changeset(course, attrs) do
     course
     |> cast(attrs, @optional_fields ++ @required_fields)

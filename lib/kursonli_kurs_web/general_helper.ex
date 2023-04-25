@@ -49,7 +49,7 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   @doc """
   Get info from config for templates
-  For example: check_config("order_type") -> ["purchase", "sale"]
+  For example: check_config("order_type") -> ["buy", "sale"]
   """
   def check_config(conf_atom) do
     Application.get_env(:kursonli_kurs, String.to_atom(conf_atom))
@@ -117,7 +117,7 @@ defmodule KursonliKursWeb.GeneralHelper do
     if worker1 > worker2, do: worker2 <> worker1, else: worker1 <> worker2
   end
 
-  def find_value_by_short_name(course, key_order \\ :value_for_purchase, short_name \\ "EUR") do
+  def find_value_by_short_name(course, key_order \\ :buy, short_name \\ "EUR") do
     course
     |> Enum.filter(fn x -> x.short_name == short_name end)
     |> Enum.map(fn x ->

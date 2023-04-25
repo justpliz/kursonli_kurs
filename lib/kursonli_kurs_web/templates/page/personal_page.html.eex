@@ -113,7 +113,7 @@
             <div class="wrapper gap-y-2">
               <%= for item <- @courses_list do %>
                 <div class="bg-white currency font-bold text-center my-auto rounded-md py-2">
-                  <%= item.value_for_purchase %>
+                  <%= item.buy %>
                 </div>
                 <div
                   class="text-white font-bold text-xs text-center rounded-md py-2 flex flex-col items-center justify-center">
@@ -125,7 +125,7 @@
                   </div>
                 </div>
                 <div class="bg-white currency font-bold text-center my-auto rounded-md py-2">
-                  <%= item.value_for_sale %>
+                  <%= item.sale %>
                 </div>
                 <% end %>
             </div>

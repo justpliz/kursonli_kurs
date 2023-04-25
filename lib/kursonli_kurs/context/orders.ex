@@ -53,7 +53,7 @@ defmodule KursonliKurs.Context.Orders do
   end
 
   @doc """
-  Получение списка ордеров(purchase/sale) города(city_id)
+  Получение списка ордеров(buy/sale) города(city_id)
   """
   def order_list(type, city_id) do
     from(

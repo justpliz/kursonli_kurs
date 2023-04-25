@@ -70,12 +70,12 @@
                   <%= item.currency_short_name %>
                 </td>
                 <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
-                  <%= text_input f, :"#{item.course_id}|value_for_purchase",
-                    class: "input_full number value_for_purchase" , value: item.value_for_purchase %>
+                  <%= text_input f, :"#{item.course_id}|buy",
+                    class: "input_full number buy" , value: item.buy %>
                 </td>
                 <td class="px-6 py-4 border-x-2 border-t-2">
-                  <%= text_input f, :"#{item.course_id}|value_for_sale", class: "input_full number value_for_sale" ,
-                    value: item.value_for_sale %>
+                  <%= text_input f, :"#{item.course_id}|sale", class: "input_full number sale" ,
+                    value: item.sale %>
                 </td>
                 <td class="px-6 py-4 border-x-2 border-t-2">
                   <button class="accept_delete_course styles_none"
@@ -146,9 +146,9 @@
               })
               const elementTd = [...document.querySelectorAll(".td-item")]
               elementTd.forEach((el) => {
-                el.querySelector(".value_for_purchase")
-                el.querySelector(".value_for_sale")
-                comparisoInputs(el.querySelector(".value_for_sale"), el.querySelector(".value_for_purchase"),)
+                el.querySelector(".buy")
+                el.querySelector(".sale")
+                comparisoInputs(el.querySelector(".sale"), el.querySelector(".buy"),)
               })
               const buttonSubmit = document.querySelector("#submit-btn")
               let inputsArray = Array.from(document.querySelectorAll('input'));

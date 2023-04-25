@@ -7,14 +7,12 @@ defmodule KursonliKurs.Model.City do
   @type t :: %__MODULE__{}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(name)a
-  @optional_fields ~w(short_name eng_name index)a
+  @required_fields ~w(name eng_name)a
+  @optional_fields ~w()a
 
   schema "cities" do
     field :name, :string
-    field :short_name, :string
     field :eng_name, :string
-    field :index, :string
 
     has_one :filial, Filial
   end
@@ -24,6 +22,6 @@ defmodule KursonliKurs.Model.City do
     city
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint([:name, :short_name])
+    |> unique_constraint([:name])
   end
 end
