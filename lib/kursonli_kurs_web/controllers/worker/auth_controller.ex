@@ -13,9 +13,10 @@ defmodule KursonliKursWeb.Worker.AuthController do
 
   @doc """
   GET /worker/login
-  Форма авторизации сотрудника
+  Форма авторизации сотрудника.
   """
   def login_form(conn, _params) do
+    # дефолтные параметры заполнения формы.
     user = %{
       email: ""
     }
@@ -27,26 +28,25 @@ defmodule KursonliKursWeb.Worker.AuthController do
 
   @doc """
   POST /worker/login
-  Проверка вводимых данных при авторизации сотрудника
+  Проверка вводимых данных при авторизации сотрудника.
   """
   def login_worker_submit(conn, params) do
-    first_name = params["first_name"]
-    phone = params["phone"]
-
     opts = [
       email: String.downcase(params["email"]),
       password: hash_str(params["password"])
     ]
 
+    # проверка существования сотрудника с параметрами - opts
     case Workers.do_get(opts) do
       {:ok, worker} ->
         {:ok, filial} = Filials.do_get(id: worker.filial_id)
-        Workers.update(worker, %{name: first_name})
 
+        # проверка активного статуса филиала сотрудника
         case filial.filial_active_status do
           :active ->
             SessionWorker.insert(worker.id)
 
+            # проверка онлайна сотрудника(worker.id)
             if SessionWorker.check_user(worker.id) do
               OnlineChannel.leave(worker.id)
             end
@@ -54,9 +54,7 @@ defmodule KursonliKursWeb.Worker.AuthController do
             conn
             |> put_session(:worker, %{
               id: worker.id,
-              first_name: first_name,
               filial_id: filial.id,
-              phone: phone,
               email: worker.email,
               filial_name: filial.name,
               filial_address: filial.filial_address,
@@ -84,7 +82,7 @@ defmodule KursonliKursWeb.Worker.AuthController do
 
         conn
         |> put_flash(:error, gettext("Ввведены некорректные данные"))
-        |> render("worker_login_form.html", user: user)
+        |> render("login_form.html", user: user)
     end
   end
 

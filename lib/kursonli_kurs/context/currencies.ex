@@ -12,18 +12,21 @@ defmodule KursonliKurs.Context.Currencies do
   @type currency :: Currency.t()
   @type params :: Map.t()
 
+  @doc false
   def get(opts \\ []) do
     Currency
     |> filter_by(opts)
     |> Repo.one()
   end
 
+  @doc false
   def all(opts \\ []) do
     Currency
     |> filter_by(opts)
     |> Repo.all()
   end
 
+  @doc false
   def create(params) do
     %Currency{}
     |> Currency.changeset(params)
@@ -31,7 +34,7 @@ defmodule KursonliKurs.Context.Currencies do
   end
 
   @doc """
-  Удаление валюты по id. Если вызывается иключение возвращает :error
+  Удаление валюты по id. Если вызывается иключение возвращает :error.
   """
   def delete(currency_id) do
     currency = Currencies.get(id: currency_id)
@@ -42,6 +45,7 @@ defmodule KursonliKurs.Context.Currencies do
     end
   end
 
+  @doc false
   @spec update(currency, params) :: {:ok, currency} | {:error, Ecto.Changeset.t()}
   def update(currency, params) do
     currency

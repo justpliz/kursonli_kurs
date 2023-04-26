@@ -11,7 +11,7 @@ defmodule KursonliKursWeb.Admin.OrganizationController do
 
   @doc """
   GET /admin/organization
-  Отображение списка организаций
+  Отображение списка организаций.
   """
   def organizations_list(conn, _params) do
     organization_list = Organizations.all()
@@ -28,7 +28,7 @@ defmodule KursonliKursWeb.Admin.OrganizationController do
 
   @doc """
   POST /admin/organization
-  Создание связки "организаця-филиал-сотрудник"
+  Создание связки "организаця-филиал-сотрудник".
   """
   def create_organization(conn, params) do
     password = generate_random_str(8)
@@ -75,7 +75,7 @@ defmodule KursonliKursWeb.Admin.OrganizationController do
 
   @doc """
   GET /admin/organization/update
-  Изменение статуса организации(архивирование/активация)
+  Изменение статуса организации(архивирование/активация).
   """
   def update_organization_status(conn, %{"id" => id, "org_active_status" => status}) do
     status =

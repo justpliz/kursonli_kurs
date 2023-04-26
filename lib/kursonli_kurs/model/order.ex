@@ -1,4 +1,5 @@
 defmodule KursonliKurs.Model.Order do
+  @moduledoc false
   use Ecto.Schema
 
   import Ecto.Changeset
@@ -38,7 +39,6 @@ defmodule KursonliKurs.Model.Order do
     order
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> foreign_key_constraint(:worker_id)
-    # |> foreign_key_constraint(:orders_filial_id_fkey)
     |> validate_required(@required_fields)
   end
 end

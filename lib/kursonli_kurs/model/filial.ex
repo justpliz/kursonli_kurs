@@ -1,4 +1,5 @@
 defmodule KursonliKurs.Model.Filial do
+  @moduledoc false
   use Ecto.Schema
 
   import Ecto.Changeset
@@ -13,7 +14,6 @@ defmodule KursonliKurs.Model.Filial do
     Course,
     Setting,
     CoursesHistory,
-    Currency,
     Worker
   }
 
@@ -30,7 +30,7 @@ defmodule KursonliKurs.Model.Filial do
     field :filial_address, :string
 
     field :filial_active_status, ActiveStatus, default: "active"
-    field :visible_course_status, :boolean, default: :false
+    field :visible_course_status, :boolean, default: false
 
     belongs_to :city, City
     belongs_to :organization, Organization, type: :binary_id

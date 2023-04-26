@@ -11,28 +11,33 @@ defmodule KursonliKurs.Context.Organizations do
   @type organization :: Organization.t()
   @type params :: Map.t()
 
+  @doc false
   def get(opts \\ []) do
     Organization
     |> filter_by(opts)
     |> Repo.one()
   end
 
+  @doc false
   def all(opts \\ []) do
     Organization
     |> filter_by(opts)
     |> Repo.all()
   end
 
+  @doc false
   def create(params) do
     %Organization{}
     |> Organization.changeset(params)
     |> Repo.insert()
   end
 
+  @doc false
   def delete(organization) do
     Repo.delete(organization)
   end
 
+  @doc false
   def count(opts \\ []) do
     Organization
     |> filter_by(opts)
@@ -46,5 +51,4 @@ defmodule KursonliKurs.Context.Organizations do
     |> Organization.changeset(params)
     |> Repo.update()
   end
-
 end

@@ -1,4 +1,5 @@
 defmodule KursonliKurs.Model.Course do
+  @moduledoc false
   use Ecto.Schema
 
   import Ecto.Changeset

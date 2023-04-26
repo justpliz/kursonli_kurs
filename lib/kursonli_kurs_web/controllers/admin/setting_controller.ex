@@ -11,7 +11,7 @@ defmodule KursonliKursWeb.Admin.SettingController do
 
   @doc """
   GET /admin/setting
-  Отображение списка настроек портала(тарифы, объявления, валюты, города)
+  Отображение списка настроек портала(тарифы, объявления, валюты, города).
   """
   def settings_list(conn, _params) do
     tariff_list = Tariffs.all()
@@ -35,7 +35,7 @@ defmodule KursonliKursWeb.Admin.SettingController do
 
   @doc """
   POST /admin/setting/currencies
-  Создание новой валюты
+  Создание новой валюты.
   """
   def create_currency(conn, params) do
     opts = %{
@@ -53,7 +53,7 @@ defmodule KursonliKursWeb.Admin.SettingController do
 
   @doc """
   POST /admin/setting/currencies/update
-  Обновление данных(name, short_name, color) валюты
+  Обновление данных(name, short_name, color) валюты.
   """
   def update_currency(conn, %{"id" => id} = params) do
     with {:ok, currency} <- Currencies.do_get(id: String.to_integer(id)),
@@ -66,7 +66,7 @@ defmodule KursonliKursWeb.Admin.SettingController do
 
   @doc """
   GET /admin/setting/currencies/delete
-  Удаление валюты если она не используется филиалами
+  Удаление валюты если она не используется филиалами.
   """
   def delete_currency(conn, %{"id" => id}) do
     case Currencies.delete(id) do
@@ -89,7 +89,7 @@ defmodule KursonliKursWeb.Admin.SettingController do
 
   @doc """
   POST /admin/setting/cities
-  Создание нового города
+  Создание нового города.
   """
   def create_city(conn, params) do
     with {:ok, city} <- Cities.create(params) do
@@ -101,7 +101,7 @@ defmodule KursonliKursWeb.Admin.SettingController do
 
   @doc """
   POST /admin/setting/cities/update
-  Обновление данных(name, short_name, eng_name) города
+  Обновление данных(name, short_name, eng_name) города.
   """
   def update_city(conn, %{"id" => id} = params) do
     with {:ok, city} <- Cities.do_get(id: String.to_integer(id)),
@@ -114,7 +114,7 @@ defmodule KursonliKursWeb.Admin.SettingController do
 
   @doc """
   GET /admin/setting/cities/delete
-  Удаление города если в нем не зарегестрированы филиалы
+  Удаление города если в нем не зарегестрированы филиалы.
   """
   def delete_city(conn, %{"id" => id}) do
     case Cities.delete(id) do
@@ -137,7 +137,7 @@ defmodule KursonliKursWeb.Admin.SettingController do
 
   @doc """
   POST /admin/setting/tariffs
-  Создание нового тарифа
+  Создание нового тарифа.
   """
   def create_tariff(conn, params) do
     with {:ok, _tariff} <- Tariffs.create(params) do
@@ -149,7 +149,7 @@ defmodule KursonliKursWeb.Admin.SettingController do
 
   @doc """
   POST /admin/setting/tariffs/update
-  Обновление данных(name, price, days) тарифа
+  Обновление данных(name, price, days) тарифа.
   """
   def update_tariff(conn, %{"id" => id} = params) do
     with {:ok, tariff} <- Tariffs.do_get(id: String.to_integer(id)),
@@ -162,7 +162,7 @@ defmodule KursonliKursWeb.Admin.SettingController do
 
   @doc """
   GET /admin/setting/tariffs/delete
-  Удаление тарифа если он не используется филиалами
+  Удаление тарифа если он не используется филиалами.
   """
   def delete_tariff(conn, %{"id" => id}) do
     case Tariffs.delete(id) do
@@ -185,7 +185,7 @@ defmodule KursonliKursWeb.Admin.SettingController do
 
   @doc """
   POST /admin/setting/notifications/update
-  Обновление данных(description, title) объявлений по name
+  Обновление данных(description, title) объявлений по name.
   """
   def update_notification(conn, %{"name" => name} = params) do
     with {:ok, notification} <- Notifications.do_get(name: name),

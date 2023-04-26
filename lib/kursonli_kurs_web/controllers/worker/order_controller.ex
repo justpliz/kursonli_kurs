@@ -24,12 +24,12 @@ defmodule KursonliKursWeb.Worker.OrderController do
     city_id = session.city.id
     address = session.filial_address
 
-    # Списки ордеров филиала
+    # Списки ордеров филиала.
     order_list_buy = Orders.order_list(:buy, city_id)
     order_list_sale = Orders.order_list(:sale, city_id)
 
-    # Список валют используемых филиалом
-    # TODO: Сделать Ecto запросом
+    # Список валют используемых филиалом.
+    # TODO: Сделать Ecto запросом.
     currencies_list =
       Courses.all(filial_id: filial_id)
       |> Enum.map(fn x -> Currencies.get(id: x.currency_id) end)
@@ -60,7 +60,7 @@ defmodule KursonliKursWeb.Worker.OrderController do
 
   @doc """
   POST /worker/order/create
-  Создание нового ордера
+  Создание нового ордера.
   """
   def create_order(conn, params) do
     session = get_session(conn, :worker)
@@ -132,7 +132,7 @@ defmodule KursonliKursWeb.Worker.OrderController do
 
   @doc """
   GET /worker/order/delete
-  Удаление ордера(который создал)
+  Удаление ордера(который создал).
   """
   def delete_order(conn, %{"id" => id}) do
     session = get_session(conn, :worker)

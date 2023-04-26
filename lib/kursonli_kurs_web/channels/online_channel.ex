@@ -25,7 +25,7 @@ defmodule KursonliKursWeb.OnlineChannel do
   end
 
   @doc """
-  # leave by user_id
+  leave by user_id.
   """
   def leave(user_id) do
     # KursonliKurs.EtsStorage.UserOnline.delete_online_user(user_id)
@@ -40,7 +40,7 @@ defmodule KursonliKursWeb.OnlineChannel do
   end
 
   @doc """
-  # Отправляет по айди воркера сообщение
+  # Отправляет по айди воркера сообщение.
   """
   def notification(user_id, message) do
     Endpoint.broadcast!("online:#{user_id}", "notification", %{message: message})
@@ -59,7 +59,7 @@ defmodule KursonliKursWeb.OnlineChannel do
 
   @spec change_color(any, any) :: :ok
   @doc """
-  # Меняет цвет ивента
+  # Меняет цвет ивента.
   """
   def change_color(user_id, data) do
     Endpoint.broadcast!("online:#{user_id}", "new:change_color", %{data: data})
