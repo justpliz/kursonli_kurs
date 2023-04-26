@@ -1,35 +1,30 @@
 <div class="login-container">
   <div class="round">
-    <a href="/" class=" w-80 2xl:w-52"><img src="/images/logo-line.png" alt=""></a>
-    <div class="login-title">
-      <%= gettext("Авторизация в системе") %>
-    </div>
+    <a href="/" class=" w-80"><img src="/images/logo-line.png" class="logo-login" alt=""></a>
+    <div class="login-title">Авторизация в системе администратора</div>
     <%= form_for @conn, Routes.auth_path(@conn, :login_form_submit), fn f -> %>
-
       <div class="form-group">
         <img src="/images/icons/user.png" alt="">
-        <%= text_input f, :email, placeholder: "Email" , class: "input-login input_text_lowercase" , value: @user.email,
-          required: "true" %>
+        <%= text_input f, :login, placeholder: "Email" , class: "input-login" , required: "true" %>
       </div>
 
       <div class="form-group">
         <img src="/images/icons/password.png" alt="">
-        <%= password_input f, :password, placeholder: gettext("Пароль"), class: "input-login" , required: "true" %>
+        <%= password_input f, :password, placeholder: "Пароль" , class: "input-login" , required: "true" %>
       </div>
 
       <div class="form-group">
-        <%= submit gettext("Войти в систему"), class: "btn-login" %>
+        <%= submit "Войти в систему" , class: "btn-login" %>
       </div>
       <% end %>
   </div>
 </div>
 
-<script>
-  localStorage.removeItem("worker")
-</script>
-
 <style>
   .login-container {
+    left: 0;
+    top: 0;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,8 +40,6 @@
     align-items: center;
     background-color: #fff;
     border-radius: 100%;
-    height: 600px;
-    width: 600px;
     min-width: 600px;
     min-height: 600px;
     z-index: 1 !important;
@@ -98,52 +91,5 @@
     background-color: #3689ce;
     padding: 8px 25px;
     border-radius: 10px;
-  }
-
-  @media (max-width: 1540px) {
-    .login-container {
-      overflow-y: hidden;
-    }
-
-    .round {
-      width: 500px;
-      height: 500px;
-      min-width: 500px;
-      min-height: 500px;
-      padding: 20px;
-    }
-
-    .form-group {
-      padding: 0;
-      margin: 10px 0;
-    }
-
-
-    .login-title {
-      font-size: 14px;
-      padding: 0 0 10px 0;
-    }
-
-    .form-group img {
-      height: 40px;
-    }
-
-    .input-login {
-      font-size: 14px;
-      height: 40px;
-    }
-
-    .btn-login {
-      padding: 6px 25px;
-      font-size: 14px;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .round {
-      width: 100%;
-      border-radius: 0;
-
-    }
   }
 </style>

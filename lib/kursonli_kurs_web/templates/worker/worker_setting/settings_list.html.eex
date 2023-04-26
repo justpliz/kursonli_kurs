@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="tab-content" id="tab1-content">
-        <%= form_for @conn, Routes.worker_setting_path(@conn, :update_setting), [multipart: true], fn f -> %>
+        <%= form_for @conn, Routes.setting_path(@conn, :update_setting), [multipart: true], fn f -> %>
         <div class="hidden">
           <%= [wholesale_rate, gold]=@setting.tags %>
         </div>

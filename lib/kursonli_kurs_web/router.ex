@@ -63,55 +63,55 @@ defmodule KursonliKursWeb.Router do
   #      #    # #    # #    # # #   ##
   #      #    # #####  #    # # #    #
 
-  scope "/admin", KursonliKursWeb do
+  scope "/admin", KursonliKursWeb.Admin do
     pipe_through [:browser, :clean]
 
-    get "/login", AdminController, :login_form
-    post "/login", AdminController, :login_form_submit
-    get "/logout", AdminController, :admin_logout
+    get "/login", AuthController, :login_form
+    post "/login", AuthController, :login_form_submit
+    get "/logout", AuthController, :admin_logout
   end
 
   scope "/admin", KursonliKursWeb.Admin do
     pipe_through [:browser, :admin_check, :admin_app]
 
     scope "/organization" do
-      get "/", AdminOrganizationController, :organizations_list
-      post "/", AdminOrganizationController, :create_organization
-      get "/update", AdminOrganizationController, :update_organization_status
+      get "/", OrganizationController, :organizations_list
+      post "/", OrganizationController, :create_organization
+      get "/update", OrganizationController, :update_organization_status
     end
 
     scope "/filial" do
-      get "/", AdminFilialController, :filials_list
-      post "/", AdminFilialController, :create_filial
-      get "/update_status", AdminFilialController, :update_filial_status
-      post "/update", AdminFilialController, :update_filial
-      post "/update_tariff", AdminFilialController, :update_filial_tariff
-      get "/reset_password", AdminFilialController, :reset_password
+      get "/", FilialController, :filials_list
+      post "/", FilialController, :create_filial
+      get "/update_status", FilialController, :update_filial_status
+      post "/update", FilialController, :update_filial
+      post "/update_tariff", FilialController, :update_filial_tariff
+      get "/reset_password", FilialController, :reset_password
     end
 
     scope "/setting" do
-      get "/", AdminSettingController, :settings_list
+      get "/", SettingController, :settings_list
 
       scope "/currencies" do
-        post "/", AdminSettingController, :create_currency
-        post "/update", AdminSettingController, :update_currency
-        get "/delete", AdminSettingController, :delete_currency
+        post "/", SettingController, :create_currency
+        post "/update", SettingController, :update_currency
+        get "/delete", SettingController, :delete_currency
       end
 
       scope "/cities" do
-        post "/", AdminSettingController, :create_city
-        post "/update", AdminSettingController, :update_city
-        get "/delete", AdminSettingController, :delete_city
+        post "/", SettingController, :create_city
+        post "/update", SettingController, :update_city
+        get "/delete", SettingController, :delete_city
       end
 
       scope "/tariffs" do
-        post "/", AdminSettingController, :create_tariff
-        post "/update", AdminSettingController, :update_tariff
-        get "/delete", AdminSettingController, :delete_tariff
+        post "/", SettingController, :create_tariff
+        post "/update", SettingController, :update_tariff
+        get "/delete", SettingController, :delete_tariff
       end
 
       scope "/notifications" do
-        post "/update", AdminSettingController, :update_notification
+        post "/update", SettingController, :update_notification
       end
     end
   end
@@ -123,51 +123,51 @@ defmodule KursonliKursWeb.Router do
   #       ##  ## #    # #   #  #   #  #      #   #
   #       #    #  ####  #    # #    # ###### #    #
 
-  scope "/worker", KursonliKursWeb do
+  scope "/worker", KursonliKursWeb.Worker do
     pipe_through [:browser, :clean]
 
-    get "/login", WorkerController, :login_form
-    post "/login", WorkerController, :login_form_submit
-    get "/logout", WorkerController, :worker_logout
+    get "/login", AuthController, :login_form
+    post "/login", AuthController, :login_form_submit
+    get "/logout", AuthController, :worker_logout
   end
 
   scope "/worker", KursonliKursWeb.Worker do
     pipe_through [:browser, :worker_check, :worker_app]
 
     scope "/course" do
-      get "/", WorkerCourseController, :courses_list
-      post "/update", WorkerCourseController, :update_course
-      post "/add", WorkerCourseController, :add_course
-      get "/delete", WorkerCourseController, :delete_course
+      get "/", CourseController, :courses_list
+      post "/update", CourseController, :update_course
+      post "/add", CourseController, :add_course
+      get "/delete", CourseController, :delete_course
     end
 
     scope "/setting" do
-      get "/", WorkerSettingController, :settings_list
-      post "/update", WorkerSettingController, :update_setting
+      get "/", SettingController, :settings_list
+      post "/update", SettingController, :update_setting
 
-      get "/update_pass", WorkerSettingController, :update_pass
-      post "/update_pass", WorkerSettingController, :update_pass_submit
+      get "/update_pass", SettingController, :update_pass
+      post "/update_pass", SettingController, :update_pass_submit
 
-      get "/payment", WorkerSettingController, :payment
+      get "/payment", SettingController, :payment
 
       scope "/lang" do
-        get("/rus", WorkerSettingController, :select_rus)
-        get("/kaz", WorkerSettingController, :select_kaz)
+        get("/rus", SettingController, :select_rus)
+        get("/kaz", SettingController, :select_kaz)
       end
     end
 
     scope "/order" do
-      get "/", WorkerOrderController, :orders_list
-      post "/create", WorkerOrderController, :create_order
-      post "/update", WorkerOrderController, :update_order
-      get "/delete", WorkerOrderController, :delete_order
+      get "/", OrderController, :orders_list
+      post "/create", OrderController, :create_order
+      post "/update", OrderController, :update_order
+      get "/delete", OrderController, :delete_order
     end
 
     scope "/trade" do
-      post "/create", WorkerTradesController, :create_trade
-      post "/trade", WorkerTradesController, :ajax_update_message_map
+      post "/create", TradeController, :create_trade
+      post "/trade", TradeController, :ajax_update_message_map
 
-      get "/delete", WorkerTradesController, :delete_trade
+      get "/delete", TradeController, :delete_trade
     end
 
     scope "/chat" do

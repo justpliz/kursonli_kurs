@@ -11,24 +11,24 @@
          },
          html: `
       <h1 class="title_without_margin text-left"><%= gettext("Редактирование вашего ордера") %></h1>
-      <div class="px-1">  
-         <%= form_for @conn, Routes.worker_order_path(@conn, :update_order), fn f -> %>
-           
+      <div class="px-1">
+         <%= form_for @conn, Routes.order_path(@conn, :update_order), fn f -> %>
+
             <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
             <input class="hidden" id="order_type" value="${type}" name="order_type" required="true" type="text">
 
             <label class="label_input pos" for="price"><%= gettext("Валюта") %></label>
             <%= select f, :currency_id, Enum.map(@currencies_list, fn x -> {x.short_name, x.id} end), value: "${currency}", class: "input_full", required: "true" %>
-           
+
             <label class="label_input pos"><%= gettext("Курс") %></label>
             <%= text_input f, :course, class: "input_full number_input_only", value: "${course}", required: "true" %>
 
             <label class="label_input pos"><%= gettext("Лимит") %></label>
             <%= text_input f, :limit, class: "input_full number_input_only", value: "${limit}", required: "true" %>
-            
+
             <label class="label_input pos"><%= gettext("Объем") %></label>
             <%= text_input f, :volume, class: "input_full bit_input", value: "${volume}", required: "true" %>
-            
+
             <label class="label_input pos"><%= gettext("Условия") %></label>
             <%= text_input f, :terms, class: "input_full", value: "${terms}", maxlength: 30 %>
 

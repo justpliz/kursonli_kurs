@@ -7,7 +7,7 @@
             <%= gettext("Последнее обновление курса") %>:
               <%= @last_update_date %>
           </div>
-          <%= form_for @conn, Routes.worker_course_path(@conn, :update_course), fn f -> %>
+          <%= form_for @conn, Routes.course_path(@conn, :update_course), fn f -> %>
             <div class="flex gap-4">
               <button id="submit-btn" class="btn_save flex items-center justify-center" type="submit">
                 <span class="material-symbols-outlined" style="color: #fff; font-weight: 500; font-size: 20px;">
@@ -93,7 +93,7 @@
         <div class="label_input pos text-lg">
           <%= gettext("Неиспользуемые валюты") %>
         </div>
-        <%= form_for @conn, Routes.worker_course_path(@conn, :add_course), [multipart: true], fn f -> %>
+        <%= form_for @conn, Routes.course_path(@conn, :add_course), [multipart: true], fn f -> %>
           <div class="flex gap-8 flex-wrap">
             <%= for item <- @not_mine_currencies_list do %>
               <div class="flex gap-2 items-center">

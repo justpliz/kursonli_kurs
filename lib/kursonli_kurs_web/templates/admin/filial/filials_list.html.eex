@@ -1,0 +1,158 @@
+<div class="margin_content">
+  <input class="input_search_other mb-4 search-input" type="text" placeholder="Найти филиал">
+
+  <div class="w-full">
+    <div class="relative">
+      <button class="btn_border tab-btn" id="tab1-btn">Активные</button>
+      <button class="btn_border tab-btn" id="tab2-btn">Архив</button>
+      <button class="btn_save absolute right-0 filial_create">Добавить филиал</button>
+    </div>
+
+    <div class="tab-content" id="tab1-content">
+      <h1 class="title">Активные филиалы</h1>
+      <div class="relative overflow-x-auto rounded-xl">
+        <table class="w-full text-sm text-left text-gray-800">
+          <thead class="text-xs uppercase bg-gray-100">
+            <tr>
+              <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
+                Название филиала
+              </th>
+              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                Привязка к организации
+              </th>
+              <th scope="col" class="px-6 2xl:px-1 border-2 border-t-0 border-gray-300 py-3">
+                Email
+              </th>
+              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                Тариф
+              </th>
+              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                Оплачено до:
+              </th>
+              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3 border-r-0">
+                Город
+              </th>
+              <th scope="col" class="px-6 2xl:px-1 border-2 border-t-0 border-gray-300 py-3 border-r-sky-50">
+                Управление
+              </th>
+            </tr>
+          </thead>
+          <tbody class="data-table">
+            <%= for item <- @filials_list do %>
+              <%= if item.filial_active_status==:active do %>
+                <tr class="bg-gray-100 border-b-0">
+                  <td
+                    class="px-6 border-2 border-b-0 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                    <%= item.filial_name %>
+                  </td>
+                  <td class="px-6 border-2 border-b-0 border-gray-300">
+                    <%= item.org_name %>
+                  </td>
+                  <td class="px-6 2xl:px-1 border-2 border-b-0 border-gray-300">
+                    <%= item.email %>
+                  </td>
+                  <td class="px-6 border-2 border-b-0 border-gray-300">
+                    <%= item.tariff_name %>
+                  </td>
+                  <td class="px-6 border-2 border-b-0 border-gray-300">
+                    <%= if Timex.before?(Timex.now("Asia/Almaty"), item.paid_up_to), do: item.paid_up_to, else: "-" %>
+                  </td>
+                  <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
+                    <%= item.city_name %>
+                  </td>
+                  <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0 text-center">
+                    <button class="filial_edit styles_none"
+                      data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                      <span class="material-symbols-outlined" style="color:#3689ce; font-weight: 900;">edit</span>
+                    </button>
+                    <a href="filial/reset_password?filial_id=<%= item.id %>" class="styles_none">
+                      <span class="material-symbols-outlined"
+                        style="color: #3689ce; font-weight: 500;">lock_reset</span>
+                    </a>
+                    <button class="accept_delete_filial styles_none"
+                      data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                      <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                    </button>
+                  </td>
+                </tr>
+                <% end %>
+                  <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab2-content">
+      <h1 class="title">Архивные филиалы</h1>
+      <div class="relative overflow-x-auto rounded-xl">
+        <table class="w-full text-sm text-lefttext-gray-800">
+          <thead class="text-xs uppercase bg-gray-100">
+            <tr>
+              <th scope="col" class="px-6 border-2 border-l-0 border-t-0 border-gray-300 py-3">
+                Название филиала
+              </th>
+              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                Привязка к организации
+              </th>
+              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                Email
+              </th>
+              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                Тариф
+              </th>
+              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
+                Оплачено до:
+              </th>
+              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3 border-r-0">
+                Город
+              </th>
+              <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3 border-r-0">
+                Управление
+              </th>
+            </tr>
+          </thead>
+          <tbody class="data-table">
+            <%= for item <- @filials_list do %>
+              <%= if item.filial_active_status==:archive do %>
+                <tr class="bg-gray-100 border-b-0">
+                  <td
+                    class="px-6 border-2 border-b-0 border-gray-300 border-l-0 py-3 font-medium text-gray-900 whitespace-nowrap">
+                    <%= item.filial_name %>
+                  </td>
+                  <td class="px-6 border-2 border-b-0 border-gray-300">
+                    <%= item.org_name %>
+                  </td>
+                  <td class="px-6 border-2 border-b-0 border-gray-300">
+                    <%= item.email %>
+                  </td>
+                  <td class="px-6 border-2 border-b-0 border-gray-300">
+                    <%= item.tariff_name %>
+                  </td>
+                  <td class="px-6 border-2 border-b-0 border-gray-300">
+                    <%= item.paid_up_to %>
+                  </td>
+                  <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
+                    <%= item.city_name %>
+                  </td>
+                  <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
+                    <button class="accept_update_filial styles_none"
+                      data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                      <span class="material-symbols-outlined" style="color: #3689ce; font-weight: 900;">update</span>
+                    </button>
+                  </td>
+                </tr>
+                <% end %>
+                  <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<%= render(KursonliKursWeb.Admin.FilialView, "modal_update_filial.html", conn: @conn, tariff_list: @tariff_list,
+  cities_list: @cities_list) %>
+  <%= render(KursonliKursWeb.Admin.FilialView, "modal_create_filial.html", conn: @conn, org_list: @org_list,
+    cities_list: @cities_list) %>
+    <%= render(KursonliKursWeb.Admin.FilialView, "modal_update_filial_status.html", conn: @conn) %>
