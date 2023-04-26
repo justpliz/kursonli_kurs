@@ -1,4 +1,5 @@
 defmodule KursonliKurs.Model.Notification do
+  @moduledoc false
   use Ecto.Schema
 
   import Ecto.Changeset

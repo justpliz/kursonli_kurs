@@ -17,7 +17,7 @@ defmodule KursonliKursWeb.PageController do
       city_list = get_count_city_with_active_filials()
       currency_list = Currencies.all() |> Enum.map(&%{short_name: &1.short_name})
 
-      courses_list = Filials.get_filial_by_city(city.id)
+      courses_list = Courses.get_filial_by_city(city.id)
 
       conn
       |> render("index.html",
