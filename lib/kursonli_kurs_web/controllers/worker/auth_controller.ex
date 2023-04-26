@@ -23,7 +23,7 @@ defmodule KursonliKursWeb.Worker.AuthController do
     }
 
     conn
-    |> render("worker_login_form.html", user: user)
+    |> render("login_form.html", user: user)
     |> halt()
   end
 
@@ -31,7 +31,7 @@ defmodule KursonliKursWeb.Worker.AuthController do
   POST /worker/login
   Проверка вводимых данных при авторизации сотрудника
   """
-  def login_form_submit(conn, params) do
+  def login_worker_submit(conn, params) do
     first_name = params["first_name"]
     phone = params["phone"]
 

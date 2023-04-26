@@ -18,7 +18,7 @@ defmodule KursonliKursWeb.Admin.AuthController do
   POST /admin/login
   Проверка вводимых данных при авторизации админа
   """
-  def login_form_submit(conn, params) do
+  def login_admin_submit(conn, params) do
     opts = [
       login: params["login"],
       password: hash_str(params["password"])

@@ -2,7 +2,7 @@
   <div class="round">
     <a href="/" class=" w-80"><img src="/images/logo-line.png" class="logo-login" alt=""></a>
     <div class="login-title">Авторизация в системе администратора</div>
-    <%= form_for @conn, Routes.auth_path(@conn, :login_form_submit), fn f -> %>
+    <%= form_for @conn, Routes.auth_path(@conn, :login_admin_submit), fn f -> %>
       <div class="form-group">
         <img src="/images/icons/user.png" alt="">
         <%= text_input f, :login, placeholder: "Email" , class: "input-login" , required: "true" %>

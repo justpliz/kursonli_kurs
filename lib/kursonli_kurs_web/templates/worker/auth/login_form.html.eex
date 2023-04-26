@@ -4,7 +4,7 @@
     <div class="login-title">
       <%= gettext("Авторизация в системе") %>
     </div>
-    <%= form_for @conn, Routes.auth_path(@conn, :login_form_submit), fn f -> %>
+    <%= form_for @conn, Routes.auth_path(@conn, :login_worker_submit), fn f -> %>
 
       <div class="form-group">
         <img src="/images/icons/user.png" alt="">

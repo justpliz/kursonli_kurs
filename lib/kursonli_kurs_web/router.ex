@@ -67,7 +67,7 @@ defmodule KursonliKursWeb.Router do
     pipe_through [:browser, :clean]
 
     get "/login", AuthController, :login_form
-    post "/login", AuthController, :login_form_submit
+    post "/login", AuthController, :login_admin_submit
     get "/logout", AuthController, :admin_logout
   end
 
@@ -127,7 +127,7 @@ defmodule KursonliKursWeb.Router do
     pipe_through [:browser, :clean]
 
     get "/login", AuthController, :login_form
-    post "/login", AuthController, :login_form_submit
+    post "/login", AuthController, :login_worker_submit
     get "/logout", AuthController, :worker_logout
   end
 
