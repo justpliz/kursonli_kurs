@@ -6,7 +6,7 @@
       <div class="relative">
         <button class="btn_border tab-btn" id="tab1-btn"><%= gettext("Основная страница") %></button>
         <button class="btn_border tab-btn" id="tab2-btn"><%= gettext("Личная страница") %></button>
-        <div class="inline-block ml-8">
+        <div class="inline-block ml-8 md:m-0 md:mt-2">
           <a href="/personal?filial=<%= @setting.slug %>" target="_blank" class="btn_border_b"><%= gettext("Показать личную страницу") %></a>
         </div>
       </div>
@@ -38,9 +38,9 @@
           <%= telephone_input f, :phone3, placeholder: "", value: @setting.phones["phone3"], class: "input_short md:mt-2 md:input_full", data: [tel: "" ], maxlength: 18 %>
         </div>
         <div class="flex-col md:block md:w-full">
-          <label class="label_input pt-2"><%= gettext("Первый рекламный текст") %> <span class="text-mdall">(<%= gettext("лимит 30 символов") %>)</span></label>
+          <label class="label_input pt-2"><%= gettext("Первый рекламный текст") %> <span class="text-small ">(<%= gettext("лимит 30 символов") %>)</span></label>
           <%= text_input f, :promo1, placeholder: "", value: @setting.promo["promo1"], class: "input_full", maxlength: 30 %>
-          <label class="label_input pt-2"><%= gettext("Второй рекламный текст") %> <span class="text-mdall">(<%= gettext("лимит 30 символов") %>)</span></label>
+          <label class="label_input pt-2"><%= gettext("Второй рекламный текст") %> <span class="text-small">(<%= gettext("лимит 30 символов") %>)</span></label>
           <%= text_input f, :promo2, placeholder: "", value: @setting.promo["promo2"], class: "input_full", maxlength: 30 %>
         </div>
       </div>
@@ -52,7 +52,7 @@
           </div>
         </label>
         <label class="label_input pt-2"><%= gettext("Субдомен") %></label>
-        <%= text_input f, :slug, placeholder: "", value: @setting.slug, class: "input_full", readonly: "readonly"%>
+        <%= text_input f, :slug, placeholder: "", value: @setting.slug, class: "input_full !bg-gray-300", readonly: "readonly"%>
         <label class="label_input pt-2"><%= gettext("Загрузка логотипа") %> (160x56)</label>
         <label class="input-file">
           <%= file_input f, :logo, value: @setting.logo, accept: ".png, .jpg" %>
@@ -85,7 +85,7 @@
           </div>
           <div class="flex flex-col w-full">
             <label class="label_input">Email</label>
-            <%= text_input f, :email, placeholder: "", value: @setting.email, class: "input_full input_text_lowercase",
+            <%= email_input f, :email, placeholder: "", value: @setting.email, class: "input_full input_text_lowercase",
             required: "true" %>
           </div>
         </div>

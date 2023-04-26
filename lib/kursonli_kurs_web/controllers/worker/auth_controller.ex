@@ -17,9 +17,7 @@ defmodule KursonliKursWeb.Worker.AuthController do
   """
   def login_form(conn, _params) do
     user = %{
-      first_name: "",
-      email: "",
-      phone: ""
+      email: ""
     }
 
     conn
@@ -36,7 +34,7 @@ defmodule KursonliKursWeb.Worker.AuthController do
     phone = params["phone"]
 
     opts = [
-      email: params["email"],
+      email: String.downcase(params["email"]),
       password: hash_str(params["password"])
     ]
 
@@ -81,9 +79,7 @@ defmodule KursonliKursWeb.Worker.AuthController do
 
       {:error, :not_found} ->
         user = %{
-          first_name: params["first_name"],
-          email: params["email"],
-          phone: params["phone"]
+          email: params["email"]
         }
 
         conn

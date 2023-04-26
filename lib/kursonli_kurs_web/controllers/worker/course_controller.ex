@@ -124,7 +124,7 @@ defmodule KursonliKursWeb.Worker.CourseController do
 
       _any ->
         with {:ok, course} <- Courses.do_get(id: id),
-             {:ok, _course} <- Courses.delete(course)do
+             {:ok, _course} <- Courses.delete(course) do
           conn
           |> put_flash(:info, gettext("Курс успешно удален"))
           |> redirect(to: "/worker/course")
@@ -132,12 +132,11 @@ defmodule KursonliKursWeb.Worker.CourseController do
     end
   end
 
-
   # Обновление курсов одного филиала
   defp update_one_course(course_id, course, filial_id, change_all_filials) do
     opts = %{
-      sale: course["sale"] |> rounding_str,
-      buy: course["buy"] |> rounding_str,
+      sale: course["sale"] |> rounding_str |> String.replace(",", "."),
+      buy: course["buy"] |> rounding_str |> String.replace(",", "."),
       date: Timex.now("Asia/Almaty")
     }
 
@@ -159,6 +158,8 @@ defmodule KursonliKursWeb.Worker.CourseController do
 
   # Определение времени последнего обновления курса.
   # Необязательная функция, т.к. все курсы обновляются одновременно.
+  defp find_last_date([]), do: ""
+
   defp find_last_date(date_list) do
     last_date =
       date_list

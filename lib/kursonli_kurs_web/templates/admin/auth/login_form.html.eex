@@ -5,16 +5,16 @@
     <%= form_for @conn, Routes.auth_path(@conn, :login_admin_submit), fn f -> %>
       <div class="form-group">
         <img src="/images/icons/user.png" alt="">
-        <%= text_input f, :login, placeholder: "Email" , class: "input-login" , required: "true" %>
+        <%= text_input f, :login, placeholder: "Email", class: "input-login", required: "true" %>
       </div>
 
       <div class="form-group">
         <img src="/images/icons/password.png" alt="">
-        <%= password_input f, :password, placeholder: "Пароль" , class: "input-login" , required: "true" %>
+        <%= password_input f, :password, placeholder: "Пароль", class: "input-login", required: "true" %>
       </div>
 
       <div class="form-group">
-        <%= submit "Войти в систему" , class: "btn-login" %>
+        <%= submit "Войти в систему", class: "btn-login" %>
       </div>
       <% end %>
   </div>

@@ -14,7 +14,7 @@
                   <%= text_input f, :name, class: "input_full", required: "true" %>
 
                   <label class="label_input pos">Название города на английском (пример: almaty)</label>
-                  <%= text_input f, :eng_name, class: "input_full" %>
+                  <%= text_input f, :eng_name, class: "input_full eng_text_only" %>
 
                   <%= submit "Добавить", class: "btn_save pos mt-2" %>
                <% end %>

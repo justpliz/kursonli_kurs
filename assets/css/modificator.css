@@ -75,8 +75,8 @@
    }
 
    .btn_border_b {
-      @apply text-black bg-transparent transition-colors border-b-2 border-b-blub font-medium text-base px-5 py-2.5 text-center;
-      @apply 2xl:text-sm 2xl:px-3 2xl:py-1;
+      @apply text-black bg-transparent transition-colors border-b-2 block border-b-blub font-medium text-base px-5 py-2.5 text-center;
+      @apply 2xl:text-sm 2xl:px-3 2xl:py-1 md:p-0;
       @apply hover:bg-blub hover:text-white;
    }
 

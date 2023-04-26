@@ -8,13 +8,13 @@
 
       <div class="form-group">
         <img src="/images/icons/user.png" alt="">
-        <%= text_input f, :email, placeholder: "Email" , class: "input-login input_text_lowercase" , value: @user.email,
+        <%= email_input f, :email, placeholder: "Email", class: "input-login", value: @user.email,
           required: "true" %>
       </div>
 
       <div class="form-group">
         <img src="/images/icons/password.png" alt="">
-        <%= password_input f, :password, placeholder: gettext("Пароль"), class: "input-login" , required: "true" %>
+        <%= password_input f, :password, placeholder: gettext("Пароль"), class: "input-login", required: "true" %>
       </div>
 
       <div class="form-group">
@@ -118,7 +118,6 @@
       margin: 10px 0;
     }
 
-
     .login-title {
       font-size: 14px;
       padding: 0 0 10px 0;
@@ -139,11 +138,13 @@
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 500px) {
     .round {
-      width: 100%;
-      border-radius: 0;
-
+      width: 400px;
+      height: 400px;
+      min-width: 400px;
+      min-height: 400px;
+      padding: 20px;
     }
   }
 </style>

@@ -50,7 +50,7 @@ defmodule KursonliKursWeb.Admin.OrganizationController do
       filial_address: params["filial_address"]
     }
 
-    slug = params["slug"]
+    slug = String.downcase(params["slug"])
 
     KursonliKurs.Repo.transaction(fn ->
       with {:ok, org} <- Organizations.create(org_opts),
