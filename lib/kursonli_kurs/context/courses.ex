@@ -4,9 +4,8 @@ defmodule KursonliKurs.Context.Courses do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.{Currency, Course, Filial, Organization}
+  alias KursonliKurs.Model.{Currency, Course, Filial, Organization, Setting}
   alias KursonliKursWeb.GeneralHelper
-  alias KursonliKurs.EtsStorage.ScrappedData
 
   require Logger
 
