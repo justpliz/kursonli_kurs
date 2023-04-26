@@ -128,7 +128,6 @@ defmodule KursonliKursWeb.Worker.CourseController do
       _any ->
         with {:ok, course} <- Courses.do_get(id: id),
              {:ok, _course} <- Courses.delete(course) do
-             {:ok, _course} <- Courses.delete(course) do
           conn
           |> put_flash(:info, gettext("Курс успешно удален"))
           |> redirect(to: "/worker/course")

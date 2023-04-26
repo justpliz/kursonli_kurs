@@ -13,7 +13,8 @@ config :kursonli_kurs,
   order_type: [:buy, :sale],
   map_api_key: "f3dea359-6182-45eb-aeb7-82f6dd099f76",
   catalog_api_key: "rusvwm4868",
-  scrapped: "https://mig.kz/"
+  scrapped: "https://mig.kz/",
+  scrapped_period: 5 * 60 * 1000
 
 # Configures the endpoint
 config :kursonli_kurs, KursonliKursWeb.Endpoint,
