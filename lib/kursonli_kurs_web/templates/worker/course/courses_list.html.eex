@@ -93,7 +93,7 @@
     <div class="label_input pos text-lg">
       <%= gettext("Неиспользуемые валюты") %>
     </div>
-    <%= form_for @conn, Routes.course_path(@conn, :new_courses), [multipart: true], fn f -> %>
+    <%= form_for @conn, Routes.course_path(@conn, :add_course), [multipart: true], fn f -> %>
     <div class="flex gap-8 flex-wrap">
       <%= for item <- @not_mine_currencies_list do %>
         <div class="flex gap-2 items-center">
