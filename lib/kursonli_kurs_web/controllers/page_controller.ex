@@ -5,18 +5,29 @@ defmodule KursonliKursWeb.PageController do
   alias KursonliKurs.Context.{Currencies, Filials, Settings, Cities, Courses}
   alias KursonliKurs.EtsStorage.ScrappedData
 
+  @doc """
+  Редирект на "Алматы" при открытии главной страницы
+  """
   def redirect_almaty(conn, _params) do
     conn
     |> redirect(to: "/city?name=almaty")
   end
 
+  @doc """
+  Главная страница
+  """
   def index(conn, params) do
+    # "Лучшие курсы" из ETS
     scrapped_list = ScrappedData.get_all()
 
     with {:ok, city} <- Cities.do_get(eng_name: params["name"]) do
+      # Список городов с количеством актвных филиалов
       city_list = get_count_city_with_active_filials()
+
+      # Список коротких названий валют
       currency_list = Currencies.all() |> Enum.map(&%{short_name: &1.short_name})
 
+      # Данные филиала(название, лого, контакты) и курсы валют
       courses_list = Courses.get_filial_by_city(city.id)
 
       conn
@@ -30,6 +41,9 @@ defmodule KursonliKursWeb.PageController do
     end
   end
 
+  @doc """
+  Персональная страница филиала
+  """
   def personal_page(conn, %{"filial" => slug}) do
     with {:ok, setting} <- Settings.do_get(slug: slug),
          {:ok, filial} <- Filials.do_get(id: setting.filial_id) do
@@ -55,7 +69,8 @@ defmodule KursonliKursWeb.PageController do
     end
   end
 
-  def get_count_city_with_active_filials() do
+  # Список городов с количеством актвных филиалов
+  defp get_count_city_with_active_filials() do
     Cities.all()
     |> Enum.map(fn city ->
       count =
@@ -71,11 +86,17 @@ defmodule KursonliKursWeb.PageController do
     |> Enum.sort_by(&(&1.name == "Алматы"), :desc)
   end
 
+  @doc """
+  Инструкция на русском языке
+  """
   def instruction_rus(conn, _params) do
     conn
     |> redirect(to: "/pdfs/instruction_kurs1_rus.pdf")
   end
 
+  @doc """
+  Инструкция на казахском языке
+  """
   def instruction_kaz(conn, _params) do
     conn
     |> redirect(to: "/pdfs/instruction_kurs1_kaz.pdf")
