@@ -12,6 +12,7 @@ defmodule KursonliKurs.Context.Orders do
   @type order :: Order.t()
   @type params :: Map.t()
 
+  @doc false
   def get(opts \\ []) do
     Order
     |> filter_by(opts)
@@ -20,6 +21,7 @@ defmodule KursonliKurs.Context.Orders do
     |> Repo.one()
   end
 
+  @doc false
   def all(opts \\ []) do
     Order
     |> filter_by(opts)
@@ -28,6 +30,7 @@ defmodule KursonliKurs.Context.Orders do
     |> Repo.all()
   end
 
+  @doc false
   def create(params) do
     %Order{}
     |> Order.changeset(params)
@@ -42,16 +45,21 @@ defmodule KursonliKurs.Context.Orders do
     |> Repo.update()
   end
 
+  @doc false
   def delete(order) do
     Repo.delete(order)
   end
 
+  @doc false
   def count(opts \\ []) do
     Order
     |> filter_by(opts)
     |> Repo.aggregate(:count)
   end
 
+  @doc """
+  Получение списка ордеров(buy/sale) города(city_id).
+  """
   def order_list(type, city_id) do
     from(
       order in Order,
@@ -89,6 +97,9 @@ defmodule KursonliKurs.Context.Orders do
     |> check_order_view
   end
 
+  @doc """
+  Получение нового ордера для отображения на странице без перезагрузки.
+  """
   def order_one(id, city_id) do
     from(
       order in Order,
@@ -124,7 +135,8 @@ defmodule KursonliKurs.Context.Orders do
     |> Repo.one()
   end
 
-  def check_order_view(order_list) do
+  # TODO: Разобраться и пересмотреть работу функцию
+  defp check_order_view(order_list) do
     Enum.reduce(order_list, [], fn order, acc ->
       trades = Trades.all(order_id: order.id, status: :success)
       if trades == [], do: [order | acc], else: acc

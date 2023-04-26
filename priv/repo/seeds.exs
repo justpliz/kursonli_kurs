@@ -66,7 +66,7 @@
     name: "service_access",
     title: "Как оплатить тариф",
     description:
-      "Чтобы оплатить тариф на сервисе KURS-ONLINE.KZ вам необходимо будет отсканировать QR код представленный ниже через приложение kaspi.kz и после связаться с нашим менеджером по телефону + 7 (705) 555-08-11 и сообщить об оплате."
+      "Чтобы оплатить тариф на сервисе KURS1.KZ вам необходимо будет отсканировать QR код представленный ниже через приложение kaspi.kz и после связаться с нашим менеджером по телефону + 7 (705) 555-08-11 и сообщить об оплате."
   })
 
 {:ok, _expiration} =
@@ -81,7 +81,7 @@
     name: "instructions",
     title: "Внимание!",
     description:
-      "Для начала работы нужно оплатить доступ к сервису KURS-ONLINE.KZ. С Вами скоро свяжется менеджер!
+      "Для начала работы нужно оплатить доступ к сервису KURS1.KZ. С Вами скоро свяжется менеджер!
     Как оплатить? Вы можете посмотреть в разделе Оплата, в левом меню."
   })
 
@@ -111,19 +111,14 @@ KursonliKurs.Context.Workers.create(%{
   filial_id: filial1.id
 })
 
-KursonliKurs.Context.FilialsCurrencies.create(%{
-  filial_id: filial1.id,
-  currency_id: usd.id
-})
-
 KursonliKurs.Context.Settings.create(%{
   filial_id: filial1.id,
   tags: ["true", "true"]
 })
 
 KursonliKurs.Context.Courses.create(%{
-  value_for_sale: "-",
-  value_for_purchase: "-",
+  sale: "-",
+  buy: "-",
   date: Timex.now("Asia/Almaty"),
   currency_id: usd.id,
   filial_id: filial1.id
@@ -155,44 +150,29 @@ KursonliKurs.Context.Workers.create(%{
   filial_id: filial2.id
 })
 
-KursonliKurs.Context.FilialsCurrencies.create(%{
-  filial_id: filial2.id,
-  currency_id: eur.id
-})
-
-KursonliKurs.Context.FilialsCurrencies.create(%{
-  filial_id: filial2.id,
-  currency_id: usd.id
-})
-
-KursonliKurs.Context.FilialsCurrencies.create(%{
-  filial_id: filial2.id,
-  currency_id: rub.id
-})
-
 KursonliKurs.Context.Settings.create(%{
   filial_id: filial2.id
 })
 
 KursonliKurs.Context.Courses.create(%{
-  value_for_sale: "-",
-  value_for_purchase: "-",
+  sale: "-",
+  buy: "-",
   date: Timex.now("Asia/Almaty"),
   currency_id: usd.id,
   filial_id: filial2.id
 })
 
 KursonliKurs.Context.Courses.create(%{
-  value_for_sale: "-",
-  value_for_purchase: "-",
+  sale: "-",
+  buy: "-",
   date: Timex.now("Asia/Almaty"),
   currency_id: eur.id,
   filial_id: filial2.id
 })
 
 KursonliKurs.Context.Courses.create(%{
-  value_for_sale: "-",
-  value_for_purchase: "-",
+  sale: "-",
+  buy: "-",
   date: Timex.now("Asia/Almaty"),
   currency_id: rub.id,
   filial_id: filial2.id

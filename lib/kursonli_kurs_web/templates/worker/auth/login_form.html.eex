@@ -1,0 +1,150 @@
+<div class="login-container">
+  <div class="round">
+    <a href="/" class=" w-80 2xl:w-52"><img src="/images/logo-line.png" alt=""></a>
+    <div class="login-title">
+      <%= gettext("Авторизация в системе") %>
+    </div>
+    <%= form_for @conn, Routes.auth_path(@conn, :login_worker_submit), fn f -> %>
+
+      <div class="form-group">
+        <img src="/images/icons/user.png" alt="">
+        <%= email_input f, :email, placeholder: "Email", class: "input-login", value: @user.email,
+          required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <img src="/images/icons/password.png" alt="">
+        <%= password_input f, :password, placeholder: gettext("Пароль"), class: "input-login", required: "true" %>
+      </div>
+
+      <div class="form-group">
+        <%= submit gettext("Войти в систему"), class: "btn-login" %>
+      </div>
+      <% end %>
+  </div>
+</div>
+
+<script>
+  localStorage.removeItem("worker")
+</script>
+
+<style>
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #3689ce;
+  }
+
+  .round {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 100%;
+    height: 600px;
+    width: 600px;
+    min-width: 600px;
+    min-height: 600px;
+    z-index: 1 !important;
+  }
+
+  .form-group {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .form-group label {
+    margin-right: 40px;
+    display: flex;
+    justify-content: start;
+  }
+
+  .login-title {
+    color: #7e7e7e;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 0 0 20px 0;
+  }
+
+  .input-login {
+    height: 56px;
+    margin-left: -5px;
+    padding: 0 10px;
+    background-color: #f3f3f3;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+  }
+
+  .input-login:focus {
+    outline: none;
+    border: none;
+  }
+
+  .btn-login {
+    color: #7e7e7e;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0 auto;
+    color: #fff;
+    border: none;
+    width: 100%;
+    background-color: #3689ce;
+    padding: 8px 25px;
+    border-radius: 10px;
+  }
+
+  @media (max-width: 1540px) {
+    .login-container {
+      overflow-y: hidden;
+    }
+
+    .round {
+      width: 500px;
+      height: 500px;
+      min-width: 500px;
+      min-height: 500px;
+      padding: 20px;
+    }
+
+    .form-group {
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .login-title {
+      font-size: 14px;
+      padding: 0 0 10px 0;
+    }
+
+    .form-group img {
+      height: 40px;
+    }
+
+    .input-login {
+      font-size: 14px;
+      height: 40px;
+    }
+
+    .btn-login {
+      padding: 6px 25px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .round {
+      width: 400px;
+      height: 400px;
+      min-width: 400px;
+      min-height: 400px;
+      padding: 20px;
+    }
+  }
+</style>

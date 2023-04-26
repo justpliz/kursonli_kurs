@@ -10,7 +10,7 @@ defmodule KursonliKursWeb.FallbackController do
   require Logger
 
   @doc """
-  Not found fallback
+  Not found fallback.
   """
   def call(conn, {:error, :not_found}) do
     conn

@@ -126,7 +126,7 @@ defmodule KursonliKurs.EtsStorage.Chat do
   end
 
   @doc """
-  # Обновляет message map по Id
+  # Обновляет message map по Id.
   """
   def update_by_id_message(id, message_params) do
     with {:ok, {x, y, z, j, object_message_map} = _item} <- get_by_id(id) do
@@ -148,7 +148,7 @@ defmodule KursonliKurs.EtsStorage.Chat do
     :dets.delete_all_objects(:chat)
   end
 
-  # Дефолтная мапа что должно быть в каждом сообщении
+  # Дефолтная мапа что должно быть в каждом сообщении.
   defp default_message_map(map, params \\ %{}) when is_map(map) do
     Map.merge(map, %{
       "is_visible" => %{
@@ -159,7 +159,7 @@ defmodule KursonliKurs.EtsStorage.Chat do
   end
 
   @doc """
-  Удаляет по id_Channel все сообщения
+  Удаляет по id_Channel все сообщения.
   """
   def delete_by_id_channel(channel_id) do
     channel_id |> IO.inspect(label: "channel_id")

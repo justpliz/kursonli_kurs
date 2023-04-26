@@ -2,21 +2,33 @@ defmodule KursonliKursWeb.PageController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{Currencies, Filials, Settings, Cities}
+  alias KursonliKurs.Context.{Currencies, Filials, Settings, Cities, Courses}
   alias KursonliKurs.EtsStorage.ScrappedData
 
+  @doc """
+  Редирект на "Алматы" при открытии главной страницы
+  """
   def redirect_almaty(conn, _params) do
     conn
     |> redirect(to: "/city?name=almaty")
   end
 
+  @doc """
+  Главная страница
+  """
   def index(conn, params) do
+    # "Лучшие курсы" из ETS
+    scrapped_list = ScrappedData.get_all()
+
     with {:ok, city} <- Cities.do_get(eng_name: params["name"]) do
-      scrapped_list = ScrappedData.get_all()
+      # Список городов с количеством актвных филиалов
       city_list = get_count_city_with_active_filials()
+
+      # Список коротких названий валют
       currency_list = Currencies.all() |> Enum.map(&%{short_name: &1.short_name})
 
-      courses_list = Filials.get_filial_by_city(city.id)
+      # Данные филиала(название, лого, контакты) и курсы валют
+      courses_list = Courses.get_filial_by_city(city.id)
 
       conn
       |> render("index.html",
@@ -29,13 +41,16 @@ defmodule KursonliKursWeb.PageController do
     end
   end
 
-  def personal_page(conn, %{"filial" => id}) do
-    with {:ok, filial} <- Filials.do_get(id: id),
-         {:ok, setting} <- Settings.do_get(filial_id: filial.id) do
+  @doc """
+  Персональная страница филиала
+  """
+  def personal_page(conn, %{"filial" => slug}) do
+    with {:ok, setting} <- Settings.do_get(slug: slug),
+         {:ok, filial} <- Filials.do_get(id: setting.filial_id) do
       setting = setting |> PwHelper.Normalize.repo()
-      courses_list = Filials.get_courses_list(filial.id)
+      courses_list = Courses.get_courses_list_by_filial_id(filial.id)
       [x_coord, y_coord] = setting.coordinates
-      city = Filials.get_city_by_filial_id(filial.id)
+      city = Cities.get_city_by_filial_id(filial.id)
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
 
@@ -54,7 +69,8 @@ defmodule KursonliKursWeb.PageController do
     end
   end
 
-  def get_count_city_with_active_filials() do
+  # Список городов с количеством актвных филиалов
+  defp get_count_city_with_active_filials() do
     Cities.all()
     |> Enum.map(fn city ->
       count =
@@ -70,53 +86,59 @@ defmodule KursonliKursWeb.PageController do
     |> Enum.sort_by(&(&1.name == "Алматы"), :desc)
   end
 
+  @doc """
+  Инструкция на русском языке
+  """
   def instruction_rus(conn, _params) do
     conn
-    |> redirect(to: "/pdfs/instruction_kurs-online_rus.pdf")
+    |> redirect(to: "/pdfs/instruction_kurs1_rus.pdf")
   end
 
+  @doc """
+  Инструкция на казахском языке
+  """
   def instruction_kaz(conn, _params) do
     conn
-    |> redirect(to: "/pdfs/instruction_kurs-online_kaz.pdf")
+    |> redirect(to: "/pdfs/instruction_kurs1_kaz.pdf")
   end
 
-  def find_best_courses(courses) do
-    courses =
-      courses
-      # |> delete_old_courses
-      |> Enum.map(&[&1.course, &1.date, &1.filial_id])
+  # Функция по поиску лучшего курса
+  # TODO: Доделать если не перейдем на ajax-запросы
+  # defp find_best_courses(courses) do
+  #   courses =
+  #     courses
+  #     |> Enum.map(&[&1.course, &1.date, &1.filial_id])
 
-    {to_delete, _} =
-      courses
-      |> Enum.reduce({[], []}, fn [courses, _date, _id], {to_delete, untouch} ->
-        Enum.reduce(courses, {to_delete, untouch}, fn
-          %{short_name: name}, {to_delete, untouch} ->
-            if name in to_delete and name not in untouch do
-              {List.delete(to_delete, name), [name | untouch]}
-            else
-              {[name | to_delete], untouch}
-            end
-        end)
-      end)
+  #   {to_delete, _} =
+  #     courses
+  #     |> Enum.reduce({[], []}, fn [courses, _date, _id], {to_delete, untouch} ->
+  #       Enum.reduce(courses, {to_delete, untouch}, fn
+  #         %{short_name: name}, {to_delete, untouch} ->
+  #           if name in to_delete and name not in untouch do
+  #             {List.delete(to_delete, name), [name | untouch]}
+  #           else
+  #             {[name | to_delete], untouch}
+  #           end
+  #       end)
+  #     end)
 
-    courses_list =
-      Enum.reduce(courses, [], fn [courses, date, id], acc ->
-        [
-          [
-            Enum.reduce(courses, [], fn
-              %{short_name: name} = course, acc ->
-                if name in to_delete do
-                  acc
-                else
-                  [course | acc]
-                end
-            end),
-            date,
-            id
-          ]
-          | acc
-        ]
-      end)
-      |> Enum.map(fn [course, date, id] -> course |> Enum.map(&Map.put(&1, :id, id)) end)
-  end
+  #     Enum.reduce(courses, [], fn [courses, date, id], acc ->
+  #       [
+  #         [
+  #           Enum.reduce(courses, [], fn
+  #             %{short_name: name} = course, acc ->
+  #               if name in to_delete do
+  #                 acc
+  #               else
+  #                 [course | acc]
+  #               end
+  #           end),
+  #           date,
+  #           id
+  #         ]
+  #         | acc
+  #       ]
+  #     end)
+  #     |> Enum.map(fn [course, _date, id] -> course |> Enum.map(&Map.put(&1, :id, id)) end)
+  # end
 end

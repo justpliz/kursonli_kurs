@@ -1,0 +1,68 @@
+<script>
+  $(".filial_edit").click(function () {
+    const { id, filial_name, email, coordinates, firm_id, slug, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
+    console.log(city_id)
+    Modalka.fire({
+      showConfirmButton: false,
+      showCloseButton: true,
+      heightAuto: false,
+      willOpen: (toast) => {
+        document.querySelector(`option[value="${city_id}"]`).setAttribute("selected", true);
+
+        const validateInput = document.querySelector('.eng_text_only');
+
+        if (validateInput !== null) {
+          validateInput.addEventListener('input', function (e) {
+            const input = e.target.value;
+            let validInput = input.replace(/([А-Яа-я])/g, '');
+            e.target.value = validInput;
+          });
+        }
+      },
+      html: `
+          <div class="flex items-center justify-between">
+            <h1 class="title_without_margin">Редактирование филиала</h1>
+          </div>
+          <div class="px-1">
+            <%= form_for @conn, Routes.filial_path(@conn, :update_filial), fn f -> %>
+              <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
+
+              <label class="label_input pos" for="filial_name">Название филиала</label>
+              <%= text_input f, :filial_name, class: "input_full", value: "${filial_name}", required: "true" %>
+
+              <label class="label_input pos" for="filial_name">Email филиала</label>
+              <%= email_input f, :email, class: "input_full", value: "${email}", required: "true" %>
+
+              <label class="label_input pos" for="x_coordinate">Координата X</label>
+              <%= text_input f, :x_coordinate, class: "input_full", value: "${coordinates[0]}", required: "true" %>
+
+              <label class="label_input pos" for="y_coordinate">Координата Y</label>
+              <%= text_input f, :y_coordinate, class: "input_full", value: "${coordinates[1]}", required: "true" %>
+
+              <label class="label_input pos" for="firm_id">ID фирмы</label>
+              <%= text_input f, :firm_id, class: "input_full", value: "${firm_id}", required: "true" %>
+
+              <label class="label_input pos">Субдомен(только на английском)</label>
+              <%= text_input f, :slug, class: "input_full eng_text_only", value: "${slug}", required: "true" %>
+
+              <label class="label_input pos" for="city_id">Город</label>
+              <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${city_name}", required: "true" %>
+
+              <button class="btn_save my-2 pos" type="submit">Сохранить</button>
+            <% end %>
+
+            <%= form_for @conn, Routes.filial_path(@conn, :update_filial_tariff), fn f -> %>
+              <input class="hidden" id="id" value="${id}" name="id" required="true" type="text">
+
+              <label class="label_input pos" for="tariff_id">Тариф</label>
+                <%= select f, :tariff_id, Enum.map(@tariff_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${tariff_name}" %>
+                <%= number_input f, :quantity, class: "input_full mt-2", placeholder: "Количество купленных тарифов", min: "0" %>
+
+                <button class="btn_save my-2 pos" type="submit">Сохранить</button>
+              <% end %>
+            </form>
+          </div>
+        `,
+    })
+  })
+</script>

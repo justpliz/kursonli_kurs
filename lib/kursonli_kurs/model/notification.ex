@@ -1,4 +1,5 @@
 defmodule KursonliKurs.Model.Notification do
+  @moduledoc false
   use Ecto.Schema
 
   import Ecto.Changeset
@@ -7,13 +8,12 @@ defmodule KursonliKurs.Model.Notification do
 
   @timestamps_opts [type: :utc_datetime]
   @required_fields ~w(name title description)a
-  @optional_fields ~w(photo)a
+  @optional_fields ~w()a
 
   schema "notifications" do
     field :name, :string
     field :title, :string
     field :description, :string
-    field :photo, :string
   end
 
   @doc false

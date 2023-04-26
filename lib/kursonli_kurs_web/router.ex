@@ -38,6 +38,13 @@ defmodule KursonliKursWeb.Router do
     plug :put_root_layout, {KursonliKursWeb.LayoutView, "index_app.html"}
   end
 
+  #       # #    # #####  ###### #    #
+  #       # ##   # #    # #       #  #
+  #       # # #  # #    # #####    ##
+  #       # #  # # #    # #        ##
+  #       # #   ## #    # #       #  #
+  #       # #    # #####  ###### #    #
+
   scope "/", KursonliKursWeb do
     pipe_through [:browser, :index]
 
@@ -49,104 +56,125 @@ defmodule KursonliKursWeb.Router do
     get "/instruction_kaz", PageController, :instruction_kaz
   end
 
-  scope "/api/v1", KursonliKursWeb do
-    pipe_through [:api]
-    post "/trade", TradeController, :ajax_update_message_map
-    delete "/chat", TradeController, :delete_chat
-  end
+  #        ##   #####  #    # # #    #
+  #       #  #  #    # ##  ## # ##   #
+  #      #    # #    # # ## # # # #  #
+  #      ###### #    # #    # # #  # #
+  #      #    # #    # #    # # #   ##
+  #      #    # #####  #    # # #    #
 
-  scope "/admin", KursonliKursWeb do
+  scope "/admin", KursonliKursWeb.Admin do
     pipe_through [:browser, :clean]
 
-    get "/login", AdminController, :login_form
-    post "/login", AdminController, :login_form_submit
+    get "/login", AuthController, :login_form
+    post "/login", AuthController, :login_admin_submit
+    get "/logout", AuthController, :admin_logout
   end
 
-  scope "/trades", KursonliKursWeb do
-    pipe_through [:browser]
-    post "/", TradeController, :create_trade
-    get "/delete", TradeController, :delete_trade
-  end
-
-  scope "/admin", KursonliKursWeb do
+  scope "/admin", KursonliKursWeb.Admin do
     pipe_through [:browser, :admin_check, :admin_app]
 
-    get "/", AdminController, :index
-    get "/settings", AdminController, :settings
-
-    get "/logout", AdminController, :admin_logout
-
-    post "/register_org_submit", AdminController, :register_org_submit
-    get "/update_org_status", AdminController, :update_org_status
-
-    scope "/currencies" do
-      post "/", AdminController, :create_currency_submit
-      get "/update", AdminController, :update_currency
-      get "/delete", AdminController, :delete_currency
+    scope "/organization" do
+      get "/", OrganizationController, :organizations_list
+      post "/", OrganizationController, :create_organization
+      get "/update", OrganizationController, :update_organization_status
     end
 
-    scope "/cities" do
-      post "/", AdminController, :create_city_submit
-      get "/update", AdminController, :update_city
-      get "/delete", AdminController, :delete_city
+    scope "/filial" do
+      get "/", FilialController, :filials_list
+      post "/", FilialController, :create_filial
+      get "/update_status", FilialController, :update_filial_status
+      post "/update", FilialController, :update_filial
+      post "/update_tariff", FilialController, :update_filial_tariff
+      get "/reset_password", FilialController, :reset_password
     end
 
-    scope "/filials" do
-      get "/", AdminController, :filials
-      post "/", AdminController, :create_filial_submit
-      post "/update", AdminController, :update_filial
-      get "/update_filial_status", AdminController, :update_filial_status
-      post "/update_filial_tariff", AdminController, :update_filial_tariff
-      get "/reset_password", AdminController, :reset_password
-    end
+    scope "/setting" do
+      get "/", SettingController, :settings_list
 
-    scope "/tariffs" do
-      post "/", TariffController, :create_tariff
-      get "/update", TariffController, :update_tariff
-      get "/delete", TariffController, :delete_tariff
-    end
+      scope "/currencies" do
+        post "/", SettingController, :create_currency
+        post "/update", SettingController, :update_currency
+        get "/delete", SettingController, :delete_currency
+      end
 
-    scope "/notifications" do
-      post "/update", AdminController, :update_notification
+      scope "/cities" do
+        post "/", SettingController, :create_city
+        post "/update", SettingController, :update_city
+        get "/delete", SettingController, :delete_city
+      end
+
+      scope "/tariffs" do
+        post "/", SettingController, :create_tariff
+        post "/update", SettingController, :update_tariff
+        get "/delete", SettingController, :delete_tariff
+      end
+
+      scope "/notifications" do
+        post "/update", SettingController, :update_notification
+      end
     end
   end
 
-  scope "/worker", KursonliKursWeb do
+  #       #    #  ####  #####  #    # ###### #####
+  #       #    # #    # #    # #   #  #      #    #
+  #       #    # #    # #    # ####   #####  #    #
+  #       # ## # #    # #####  #  #   #      #####
+  #       ##  ## #    # #   #  #   #  #      #   #
+  #       #    #  ####  #    # #    # ###### #    #
+
+  scope "/worker", KursonliKursWeb.Worker do
     pipe_through [:browser, :clean]
 
-    get "/login", WorkerController, :login_form
-    post "/login", WorkerController, :login_form_submit
+    get "/login", AuthController, :login_form
+    post "/login", AuthController, :login_worker_submit
+    get "/logout", AuthController, :worker_logout
   end
 
-  scope "/worker", KursonliKursWeb do
+  scope "/worker", KursonliKursWeb.Worker do
     pipe_through [:browser, :worker_check, :worker_app]
 
-    scope "/lang" do
-      get("/rus", WorkerController, :select_rus)
-      get("/kaz", WorkerController, :select_kaz)
+    scope "/course" do
+      get "/", CourseController, :courses_list
+      post "/update", CourseController, :update_course
+      post "/add", CourseController, :add_course
+      get "/delete", CourseController, :delete_course
     end
 
-    get "/update_pass", WorkerController, :update_pass
-    post "/update_pass", WorkerController, :update_pass_submit
-    get "/logout", WorkerController, :worker_logout
-    get "/chat", WorkerController, :get_all_message_chat_worker_id
+    scope "/setting" do
+      get "/", SettingController, :settings_list
+      post "/update", SettingController, :update_setting
 
-    get "/orders", WorkerController, :orders
-    post "/create_order", WorkerController, :create_order_submit
-    post "/update_order", WorkerController, :update_order
-    get "/delete_order", WorkerController, :delete_order
+      get "/update_pass", SettingController, :update_pass
+      post "/update_pass", SettingController, :update_pass_submit
 
-    get "/courses", WorkerController, :courses
-    post "/update_course", WorkerController, :update_course
-    post "/new_courses", WorkerController, :new_courses
-    get "/delete_course", WorkerController, :delete_course
+      get "/payment", SettingController, :payment
 
-    scope "/settings" do
-      get "/", WorkerController, :settings
-      post "/update", WorkerController, :update_setting
+      scope "/lang" do
+        get("/rus", SettingController, :select_rus)
+        get("/kaz", SettingController, :select_kaz)
+      end
     end
 
-    get "/payment", WorkerController, :payment
+    scope "/order" do
+      get "/", OrderController, :orders_list
+      post "/create", OrderController, :create_order
+      post "/update", OrderController, :update_order
+      get "/delete", OrderController, :delete_order
+    end
+
+    scope "/trade" do
+      post "/create", TradeController, :create_trade
+      post "/trade", TradeController, :ajax_update_message_map
+
+      get "/delete", TradeController, :delete_trade
+    end
+
+    scope "/chat" do
+      pipe_through [:api]
+      delete "/chat", TradeController, :delete_chat
+      get "/chat", TradeController, :get_all_message_chat_worker_id
+    end
   end
 
   # Other scopes may use custom stacks.

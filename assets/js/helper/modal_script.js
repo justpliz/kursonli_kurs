@@ -14,11 +14,13 @@ window.Modalka = Swal.mixin({
       var multipleCancelButton = new Choices('#choices-multiple', {
          removeItemButton: true,
       });
+
       let phoneInputs = document.querySelectorAll('input[data-tel]');
       let getInputNumbersValue = function (input) {
          // Return stripped input value — just numbers
          return input.value.replace(/\D/g, '');
       }
+
       let onPhonePaste = function (e) {
          let input = e.target,
             inputNumbersValue = getInputNumbersValue(input);
@@ -33,6 +35,7 @@ window.Modalka = Swal.mixin({
             }
          }
       }
+
       let onPhoneInput = function (e) {
          let input = e.target,
             inputNumbersValue = getInputNumbersValue(input),
@@ -87,6 +90,16 @@ window.Modalka = Swal.mixin({
             let numString = this.value.replace(/\D/g, "");
             let parts = numString.split(/(?=(?:\d{3})+$)/);
             this.value = parts.join(" ");
+         });
+      }
+
+      const validateInput = document.querySelector('.eng_text_only');
+
+      if (validateInput !== null) {
+         validateInput.addEventListener('input', function (e) {
+            const input = e.target.value;
+            let validInput = input.replace(/([А-Яа-я])/g, '');
+            e.target.value = validInput;
          });
       }
    }

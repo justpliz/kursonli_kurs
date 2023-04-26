@@ -12,24 +12,28 @@ defmodule KursonliKurs.Context.Notifications do
   @type notification :: Notification.t()
   @type params :: Map.t()
 
+  @doc false
   def get(opts \\ []) do
     Notification
     |> filter_by(opts)
     |> Repo.one()
   end
 
+  @doc false
   def all(opts \\ []) do
     Notification
     |> filter_by(opts)
     |> Repo.all()
   end
 
+  @doc false
   def create(params) do
     %Notification{}
     |> Notification.changeset(params)
     |> Repo.insert()
   end
 
+  @doc false
   def delete(city) do
     Repo.delete(city)
   end
@@ -42,15 +46,19 @@ defmodule KursonliKurs.Context.Notifications do
     |> Repo.update()
   end
 
+  @doc """
+  Возвращает объявление об скором окончании тарифа
+  если осталось менее 7 дней, в противном случае nil.
+  """
   def check_remaining_days(paid_up_to) do
     diff_days = Timex.diff(paid_up_to, Timex.today(), :day)
     {:ok, expiration} = Notifications.do_get(name: "expiration")
 
-    new_title =
       if diff_days >= 0 and diff_days <= 7 do
-        String.replace(expiration.title, "#", "#{diff_days}")
+        new_title = String.replace(expiration.title, "#", "#{diff_days}")
+        Map.put(expiration, :title, new_title)
+      else
+        nil
       end
-
-    Map.put(expiration, :title, new_title)
   end
 end

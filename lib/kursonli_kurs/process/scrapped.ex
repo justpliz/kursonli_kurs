@@ -1,33 +1,34 @@
 defmodule KursonliKurs.Process.Scrapped do
   alias KursonliKursWeb.GeneralHelper
   alias KursonliKurs.EtsStorage.ScrappedData
+  @scrapped_period Application.get_env(:kursonli_kurs, :scrapped_period)
 
   def process() do
     :timer.sleep(1000)
-    IO.inspect("process")
 
     try do
-      IO.inspect("try")
       scraping()
-      :timer.sleep(3 * 1000 * 10)
+      :timer.sleep(@scrapped_period)
 
       process()
     rescue
       _ ->
-        IO.inspect("rescue")
-        :timer.sleep(3 * 1000 * 10)
+        :timer.sleep(@scrapped_period)
         process()
     end
   end
 
+  # Парсинг значений курсов с "https://mig.kz/"
   def scraping() do
     with {:ok, response} = Application.get_env(:kursonli_kurs, :scrapped) |> HTTPoison.get() do
+      # Выборка значений покупки
       [usd_buy, eur_buy, rub_buy, _, _, _, _] =
         Regex.scan(~r/<td .+"buy .+">.+<\/td>/, response.body)
         |> Enum.map(fn [x] ->
           String.replace(x, ~r/(<td .+"buy .+">|<\/td>)/, "")
         end)
 
+      # Выборка значений продажи
       [usd_sale, eur_sale, rub_sale, _, _, _, _] =
         Regex.scan(~r/<td .+"sell .+">.+<\/td>/, response.body)
         |> Enum.map(fn [x] ->
@@ -44,6 +45,7 @@ defmodule KursonliKurs.Process.Scrapped do
     end
   end
 
+  # Поправка курса на значение diff
   defp normalize_currency(buy, sale, diff) do
     buy = Decimal.add(buy, "-#{diff}") |> Decimal.to_string() |> GeneralHelper.rounding_str()
     sale = Decimal.add(sale, "#{diff}") |> Decimal.to_string() |> GeneralHelper.rounding_str()

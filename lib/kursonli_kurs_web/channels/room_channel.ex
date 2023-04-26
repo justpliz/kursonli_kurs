@@ -66,6 +66,7 @@ defmodule KursonliKursWeb.RoomChannel do
   end
 
   # Изменение ордера
+  @spec delete_order(any, any) :: :ok
   def delete_order(order, city_id) do
     Endpoint.broadcast!("rooms:#{city_id}", "delete:order", %{
       data: order |> PwHelper.Normalize.repo()

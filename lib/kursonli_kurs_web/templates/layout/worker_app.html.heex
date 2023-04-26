@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content={csrf_token_value()}>
-    <title>Worker Kurs-Online</title>
+    <title>Worker Kurs1</title>
     <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css" )} />
     <script defer type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js" )}></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
@@ -24,8 +24,8 @@
       <% worker=Plug.Conn.get_session(@conn,:worker) %>
       <div class="app">
         <div class="app_user_container sm:hidden">
-          <a href="/worker/orders">
-            <img class="mx-auto" src={Routes.static_path(@conn, "/images/logo-line.svg" ) } alt="">
+          <a href="/worker/course">
+            <img class="mx-auto" src={Routes.static_path(@conn, "/images/logo-line.png" ) } alt="">
           </a>
           <div class="menu_break"></div>
           <div class="other_text">
@@ -36,7 +36,7 @@
           </div>
           <div class="flex flex-1-1-a flex-col justify-between pt-2">
             <ul class="text-neutral-400">
-              <a href="/worker/courses" class="active-link">
+              <a href="/worker/course" class="active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
                     style="font-weight: 700; font-size: 28px;">trending_up</span>
@@ -44,15 +44,14 @@
                 </li>
               </a>
               <div class="menu_break_li"></div>
-              <a href="/worker/orders" class="active-link" target="_blank">
+              <!-- <a href="/worker/orders" class="active-link" target="_blank">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
                     style="font-weight: 700; font-size: 28px;">edit_square</span>
                   <%= gettext("Ордера") %>
                 </li>
-              </a>
-              <div class="menu_break_li"></div>
-              <a href="/worker/settings" class="active-link">
+              </a> -->
+              <a href="/worker/setting" class="active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
                     style="font-weight: 700; font-size: 28px;">settings</span>
@@ -60,21 +59,20 @@
                 </li>
               </a>
               <div class="menu_break_li"></div>
-              <a href="/worker/update_pass" class=" hui active-link">
+              <a href="/worker/setting/update_pass" class="active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
                     style="font-weight: 700; font-size: 28px;">lock_open</span>
                   <%= gettext("Смена пароля") %>
                 </li>
               </a>
-              <div class="menu_break_li"></div>
-              <a href="/worker/payment" class="active-link">
+              <!-- <a href="/worker/payment" class="active-link">
                 <li class="worker_app_li">
                   <span class="icons_style material-symbols-outlined"
                     style="font-weight: 700; font-size: 28px;">payments</span>
                   <%= gettext("Оплата") %>
                 </li>
-              </a>
+              </a> -->
             </ul>
             <ul class="text-neutral-400">
               <div class="other_text">
@@ -101,8 +99,8 @@
                 <span class="icons_style material-symbols-outlined"
                   style="font-weight: 700; font-size: 28px;">language</span>
                 <div class="langs__block">
-                  <a class="lang_redirect" data-lang="rus" href="/worker/lang/rus">Рус</a>
-                  <a class="lang_redirect" data-lang="kaz" href="/worker/lang/kaz">Қаз</a>
+                  <a class="lang_redirect" data-lang="rus" href="/worker/setting/lang/rus">Рус</a>
+                  <a class="lang_redirect" data-lang="kaz" href="/worker/setting/lang/kaz">Қаз</a>
                 </div>
               </li>
               <a class="">
@@ -118,7 +116,7 @@
         <div class="header hidden sm:block">
           <div class="header__body">
             <a href="/worker/orders" class="header__logo">
-              <img class="mx-auto" src={Routes.static_path(@conn, "/images/logo-line.svg" ) } alt="">
+              <img class="mx-auto" src={Routes.static_path(@conn, "/images/logo-line.png" ) } alt="">
             </a>
             <div class="header__burger">
               <span></span>
@@ -133,7 +131,7 @@
               </div>
               <div class="flex flex-1-1-a flex-col justify-between">
                 <ul class="text-neutral-400">
-                  <a href="/worker/courses" class="active-link">
+                  <a href="/worker/course" class="active-link">
                     <li class="worker_app_li">
                       <span class="icons_style material-symbols-outlined"
                         style="font-weight: 700; font-size: 28px;">trending_up</span>
@@ -141,15 +139,7 @@
                     </li>
                   </a>
                   <div class="menu_break_li"></div>
-                  <a href="/worker/orders" class="active-link">
-                    <li class="worker_app_li">
-                      <span class="icons_style material-symbols-outlined"
-                        style="font-weight: 700; font-size: 28px;">edit_square</span>
-                      <%= gettext("Ордера") %>
-                    </li>
-                  </a>
-                  <div class="menu_break_li"></div>
-                  <a href="/worker/settings" class="active-link">
+                  <a href="/worker/setting" class="active-link">
                     <li class="worker_app_li">
                       <span class="icons_style material-symbols-outlined"
                         style="font-weight: 700; font-size: 28px;">settings</span>
@@ -162,14 +152,6 @@
                       <span class="icons_style material-symbols-outlined"
                         style="font-weight: 700; font-size: 28px;">lock_open</span>
                       <%= gettext("Смена пароля") %>
-                    </li>
-                  </a>
-                  <div class="menu_break_li"></div>
-                  <a href="/worker/payment" class="active-link">
-                    <li class="worker_app_li">
-                      <span class="icons_style material-symbols-outlined"
-                        style="font-weight: 700; font-size: 28px;">payments</span>
-                      <%= gettext("Оплата") %>
                     </li>
                   </a>
                 </ul>
