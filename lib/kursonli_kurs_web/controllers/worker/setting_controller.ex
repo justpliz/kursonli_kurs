@@ -13,7 +13,7 @@ defmodule KursonliKursWeb.Worker.SettingController do
 
   @doc """
   GET /worker/setting
-  Отображение списка настроек основной информации/личной страницы филиала
+  Отображение списка настроек основной информации/личной страницы филиала.
   """
   def settings_list(conn, _params) do
     session = get_session(conn, :worker)
@@ -39,7 +39,7 @@ defmodule KursonliKursWeb.Worker.SettingController do
 
   @doc """
   POST /worker/setting/update
-  Обновление информации основной информации/личной страницы филиала
+  Обновление информации основной информации/личной страницы филиала.
   """
   def update_setting(conn, params) do
     filial_id = get_session(conn, :worker).filial_id
@@ -107,7 +107,7 @@ defmodule KursonliKursWeb.Worker.SettingController do
 
   @doc """
   GET /worker/setting/update_pass
-  Форма обновления пароля от личного кабинета сотрудника
+  Форма обновления пароля от личного кабинета сотрудника.
   """
   def update_pass(conn, _params) do
     conn
@@ -116,7 +116,7 @@ defmodule KursonliKursWeb.Worker.SettingController do
 
   @doc """
   POST /worker/setting/update_pass
-  Проверка вводимых данных при смене пароля сотрудника
+  Проверка вводимых данных при смене пароля сотрудника.
   """
   def update_pass_submit(conn, params) do
     id = get_session(conn, :worker).id
@@ -147,7 +147,7 @@ defmodule KursonliKursWeb.Worker.SettingController do
 
   @doc """
   GET /worker/setting/payment
-  Отображение раздела "Оплата"
+  Отображение раздела "Оплата".
   """
   def payment(conn, _params) do
     service_access = Notifications.get(name: "service_access")
@@ -158,7 +158,7 @@ defmodule KursonliKursWeb.Worker.SettingController do
 
   @doc """
   GET /worker/setting/lang/rus
-  Выставление в качестве основного языка лк сотрудника - русский
+  Выставление в качестве основного языка лк сотрудника - русский.
   """
   def select_rus(conn, params) do
     conn
@@ -168,7 +168,7 @@ defmodule KursonliKursWeb.Worker.SettingController do
 
   @doc """
   GET /worker/setting/lang/kaz
-  Выставление в качестве основного языка лк сотрудника - казахский
+  Выставление в качестве основного языка лк сотрудника - казахский.
   """
   def select_kaz(conn, params) do
     conn

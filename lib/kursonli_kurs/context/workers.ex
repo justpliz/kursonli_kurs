@@ -11,18 +11,21 @@ defmodule KursonliKurs.Context.Workers do
   @type worker :: Worker.t()
   @type params :: Map.t()
 
+  @doc false
   def get(opts \\ []) do
     Worker
     |> filter_by(opts)
     |> Repo.one()
   end
 
+  @doc false
   def all(opts \\ []) do
     Worker
     |> filter_by(opts)
     |> Repo.all()
   end
 
+  @doc false
   def create(params) do
     %Worker{}
     |> Worker.changeset(params)

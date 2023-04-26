@@ -8,7 +8,7 @@ defmodule KursonliKursWeb.Worker.TradeController do
 
   @doc """
   POST /worker/trade/create
-  Создание нового ордера
+  Создание нового ордера.
   """
   def create_trade(conn, params) do
     item_map = params["item_order"] |> Jason.decode!()

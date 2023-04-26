@@ -2,7 +2,7 @@ defmodule KursonliKursWeb.PageController do
   use KursonliKursWeb, :controller
   action_fallback(KursonliKursWeb.FallbackController)
 
-  alias KursonliKurs.Context.{Currencies, Filials, Settings, Cities}
+  alias KursonliKurs.Context.{Currencies, Filials, Settings, Cities, Courses}
   alias KursonliKurs.EtsStorage.ScrappedData
 
   def redirect_almaty(conn, _params) do
@@ -34,9 +34,9 @@ defmodule KursonliKursWeb.PageController do
     with {:ok, setting} <- Settings.do_get(slug: slug),
          {:ok, filial} <- Filials.do_get(id: setting.filial_id) do
       setting = setting |> PwHelper.Normalize.repo()
-      courses_list = Filials.get_courses_list_by_filial_id(filial.id)
+      courses_list = Courses.get_courses_list_by_filial_id(filial.id)
       [x_coord, y_coord] = setting.coordinates
-      city = Filials.get_city_by_filial_id(filial.id)
+      city = Cities.get_city_by_filial_id(filial.id)
       photo_path = "http://#{conn.host}:#{conn.port}/#{setting.photo}"
       logo_path = "http://#{conn.host}:#{conn.port}/#{setting.logo}"
 

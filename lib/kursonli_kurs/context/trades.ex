@@ -11,28 +11,35 @@ defmodule KursonliKurs.Context.Trades do
   @type trade :: Trade.t()
   @type params :: Map.t()
 
+  @doc false
   def get(opts \\ []) do
     Trade
     |> filter_by(opts)
     |> Repo.one()
   end
 
+  @doc false
   def all(opts \\ []) do
     Trade
     |> filter_by(opts)
     |> Repo.all()
   end
 
+  @doc false
   def create(params) do
     %Trade{}
     |> Trade.changeset(params)
     |> Repo.insert()
   end
 
+  @doc false
   def delete(trade) do
     Repo.delete(trade)
   end
 
+  @doc """
+  Удаление всех трейдов ордера(order_id).
+  """
   def delete_all(order_id) do
     from(t in Trade, where: t.order_id == ^order_id) |> Repo.delete_all
   end
@@ -44,6 +51,9 @@ defmodule KursonliKurs.Context.Trades do
     |> Repo.update()
   end
 
+  @doc """
+  Получение всех трейдов сотрудника(worker_id).
+  """
   def get_by_id_worker(worker_id) do
     from(
       trade in Trade,

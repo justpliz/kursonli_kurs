@@ -7,6 +7,7 @@ defmodule KursonliKursWeb.Worker.ChatController do
 
   alias KursonliKurs.Context.{Trades}
 
+  @spec ajax_update_message_map(Plug.Conn.t(), nil | maybe_improper_list | map) :: Plug.Conn.t()
   def ajax_update_message_map(conn, params) do
     with item_trade <- Trades.get(id: params["id"]),
          {:ok, item_trad_up} <-

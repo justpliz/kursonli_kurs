@@ -18,7 +18,7 @@ defmodule KursonliKursWeb.Worker.CourseController do
   """
   def courses_list(conn, params) do
     session = get_session(conn, :worker)
-    courses_list = Filials.get_courses_list_by_filial_id(session.filial_id)
+    courses_list = Courses.get_courses_list_by_filial_id(session.filial_id) |> IO.inspect()
 
     # Список валют которых нет у филиала
     # TODO: Сделать Ecto запросом
@@ -33,6 +33,7 @@ defmodule KursonliKursWeb.Worker.CourseController do
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
 
+    # Проверка необходимости отображения объявления о скором окончании тарифа
     expiration =
       if params["login"] == "true", do: Notifications.check_remaining_days(session.paid_up_to)
 
@@ -49,15 +50,15 @@ defmodule KursonliKursWeb.Worker.CourseController do
 
   @doc """
   POST /worker/course/update
-  Обновление списка курсов филиала
+  Обновление списка курсов филиала.
   """
   def update_course(conn, params) do
     session = get_session(conn, :worker)
     change_all_filials = String.to_atom(params["change_all_filials"])
     visible_course_status = String.to_atom(params["visible_course_status"])
 
-    # check exist courses for view courses on index.html
-    # Запрещает показывать филиал на главной если у него нет курсов
+    # check exist courses for view courses on index.html.
+    # Запрещает показывать филиал на главной если у него нет курсов.
     visible_course_status =
       if Courses.count(filial_id: session.filial_id) == 0 do
         false
@@ -65,6 +66,8 @@ defmodule KursonliKursWeb.Worker.CourseController do
         visible_course_status
       end
 
+    # Обновление курсов филиала
+    # TODO: Переделать функцию(сложно читать)
     params
     |> Map.drop(["_csrf_token", "change_all_filials", "visible_course_status"])
     |> Enum.map(fn {k, v} -> {String.split(k, "|"), v} end)
@@ -85,7 +88,7 @@ defmodule KursonliKursWeb.Worker.CourseController do
 
   @doc """
   POST /worker/course/add
-  Добавление в список курсов новых валют
+  Добавление в список курсов новых валют.
   """
   def add_course(conn, params) do
     session = get_session(conn, :worker)
@@ -109,13 +112,13 @@ defmodule KursonliKursWeb.Worker.CourseController do
 
   @doc """
   GET /worker/course/delete
-  Удаление валюты из списка курсов
+  Удаление валюты из списка курсов.
   """
   def delete_course(conn, %{"id" => id} = _params) do
     session = get_session(conn, :worker)
 
-    # Проверка на наличие хотя бы одного курса
-    # Чтобы было нормальное отображение на главной странице
+    # Проверка на наличие хотя бы одного курса.
+    # Чтобы было нормальное отображение на главной странице.
     case Courses.count(filial_id: session.filial_id) do
       1 ->
         conn
@@ -124,14 +127,13 @@ defmodule KursonliKursWeb.Worker.CourseController do
 
       _any ->
         with {:ok, course} <- Courses.do_get(id: id),
-             {:ok, _course} <- Courses.delete(course)do
+             {:ok, _course} <- Courses.delete(course) do
           conn
           |> put_flash(:info, gettext("Курс успешно удален"))
           |> redirect(to: "/worker/course")
         end
     end
   end
-
 
   # Обновление курсов одного филиала
   defp update_one_course(course_id, course, filial_id, change_all_filials) do
@@ -158,7 +160,7 @@ defmodule KursonliKursWeb.Worker.CourseController do
   end
 
   # Определение времени последнего обновления курса.
-  # Необязательная функция, т.к. все курсы обновляются одновременно.
+  # Необязательная функция, т.к. все курсы обновляются одновременно?
   defp find_last_date(date_list) do
     last_date =
       date_list

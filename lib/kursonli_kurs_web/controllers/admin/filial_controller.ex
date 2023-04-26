@@ -13,12 +13,14 @@ defmodule KursonliKursWeb.Admin.FilialController do
 
   @doc """
   GET /admin/filial
-  Отображение списка филиалов
+  Отображение списка филиалов.
   """
   def filials_list(conn, _params) do
     org_list = Organizations.all()
     cities_list = Cities.all()
     tariff_list = Tariffs.all()
+
+    # Информация о филиале, его настройках, организации, городе, тарифе.
     filials_list = Filials.filial_list()
 
     conn
@@ -32,7 +34,7 @@ defmodule KursonliKursWeb.Admin.FilialController do
 
   @doc """
   POST /admin/filials
-  Создание связки "филиал-сотрудник"
+  Создание связки "филиал-сотрудник".
   """
   def create_filial(conn, params) do
     password = generate_random_str(8)
@@ -49,11 +51,14 @@ defmodule KursonliKursWeb.Admin.FilialController do
       organization_id: params["org_id"]
     }
 
+    slug = params["slug"]
+
     KursonliKurs.Repo.transaction(fn ->
       with {:ok, _filial} <-
              Filials.create_filial_worker_setting(
                filial_opts,
-               worker_opts
+               worker_opts,
+               slug
              ) do
         conn
         |> put_flash(:info, "Филиал успешно добавлен, пароль: #{password}")
@@ -69,7 +74,7 @@ defmodule KursonliKursWeb.Admin.FilialController do
 
   @doc """
   GET /admin/update_status
-  Изменение статуса филилала(архивирование/активация)
+  Изменение статуса филилала(архивирование/активация).
   """
   def update_filial_status(conn, %{"id" => id, "filial_active_status" => status}) do
     status =
@@ -88,7 +93,7 @@ defmodule KursonliKursWeb.Admin.FilialController do
 
   @doc """
   POST /admin/update_filial
-  Обновление данных и настроек(2gis, город) филиала
+  Обновление данных и настроек(2gis, город) филиала.
   """
   def update_filial(conn, %{"id" => id} = params) do
     filial_opts = %{
@@ -114,7 +119,7 @@ defmodule KursonliKursWeb.Admin.FilialController do
 
   @doc """
   POST /admin/update_filial_tariff
-  Обновление тарифного плана филиала
+  Обновление тарифного плана филиала.
   """
   def update_filial_tariff(
         conn,
@@ -137,7 +142,7 @@ defmodule KursonliKursWeb.Admin.FilialController do
 
   @doc """
   GET /admin/filials/reset_password
-  Сброс пароля от лк сотрудника филиала
+  Сброс пароля от лк сотрудника филиала.
   """
   def reset_password(conn, %{"filial_id" => id}) do
     password = generate_random_str(8)
