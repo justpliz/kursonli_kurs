@@ -1,19 +1,19 @@
 defmodule KursonliKurs.Process.Scrapped do
   alias KursonliKursWeb.GeneralHelper
   alias KursonliKurs.EtsStorage.ScrappedData
+  @scrapped_period Application.get_env(:kursonli_kurs, :scrapped_period)
 
   def process() do
     :timer.sleep(1000)
 
     try do
-      IO.inspect("try")
       scraping()
-      :timer.sleep(5 * 60 * 1000)
+      :timer.sleep(@scrapped_period)
 
       process()
     rescue
       _ ->
-        :timer.sleep(5 * 60 * 1000)
+        :timer.sleep(@scrapped_period)
         process()
     end
   end
@@ -34,7 +34,7 @@ defmodule KursonliKurs.Process.Scrapped do
         |> Enum.map(fn [x] ->
           String.replace(x, ~r/(<td .+"sell .+">|<\/td>)/, "")
         end)
-      IO.inspect(usd_sale)
+
       {usd_buy, usd_sale} = normalize_currency(usd_buy, usd_sale, 0.5)
       {eur_buy, eur_sale} = normalize_currency(eur_buy, eur_sale, 0.5)
       {rub_buy, rub_sale} = normalize_currency(rub_buy, rub_sale, 0.05)
