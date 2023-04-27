@@ -200,7 +200,7 @@ defmodule KursonliKurs.Context.Courses do
   #       rub = Enum.find(map.course, &(&1.short_name == "RUB"))
   #       rub_range = if is_nil(rub), do: true, else: value_in_range?(rub.buy, rub.sale, rub_buy, rub_sale)
 
-  #       is_range = usd_range && eur_range && rub_range |> IO.inspect(label: "kek")
+  #       is_range = usd_range && eur_range && rub_range
   #       if is_range, do: acc ++ [map], else: acc
   #     end
   #   )
