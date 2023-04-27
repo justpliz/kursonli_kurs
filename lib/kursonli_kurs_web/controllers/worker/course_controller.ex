@@ -18,7 +18,7 @@ defmodule KursonliKursWeb.Worker.CourseController do
   """
   def courses_list(conn, params) do
     session = get_session(conn, :worker)
-    courses_list = Courses.get_courses_list_by_filial_id(session.filial_id) |> IO.inspect()
+    courses_list = Courses.get_courses_list_by_filial_id(session.filial_id)
 
     # Список валют которых нет у филиала
     # TODO: Сделать Ecto запросом
