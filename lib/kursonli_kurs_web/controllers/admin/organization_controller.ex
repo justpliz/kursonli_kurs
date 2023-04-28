@@ -39,38 +39,38 @@ defmodule KursonliKursWeb.Admin.OrganizationController do
       admin_id: get_session(conn, :admin).id
     }
 
+    filial_opts = %{
+      name: params["filial_name"],
+      city_id: params["city_id"]
+    }
+
     worker_opts = %{
       email: String.downcase(params["email"]),
       password: hash_str(password)
     }
 
-    filial_opts = %{
-      name: params["filial_name"],
-      city_id: params["city_id"],
-      filial_address: params["filial_address"]
+    setting_opts = %{
+      slug: String.downcase(params["slug"]),
+      url: String.downcase(params["url"]),
+      address: params["address"]
     }
 
-    slug = String.downcase(params["slug"])
-
-    KursonliKurs.Repo.transaction(fn ->
-      with {:ok, org} <- Organizations.create(org_opts),
-           filial_opts <- Map.put(filial_opts, :organization_id, org.id),
-           {:ok, _filial} <-
-             Filials.create_filial_worker_setting(
-               filial_opts,
-               worker_opts,
-               slug
-             ) do
+    with {:ok, _org} <-
+           Organizations.create_org_filial_worker_setting(
+             org_opts,
+             filial_opts,
+             worker_opts,
+             setting_opts
+           ) do
+      conn
+      |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
+      |> redirect(to: "/admin/organization")
+    else
+      {:error, _reason} ->
         conn
-        |> put_flash(:info, "Организация успешно добавлена, пароль: #{password}")
+        |> put_flash(:error, "Проверьте вводимые данные")
         |> redirect(to: "/admin/organization")
-      else
-        {:error, _reason} ->
-          conn
-          |> put_flash(:error, "Проверьте вводимые данные")
-          |> redirect(to: "/admin/organization")
-      end
-    end)
+    end
   end
 
   @doc """

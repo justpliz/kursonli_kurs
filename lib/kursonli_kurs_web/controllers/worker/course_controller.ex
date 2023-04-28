@@ -9,7 +9,8 @@ defmodule KursonliKursWeb.Worker.CourseController do
     Courses,
     Currencies,
     Filials,
-    Notifications
+    Notifications,
+    Settings
   }
 
   @doc """
@@ -28,13 +29,13 @@ defmodule KursonliKursWeb.Worker.CourseController do
     last_update_date = find_last_date(Enum.map(courses_list, & &1.date))
 
     # Флаг отображения курсов филиала на основной странице.
-    visible_course_status = Filials.get(id: session.filial_id).visible_course_status
+    visible_course_status = Settings.get(filial_id: session.filial_id).visible_course_status
 
     {:ok, instructions} = Notifications.do_get(name: "instructions")
 
     # Проверка необходимости отображения объявления о скором окончании тарифа.
     expiration =
-      if params["login"] == "true", do: Notifications.check_remaining_days(session.paid_up_to) |> IO.inspect()
+      if params["login"] == "true", do: Notifications.check_remaining_days(session.paid_up_to)
 
     conn
     |> render("courses_list.html",

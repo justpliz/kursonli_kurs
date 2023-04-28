@@ -29,7 +29,17 @@
 
             <div class="mb-2">
               <label class="label_input pos">Адрес организации</label>
-              <%= text_input f, :filial_address, class: "input_full", required: "true", placeholder: "Жамбыла 4" %>
+              <%= text_input f, :address, class: "input_full", required: "true", placeholder: "Жамбыла 4" %>
+            </div>
+
+            <div class="mb-2">
+              <label class="label_input pos">Субдомен(только на английском)</label>
+              <%= text_input f, :slug, class: "input_full eng_text_only", required: "true", placeholder: "mer-nur" %>
+            </div>
+
+            <div class="mb-2">
+              <label class="label_input pos">URL(только на английском)</label>
+              <%= text_input f, :url, class: "input_full eng_text_only", required: "true", placeholder: "https://kurs1.kz" %>
             </div>
 
             <div class="mb-2">

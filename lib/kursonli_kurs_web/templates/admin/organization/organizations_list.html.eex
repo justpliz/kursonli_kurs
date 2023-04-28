@@ -108,6 +108,8 @@
    </div>
 </div>
 
+<!-- Создание организации -->
 <%= render(KursonliKursWeb.Admin.OrganizationView, "modal_create_organization.html", conn: @conn, cities_list: @cities_list,
    currencies_list: @currencies_list) %>
-   <%= render(KursonliKursWeb.Admin.OrganizationView, "modal_update_organization_status.html", conn: @conn) %>
+<!-- Актвация/архивирование организации -->
+<%= render(KursonliKursWeb.Admin.OrganizationView, "modal_update_organization_status.html", conn: @conn) %>

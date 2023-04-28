@@ -9,22 +9,27 @@ defmodule KursonliKurs.Model.Setting do
   @type t :: %__MODULE__{}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(tags coordinates address email photo logo filial_id visible_website_status)a
+  @required_fields ~w(tags coordinates address email photo logo filial_id visible_website_status visible_course_status)a
   @optional_fields ~w(phones license qualities description colors slug url firm_id promo)a
 
   schema "settings" do
+    field :address, :string
+
     field :tags, {:array, :string}, default: ["false", "false"]
     field :coordinates, {:array, :string}, default: ["76.944551", "43.239521"]
-    field :address, :string
     field :firm_id, :string
     field :logo, :string, default: "images/logo/default_logo.jpg"
     field :photo, :string, default: "images/photo/default_photo.jpg"
     field :license, :string, default: ""
     field :email, :string, default: "email@email.kz"
+    field :description, :string, default: "Описание будет добавлено позже"
+
     field :slug, :string, default: ""
     field :url, :string, default: ""
-    field :description, :string, default: "Описание будет добавлено позже"
+    field :link, FilialLink, default: :filial_id
+
     field :visible_website_status, :boolean, default: false
+    field :visible_course_status, :boolean, default: false
 
     field :promo, :map,
       default: %{

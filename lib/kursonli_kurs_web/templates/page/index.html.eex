@@ -166,7 +166,7 @@
                           <div class="flex items-center gap-1">
                             <img src="/images/icons/city_index.svg" class="bg-contain" alt="city">
                             <div class="whitespace-normal w-auto">
-                              <%= item.filial_address %>
+                              <%= item.address %>
                             </div>
                           </div>
                           <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>
@@ -242,7 +242,7 @@
                         <div class="flex items-center gap-1">
                           <img src="/images/icons/city_index.svg" class="bg-contain" alt="city">
                           <div class="whitespace-normal w-auto">
-                            <%= item.filial_address %>
+                            <%= item.address %>
                           </div>
                         </div>
                         <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>

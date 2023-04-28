@@ -30,7 +30,7 @@
           <%= text_input f, :filial_name, placeholder: "", value: @filial.name, class: "input_full" %>
         </div>
         <label class="label_input"><%= gettext("Адрес филиала") %></label>
-        <%= text_input f, :filial_address, placeholder: "", value: @filial.filial_address, class: "input_full", required: "true" %>
+        <%= text_input f, :address, placeholder: "", value: @filial.address, class: "input_full", required: "true" %>
         <label class="label_input pt-2"><%= gettext("Дополнительные телефоны") %></label>
         <div class="flex md:block md:w-full gap-4">
           <%= telephone_input f, :phone1, placeholder: "", value: @setting.phones["phone1"], class: "input_short md:mt-2 md:input_full", data: [tel: "" ], maxlength: 18 %>
@@ -112,7 +112,8 @@
   <% end %>
 </div>
 <% else %>
-  <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html", conn: @conn, instructions: @instructions) %>
+  <!-- Объявление о неуплате тарифа -->
+  <%= render(KursonliKursWeb.Worker.AuthView, "notification_service_access.html", conn: @conn, instructions: @instructions) %>
 <% end %>
 <script>
   $('.input-file input[type=file]').on('change', function () {

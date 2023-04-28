@@ -76,8 +76,8 @@ defmodule KursonliKursWeb.PageController do
       count =
         Filials.count(
           city_id: city.id,
-          filial_active_status: :active,
-          visible_course_status: true
+          filial_active_status: :active
+          # visible_course_status: true
         )
 
       %{name: city.name, count: count, eng_name: city.eng_name}

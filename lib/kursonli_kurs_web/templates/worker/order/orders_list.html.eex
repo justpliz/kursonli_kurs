@@ -126,21 +126,18 @@
     <span class="material-symbols-outlined" style="color:#fff; font-weight: 900;">chat_bubble</span>
   </button>
 <% else %>
-<!-- Показ объявления в случае неуплаты тарифа -->
+  <!-- Показ объявления в случае неуплаты тарифа -->
   <%= render(KursonliKursWeb.Worker.WorkerOrderView, "notification_service_access.html", conn: @conn, instructions:
         @instructions) %>
 <% end %>
 
 
 <!-- Созадние нового ордера -->
-<%= render(KursonliKursWeb.Worker.WorkerOrderView, "modal_create_order.html", conn: @conn, message: @message,
-            currencies_list: @currencies_list, address: @address) %>
+<%= render(KursonliKursWeb.Worker.WorkerOrderView, "modal_create_order.html", conn: @conn, message: @message, currencies_list: @currencies_list, address: @address) %>
 <!-- Обновление ордера -->
-<%= render(KursonliKursWeb.Worker.WorkerOrderView, "modal_update_order.html", conn: @conn, id: @my_trades,
-                            currencies_list: @currencies_list) %>
+<%= render(KursonliKursWeb.Worker.WorkerOrderView, "modal_update_order.html", conn: @conn, id: @my_trades, currencies_list: @currencies_list) %>
 <!-- Удаление ордера(который создал) -->
 <%= render(KursonliKursWeb.Worker.WorkerOrderView, "modal_delete_order.html", conn: @conn, id: @my_trades) %>
-
 <!-- Удаление сделки(в которой учавствую) -->
 <%= render(KursonliKursWeb.Worker.WorkerTradeView, "modal_delete_trade.html", conn: @conn, id: @trades) %>
 

@@ -6,6 +6,8 @@ defmodule KursonliKurs.Context.Organizations do
 
   alias KursonliKurs.Model.Organization
 
+  alias KursonliKurs.Context.{Organizations, Filials}
+
   require Logger
 
   @type organization :: Organization.t()
@@ -50,5 +52,17 @@ defmodule KursonliKurs.Context.Organizations do
     organization
     |> Organization.changeset(params)
     |> Repo.update()
+  end
+
+  def create_org_filial_worker_setting(org_opts, filial_opts, worker_opts, setting_opts) do
+    KursonliKurs.Repo.transaction(fn ->
+      {:ok, org} = Organizations.create(org_opts)
+      filial_opts = Map.put(filial_opts, :organization_id, org.id)
+
+      {:ok, _filial} =
+        Filials.create_filial_worker_setting(filial_opts, worker_opts, setting_opts)
+
+      {:ok, org}
+    end)
   end
 end

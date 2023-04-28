@@ -183,9 +183,16 @@
 </div>
 </div>
 </div>
-<%= render(KursonliKursWeb.Admin.SettingView, "modal_update_currency.html", conn: @conn) %>
+
+<!-- Создание новой валюты -->
 <%= render(KursonliKursWeb.Admin.SettingView, "modal_create_currency.html", conn: @conn) %>
+<!-- Редактирование валюты -->
+<%= render(KursonliKursWeb.Admin.SettingView, "modal_update_currency.html", conn: @conn) %>
+<!-- Создание нового города -->
+<%= render(KursonliKursWeb.Admin.SettingView, "modal_create_city.html", conn: @conn) %>
+<!-- Редактирование города -->
 <%= render(KursonliKursWeb.Admin.SettingView, "modal_update_city.html", conn: @conn) %>
-<%= render(KursonliKursWeb.Admin.SettingView, "modal_create_cities.html", conn: @conn) %>
+<!-- Создание нового тарифа -->
 <%= render(KursonliKursWeb.Admin.SettingView, "modal_create_tariff.html", conn: @conn) %>
+<!-- Редактирование тарифа -->
 <%= render(KursonliKursWeb.Admin.SettingView, "modal_update_tariff.html", conn: @conn) %>

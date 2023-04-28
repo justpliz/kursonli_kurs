@@ -196,11 +196,11 @@
         <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменного пункта</h2>
         <div class="relative pt-10 flex flex-col">
           <div class="flex pb-4 items-center">
-            <%= if @filial.filial_address !="" do %>
+            <%= if @filial.address !="" do %>
               <span class="material-symbols-outlined pr-4"
                 style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
               <div class="mb:text-xs">
-                <%= @filial.filial_address %>
+                <%= @filial.address %>
               </div>
               <% end %>
           </div>

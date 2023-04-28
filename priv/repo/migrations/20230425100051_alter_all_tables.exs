@@ -38,17 +38,4 @@ defmodule KursonliKurs.Repo.Migrations.AlterAllTables do
       add :type, :order_type
     end
   end
-
-  # alter table(:filials) do
-  #   remove :filial_address
-  #   remove :visible_course_status
-  # end
-
-  # alter table(:cities) do
-  #   add :timezone, :string
-  # end
-
-  # alter table(:settings) do
-  #   add :visible_course_status, :boolean, default: :false, null: false
-  # end
 end

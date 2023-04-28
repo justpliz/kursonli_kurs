@@ -22,7 +22,7 @@ defmodule KursonliKursWeb.Worker.OrderController do
     session = get_session(conn, :worker)
     filial_id = session.filial_id
     city_id = session.city.id
-    address = session.filial_address
+    address = session.address
 
     # Списки ордеров филиала.
     order_list_buy = Orders.order_list(:buy, city_id)

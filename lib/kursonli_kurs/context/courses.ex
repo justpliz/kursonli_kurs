@@ -109,11 +109,9 @@ defmodule KursonliKurs.Context.Courses do
   def get_filial_by_city(city_id) do
     Repo.all(
       from f in Filial,
-        where:
-          f.city_id == ^city_id and f.filial_active_status == :active and
-            f.visible_course_status == true,
+        where: f.city_id == ^city_id and f.filial_active_status == :active,
         left_join: s in Setting,
-        on: s.filial_id == f.id,
+        on: s.filial_id == f.id and s.visible_course_status == true,
         join: org in Organization,
         on: org.id == f.organization_id,
         left_join: c in assoc(f, :course),
@@ -126,6 +124,7 @@ defmodule KursonliKurs.Context.Courses do
             phones: s.phones,
             promo: s.promo,
             visible_website_status: s.visible_website_status,
+            address: s.address,
             logo: s.logo,
             slug: s.slug,
             color_logo: s.colors["color_logo"]
@@ -137,7 +136,7 @@ defmodule KursonliKurs.Context.Courses do
         setting: ensure_default_logo(&1.setting),
         course: course_handler(&1.filial.course),
         filial_id: &1.filial.id,
-        filial_address: &1.filial.filial_address,
+        address: &1.setting.address,
         filial_name: &1.filial.name,
         date: hd(&1.filial.course).date,
         date_h: GeneralHelper.date_to_string_time_h(hd(&1.filial.course).date),

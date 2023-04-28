@@ -150,9 +150,11 @@
   </div>
 </div>
 
-
+<!-- Редактирование филиала -->
 <%= render(KursonliKursWeb.Admin.FilialView, "modal_update_filial.html", conn: @conn, tariff_list: @tariff_list,
   cities_list: @cities_list) %>
-  <%= render(KursonliKursWeb.Admin.FilialView, "modal_create_filial.html", conn: @conn, org_list: @org_list,
+<!-- Создание филиала -->
+<%= render(KursonliKursWeb.Admin.FilialView, "modal_create_filial.html", conn: @conn, org_list: @org_list,
     cities_list: @cities_list) %>
-    <%= render(KursonliKursWeb.Admin.FilialView, "modal_update_filial_status.html", conn: @conn) %>
+<!-- Активация/архивирование филиала -->
+<%= render(KursonliKursWeb.Admin.FilialView, "modal_update_filial_status.html", conn: @conn) %>
