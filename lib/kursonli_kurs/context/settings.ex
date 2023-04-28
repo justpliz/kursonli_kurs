@@ -44,4 +44,20 @@ defmodule KursonliKurs.Context.Settings do
     |> Setting.changeset(params)
     |> Repo.update()
   end
+
+  @doc """
+  get setting info from filial_id.
+  """
+  def get_setting(query) do
+  # TODO:
+  # У меня есть запросы:
+  # from(u in User, select: %{name: u.name}) |> Repo.One
+  # from(u in User, select: %{last_name: u.last_name}) |> Repo.One
+  # from(u in User, select: %{name: u.name, last_name: u.last_name}) |> Repo.One
+  #
+  # Я могу их как то оптимизировать? Например, я хочу передать, нужные мне поля в виде списка get_user([:name, :last_name]).
+  # Как можно настроить селект, чтобы он брал то, что я отправляю в параметрах функции?
+    s = from(s in Setting, select: s)
+    from(query, preload: [setting: ^s])
+  end
 end

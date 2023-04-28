@@ -39,27 +39,26 @@ defmodule KursonliKursWeb.Admin.FilialController do
   def create_filial(conn, params) do
     password = generate_random_str(8)
 
+    filial_opts = %{
+      name: params["filial_name"],
+      city_id: params["city_id"],
+      organization_id: params["org_id"]
+    }
+
     worker_opts = %{
       email: String.downcase(params["email"]),
       password: hash_str(password)
     }
 
-    filial_opts = %{
-      name: params["filial_name"],
-      city_id: params["city_id"],
-      filial_address: params["filial_address"],
-      organization_id: params["org_id"]
+    setting_opts = %{
+      slug: String.downcase(params["slug"]),
+      url: String.downcase(params["url"]),
+      address: params["address"]
     }
-
-    slug = params["slug"]
 
     KursonliKurs.Repo.transaction(fn ->
       with {:ok, _filial} <-
-             Filials.create_filial_worker_setting(
-               filial_opts,
-               worker_opts,
-               slug
-             ) do
+             Filials.create_filial_worker_setting(filial_opts, worker_opts, setting_opts) do
         conn
         |> put_flash(:info, "Филиал успешно добавлен, пароль: #{password}")
         |> redirect(to: "/admin/filial")

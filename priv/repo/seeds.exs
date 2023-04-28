@@ -98,7 +98,7 @@
   KursonliKurs.Context.Filials.create(%{
     name: "Odin1",
     city_id: city_krg.id,
-    filial_address: "Жамбыла 4",
+    address: "Жамбыла 4",
     filial_active_status: "active",
     organization_id: org1.id,
     tariff_id: tariff.id,
@@ -137,7 +137,7 @@ KursonliKurs.Context.Courses.create(%{
   KursonliKurs.Context.Filials.create(%{
     name: "Dva1",
     city_id: city_krg.id,
-    filial_address: "Бейкер стрит",
+    address: "Бейкер стрит",
     filial_active_status: "active",
     organization_id: org2.id,
     tariff_id: tariff.id,

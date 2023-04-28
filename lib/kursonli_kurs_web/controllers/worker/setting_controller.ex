@@ -77,7 +77,7 @@ defmodule KursonliKursWeb.Worker.SettingController do
 
     filial_opts = %{
       name: params["filial_name"],
-      filial_address: params["filial_address"]
+      address: params["address"]
     }
 
     opts = %{

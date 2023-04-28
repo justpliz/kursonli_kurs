@@ -39,7 +39,8 @@ defmodule KursonliKursWeb.Worker.AuthController do
     # проверка существования сотрудника с параметрами - opts
     case Workers.do_get(opts) do
       {:ok, worker} ->
-        {:ok, filial} = Filials.do_get(id: worker.filial_id)
+        filial = Filials.get_with_setting(id: worker.filial_id)
+        IO.inspect(filial.setting.address, label: "KEEK")
 
         # проверка активного статуса филиала сотрудника
         case filial.filial_active_status do
@@ -57,7 +58,7 @@ defmodule KursonliKursWeb.Worker.AuthController do
               filial_id: filial.id,
               email: worker.email,
               filial_name: filial.name,
-              filial_address: filial.filial_address,
+              address: filial.setting.address,
               paid_up_to: filial.paid_up_to,
               city: %{
                 id: filial.city_id,

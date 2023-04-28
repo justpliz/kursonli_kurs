@@ -7,3 +7,5 @@ defenum(OrderTransfer, :order_transfer, Application.get_env(:kursonli_kurs, :ord
 defenum(OrderStatus, :order_status, [:success, :fail, :active])
 
 defenum(ActiveStatus, :active_status, [:active, :archive])
+
+defenum(FilialLink, :filial_link, [:slug, :url, :filial_id])

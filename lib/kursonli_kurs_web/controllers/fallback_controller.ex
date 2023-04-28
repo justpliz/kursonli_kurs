@@ -31,13 +31,6 @@ defmodule KursonliKursWeb.FallbackController do
     |> redirect(to: "/worker/login")
   end
 
-  def call(conn, {:error, :request_entity_too_large}) do
-    conn
-    |> put_status(413)
-    |> put_view(ErrorView)
-    |> render("413.html")
-  end
-
   def call(conn, error) do
     Logger.warn("error_with_no_handler: #{inspect(error)}")
 

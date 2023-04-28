@@ -8,9 +8,6 @@ defmodule KursonliKurs.Model.Course do
 
   @type t :: %__MODULE__{}
   @primary_key {:id, :binary_id, autogenerate: true}
-  # Определение составного уникального ключа на полях `currency_id` и `filial_id`
-  @unique_constraint {:index_currency_filial, [:currency_id, :filial_id], name: :index_currency_filial, unique: true}
-
 
   @timestamps_opts [type: :utc_datetime]
   @required_fields ~w(currency_id filial_id date buy sale)a

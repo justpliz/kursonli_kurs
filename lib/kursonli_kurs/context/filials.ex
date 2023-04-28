@@ -29,6 +29,16 @@ defmodule KursonliKurs.Context.Filials do
   end
 
   @doc false
+  def get_with_setting(opts \\ []) do
+    Filial
+    |> filter_by(opts)
+    |> Cities.get_city_name()
+    |> Settings.get_setting()
+    |> IO.inspect()
+    |> Repo.one()
+  end
+
+  @doc false
   def all(opts \\ []) do
     Filial
     |> filter_by(opts)
@@ -68,13 +78,16 @@ defmodule KursonliKurs.Context.Filials do
   @doc """
   Создание связки филиал-сотрудник-настройки.
   """
-  def create_filial_worker_setting(filial_opts, worker_opts, slug) do
-    with {:ok, filial} <- Filials.create(filial_opts),
-         worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
-         {:ok, _worker} <- Workers.create(worker_opts),
-         {:ok, _setting} <- Settings.create(%{filial_id: filial.id, slug: slug}) do
-      {:ok, filial}
-    end
+  def create_filial_worker_setting(filial_opts, worker_opts, setting_opts) do
+      with {:ok, filial} <- Filials.create(filial_opts),
+           worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
+           {:ok, _worker} <- Workers.create(worker_opts),
+           setting_opts <- Map.put(setting_opts, :filial_id, filial.id),
+           {:ok, _setting} <- Settings.create(setting_opts) do
+        {:ok, filial}
+      else
+        {:error, reason} -> {:error, reason}
+      end
   end
 
   @doc """

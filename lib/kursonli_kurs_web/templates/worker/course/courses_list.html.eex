@@ -91,7 +91,7 @@
   </div>
   <%= if !Enum.empty?(@not_mine_currencies_list) do %>
     <div class="label_input pos text-lg">
-      <%= gettext("Неиспользуемые валюты") %>
+      <%= gettext("Выберите валюту:") %>
     </div>
     <%= form_for @conn, Routes.course_path(@conn, :add_course), [multipart: true], fn f -> %>
     <div class="flex gap-8 flex-wrap">
@@ -109,9 +109,11 @@
 <% end %>
 </div>
 <% else %>
-  <%= render(KursonliKursWeb.WorkerView, "notification_service_access.html", conn: @conn, instructions: @instructions) %>
+  <!-- Объявление о неуплате тарифа -->
+  <%= render(KursonliKursWeb.Worker.AuthView, "notification_service_access.html", conn: @conn, instructions: @instructions) %>
 <% end %>
-<%= if not is_nil(@expiration), do: render(KursonliKursWeb.WorkerView, "notification_expiration.html", conn: @conn, expiration: @expiration) %>
+<!-- Объявление о скором окончании тарифа -->
+<%= if not is_nil(@expiration), do: render(KursonliKursWeb.Worker.AuthView, "notification_expiration.html", conn: @conn, expiration: @expiration) %>
 <script>
   $(".accept_delete_course").click(function (e) {
     e.preventDefault()
@@ -129,7 +131,7 @@
                 <div class="text-left my-4">
                     <%= gettext("Это действие необратимо. Вы действительно хотите удалить этот курс?") %>
                 </div>
-                <a href="/worker/delete_course?id=${course_id}" class="btn_save my-2 pos w-fit" type="submit">
+                <a href="/worker/course/delete?id=${course_id}" class="btn_save my-2 pos w-fit" type="submit">
                     <%= gettext("Удалить") %>
                 </a>
             </div>

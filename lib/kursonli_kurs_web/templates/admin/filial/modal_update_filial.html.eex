@@ -1,6 +1,6 @@
 <script>
   $(".filial_edit").click(function () {
-    const { id, filial_name, email, coordinates, firm_id, slug, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
+    const { id, filial_name, email, coordinates, firm_id, slug, url, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
     console.log(city_id)
     Modalka.fire({
       showConfirmButton: false,
@@ -44,6 +44,9 @@
 
               <label class="label_input pos">Субдомен(только на английском)</label>
               <%= text_input f, :slug, class: "input_full eng_text_only", value: "${slug}", required: "true" %>
+
+              <label class="label_input pos">URL(только на английском)</label>
+              <%= text_input f, :url, class: "input_full eng_text_only", value: "${url}", required: "true" %>
 
               <label class="label_input pos" for="city_id">Город</label>
               <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${city_name}", required: "true" %>
