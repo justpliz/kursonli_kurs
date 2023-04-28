@@ -110,7 +110,7 @@ defmodule KursonliKurs.Context.Courses do
     Repo.all(
       from f in Filial,
         where: f.city_id == ^city_id and f.filial_active_status == :active,
-        left_join: s in Setting,
+        join: s in Setting,
         on: s.filial_id == f.id and s.visible_course_status == true,
         join: org in Organization,
         on: org.id == f.organization_id,
@@ -147,7 +147,7 @@ defmodule KursonliKurs.Context.Courses do
       }
     )
     # |> ensure_srapped_diapason
-    |> Enum.sort_by(& &1.date, {:desc, NaiveDateTime})
+    # |> Enum.sort_by(& &1.date, {:desc, NaiveDateTime})
   end
 
   # Добавление в мапу course флагов для отображения лучшего курса

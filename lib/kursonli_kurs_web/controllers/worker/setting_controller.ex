@@ -75,9 +75,10 @@ defmodule KursonliKursWeb.Worker.SettingController do
 
     visible_website_status = params["visible_website_status"]
 
+    address = params["address"]
+
     filial_opts = %{
-      name: params["filial_name"],
-      address: params["address"]
+      name: params["filial_name"]
     }
 
     opts = %{
@@ -92,6 +93,7 @@ defmodule KursonliKursWeb.Worker.SettingController do
       description: params["description"],
       tags: tags,
       promo: promo,
+      address: address,
       visible_website_status: visible_website_status
     }
 
