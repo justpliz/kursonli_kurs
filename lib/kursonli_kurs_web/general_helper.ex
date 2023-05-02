@@ -56,45 +56,31 @@ defmodule KursonliKursWeb.GeneralHelper do
     |> Enum.map(fn x -> Atom.to_string(x) end)
   end
 
-  def date_to_string_data(date), do: Timex.format!(date, "{0D}.{0M}.{YYYY}")
+  @doc false
+  def date_to_data(date), do: Timex.format!(date, "{0D}.{0M}.{YYYY}")
 
-  def date_to_string_data_all(date), do: Timex.format!(date, "{YYYY}-{0M}-{0D} {h24}:{m}:{s}")
+  @doc false
+  def date_to_time(date), do: Timex.format!(date, "{h24}:{m}:{s}")
 
-  def date_to_string_time(date), do: Timex.format!(date, "{h24}:{m}:{s}")
-  def date_to_string_time_h(date), do: Timex.format!(date, "{h24}")
-  def date_to_string_time_m(date), do: Timex.format!(date, "{m}")
-  def date_to_string_time_s(date), do: Timex.format!(date, "{s}")
+  @doc false
+  def date_to_datatime(date), do: Timex.format!(date, "{YYYY}-{0M}-{0D} {h24}:{m}:{s}")
 
-  def date_to_string_time_personal(date),
+  @doc false
+  def date_to_hour(date), do: Timex.format!(date, "{h24}")
+
+  @doc false
+  def date_to_minute(date), do: Timex.format!(date, "{m}")
+
+  @doc false
+  def date_to_second(date), do: Timex.format!(date, "{s}")
+
+  @doc """
+  Форматирует время с русскоязычным названием месяца
+  """
+  def date_to_datetime_rus(date),
     do: Timex.format!(date, "{0D} #{month_translate_ru(date.month)} {YYYY} {h24}:{m}")
 
-  def date_to_string_all(date),
-    do: "#{date.year}-#{date.month}-#{date.day} #{date.hour}:#{date.minute}:#{date.second}"
-
-  def get_image_path(nil, type, filial_id) do
-    {:ok, setting} = KursonliKurs.Context.Settings.do_get(filial_id: filial_id)
-
-    case type do
-      :logo -> setting.logo
-      :photo -> setting.photo
-    end
-  end
-
-  def get_image_path(upload, type, _filial_id) do
-    new_path =
-      case type do
-        :logo -> Path.expand("priv/static/images/logo/#{upload.filename}")
-        :photo -> Path.expand("priv/static/images/photo/#{upload.filename}")
-      end
-
-    File.cp(upload.path, new_path)
-
-    case type do
-      :logo -> "images/logo/#{upload.filename}"
-      :photo -> "images/photo/#{upload.filename}"
-    end
-  end
-
+  @doc false
   def normalize_order_type(type, opts) do
     case opts do
       :single ->
@@ -105,6 +91,7 @@ defmodule KursonliKursWeb.GeneralHelper do
     end
   end
 
+  @doc false
   def normalize_status_trade(type) do
     case type do
       :active -> gettext("Активная")
@@ -113,10 +100,16 @@ defmodule KursonliKursWeb.GeneralHelper do
     end
   end
 
+  @doc """
+  Конкатенирует два uuid. Сначала меньший, потом больший.
+  """
   def compare_workers_id(worker1, worker2) do
     if worker1 > worker2, do: worker2 <> worker1, else: worker1 <> worker2
   end
 
+  @doc """
+  
+  """
   def find_value_by_short_name(course, key_order \\ :buy, short_name \\ "EUR") do
     course
     |> Enum.filter(fn x -> x.short_name == short_name end)
@@ -126,6 +119,7 @@ defmodule KursonliKursWeb.GeneralHelper do
     end)
   end
 
+  ################################################################################################################
   @doc """
   Modify UTC DateTime to display
   Получение строки с описанием сколько времни прошло с момента date для GMT+6.
@@ -133,6 +127,7 @@ defmodule KursonliKursWeb.GeneralHelper do
   def humanizated_date(date) when is_map(date),
     do: hum_date(Timex.diff(Timex.shift(Timex.now(), hours: 6), date, :second))
 
+  # Заменяет date = "-", если на входе не мапа
   def humanizated_date(_date), do: "-"
 
   # Обработка разницы менее минуты
@@ -169,6 +164,8 @@ defmodule KursonliKursWeb.GeneralHelper do
   # Обработка разницы более суток
   defp hum_date(d) when d > 24 * 60 * 60, do: gettext("Больше суток назад")
 
+  ################################################################################################################
+
   # Получения названия месяца на русском по его номеру
   defp month_translate_ru(month) do
     case month do
@@ -187,6 +184,10 @@ defmodule KursonliKursWeb.GeneralHelper do
     end
   end
 
+  @doc """
+  Возвращает true если телефон существует и отображает его на странице.
+  В противном случае возвращает false
+  """
   def if_phones_nil(phone) do
     Enum.map(phone, fn {key, value} ->
       cond do

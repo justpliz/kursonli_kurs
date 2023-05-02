@@ -18,7 +18,7 @@ defmodule KursonliKursWeb.Worker.TradeController do
       |> Map.delete("item_order")
       |> Map.put(
         "item_order",
-        Map.put(item_map, "date", date_to_string_time(Timex.now("Asia/Almaty")))
+        Map.put(item_map, "date", date_to_time(Timex.now("Asia/Almaty")))
       )
 
     with {:ok, item} <- Trades.create(params) do

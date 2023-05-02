@@ -40,7 +40,6 @@ defmodule KursonliKursWeb.Worker.AuthController do
     case Workers.do_get(opts) do
       {:ok, worker} ->
         filial = Filials.get_with_setting(id: worker.filial_id)
-        IO.inspect(filial.setting.address, label: "KEEK")
 
         # проверка активного статуса филиала сотрудника
         case filial.filial_active_status do

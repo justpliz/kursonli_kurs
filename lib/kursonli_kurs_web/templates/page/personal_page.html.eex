@@ -90,7 +90,7 @@
       <div class="scoreboard bg-blub p-6 text-white rounded-xl">
         <div class="text-center">
           <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
-          <div class="text-sm">на <%= KursonliKursWeb.GeneralHelper.date_to_string_time_personal(hd(@courses_list).date)
+          <div class="text-sm">на <%= KursonliKursWeb.GeneralHelper.date_to_datetime_rus(hd(@courses_list).date)
               %>
           </div>
           <div class="grid_con md:w-full">

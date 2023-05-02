@@ -43,8 +43,8 @@ defmodule KursonliKursWeb.Worker.SettingController do
   """
   def update_setting(conn, params) do
     filial_id = get_session(conn, :worker).filial_id
-    logo = get_image_path(params["logo"], :logo, filial_id)
-    photo = get_image_path(params["photo"], :photo, filial_id)
+    logo = Settings.get_image_path(params["logo"], :logo, filial_id)
+    photo = Settings.get_image_path(params["photo"], :photo, filial_id)
 
     colors = %{
       "color_currency" => params["color_currency"],

@@ -59,7 +59,7 @@
             <div class="-mt-1 font-normal">
               Курсы валют в обменных пунктах на
               <span class="font-bold">
-                <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
+                <%= KursonliKursWeb.GeneralHelper.date_to_data(Timex.now) %>
               </span>
             </div>
           </div>

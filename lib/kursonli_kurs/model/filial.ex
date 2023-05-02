@@ -20,7 +20,7 @@ defmodule KursonliKurs.Model.Filial do
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @timestamps_opts [type: :utc_datetime]
-  @required_fields ~w(name city_id organization_id)a
+  @required_fields ~w(name city_id organization_id filial_active_status)a
   @optional_fields ~w(paid_up_to tariff_id)a
 
   schema "filials" do

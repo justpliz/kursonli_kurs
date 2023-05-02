@@ -4,7 +4,7 @@ defmodule KursonliKurs.Context.Cities do
   """
   use KursonliKurs.Context
 
-  alias KursonliKurs.Model.{City, Worker, Filial}
+  alias KursonliKurs.Model.{City, Worker, Filial, Setting}
   alias KursonliKurs.Context.Cities
 
   require Logger
@@ -38,6 +38,7 @@ defmodule KursonliKurs.Context.Cities do
   """
   def delete(city_id) do
     city = Cities.get(id: city_id)
+
     try do
       Repo.delete(city)
     rescue
@@ -69,7 +70,7 @@ defmodule KursonliKurs.Context.Cities do
   end
 
   @doc """
-  Получение всех сотрудников города(City_id).
+  Получение всех сотрудников города(сity_id).
   """
   def get_all_users_by_city(city_id) do
     from(
@@ -83,7 +84,7 @@ defmodule KursonliKurs.Context.Cities do
         filial_name: f.name
       }
     )
-    |> Repo.all
+    |> Repo.all()
   end
 
   @doc """
@@ -98,5 +99,20 @@ defmodule KursonliKurs.Context.Cities do
       select: %{name: city.name, eng_name: city.eng_name}
     )
     |> Repo.one()
+  end
+
+  @doc """
+  Количество активных филиалов города(city_id) у которых активна функция отображения.
+  """
+  def get_count_cities(city_id) do
+    from(
+      c in City,
+      where: c.id == ^city_id,
+      join: f in Filial,
+      on: f.city_id == c.id and f.filial_active_status == :active,
+      join: s in Setting,
+      on: s.filial_id == f.id and s.visible_course_status == true
+    )
+    |> Repo.aggregate(:count)
   end
 end

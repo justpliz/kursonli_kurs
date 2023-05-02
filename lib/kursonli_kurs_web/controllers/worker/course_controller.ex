@@ -66,8 +66,8 @@ defmodule KursonliKursWeb.Worker.CourseController do
         visible_course_status
       end
 
-    # Обновление курсов филиала
-    # TODO: Переделать функцию(сложно читать)
+    # Обновление курсов филиала.
+    # TODO: Переделать функцию(сложно читать).
     params
     |> Map.drop(["_csrf_token", "change_all_filials", "visible_course_status"])
     |> Enum.map(fn {k, v} -> {String.split(k, "|"), v} end)
@@ -78,8 +78,9 @@ defmodule KursonliKursWeb.Worker.CourseController do
       update_one_course(id, course, session.filial_id, change_all_filials)
     end)
 
-    {:ok, filial} = Filials.do_get(id: session.filial_id)
-    {:ok, _filial} = Filials.update(filial, %{visible_course_status: visible_course_status})
+    # Изменение функции "Сделать видимым".
+    {:ok, setting} = Settings.do_get(filial_id: session.filial_id)
+    {:ok, _filial} = Settings.update(setting, %{visible_course_status: visible_course_status})
 
     conn
     |> put_flash(:info, gettext("Курсы успешно обновлены"))
@@ -135,7 +136,7 @@ defmodule KursonliKursWeb.Worker.CourseController do
     end
   end
 
-  # Обновление курсов одного филиала
+  # Обновление курсов одного филиала.
   defp update_one_course(course_id, course, filial_id, change_all_filials) do
     opts = %{
       sale: course["sale"] |> rounding_str,
@@ -143,7 +144,7 @@ defmodule KursonliKursWeb.Worker.CourseController do
       date: Timex.now("Asia/Almaty")
     }
 
-    # Проверка на наличлие флага "Изменить курсы у всех филиалов"
+    # Проверка на наличлие флага "Изменить курсы у всех филиалов".
     case change_all_filials do
       true ->
         {:ok, filial} = Filials.do_get(id: filial_id)
@@ -168,6 +169,6 @@ defmodule KursonliKursWeb.Worker.CourseController do
       |> Enum.sort_by(& &1, {:asc, Date})
       |> hd
 
-    if not is_nil(last_date), do: GeneralHelper.date_to_string_data_all(last_date), else: ""
+    if not is_nil(last_date), do: GeneralHelper.date_to_datatime(last_date), else: ""
   end
 end

@@ -139,15 +139,15 @@ defmodule KursonliKurs.Context.Courses do
         address: &1.setting.address,
         filial_name: &1.filial.name,
         date: hd(&1.filial.course).date,
-        date_h: GeneralHelper.date_to_string_time_h(hd(&1.filial.course).date),
-        date_m: GeneralHelper.date_to_string_time_m(hd(&1.filial.course).date),
-        date_s: GeneralHelper.date_to_string_time_s(hd(&1.filial.course).date),
+        date_h: GeneralHelper.date_to_hour(hd(&1.filial.course).date),
+        date_m: GeneralHelper.date_to_minute(hd(&1.filial.course).date),
+        date_s: GeneralHelper.date_to_second(hd(&1.filial.course).date),
         humanizated_date: GeneralHelper.humanizated_date(hd(&1.filial.course).date),
         first_letter: &1.filial.name |> String.trim() |> String.first() |> String.upcase()
       }
     )
     # |> ensure_srapped_diapason
-    # |> Enum.sort_by(& &1.date, {:desc, NaiveDateTime})
+    |> Enum.sort_by(& &1.date, {:desc, NaiveDateTime})
   end
 
   # Добавление в мапу course флагов для отображения лучшего курса

@@ -34,7 +34,6 @@ defmodule KursonliKurs.Context.Filials do
     |> filter_by(opts)
     |> Cities.get_city_name()
     |> Settings.get_setting()
-    |> IO.inspect()
     |> Repo.one()
   end
 

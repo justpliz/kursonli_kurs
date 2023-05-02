@@ -82,8 +82,8 @@ defmodule KursonliKursWeb.Admin.FilialController do
         "archive" -> "active"
       end
 
-    with {:ok, filial} <- Filials.do_get(id: id),
-         {:ok, filial} <- Filials.update(filial, %{filial_active_status: status}) do
+    with {:ok, filial} <- Filials.do_get(id: id) |> IO.inspect(),
+         {:ok, filial} <- Filials.update(filial, %{filial_active_status: status}) |> IO.inspect() do
       conn
       |> put_flash(:info, "Статус #{filial.name} успешно обновлен")
       |> redirect(to: "/admin/filial")

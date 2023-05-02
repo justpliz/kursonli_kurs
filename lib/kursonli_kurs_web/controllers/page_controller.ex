@@ -70,18 +70,9 @@ defmodule KursonliKursWeb.PageController do
   end
 
   # Список городов с количеством актвных филиалов
-  defp get_count_city_with_active_filials() do
+  def get_count_city_with_active_filials() do
     Cities.all()
-    |> Enum.map(fn city ->
-      count =
-        Filials.count(
-          city_id: city.id,
-          filial_active_status: :active
-          # visible_course_status: true
-        )
-
-      %{name: city.name, count: count, eng_name: city.eng_name}
-    end)
+    |> Enum.map(&(Map.put(&1, :count, Cities.get_count_cities(&1.id))))
     |> Enum.sort_by(& &1.count, :desc)
     |> Enum.sort_by(&(&1.name == "Алматы"), :desc)
   end
