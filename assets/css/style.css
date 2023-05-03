@@ -12,9 +12,9 @@
 
 html,
 body {
-  height: 100%;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 body {
@@ -29,9 +29,6 @@ body {
 
 .font {
   font-family: 'Inter', sans-serif;
-  /* min-height: 100%;
-  display: flex;
-  flex-direction: column; */
 }
 
 ::selection {

@@ -1,4 +1,4 @@
-<div class="font">
+<div class="font flex flex-col min-h-screen">
   <header class="bg-dblue w-full md:px-2">
     <div class="max-w-1200 mx-auto py-4">
       <div class="flex justify-between items-center md:flex-col md:gap-2">
@@ -13,7 +13,7 @@
       </div>
     </div>
   </header>
-  <div class="max-w-1200 mx-auto bg-indexGray pt-4 md:mx-1">
+  <div class="max-w-1200 w-full mx-auto bg-indexGray pt-4 md:mx-1 flex-1-0">
     <div class="flex md:flex-col mob:px-2 justify-between items-center">
       <div class="flex flex-wrap gap-2 md:mb-2">
         <%= for item <- @city_list do %>
@@ -142,7 +142,7 @@
           <tbody class="text-center data-table">
             <%= for item <- @courses_list do %>
               <tr class="bg-white border-spacing-y-2 border-separate" data-id="<%= item.filial_id %>"
-                data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
+                  data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
                 <th scope="row" class="px-4 py-4 bg-white rounded-2xl text-left md:px-2 md:py-1">
                   <%= if item.setting.visible_website_status==true do %>
                   <%= case item.setting.link do %>
@@ -154,12 +154,13 @@
                         <div class="md:hidden">
                           <%= if item.setting.logo==nil do %>
                             <div class="p-3 text-center text-2xl bg-green-400 text-white rounded-full w-14 h-14"
-                              style="background-color: <%= item.setting.color_logo %> !important;">
+                                style="background-color: <%= item.setting.color_logo %> !important;">
                               <%= item.first_letter %>
                             </div>
                           <% else %>
                             <div class="w-14 h-14">
-                              <img src="<%= item.setting.logo %>" alt="" class="rounded-full bg-cover h-full w-full">
+                              <img src="<%= item.setting.logo %>" alt=""
+                                    class="rounded-full bg-cover h-full w-full">
                             </div>
                           <% end %>
                         </div>
@@ -195,7 +196,7 @@
                           <%= if String.to_atom(wholesale_rate) do %>
                             <div class="mt-2 inline-block mb:block md:ml-4 md:mt-1">
                               <span
-                                    class="bg-indexGreen whitespace-nowrap rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
+                                      class="bg-indexGreen whitespace-nowrap rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
                                 Оптовый курс
                               </span>
                             </div>
@@ -203,7 +204,7 @@
                           <%= if String.to_atom(gold) do %>
                             <div class="mt-2 inline-block mb:block md:ml-4">
                               <span
-                                        class="bg-indexYellow rounded-full font-normal text-xs text-black px-4 py-1">
+                                          class="bg-indexYellow rounded-full font-normal text-xs text-black px-4 py-1">
                                 Золото
                               </span>
                             </div>
@@ -223,19 +224,19 @@
                         <%= if item.setting.logo==nil do %>
                           <%= if item.setting.color_logo !="" do %>
                             <div class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14"
-                                style="background-color: <%= item.setting.color_logo %> !important;">
+                                  style="background-color: <%= item.setting.color_logo %> !important;">
                               <%= item.first_letter %>
                             </div>
                           <% else %>
                             <div
-                                  class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14 md:hidden">
+                                    class="p-3 text-center text-2xl bg-black text-white rounded-full w-14 h-14 md:hidden">
                               <%= item.first_letter %>
                             </div>
                           <% end %>
                         <% else %>
                           <div class="w-14 h-14 md:hidden">
                             <img src="<%= item.setting.logo %>" alt=""
-                                        class="rounded-full bg-cover h-full w-full">
+                                          class="rounded-full bg-cover h-full w-full">
                           </div>
                         <% end %>
                       </div>
@@ -271,7 +272,7 @@
                         <%= if String.to_atom(wholesale_rate) do %>
                           <div class="mt-2 inline-block mb:block">
                             <span
-                                    class="bg-indexGreen rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
+                                      class="bg-indexGreen rounded-full font-normal text-xs mr-1 text-white px-4 py-1">
                               Оптовый курс
                             </span>
                           </div>
@@ -279,7 +280,7 @@
                         <%= if String.to_atom(gold) do %>
                           <div class="mt-2 inline-block mb:block">
                             <span
-                                        class="bg-indexYellow rounded-full font-normal text-xs text-black px-4 py-1">
+                                          class="bg-indexYellow rounded-full font-normal text-xs text-black px-4 py-1">
                               Золото
                             </span>
                           </div>
@@ -309,11 +310,11 @@
                   </div>
                 </td>
                 <% buy=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:buy,
-                  "USD") %>
+                    "USD") %>
                 <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:sale, "USD")
-                    %>
+                      %>
                 <td class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item md:rounded-xl"
-                      data-select="1">
+                        data-select="1">
                   <div class="md:flex md:flex-col md:gap-6">
                     <div class="md:text-sm">
                       <span class="buy">
@@ -331,7 +332,8 @@
                       <div class="text-xs font-bold flex justify-center gap-1">
                         <img src="/images/icons/clock_index.svg" alt="clock">
                         <div>
-                          <%= item.date_h %>:<%= item.date_m %><span class="font-normal">:<%= item.date_s %></span>
+                          <%= item.date_h %>:<%= item.date_m %><span class="font-normal">:<%= item.date_s %>
+                          </span>
                         </div>
                       </div>
                       <div class="text-small">
@@ -341,12 +343,12 @@
                   </div>
                 </td>
                 <% buy=item.course |>
-                      KursonliKursWeb.GeneralHelper.find_value_by_short_name(:buy, "EUR") %>
+                        KursonliKursWeb.GeneralHelper.find_value_by_short_name(:buy, "EUR") %>
                 <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:sale,
-                        "EUR") %>
+                          "EUR") %>
                 <td
-                          class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item lg:rounded-2xl md:hidden"
-                          data-select="2">
+                            class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item lg:rounded-2xl md:hidden"
+                            data-select="2">
                   <span class="buy">
                     <%= buy %>
                   </span>
@@ -356,12 +358,12 @@
                   </span>
                 </td>
                 <% buy=item.course |>
-                          KursonliKursWeb.GeneralHelper.find_value_by_short_name(:buy, "RUB") %>
+                            KursonliKursWeb.GeneralHelper.find_value_by_short_name(:buy, "RUB") %>
                 <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:sale,
-                            "RUB") %>
+                              "RUB") %>
                 <td
-                              class="px-4 py-4 font-bold text-base bg-white rounded-r-2xl dataget item lg:hidden md:hidden"
-                              data-select="3">
+                                class="px-4 py-4 font-bold text-base bg-white rounded-r-2xl dataget item lg:hidden md:hidden"
+                                data-select="3">
                   <span class="buy">
                     <%= buy %>
                   </span>
@@ -380,6 +382,18 @@
     <% end %>
     <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!() %>"></div>
   </div>
+  <footer class="bg-dblue w-full md:px-2 flex-0-0">
+    <div class="max-w-1200 mx-auto py-4">
+      <div class="flex justify-between items-center md:flex-col md:gap-2">
+        <a href="/" class="w-20">
+          <img src="/images/assoc.png" alt="logo">
+        </a>
+        <div class="relative text-white">
+          © 2023 Совместное правообладание с Ассоциацией обменных пунктов. Все права защищены.
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
