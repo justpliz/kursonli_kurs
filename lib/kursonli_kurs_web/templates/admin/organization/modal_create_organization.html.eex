@@ -4,6 +4,33 @@
       showConfirmButton: false,
       showCloseButton: true,
       heightAuto: false,
+      willOpen: () => {
+        let select = document.querySelector('.select_slug');
+        let slugDiv = document.querySelector('.slug');
+        let urlDiv = document.querySelector('.url');
+
+        select.addEventListener('change', function () {
+          const selectedValue = select.value;
+          slugDiv.classList.add('hidden');
+          urlDiv.classList.add('hidden');
+
+          if (selectedValue === 'slug') {
+            slugDiv.classList.remove('hidden');
+          } else if (selectedValue === 'url') {
+            urlDiv.classList.remove('hidden');
+          }
+        });
+
+        function inputEng() {
+          var input = [...document.querySelectorAll(".eng_text_only")];
+          input.forEach((el) => {
+            el.addEventListener("input", (e) => {
+              e.currentTarget.value = e.currentTarget.value.replace(/[^a-zA-Z0-9\s.,!?_\-+=@#$%&/:;]/g, "");
+            });
+          });
+        }
+        inputEng();
+      },
       html: `
         <h1 class="title pos">Создание организации</h1>
         <%= form_for @conn, Routes.organization_path(@conn, :create_organization), [multipart: true], fn f -> %>
@@ -33,13 +60,22 @@
             </div>
 
             <div class="mb-2">
-              <label class="label_input pos">Субдомен(только на английском)</label>
-              <%= text_input f, :slug, class: "input_full eng_text_only", required: "true", placeholder: "mer-nur" %>
+              <label class="label_input pos">Выбор для указания субдомена</label>
+              <select class="input_full select_slug" required>
+                <option value="" disabled selected>--выбрать тип субдомена--</option>
+                <option value="slug">Субдомен</option>
+                <option value="url">Ссылка</option>
+              </select>
             </div>
 
-            <div class="mb-2">
+            <div class="mb-2 hidden slug">
+              <label class="label_input pos">Субдомен(только на английском)</label>
+              <%= text_input f, :slug, class: "input_full eng_text_only" , required: "true" , placeholder: "mer-nur" %>
+            </div>
+
+            <div class="mb-2 hidden url">
               <label class="label_input pos">URL(только на английском)</label>
-              <%= text_input f, :url, class: "input_full eng_text_only", required: "true", placeholder: "https://kurs1.kz" %>
+              <%= text_input f, :url, class: "input_full eng_text_only" , required: "true" , placeholder: "https://kurs1.kz" %>
             </div>
 
             <div class="mb-2">

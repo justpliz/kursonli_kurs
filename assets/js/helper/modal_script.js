@@ -93,14 +93,31 @@ window.Modalka = Swal.mixin({
          });
       }
 
-      const validateInput = document.querySelector('.eng_text_only');
-
-      if (validateInput !== null) {
-         validateInput.addEventListener('input', function (e) {
-            const input = e.target.value;
-            let validInput = input.replace(/([А-Яа-я])/g, '');
-            e.target.value = validInput;
+      function inputEng() {
+         var input = [...document.querySelectorAll(".eng_text_only")];
+         input.forEach((el) => {
+            el.addEventListener("input", (e) => {
+               e.currentTarget.value = e.currentTarget.value.replace(/[^a-zA-Z0-9\s.,!?_\-+=@#$%&/:;]/g, "");
+            });
          });
       }
+      inputEng();
+
+
+      // let select = document.querySelector('.select_slug');
+      // let slugDiv = document.querySelector('.slug');
+      // let urlDiv = document.querySelector('.url');
+
+      // select.addEventListener('change', function () {
+      //    const selectedValue = select.value;
+      //    slugDiv.classList.add('hidden');
+      //    urlDiv.classList.add('hidden');
+
+      //    if (selectedValue === 'slug') {
+      //       slugDiv.classList.remove('hidden');
+      //    } else if (selectedValue === 'url') {
+      //       urlDiv.classList.remove('hidden');
+      //    }
+      // });
    }
 })
