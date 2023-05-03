@@ -381,7 +381,6 @@
     <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!() %>"></div>
   </div>
 </div>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const elements = [...document.querySelectorAll("[data-id]")]
