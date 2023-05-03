@@ -125,8 +125,10 @@ defmodule KursonliKurs.Context.Courses do
             promo: s.promo,
             visible_website_status: s.visible_website_status,
             address: s.address,
+            link: s.link,
             logo: s.logo,
             slug: s.slug,
+            url: s.url,
             color_logo: s.colors["color_logo"]
           }
         }

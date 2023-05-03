@@ -60,7 +60,7 @@
 
               <div class="mb-2">
                 <label class="label_input pos">Выбор для указания субдомена</label>
-                <select class="input_full select_slug" required>
+                <select name="link" class="input_full select_slug" >
                   <option value="" disabled selected>--выбрать тип субдомена--</option>
                   <option value="slug">Субдомен</option>
                   <option value="url">Ссылка</option>
@@ -69,12 +69,12 @@
 
               <div class="mb-2 hidden slug">
                 <label class="label_input pos">Субдомен(только на английском)</label>
-                <%= text_input f, :slug, class: "input_full eng_text_only", value: "${slug}", required: "true" %>
+                <%= text_input f, :slug, class: "input_full eng_text_only", placeholder: "mer-nur" %>
               </div>
 
               <div class="mb-2 hidden url">
                 <label class="label_input pos">URL(только на английском)</label>
-                <%= text_input f, :url, class: "input_full eng_text_only", value: "${url}", required: "true" %>
+                <%= text_input f, :url, class: "input_full eng_text_only", placeholder: "https://kurs1.kz" %>
               </div>
 
               <label class="label_input pos" for="city_id">Город</label>

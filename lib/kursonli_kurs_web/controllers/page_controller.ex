@@ -44,9 +44,12 @@ defmodule KursonliKursWeb.PageController do
   @doc """
   Персональная страница филиала
   """
-  def personal_page(conn, %{"filial" => slug}) do
-    with {:ok, setting} <- Settings.do_get(slug: slug),
-         {:ok, filial} <- Filials.do_get(id: setting.filial_id) do
+  def personal_page(conn, params) do
+    # TODO: Пересмотреть способ определения slug/filial_id.
+    filial_id = params["id"]
+    slug = params["filial"]
+    {:ok, setting} = if is_nil(filial_id), do: Settings.do_get(slug: slug), else: Settings.do_get(filial_id: filial_id)
+    with  {:ok, filial} <- Filials.do_get(id: setting.filial_id) do
       setting = setting |> PwHelper.Normalize.repo()
       courses_list = Courses.get_courses_list_by_filial_id(filial.id)
       [x_coord, y_coord] = setting.coordinates
