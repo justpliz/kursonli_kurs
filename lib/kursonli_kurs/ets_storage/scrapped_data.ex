@@ -45,8 +45,8 @@ defmodule KursonliKurs.EtsStorage.ScrappedData do
     eur = :ets.lookup(:scrapped_data, "EUR")
     rub = :ets.lookup(:scrapped_data, "RUB")
     usd = if Enum.empty?(usd), do: "-", else: usd |> hd |> Tuple.to_list()
-    eur = if Enum.empty?(eur), do: "-", else: usd |> hd |> Tuple.to_list()
-    rub = if Enum.empty?(rub), do: "-", else: usd |> hd |> Tuple.to_list()
+    eur = if Enum.empty?(eur), do: "-", else: eur |> hd |> Tuple.to_list()
+    rub = if Enum.empty?(rub), do: "-", else: rub |> hd |> Tuple.to_list()
 
     [usd, eur, rub]
   end
