@@ -50,9 +50,12 @@ defmodule KursonliKursWeb.Admin.FilialController do
       password: hash_str(password)
     }
 
+    link = if is_nil(params["link"]), do: "filial_id", else: params["link"]
+
     setting_opts = %{
       slug: String.downcase(params["slug"]),
       url: String.downcase(params["url"]),
+      link: link,
       address: params["address"]
     }
 
@@ -82,8 +85,8 @@ defmodule KursonliKursWeb.Admin.FilialController do
         "archive" -> "active"
       end
 
-    with {:ok, filial} <- Filials.do_get(id: id) |> IO.inspect(),
-         {:ok, filial} <- Filials.update(filial, %{filial_active_status: status}) |> IO.inspect() do
+    with {:ok, filial} <- Filials.do_get(id: id),
+         {:ok, filial} <- Filials.update(filial, %{filial_active_status: status}) do
       conn
       |> put_flash(:info, "Статус #{filial.name} успешно обновлен")
       |> redirect(to: "/admin/filial")
@@ -97,13 +100,18 @@ defmodule KursonliKursWeb.Admin.FilialController do
   def update_filial(conn, %{"id" => id} = params) do
     filial_opts = %{
       name: params["filial_name"],
+      email: params["email"],
       city_id: params["city_id"]
     }
 
+    link = if is_nil(params["link"]), do: "filial_id", else: params["link"]
+
     setting_opts = %{
       coordinates: [params["x_coordinate"], params["y_coordinate"]],
-      address_2gis: params["address_2gis"],
-      firm_id: params["firm_id"]
+      firm_id: params["firm_id"],
+      slug: String.downcase(params["slug"]),
+      url: String.downcase(params["url"]),
+      link: link
     }
 
     with {:ok, filial} <- Filials.do_get(id: id),
