@@ -6,18 +6,34 @@
       showConfirmButton: false,
       showCloseButton: true,
       heightAuto: false,
-      willOpen: (toast) => {
+      willOpen: () => {
         document.querySelector(`option[value="${city_id}"]`).setAttribute("selected", true);
 
-        const validateInput = document.querySelector('.eng_text_only');
+        let select = document.querySelector('.select_slug');
+        let slugDiv = document.querySelector('.slug');
+        let urlDiv = document.querySelector('.url');
 
-        if (validateInput !== null) {
-          validateInput.addEventListener('input', function (e) {
-            const input = e.target.value;
-            let validInput = input.replace(/([А-Яа-я])/g, '');
-            e.target.value = validInput;
+        select.addEventListener('change', function () {
+          const selectedValue = select.value;
+          slugDiv.classList.add('hidden');
+          urlDiv.classList.add('hidden');
+
+          if (selectedValue === 'slug') {
+            slugDiv.classList.remove('hidden');
+          } else if (selectedValue === 'url') {
+            urlDiv.classList.remove('hidden');
+          }
+        });
+
+        function inputEng() {
+          var input = [...document.querySelectorAll(".eng_text_only")];
+          input.forEach((el) => {
+            el.addEventListener("input", (e) => {
+              e.currentTarget.value = e.currentTarget.value.replace(/[^a-zA-Z0-9\s.,!?_\-+=@#$%&/:;]/g, "");
+            });
           });
         }
+        inputEng();
       },
       html: `
           <div class="flex items-center justify-between">
@@ -42,11 +58,24 @@
               <label class="label_input pos" for="firm_id">ID фирмы</label>
               <%= text_input f, :firm_id, class: "input_full", value: "${firm_id}", required: "true" %>
 
-              <label class="label_input pos">Субдомен(только на английском)</label>
-              <%= text_input f, :slug, class: "input_full eng_text_only", value: "${slug}", required: "true" %>
+              <div class="mb-2">
+                <label class="label_input pos">Выбор для указания субдомена</label>
+                <select name="link" class="input_full select_slug" >
+                  <option value="" disabled selected>--выбрать тип субдомена--</option>
+                  <option value="slug">Субдомен</option>
+                  <option value="url">Ссылка</option>
+                </select>
+              </div>
 
-              <label class="label_input pos">URL(только на английском)</label>
-              <%= text_input f, :url, class: "input_full eng_text_only", value: "${url}", required: "true" %>
+              <div class="mb-2 hidden slug">
+                <label class="label_input pos">Субдомен(только на английском)</label>
+                <%= text_input f, :slug, class: "input_full eng_text_only", placeholder: "mer-nur" %>
+              </div>
+
+              <div class="mb-2 hidden url">
+                <label class="label_input pos">URL(только на английском)</label>
+                <%= text_input f, :url, class: "input_full eng_text_only", placeholder: "https://kurs1.kz" %>
+              </div>
 
               <label class="label_input pos" for="city_id">Город</label>
               <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${city_name}", required: "true" %>

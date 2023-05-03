@@ -10,16 +10,9 @@
   scrollbar-color: #3689ce #e5e7eb;
 }
 
-.font_app {
-  font-family: "Mulish", sans-serif;
-}
-
-.font {
-  font-family: 'Inter', sans-serif;
-}
-
 html,
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -28,6 +21,17 @@ body {
   width: 100%;
   min-height: 100%;
   background-color: #fff;
+}
+
+.font_app {
+  font-family: "Mulish", sans-serif;
+}
+
+.font {
+  font-family: 'Inter', sans-serif;
+  /* min-height: 100%;
+  display: flex;
+  flex-direction: column; */
 }
 
 ::selection {

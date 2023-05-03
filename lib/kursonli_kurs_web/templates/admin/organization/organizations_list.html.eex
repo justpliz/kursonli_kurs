@@ -40,7 +40,7 @@
                               <%= item.iin %>
                            </td>
                            <td class="px-6 border-2 border-b-0 border-gray-300">
-                              <%= KursonliKursWeb.GeneralHelper.date_to_string_data(item.inserted_at) %>
+                              <%= KursonliKursWeb.GeneralHelper.date_to_data(item.inserted_at) %>
                            </td>
                            <td class="px-9 border-2 border-b-0 border-gray-300 border-r-0">
                               <button class="accept_delete styles_none"
@@ -89,7 +89,7 @@
                               <%= item.iin %>
                            </td>
                            <td class="px-6 border-2 border-b-0 border-gray-300 border-r-0">
-                              <%= KursonliKursWeb.GeneralHelper.date_to_string_data(item.inserted_at) %>
+                              <%= KursonliKursWeb.GeneralHelper.date_to_data(item.inserted_at) %>
                            </td>
                            <td class="px-9 border-2 border-b-0 border-gray-300 border-r-0">
                               <button class="accept_update styles_none"

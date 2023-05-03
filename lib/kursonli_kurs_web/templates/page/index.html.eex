@@ -59,7 +59,7 @@
             <div class="-mt-1 font-normal">
               Курсы валют в обменных пунктах на
               <span class="font-bold">
-                <%= KursonliKursWeb.GeneralHelper.date_to_string_data(Timex.now) %>
+                <%= KursonliKursWeb.GeneralHelper.date_to_data(Timex.now) %>
               </span>
             </div>
           </div>
@@ -145,7 +145,11 @@
                 data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
                 <th scope="row" class="px-4 py-4 bg-white rounded-2xl text-left md:px-2 md:py-1">
                   <%= if item.setting.visible_website_status==true do %>
-                    <a href="personal?filial=<%= item.setting.slug %>" class="block">
+                  <%= case item.setting.link do %>
+                  <% :slug  -> %> <a href="personal?filial=<%= item.setting.slug %>" class="block">
+                  <% :filial_id  -> %> <a href="personal?id=<%= item.filial_id %>" class="block">
+                  <% :url  -> %> <a href="<%= item.setting.url %>" class="block">
+                  <% end %>
                       <div class="flex gap-4 font-normal md:gap-0">
                         <div class="md:hidden">
                           <%= if item.setting.logo==nil do %>

@@ -50,9 +50,12 @@ defmodule KursonliKursWeb.Admin.FilialController do
       password: hash_str(password)
     }
 
+    link = if is_nil(params["link"]), do: "filial_id", else: params["link"]
+
     setting_opts = %{
       slug: String.downcase(params["slug"]),
       url: String.downcase(params["url"]),
+      link: link,
       address: params["address"]
     }
 
@@ -97,13 +100,18 @@ defmodule KursonliKursWeb.Admin.FilialController do
   def update_filial(conn, %{"id" => id} = params) do
     filial_opts = %{
       name: params["filial_name"],
+      email: params["email"],
       city_id: params["city_id"]
     }
 
+    link = if is_nil(params["link"]), do: "filial_id", else: params["link"]
+
     setting_opts = %{
       coordinates: [params["x_coordinate"], params["y_coordinate"]],
-      address_2gis: params["address_2gis"],
-      firm_id: params["firm_id"]
+      firm_id: params["firm_id"],
+      slug: String.downcase(params["slug"]),
+      url: String.downcase(params["url"]),
+      link: link
     }
 
     with {:ok, filial} <- Filials.do_get(id: id),

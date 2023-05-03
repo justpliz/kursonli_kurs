@@ -110,7 +110,7 @@ defmodule KursonliKurs.Context.Courses do
     Repo.all(
       from f in Filial,
         where: f.city_id == ^city_id and f.filial_active_status == :active,
-        left_join: s in Setting,
+        join: s in Setting,
         on: s.filial_id == f.id and s.visible_course_status == true,
         join: org in Organization,
         on: org.id == f.organization_id,
@@ -125,8 +125,10 @@ defmodule KursonliKurs.Context.Courses do
             promo: s.promo,
             visible_website_status: s.visible_website_status,
             address: s.address,
+            link: s.link,
             logo: s.logo,
             slug: s.slug,
+            url: s.url,
             color_logo: s.colors["color_logo"]
           }
         }
@@ -139,9 +141,9 @@ defmodule KursonliKurs.Context.Courses do
         address: &1.setting.address,
         filial_name: &1.filial.name,
         date: hd(&1.filial.course).date,
-        date_h: GeneralHelper.date_to_string_time_h(hd(&1.filial.course).date),
-        date_m: GeneralHelper.date_to_string_time_m(hd(&1.filial.course).date),
-        date_s: GeneralHelper.date_to_string_time_s(hd(&1.filial.course).date),
+        date_h: GeneralHelper.date_to_hour(hd(&1.filial.course).date),
+        date_m: GeneralHelper.date_to_minute(hd(&1.filial.course).date),
+        date_s: GeneralHelper.date_to_second(hd(&1.filial.course).date),
         humanizated_date: GeneralHelper.humanizated_date(hd(&1.filial.course).date),
         first_letter: &1.filial.name |> String.trim() |> String.first() |> String.upcase()
       }

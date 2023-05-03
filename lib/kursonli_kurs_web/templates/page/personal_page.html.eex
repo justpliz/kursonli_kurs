@@ -90,7 +90,7 @@
       <div class="scoreboard bg-blub p-6 text-white rounded-xl">
         <div class="text-center">
           <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
-          <div class="text-sm">на <%= KursonliKursWeb.GeneralHelper.date_to_string_time_personal(hd(@courses_list).date)
+          <div class="text-sm">на <%= KursonliKursWeb.GeneralHelper.date_to_datetime_rus(hd(@courses_list).date)
               %>
           </div>
           <div class="grid_con md:w-full">
@@ -196,11 +196,11 @@
         <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменного пункта</h2>
         <div class="relative pt-10 flex flex-col">
           <div class="flex pb-4 items-center">
-            <%= if @filial.address !="" do %>
+            <%= if @setting.address !="" do %>
               <span class="material-symbols-outlined pr-4"
                 style="color: #3689ce; font-size: 32px; font-weight: 900;">location_on</span>
               <div class="mb:text-xs">
-                <%= @filial.address %>
+                <%= @setting.address %>
               </div>
               <% end %>
           </div>

@@ -61,7 +61,6 @@ defmodule KursonliKurs.Context.Organizations do
 
       {:ok, _filial} =
         Filials.create_filial_worker_setting(filial_opts, worker_opts, setting_opts)
-
       {:ok, org}
     end)
   end

@@ -26,6 +26,7 @@ import "./order_click";
 import "./click_event";
 import "./helper/search_input";
 import "./helper/number_only";
+import "./helper/eng_only";
 import "./helper/modal_script";
 import "./helper/active_link";
 import "./helper/tabs";
@@ -60,13 +61,3 @@ liveSocket.connect();
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
-
-const validateInput = document.querySelector('.eng_text_only');
-
-if (validateInput !== null) {
-  validateInput.addEventListener('input', function (e) {
-    const input = e.target.value;
-    let validInput = input.replace(/([А-Яа-я])/g, '');
-    e.target.value = validInput;
-  });
-}

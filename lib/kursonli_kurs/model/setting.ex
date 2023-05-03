@@ -10,7 +10,7 @@ defmodule KursonliKurs.Model.Setting do
 
   @timestamps_opts [type: :utc_datetime]
   @required_fields ~w(tags coordinates address email photo logo filial_id visible_website_status visible_course_status)a
-  @optional_fields ~w(phones license qualities description colors slug url firm_id promo)a
+  @optional_fields ~w(phones license qualities description colors slug url firm_id promo link)a
 
   schema "settings" do
     field :address, :string
