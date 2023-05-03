@@ -36,10 +36,18 @@ defmodule KursonliKurs.EtsStorage.ScrappedData do
     end
   end
 
+  @doc """
+  Берет из ETS значения всех валют.
+  Если таких значений нет, заменяет на "-".
+  """
   def get_all() do
-    usd = :ets.lookup(:scrapped_data, "USD") |> hd |> Tuple.to_list()
-    eur = :ets.lookup(:scrapped_data, "EUR") |> hd |> Tuple.to_list()
-    rub = :ets.lookup(:scrapped_data, "RUB") |> hd |> Tuple.to_list()
+    usd = :ets.lookup(:scrapped_data, "USD")
+    eur = :ets.lookup(:scrapped_data, "EUR")
+    rub = :ets.lookup(:scrapped_data, "RUB")
+    usd = if Enum.empty?(usd), do: "-", else: usd |> hd |> Tuple.to_list()
+    eur = if Enum.empty?(eur), do: "-", else: usd |> hd |> Tuple.to_list()
+    rub = if Enum.empty?(rub), do: "-", else: usd |> hd |> Tuple.to_list()
+
     [usd, eur, rub]
   end
 end

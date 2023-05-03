@@ -20,7 +20,9 @@ defmodule KursonliKurs.Process.Scrapped do
 
   # Парсинг значений курсов с "https://mig.kz/"
   def scraping() do
-    with {:ok, response} = Application.get_env(:kursonli_kurs, :scrapped) |> HTTPoison.get() do
+    url = Application.get_env(:kursonli_kurs, :scrapped)
+
+    with {:ok, response} <- HTTPoison.get(url) do
       # Выборка значений покупки
       [usd_buy, eur_buy, rub_buy, _, _, _, _] =
         Regex.scan(~r/<td .+"buy .+">.+<\/td>/, response.body)
@@ -39,6 +41,7 @@ defmodule KursonliKurs.Process.Scrapped do
       {eur_buy, eur_sale} = normalize_currency(eur_buy, eur_sale, 0.5)
       {rub_buy, rub_sale} = normalize_currency(rub_buy, rub_sale, 0.05)
 
+      # Запись в ETS.
       ScrappedData.insert("USD", usd_buy, usd_sale)
       ScrappedData.insert("EUR", eur_buy, eur_sale)
       ScrappedData.insert("RUB", rub_buy, rub_sale)
