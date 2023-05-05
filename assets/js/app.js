@@ -21,6 +21,7 @@
 
 import { Socket } from "phoenix";
 import "./user_socket";
+import "./index";
 import "./phone_input";
 import "./order_click";
 import "./click_event";
