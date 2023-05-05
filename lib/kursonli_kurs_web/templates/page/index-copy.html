@@ -1,6 +1,71 @@
 <div class="font flex flex-col min-h-screen">
-  <%= render(KursonliKursWeb.PageView, "header.html", conn: @conn, scrapped_list: @scrapped_list) %>
-  <div class="max-w-1440 w-full mx-auto bg-indexGray pt-4 md:mx-1 flex-1-0">
+  <header class="bg-dblue w-full md:px-2">
+    <div class="max-w-1200 mx-auto py-4">
+      <div class="flex justify-between items-center md:flex-col md:gap-2">
+        <a href="/" class="w-44">
+          <img src="/images/white-logo-line.png" alt="logo">
+        </a>
+        <div class="relative">
+          <input class="input_search search-input" type="text">
+          <div class="absolute inset-y-0 right-4 flex items-center pl-3 pointer-events-none"></div>
+        </div>
+        <a href="/worker/login" class="href_index" target="_blank">Войти</a>
+      </div>
+    </div>
+  </header>
+  <div class="max-w-1200 w-full mx-auto bg-indexGray pt-4 md:mx-1 flex-1-0">
+    <div class="flex md:flex-col mob:px-2 justify-between items-center">
+      <div class="flex flex-wrap gap-2 md:mb-2">
+        <%= for item <- @city_list do %>
+          <div class="whitespace-nowrap">
+            <a class="block bg-white rounded-full px-4 py-1 ml-2 first:m-0" href="city?name=<%= item.eng_name %>">
+              <span>
+                <%= item.name %>
+                <span class="font-bold ml-2">
+                  <%= item.count %>
+                </span>
+              </span>
+            </a>
+          </div>
+        <% end %>
+      </div>
+      <div class="border-2 border-indexAqua py-1 px-4 rounded-xl">
+        <div class="mb-2 text-xs">Лучшие курсы валют</div>
+        <div class="best_courses_table">
+          <%= for item <- @scrapped_list do %>
+            <div class="hidden">
+              <%= [currency, buy, sale]=item %>
+            </div>
+            <span>
+              <%= buy %>
+            </span>
+            <span>
+              <%= currency %>
+            </span>
+            <span>
+              <%= sale %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-between items-end mx-2 md:flex-col md:items-start">
+      <div class="">
+        <div class="flex items-center gap-1">
+          <img src="/images/icons/city_index.svg" alt="city">
+          <div class="">
+            <div class="font-bold">г. <%= @name %>
+            </div>
+            <div class="-mt-1 font-normal">
+              Курсы валют в обменных пунктах на
+              <span class="font-bold">
+                <%= KursonliKursWeb.GeneralHelper.date_to_data(Timex.now) %>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <%= if !Enum.empty?(@courses_list) do %>
       <div class="relative overflow-x-auto md:overflow-x-hidden">
         <table class="w-full text-sm text-left text-black border-separate border-spacing-2 relative">

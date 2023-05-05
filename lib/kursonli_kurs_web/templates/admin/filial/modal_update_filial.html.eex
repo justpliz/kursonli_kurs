@@ -69,12 +69,12 @@
 
               <div class="mb-2 hidden slug">
                 <label class="label_input pos">Субдомен(только на английском)</label>
-                <%= text_input f, :slug, class: "input_full eng_text_only", placeholder: "mer-nur" %>
+                <%= text_input f, :slug, class: "input_full eng_text_only", value: "${slug}", placeholder: "mer-nur" %>
               </div>
 
               <div class="mb-2 hidden url">
                 <label class="label_input pos">URL(только на английском)</label>
-                <%= text_input f, :url, class: "input_full eng_text_only", placeholder: "https://kurs1.kz" %>
+                <%= text_input f, :url, class: "input_full eng_text_only", value: "${url}", placeholder: "https://kurs1.kz" %>
               </div>
 
               <label class="label_input pos" for="city_id">Город</label>

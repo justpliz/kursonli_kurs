@@ -182,7 +182,7 @@
    }
 
    .input_search {
-      @apply rounded-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full pl-2 pr-12;
+      @apply rounded-2xl bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full pl-4 pr-12;
       @apply focus:ring-blue-500 focus:border-blue-500;
    }
 
@@ -192,8 +192,7 @@
    }
 
    .href_index {
-      @apply border-2 py-2 px-10 text-white font-extrabold rounded-xl transition-all;
-      @apply mb:py-2 mb:px-6;
+      @apply border-2 py-2 px-10 text-white font-extrabold rounded-2xl transition-all;
       @apply hover:bg-white hover:text-dblue;
    }
 
