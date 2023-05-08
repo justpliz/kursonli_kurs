@@ -124,16 +124,16 @@
       @apply my-6;
    }
 
-   .other_text{
+   .other_text {
       @apply text-neutral-400 font-semibold text-sm;
       @apply 2xl:text-xs
    }
 
-   .worker_app_li{
+   .worker_app_li {
       @apply flex items-center py-4 px-2 transition-all rounded-xl;
       @apply 2xl:text-sm 2xl:py-3;
    }
-   
+
    .menu_break {
       @apply h-2p w-full bg-neutral-200 rounded-xl my-4;
       @apply 2xl:my-3;
@@ -193,7 +193,7 @@
 
    .href_index {
       @apply border-2 py-2 px-10 text-white font-extrabold rounded-2xl transition-all;
-      @apply hover:bg-white hover:text-dblue;
+      @apply hover:bg-white hover:text-main;
    }
 
    .all_ap_svg {
@@ -234,7 +234,5 @@
       @apply transition-all rounded-full w-6 h-6 bg-green-400 border-none;
    }
 
-   .i {
-      
-   }
+   .i {}
 }

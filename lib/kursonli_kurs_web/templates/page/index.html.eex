@@ -1,5 +1,12 @@
 <div class="font flex flex-col min-h-screen">
-  <%= render(KursonliKursWeb.PageView, "header.html", conn: @conn, scrapped_list: @scrapped_list) %>
+  <%= render(KursonliKursWeb.PageView, "header.html", conn: @conn, scrapped_list: @scrapped_list, city_list: @city_list) %>
+<div class="text-center py-4">
+  Курсы валют в обменных пунктах
+  <span class="font-bold">
+    г. <%= @name %> <%= KursonliKursWeb.GeneralHelper.date_to_data(Timex.now) %>
+  </span>
+</div>
+
   <div class="max-w-1440 w-full mx-auto bg-indexGray pt-4 md:mx-1 flex-1-0">
     <%= if !Enum.empty?(@courses_list) do %>
       <div class="relative overflow-x-auto md:overflow-x-hidden">
@@ -7,7 +14,10 @@
           <thead class="sticky top-0 text-base">
             <tr class="text-center sticky top-0">
               <th scope="col" class="px-2 py-2 md:px-1 bg-white rounded-2xl w-400 md:w-3/5">
-                Обменный пункт
+                <div class="flex justify-center items-center gap-2">
+                  <img src="/images/index/op.svg" alt="clock">
+                  Обменный пункт
+                </div>
               </th>
               <th scope="col" class="px-2 py-2 md:px-1 bg-white rounded-2xl md:hidden">
                 <div class="flex justify-center items-center gap-2">
@@ -15,9 +25,15 @@
                   Время
                 </div>
               </th>
+              <th scope="col" class="px-2 py-2 md:px-1 bg-white rounded-2xl md:hidden">
+                <div class="flex justify-center items-center gap-2">
+                  <img src="/images/index/phone.svg" alt="clock">
+                  Телефон
+                </div>
+              </th>
               <th scope="col" class="px-2 py-2 md:px-1 bg-white rounded-2xl">
                 <div class="flex justify-between items-center">
-                  <img src="/images/icons/arrow_down.svg" class="sort_purchase" alt="city">
+                  <img src="/images/index/phone.svg" class="sort_purchase" alt="city">
                   <select class="select_table appearance-none" data-select="1">
                     <%= for item <- @currency_list do %>
                       <%= if item.short_name=="USD" do %>
@@ -110,22 +126,6 @@
                               <%= item.address %>
                             </div>
                           </div>
-                          <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>
-                            <div class="flex items-start">
-                              <img src="/images/icons/phone_icon.svg" class="bg-contain" alt="phone">
-                              <div class="flex flex-wrap ml-1 md:flex-col md:text-xs">
-                                <a href='tel:<%= item.setting.phones["phone1"] %>' class="mr-1">
-                                  <%= item.setting.phones["phone1"] %>
-                                </a>
-                                <a href='tel:<%= item.setting.phones["phone2"] %>' class="">
-                                  <%= item.setting.phones["phone2"] %>
-                                </a>
-                                <a href='tel:<%= item.setting.phones["phone3"] %>' class="mr-1">
-                                  <%= item.setting.phones["phone3"] %>
-                                </a>
-                              </div>
-                            </div>
-                          <% end %>
                           <div class="hidden">
                             <%= [wholesale_rate, gold]=item.setting.tags %>
                           </div>
@@ -314,36 +314,10 @@
         </table>
       </div>
     <% else %>
-      <div class="m-6 text-lg">В выбранном вами городе пока отсутсвуют обменные пункты</div>
+      <div class="text-lg">В выбранном вами городе пока отсутсвуют обменные пункты</div>
     <% end %>
     <div class="courses" data-item="<%= PwHelper.Normalize.repo(@currency_list) |> Jason.encode!() %>"></div>
   </div>
-  <footer class="bg-dblue w-full md:px-2 flex-0-0">
-    <div class="max-w-1200 mx-auto py-4">
-      <div class="flex justify-between items-center md:flex-col md:gap-2">
-        <a href="/" class="w-20">
-          <img src="/images/assoc.png" alt="logo">
-        </a>
-        <div class="relative text-white">
-          © 2023 Совместное правообладание с Ассоциацией обменных пунктов. Все права защищены.
-        </div>
-        <!--LiveInternet counter-->
-        <a href="https://www.liveinternet.ru/click" target="_blank"><img id="licnt09FB" width="88"
-            height="120" style="border:0" title="LiveInternet: показано количество просмотров и посетителей"
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7" alt="">
-          </a>
-      </div>
-    </div>
-  </footer>
+  <%= render(KursonliKursWeb.PageView, "footer.html" , conn: @conn) %>
 </div>
 
-<script>
-(function (d, s) {
-    d.getElementById("licnt09FB").src =
-    "https://counter.yadro.ru/hit?t29.1;r" + escape(d.referrer) +
-    ((typeof (s) == "undefined") ? "" : ";s" + s.width + "*" + s.height + "*" +
-      (s.colorDepth ? s.colorDepth : s.pixelDepth)) + ";u" + escape(d.URL) +
-    ";h" + escape(d.title.substring(0, 150)) + ";" + Math.random()
-  })
-    (document, screen)
-    </script>
