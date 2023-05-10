@@ -100,12 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tableRows.forEach(row => row.parentNode.removeChild(row));
       tableRows.forEach(row => {
         const saleSpan = row.children[columnIndex].querySelector('.sale');
-        const arrowSpan = document.createElement('span');
-        arrowSpan.classList.add('arrow');
-        arrowSpan.innerHTML = button.classList.contains('sort-asc') ? '&#8595;' : '&#8593;';
         const existingArrows = saleSpan.querySelectorAll('.arrow');
         existingArrows.forEach(existingArrow => existingArrow.parentNode.removeChild(existingArrow));
-        saleSpan.appendChild(arrowSpan);
         document.querySelector('.data-table').appendChild(row);
       });
       button.classList.toggle('sort-asc');
@@ -133,12 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tableRows.forEach(row => row.parentNode.removeChild(row));
       tableRows.forEach(row => {
         const buySpan = row.children[columnIndex].querySelector('.buy');
-        const arrowSpan = document.createElement('span');
-        arrowSpan.classList.add('arrow');
-        arrowSpan.innerHTML = button.classList.contains('sort-asc') ? '&#8595;' : '&#8593;';
         const existingArrows = buySpan.querySelectorAll('.arrow');
         existingArrows.forEach(existingArrow => existingArrow.parentNode.removeChild(existingArrow));
-        buySpan.appendChild(arrowSpan);
         document.querySelector('.data-table').appendChild(row);
       });
       button.classList.toggle('sort-asc');

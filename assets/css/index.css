@@ -1,43 +1,44 @@
-.after_table::after {
-  content: "";
-  position: absolute;
-  right: -20px;
-  top: 0;
-  background: #fff;
-  width: 20px;
-  height: 100%;
-}
-
 .after_table::before {
   content: "";
   position: absolute;
   z-index: 1 !important;
   right: -4px;
-  top: 2%;
-  background: #D8D8D8;
+  top: 5%;
+  background: #B5B5C3;
   width: 2px;
-  height: 95%;
+  height: 90%;
   border-radius: 100px;
 }
 
 @media (max-width: 1024px) {
-  .after_table:nth-child(4):after {
-    background: none;
-  }
-
-  .after_table:nth-child(4):before {
+  .after_table:nth-child(5):before {
     background: none;
   }
 }
 
 @media (max-width: 768px) {
-  .after_table:nth-child(3):after {
+  .after_table:nth-child(4):before {
     background: transparent;
   }
+}
 
-  .after_table:nth-child(3):before {
-    background: transparent;
-  }
+.line_table {
+  position: relative;
+}
+
+.line_table::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  background: #B5B5C3;
+  border-radius: 100px;
+}
+
+.line_table:last-child::after {
+  background: transparent;
 }
 
 .select_table {
@@ -50,6 +51,10 @@
   background-size: 30% 30%;
 }
 
+.select_table option {
+  color: #000;
+}
+
 .select_table:focus {
   border: 0px solid transparent;
   outline: none;
@@ -58,10 +63,11 @@
 .rotated {
   transform: rotate(180deg);
 }
+
 [disable="true"] {
   background: #000;
 }
 
-.eng_text_only{
+.eng_text_only {
   text-transform: lowercase;
 }

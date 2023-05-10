@@ -1,5 +1,5 @@
 <footer class="bg-main w-full md:px-2 flex-0-0">
-  <div class="max-w-1200 mx-auto py-4">
+  <div class="max-w-1440 mx-auto py-4">
     <div class="flex justify-between items-center md:flex-col md:gap-2">
       <a href="/" class="w-20">
         <img src="/images/assoc.png" alt="logo">
