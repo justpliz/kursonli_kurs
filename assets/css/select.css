@@ -1,0 +1,79 @@
+.custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+.select-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.arrow-down {
+  display: block;
+  width: 0;
+  height: 0;
+  left: 3px;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 7px 7px 0 7px;
+  border-color: #000 transparent transparent transparent;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.arrow-bg {
+  position: absolute;
+  right: -14px;
+  top: 0px;
+  z-index: 0;
+  border-radius: 100px;
+  width: 36px;
+  height: 36px;
+  background: #fff;
+}
+
+.select-options {
+  margin: 4px 0 0 0;
+  position: absolute;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1;
+  width: 110%;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.select-options.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
+
+.select-options a {
+  cursor: pointer;
+}
+
+.selected-option {
+  margin-right: 12px;
+  border-radius: 20px;
+  background-color: #fff;
+  padding: 6px 16px;
+}
+
+.custom-select.open .arrow-down {
+  transform: rotate(180deg);
+}

@@ -108,7 +108,7 @@ defmodule KursonliKursWeb.GeneralHelper do
   end
 
   @doc """
-  
+
   """
   def find_value_by_short_name(course, key_order \\ :buy, short_name \\ "EUR") do
     course
@@ -185,6 +185,20 @@ defmodule KursonliKursWeb.GeneralHelper do
   end
 
   @doc """
+  Чистка номера телефона, для корректного отображения в атрибуте a href
+  +7 (898) 819-87-44 -> +78988198744
+  8 (898) 819-87-44 -> 88988198744
+  """
+  def replace_number(phone) do
+    clear = Regex.replace(~r/\D/, phone, "")
+
+    case String.starts_with?(clear, "7") do
+      true -> "+7" <> String.slice(clear, 1..-1)
+      false -> clear
+    end
+  end
+
+  @doc """
   Возвращает true если телефон существует и отображает его на странице.
   В противном случае возвращает false
   """
@@ -199,6 +213,9 @@ defmodule KursonliKursWeb.GeneralHelper do
 
         key == "phone3" and value != "" ->
           true
+
+        key == "phone1" and value != "" && key == "phone2" and value != "" && key == "phone3" and value != "" ->
+          "-"
 
         key == "phone_for_header" ->
           false

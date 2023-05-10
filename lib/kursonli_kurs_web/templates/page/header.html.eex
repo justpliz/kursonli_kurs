@@ -1,0 +1,65 @@
+<header class="bg-main w-full md:px-2">
+  <div class="max-w-1440 note:px-4 mx-auto py-2">
+    <div class="flex justify-between items-center  md:flex-col md:gap-2">
+      <a href="/" class="w-44">
+        <img src="/images/white-logo-line.png" alt="logo">
+      </a>
+      <div class="flex gap-2">
+        <img src="/images/index/geo.svg" class="" alt="">
+        <div class="custom-select">
+          <div class="select-header">
+            <span class="selected-option">Выберите город</span>
+            <div class="arrow-bg"></div>
+            <i class="arrow-down"></i>
+          </div>
+          <ul class="select-options">
+            <%= for item <- @city_list do %>
+              <a href="city?name=<%= item.eng_name %>">
+                <%= item.name %> <span class="font-bold">
+                  <%= item.count %>
+                </span>
+              </a>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <div class="relative">
+        <input class="input_search search-input md:hidden" type="text">
+        <div class="absolute inset-y-0 right-2 flex items-center pl-3 pointer-events-none">
+          <img src="/images/index/search.svg" class="scale-105" alt="">
+        </div>
+      </div>
+      <div class="text-white text-xs md:hidden">
+        <div class="mb-2 text-center font-bold">Лучшие курсы валют</div>
+        <div class="font-normal flex gap-4 lg:gap-1">
+          <%= for item <- @scrapped_list do %>
+            <div class="hidden">
+              <%= [currency, buy, sale]=item %>
+            </div>
+            <div>
+              <span>
+                <%= if currency=="USD" do %>
+                  <span class="font-bold">$</span>
+                <% end %>
+                <%= if currency=="EUR" do %>
+                  <span class="font-bold">€</span>
+                <% end %>
+                <%= if currency=="RUB" do %>
+                  <span class="font-bold">₽</span>
+                <% end %>
+                <%= buy %>
+              </span>
+              <span>
+                -
+              </span>
+              <span>
+                <%= sale %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <a href="/worker/login" class="href_index" target="_blank">Войти</a>
+    </div>
+  </div>
+</header>
