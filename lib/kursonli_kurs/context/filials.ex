@@ -117,10 +117,23 @@ defmodule KursonliKurs.Context.Filials do
         tariff_price: tariff.price,
         coordinates: setting.coordinates,
         firm_id: setting.firm_id,
+        link: setting.link,
         slug: setting.slug,
+        url: setting.url,
         email: worker.email
       }
     )
     |> Repo.all()
+    |> Enum.map(&(ensure_subdomen(&1)))
+  end
+
+  def ensure_subdomen(filial) do
+    subdomen = case filial.link do
+      :slug -> filial.slug
+      :url -> filial.url
+      :filial_id -> "filial_id"
+      _any -> "filial_id"
+    end
+    Map.put(filial, :subdomen, subdomen)
   end
 end
