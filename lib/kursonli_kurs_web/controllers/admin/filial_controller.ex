@@ -100,7 +100,6 @@ defmodule KursonliKursWeb.Admin.FilialController do
   def update_filial(conn, %{"id" => id} = params) do
     filial_opts = %{
       name: params["filial_name"],
-      email: params["email"],
       city_id: params["city_id"]
     }
 
@@ -114,8 +113,14 @@ defmodule KursonliKursWeb.Admin.FilialController do
       link: link
     }
 
+    worker_opts = %{
+      email: String.downcase(params["email"])
+    }
+
     with {:ok, filial} <- Filials.do_get(id: id),
          {:ok, fiiial} <- Filials.update(filial, filial_opts),
+         {:ok, worker} <- Workers.do_get(filial_id: id),
+         {:ok, _worker} <- Workers.update(worker, worker_opts),
          {:ok, setting} <- Settings.do_get(filial_id: id),
          {:ok, _setting} <- Settings.update(setting, setting_opts) do
       conn
