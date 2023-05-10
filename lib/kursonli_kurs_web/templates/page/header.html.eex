@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="relative">
-        <input class="input_search search-input md:hidden" type="text">
+        <input class="input_search search-input md:hidden" type="text" placeholder="Поиск">
         <div class="absolute inset-y-0 right-2 flex items-center pl-3 pointer-events-none">
           <img src="/images/index/search.svg" class="scale-105" alt="">
         </div>
