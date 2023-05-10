@@ -23,6 +23,9 @@
               <th scope="col" class="px-6 2xl:px-1 border-2 border-t-0 border-gray-300 py-3">
                 Email
               </th>
+              <th scope="col" class="px-6 2xl:px-1 border-2 border-t-0 border-gray-300 py-3">
+                Субдомен
+              </th>
               <th scope="col" class="px-6 border-2 border-t-0 border-gray-300 py-3">
                 Тариф
               </th>
@@ -50,6 +53,9 @@
                   </td>
                   <td class="px-6 2xl:px-1 border-2 border-b-0 border-gray-300">
                     <%= item.email %>
+                  </td>
+                  <td class="px-6 2xl:px-1 border-2 border-b-0 border-gray-300">
+                    <%= item.subdomen %>
                   </td>
                   <td class="px-6 border-2 border-b-0 border-gray-300">
                     <%= item.tariff_name %>

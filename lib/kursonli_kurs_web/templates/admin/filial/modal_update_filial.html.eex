@@ -1,6 +1,6 @@
 <script>
   $(".filial_edit").click(function () {
-    const { id, filial_name, email, coordinates, firm_id, slug, url, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
+    const { id, filial_name, email, coordinates, firm_id, link, slug, url, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
     console.log(city_id)
     Modalka.fire({
       showConfirmButton: false,
@@ -60,7 +60,7 @@
 
               <div class="mb-2">
                 <label class="label_input pos">Выбор для указания субдомена</label>
-                <select name="link" class="input_full select_slug" >
+                <select name="link" class="input_full select_slug" value="${link}">
                   <option value="" disabled selected>--выбрать тип субдомена--</option>
                   <option value="slug">Субдомен</option>
                   <option value="url">Ссылка</option>
