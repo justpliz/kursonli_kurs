@@ -7,7 +7,7 @@ defmodule KursonliKurs.Process.Scrapped do
 
   def process() do
     :timer.sleep(1000)
-    IO.inspect("start process")
+    IO.inspect("start process #{Timex.now("Asia/Almaty")}")
     Logger.emergency("start process. period: #{@scrapped_period}")
 
     try do

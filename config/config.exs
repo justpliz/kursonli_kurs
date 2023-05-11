@@ -69,7 +69,8 @@ config :logger, :critical,
 
 config :logger, :emergency,
   compile_time_purge_matching: [level_lower_than_emergency: :emergency],
-  path: "log/emergency.log"
+  path: "log/emergency.log",
+  format: "$time $date $metadata[$level] $message\n"
   # level: :emergency
 
 config :logger, :alert,

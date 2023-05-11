@@ -148,7 +148,7 @@ defmodule KursonliKurs.Context.Courses do
         first_letter: &1.filial.name |> String.trim() |> String.first() |> String.upcase()
       }
     )
-    # |> ensure_srapped_diapason
+    |> ensure_srapped_diapason
     |> Enum.sort_by(& &1.date, {:desc, NaiveDateTime})
   end
 
@@ -173,53 +173,55 @@ defmodule KursonliKurs.Context.Courses do
       else: Map.put(setting, :logo, nil)
   end
 
-  # # Проверяет находятся ли все валюты(usd, eur, rub) в дапазоне scrapped
-  # # Если нет, то в reduce НЕ добавляем такие обменные пункты
-  # defp ensure_srapped_diapason(courses) do
-  #   [usd, eur, rub] =
-  #     ScrappedData.get_all()
-  #     |> Enum.map(fn [_currency, buy, sale] ->
-  #       {buy, ""} = buy |> Float.parse()
-  #       {sale, ""} = sale |> Float.parse()
-  #       [buy, sale]
-  #     end)
+  alias KursonliKurs.EtsStorage.ScrappedData
 
-  #   [usd_buy, usd_sale] = usd
-  #   [eur_buy, eur_sale] = eur
-  #   [rub_buy, rub_sale] = rub
+  # Проверяет находятся ли все валюты(usd, eur, rub) в дапазоне scrapped
+  # Если нет, то в reduce НЕ добавляем такие обменные пункты
+  defp ensure_srapped_diapason(courses) do
+    [usd, eur, rub] =
+      ScrappedData.get_all()
+      |> Enum.map(fn [_currency, buy, sale] ->
+        {buy, ""} = buy |> Float.parse()
+        {sale, ""} = sale |> Float.parse()
+        [buy, sale]
+      end)
 
-  #   courses
-  #   |> Enum.reduce(
-  #     [],
-  #     fn map, acc ->
-  #       usd = Enum.find(map.course, &(&1.short_name == "USD"))
-  #       usd_range = if is_nil(usd), do: true, else: value_in_range?(usd.buy, usd.sale, usd_buy, usd_sale)
+    [usd_buy, usd_sale] = usd
+    [eur_buy, eur_sale] = eur
+    [rub_buy, rub_sale] = rub
 
-  #       eur = Enum.find(map.course, &(&1.short_name == "EUR"))
-  #       eur_range = if is_nil(eur), do: true, else: value_in_range?(eur.buy, eur.sale, eur_buy, eur_sale)
+    courses
+    |> Enum.reduce(
+      [],
+      fn map, acc ->
+        usd = Enum.find(map.course, &(&1.short_name == "USD"))
+        usd_range = if is_nil(usd), do: true, else: value_in_range?(usd.buy, usd.sale, usd_buy, usd_sale)
 
-  #       rub = Enum.find(map.course, &(&1.short_name == "RUB"))
-  #       rub_range = if is_nil(rub), do: true, else: value_in_range?(rub.buy, rub.sale, rub_buy, rub_sale)
+        eur = Enum.find(map.course, &(&1.short_name == "EUR"))
+        eur_range = if is_nil(eur), do: true, else: value_in_range?(eur.buy, eur.sale, eur_buy, eur_sale)
 
-  #       is_range = usd_range && eur_range && rub_range
-  #       if is_range, do: acc ++ [map], else: acc
-  #     end
-  #   )
-  # end
+        rub = Enum.find(map.course, &(&1.short_name == "RUB"))
+        rub_range = if is_nil(rub), do: true, else: value_in_range?(rub.buy, rub.sale, rub_buy, rub_sale)
 
-  # # Возвращает true если значение курса входит в диапазон scrapped
-  # defp value_in_range?("-", _buy, _scrapped_buy, _scrapped_sale), do: false
-  # defp value_in_range?(_sale, "-", _scrapped_buy, _scrapped_sale), do: false
+        is_range = usd_range && eur_range && rub_range
+        if is_range, do: acc ++ [map], else: acc
+      end
+    )
+  end
 
-  # defp value_in_range?(sale, buy, scrapped_buy, scrapped_sale) do
-  #   {sale, ""} = sale |> Float.parse()
-  #   {buy, ""} = buy |> Float.parse()
+  # Возвращает true если значение курса входит в диапазон scrapped
+  defp value_in_range?("-", _buy, _scrapped_buy, _scrapped_sale), do: false
+  defp value_in_range?(_sale, "-", _scrapped_buy, _scrapped_sale), do: false
 
-  #   if sale > scrapped_buy and sale < scrapped_sale and
-  #        buy > scrapped_buy and buy < scrapped_sale do
-  #     true
-  #   else
-  #     false
-  #   end
-  # end
+  defp value_in_range?(sale, buy, scrapped_buy, scrapped_sale) do
+    {sale, ""} = sale |> Float.parse()
+    {buy, ""} = buy |> Float.parse()
+
+    if sale > scrapped_buy and sale < scrapped_sale and
+         buy > scrapped_buy and buy < scrapped_sale do
+      true
+    else
+      false
+    end
+  end
 end
