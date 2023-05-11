@@ -1,6 +1,6 @@
 <%= for item <- @courses_list do %>
   <tr class="bg-white line_table" data-id="<%= item.filial_id %>" data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
-    <td scope="row" class="px-4 py-4 bg-white rounded-2xl text-left relative after_table md:px-2 md:py-1">
+    <td scope="row" class="px-4 py-1 bg-white rounded-2xl text-left relative after_table md:px-2 md:py-1">
   <%= case item.setting.link do %>
     <% :slug -> %> 
     <a href="personal?filial=<%= item.setting.slug %>" class="block">
@@ -76,7 +76,7 @@
       <% end %>
     </div>
   </td>
-  <td class="px-2 py-4 bg-white rounded-l-2xl relative after_table md:hidden phones">
+  <td class="px-2 py-1 bg-white rounded-l-2xl relative after_table md:hidden phones">
     <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>
       <div class="flex flex-col">
         <a href='tel:<%= KursonliKursWeb.GeneralHelper.replace_number(item.setting.phones["phone1"]) %>' class="mr-1">
@@ -93,7 +93,7 @@
       -
     <% end %>
   </td>
-  <td class="px-2 py-4 bg-white rounded-l-2xl relative after_table md:hidden">
+  <td class="px-2 py-1 bg-white rounded-l-2xl relative after_table md:hidden">
     <div class="hidden time">
       <%= item.date %>
     </div>
@@ -109,7 +109,7 @@
   </td>
   <% buy=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:buy, "USD") %>
   <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:sale, "USD") %>
-  <td class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item md:rounded-xl" data-select="1">
+  <td class="px-2 py-1 font-bold text-base bg-white relative after_table dataget item md:rounded-xl" data-select="1">
     <div class="md:flex md:flex-col md:gap-6">
       <div class="md:text-sm">
         <span class="buy">
@@ -139,7 +139,7 @@
   </td>
   <% buy=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:buy, "EUR") %>
   <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:sale, "EUR") %>
-  <td class="px-2 py-4 font-bold text-base bg-white relative after_table dataget item lg:rounded-2xl md:hidden" data-select="2">
+  <td class="px-2 py-1 font-bold text-base bg-white relative after_table dataget item lg:rounded-2xl md:hidden" data-select="2">
     <span class="buy">
       <%= buy %>
     </span>
@@ -150,7 +150,7 @@
   </td>
   <% buy=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:buy, "RUB") %>
   <% sale=item.course |> KursonliKursWeb.GeneralHelper.find_value_by_short_name(:sale, "RUB") %>
-  <td class="px-4 py-4 font-bold text-base bg-white rounded-r-2xl dataget item lg:hidden md:hidden" data-select="3">
+  <td class="px-4 py-1 font-bold text-base bg-white rounded-r-2xl dataget item lg:hidden md:hidden" data-select="3">
     <span class="buy">
       <%= buy %>
     </span>
