@@ -52,8 +52,8 @@ defmodule KursonliKurs.Process.Scrapped do
 
   # Поправка курса на значение diff
   defp normalize_currency(buy, sale, diff) do
-    buy = Decimal.add(buy, "-#{diff}") |> Decimal.to_string() |> GeneralHelper.rounding_str()
-    sale = Decimal.add(sale, "#{diff}") |> Decimal.to_string() |> GeneralHelper.rounding_str()
+    buy = Decimal.add(buy, "#{diff}") |> Decimal.to_string() |> GeneralHelper.rounding_str()
+    sale = Decimal.add(sale, "-#{diff}") |> Decimal.to_string() |> GeneralHelper.rounding_str()
     {buy, sale}
   end
 end
