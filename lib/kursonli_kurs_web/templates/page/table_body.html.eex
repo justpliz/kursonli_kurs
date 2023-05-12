@@ -1,6 +1,7 @@
 <%= for item <- @courses_list do %>
   <tr class="bg-white line_table" data-id="<%= item.filial_id %>" data-item="<%= PwHelper.Normalize.repo(item) |> Jason.encode!() %>">
     <td scope="row" class="px-4 py-1 bg-white rounded-2xl text-left relative after_table md:px-2 md:py-1">
+<%= if item.setting.visible_website_status==true do %>
   <%= case item.setting.link do %>
     <% :slug -> %> 
     <a href="personal?filial=<%= item.setting.slug %>" class="block">
@@ -11,6 +12,7 @@
     <% _any -> %> 
     <a href="personal?id=<%= item.filial_id %>" class="block">
   <% end %>
+<% end %>
       <div class="flex gap-4 font-normal md:gap-0">
         <div class="md:hidden">
           <%= if item.setting.logo==nil do %>
@@ -58,7 +60,9 @@
           </div>
         </div>
       </div>
-    </a>
+    <%= if item.setting.visible_website_status==true do %>
+      </a>
+    <% end %>
     <!-- <img src="/images/icons/bottom_arrow-black.svg" alt="" class="w-4 h-full"> -->
     <div class="hidden md:flex md:flex-col">
       <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>
