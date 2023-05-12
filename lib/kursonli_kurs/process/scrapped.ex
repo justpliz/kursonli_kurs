@@ -7,18 +7,14 @@ defmodule KursonliKurs.Process.Scrapped do
 
   def process() do
     :timer.sleep(1000)
-    IO.inspect("start process #{Timex.now("Asia/Almaty")}")
-    Logger.emergency("start process. period: #{@scrapped_period}")
 
     try do
-      Logger.emergency("try")
       scraping()
       :timer.sleep(@scrapped_period)
 
       process()
     rescue
       _ ->
-        Logger.emergency("rescue")
         :timer.sleep(@scrapped_period)
         process()
     end
@@ -27,10 +23,8 @@ defmodule KursonliKurs.Process.Scrapped do
   # Парсинг значений курсов с "https://mig.kz/"
   def scraping() do
     url = Application.get_env(:kursonli_kurs, :scrapped)
-    Logger.emergency("scraping: #{url}")
 
     with {:ok, response} <- HTTPoison.get(url) do
-      Logger.emergency("scraping with")
       # Выборка значений покупки
       [usd_buy, eur_buy, rub_buy, _, _, _, _] =
         Regex.scan(~r/<td .+"buy .+">.+<\/td>/, response.body)

@@ -11,13 +11,12 @@ defmodule KursonliKurs.EtsStorage.ScrappedData do
   end
 
   def create() do
-    :ets.new(:scrapped_data, [:set, :public, :named_table])
+    :ets.new(:scrapped_data, [:ordered_set, :public, :named_table])
     {:ok, ""}
   end
 
   def insert(currency, buy, sale) do
-    Logger.emergency("ETS insert: #{buy}-#{sale} #{currency}")
-    :ets.insert_new(:scrapped_data, {currency, buy, sale})
+    :ets.insert(:scrapped_data, {currency, buy, sale}) |> IO.inspect()
   end
 
   def get(currency) do
@@ -50,7 +49,6 @@ defmodule KursonliKurs.EtsStorage.ScrappedData do
     eur = if Enum.empty?(eur), do: "-", else: eur |> hd |> Tuple.to_list()
     rub = if Enum.empty?(rub), do: "-", else: rub |> hd |> Tuple.to_list()
 
-    Logger.emergency("ETS get all: #{[usd, eur, rub]}")
     [usd, eur, rub]
   end
 end
