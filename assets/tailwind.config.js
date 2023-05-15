@@ -14,7 +14,7 @@ module.exports = {
       colors: {
         drab: '#363740',
         tableGray: '#e3dbdb',
-        main: '#000045',
+        main: '#15434fe3',
         blub: '#3689ce',
         lightBlub: '#5699d1',
         indexGreen: '#1BD2A4',

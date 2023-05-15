@@ -26,6 +26,6 @@ if (activeTabId) {
    if (activeTab) {
       activeTab.click();
    }
-} else {
+} else if (btns.length > 0) {
    btns[0].click();
 }
