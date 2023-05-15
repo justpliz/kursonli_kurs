@@ -1,4 +1,5 @@
 defmodule KursonliKurs.EtsStorage.ScrappedData do
+  require Logger
   def init(_) do
     {:ok, []}
   end
@@ -10,12 +11,12 @@ defmodule KursonliKurs.EtsStorage.ScrappedData do
   end
 
   def create() do
-    :ets.new(:scrapped_data, [:set, :public, :named_table])
+    :ets.new(:scrapped_data, [:ordered_set, :public, :named_table])
     {:ok, ""}
   end
 
   def insert(currency, buy, sale) do
-    :ets.insert_new(:scrapped_data, {currency, buy, sale})
+    :ets.insert(:scrapped_data, {currency, buy, sale}) |> IO.inspect()
   end
 
   def get(currency) do
