@@ -32,8 +32,8 @@ import "./helper/modal_script";
 import "./helper/active_link";
 import "./helper/tabs";
 import "./helper/lang";
+// import "./helper/validate_edit_courses";
 import "./helper/select";
-import "./helper/validate_edit_courses";
 // And connect to the path in "lib/kursonli_kurs_web/endpoint.ex". We pass the
 // token for authentication. Read below how it should be used.
 
