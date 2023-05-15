@@ -49,11 +49,10 @@ defmodule KursonliKursWeb.Admin.OrganizationController do
       password: hash_str(password)
     }
 
-    link = if is_nil(params["link"]), do: "filial_id", else: params["link"]
+    link = if (params["slug"]) == "", do: "filial_id", else: "slug"
 
     setting_opts = %{
       slug: String.downcase(params["slug"]),
-      url: String.downcase(params["url"]),
       link: link,
       address: params["address"]
     }

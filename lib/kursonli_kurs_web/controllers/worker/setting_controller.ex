@@ -77,10 +77,6 @@ defmodule KursonliKursWeb.Worker.SettingController do
 
     address = params["address"]
 
-    filial_opts = %{
-      name: params["filial_name"]
-    }
-
     opts = %{
       colors: colors,
       qualities: qualities,
@@ -97,9 +93,7 @@ defmodule KursonliKursWeb.Worker.SettingController do
       visible_website_status: visible_website_status
     }
 
-    with {:ok, filial} <- Filials.do_get(id: filial_id),
-         {:ok, setting} <- Settings.do_get(filial_id: filial_id),
-         {:ok, _fiiial} <- Filials.update(filial, filial_opts),
+    with {:ok, setting} <- Settings.do_get(filial_id: filial_id),
          {:ok, _setting} <- Settings.update(setting, opts) do
       conn
       |> put_flash(:info, gettext("Настройки обновлены"))

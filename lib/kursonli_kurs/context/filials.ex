@@ -130,7 +130,7 @@ defmodule KursonliKurs.Context.Filials do
   def ensure_subdomen(filial) do
     subdomen = case filial.link do
       :slug -> filial.slug
-      :url -> filial.url
+      :url -> "filial_id"
       :filial_id -> "filial_id"
       _any -> "filial_id"
     end

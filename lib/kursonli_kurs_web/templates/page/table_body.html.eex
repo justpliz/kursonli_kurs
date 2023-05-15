@@ -3,13 +3,13 @@
     <td scope="row" class="px-4 py-1 bg-white rounded-2xl text-left relative after_table md:px-2 md:py-1">
 <%= if item.setting.visible_website_status==true do %>
   <%= case item.setting.link do %>
-    <% :slug -> %> 
+    <% :slug -> %>
     <a href="personal?filial=<%= item.setting.slug %>" class="block">
-    <% :url -> %> 
-    <a href="<%= item.setting.url %>" class="block">
+    <% :url -> %>
+    <a href="personal?id=<%= item.filial_id %>" class="block">
     <% :filial_id -> %> 
     <a href="personal?id=<%= item.filial_id %>" class="block">
-    <% _any -> %> 
+    <% _any -> %>
     <a href="personal?id=<%= item.filial_id %>" class="block">
   <% end %>
 <% end %>

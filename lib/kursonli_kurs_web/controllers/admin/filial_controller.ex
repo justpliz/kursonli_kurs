@@ -50,11 +50,10 @@ defmodule KursonliKursWeb.Admin.FilialController do
       password: hash_str(password)
     }
 
-    link = if is_nil(params["link"]), do: "filial_id", else: params["link"]
+    link = if (params["slug"]) == "", do: "filial_id", else: "slug"
 
     setting_opts = %{
       slug: String.downcase(params["slug"]),
-      url: String.downcase(params["url"]),
       link: link,
       address: params["address"]
     }
@@ -103,13 +102,12 @@ defmodule KursonliKursWeb.Admin.FilialController do
       city_id: params["city_id"]
     }
 
-    link = if is_nil(params["link"]), do: "filial_id", else: params["link"]
+    link = if (params["slug"]) == "", do: "filial_id", else: "slug"
 
     setting_opts = %{
       coordinates: [params["x_coordinate"], params["y_coordinate"]],
       firm_id: params["firm_id"],
       slug: String.downcase(params["slug"]),
-      url: String.downcase(params["url"]),
       link: link
     }
 
