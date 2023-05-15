@@ -1,40 +1,11 @@
 <script>
   $(".filial_edit").click(function () {
-    const { id, filial_name, email, coordinates, firm_id, slug, url, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
+    const { id, filial_name, email, coordinates, firm_id, link, slug, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
     console.log(city_id)
     Modalka.fire({
       showConfirmButton: false,
       showCloseButton: true,
       heightAuto: false,
-      willOpen: () => {
-        document.querySelector(`option[value="${city_id}"]`).setAttribute("selected", true);
-
-        let select = document.querySelector('.select_slug');
-        let slugDiv = document.querySelector('.slug');
-        let urlDiv = document.querySelector('.url');
-
-        select.addEventListener('change', function () {
-          const selectedValue = select.value;
-          slugDiv.classList.add('hidden');
-          urlDiv.classList.add('hidden');
-
-          if (selectedValue === 'slug') {
-            slugDiv.classList.remove('hidden');
-          } else if (selectedValue === 'url') {
-            urlDiv.classList.remove('hidden');
-          }
-        });
-
-        function inputEng() {
-          var input = [...document.querySelectorAll(".eng_text_only")];
-          input.forEach((el) => {
-            el.addEventListener("input", (e) => {
-              e.currentTarget.value = e.currentTarget.value.replace(/[^a-zA-Z0-9\s.,!?_\-+=@#$%&/:;]/g, "");
-            });
-          });
-        }
-        inputEng();
-      },
       html: `
           <div class="flex items-center justify-between">
             <h1 class="title_without_margin">Редактирование филиала</h1>
@@ -58,23 +29,9 @@
               <label class="label_input pos" for="firm_id">ID фирмы</label>
               <%= text_input f, :firm_id, class: "input_full", value: "${firm_id}", required: "true" %>
 
-              <div class="mb-2">
-                <label class="label_input pos">Выбор для указания субдомена</label>
-                <select name="link" class="input_full select_slug" >
-                  <option value="" disabled selected>--выбрать тип субдомена--</option>
-                  <option value="slug">Субдомен</option>
-                  <option value="url">Ссылка</option>
-                </select>
-              </div>
-
-              <div class="mb-2 hidden slug">
+              <div class="mb-2 slug">
                 <label class="label_input pos">Субдомен(только на английском)</label>
-                <%= text_input f, :slug, class: "input_full eng_text_only", placeholder: "mer-nur" %>
-              </div>
-
-              <div class="mb-2 hidden url">
-                <label class="label_input pos">URL(только на английском)</label>
-                <%= text_input f, :url, class: "input_full eng_text_only", placeholder: "https://kurs1.kz" %>
+                <%= text_input f, :slug, class: "input_full eng_text_only", value: "${slug}", placeholder: "mer-nur" %>
               </div>
 
               <label class="label_input pos" for="city_id">Город</label>

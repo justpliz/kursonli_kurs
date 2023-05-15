@@ -14,7 +14,7 @@ module.exports = {
       colors: {
         drab: '#363740',
         tableGray: '#e3dbdb',
-        dblue: '#000045',
+        main: '#15434fe3',
         blub: '#3689ce',
         lightBlub: '#5699d1',
         indexGreen: '#1BD2A4',
@@ -51,8 +51,8 @@ module.exports = {
         '58': '234px',
       },
       width: {
-        '600': '600px',
         '1440': '1440px',
+        '600': '600px',
         '5p': '5%',
         '10p': '10%',
         '14p': '14%',

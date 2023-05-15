@@ -16,7 +16,7 @@ defmodule KursonliKurs.EtsStorage.ScrappedData do
   end
 
   def insert(currency, buy, sale) do
-    :ets.insert(:scrapped_data, {currency, buy, sale}) |> IO.inspect()
+    :ets.insert(:scrapped_data, {currency, buy, sale})
   end
 
   def get(currency) do

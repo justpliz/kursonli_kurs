@@ -56,9 +56,8 @@
   }
 </style>
 <div class="font">
-  <div class="w-full bg-white note:mx-0">
-    <div
-      class="max-w-1440 mb:w-auto mb:flex-col mb:h-auto mb:py-2 flex justify-around items-center mx-auto h-20 text-black">
+  <div class="w-full bg-zinc-100 shadow-xl note:mx-0">
+    <div class="max-w-1440 mb:w-auto mb:flex-col mb:h-auto mb:py-2 flex justify-around items-center mx-auto h-20 text-black">
       <ul class="flex gap-10 text-lg mb:gap-4">
         <a href="#adress" class="link_to scroll-to">
           <li class="hover:underline cursor-pointer hover:text-gray-500">Адрес</li>
@@ -69,12 +68,11 @@
       </ul>
       <a href="/" class="mb:py-2">
         <img src="<%= @logo_path %>" alt="" class="h-16 w-full object-cover">
-        <!-- <img src="/images/logo-line.png" alt=""> -->
       </a>
       <a class="flex gap-2 hover:text-gray-500" href='tel:<%= @setting.phones["phone_for_header"] %>'>
         <%= if @setting.phones["phone_for_header"] !="" do %>
           <%= @setting.phones["phone_for_header"] %>
-            <% end %>
+        <% end %>
       </a>
     </div>
   </div>
@@ -90,28 +88,25 @@
       <div class="scoreboard bg-blub p-6 text-white rounded-xl">
         <div class="text-center">
           <h2 class="uppercase text-2xl font-bold">курсы валют</h2>
-          <div class="text-sm">на <%= KursonliKursWeb.GeneralHelper.date_to_datetime_rus(hd(@courses_list).date)
-              %>
+          <div class="text-sm">на <%= KursonliKursWeb.GeneralHelper.date_to_datetime_rus(hd(@courses_list).date) %>
           </div>
           <div class="grid_con md:w-full">
             <div class="wrapper pt-4 pb-2">
               <div>
-                <p
-                  class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
+                <p class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
                   Покупка
                 </p>
               </div>
               <div class=""></div>
               <div>
-                <p
-                  class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
+                <p class="sale_bue bg-gray-200 text-black text-sm uppercase font-bold rounded-md border border-white py-2">
                   Продажа
                 </p>
               </div>
             </div>
             <div class="wrapper gap-y-2">
               <%= for item <- @courses_list do %>
-                <div class="bg-white currency font-bold text-center my-auto rounded-md py-2">
+                <div class="bg-zinc-100 currency font-bold text-center my-auto rounded-md py-2">
                   <%= item.buy %>
                 </div>
                 <div
@@ -123,17 +118,17 @@
                     <%= item.currency_name %>
                   </div>
                 </div>
-                <div class="bg-white currency font-bold text-center my-auto rounded-md py-2">
+                <div class="bg-zinc-100 currency font-bold text-center my-auto rounded-md py-2">
                   <%= item.sale %>
                 </div>
-                <% end %>
+              <% end %>
             </div>
           </div>
           <div class="mt-4">Лицензия ОП № <%= @setting.license %>
           </div>
         </div>
       </div>
-      <div class="flex rounded-xl bg-white flex-col gap-4 h-full">
+      <div class="flex rounded-xl bg-zinc-100 flex-col gap-4 h-full">
         <div class="rounded-xl p-6 sm:p-4">
           <h2 class="font-bold text-center">Национальный банк</h2>
           <div id="kyrs"></div>
@@ -175,9 +170,8 @@
       </div>
       <div class="map w-full mb:h-72">
         <div class="dg-widget-link">
-          <a
-            href="http://2gis.kz/<%= @city_eng_name %>/firm/<%= @setting.firm_id %>/photos/<%= @setting.firm_id %>/center/<%= x_coord %>,<%= y_coord %>/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии
-            компании
+          <a href="http://2gis.kz/<%= @city_eng_name %>/firm/<%= @setting.firm_id %>/photos/<%= @setting.firm_id %>/center/<%= x_coord %>,<%= y_coord %>/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">
+            Фотографии компании
           </a>
         </div>
         <script charset="utf-8" src="https://widgets.2gis.com/js/DGWidgetLoader.js"></script>
@@ -192,7 +186,7 @@
           });
         </script>
       </div>
-      <div class="bg-white shadow-xl rounded-xl py-10 px-8 mb:px-4">
+      <div class="bg-zinc-100 shadow-xl rounded-xl py-10 px-8 mb:px-4">
         <h2 class="uppercase font-bold text-lg mb:text-base relative title_before">Адрес обменного пункта</h2>
         <div class="relative pt-10 flex flex-col">
           <div class="flex pb-4 items-center">
@@ -202,33 +196,31 @@
               <div class="mb:text-xs">
                 <%= @setting.address %>
               </div>
-              <% end %>
-          </div>
-          </div>
-          <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(@setting.phones) do %>
-            <div class="flex pb-4">
-              <span class="material-symbols-outlined pr-4"
-                style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
-              <div class="flex flex-col mb:text-xs">
-                <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline">
-                  <%= @setting.phones["phone1"] %>
-                </a>
-                <a href='tel:<%= @setting.phones["phone2"] %>' class="hover:underline">
-                  <%= @setting.phones["phone2"] %>
-                </a>
-                <a href='tel:<%= @setting.phones["phone3"] %>' class="hover:underline">
-                  <%= @setting.phones["phone3"] %>
-                </a>
-              </div>
-            </div>
             <% end %>
-              <div class="flex items-center">
-                <span class="material-symbols-outlined pr-4"
-                  style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
-                <a href="mailto:<%= @setting.email %>" class="mb:text-xs">
-                  <%= @setting.email %>
-                </a>
-              </div>
+          </div>
+        </div>
+        <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(@setting.phones) do %>
+          <div class="flex pb-4">
+            <span class="material-symbols-outlined pr-4"
+                style="color: #3689ce; font-size: 32px; font-weight: 900;">phone_in_talk</span>
+            <div class="flex flex-col mb:text-xs">
+              <a href='tel:<%= @setting.phones["phone1"] %>' class="hover:underline">
+                <%= @setting.phones["phone1"] %>
+              </a>
+              <a href='tel:<%= @setting.phones["phone2"] %>' class="hover:underline">
+                <%= @setting.phones["phone2"] %>
+              </a>
+              <a href='tel:<%= @setting.phones["phone3"] %>' class="hover:underline">
+                <%= @setting.phones["phone3"] %>
+              </a>
+            </div>
+          </div>
+        <% end %>
+        <div class="flex items-center">
+          <span class="material-symbols-outlined pr-4" style="color: #3689ce; font-size: 32px; font-weight: 900;">mail</span>
+          <a href="mailto:<%= @setting.email %>" class="mb:text-xs">
+            <%= @setting.email %>
+          </a>
         </div>
       </div>
     </div>
@@ -238,7 +230,7 @@
       </div>
       <div class="text mb:px-2 mobL:mb-4">
         <h3 class="uppercase font-bold text-lg mb:text-sm relative title_before">ОБМЕННЫЙ ПУНКТ в <%= @city_name %>
-            <%= @filial.name %>
+          <%= @filial.name %>
         </h3>
         <div class="pt-10 mb:pt-6 mb:-mb-8 mb:text-xs">
           <p class="whitespace-pre-line">
@@ -248,6 +240,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 <style>
   #kursinfo5 {

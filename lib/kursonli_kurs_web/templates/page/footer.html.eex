@@ -1,0 +1,25 @@
+<footer class="bg-main w-full md:px-2 flex-0-0">
+  <div class="max-w-1440 mx-auto py-4">
+    <div class="flex justify-between items-center md:flex-col md:gap-2">
+      <a href="/" class="w-20">
+        <img src="/images/assoc.png" alt="logo">
+      </a>
+      <div class="relative text-white">
+        © 2023 Совместное правообладание с Ассоциацией обменных пунктов. Все права защищены.
+      </div>
+      <a href="https://www.liveinternet.ru/click" target="_blank"><img id="licnt4D77" width="88" height="120"
+          style="border:0" title="LiveInternet: показано количество просмотров и посетителей"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7" alt="" /></a>
+    </div>
+  </div>
+</footer>
+<script>
+  (function (d, s) {
+    d.getElementById("licnt4D77").src =
+      "https://counter.yadro.ru/hit?t28.20;r" + escape(d.referrer) +
+      ((typeof (s) == "undefined") ? "" : ";s" + s.width + "" + s.height + "" +
+        (s.colorDepth ? s.colorDepth : s.pixelDepth)) + ";u" + escape(d.URL) +
+      ";h" + escape(d.title.substring(0, 150)) + ";" + Math.random()
+  })
+    (document, screen)
+</script>
