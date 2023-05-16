@@ -1,0 +1,21 @@
+ELIXIR = mix
+PHOENIX_SERVER = phx.server
+COOKIE = name
+
+i:
+	$(ELIXIR) deps.get
+	$(ELIXIR) deps.compile
+
+run:
+	iex --name $(COOKIE)@localhost -S $(ELIXIR) $(PHOENIX_SERVER)
+
+clean:
+	rm -rf _build/
+	rm -fr deps/
+	rm -rf .elixir_ls/
+
+migrate:
+	$(ELIXIR) ecto.migrate
+
+format:
+	$(ELIXIR) format
