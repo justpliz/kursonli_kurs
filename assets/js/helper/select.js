@@ -3,11 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const selectTrigger = select.querySelector(".select-header");
   const options = select.querySelector(".select-options");
   const optionItems = select.querySelectorAll(".select-options a");
-  const selectedOption = localStorage.getItem("selectedOption");
-
-  if (selectedOption) {
-    select.querySelector(".selected-option").textContent = selectedOption;
-  }
 
   if (selectTrigger !== null) {
     selectTrigger.addEventListener("click", function () {
@@ -23,8 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
         select.querySelector(".selected-option").textContent = selectedOption;
         select.classList.remove("open");
         options.classList.remove("open");
-
-        localStorage.setItem("selectedOption", selectedOption);
       }
     });
   });

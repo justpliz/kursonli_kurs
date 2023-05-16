@@ -1,5 +1,5 @@
 <div class="font flex flex-col min-h-screen">
-  <%= render(KursonliKursWeb.PageView, "header.html", conn: @conn, scrapped_list: @scrapped_list, city_list: @city_list) %>
+  <%= render(KursonliKursWeb.PageView, "header.html", conn: @conn, scrapped_list: @scrapped_list, city_list: @city_list, name: @name) %>
   <div class="text-center pt-4 pb-2">
     Курсы валют в обменных пунктах
     <span class="font-bold">
