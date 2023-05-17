@@ -16,7 +16,7 @@
       <div class="flex gap-4 font-normal md:gap-0">
         <div class="md:hidden">
           <%= if item.setting.logo==nil do %>
-            <div class="p-3 text-center text-2xl text-white rounded-full w-14 h-14" style="background-color: <%= item.setting.color_logo %> !important;">
+            <div class="p-3 text-center text-2xl bg-green-400 text-white rounded-full w-14 h-14" style="background-color: <%= item.setting.color_logo %> !important;">
               <%= item.first_letter %>
             </div>
           <% else %>
