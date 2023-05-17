@@ -30,7 +30,7 @@
                   Время
                 </div>
               </th>
-              <th scope="col" class="px-2 py-1 bg-main w-52 rounded-2xl">
+              <th scope="col" class="px-2 py-1 bg-main w-52 rounded-2xl md:!w-2/4">
                 <div class="flex justify-between items-center">
                   <img src="/images/index/up.svg" class="sort_buy" alt="buy">
                   <select class="select_table appearance-none" data-select="1">
