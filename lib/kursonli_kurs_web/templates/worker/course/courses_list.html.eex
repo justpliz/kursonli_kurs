@@ -70,10 +70,26 @@
                 <%= item.currency_short_name %>
               </td>
               <td class="px-6 py-4 border-t-2 border-x-2 border-gray-200">
-                <%= number_input f, :"#{item.course_id}|buy", class: "input_full md:!w-32 number buy", value: item.buy, step: "any" %>
+                <%= number_input f, :"#{item.course_id}|buy", class: "input_full md:!w-32 number buy", value: item.buy,
+                step: 
+                  (case item.currency_short_name do 
+                    "USD" -> "0.5"
+                    "EUR" -> "0.5"
+                    "RUB" -> "0.05"
+                    _any -> "1"
+                  end)
+                %>
               </td>
               <td class="px-6 py-4 border-x-2 border-t-2">
-                <%= number_input f, :"#{item.course_id}|sale", class: "input_full md:!w-32 number sale", value: item.sale, step: "any" %>
+                <%= number_input f, :"#{item.course_id}|sale", class: "input_full md:!w-32 number sale" , value: item.sale, 
+                step: 
+                  (case item.currency_short_name do 
+                    "USD" -> "0.5"
+                    "EUR" -> "0.5"
+                    "RUB" -> "0.05"
+                    _any -> "1"
+                  end)
+                %>
               </td>
               <td class="px-6 py-4 border-x-2 border-t-2">
                 <button class="accept_delete_course styles_none"
