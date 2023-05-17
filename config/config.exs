@@ -38,11 +38,10 @@ config :swoosh, :api_client, false
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.14.29",
-  default: [
-    args:
-      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+  node: [
+    "build.js",
     cd: Path.expand("../assets", __DIR__),
-    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+    env: %{"ESBUILD_LOG_LEVEL" => "silent", "ESBUILD_WATCH" => "1", "NODE_ENV" => "development"}
   ]
 
 # Configures Elixir's Logger
@@ -71,7 +70,8 @@ config :logger, :emergency,
   compile_time_purge_matching: [level_lower_than_emergency: :emergency],
   path: "log/emergency.log",
   format: "$time $date $metadata[$level] $message\n"
-  # level: :emergency
+
+# level: :emergency
 
 config :logger, :alert,
   path: "log/alert.log",

@@ -8,6 +8,7 @@
 @import "./modificator.css";
 @import "./index.css";
 @import "./select.css";
+@import "../scss/app.scss";
 
 :disabled {
     cursor: not-allowed;

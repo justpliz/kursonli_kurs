@@ -1,3 +1,7 @@
+<div class="hui">
+  <div class="hui__body">ахдба</div>
+</div>
+
 <div class="index_container">
   <%= render(KursonliKursWeb.PageView, "header.html", conn: @conn, scrapped_list: @scrapped_list, city_list: @city_list, name: @name) %>
   <div class="text-center pt-4 pb-2">
