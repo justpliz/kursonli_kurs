@@ -458,7 +458,7 @@ body.swal2-shown {
   background-color: #A7FFB5;
 }
 
-.best_courses_table {
+/* .best_courses_table {
   width: 100%;
   margin: 0 auto;
   display: grid;
@@ -467,7 +467,7 @@ body.swal2-shown {
   font-size: 12px;
   font-weight: 700;
   text-align: center;
-}
+} */
 
 .scroll::-webkit-scrollbar {
   height: 10px;

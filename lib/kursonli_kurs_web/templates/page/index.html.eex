@@ -1,4 +1,4 @@
-<div class="font flex flex-col min-h-screen">
+<div class="index_container">
   <%= render(KursonliKursWeb.PageView, "header.html", conn: @conn, scrapped_list: @scrapped_list, city_list: @city_list, name: @name) %>
   <div class="text-center pt-4 pb-2">
     Курсы валют в обменных пунктах
@@ -6,32 +6,32 @@
       г. <%= @name %> <%= KursonliKursWeb.GeneralHelper.date_to_data(Timex.now) %>
     </span>
   </div>
-  <div class="max-w-1440 w-full mx-auto flex-1-0">
+  <div class="index_content">
     <%= if !Enum.empty?(@courses_list) do %>
-      <div class="relative overflow-x-auto md:overflow-x-hidden">
-        <table class="w-full text-sm text-left text-black border-separate border-spacing-2 relative">
-          <thead class="text-base mobS:text-xs text-white">
+      <div class="table_container">
+        <table class="table_table">
+          <thead class="table_thead">
             <tr class="text-center">
-              <th scope="col" class="px-2 py-1 md:px-1 bg-main rounded-2xl w-400 lg:w-60 md:!w-2/4">
-                <div class="flex justify-center items-center gap-2">
+              <th scope="col" class="table_th_one">
+                <div class="table_th_container">
                   <img src="/images/index/op.svg" alt="op">
                   Обменный пункт
                 </div>
               </th>
-              <th scope="col" class="px-2 py-1 md:px-1 bg-main rounded-2xl md:hidden">
-                <div class="flex justify-center items-center gap-2">
+              <th scope="col" class="table_th_next_two">
+                <div class="table_th_container">
                   <img src="/images/index/phone.svg" alt="phone">
                   Телефон
                 </div>
               </th>
-              <th scope="col" class="px-2 py-1 md:px-1 bg-main rounded-2xl md:hidden">
-                <div class="flex justify-center items-center gap-2">
+              <th scope="col" class="table_th_next_two">
+                <div class="table_th_container">
                   <img src="/images/index/clock.svg" alt="clock">
                   Время
                 </div>
               </th>
-              <th scope="col" class="px-2 py-1 bg-main w-52 rounded-2xl">
-                <div class="flex justify-between items-center">
+              <th scope="col" class="table_th_usd">
+                <div class="table_th_usd_con">
                   <img src="/images/index/up.svg" class="sort_buy" alt="buy">
                   <select class="select_table appearance-none" data-select="1">
                     <%= for item <- @currency_list do %>
@@ -49,8 +49,8 @@
                   <img src="/images/index/down.svg" class="sort_sale" alt="sale">
                 </div>
               </th>
-              <th scope="col" class="px-2 py-1 bg-main w-52 rounded-2xl md:hidden">
-                <div class="flex justify-between items-center">
+              <th scope="col" class="table_th_eur">
+                <div class="table_th_course_con">
                   <img src="/images/index/up.svg" class="sort_buy" alt="buy">
                   <select class=" appearance-none select_table" data-select="2">
                     <%= for item <- @currency_list do %>
@@ -68,8 +68,8 @@
                   <img src="/images/index/down.svg" class="sort_sale" alt="sale">
                 </div>
               </th>
-              <th scope="col" class="px-2 py-1 bg-main w-52 rounded-2xl lg:hidden md:hidden">
-                <div class="flex justify-between items-center">
+              <th scope="col" class="table_th_rub">
+                <div class="table_th_course_con">
                   <img src="/images/index/up.svg" class="sort_buy" alt="buy">
                   <select class="select_table appearance-none" data-select="3">
                     <%= for item <- @currency_list do %>
