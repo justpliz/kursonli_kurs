@@ -5,29 +5,28 @@
       <%= gettext("Авторизация в системе") %>
     </div>
     <%= form_for @conn, Routes.auth_path(@conn, :login_worker_submit), fn f -> %>
-
-      <div class="form-group">
-        <img src="/images/icons/user.png" alt="">
-        <%= email_input f, :email, placeholder: "Email", class: "input-login", value: @user.email,
-          required: "true" %>
-      </div>
-
-      <div class="form-group">
-        <img src="/images/icons/password.png" alt="">
-        <%= password_input f, :password, placeholder: gettext("Пароль"), class: "input-login", required: "true" %>
-      </div>
-
-      <div class="form-group">
-        <%= submit gettext("Войти в систему"), class: "btn-login" %>
-      </div>
-      <% end %>
-  </div>
+    <div class="form-group">
+      <img src="/images/icons/user.png" alt="">
+      <%= email_input f, :email, placeholder: "Email", class: "input-login", value: @user.email, required: "true" %>
+    </div>
+    <div class="form-group">
+      <img src="/images/icons/password.png" alt="">
+      <%= password_input f, :password, placeholder: gettext("Пароль"), class: "input-login", required: "true" %>
+    </div>
+    <div class="form-group">
+      <%= submit gettext("Войти в систему"), class: "btn-login" %>
+    </div>
+    <%= link "Отправить заявку",
+      to: "https://docs.google.com/forms/d/1Z03ukg_YDjordJvDu2IX9A6rYn66qPYs2pCPIMKijLw/viewform?edit_requested=true",
+      class: "text-center block underline text-[#3689ce] font-bold text-base",
+      target: "_blank"
+    %>
+  <% end %>
 </div>
-
+</div>
 <script>
   localStorage.removeItem("worker")
 </script>
-
 <style>
   .login-container {
     display: flex;

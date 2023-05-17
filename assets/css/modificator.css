@@ -236,5 +236,99 @@
       @apply transition-all rounded-full w-6 h-6 bg-green-400 border-none;
    }
 
-   .i {}
+   .header_index {
+      @apply bg-main w-full md:px-2;
+   }
+
+   .header_container {
+      @apply max-w-1440 note:px-4 mx-auto py-2;
+   }
+
+   .header_line {
+      @apply flex justify-between items-center md:flex-col md:gap-2;
+   }
+
+   .course_best {
+      @apply text-white text-sm md:hidden;
+   }
+
+   .title_best {
+      @apply mb-1 text-center font-bold;
+   }
+
+   .list_best {
+      @apply font-normal flex gap-4 lg:gap-1;
+   }
+
+   .search_container {
+      @apply absolute inset-y-0 right-2 flex items-center pl-3 pointer-events-none;
+   }
+
+   .footer_container {
+      @apply bg-main w-full md:px-2 flex-0-0;
+   }
+
+   .footer_body {
+      @apply max-w-1440 mx-auto py-4;
+   }
+
+   .footer_flex {
+      @apply flex justify-between items-center md:flex-col md:gap-2;
+   }
+
+   .footer_text {
+      @apply relative text-white;
+   }
+
+   .index_container {
+      @apply font flex flex-col min-h-screen;
+   }
+
+   .index_content {
+      @apply max-w-1440 w-full mx-auto flex-1-0;
+   }
+
+   .table_container {
+      @apply relative overflow-x-auto md:overflow-x-hidden;
+   }
+
+   .table_table {
+      @apply w-full text-sm text-left text-black border-separate border-spacing-2 relative;
+   }
+
+   .table_thead {
+      @apply text-base mobS:text-xs text-white;
+   }
+
+   .table_th_one {
+      @apply px-2 py-1 md:px-1 bg-main rounded-2xl w-400 lg:w-60 md:!w-2/4;
+   }
+
+   .table_th_next_two {
+      @apply px-2 py-1 md:px-1 bg-main rounded-2xl md:hidden;
+   }
+
+   .table_th_container {
+      @apply flex justify-center items-center gap-2;
+   }
+
+   .table_th_usd {
+      @apply px-2 py-1 bg-main w-52 rounded-2xl;
+   }
+
+   .table_th_usd_con {
+      @apply flex justify-between items-center;
+   }
+
+   .table_th_eur {
+      @apply px-2 py-1 bg-main w-52 rounded-2xl md:hidden;
+   }
+
+   .table_th_course_con {
+      @apply flex justify-between items-center;
+   }
+
+   .table_th_rub {
+      @apply px-2 py-1 bg-main w-52 rounded-2xl lg:hidden md:hidden;
+   }
 }

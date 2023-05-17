@@ -1,10 +1,10 @@
-<footer class="bg-main w-full md:px-2 flex-0-0">
-  <div class="max-w-1440 mx-auto py-4">
-    <div class="flex justify-between items-center md:flex-col md:gap-2">
+<footer class="footer_container">
+  <div class="footer_body">
+    <div class="footer_flex">
       <a href="/" class="w-20">
         <img src="/images/assoc.png" alt="logo">
       </a>
-      <div class="relative text-white">
+      <div class="footer_text">
         © 2023 Совместное правообладание с Ассоциацией обменных пунктов. Все права защищены.
       </div>
       <a href="https://www.liveinternet.ru/click" target="_blank"><img id="licnt4D77" width="88" height="120"
