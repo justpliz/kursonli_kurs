@@ -36,17 +36,17 @@ defmodule KursonliKursWeb.Worker.AuthController do
       password: hash_str(params["password"])
     ]
 
-    # проверка существования сотрудника с параметрами - opts
+    # проверка существования сотрудника с параметрами - opts.
     case Workers.do_get(opts) do
       {:ok, worker} ->
         filial = Filials.get_with_setting(id: worker.filial_id)
 
-        # проверка активного статуса филиала сотрудника
+        # проверка активного статуса филиала сотрудника.
         case filial.filial_active_status do
           :active ->
             SessionWorker.insert(worker.id)
 
-            # проверка онлайна сотрудника(worker.id)
+            # проверка онлайна сотрудника(worker.id).
             if SessionWorker.check_user(worker.id) do
               OnlineChannel.leave(worker.id)
             end

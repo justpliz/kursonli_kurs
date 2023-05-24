@@ -120,14 +120,18 @@ defmodule KursonliKurs.Context.Filials do
         link: setting.link,
         slug: setting.slug,
         url: setting.url,
+        auto_update: setting.auto_update,
+        shedule_period: setting.shedule_period,
+        shedule_type: setting.shedule_type,
         email: worker.email
       }
     )
     |> Repo.all()
     |> Enum.map(&(ensure_subdomen(&1)))
+    |> Enum.map(&(ensure_auto_update(&1)))
   end
 
-  def ensure_subdomen(filial) do
+  defp ensure_subdomen(filial) do
     subdomen = case filial.link do
       :slug -> filial.slug
       :url -> "filial_id"
@@ -135,5 +139,18 @@ defmodule KursonliKurs.Context.Filials do
       _any -> "filial_id"
     end
     Map.put(filial, :subdomen, subdomen)
+  end
+
+  defp ensure_auto_update(filial) do
+     # TODO Пересмотреть возможность перенсти функционал в схему.
+    hum_shedule_type = case filial.shedule_type do
+      :full -> "круглосточно"
+      :nine_twenty -> "с 09:00 до 20:00"
+      :nine_twenty_two -> "с 09:00 до 22:00"
+      _any -> "Неизвестно"
+    end
+
+    hum_auto_update = if filial.auto_update, do: "Да, #{hum_shedule_type}(#{filial.shedule_period} cек) ", else: "Нет"
+    Map.put(filial, :hum_auto_update, hum_auto_update)
   end
 end

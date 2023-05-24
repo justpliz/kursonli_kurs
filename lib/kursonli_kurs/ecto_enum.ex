@@ -9,3 +9,5 @@ defenum(OrderStatus, :order_status, [:success, :fail, :active])
 defenum(ActiveStatus, :active_status, [:active, :archive])
 
 defenum(FilialLink, :filial_link, [:slug, :url, :filial_id])
+
+defenum(ScheduleType, :schedule_type, [:full, :nine_twenty, :nine_twenty_two])

@@ -27,7 +27,7 @@
         <input name="change_all_filials" type="hidden" value="false">
         <div class="flex items-center justify-center">
           <label for="all" class="label_input pr-2">
-            <%= gettext("Изменить все курсы") %>
+            <%= gettext("Изменить во всех филиалах") %>
           </label>
           <input id="all" name="change_all_filials" type="checkbox" value="true" class="type_select rounded">
         </div>
