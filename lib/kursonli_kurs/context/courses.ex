@@ -104,6 +104,24 @@ defmodule KursonliKurs.Context.Courses do
   end
 
   @doc """
+  Курсы(USD, EUR., RUB) филиалов с автообновлением
+  """
+  def get_courses_for_auto_update() do
+    from(
+      s in Setting,
+      where: s.auto_update == true,
+      join: f in Filial,
+      where: f.id == s.filial_id,
+      join: c in Course,
+      where: c.filial_id == f.id,
+      select: c
+    )
+    |> Repo.all()
+    |> Enum.filter(&(&1.currency_id == 1 or &1.currency_id == 2 or &1.currency_id == 3))
+    |> Enum.group_by(&(&1.filial_id))
+  end
+
+  @doc """
   Подготовка данных для отображения на главной странице
   """
   def get_filial_by_city(city_id) do

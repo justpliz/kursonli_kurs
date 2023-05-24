@@ -131,7 +131,7 @@ defmodule KursonliKursWeb.GeneralHelper do
   def humanizated_date(_date), do: "-"
 
   # Обработка разницы менее минуты
-  defp hum_date(d) when d > 0 and d < 60 do
+  defp hum_date(d) when d >= 0 and d < 60 do
     case d do
       d when rem(d, 10) == 1 and d != 11 -> "#{d} #{gettext("секунду назад")}"
       d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} #{gettext("секунды назад")}"

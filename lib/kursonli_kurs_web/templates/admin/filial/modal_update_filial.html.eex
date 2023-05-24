@@ -39,7 +39,8 @@
               
               <div class="flex items-center gap-2">
               <label class="label_input pos" for="city_id">Автообновление</label>
-              <%= checkbox f, :auto_update, checked_value: "${auto_update}", class: "type_select rounded" %>
+              <%= checkbox f, :auto_update, checked: String.to_atom("${auto_update}"), class: "type_select rounded" %>
+              <%#= checkbox f, :auto_update, checked: "${auto_update}", class: "type_select rounded" %>
               </div>
               
               <label class="label_input pos" for="city_id">График работы</label>
