@@ -107,17 +107,19 @@ defmodule KursonliKurs.Context.Courses do
   Курсы(USD, EUR., RUB) филиалов с автообновлением
   """
   def get_courses_for_auto_update() do
-    from(
-      s in Setting,
-      where: s.auto_update == true,
+    from(s in Setting,
+      where: s.auto_update == true and s.visible_course_status == true,
       join: f in Filial,
       where: f.id == s.filial_id,
       join: c in Course,
       where: c.filial_id == f.id,
+      join: cr in Currency,
+      where:
+        c.currency_id == cr.id and
+          cr.short_name in ["USD", "EUR", "RUB"],
       select: c
     )
     |> Repo.all()
-    |> Enum.filter(&(&1.currency_id == 1 or &1.currency_id == 2 or &1.currency_id == 3))
     |> Enum.group_by(&(&1.filial_id))
   end
 
@@ -213,13 +215,19 @@ defmodule KursonliKurs.Context.Courses do
       [],
       fn map, acc ->
         usd = Enum.find(map.course, &(&1.short_name == "USD"))
-        usd_range = if is_nil(usd), do: true, else: value_in_range?(usd.buy, usd.sale, usd_buy, usd_sale)
+
+        usd_range =
+          if is_nil(usd), do: true, else: value_in_range?(usd.buy, usd.sale, usd_buy, usd_sale)
 
         eur = Enum.find(map.course, &(&1.short_name == "EUR"))
-        eur_range = if is_nil(eur), do: true, else: value_in_range?(eur.buy, eur.sale, eur_buy, eur_sale)
+
+        eur_range =
+          if is_nil(eur), do: true, else: value_in_range?(eur.buy, eur.sale, eur_buy, eur_sale)
 
         rub = Enum.find(map.course, &(&1.short_name == "RUB"))
-        rub_range = if is_nil(rub), do: true, else: value_in_range?(rub.buy, rub.sale, rub_buy, rub_sale)
+
+        rub_range =
+          if is_nil(rub), do: true, else: value_in_range?(rub.buy, rub.sale, rub_buy, rub_sale)
 
         is_range = usd_range && eur_range && rub_range
         if is_range, do: acc ++ [map], else: acc
