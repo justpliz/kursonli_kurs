@@ -33,7 +33,7 @@ defmodule KursonliKurs.Application do
       %{
         id: KursonliKurs.EtsStorage.ScrappedData,
         start: {KursonliKurs.EtsStorage.ScrappedData, :start_link, []}
-      }
+      },
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

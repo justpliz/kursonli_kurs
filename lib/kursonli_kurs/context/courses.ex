@@ -104,23 +104,35 @@ defmodule KursonliKurs.Context.Courses do
   end
 
   @doc """
-  Курсы(USD, EUR., RUB) филиалов с автообновлением
+  Курсы(USD, EUR., RUB) филиалов с автообновлением.bitstring()
   """
-  def get_courses_for_auto_update() do
-    from(s in Setting,
-      where: s.auto_update == true and s.visible_course_status == true,
-      join: f in Filial,
-      where: f.id == s.filial_id,
-      join: c in Course,
-      where: c.filial_id == f.id,
-      join: cr in Currency,
-      where:
-        c.currency_id == cr.id and
-          cr.short_name in ["USD", "EUR", "RUB"],
-      select: c
-    )
-    |> Repo.all()
-    |> Enum.group_by(&(&1.filial_id))
+  def get_courses_for_auto_update(types) do
+    result =
+      from(s in Setting,
+        where:
+          s.auto_update == true and s.visible_course_status == true and s.shedule_type in ^types,
+        join: f in Filial,
+        where: f.id == s.filial_id,
+        join: c in Course,
+        where: c.filial_id == f.id,
+        join: cr in Currency,
+        where:
+          c.currency_id == cr.id and
+            cr.short_name in ["USD", "EUR", "RUB"],
+        select: c
+      )
+      |> Repo.all()
+      |> Enum.group_by(& &1.filial_id)
+
+    # Рассчет задержки в мс до следующего обновления.
+    # Вход: count = 9(филиалов), Выход: 13_330(мс).
+    # count * delay <= 120 sec.
+    count = Enum.count(result)
+
+    delay = Float.floor(120 / count * 10) * 100
+    delay = trunc(round(delay))
+
+    {result, delay}
   end
 
   @doc """
