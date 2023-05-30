@@ -24,7 +24,7 @@ defmodule KursonliKurs.Model.Setting do
     field :email, :string, default: "email@email.kz"
     field :description, :string, default: "Описание будет добавлено позже"
 
-    field :shedule_type, ScheduleType, default: "nine_twenty"
+    field :shedule_type, ScheduleType, default: :nine_twenty
     field :auto_update, :boolean, default: false
     field :shedule_period, :integer
 
