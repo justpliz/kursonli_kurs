@@ -10,7 +10,7 @@ defmodule KursonliKurs.Model.Setting do
 
   @timestamps_opts [type: :utc_datetime]
   @required_fields ~w(tags coordinates address email photo logo filial_id visible_website_status visible_course_status)a
-  @optional_fields ~w(phones license qualities description colors slug url firm_id promo link)a
+  @optional_fields ~w(phones license qualities description colors slug url firm_id promo link shedule_type auto_update shedule_period)a
 
   schema "settings" do
     field :address, :string
@@ -23,6 +23,10 @@ defmodule KursonliKurs.Model.Setting do
     field :license, :string, default: ""
     field :email, :string, default: "email@email.kz"
     field :description, :string, default: "Описание будет добавлено позже"
+
+    field :shedule_type, ScheduleType, default: "nine_twenty"
+    field :auto_update, :boolean, default: false
+    field :shedule_period, :integer
 
     field :slug, :string, default: ""
     field :url, :string, default: ""
@@ -65,5 +69,6 @@ defmodule KursonliKurs.Model.Setting do
     setting
     |> cast(attrs, @optional_fields ++ @required_fields)
     |> validate_required(@required_fields)
+    |> validate_inclusion(:shedule_period, 1..120)
   end
 end

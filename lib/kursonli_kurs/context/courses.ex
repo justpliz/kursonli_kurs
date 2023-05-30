@@ -104,6 +104,38 @@ defmodule KursonliKurs.Context.Courses do
   end
 
   @doc """
+  Курсы(USD, EUR., RUB) филиалов с автообновлением.bitstring()
+  """
+  def get_courses_for_auto_update(types) do
+    result =
+      from(s in Setting,
+        where:
+          s.auto_update == true and s.visible_course_status == true and s.shedule_type in ^types,
+        join: f in Filial,
+        where: f.id == s.filial_id,
+        join: c in Course,
+        where: c.filial_id == f.id,
+        join: cr in Currency,
+        where:
+          c.currency_id == cr.id and
+            cr.short_name in ["USD", "EUR", "RUB"],
+        select: c
+      )
+      |> Repo.all()
+      |> Enum.group_by(& &1.filial_id)
+
+    # Рассчет задержки в мс до следующего обновления.
+    # Вход: count = 9(филиалов), Выход: 13_330(мс).
+    # count * delay <= 120 sec.
+    count = Enum.count(result)
+
+    delay = Float.floor(120 / count * 10) * 100
+    delay = trunc(round(delay))
+
+    {result, delay}
+  end
+
+  @doc """
   Подготовка данных для отображения на главной странице
   """
   def get_filial_by_city(city_id) do
@@ -195,13 +227,19 @@ defmodule KursonliKurs.Context.Courses do
       [],
       fn map, acc ->
         usd = Enum.find(map.course, &(&1.short_name == "USD"))
-        usd_range = if is_nil(usd), do: true, else: value_in_range?(usd.buy, usd.sale, usd_buy, usd_sale)
+
+        usd_range =
+          if is_nil(usd), do: true, else: value_in_range?(usd.buy, usd.sale, usd_buy, usd_sale)
 
         eur = Enum.find(map.course, &(&1.short_name == "EUR"))
-        eur_range = if is_nil(eur), do: true, else: value_in_range?(eur.buy, eur.sale, eur_buy, eur_sale)
+
+        eur_range =
+          if is_nil(eur), do: true, else: value_in_range?(eur.buy, eur.sale, eur_buy, eur_sale)
 
         rub = Enum.find(map.course, &(&1.short_name == "RUB"))
-        rub_range = if is_nil(rub), do: true, else: value_in_range?(rub.buy, rub.sale, rub_buy, rub_sale)
+
+        rub_range =
+          if is_nil(rub), do: true, else: value_in_range?(rub.buy, rub.sale, rub_buy, rub_sale)
 
         is_range = usd_range && eur_range && rub_range
         if is_range, do: acc ++ [map], else: acc
@@ -223,5 +261,51 @@ defmodule KursonliKurs.Context.Courses do
     else
       false
     end
+  end
+
+  # Все курсы одной валюты(short_name) в городе(city_id)
+  def get_all_courses_of_one_currency(short_name, city_id) do
+    from(
+      f in Filial,
+      where: f.city_id == ^city_id,
+      join: s in Setting,
+      where: s.visible_course_status == true and s.filial_id == f.id,
+      join: cr in Currency,
+      where: cr.short_name == ^short_name,
+      join: c in Course,
+      where: c.filial_id == f.id and c.currency_id == cr.id,
+      select: %{
+        filial_id: c.filial_id,
+        buy: c.buy,
+        sale: c.sale
+      }
+    )
+    |> Repo.all()
+    |> find_best_courses
+  end
+
+  defp find_best_courses(courses) do
+    float_courses =
+      Enum.map(courses, fn course ->
+        course
+        |> Map.put(:buy, GeneralHelper.string_to_float(course.buy) |> String.to_float())
+        |> Map.put(:sale, GeneralHelper.string_to_float(course.sale) |> String.to_float())
+      end)
+
+    max_buy = Enum.max_by(float_courses, & &1.buy) |> Map.get(:buy)
+
+    max_ids =
+      float_courses
+      |> Enum.filter(fn %{buy: buy} -> buy == max_buy end)
+      |> Enum.map(fn %{filial_id: id} -> id end)
+
+    min_sale = Enum.min_by(float_courses, & &1.sale) |> Map.get(:sale)
+
+    min_ids =
+      float_courses
+      |> Enum.filter(fn %{sale: sale} -> sale == min_sale end)
+      |> Enum.map(fn %{filial_id: id} -> id end)
+
+    {courses, max_ids, min_ids}
   end
 end

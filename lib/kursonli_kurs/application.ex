@@ -33,7 +33,7 @@ defmodule KursonliKurs.Application do
       %{
         id: KursonliKurs.EtsStorage.ScrappedData,
         start: {KursonliKurs.EtsStorage.ScrappedData, :start_link, []}
-      }
+      },
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -41,6 +41,7 @@ defmodule KursonliKurs.Application do
     # KursonliKurs.EtsStorage.Chat.create()
     # KursonliKurs.EtsStorage.UserOnline.create()
     spawn(KursonliKurs.Process.Scrapped, :process, [])
+    spawn(KursonliKurs.Process.AutoUpdate, :process, [])
     opts = [strategy: :one_for_one, name: KursonliKurs.Supervisor]
     Supervisor.start_link(children, opts)
   end

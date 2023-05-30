@@ -23,12 +23,20 @@ defmodule KursonliKursWeb.Admin.FilialController do
     # Информация о филиале, его настройках, организации, городе, тарифе.
     filials_list = Filials.filial_list()
 
+    # TODO: Подумать как переделать.
+    shedule_type_list = [
+      %{key: :full, value: "Круглосуточно"},
+      %{key: :nine_twenty, value: "с 09:00 до 20:00"},
+      %{key: :nine_twenty_two, value: "с 09:00 до 22:00"}
+    ]
+
     conn
     |> render("filials_list.html",
       cities_list: cities_list,
       org_list: org_list,
       filials_list: filials_list,
-      tariff_list: tariff_list
+      tariff_list: tariff_list,
+      shedule_type_list: shedule_type_list
     )
   end
 
@@ -50,7 +58,7 @@ defmodule KursonliKursWeb.Admin.FilialController do
       password: hash_str(password)
     }
 
-    link = if (params["slug"]) == "", do: "filial_id", else: "slug"
+    link = if params["slug"] == "", do: "filial_id", else: "slug"
 
     setting_opts = %{
       slug: String.downcase(params["slug"]),
@@ -102,13 +110,16 @@ defmodule KursonliKursWeb.Admin.FilialController do
       city_id: params["city_id"]
     }
 
-    link = if (params["slug"]) == "", do: "filial_id", else: "slug"
+    link = if params["slug"] == "", do: "filial_id", else: "slug"
 
     setting_opts = %{
       coordinates: [params["x_coordinate"], params["y_coordinate"]],
       firm_id: params["firm_id"],
       slug: String.downcase(params["slug"]),
-      link: link
+      link: link,
+      auto_update: String.to_atom(params["auto_update"]),
+      shedule_period: params["shedule_period"],
+      shedule_type: params["shedule_type"]
     }
 
     worker_opts = %{

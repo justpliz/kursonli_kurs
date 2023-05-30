@@ -24,7 +24,7 @@ defmodule KursonliKursWeb.GeneralHelper do
   end
 
   @doc """
-  Generate random string in upper case
+  Generate random string in upper case.
   For example: "PJ8JVMBLVI".
   """
   def generate_random_str(count) do
@@ -48,7 +48,7 @@ defmodule KursonliKursWeb.GeneralHelper do
   end
 
   @doc """
-  Get info from config for templates
+  Get info from config for templates.
   For example: check_config("order_type") -> ["buy", "sale"].
   """
   def check_config(conf_atom) do
@@ -75,7 +75,7 @@ defmodule KursonliKursWeb.GeneralHelper do
   def date_to_second(date), do: Timex.format!(date, "{s}")
 
   @doc """
-  Форматирует время с русскоязычным названием месяца
+  Форматирует время с русскоязычным названием месяца.
   """
   def date_to_datetime_rus(date),
     do: Timex.format!(date, "{0D} #{month_translate_ru(date.month)} {YYYY} {h24}:{m}")
@@ -127,19 +127,20 @@ defmodule KursonliKursWeb.GeneralHelper do
   def humanizated_date(date) when is_map(date),
     do: hum_date(Timex.diff(Timex.shift(Timex.now(), hours: 6), date, :second))
 
-  # Заменяет date = "-", если на входе не мапа
+  # Заменяет date = "-", если на входе не мапа.
   def humanizated_date(_date), do: "-"
 
-  # Обработка разницы менее минуты
-  defp hum_date(d) when d > 0 and d < 60 do
+  # Обработка разницы менее минуты.
+  defp hum_date(d) when d >= 0 and d < 60 do
     case d do
+      0 -> "1 #{gettext("секунду назад")}"
       d when rem(d, 10) == 1 and d != 11 -> "#{d} #{gettext("секунду назад")}"
       d when rem(d, 10) in 2..4 and d not in 12..14 -> "#{d} #{gettext("секунды назад")}"
       _ -> "#{d} #{gettext("секунд назад")}"
     end
   end
 
-  # Обработка разницы от минуты до 1 часа
+  # Обработка разницы от минуты до 1 часа.
   defp hum_date(d) when d >= 60 and d < 60 * 60 do
     d = div(d, 60)
 
@@ -150,7 +151,7 @@ defmodule KursonliKursWeb.GeneralHelper do
     end
   end
 
-  # Обработка разницы от 1 часа до 24 часов
+  # Обработка разницы от 1 часа до 24 часов.
   defp hum_date(d) when d >= 60 * 60 and d < 24 * 60 * 60 do
     d = div(d, 60 * 60)
 
@@ -166,7 +167,7 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   ################################################################################################################
 
-  # Получения названия месяца на русском по его номеру
+  # Получения названия месяца на русском по его номеру.
   defp month_translate_ru(month) do
     case month do
       01 -> gettext("января")
@@ -185,7 +186,7 @@ defmodule KursonliKursWeb.GeneralHelper do
   end
 
   @doc """
-  Чистка номера телефона, для корректного отображения в атрибуте a href
+  Чистка номера телефона, для корректного отображения в атрибуте a href.
   +7 (898) 819-87-44 -> +78988198744
   8 (898) 819-87-44 -> 88988198744
   """
@@ -200,7 +201,7 @@ defmodule KursonliKursWeb.GeneralHelper do
 
   @doc """
   Возвращает true если телефон существует и отображает его на странице.
-  В противном случае возвращает false
+  В противном случае возвращает false.
   """
   def if_phones_nil(phone) do
     Enum.map(phone, fn {key, value} ->
@@ -228,9 +229,19 @@ defmodule KursonliKursWeb.GeneralHelper do
   end
 
   @doc """
-  Удаляет лишние нули после запятой
+  Удаляет лишние нули после запятой.
   25.00 -> 25
   25.50 -> 25.5.
   """
   def rounding_str(str), do: String.replace(str, ~r/\.0+$|(\.\d*[1-9])0+$/, "\\1")
+
+  @doc """
+  Добавляет .0 к числу если оно целое.
+  """
+  def string_to_float(str) do
+    # Регулярное выражение для проверки на целое число
+    regex = ~r/^\d+$/
+
+    if Regex.match?(regex, str), do: str <> ".0", else: str
+  end
 end

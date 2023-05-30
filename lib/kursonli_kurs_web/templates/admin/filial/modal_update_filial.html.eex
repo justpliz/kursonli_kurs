@@ -1,11 +1,14 @@
 <script>
   $(".filial_edit").click(function () {
-    const { id, filial_name, email, coordinates, firm_id, link, slug, tariff_name, city_id, city_name } = JSON.parse(this.dataset.map)
-    console.log(city_id)
+    const { id, filial_name, email, coordinates, firm_id, link, slug, tariff_name, city_id, city_name, shedule_type, auto_update, shedule_period } = JSON.parse(this.dataset.map)
     Modalka.fire({
       showConfirmButton: false,
       showCloseButton: true,
       heightAuto: false,
+      willOpen: (toast) => {
+        document.querySelector(`#auto_update`).checked = auto_update;
+        document.querySelector(`#city`).value = city_id;
+      },
       html: `
           <div class="flex items-center justify-between">
             <h1 class="title_without_margin">Редактирование филиала</h1>
@@ -35,8 +38,16 @@
               </div>
 
               <label class="label_input pos" for="city_id">Город</label>
-              <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), class: "input_full", value: "${city_name}", required: "true" %>
-
+              <%= select f, :city_id, Enum.map(@cities_list, fn x -> {x.name, x.id} end), id: "city", class: "input_full", selected: "Алматы", required: "true" %>
+              
+              <div class="flex items-center gap-2">
+                <label class="label_input pos" for="auto_update">Автообновление</label>
+                <%= checkbox f, :auto_update, id: "auto_update", class: "type_select rounded"%>
+              </div>
+              
+              <label class="label_input pos" for="shedule_type">График работы</label>
+              <%= select f, :shedule_type, Enum.map(@shedule_type_list, fn x -> {x.value, x.key} end), class: "input_full", value: "${shedule_type}", required: "true" %>
+              
               <button class="btn_save my-2 pos" type="submit">Сохранить</button>
             <% end %>
 
