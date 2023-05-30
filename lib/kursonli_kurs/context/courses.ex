@@ -262,4 +262,50 @@ defmodule KursonliKurs.Context.Courses do
       false
     end
   end
+
+  # Все курсы одной валюты(short_name) в городе(city_id)
+  def get_all_courses_of_one_currency(short_name, city_id) do
+    from(
+      f in Filial,
+      where: f.city_id == ^city_id,
+      join: s in Setting,
+      where: s.visible_course_status == true and s.filial_id == f.id,
+      join: cr in Currency,
+      where: cr.short_name == ^short_name,
+      join: c in Course,
+      where: c.filial_id == f.id and c.currency_id == cr.id,
+      select: %{
+        filial_id: c.filial_id,
+        buy: c.buy,
+        sale: c.sale
+      }
+    )
+    |> Repo.all()
+    |> find_best_courses
+  end
+
+  defp find_best_courses(courses) do
+    float_courses =
+      Enum.map(courses, fn course ->
+        course
+        |> Map.put(:buy, GeneralHelper.string_to_float(course.buy) |> String.to_float())
+        |> Map.put(:sale, GeneralHelper.string_to_float(course.sale) |> String.to_float())
+      end)
+
+    max_buy = Enum.max_by(float_courses, & &1.buy) |> Map.get(:buy)
+
+    max_ids =
+      float_courses
+      |> Enum.filter(fn %{buy: buy} -> buy == max_buy end)
+      |> Enum.map(fn %{filial_id: id} -> id end)
+
+    min_sale = Enum.min_by(float_courses, & &1.sale) |> Map.get(:sale)
+
+    min_ids =
+      float_courses
+      |> Enum.filter(fn %{sale: sale} -> sale == min_sale end)
+      |> Enum.map(fn %{filial_id: id} -> id end)
+
+    {courses, max_ids, min_ids}
+  end
 end

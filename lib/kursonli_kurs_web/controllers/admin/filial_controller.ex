@@ -105,7 +105,6 @@ defmodule KursonliKursWeb.Admin.FilialController do
   Обновление данных и настроек(2gis, город) филиала.
   """
   def update_filial(conn, %{"id" => id} = params) do
-    IO.inspect(params)
     filial_opts = %{
       name: params["filial_name"],
       city_id: params["city_id"]

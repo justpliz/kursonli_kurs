@@ -150,7 +150,7 @@ defmodule KursonliKurs.Context.Filials do
       _any -> "Неизвестно"
     end
 
-    hum_auto_update = if filial.auto_update, do: "Да, #{hum_shedule_type}(#{filial.shedule_period} cек) ", else: "Нет"
+    hum_auto_update = if filial.auto_update, do: "Да, #{hum_shedule_type}", else: "Нет"
     Map.put(filial, :hum_auto_update, hum_auto_update)
   end
 end
