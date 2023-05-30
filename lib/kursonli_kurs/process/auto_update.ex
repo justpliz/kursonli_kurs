@@ -15,7 +15,7 @@ defmodule KursonliKurs.Process.AutoUpdate do
   end
 
   def process(scrapped_courses) do
-    IO.inspect("process with scrapped_courses")
+    # IO.inspect("process with scrapped_courses")
     types = define_opts()
 
     # Группируем курсы("USD", "EUR", "RUB") по filial_id.
@@ -23,7 +23,7 @@ defmodule KursonliKurs.Process.AutoUpdate do
     new_courses = ScrappedData.get_all()
 
     # Проверка на изменение курсов МИГа
-    if scrapped_courses != new_courses, do: update_all_courses_now(courses, new_courses)
+    delay = if scrapped_courses != new_courses, do: 100, else: delay
 
     try do
       # Обновление 3 основных курсов каждого из филиалов по очереди с задержкой.
