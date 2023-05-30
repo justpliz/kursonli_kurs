@@ -5,7 +5,7 @@ defmodule KursonliKurs.Repo.Migrations.AddSchedule do
     ScheduleType.create_type()
 
     alter table(:settings) do
-      add :type, ScheduleType
+      add :type, :schedule_type
       add :auto_update, :boolean, default: false, null: false
     end
   end
