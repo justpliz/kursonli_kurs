@@ -83,13 +83,13 @@
   <td class="px-2 py-1 bg-white rounded-l-2xl relative after_table md:hidden phones">
     <%= if KursonliKursWeb.GeneralHelper.if_phones_nil(item.setting.phones) do %>
       <div class="flex flex-col">
-        <a href='tel:<%= KursonliKursWeb.GeneralHelper.replace_number(item.setting.phones["phone1"]) %>' class="mr-1">
+        <a href='tel:<%= KursonliKursWeb.GeneralHelper.replace_number(item.setting.phones["phone1"]) %>' class="mr-1 number-adaptive">
           <%= item.setting.phones["phone1"] %>
         </a>
-        <a href='tel:<%= KursonliKursWeb.GeneralHelper.replace_number(item.setting.phones["phone2"]) %>' class="">
+        <a href='tel:<%= KursonliKursWeb.GeneralHelper.replace_number(item.setting.phones["phone2"]) %>' class=" number-adaptive">
           <%= item.setting.phones["phone2"] %>
         </a>
-        <a href='tel:<%= KursonliKursWeb.GeneralHelper.replace_number(item.setting.phones["phone3"]) %>' class="mr-1">
+        <a href='tel:<%= KursonliKursWeb.GeneralHelper.replace_number(item.setting.phones["phone3"]) %>' class="mr-1 number-adaptive">
           <%= item.setting.phones["phone3"] %>
         </a>
       </div>

@@ -486,3 +486,8 @@ body.swal2-shown {
 .scroll::-webkit-scrollbar-thumb:hover {
   background: #00007c;
 }
+
+.number-adaptive {
+  font-size: 12px !important;
+  white-space: nowrap;
+}
