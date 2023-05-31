@@ -4,6 +4,8 @@ defmodule KursonliKurs.Context.Filials do
   """
   use KursonliKurs.Context
 
+  alias KursonliKurs.Context.{Currencies, Courses}
+
   alias KursonliKurs.Model.{
     Filial,
     City,
@@ -78,15 +80,23 @@ defmodule KursonliKurs.Context.Filials do
   Создание связки филиал-сотрудник-настройки.
   """
   def create_filial_worker_setting(filial_opts, worker_opts, setting_opts) do
-      with {:ok, filial} <- Filials.create(filial_opts),
-           worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
-           {:ok, _worker} <- Workers.create(worker_opts),
-           setting_opts <- Map.put(setting_opts, :filial_id, filial.id),
-           {:ok, _setting} <- Settings.create(setting_opts) do
-        {:ok, filial}
-      else
-        {:error, reason} -> {:error, reason}
-      end
+    date = Timex.now("Asia/Almaty")
+    {:ok, usd} = Currencies.do_get(short_name: "USD")
+    {:ok, eur} = Currencies.do_get(short_name: "EUR")
+    {:ok, rub} = Currencies.do_get(short_name: "RUB")
+
+    with {:ok, filial} <- Filials.create(filial_opts),
+         worker_opts <- Map.put(worker_opts, :filial_id, filial.id),
+         {:ok, _worker} <- Workers.create(worker_opts),
+         setting_opts <- Map.put(setting_opts, :filial_id, filial.id),
+         {:ok, _setting} <- Settings.create(setting_opts),
+         {:ok, _usd} <- Courses.create(%{date: date, currency_id: usd.id, filial_id: filial.id}),
+         {:ok, _eur} <- Courses.create(%{date: date, currency_id: eur.id, filial_id: filial.id}),
+         {:ok, _rub} <- Courses.create(%{date: date, currency_id: rub.id, filial_id: filial.id}) do
+      {:ok, filial}
+    else
+      {:error, reason} -> {:error, reason}
+    end
   end
 
   @doc """
@@ -127,28 +137,31 @@ defmodule KursonliKurs.Context.Filials do
       }
     )
     |> Repo.all()
-    |> Enum.map(&(ensure_subdomen(&1)))
-    |> Enum.map(&(ensure_auto_update(&1)))
+    |> Enum.map(&ensure_subdomen(&1))
+    |> Enum.map(&ensure_auto_update(&1))
   end
 
   defp ensure_subdomen(filial) do
-    subdomen = case filial.link do
-      :slug -> filial.slug
-      :url -> "filial_id"
-      :filial_id -> "filial_id"
-      _any -> "filial_id"
-    end
+    subdomen =
+      case filial.link do
+        :slug -> filial.slug
+        :url -> "filial_id"
+        :filial_id -> "filial_id"
+        _any -> "filial_id"
+      end
+
     Map.put(filial, :subdomen, subdomen)
   end
 
   defp ensure_auto_update(filial) do
-     # TODO Пересмотреть возможность перенсти функционал в схему.
-    hum_shedule_type = case filial.shedule_type do
-      :full -> "круглосточно"
-      :nine_twenty -> "с 09:00 до 20:00"
-      :nine_twenty_two -> "с 09:00 до 22:00"
-      _any -> "Неизвестно"
-    end
+    # TODO Пересмотреть возможность перенсти функционал в схему.
+    hum_shedule_type =
+      case filial.shedule_type do
+        :full -> "круглосточно"
+        :nine_twenty -> "с 09:00 до 20:00"
+        :nine_twenty_two -> "с 09:00 до 22:00"
+        _any -> "Неизвестно"
+      end
 
     hum_auto_update = if filial.auto_update, do: "Да, #{hum_shedule_type}", else: "Нет"
     Map.put(filial, :hum_auto_update, hum_auto_update)

@@ -78,7 +78,9 @@
               <td class="px-6 py-4 border-x-2 border-t-2">
                 <button class="accept_delete_course styles_none"
                     data-map="<%= item |> PwHelper.Normalize.repo |> Jason.encode!() %>">
+                    <%= if item.currency_short_name != "USD" and item.currency_short_name != "EUR" and item.currency_short_name != "RUB" do %>
                   <span class="material-symbols-outlined" style="color: red; font-weight: 900;">delete</span>
+                    <% end %>
                 </button>
               </td>
             </tr>
