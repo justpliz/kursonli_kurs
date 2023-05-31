@@ -147,6 +147,7 @@ defmodule KursonliKurs.Context.Courses do
         join: org in Organization,
         on: org.id == f.organization_id,
         left_join: c in assoc(f, :course),
+        where: not is_nil(c.id),
         left_join: cr in assoc(c, :currency),
         preload: [course: {c, currency: cr}],
         select: %{
@@ -168,34 +169,16 @@ defmodule KursonliKurs.Context.Courses do
     |> Enum.map(
       &%{
         setting: ensure_default_logo(&1.setting),
-        course: course_handler(&1.filial.course),
+        course: &1.filial.course,
         filial_id: &1.filial.id,
         address: &1.setting.address,
         filial_name: &1.filial.name,
-        date: hd(&1.filial.course).date,
-        date_h: GeneralHelper.date_to_hour(hd(&1.filial.course).date),
-        date_m: GeneralHelper.date_to_minute(hd(&1.filial.course).date),
-        date_s: GeneralHelper.date_to_second(hd(&1.filial.course).date),
-        humanizated_date: GeneralHelper.humanizated_date(hd(&1.filial.course).date),
         first_letter: &1.filial.name |> String.trim() |> String.first() |> String.upcase()
       }
     )
+    |> ensure_date()
     # |> ensure_srapped_diapason
     |> Enum.sort_by(& &1.date, {:desc, NaiveDateTime})
-  end
-
-  # Добавление в мапу course флагов для отображения лучшего курса
-  defp course_handler(course) do
-    Enum.map(
-      course,
-      &%{
-        short_name: &1.currency.short_name,
-        sale: &1.sale,
-        buy: &1.buy,
-        best_sale: false,
-        best_buy: false
-      }
-    )
   end
 
   # Проверка на наличие дефолтного лого филиала
@@ -203,6 +186,20 @@ defmodule KursonliKurs.Context.Courses do
     if setting.logo != "images/logo/default_logo.jpg",
       do: setting,
       else: Map.put(setting, :logo, nil)
+  end
+
+  def ensure_date(filials) do
+    Enum.map(filials, fn filial ->
+      IO.inspect(filial.course)
+      last_updated_course = Enum.max_by(filial.course, & &1.date)
+
+      filial
+      |> Map.put(:date, last_updated_course.date)
+      |> Map.put(:date_h, GeneralHelper.date_to_hour(last_updated_course.date))
+      |> Map.put(:date_m, GeneralHelper.date_to_minute(last_updated_course.date))
+      |> Map.put(:date_s, GeneralHelper.date_to_second(last_updated_course.date))
+      |> Map.put(:humanizated_date, GeneralHelper.humanizated_date(last_updated_course.date))
+    end)
   end
 
   alias KursonliKurs.EtsStorage.ScrappedData

@@ -112,10 +112,10 @@ defmodule KursonliKursWeb.GeneralHelper do
   """
   def find_value_by_short_name(course, key_order \\ :buy, short_name \\ "EUR") do
     course
-    |> Enum.filter(fn x -> x.short_name == short_name end)
+    |> Enum.filter(fn x -> x.currency.short_name == short_name end)
     |> Enum.map(fn x ->
       value = Map.get(x, key_order)
-      if value != nil and x.short_name == short_name, do: value, else: "-"
+      if value != nil and x.currency.short_name == short_name, do: value, else: "-"
     end)
   end
 
