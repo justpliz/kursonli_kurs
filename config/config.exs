@@ -11,6 +11,10 @@ config :kursonli_kurs,
   ecto_repos: [KursonliKurs.Repo],
   order_transfer: [:green, :red, :red_green],
   order_type: [:buy, :sale],
+  KEY_SITE_V2: "6LcyMlkmAAAAANH1eCICStmAfO_9Yh2o8SM-Qfyi",
+  KEY_SECRET_V2: "6LcyMlkmAAAAALQHEUDc2q1BnZ447l1Q5SI-ITDI",
+  KEY_SITE_V3: "6LcyMlkmAAAAANH1eCICStmAfO_9Yh2o8SM-Qfyi",
+  KEY_SECRET_V3: "6LcyMlkmAAAAALQHEUDc2q1BnZ447l1Q5SI-ITDI",
   scrapped: "https://mig.kz/",
   scrapped_period: 30 * 1000
 

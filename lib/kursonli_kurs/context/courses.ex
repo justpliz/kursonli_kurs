@@ -190,7 +190,6 @@ defmodule KursonliKurs.Context.Courses do
 
   def ensure_date(filials) do
     Enum.map(filials, fn filial ->
-      IO.inspect(filial.course)
       last_updated_course = Enum.max_by(filial.course, & &1.date)
 
       filial

@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const elemFindBuy = elemGiveData.querySelector(`.buy`)
       const item = JSON.parse(value.dataset.item)
       const find = item.course.find((el) => {
-        return el.short_name
+        return el.currency.short_name
           == valueEl
       })
       if (find != undefined) {
