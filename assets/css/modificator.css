@@ -280,6 +280,10 @@
       @apply relative text-white;
    }
 
+   .footer_text a {
+      text-decoration: underline;
+   }
+
    .index_container {
       @apply font flex flex-col min-h-screen;
    }

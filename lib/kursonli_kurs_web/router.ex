@@ -54,6 +54,7 @@ defmodule KursonliKursWeb.Router do
 
     get "/instruction_rus", PageController, :instruction_rus
     get "/instruction_kaz", PageController, :instruction_kaz
+    get "/rules_rus", PageController, :rules_rus
   end
 
   #        ##   #####  #    # # #    #

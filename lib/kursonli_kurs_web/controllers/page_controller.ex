@@ -48,8 +48,13 @@ defmodule KursonliKursWeb.PageController do
     # TODO: Пересмотреть способ определения slug/filial_id.
     filial_id = params["id"]
     slug = params["filial"]
-    {:ok, setting} = if is_nil(filial_id), do: Settings.do_get(slug: slug), else: Settings.do_get(filial_id: filial_id)
-    with  {:ok, filial} <- Filials.do_get(id: setting.filial_id) do
+
+    {:ok, setting} =
+      if is_nil(filial_id),
+        do: Settings.do_get(slug: slug),
+        else: Settings.do_get(filial_id: filial_id)
+
+    with {:ok, filial} <- Filials.do_get(id: setting.filial_id) do
       setting = setting |> PwHelper.Normalize.repo()
       courses_list = Courses.get_courses_list_by_filial_id(filial.id)
       [x_coord, y_coord] = setting.coordinates
@@ -75,7 +80,7 @@ defmodule KursonliKursWeb.PageController do
   # Список городов с количеством актвных филиалов
   def get_count_city_with_active_filials() do
     Cities.all()
-    |> Enum.map(&(Map.put(&1, :count, Cities.get_count_cities(&1.id))))
+    |> Enum.map(&Map.put(&1, :count, Cities.get_count_cities(&1.id)))
     |> Enum.sort_by(& &1.count, :desc)
     |> Enum.sort_by(&(&1.name == "Алматы"), :desc)
   end
@@ -94,6 +99,14 @@ defmodule KursonliKursWeb.PageController do
   def instruction_kaz(conn, _params) do
     conn
     |> redirect(to: "/pdfs/instruction_kurs1_kaz.pdf")
+  end
+
+  @doc """
+  Правила пользования сайтом на русском языке
+  """
+  def rules_rus(conn, _params) do
+    conn
+    |> redirect(to: "/pdfs/rules_kurs1_rus.pdf")
   end
 
   # Функция по поиску лучшего курса
